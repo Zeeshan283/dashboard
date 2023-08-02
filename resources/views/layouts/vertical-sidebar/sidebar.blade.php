@@ -41,9 +41,9 @@
                         </a>
                         <ul class="mm-collapse">
                             <li class="item-name">
-                                <a href="alerts.html">
+                                <a href="{{ route('allorders')}}">
                                     <i class="nav-icon i-Bell1"></i>
-                                    <span class="item-name">Alerts</span>
+                                    <span class="item-name">All orders</span>
                                 </a>
                             </li>
                             <li class="item-name">
@@ -85,21 +85,21 @@
                         </a>
                     </li>
                     <li class="item-name">
-                        <a class="" href="collapsible.html">
+                        <a class="" href="{{ route('returned')}}">
                             <i class="nav-icon i-Video-Photographer"></i>
-                            <span class="item-name">Collapsibles</span>
+                            <span class="item-name">Returned</span>
                         </a>
                     </li>
                     <li class="item-name">
-                        <a href="lists.html">
+                        <a href="{{ route('ftod')}}">
                             <i class="nav-icon i-Belt-3"></i>
-                            <span class="item-name">Lists</span>
+                            <span class="item-name">Failed to Deliver</span>
                         </a>
                     </li>
                     <li class="item-name">
-                        <a href="pagination.html">
+                        <a href="{{ route('canceled')}}">
                             <i class="nav-icon i-Arrow-Next"></i>
-                            <span class="item-name">Paginations</span>
+                            <span class="item-name">Canceled</span>
                         </a>
                     </li>
                     <li class="item-name">

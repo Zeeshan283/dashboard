@@ -39,12 +39,12 @@
                         <div class="col-md-4 p-4">
                             <p class="text-primary text--cap border-bottom-primary d-inline-block">Components</p>
                             <ul class="links">
-                                <li><a href="accordion.html">Accordion</a></li>
+                                <li><a href="{{ route('pendingorders')}}">Pending</a></li>
                                 <li><a href="alerts.html">Alerts</a></li>
-                                <li><a href="buttons.html">Buttons</a></li>
-                                <li><a href="badges.html">Badges</a></li>
+                                <li><a href="{{ route('confirmedorders') }}">Confirm</a></li>
+                                <li><a href="{{ route('packagingorders')}}">Packaging</a></li>
                                 <li><a href="carousel.html">Carousels</a></li>
-                                <li><a href="lists.html">Lists</a></li>
+                                <li><a href="{{ route('ftod')}}">Failed to Deliver</a></li>
                                 <li><a href="popover.html">Popover</a></li>
                                 <li><a href="tables.html">Tables</a></li>
                                 <li><a href="datatables.html">Datatables</a></li>

@@ -24,47 +24,41 @@ UI kits
                                         <ul>
 
                                            <li class="nav-item">
-                                            <a class="{{ Route::currentRouteName()=='alerts' ? 'open' : '' }}" href="{{route('alerts')}}">
+                                            <a class="{{ Route::currentRouteName()=='alerts' ? 'open' : '' }}" href="{{route('allorders')}}">
                                                     <i class="nav-icon me-2 i-Bell1"></i>
-                                                    <span class="item-name">Alerts</span>
+                                                    <span class="item-name">All Ordes</span>
                                                 </a>
                                             </li>
 
                                             <li class="nav-item">
-                                                <a class="{{ Route::currentRouteName()=='badges' ? 'open' : '' }}" href="{{route('badges')}}">
+                                                <a class="{{ Route::currentRouteName()=='packagingorders' ? 'open' : '' }}" href="{{route('packagingorders')}}">
                                                     <i class="nav-icon me-2 i-Medal-2"></i>
-                                                    <span class="item-name">Badges</span>
+                                                    <span class="item-name">Packaging</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="{{ Route::currentRouteName()=='bootstrap-tab' ? 'open' : '' }}" href="{{route('bootstrap-tab')}}">
+                                                <a class="{{ Route::currentRouteName()=='confirmedorders' ? 'open' : '' }}" href="{{route('confirmedorders')}}">
                                                     <i class="nav-icon me-2 i-Cursor-Click"></i>
-                                                    <span class="item-name">Bootstrap tab</span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="{{ Route::currentRouteName()=='buttons' ? 'open' : '' }}" href="{{route('buttons')}}">
-                                                    <i class="nav-icon me-2 i-Cursor-Click"></i>
-                                                    <span class="item-name">Buttons</span>
+                                                    <span class="item-name">confirmedorders</span>
                                                 </a>
                                             </li>
                                                 <li class="nav-item">
-                                                <a class="{{ Route::currentRouteName()=='accordion' ? 'open' : '' }}" href="{{route('accordion')}}">
+                                                <a class="{{ Route::currentRouteName()=='pendingorders' ? 'open' : '' }}" href="{{route('pendingorders')}}">
                                                     <i class="nav-icon me-2 i-Split-Horizontal-2-Window"></i>
-                                                    <span class="item-name">Accordion</span>
+                                                    <span class="item-name">pendingorders</span>
                                                 </a>
                                             </li>
 
                                             <li class="nav-item">
-                                                <a class="{{ Route::currentRouteName()=='lists' ? 'open' : '' }}" href="{{route('lists')}}">
+                                                <a class="{{ Route::currentRouteName()=='ftod' ? 'open' : '' }}" href="{{route('ftod')}}">
                                                     <i class="nav-icon me-2 i-Belt-3"></i>
-                                                    <span class="item-name">Lists</span>
+                                                    <span class="item-name">Failed to Deliver</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="{{ Route::currentRouteName()=='pagination' ? 'open' : '' }}" href="{{route('pagination')}}">
+                                                <a class="{{ Route::currentRouteName()=='canceled' ? 'open' : '' }}" href="{{route('canceled')}}">
                                                     <i class="nav-icon me-2 i-Arrow-Next"></i>
-                                                    <span class="item-name">Paginations</span>
+                                                    <span class="item-name">Canceled</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">

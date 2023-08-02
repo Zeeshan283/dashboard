@@ -57,28 +57,20 @@ Route::get('vertical/dashboard/dashboard1', function () {
 Route::view('admin/', 'dashboard.dashboardv1')->name('admin');
 
 
-// uiKits
-Route::view('uikits/alerts', 'uiKits.alerts')->name('alerts');
-Route::view('uikits/accordion', 'uiKits.accordion')->name('accordion');
-Route::view('uikits/buttons', 'uiKits.buttons')->name('buttons');
-Route::view('uikits/badges', 'uiKits.badges')->name('badges');
-Route::view('uikits/bootstrap-tab', 'uiKits.bootstrap-tab')->name('bootstrap-tab');
-Route::view('uikits/carousel', 'uiKits.carousel')->name('carousel');
-Route::view('uikits/collapsible', 'uiKits.collapsible')->name('collapsible');
-Route::view('uikits/lists', 'uiKits.lists')->name('lists');
-Route::view('uikits/pagination', 'uiKits.pagination')->name('pagination');
-Route::view('uikits/popover', 'uiKits.popover')->name('popover');
-Route::view('uikits/progressbar', 'uiKits.progressbar')->name('progressbar');
-Route::view('uikits/tables', 'uiKits.tables')->name('tables');
-Route::view('uikits/tabs', 'uiKits.tabs')->name('tabs');
-Route::view('uikits/tooltip', 'uiKits.tooltip')->name('tooltip');
-Route::view('uikits/modals', 'uiKits.modals')->name('modals');
-Route::view('uikits/NoUislider', 'uiKits.NoUislider')->name('NoUislider');
-Route::view('uikits/cards', 'uiKits.cards')->name('cards');
-Route::view('uikits/cards-metrics', 'uiKits.cards-metrics')->name('cards-metrics');
-Route::view('uikits/typography', 'uiKits.typography')->name('typography');
+// orders
+Route::view('allorders', 'orders.allorders')->name('allorders');
+Route::view('pendingorders', 'orders.pendingorders')->name('pendingorders');
+Route::view('confirmedorders', 'orders.confirmedorders')->name('confirmedorders');
+Route::view('packagingorders', 'orders.packagingorders')->name('packagingorders');
+Route::view('outofdelivery', 'orders.outofdelivery')->name('outofdelivery');
+Route::view('delivered', 'orders.delivered')->name('delivered');
+Route::view('returned', 'orders.returned')->name('returned');
+Route::view('ftod', 'orders.ftod')->name('ftod');
+Route::view('canceled', 'orders.canceled')->name('canceled');
 
-// extra kits
+
+// sellers
+Route::view('addseller' , 'sellers.addseller')->name('addseller');
 Route::view('extrakits/dropDown', 'extraKits.dropDown')->name('dropDown');
 Route::view('extrakits/imageCroper', 'extraKits.imageCroper')->name('imageCroper');
 Route::view('extrakits/loader', 'extraKits.loader')->name('loader');
@@ -161,3 +153,4 @@ Route::view('others/search-result', 'others.search-result')->name('search-result
 // Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+

@@ -15,7 +15,7 @@
                 </a>
                 <div class="triangle"></div>
             </li>
-            <li class="nav-item {{ request()->is('forms/*') ? 'active' : '' }}" data-item="forms">
+            <li class="nav-item {{ request()->is('addseller/*') ? 'active' : '' }}" data-item="forms">
                 <a class="nav-item-hold" href="#">
                     <i class="nav-icon i-File-Clipboard-File--Text"></i>
                     <span class="nav-text">All Sellers</span>
@@ -91,10 +91,9 @@
         <ul class="childNav" data-parent="forms">
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'forms-basic' ? 'open' : '' }}"
-                    href="{{ route('forms-basic') }}">
+                <a  href="{{ route('addseller') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                    <span class="item-name">Add New Seller</span>
+                    <span class="item-name">Add New Vendor</span>
                 </a>
             </li>
 
@@ -302,55 +301,55 @@
         </ul>
         <ul class="childNav" data-parent="uikits">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'alerts' ? 'open' : '' }}" href="{{ route('alerts') }}">
+                <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}" href="{{ route('allorders') }}">
                     <i class="nav-icon i-Folder-Archive"></i>
                     <span class="item-name">ALL</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'alerts' ? 'open' : '' }}" href="{{ route('alerts') }}">
+                <a class="{{ Route::currentRouteName() == 'pendingorders' ? 'open' : '' }}" href="{{ route('pendingorders') }}">
                     <i class="nav-icon i-Clock"></i>
                     <span class="item-name">Pending</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'alerts' ? 'open' : '' }}" href="{{ route('alerts') }}">
+                <a class="{{ Route::currentRouteName() == 'confirmedorders' ? 'open' : '' }}" href="{{ route('confirmedorders') }}">
                     <i class="nav-icon i-Checkout"></i>
                     <span class="item-name">Confirmed</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'alerts' ? 'open' : '' }}" href="{{ route('alerts') }}">
+                <a class="{{ Route::currentRouteName() == 'packagingorders' ? 'open' : '' }}" href="{{ route('packagingorders') }}">
                     <i class="nav-icon i-Safe-Box"></i>
                     <span class="item-name">Packaging</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'alerts' ? 'open' : '' }}" href="{{ route('alerts') }}">
+                <a class="{{ Route::currentRouteName() == 'outofdelivery' ? 'open' : '' }}" href="{{ route('outofdelivery') }}">
                     <i class="nav-icon i-Arrow-Circle"></i>
                     <span class="item-name">Out of Delivery</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'alerts' ? 'open' : '' }}" href="{{ route('alerts') }}">
+                <a class="{{ Route::currentRouteName() == 'delivered' ? 'open' : '' }}" href="{{ route('delivered') }}">
                     <i class="nav-icon i-Check"></i>
                     <span class="item-name">Delivered</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'alerts' ? 'open' : '' }}" href="{{ route('alerts') }}">
+                <a class="{{ Route::currentRouteName() == 'returned' ? 'open' : '' }}" href="{{ route('returned') }}">
                     <i class="nav-icon i-Redo"></i>
                     <span class="item-name">Returned</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'alerts' ? 'open' : '' }}" href="{{ route('alerts') }}">
+                <a class="{{ Route::currentRouteName() == 'ftod' ? 'open' : '' }}" href="{{ route('ftod') }}">
                     <i class="nav-icon i-Over-Time-2"></i>
                     <span class="item-name">Failed to Deliver</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'alerts' ? 'open' : '' }}" href="{{ route('alerts') }}">
+                <a class="{{ Route::currentRouteName() == 'canceled' ? 'open' : '' }}" href="{{ route('canceled') }}">
                     <i class="nav-icon i-File-Trash"></i>
                     <span class="item-name">Canceled</span>
                 </a>
