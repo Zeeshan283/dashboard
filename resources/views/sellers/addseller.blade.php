@@ -104,7 +104,7 @@
                                                     </label>
                                                     <label class="ul-radio__position radio radio-primary">
                                                         <input type="radio" name="radio" value="0">
-                                                        <span class="ul-form__radio-font">In ACtive</span>
+                                                        <span class="ul-form__radio-font">In Active</span>
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </div>
