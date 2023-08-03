@@ -22,6 +22,15 @@
                 </a>
                 <div class="triangle"></div>
             </li>
+
+            <li class="nav-item {{ request()->is('charts/*') ? 'active' : '' }}" data-item="charts">
+                <a class="nav-item-hold" href="#">
+                    <i class="nav-icon i-Shopping-Bag"></i>
+                    <span class="nav-text">Products</span>
+                </a>
+                <div class="triangle"></div>
+            </li>
+            
             <li class="nav-item {{ request()->is('extrakits/*') ? 'active' : '' }}" data-item="extrakits">
                 <a class="nav-item-hold" href="#">
                     <i class="nav-icon i-Money"></i>
@@ -46,21 +55,6 @@
                 <div class="triangle"></div>
             </li>
 
-            <li class="nav-item {{ request()->is('charts/*') ? 'active' : '' }}" data-item="charts">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-File-Clipboard-File--Text"></i>
-                    <span class="nav-text">Products</span>
-                </a>
-                <div class="triangle"></div>
-            </li>
-
-            <li class="nav-item {{ request()->is('datatables/*') ? 'active' : '' }}">
-                <a class="nav-item-hold" href="{{ route('basic-tables') }}">
-                    <i class="nav-icon i-File-Horizontal-Text"></i>
-                    <span class="nav-text">Datatables</span>
-                </a>
-                <div class="triangle"></div>
-            </li>
             <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="sessions">
                 <a class="nav-item-hold" href="/test.html">
                     <i class="nav-icon i-Information"></i>
@@ -68,13 +62,14 @@
                 </a>
                 <div class="triangle"></div>
             </li>
-            <li class="nav-item {{ request()->is('others/*') ? 'active' : '' }}" data-item="others">
-                <a class="nav-item-hold" href="">
-                    <i class="nav-icon i-Double-Tap"></i>
-                    <span class="nav-text">Purchases</span>
+            <li class="nav-item {{ request()->is('users/*') ? 'active' : '' }}" data-item="users">
+                <a class="nav-item-hold" href="/test.html">
+                    <i class="nav-icon i-Find-User"></i>
+                    <span class="nav-text">Users</span>
                 </a>
                 <div class="triangle"></div>
             </li>
+            
             {{-- <li class="nav-item">
                 <a class="nav-item-hold" href="http://demos.ui-lib.com/gull-htms-doc/" target="_blank">
                     <i class="nav-icon i-Safe-Box1"></i>
@@ -87,7 +82,27 @@
 
     <div class="sidebar-left-secondary rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
         <!-- Submenu Dashboards -->
-       
+        <ul class="childNav" data-parent="users">
+
+            <li class="nav-item">
+                <a  href="{{ route('adduser') }}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Add New User</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'userlist' ? 'open' : '' }}"
+                    href="{{ route('userlist') }}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">User List</span>
+                </a>
+            </li>
+
+        </ul>
+
+
+
         <ul class="childNav" data-parent="forms">
 
             <li class="nav-item">
@@ -98,23 +113,23 @@
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'basic-action-bar' ? 'open' : '' }}"
-                    href="{{ route('basic-action-bar') }}">
+                <a class="{{ Route::currentRouteName() == 'vendorlist' ? 'open' : '' }}"
+                    href="{{ route('vendorlist') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                    <span class="item-name">Seller List</span>
+                    <span class="item-name">Vendor List</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'form-layouts' ? 'open' : '' }}"
-                    href="{{ route('form-layouts') }}">
+                <a class="{{ Route::currentRouteName() == 'withdrawl' ? 'open' : '' }}"
+                    href="{{ route('withdrawl') }}">
                     <i class="nav-icon i-Split-Vertical"></i>
-                    <span class="item-name">Withdraws</span>
+                    <span class="item-name">Vendor Withdrawls</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'multi-column-forms' ? 'open' : '' }}"
-                    href="{{ route('multi-column-forms') }}">
+                <a class="{{ Route::currentRouteName() == 'withdrawl' ? 'open' : '' }}"
+                    href="{{ route('withdrawl') }}">
                     <i class="nav-icon i-Split-Vertical"></i>
                     <span class="item-name">Withdrawal Methods</span>
                 </a>
@@ -123,8 +138,8 @@
         </ul>
         <ul class="childNav" data-parent="widgets">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'widget-card' ? 'open' : '' }}"
-                    href="{{ route('widget-card') }}">
+                <a class="{{ Route::currentRouteName() == 'allmenu' ? 'open' : '' }}"
+                    href="{{ route('allmenu') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">All Menus</span>
                 </a>
@@ -132,8 +147,8 @@
             <li class="nav-item">
 
 
-                <a class="{{ Route::currentRouteName() == 'widget-statistics' ? 'open' : '' }}"
-                    href="{{ route('widget-statistics') }}">
+                <a class="{{ Route::currentRouteName() == 'allcat' ? 'open' : '' }}"
+                    href="{{ route('allcat') }}">
                     <i class="nav-icon i-Folder"></i>
                     <span class="item-name">All Categories</span>
                 </a>
@@ -142,8 +157,8 @@
             <li class="nav-item">
 
 
-                <a class="{{ Route::currentRouteName() == 'widget-app' ? 'open' : '' }}"
-                    href="{{ route('widget-app') }}">
+                <a class="{{ Route::currentRouteName() == 'allsubcat' ? 'open' : '' }}"
+                    href="{{ route('allsubcat') }}">
                     <i class="nav-icon i-Folder-Open"></i>
                     <span class="item-name">All Sub Categories</span>
                 </a>
@@ -162,40 +177,54 @@
             </li> --}}
 
         </ul>
-
-        <ul class="childNav" data-parent="charts">
+        <ul class="childNav" data-parent="apps">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'echarts' ? 'open' : '' }}" href="{{ route('echarts') }}">
+                <a class="{{ Route::currentRouteName() == 'customerlist' ? 'open' : '' }}" href="{{ route('customerlist') }}">
                     <i class="nav-icon i-Resize"></i>
-                    <span class="item-name">All Sizes</span>
+                    <span class="item-name">Customer List</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'chartjs' ? 'open' : '' }}" href="{{ route('chartjs') }}">
+                <a class="{{ Route::currentRouteName() == 'creviews' ? 'open' : '' }}" href="{{ route('creviews') }}">
+                    <i class="nav-icon i-Add"></i>
+                    <span class="item-name">Customer Reviews</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'cwallet' ? 'open' : '' }}" href="{{ route('cwallet') }}">
+                    <i class="nav-icon i-Shopping-Bag"></i>
+                    <span class="item-name">Wallet</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="childNav" data-parent="charts">
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'addproduct' ? 'open' : '' }}" href="{{ route('addproduct') }}">
                     <i class="nav-icon i-Add"></i>
                     <span class="item-name">Add Product</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'chartjs' ? 'open' : '' }}" href="{{ route('chartjs') }}">
+                <a class="{{ Route::currentRouteName() == 'allproducts' ? 'open' : '' }}" href="{{ route('allproducts') }}">
                     <i class="nav-icon i-Shopping-Bag"></i>
                     <span class="item-name">All Product</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'chartjs' ? 'open' : '' }}" href="{{ route('chartjs') }}">
+                <a class="{{ Route::currentRouteName() == 'customerqueries' ? 'open' : '' }}" href="{{ route('customerqueries') }}">
                     <i class="nav-icon i-Pen-2"></i>
                     <span class="item-name">Customer Queries</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'chartjs' ? 'open' : '' }}" href="{{ route('chartjs') }}">
+                <a class="{{ Route::currentRouteName() == 'productinfo' ? 'open' : '' }}" href="{{ route('productinfo') }}">
                     <i class="nav-icon i-Arrow-Circle"></i>
                     <span class="item-name">Product Info</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'chartjs' ? 'open' : '' }}" href="{{ route('chartjs') }}">
+                <a class="{{ Route::currentRouteName() == 'productreviews' ? 'open' : '' }}" href="{{ route('productreviews') }}">
                     <i class="nav-icon i-David-Star"></i>
                     <span class="item-name">Product Reviews</span>
                 </a>
@@ -241,59 +270,32 @@
 
         </ul>
 
-        <ul class="childNav" data-parent="apps">
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'invoice' ? 'open' : '' }}" href="{{ route('invoice') }}">
-                    <i class="nav-icon i-Add-File"></i>
-                    <span class="item-name">Customer List</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'inbox' ? 'open' : '' }}" href="{{ route('inbox') }}">
-                    <i class="nav-icon i-Email"></i>
-                    <span class="item-name">Customer Reviews</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'chat' ? 'open' : '' }}" href="{{ route('chat') }}">
-                    <i class="nav-icon i-Speach-Bubble-3"></i>
-                    <span class="item-name">Wallet</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'calendar' ? 'open' : '' }}" href="{{ route('calendar') }}">
-                    <i class="nav-icon i-Calendar-4"></i>
-                    <span class="item-name">Loyality Points</span>
-                </a>
-            </li>
-
-        </ul>
-        <ul class="childNav" data-parent="extrakits">
+                <ul class="childNav" data-parent="extrakits">
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'dropDown' ? 'open' : '' }}"
-                    href="{{ route('dropDown') }}">
+                <a class="{{ Route::currentRouteName() == 'pendingrefund' ? 'open' : '' }}"
+                    href="{{ route('pendingrefund') }}">
                     <i class="nav-icon i-Arrow-Down-in-Circle"></i>
                     <span class="item-name">Pending</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'imageCroper' ? 'open' : '' }}"
-                    href="{{ route('imageCroper') }}">
+                <a class="{{ Route::currentRouteName() == 'approvedrefund' ? 'open' : '' }}"
+                    href="{{ route('approvedrefund') }}">
                     <i class="nav-icon i-Approved-Window"></i>
                     <span class="item-name">Approved</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'loader' ? 'open' : '' }}" href="{{ route('loader') }}">
+                <a class="{{ Route::currentRouteName() == 'refunded' ? 'open' : '' }}" href="{{ route('refunded') }}">
                     <i class="nav-icon i-Loading-3"></i>
                     <span class="item-name">Refunded</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'laddaButton' ? 'open' : '' }}"
-                    href="{{ route('laddaButton') }}">
+                <a class="{{ Route::currentRouteName() == 'refundrejected' ? 'open' : '' }}"
+                    href="{{ route('refundrejected') }}">
                     <i class="nav-icon i-Stop"></i>
                     <span class="item-name">Rejected</span>
                 </a>

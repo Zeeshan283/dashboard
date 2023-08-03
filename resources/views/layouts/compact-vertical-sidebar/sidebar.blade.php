@@ -408,18 +408,18 @@
             </header>
             <ul class="childNav" data-parent="extrakits">
                 <li class="nav-item">
-                    <a class="{{ Route::currentRouteName() == 'dropDown' ? 'open' : '' }}"
-                        href="{{ route('dropDown') }}">
+                    <a class="{{ Route::currentRouteName() == 'vendorlist' ? 'open' : '' }}"
+                        href="{{ route('vendorlist') }}">
                         <i class="nav-icon i-Arrow-Down-in-Circle"></i>
-                        <span class="item-name">Dropdown</span>
+                        <span class="item-name">Vendors List</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="{{ Route::currentRouteName() == 'imageCroper' ? 'open' : '' }}"
-                        href="{{ route('imageCroper') }}">
+                    <a class="{{ Route::currentRouteName() == 'withdrawl' ? 'open' : '' }}"
+                        href="{{ route('withdrawl') }}">
                         <i class="nav-icon i-Crop-2"></i>
-                        <span class="item-name">Image Cropper</span>
+                        <span class="item-name">Vendor Withdrawl</span>
                     </a>
                 </li>
                 <li class="nav-item">

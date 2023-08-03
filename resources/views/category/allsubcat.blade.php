@@ -2,7 +2,7 @@
 
 @section('main-content')
     <div class="breadcrumb">
-                <h1>canceled</h1>
+                <h1>All Sub Categories</h1>
             </div>
 
             <div class="separator-breadcrumb border-top"></div>
@@ -10,7 +10,7 @@
                 <div class="card text-start">
     
                     <div class="card-body">
-                        <h4 class="card-title mb-3">canceled</h4>
+                        <h4 class="card-title mb-3">All Sub Categories</h4>
     
                         <p>With DataTables you can alter the ordering characteristics of the table at initialisation time. Using
                             the order initialisation parameter, you can set the table to display the data in exactly the order
@@ -26,7 +26,8 @@
                     </div>
                 </div>
             </div>
-    
+
+          
 @endsection
 
 @section('page-js')

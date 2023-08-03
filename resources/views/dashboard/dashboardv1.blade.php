@@ -51,6 +51,7 @@
             <div class="row" >
                 <!-- ICON BG -->
                 <div class="col-lg-3 col-md-6 col-sm-6" >
+                    <a href="{{ route('customerlist')}}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" >
                         <div class="card-body text-center">
                             <i class="i-Add-User" style="height: 30px"></i>
@@ -59,11 +60,11 @@
                                 <p class="text-primary text-15 line-height-1 mb-2">205</p>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
                 
                 <div class="col-lg-3 col-md-6 col-sm-6" >
-                    <a href="{{ route('admin')}}">
+                    <a href="{{ route('pendingorders')}}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" >
                         <div class="card-body text-center">
                             <i class="i-Clock" style="height: 30px"></i>
@@ -76,6 +77,7 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6 col-sm-6">
+                    <a href="{{ route('confirmedorders')}}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <i class="i-Check" style="height: 30px"></i>
@@ -84,10 +86,11 @@
                                 <p class="text-primary text-15 line-height-1 mb-2">$4021</p>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
 
                 <div class="col-lg-3 col-md-6 col-sm-6">
+                    <a href="{{ route('packagingorders')}}"></a>
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <i class="i-Checkout-Basket" style="height: 30px"></i>
@@ -99,6 +102,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
+                    <a href="{{ route('ftod')}}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <i class="i-Warning-Window" style="height: 30px"></i>
@@ -107,9 +111,10 @@
                                 <p class="text-primary text-15 line-height-1 mb-2">80</p>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
+                    <a href="{{ route('delivered')}}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <i class="i-Check" style="height: 30px"></i>
@@ -118,9 +123,10 @@
                                 <p class="text-primary text-15 line-height-1 mb-2">80</p>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
+                    <a href="{{ route('canceled')}}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <i class="i-Timer1" style="height: 30px"></i>
@@ -129,9 +135,11 @@
                                 <p class="text-primary text-15 line-height-1 mb-2">80</p>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
+
                 <div class="col-lg-3 col-md-6 col-sm-6">
+                    <a href="{{ route('refunded')}}"></a>
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <i class="i-Arrow-Circle" style="height: 30px"></i>

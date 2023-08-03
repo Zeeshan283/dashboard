@@ -48,9 +48,9 @@
                             </li>
                             <li class="item-name">
                             <li class="nav-item">
-                                <a href="dropdown.html">
+                                <a href="vendorlist">
                                     <i class="nav-icon i-Bell1"></i>
-                                    <span class="item-name">Dropdown</span>
+                                    <span class="item-name">Vendor List</span>
                                 </a>
                             </li>
                     </li>
