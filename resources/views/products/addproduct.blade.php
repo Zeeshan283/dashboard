@@ -1,313 +1,163 @@
 @extends('layouts.master')
 @section('before-css')
-
+<link rel="stylesheet" href="{{asset('assets/styles/vendor/smart.wizard/smart_wizard.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/styles/vendor/smart.wizard/smart_wizard_theme_arrows.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/styles/vendor/smart.wizard/smart_wizard_theme_circles.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/styles/vendor/smart.wizard/smart_wizard_theme_dots.min.css')}}">
 
 @endsection
 
-@section('page-css')
-    <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.bubble.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.snow.css')}}">
-@endsection
-
 @section('main-content')
-
-@section('main-content')
-            <div class="breadcrumb">
-                <h1>Add Product</h1>
+  <div class="breadcrumb">
+                <h1>Products</h1>
             </div>
 
             <div class="separator-breadcrumb border-top"></div>
-            <div class="2-columns-form-layout">
-                <div class="">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <!--begin::form 3 Horizontal-->
-                            <form action="">
-                                <!-- start card 3 Columns Horizontal Form Layout-->
-                                <div class="card ul-card__margin-25">
-                                    <div class="card-header bg-transparent">
-                                        <h3 class="card-title">Add Product Form</h3>
-                                    </div>
+            <div class="col-md-12 mb-4">
+                <div class="card text-start">
+    
+                    <div class="card-body">
+                        <h4 class="card-title mb-3">Add Product</h4>
 
-                                    <div class="card-body">
-                                        <div class="form-group row">
-                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Model No:</label>
-                                            <div class="col-lg-3 ">
-                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Model Number of the Product
-                                                </small> --}}
-                                            </div>
+            {{-- <div class="separator-breadcrumb border-top"></div>
+            <div class="row mb-3">
+                <div class="col-12 col-lg-6 col-sm-12">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="theme_selector">Themes</label>
+                        <select id="theme_selector" class="custom-select form-control" style="max-width: 80px">
+                            <option value="default">default</option>
+                            <option value="arrows">arrows</option>
+                            <option value="circles">circles</option>
+                            <option value="dots">dots</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 col-sm-12 d-flex align-items-center">
+                    <span class="m-auto"></span>
+                    <label>External Buttons:</label>
+                    <div class="btn-group col-lg-6 col-sm-12" role="group">
+                        <button class="btn btn-secondary" id="prev-btn" type="button">Go Previous</button>
+                        <button class="btn btn-secondary" id="next-btn" type="button">Go Next</button>
+                        <button class="btn btn-danger" id="reset-btn" type="button">Reset Wizard</button>
+                    </div>
+                </div>
+            </div> --}}
 
-                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Product Name:</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control" id="staticEmail20" placeholder="Enter Your Product Name"> <br>
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Product name
-                                                </small> --}}
-                                            </div>
+            <div class="row">
+                <div class="col-md-12" style="padding: 20px;">
+                    <!-- SmartWizard html -->
+                    <div id="smartwizard" class="sw-theme-dots">
+                        <ul>
+                            <li><a href="#step-1">Step 1<br /><small>This is step description</small></a></li>
+                            <li><a href="#step-2">Step 2<br /><small>This is step description</small></a></li>
+                            <li><a href="#step-3">Step 3<br /><small>This is step description</small></a></li>
+                            <li><a href="#step-4">Step 4<br /><small>This is step description</small></a></li>
+                        </ul>
 
-                                            <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Condition:</label>
-                                            <div class="form-group col-lg-3">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" aria-label="Text input with dropdown button">
-                                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">New</a>
-                                                        <a class="dropdown-item" href="#">Refurbished</a>
-                                                    </div>
-                                                </div>
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Select product condition
-                                                </small> --}}
-                                            </div>
-
-                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">New Price:</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control" id="staticEmail20" placeholder="Enter New Price"> <br>
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Product New Price
-                                                </small> --}}
-                                            </div>
-
-                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Sale Price:</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control" id="staticEmail20" placeholder="Enter N.Sale Price">
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Product N.Sale Price
-                                                </small> --}}
-                                            </div>
-
-                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Warranty Days:</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control" id="staticEmail20" placeholder="Enter N.Warranty Days">
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Product N.Warranty Days
-                                                </small> --}}
-                                            </div>
-
-                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Return Days:</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control" id="staticEmail20" placeholder="Enter N.Return Days"> <br>
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Product N.Return Days
-                                                </small> --}}
-                                            </div>
-
-                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Refurbished Price:</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control" id="staticEmail20" placeholder="Enter Refurbished Price">
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Product Refurbished Price
-                                                </small> --}}
-                                            </div>
-                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">R.Sale Price:</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control" id="staticEmail20" placeholder="Enter R.Sale Price">
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Product R.Sale Price
-                                                </small> --}}
-                                            </div>
-                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">R.Warranty Days:</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control" id="staticEmail20" placeholder="Enter R.Warranty Days">
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Product R.Warranty Days </small> --}}
-                                            </div>
-                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">R.Return Days:</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control" id="staticEmail20" placeholder="Enter Refurbished Price">
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Product R.Return Days
-                                                </small> --}}
-                                            </div>
-                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Min Order:</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control" id="staticEmail20" placeholder="Enter Minimum Order Quantity"> <br>
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Minimum order quantity
-                                                </small> --}}
-                                            </div>
-                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">SKU:</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control" id="staticEmail20" placeholder="Enter Product SKU">
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Product Refurbished Price
-                                                </small> --}}
-                                            </div>
-
-                                            <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Make:</label>
-                                            <div class="form-group col-lg-3">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" aria-label="Text input with dropdown button">
-                                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Super Admin</a>
-                                                        <a class="dropdown-item" href="#">Industry Mall</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Image:</label>
-                                            <div class="col-lg-3">
-                                                <input type="file" class="form-control" id="staticEmail20" placeholder="Enter Product SKU">
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter Product Refurbished Price
-                                                </small> --}}
-                                            </div>
-
-                                            
-                        
-                                            <div class="col-md-12 mb-4">
-                                                <div>
-                                                    <div class="card-body">
-                                                        <h2>Description</h2>
-                                                        <p>Enter Product Discription</p>
-                                                        <div class="mx-auto col-md-12">
-                                                            <div id="snow-editor">
-                                                                <div>
-                                                                    <h1></h1>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                              
-
-                                        <div class="custom-separator"></div>
-
-                                        <div class="form-group row">
-                                            <label for="staticEmail22" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Contact:</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control" id="staticEmail22" placeholder="Enter contact number">
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your contact number
-                                                </small>
-                                            </div>
-
-                                            <label for="staticEmail23" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Fax:</label>
-                                            <div class="col-lg-3">
-
-                                                <div class="input-right-icon">
-                                                    <input type="text" class="form-control" id="staticEmail23" placeholder="Enter your fax">
-                                                    <span class="span-right-input-icon">
-                                                        <i class="ul-form__icon i-Information"></i>
-                                                    </span>
-                                                </div>
-
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your fax
-                                                </small>
-                                            </div>
-
-                                            <label for="staticEmail24" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Address:</label>
-                                            <div class="col-lg-3">
-
-                                                <div class="input-right-icon">
-                                                    <input type="text" class="form-control" id="staticEmail24" placeholder="Enter your address">
-                                                    <span class="span-right-input-icon">
-                                                        <i class="ul-form__icon i-Map-Marker"></i>
-                                                    </span>
-                                                </div>
-
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your address
-                                                </small>
-                                            </div>
-                                        </div>
-
-
-
-
-
-                                        <div class="custom-separator"></div>
-                                        <div class="form-group row">
-
-                                            <label for="staticEmail25" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Postcode:</label>
-                                            <div class="col-lg-2">
-                                                <div class="input-right-icon">
-                                                    <input type="text" class="form-control" id="inputEmail25" placeholder="Enter your postcode">
-                                                    <span class="span-right-input-icon">
-                                                        <i class="ul-form__icon i-New-Mail"></i>
-                                                    </span>
-                                                </div>
-
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your postcode
-                                                </small>
-                                            </div>
-
-                                            <label for="staticEmail26" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">User
-                                                Group:</label>
-                                            <div class="col-lg-2">
-
-                                                <div class="ul-form__radio-inline">
-                                                    <label class=" ul-radio__position radio radio-primary form-check-inline">
-                                                        <input type="radio" name="radio" value="0">
-                                                        <span class="ul-form__radio-font">Sales Person</span>
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                    <label class="ul-radio__position radio radio-primary">
-                                                        <input type="radio" name="radio" value="0">
-                                                        <span class="ul-form__radio-font">Customer</span>
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your address
-                                                </small>
-                                            </div>
-
-
-
-                                        </div>
-
-
-
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="mc-footer">
-                                            <div class="row text-center">
-                                                <div class="col-lg-12 ">
-                                                    <button type="button" class="btn btn-primary m-1">Save</button>
-                                                    <button type="button" class="btn btn-outline-secondary m-1">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                        <div>
+                            <div id="step-1" class="">
+                                <h3 class="border-bottom border-gray pb-2">Step 1 Content</h3>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has
+                                survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged. It was popularised in the 1960s with the release of
+                                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            </div>
+                            <div id="step-2" class="">
+                                <h3 class="border-bottom border-gray pb-2">Step 2 Content</h3>
+                                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                    unknown printer took a galley of type and scrambled it to make a type specimen
+                                    book. It has survived not only five centuries, but also the leap into electronic
+                                    typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                                    the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                                    with desktop publishing software like Aldus PageMaker including versions of Lorem
+                                    Ipsum. </div>
+                            </div>
+                            <div id="step-3" class="">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has
+                                survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged. It was popularised in the 1960s with the release of
+                                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has
+                                survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged. It was popularised in the 1960s with the release of
+                                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has
+                                survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged. It was popularised in the 1960s with the release of
+                                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has
+                                survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged. It was popularised in the 1960s with the release of
+                                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has
+                                survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged. It was popularised in the 1960s with the release of
+                                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has
+                                survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged. It was popularised in the 1960s with the release of
+                                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            </div>
+                            <div id="step-4" class="">
+                                <h3 class="border-bottom border-gray pb-2">Step 4 Content</h3>
+                                <div class="card o-hidden">
+                                    <div class="card-header">My Details</div>
+                                    <div class="card-block p-0">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Name:</th>
+                                                    <td>Tim Smith</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Email:</th>
+                                                    <td>example@example.com</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <!-- end card 3 Columns Horizontal Form Layout-->
-                            </form>
-                            <!-- end::form 3-->
-
-
-
-
-
+                            </div>
                         </div>
-
                     </div>
-                    <!-- end of main row -->
                 </div>
             </div>
+
 
 @endsection
 
 @section('page-js')
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-<script src="{{asset('assets/js/vendor/quill.min.js')}}"></script>
 
+ <script src="{{asset('assets/js/vendor/jquery.smartWizard.min.js')}}"></script>
 
 @endsection
 
 @section('bottom-js')
 
-<script src="{{asset('assets/js/quill.script.js')}}"></script>
 
-
+ <script src="{{asset('assets/js/smart.wizard.script.js')}}"></script>
 
 @endsection
