@@ -17,8 +17,6 @@
 
 
 
-
-
     @if (Session::get('layout') == 'vertical')
         <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome-free-5.10.1-web/css/all.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/styles/vendor/metisMenu.min.css') }}">
