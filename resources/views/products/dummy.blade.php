@@ -1,9 +1,3 @@
-@extends('layouts.master')
-@section('before-css')
-
-
-@endsection
-
 @section('page-css')
     <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.bubble.css')}}">
     <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.snow.css')}}">

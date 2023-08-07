@@ -88,19 +88,19 @@
                         </div>
                     </div></a>
                 </div>
-
                 <div class="col-lg-3 col-md-6 col-sm-6">
-                    <a href="{{ route('packagingorders')}}"></a>
+                    <a href="{{ route('packagingorders')}}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
-                            <i class="i-Checkout-Basket" style="height: 30px"></i>
-                            <div class="content" >
+                            <i class="i-Check" style="height: 30px"></i>
+                            <div class="content">
                                 <p class="text-muted mt-2 mb-0">Packaging</p>
-                                <p class="text-primary text-15 line-height-1 mb-2">80</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">$4021</p>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
+
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="{{ route('ftod')}}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
@@ -137,20 +137,20 @@
                         </div>
                     </div></a>
                 </div>
-
                 <div class="col-lg-3 col-md-6 col-sm-6">
-                    <a href="{{ route('refunded')}}"></a>
+                    <a href="{{ route('returned')}}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
-                            <i class="i-Arrow-Circle" style="height: 30px"></i>
+                            <i class="i-Timer1" style="height: 30px"></i>
                             <div class="content" >
                                 <p class="text-muted mt-2 mb-0">Returned</p>
                                 <p class="text-primary text-15 line-height-1 mb-2">80</p>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
 
+        
             </div>
 
             <div class="row">
