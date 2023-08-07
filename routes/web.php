@@ -129,6 +129,12 @@ Route::view('others/faq', 'others.faq')->name('faq');
 Route::view('others/pricing-table', 'others.pricing-table')->name('pricing-table');
 Route::view('others/search-result', 'others.search-result')->name('search-result');
 
+
+// login/sign-up checking 
+
+// Route::view('login','auth.login')->name('login');
+// Route::view('signup','auth.register')->name('register');
+
 // Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
