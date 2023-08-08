@@ -619,11 +619,15 @@
         <td>2011/04/25</td>
         <td>parent</td>
         <td>
-            <span class="i-Edit"></span>
-            <span class="i-Remove"></span>
-            <span class="i-Eye-Visible"></span>
-            <span class="i-Duplicate-Layer"></span>
-        
+            <a href="#" class="text-success me-2">
+                <i class="nav-icon i-Pen-2 font-weight-bold"></i>
+            </a>
+            <a href="#" class="text-danger me-2">
+                <i class="nav-icon i-Close-Window font-weight-bold"></i>
+            </a>
+            <button class="btn btn-danger"><a href="#" >
+                <i class="nav-icon i-Eye-Scan   font-weight-bold"></i>
+            </a></button>
         </td>
     </tr>
     </tbody>

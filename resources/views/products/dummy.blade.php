@@ -326,6 +326,8 @@
 
 <script src="{{asset('assets/js/quill.script.js')}}"></script>
 
+<script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 
 
 @endsection

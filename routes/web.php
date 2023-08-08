@@ -134,10 +134,11 @@ Route::view('others/search-result', 'others.search-result')->name('search-result
 // Auth::routes();
 
 
+
 // login/sign-up checking 
 
-// Route::view('login','auth.login')->name('login');
-// Route::view('signup','auth.register')->name('register');
+Route::view('login','auth.login')->name('login');
+Route::view('signup','auth.register')->name('register');
 
 // Auth::routes();
 
