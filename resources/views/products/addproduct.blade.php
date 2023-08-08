@@ -143,6 +143,16 @@
                                                         <div class="dropdown-menu">
                                                             <p class="dropdown-item" onclick="selectMenu('Super Admin', 'menu-input-1')">Super Admin</p>
                                                             <p class="dropdown-item" onclick="selectMenu('Industry Mall', 'menu-input-1')">Industry Mall</p>
+
+                                                            @if (Auth::User()->role=='Admin')
+                                                                {!! Form::select('vendors',$vendors,null,['id'=>'vendors','class'=>'form-control fstdropdown-select','onchange'=>'ChangeMakeCondition(this.value)']) !!}
+                                                                {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
+                                                                {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
+                                                            @else
+                                                                {!! Form::text('make1',Auth::User()->name,['id'=>'make1','class'=>'form-control','disabled'=>'disabled']) !!}
+                                                                {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
+                                                                {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
+                                                        @endif
                                                         </div>
                                                     </div>
                                                 </div>
