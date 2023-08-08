@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,7 +102,7 @@ Route::view('userlist','users.userlist')->name('userlist');
 // product reviews
 
 Route::view('addproduct','products.addproduct')->name('addproduct');
-Route::view('allproducts','products.allproducts')->name('allproducts');
+// Route::view('allproducts','products.allproducts')->name('allproducts');
 Route::view('customerqueries','products.customerqueries')->name('customerqueries');
 Route::view('productinfo','products.productinfo')->name('productinfo');
 Route::view('productreviews','products.productreviews')->name('productreviews');
@@ -151,3 +151,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+    // Route::resource('allproducts', ProductController::class); 
+    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
