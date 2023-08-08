@@ -1,30 +1,27 @@
-name: Deploy Laravel Project on push
+name: Deploy Laravel Project on Push
+
 on:
   push:
     branches:
       - main
+
 jobs:
   web-deploy:
     name: Deploy
     runs-on: ubuntu-latest
+
     steps:
-      - name: Get the latest code
-        uses: actions/checkout@v2.3.2
-      - uses: actions/setup-node@master
-      - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-      - name: Install Dependencies
-        run: composer update --ignore-platform-reqs
-      - name: Generate key
-        run: php artisan key:generate
-      - name: Generate storage link
-        run: php artisan storage:link
-      - name: Directory Permissions
-        run: chmod -R 777 storage bootstrap/cache
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install lftp
+        run: sudo apt-get install lftp
+
+      - name: Deploy via lftp
+        run: |
+          lftp -c "
+            set ssl:verify-certificate no
+            open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }}
+            mirror -R -e -x ^\.git/$ -x ^\.github/$ -x ^\.gitignore -x ^\.gitattributes -x ^\.gitmodules -x ^.*\.md$ -x ^composer\..*$ -x ^phpunit\.xml$ -x ^webpack\.mix\.js$ -x ^yarn\.lock$ -x ^node_modules/$ -x ^storage/logs/$ -x ^\.env$ -x ^public/storage/ . public_html/dashboard.voltonic.net
+            bye
+          "
