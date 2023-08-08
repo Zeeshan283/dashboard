@@ -611,21 +611,57 @@
         <th>Action</th>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>parent</td>
-        <td>
-            <span class="i-Edit"></span>
-            <span class="i-Remove"></span>
-            <span class="i-Eye-Visible"></span>
-            <span class="i-Duplicate-Layer"></span>
+    @foreach ($data as $key => $product)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $product->name }}</td>
+                                        <td>{{ $product->model_no }}</td>
+                                        <td>{{ $product->sku }}</td>
+                                        <td>
+                                            @if ($product->categories)
+                                                {{ $product->categories->name }}
+                                            @endif
+                                            ,
+                                            @if ($product->subcategories)
+                                                {{ $product->subcategories->name }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($product->type == 'Parent')
+                                                <span class="badge text-bg-success">{{ $product->type }}</span>
+                                            @elseif ($product->type == 'Child')
+                                                <span class="badge text-bg-success">{{ $product->type }}</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <!-- <div class="btn-group mr-2" role="group" aria-label="First group">
+                                                <a href="{{ URL::to('products/' . $product->id . '/edit') }}"
+                                                    class="btn-info btn-sm"><i class="fa fa-pencil"></i></a>
+                                                <a onclick="return confirm('Are you sure you want to delete?')"
+                                                    href="{{ asset('products') }}/{{ $product->id }}/destroy"
+                                                    class="btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                <a href="{{ URL::to('single-product/' . $product->id . '/' . $product->slug) }}"
+                                                    class="btn-warning btn-sm" target="_blank"><i class="fa fa-eye"></i></a>
+                                                    <a href="{{ URL::to('products/' . $product->id . '/dupe') }}"
+                                                        class="btn-success btn-sm"><i class="fa fa-clone"></i></a>
+                                            </div> -->
+                                            <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-success ">
+                                                <i class="nav-icon i-Pen-2 "></i>
+                                            </button>
+                                                <button type="button" class="btn btn-danger ">
+                                                <i class="nav-icon i-Close-Window "></i>
+                                            </button>
+                                            <button type="button" class="btn btn-primary">
+                                                <i class="nav-icon i-Eye "></i>
+                                            </button>
+                                            </div>
+                                             
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                
         
-        </td>
-    </tr>
     </tbody>
     <tfoot>
     <tr>
@@ -670,3 +706,9 @@
     </tfoot>
     
 @endif
+
+<script>
+        $(function() {
+            $("#example1").DataTable();
+        });
+    </script>
