@@ -11,6 +11,7 @@ use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\fontAwesomeTrait;
+use Illuminate\Support\Facades\Route;
 
 class OrderController extends Controller
 {
@@ -23,9 +24,49 @@ class OrderController extends Controller
 	public function index()
 	{
 		$data = Order::orderBy('id', 'desc')->get();
-		return view('order.index', compact('data'));
+		return view('orders.allorders', compact('data'));
 	}
+	
+	public function showOrders()
+	{
+		$routeName = Route::currentRouteName();
 
+		if($routeName === 'pendingorders'){
+			$data = Order::where('status', '=', 'In Process')->orderBy('id','desc')->get();
+		return view('orders.pendingorders', compact('data'));
+		}
+		if($routeName === 'confirmedorders'){
+			$data = Order::where('status', '=', 'confirmed')->orderBy('id','desc')->get();
+		return view('orders.confirmedorders', compact('data'));
+		}
+		if($routeName === 'packagingorders'){
+			$data = Order::where('status', '=', 'packaging')->orderBy('id','desc')->get();
+		return view('orders.packagingorders', compact('data'));
+		}
+		if($routeName === 'outofdelivery'){
+			$data = Order::where('status', '=', 'out of delivery')->orderBy('id','desc')->get();
+		return view('orders.outofdelivery', compact('data'));
+		}
+		if($routeName === 'delivered'){
+			$data = Order::where('status', '=', 'delivered')->orderBy('id','desc')->get();
+		return view('orders.delivered', compact('data'));
+		}
+		if($routeName === 'returned'){
+			$data = Order::where('status', '=', 'returned')->orderBy('id','desc')->get();
+		return view('orders.returned', compact('data'));
+		}
+		if($routeName === 'ftod'){
+			$data = Order::where('status', '=', 'Field to Deliver')->orderBy('id','desc')->get();
+		return view('orders.ftod', compact('data'));
+		}
+		if($routeName === 'canceled'){
+			$data = Order::where('status', '=', 'canceled')->orderBy('id','desc')->get();
+		return view('orders.canceled', compact('data'));
+		}		
+		
+		
+		
+	}
 	public function thanks($id)
 	{
 		$thanks = Order::findOrFail($id);

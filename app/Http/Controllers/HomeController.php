@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderDetails;
+use App\Models\ProductContact;
+use App\Models\Stock;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +28,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+  
+
     public function index()
-    {
+    {   
         return view('dashboard.dashboardv1');
     }
 }

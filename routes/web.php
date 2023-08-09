@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
@@ -61,15 +62,15 @@ Route::view('admin/', 'dashboard.dashboardv1')->name('admin');
 
 
 // orders
-Route::view('allorders', 'orders.allorders')->name('allorders');
-Route::view('pendingorders', 'orders.pendingorders')->name('pendingorders');
-Route::view('confirmedorders', 'orders.confirmedorders')->name('confirmedorders');
-Route::view('packagingorders', 'orders.packagingorders')->name('packagingorders');
-Route::view('outofdelivery', 'orders.outofdelivery')->name('outofdelivery');
-Route::view('delivered', 'orders.delivered')->name('delivered');
-Route::view('returned', 'orders.returned')->name('returned');
-Route::view('ftod', 'orders.ftod')->name('ftod');
-Route::view('canceled', 'orders.canceled')->name('canceled');
+// Route::view('allorders', 'orders.allorders')->name('allorders');
+// Route::view('pendingorders', 'orders.pendingorders')->name('pendingorders');
+// Route::view('confirmedorders', 'orders.confirmedorders')->name('confirmedorders');
+// Route::view('packagingorders', 'orders.packagingorders')->name('packagingorders');
+// Route::view('outofdelivery', 'orders.outofdelivery')->name('outofdelivery');
+// Route::view('delivered', 'orders.delivered')->name('delivered');
+// Route::view('returned', 'orders.returned')->name('returned');
+// Route::view('ftod', 'orders.ftod')->name('ftod');
+// Route::view('canceled', 'orders.canceled')->name('canceled');
 
 
 // sellers
@@ -156,4 +157,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
     // Route::resource('allproducts', ProductController::class); 
-    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
+Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
+
+// orders using controller  
+Route::get('allorders', [OrderController::class,'index'])->name('allorders'); 
+Route::get('pendingorders', [OrderController::class,'showOrders'])->name('pendingorders'); 
+Route::get('confirmedorders', [OrderController::class,'showOrders'])->name('confirmedorders'); 
+Route::get('packagingorders', [OrderController::class,'showOrders'])->name('packagingorders'); 
+Route::get('outofdelivery', [OrderController::class,'showOrders'])->name('outofdelivery'); 
+Route::get('delivered', [OrderController::class,'showOrders'])->name('delivered'); 
+Route::get('returned', [OrderController::class,'showOrders'])->name('returned'); 
+Route::get('ftod', [OrderController::class,'showOrders'])->name('ftod'); 
+Route::get('canceled', [OrderController::class,'showOrders'])->name('canceled'); 

@@ -3,27 +3,47 @@
         <thead>
             <th>Sr No</th>
             <th>Order #</th>
-            <th>Customer Name</th>
+            <th>Customer First Name</th>
+            <th>Customer Last Name</th>
             <th>Order Date</th>
             <th>Shipping Date</th>
             <th>Status</th>
             <th>Action</th>
         </thead>
         <tbody>
-        <tr>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-            <td>$320,800</td>
-        </tr>
+        @foreach ($data as $value => $orders )
+                                    <tr>
+                                        <td>{{ $value + 1 }}</td>
+                                        <td>{{ $orders->id }}</td>
+                                        <td>{{ $orders->first_name }}</td>
+                                        <td>{{ $orders->last_name }}</td>
+                                        <td>{{ $orders->date }}</td>
+                                        <td>{{ $orders->shipping }}</td>
+                                        <td>{{ $orders->status}}</td>
+                                        <td>
+                                           
+                                            <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-success ">
+                                                <i class="nav-icon i-Pen-2 "></i>
+                                            </button>
+                                                <button type="button" class="btn btn-danger ">
+                                                <i class="nav-icon i-Close-Window "></i>
+                                            </button>
+                                            <button type="button" class="btn btn-primary">
+                                                <i class="nav-icon i-Eye "></i>
+                                            </button>
+                                            </div>
+                                             
+                                        </td>
+                                    </tr>
+        @endforeach
         </tbody>
         <tfoot>
         <tr>
-            <th>Sr No</th>
+            th>Sr No</th>
             <th>Order #</th>
-            <th>Customer Name</th>
+            <th>Customer First Name</th>
+            <th>Customer Last Name</th>
             <th>Order Date</th>
             <th>Shipping Date</th>
             <th>Status</th>
@@ -35,20 +55,38 @@
         <th>Sr No</th>
         <th>Order #</th>
         <th>Customer Name</th>
-        <th>Order Date</th>
+        <th>Order Date & Time</th>
         <th>Shipping Date</th>
         <th>Status</th>
         <th>Action</th>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-    </tr>
+
+    @foreach ($data as $value =>$order )
+        <tr>
+            <td>{{$value + 1}}</td>
+            <td>{{$order->id}}</td>
+            <td>{{$order->first_name}}</td>
+            <td>{{$order->created_at}}</td>
+            <td>{{$order->shipping}}</td>
+            <td>{{$order->status}}</td>
+            <td>
+                                           
+                <div class="d-flex gap-2">
+                <button type="button" class="btn btn-success ">
+                    <i class="nav-icon i-Pen-2 "></i>
+                </button>
+                    <button type="button" class="btn btn-danger ">
+                    <i class="nav-icon i-Close-Window "></i>
+                </button>
+                <button type="button" class="btn btn-primary">
+                    <i class="nav-icon i-Eye "></i>
+                </button>
+                </div>
+                 
+            </td>
+        </tr>
+    @endforeach
     </tbody>
     <tfoot>
     <tr>
@@ -71,19 +109,45 @@
         <th>Shipping Date</th>
         <th>Status</th>
         <th>View Invoice</th>
-        <th>Alret</th>
+   
         <th>Reviews</th>
         <th>Actions</th>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-    </tr>
+    
+        @foreach ($data as $value =>$order )
+        <tr>
+            <td>{{$value + 1}}</td>
+            <td>{{$order->id}}</td>
+            <td>{{$order->first_name}}</td>
+            <td>{{$order->created_at}}</td>
+            <td>{{$order->shipping}}</td>
+            <td>{{$order->status}}</td>
+            <td>                 
+                <div class="d-flex ">
+                <button type="button" class="btn btn-info" style="width: 80px">
+                    {{-- <i class="nav-icon i-Eye " style="width: 100px"></i> --}}
+                    <span>invoice</span>
+                </button>
+                </div> 
+            </td>
+            <td>                          
+                <div class="d-flex gap-2">
+                    <span>*****</span>
+                 
+            </td>
+            <td>                           
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-success ">
+                        <i class="nav-icon i-Pen-2 "></i>
+                    </button>
+                        <button type="button" class="btn btn-danger ">
+                        <i class="nav-icon i-Close-Window "></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    @endforeach
     </tbody>
     <tfoot>
     <tr>
@@ -94,7 +158,6 @@
         <th>Shipping Date</th>
         <th>Status</th>
         <th>View Invoice</th>
-        <th>Alret</th>
         <th>Reviews</th>
         <th>Actions</th>
     </tr>
@@ -109,19 +172,43 @@
         <th>Shipping Date</th>
         <th>Status</th>
         <th>View Invoice</th>
-        <th>Alret</th>
         <th>Reviews</th>
         <th>Actions</th>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-    </tr>
+        @foreach ($data as $value =>$order )
+        <tr>
+            <td>{{$value + 1}}</td>
+            <td>{{$order->id}}</td>
+            <td>{{$order->first_name}}</td>
+            <td>{{$order->created_at}}</td>
+            <td>{{$order->shipping}}</td>
+            <td>{{$order->status}}</td>
+            <td>                 
+                <div class="d-flex ">
+                <button type="button" class="btn btn-info" style="width: 80px">
+                    {{-- <i class="nav-icon i-Eye " style="width: 100px"></i> --}}
+                    <span>invoice</span>
+                </button>
+                </div> 
+            </td>
+            <td>                          
+                <div class="d-flex gap-2">
+                    <span>*****</span>
+                 
+            </td>
+            <td>                           
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-success ">
+                        <i class="nav-icon i-Pen-2 "></i>
+                    </button>
+                        <button type="button" class="btn btn-danger ">
+                        <i class="nav-icon i-Close-Window "></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        @endforeach
     </tbody>
     <tfoot>
     <tr>
@@ -132,7 +219,6 @@
         <th>Shipping Date</th>
         <th>Status</th>
         <th>View Invoice</th>
-        <th>Alret</th>
         <th>Reviews</th>
         <th>Actions</th>
     </tr>
@@ -149,14 +235,17 @@
         <th>Status</th>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-    </tr>
+        @foreach ($data as $value =>$order )
+        <tr>
+            <td>{{$value + 1}}</td>
+            <td>{{$order->id}}</td>
+            <td>{{$order->first_name}}</td>
+            <td>{{$order->created_at}}</td>
+            <td>{{$order->shipping}}</td>
+            <td>{{$order->company}}</td>
+            <td>{{$order->status}}</td>
+        </tr>
+        @endforeach
     </tbody>
     <tfoot>
     <tr>
@@ -180,14 +269,17 @@
         <th>Status</th>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-    </tr>
+        @foreach ($data as $value =>$order )
+        <tr>
+            <td>{{$value + 1}}</td>
+            <td>{{$order->id}}</td>
+            <td>{{$order->first_name}}</td>
+            <td>{{$order->created_at}}</td>
+            <td>{{$order->shipping}}</td>
+            <td>{{$order->company}}</td>
+            <td>{{$order->status}}</td>
+        </tr>
+        @endforeach
     </tbody>
     <tfoot>
     <tr>
@@ -211,14 +303,17 @@
         <th>Status</th>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-    </tr>
+        @foreach ($data as $value =>$order )
+        <tr>
+            <td>{{$value + 1}}</td>
+            <td>{{$order->id}}</td>
+            <td>{{$order->first_name}}</td>
+            <td>{{$order->created_at}}</td>
+            <td>{{$order->shipping}}</td>
+            <td>{{$order->company}}</td>
+            <td>{{$order->status}}</td>
+        </tr>
+        @endforeach
     </tbody>
     <tfoot>
     <tr>
@@ -242,14 +337,17 @@
         <th>Status</th>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-    </tr>
+        @foreach ($data as $value =>$order )
+        <tr>
+            <td>{{$value + 1}}</td>
+            <td>{{$order->id}}</td>
+            <td>{{$order->first_name}}</td>
+            <td>{{$order->created_at}}</td>
+            <td>{{$order->shipping}}</td>
+            <td>{{$order->company}}</td>
+            <td>{{$order->status}}</td>
+        </tr>
+        @endforeach
     </tbody>
     <tfoot>
     <tr>
@@ -271,17 +369,20 @@
         <th>Shipping Date</th>
         <th>Vendor</th>
         <th>Status</th>
-        <th>Action</th>
+
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-    </tr>
+        @foreach ($data as $value =>$order )
+        <tr>
+            <td>{{$value + 1}}</td>
+            <td>{{$order->id}}</td>
+            <td>{{$order->first_name}}</td>
+            <td>{{$order->created_at}}</td>
+            <td>{{$order->shipping}}</td>
+            <td>{{$order->company}}</td>
+            <td>{{$order->status}}</td>
+        </tr>
+        @endforeach
     </tbody>
     <tfoot>
     <tr>
@@ -634,17 +735,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <!-- <div class="btn-group mr-2" role="group" aria-label="First group">
-                                                <a href="{{ URL::to('products/' . $product->id . '/edit') }}"
-                                                    class="btn-info btn-sm"><i class="fa fa-pencil"></i></a>
-                                                <a onclick="return confirm('Are you sure you want to delete?')"
-                                                    href="{{ asset('products') }}/{{ $product->id }}/destroy"
-                                                    class="btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                <a href="{{ URL::to('single-product/' . $product->id . '/' . $product->slug) }}"
-                                                    class="btn-warning btn-sm" target="_blank"><i class="fa fa-eye"></i></a>
-                                                    <a href="{{ URL::to('products/' . $product->id . '/dupe') }}"
-                                                        class="btn-success btn-sm"><i class="fa fa-clone"></i></a>
-                                            </div> -->
+                                           
                                             <div class="d-flex gap-2">
                                             <button type="button" class="btn btn-success ">
                                                 <i class="nav-icon i-Pen-2 "></i>
