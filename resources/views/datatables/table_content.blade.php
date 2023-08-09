@@ -611,27 +611,6 @@
         <th>Action</th>
     </thead>
     <tbody>
-<<<<<<< HEAD
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>parent</td>
-        <td>
-            <a href="#" class="text-success me-2">
-                <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-            </a>
-            <a href="#" class="text-danger me-2">
-                <i class="nav-icon i-Close-Window font-weight-bold"></i>
-            </a>
-            <button class="btn btn-danger"><a href="#" >
-                <i class="nav-icon i-Eye-Scan   font-weight-bold"></i>
-            </a></button>
-        </td>
-    </tr>
-=======
     @foreach ($data as $key => $product)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
@@ -683,7 +662,6 @@
                                 @endforeach
                                 
         
->>>>>>> refs/remotes/origin/main
     </tbody>
     <tfoot>
     <tr>

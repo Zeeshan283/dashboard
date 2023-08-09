@@ -25,10 +25,12 @@ use App\Http\Controllers\ProductController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
-Route::get('/', function () {
-    return view('dashboard.dashboardv1');
-});
+
+// Route::get('/', function () {
+//     return view('dashboard.dashboardv1');
+// });
 // Route::view('/', 'starter')->name('starter');
 Route::get('large-compact-sidebar/dashboard/dashboard1', function () {
     // set layout sesion(key)
