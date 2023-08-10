@@ -783,6 +783,10 @@
 .i-Couple-Sign:before {
   content: "\ead9";
 }
+.star-icon::before {
+  content: "\2605"; /* Unicode character for a solid star */
+  font-size: 23px;
+}
 .i-David-Star:before {
   content: "\eada";
 }

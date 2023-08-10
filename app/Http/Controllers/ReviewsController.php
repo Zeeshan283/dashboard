@@ -16,7 +16,7 @@ class ReviewsController extends Controller
     public function index()
     {
         $Reviews = Reviews::with('product')->orderBy('id','desc')->get();
-        return view('products.reviews',compact('Reviews'));
+        return view('customer.creviews',compact('Reviews'));
     }
 
     public function approveReview($review_id)

@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\ReviewsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
@@ -65,18 +67,6 @@ Route::get('vertical/dashboard/dashboard1', function () {
 
 
 
-// orders
-// Route::view('allorders', 'orders.allorders')->name('allorders');
-// Route::view('pendingorders', 'orders.pendingorders')->name('pendingorders');
-// Route::view('confirmedorders', 'orders.confirmedorders')->name('confirmedorders');
-// Route::view('packagingorders', 'orders.packagingorders')->name('packagingorders');
-// Route::view('outofdelivery', 'orders.outofdelivery')->name('outofdelivery');
-// Route::view('delivered', 'orders.delivered')->name('delivered');
-// Route::view('returned', 'orders.returned')->name('returned');
-// Route::view('ftod', 'orders.ftod')->name('ftod');
-// Route::view('canceled', 'orders.canceled')->name('canceled');
-
-
 // sellers
 Route::view('addseller' , 'sellers.addseller')->name('addseller');
 Route::view('vendorlist', 'sellers.vendorlist')->name('vendorlist');
@@ -91,12 +81,8 @@ Route::view('refundrejected', 'refund.refundrejected')->name('refundrejected');
 
 // Customer
 
-Route::view('creviews', 'customer.creviews')->name('creviews');
 Route::view('cwallet', 'customer.cwallet')->name('cwallet');
 
-// cateories
-
-Route::view('allsubcat','category.allsubcat')->name('allsubcat');
 
 // Users
 
@@ -182,6 +168,8 @@ Route::get('customerlist',[CustomerController::class,'index'])->name('customerli
 // menu controller route 
 Route::get('allmenu',[MenuController::class, 'index'])->name('allmenu');
 Route::get('allcat',[CategoryController::class,'index'])->name('allcat');
-Route::get('/alcat/{id}', [CategoryController::class,'index'])->name('allcat');
+Route::get('allsubcat',[SubCategoryController::class, 'index'])->name('allsubcat');
 
+// customer reviews controller 
 
+Route::get('creviews',[ReviewsController::class,'index'])->name('creviews');

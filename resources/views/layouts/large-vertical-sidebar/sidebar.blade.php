@@ -152,13 +152,11 @@
                 </a>
             </li>
             <li class="nav-item">
-
-{{-- 
                 <a class="{{ Route::currentRouteName() == 'allcat' ? 'open' : '' }}"
                     href="{{ route('allcat') }}">
                     <i class="nav-icon i-Folder"></i>
                     <span class="item-name">All Categories</span>
-                </a> --}}
+                </a>
             </li>
 
             <li class="nav-item">

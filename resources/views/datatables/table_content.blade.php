@@ -797,6 +797,50 @@
         <th>Comments</th>
     </tr>
     </tfoot>
+@elseif (Route::currentRouteName() == 'creviews' )
+    <thead>
+        <th>Sr No</th>
+        <th>Product Id#</th>
+        <th>Customer Name</th>
+        <th>Customer Email</th>
+        <th>Reviews</th>
+        <th>Rating</th>
+    </thead>
+    <tbody>
+    @foreach ($Reviews as $key => $review)
+            <tr>
+                <td>{{ $key+1 }}</td>
+                <td>{{ $review->product_id}}</td>
+                <td>{{ $review->customer_name}}</td>
+                <td>{{ $review->customer_email}}</td>
+                <td>{{ $review->review}}</td>
+
+                <td>
+                    @php
+                        $rating = $review->rating;
+                    @endphp
+
+                    <div class="rating d-flex flex-direction-right">
+                        @for ($i = 1; $i <= 5; $i++)
+                            {{-- <i class="nav-icon i-David-Star" style="color: {{ $i <= $rating ? '#f5c60b' : '#ccc' }}; font-size: 10px; margin-right: 5px;"></i> --}}
+                            <i class="nav-icon star-icon" style="color: {{ $i <= $rating ? '#f5c60b' : '#ccc' }}; font-size: 25px;"></i>
+                        @endfor
+                    </div>
+                </td>
+            </tr>
+    @endforeach
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Sr No</th>
+        <th>Product Id#</th>
+        <th>Customer Name</th>
+        <th>Customer Email</th>
+        <th>Reviews</th>
+        <th>Rating</th>
+
+    </tr>
+    </tfoot>
     
 @elseif (Route::currentRouteName() == 'allmenu' )
     <thead>
@@ -830,6 +874,7 @@
         <th>Sr No</th>
         <th>Id#</th>
         <th>Name</th>
+        <th>Image</th>
         <th>Biller</th>
 
     </thead>
@@ -839,7 +884,9 @@
             <td>{{ $key + 1 }}</td>
             <td>{{ $allcat->id }}</td>
             <td>{{ $allcat->name }}</td>
+            <td><img src="<?php echo $allcat['img']; ?>" width="50" height="50"></td>
             <td>{{ $allcat->biller}}</td>
+           
         </tr>
         @endforeach 
     </tbody>
@@ -848,6 +895,41 @@
         <th>Sr No</th>
         <th>Id#</th>
         <th>Name</th>
+        <th>Image</th>
+        <th>Biller</th>
+
+    </tr>
+    </tfoot>
+
+@elseif (Route::currentRouteName() == 'allsubcat' )
+    <thead>
+        <th>Sr No</th>
+        <th>Id#</th>
+        <th>Name</th>
+        <th>Slug</th>
+        <th>Image</th>
+        <th>Biller</th>
+
+    </thead>
+    <tbody>
+        @foreach ($data as $key => $allsubcat)
+        <tr>
+            <td>{{ $key + 1 }}</td>
+            <td>{{ $allsubcat->category_id }}</td>
+            <td>{{ $allsubcat->name }}</td>
+            <td>{{ $allsubcat->slug }}</td>
+            <td><img src="<?php echo $allsubcat['img']; ?>" width="50" height="50"></td>
+            <td>{{ $allsubcat->biller}}</td>
+        </tr>
+        @endforeach 
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Sr No</th>
+        <th>Id#</th>
+        <th>Name</th>
+        <th>Slug</th>
+        <th>Image</th>
         <th>Biller</th>
 
     </tr>
