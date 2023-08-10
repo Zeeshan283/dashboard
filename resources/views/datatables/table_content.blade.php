@@ -5,7 +5,7 @@
             <th>Order #</th>
             <th>Customer First Name</th>
             <th>Customer Last Name</th>
-            <th>Order Date</th>
+            <th>Order Date</th> 
             <th>Shipping Date</th>
             <th>Status</th>
             <th>Action</th>
@@ -40,7 +40,7 @@
         </tbody>
         <tfoot>
         <tr>
-            th>Sr No</th>
+            <th>Sr No</th>
             <th>Order #</th>
             <th>Customer First Name</th>
             <th>Customer Last Name</th>
@@ -171,8 +171,8 @@
         <th>Order Date</th>
         <th>Shipping Date</th>
         <th>Status</th>
-        <th>View Invoice</th>
         <th>Reviews</th>
+        <th>View Invoice</th>
         <th>Actions</th>
     </thead>
     <tbody>
@@ -184,6 +184,11 @@
             <td>{{$order->created_at}}</td>
             <td>{{$order->shipping}}</td>
             <td>{{$order->status}}</td>
+            <td>                          
+                <div class="d-flex gap-2">
+                    <span>*****</span>
+                 
+            </td>
             <td>                 
                 <div class="d-flex ">
                 <button type="button" class="btn btn-info" style="width: 80px">
@@ -191,11 +196,6 @@
                     <span>invoice</span>
                 </button>
                 </div> 
-            </td>
-            <td>                          
-                <div class="d-flex gap-2">
-                    <span>*****</span>
-                 
             </td>
             <td>                           
                 <div class="d-flex gap-2">
@@ -218,8 +218,8 @@
         <th>Order Date</th>
         <th>Shipping Date</th>
         <th>Status</th>
-        <th>View Invoice</th>
         <th>Reviews</th>
+        <th>View Invoice</th>
         <th>Actions</th>
     </tr>
     </tfoot>
@@ -643,21 +643,22 @@
 @elseif (Route::currentRouteName() == 'customerlist' )
     <thead>
         <th>Sr No</th>
-        <th>Name</th>
+        <th>First Name</th>
+        <th>Last Name Name</th>
         <th>Phone Number</th>
         <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td><span class="i-Eye-Visible"></span></td>
-    </tr>
+        @foreach ($customer as $value => $customers )
+        <tr>
+            {{-- <td>{{$value + 1}}</td> --}}
+            <td>{{$customers->id}}</td>
+            <td>{{$customers->first_name}}</td>
+            <td>{{$customers->last_name}}</td>
+            <td>{{$customers->phone1}}</td>
+            <td>{{$customers->email}}</td>
+        </tr>
+        @endforeach
     </tbody>
     <tfoot>
     <tr>
@@ -665,8 +666,6 @@
         <th>Name</th>
         <th>Phone Number</th>
         <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
     </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'userlist' )
@@ -708,6 +707,7 @@
         <th>Model#</th>
         <th>SKU</th>
         <th>Category</th>
+        <th>Image</th>
         <th>Type</th>
         <th>Action</th>
     </thead>
@@ -727,6 +727,7 @@
                                                 {{ $product->subcategories->name }}
                                             @endif
                                         </td>
+                                        <td>Image</td>
                                         <td>
                                             @if ($product->type == 'Parent')
                                                 <span class="badge text-bg-success">{{ $product->type }}</span>
@@ -761,6 +762,7 @@
         <th>Model#</th>
         <th>SKU</th>
         <th>Category</th>
+        <th>image</th>
         <th>Type</th>
         <th>Action</th>
     </tr>
@@ -793,6 +795,61 @@
         <th>SKU</th>
         <th>Rating</th>
         <th>Comments</th>
+    </tr>
+    </tfoot>
+    
+@elseif (Route::currentRouteName() == 'allmenu' )
+    <thead>
+        <th>Sr No</th>
+        <th>Id#</th>
+        <th>Name</th>
+        <th>Icon</th>
+
+    </thead>
+    <tbody>
+        @foreach ($data as $key => $menu)
+        <tr>
+            <td>{{ $key + 1 }}</td>
+            <td>{{ $menu->id }}</td>
+            <td>{{ $menu->name }}</td>
+            <td><i class="{{ $menu->icon }}" style='color:#5233ff;  font-size: 30px;margin-right: 10px;'></i></td>
+        </tr>
+        @endforeach 
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Sr No</th>
+        <th>Id#</th>
+        <th>Name</th>
+        <th>Icon</th>
+
+    </tr>
+    </tfoot>
+@elseif (Route::currentRouteName() == 'allcat' )
+    <thead>
+        <th>Sr No</th>
+        <th>Id#</th>
+        <th>Name</th>
+        <th>Biller</th>
+
+    </thead>
+    <tbody>
+        @foreach ($data as $key => $allcat)
+        <tr>
+            <td>{{ $key + 1 }}</td>
+            <td>{{ $allcat->id }}</td>
+            <td>{{ $allcat->name }}</td>
+            <td>{{ $allcat->biller}}</td>
+        </tr>
+        @endforeach 
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Sr No</th>
+        <th>Id#</th>
+        <th>Name</th>
+        <th>Biller</th>
+
     </tr>
     </tfoot>
     

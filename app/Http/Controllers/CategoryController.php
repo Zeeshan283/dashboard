@@ -20,8 +20,8 @@ class CategoryController extends Controller
 
   public function index()
   {
-    $data = Category::with('menus')->get();
-    return view('categories.index', compact('data'));
+    $data = Category::orderby('id','asc')->get();
+    return view('category.allcat', compact('data'));
   }
 
   public function create()
@@ -80,7 +80,8 @@ class CategoryController extends Controller
 
   public function show($id)
   {
-    //
+    $data =  Category::findOrfail($id);
+    return view('allcat',compact('data'));
   }
 
   public function edit($id)

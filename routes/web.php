@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
@@ -26,7 +30,8 @@ use App\Http\Controllers\ProductController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+// Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);  
+
 
 
 // Route::get('/', function () {
@@ -58,7 +63,6 @@ Route::get('vertical/dashboard/dashboard1', function () {
 })->name('vertical');
 
 
-Route::view('admin/', 'dashboard.dashboardv1')->name('admin');
 
 
 // orders
@@ -87,14 +91,11 @@ Route::view('refundrejected', 'refund.refundrejected')->name('refundrejected');
 
 // Customer
 
-Route::view('customerlist', 'customer.customerlist')->name('customerlist');
 Route::view('creviews', 'customer.creviews')->name('creviews');
 Route::view('cwallet', 'customer.cwallet')->name('cwallet');
 
 // cateories
 
-Route::view('allmenu','category.allmenu')->name('allmenu');
-Route::view('allcat','category.allcat')->name('allcat');
 Route::view('allsubcat','category.allsubcat')->name('allsubcat');
 
 // Users
@@ -169,3 +170,18 @@ Route::get('delivered', [OrderController::class,'showOrders'])->name('delivered'
 Route::get('returned', [OrderController::class,'showOrders'])->name('returned'); 
 Route::get('ftod', [OrderController::class,'showOrders'])->name('ftod'); 
 Route::get('canceled', [OrderController::class,'showOrders'])->name('canceled'); 
+
+// home controller route 
+Route::get('/',[HomeController::class, 'index'])->name('admin');
+Route::get('/',[HomeController::class, 'index'])->name('admin');
+
+// customer controller route 
+Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
+
+
+// menu controller route 
+Route::get('allmenu',[MenuController::class, 'index'])->name('allmenu');
+Route::get('allcat',[CategoryController::class,'index'])->name('allcat');
+Route::get('/alcat/{id}', [CategoryController::class,'index'])->name('allcat');
+
+

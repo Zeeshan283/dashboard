@@ -1,8 +1,8 @@
 @section('page-css')
     <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.bubble.css')}}">
     <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.snow.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
 @endsection
-
 @section('main-content')
 
 @section('main-content')

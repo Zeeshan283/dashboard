@@ -17,7 +17,7 @@ $(document).ready(function () {
 
     $('#deafult_ordering_table').DataTable({
         "order": [
-            [3, "desc"]
+            [1, "desc"]
         ]
     });
 

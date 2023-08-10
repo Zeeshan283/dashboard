@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+@endsection
 
 @section('main-content')
     <div class="breadcrumb">
@@ -12,11 +15,10 @@
                     <div class="card-body">
                         <h4 class="card-title mb-3">All orders</h4>
     
-                        <p>All Customer list show here.</p>
+                        <p>All Orders list is below.</p>
     
                         <div class="table-responsive">
-                            <table id="deafult_ordering_table" class="display table table-striped table-bordered"
-                                style="width:100%">
+                            <table id="deafult_ordering_table" class="display table table-striped table-bordered"  style="width:100%;">
                                 @include('datatables.table_content')
                             </table>
                         </div>

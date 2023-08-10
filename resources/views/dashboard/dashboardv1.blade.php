@@ -10,11 +10,11 @@
                 <!-- ICON BG -->
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                        <div class="card-body text-center">
+                        <div class="card-body text-center"> 
                             <i class="i-Shopping-Bag"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Total Sales</p>
-                                <p class="text-primary text-24 line-height-1 mb-2">205</p>
+                                <p class="text-primary text-24 line-height-1 mb-2">{{ $totalOrders }}</p>
                             </div>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                             <i class="i-Add-Cart"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Products</p>
-                                <p class="text-primary text-24 line-height-1 mb-2">$4021</p>
+                                <p class="text-primary text-24 line-height-1 mb-2">{{ $products}}</p>
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                             <i class="i-Shopping-Cart"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Orders</p>
-                                <p class="text-primary text-24 line-height-1 mb-2">80</p>
+                                <p class="text-primary text-24 line-height-1 mb-2">{{ $currenOrders}}</p>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                             <i class="i-Add-User" style="height: 30px"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">TotalCustomers</p>
-                                <p class="text-primary text-15 line-height-1 mb-2">205</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $customer }}</p>
                             </div>
                         </div>
                     </div></a>
@@ -70,7 +70,7 @@
                             <i class="i-Clock" style="height: 30px"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">PendingOrders</p>
-                                <p class="text-primary text-15 line-height-1 mb-2">205</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $pending }}</p>
                             </div>
                         </div>
                     </div></a>
@@ -83,7 +83,7 @@
                             <i class="i-Check" style="height: 30px"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Confirmed</p>
-                                <p class="text-primary text-15 line-height-1 mb-2">$4021</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $confirmed}}</p>
                             </div>
                         </div>
                     </div></a>
@@ -95,7 +95,7 @@
                             <i class="i-Check" style="height: 30px"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Packaging</p>
-                                <p class="text-primary text-15 line-height-1 mb-2">$4021</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{$packaging}}</p>
                             </div>
                         </div>
                     </div></a>
@@ -108,7 +108,7 @@
                             <i class="i-Warning-Window" style="height: 30px"></i>
                             <div class="content" >
                                 <p class="text-muted mt-2 mb-0">Failed</p>
-                                <p class="text-primary text-15 line-height-1 mb-2">80</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $ftod }}</p>
                             </div>
                         </div>
                     </div></a>
@@ -120,7 +120,7 @@
                             <i class="i-Check" style="height: 30px"></i>
                             <div class="content" >
                                 <p class="text-muted mt-2 mb-0">Delivered</p>
-                                <p class="text-primary text-15 line-height-1 mb-2">80</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $delivered }}</p>
                             </div>
                         </div>
                     </div></a>
@@ -132,7 +132,7 @@
                             <i class="i-Timer1" style="height: 30px"></i>
                             <div class="content" >
                                 <p class="text-muted mt-2 mb-0">Cancled</p>
-                                <p class="text-primary text-15 line-height-1 mb-2">80</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $canceled }}</p>
                             </div>
                         </div>
                     </div></a>
@@ -144,7 +144,7 @@
                             <i class="i-Timer1" style="height: 30px"></i>
                             <div class="content" >
                                 <p class="text-muted mt-2 mb-0">Returned</p>
-                                <p class="text-primary text-15 line-height-1 mb-2">80</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $returned }}</p>
                             </div>
                         </div>
                     </div></a>

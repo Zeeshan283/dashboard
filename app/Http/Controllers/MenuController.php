@@ -19,8 +19,8 @@ class MenuController extends Controller
 
     public function index()
     {
-        $data = Menu::select('id', 'name', 'icon')->OrderBy('id', 'asc')->get();
-        return view('menus.index', compact('data'));
+        $data = Menu::select('id', 'name', 'icon')->OrderBy('id', 'desc')->get();
+        return view('category.allmenu', compact('data'));
     }
 
     public function create()
