@@ -523,7 +523,6 @@
 
 @section('bottom-js')
 
-
 <script src="{{asset('assets/js/smart.wizard.script.js')}}"></script>
 <script src="{{asset('assets/js/quill.script.js')}}"></script>
 

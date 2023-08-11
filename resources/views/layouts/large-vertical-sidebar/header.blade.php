@@ -1,5 +1,5 @@
 <div class="main-header">
-    <div class="logo" style="width: 100px">
+    <div class="logo">
         <img src="{{ asset('root/upload/logo/logo1.png') }}" alt="">
     </div>
 

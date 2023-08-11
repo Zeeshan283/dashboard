@@ -7,6 +7,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\RefundController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
@@ -76,7 +77,6 @@ Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
 // Refund
 Route::view('pendingrefund', 'refund.pendingrefund')->name('pendingrefund');
 Route::view('approvedrefund', 'refund.approvedrefund')->name('approvedrefund');
-Route::view('refunded', 'refund.refunded')->name('refunded');
 Route::view('refundrejected', 'refund.refundrejected')->name('refundrejected');
 
 // Customer
@@ -173,3 +173,12 @@ Route::get('allsubcat',[SubCategoryController::class, 'index'])->name('allsubcat
 // customer reviews controller 
 
 Route::get('creviews',[ReviewsController::class,'index'])->name('creviews');
+
+
+// refund controller 
+
+// Route::view('refunded', 'refund.refunded')->name('refunded');
+Route::get('allrefunds',[RefundController::class,'refundstatus'])->name('allrefunds');
+Route::get('refunded',[RefundController::class, 'index'])->name('refunded');
+Route::get('createrefund',[RefundController::class, 'create'])->name('createrefund');
+Route::post('/store-refund', [RefundController::class, 'store'])->name('refund.store');

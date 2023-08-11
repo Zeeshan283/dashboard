@@ -9,4 +9,8 @@ class Customer extends Model
 {
     use HasFactory;
     protected $fillable = ['first_name', 'last_name', 'company', 'address', 'city', 'country', 'phone', 'email', 'zipcode', 'additional_info'];
+    public function refunds()
+    {
+        return $this->hasMany(Refund::class);
+    }
 }

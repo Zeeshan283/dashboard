@@ -83,4 +83,8 @@ class Product extends Model
     {
         return $this->hasMany(ProductLocations::class, 'pro_id')->with('location2');
     }
+    public function refunds()
+    {
+        return $this->hasMany(Refund::class);
+    }
 }

@@ -278,6 +278,20 @@
                 <ul class="childNav" data-parent="extrakits">
 
             <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'createrefund' ? 'open' : '' }}"
+                    href="{{ route('createrefund') }}">
+                    <i class="nav-icon i-Arrow-Down-in-Circle"></i>
+                    <span class="item-name">Create Refund</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'allrefunds' ? 'open' : '' }}"
+                    href="{{ route('allrefunds') }}">
+                    <i class="nav-icon i-Arrow-Down-in-Circle"></i>
+                    <span class="item-name">All Refundsx`</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'pendingrefund' ? 'open' : '' }}"
                     href="{{ route('pendingrefund') }}">
                     <i class="nav-icon i-Arrow-Down-in-Circle"></i>
