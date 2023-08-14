@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 class Refund extends Model
 {
     use HasFactory;
-    protected $fillable = ['vendor','product_id','customer_id','order_id','amount','reason'];
+    protected $fillable = ['vendor', 'product_id', 'customer_id', 'order_id', 'amount', 'reason'];
 
     public function product()
     {
@@ -19,3 +20,6 @@ class Refund extends Model
         return $this->belongsTo(Customer::class);
     }
 }
+
+
+

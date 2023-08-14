@@ -478,7 +478,7 @@
     <tr>
         <td>{{ $value->id }}</td>
         <td>{{ $value->Vendor}}</td>
-        <td>{{ $value->product_id}}</td>
+        <td>{{ $value->product->sku }}</td>
         <td>{{ $value->customer_id}}</td>
         <td>{{ $value->order_id}}</td>
         <td>{{ $value->reason}}</td>

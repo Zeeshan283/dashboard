@@ -6,6 +6,7 @@ use App\Models\Refund;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Order;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log; // Import the Log facade
 
@@ -35,21 +36,19 @@ class RefundController extends Controller
     }
 
     public function store(Request $request)
-{
-
-    
+    {
+        // dd($request);
         $validatedData = $request->validate([
             'vendor' => 'required',
             'product_id' => 'required',
             'customer_id' => 'required',
             'order_id' => 'required',
-            'amount' => 'required|numeric', // Example: Required and should be numeric
+            'amount' => 'required|numeric',
             'reason' => 'required',
         ]);
 
-        // If validation passes, create a new Refund instance and fill it with validated data
         $refund = new Refund();
-        $refund->Vendor = $validatedData['vendor'];
+        $refund->vendor = $validatedData['vendor'];
         $refund->product_id = $validatedData['product_id'];
         $refund->customer_id = $validatedData['customer_id'];
         $refund->order_id = $validatedData['order_id'];
@@ -59,16 +58,10 @@ class RefundController extends Controller
         // Save the record 
         $refund->save();
 
-        if ($refund->save()) {
-            return redirect()->back()->with('success', 'Refund request generated successfully');
-        } else {
-            return redirect()->back()->with('error', 'Failed to save refund request');
+        Toastr::success('Refund request generated successfully', 'Success');
+
+        return redirect()->back();
         }
 
-        
-        
-
-    // return redirect()->back()->with('success', 'Refund request generated successfully');
-}
 
 }

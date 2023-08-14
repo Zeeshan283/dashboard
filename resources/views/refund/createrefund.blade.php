@@ -3,7 +3,9 @@
 
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 @endsection
+
 
 @endsection
 
@@ -30,7 +32,7 @@
 
                                                 <div class="form-group col-lg-6">
                                                     <label for="inputtext11" class="ul-form__label">Vendor:</label>
-                                                    <select class="form-control" id="vendor" required>
+                                                    <select class="form-control" id="vendor" name="vendor" required>
                                                         <option value="" selected disabled>Select Vendor</option>
                                                         @foreach ($vendors as $vendor)
                                                             <option value="{{ $vendor->name}}">{{ $vendor->name}}</option>
@@ -43,10 +45,10 @@
 
                                                 <div class="form-group col-lg-6">
                                                     <label for="inputtext11" class="ul-form__label">Product SKU:</label>
-                                                    <select class="form-control" id="product_id" required>
+                                                    <select class="form-control" id="product_id" name="product_id" required>
                                                         <option value="" selected disabled>Product SKU</option>
                                                         @foreach ($products as $product)
-                                                            <option value="{{$product->sku}}">{{$product->sku}}</option>
+                                                            <option value="{{$product->id}}">{{$product->sku}}</option>
                                                         @endforeach
                                                     </select>
                                                     <small id="passwordHelpBlock" class="ul-form__text form-text">
@@ -56,10 +58,10 @@
 
                                                 <div class="form-group col-lg-6">
                                                     <label for="inputtext11" class="ul-form__label">Customer Id & Name:</label>
-                                                    <select class="form-control" id="customer_id" required>
+                                                    <select class="form-control" id="customer_id" name="customer_id" required>
                                                         <option value="" selected disabled>Select Customer id</option>
                                                         @foreach ($customers as $customer)
-                                                            <option value="{{$customer->id}}{{$customer->name}}">{{ $customer->id}} => {{$customer->name}}</option>
+                                                            <option value="{{$customer->id}}">{{ $customer->id}} => {{$customer->name}}</option>
                                                         @endforeach
                                                     </select>
                                                     <small id="passwordHelpBlock" class="ul-form__text form-text">
@@ -69,7 +71,7 @@
 
                                                 <div class="form-group col-lg-6">
                                                     <label for="inputtext11" class="ul-form__label">Order Id:</label>
-                                                    <select class="form-control" id="order_id" required>
+                                                    <select class="form-control" id="order_id" name="order_id" required>
                                                         <option value="" selected disabled>Select Order Id</option>
                                                         @foreach ($orders as $order)
                                                         <option value="{{$order->id}}">{{$order->id}}</option>
@@ -82,14 +84,15 @@
 
                                             <div class="form-group col-lg-6">
                                                 <label for="inputtext11" class="ul-form__label">Amount:</label>
-                                                <input type="number" inputmode="numeric " pattern="[0-9]" class="form-control" id="amount" placeholder="Enter refund Amount" required>
+                                                <input type="number" inputmode="numeric " pattern="[0-9]" class="form-control" name="amount" id="amount" placeholder="Enter refund Amount" required>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter refund amount
                                                 </small>
                                             </div>
+                                           
                                             <div class="form-group col-lg-6">
-                                                <label for="inputEmail12" class="ul-form__label">Refund Reaso:</label>
-                                                <input type="text" class="form-control" id="reason" placeholder="Enter Contact Number" required>
+                                                <label for="inputEmail12" class="ul-form__label">Refund Reason:</label>
+                                                <input type="text" class="form-control" id="reason" name="reason" placeholder="Enter Contact Number" maxlength="9" required>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter Refund Reason
                                                 </small>
@@ -132,6 +135,13 @@
 
 @section('bottom-js')
 
+<script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    @if(session('success'))
+        toastr.success('{{ session('success') }}', 'Success');
+    @endif
+        
+</script>   
 
 
 
