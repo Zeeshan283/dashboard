@@ -398,7 +398,7 @@
 
 {{-- vendor list  --}}
 
-@elseif (Route::currentRouteName() == 'vendorlist' )
+@elseif (Route::currentRouteName() == 'vendor.index' )
     <thead>
         <th>Sr No</th>
         <th>Name</th>

@@ -18,106 +18,81 @@
                                 <div class="card-header bg-transparent">
                                     <h3 class="card-title"> Add New User</h3>
                                 </div>
-                                <form action="">
+                                <form action="{{ route('user.store')}}" method="POST">
+                                    @csrf
                                     <div class="card-body">
 
                                         <div class="row">
                                             <div class="form-group col-md-4">
-                                                <label for="inputtext11" class="ul-form__label">First Name:</label>
-                                                <input type="text" class="form-control" id="first_name" placeholder="Enter full name">
+                                                <label for="inputtext11" class="ul-form__label">Username:</label>
+                                                <input type="text" class="form-control" id="first_name" placeholder="Enter full name" name="name" required>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your first name
+                                                    Please enter your  name
                                                 </small>
                                             </div>
+    
                                             <div class="form-group col-md-4">
-                                                <label for="inputtext11" class="ul-form__label">Last Name:</label>
-                                                <input type="text" class="form-control" id="last_name" placeholder="Enter full name">
+                                                <label for="inputtext11" class="ul-form__label">Email:</label>
+                                                <input type="email" class="form-control" id="first_name" placeholder="Enter your Email" name="email" required>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your last name
+                                                    Please enter your  Email
                                                 </small>
                                             </div>
+    
                                             <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">Contact Number:</label>
-                                                <input type="text" class="form-control" id="inputEmail12" placeholder="Enter Contact Number">
+                                                <input type="number" class="form-control" id="inputEmail12" placeholder="Enter Contact Number" name="phone1" required>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your contact number
                                                 </small>
                                             </div>
 
                                             <div class="form-group col-md-4">
-                                                <label for="inputEmail13" class="ul-form__label">Username:</label>
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-text bg-transparent input-group-prepend">
-                                                        <i class="i-Checked-User"></i>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
-                                                </div>
+                                                <label for="inputEmail12" class="ul-form__label">Pakistan:</label>
+                                                <input type="text" class="form-control" id="inputEmail12" placeholder="Enter Your Country" name="country" required>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your username
+                                                    Please enter your country
                                                 </small>
                                             </div>
+
                                             <div class="form-group col-md-4">
-                                                <label for="inputtext14" class="ul-form__label">Email:</label>
-                                                <input type="email" class="form-control" id="email" placeholder="Enter your email ">
+                                                <label for="inputEmail12" class="ul-form__label">City:</label>
+                                                <input type="text" class="form-control" id="inputEmail12" placeholder="Enter your city" name="city" required>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your Email
+                                                    Please enter your city
                                                 </small>
                                             </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label for="inputEmail12" class="ul-form__label">Address:</label>
+                                                <input type="text" class="form-control" id="inputEmail12" placeholder="Enter your address" name="address1" required>
+                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                    Please enter your Address
+                                                </small>
+                                            </div>
+
+
+                                            
                                             <div class="form-group col-md-4">
                                                 <label for="inputtext14" class="ul-form__label">Password:</label>
-                                                <input type="text" class="form-control" id="password" placeholder="Enter your Password ">
+                                                <input type="text" class="form-control" id="password" placeholder="Enter your Password " name="password" required>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your Password
                                                 </small>
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputtext14" class="ul-form__label">Confirm Password:</label>
-                                                <input type="text" class="form-control" id="confirm_password" placeholder="Enter your confirme Password ">
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Confirm Password
-                                                </small>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputEmail16" class="ul-form__label">Address:</label>
-                                                <div class="input-right-icon">
-                                                    <input type="text" class="form-control" id="inputEmail16" placeholder="Enter your address">
-                                                    <span class="span-right-input-icon">
-                                                        <i class="ul-form__icon i-Map-Marker"></i>
-                                                    </span>
-                                                </div>
 
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your address
-                                                </small>
-                                        </div>
 
-                                        <div class="custom-separator"></div>
-
-                                        <div class="row">
-                                            <div class="form-group col-md-4 me-2">
-                                                <label for="inputEmail17" class="ul-form__label">Postcode:</label>
-                                                <div class="input-right-icon">
-                                                    <input type="text" class="form-control" id="inputEmail17" placeholder="Enter your postcode">
-                                                    <span class="span-right-input-icon">
-                                                        <i class="ul-form__icon i-New-Mail"></i>
-                                                    </span>
-                                                </div>
-
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your postcode
-                                                </small>
-                                            </div>
                                             <div class="form-group col-md-4 ">
                                                 <label for="inputEmail18" class="ul-form__label">Gender:</label>
                                                 <div class="ul-form__radio-inline">
                                                     <label class=" ul-radio__position radio radio-primary form-check-inline">
-                                                        <input type="radio" name="radio" value="0">
-                                                        <span class="ul-form__radio-font">Active</span>
+                                                        <input type="radio" name="gender" value="male">
+                                                        <span class="ul-form__radio-font">Male</span>
                                                         <span class="checkmark"></span>
                                                     </label>
                                                     <label class="ul-radio__position radio radio-primary">
-                                                        <input type="radio" name="radio" value="0">
-                                                        <span class="ul-form__radio-font">In Active</span>
+                                                        <input type="radio" name="gender" value="Female">
+                                                        <span class="ul-form__radio-font">Female</span>
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </div>
@@ -135,7 +110,7 @@
                                         <div class="mc-footer">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center">
-                                                    <button type="button" class="btn  btn-primary m-1">Save</button>
+                                                    <button type="submit" class="btn  btn-primary m-1">Save</button>
                                                     <button type="button" class="btn btn-outline-secondary m-1">Cancel</button>
                                                 </div>
                                             </div>

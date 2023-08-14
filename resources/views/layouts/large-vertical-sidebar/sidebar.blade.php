@@ -92,7 +92,7 @@
         <ul class="childNav" data-parent="users">
 
             <li class="nav-item">
-                <a  href="{{ route('adduser') }}">
+                <a  href="{{ route('user.create')}}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New User</span>
                 </a>
@@ -113,7 +113,7 @@
         <ul class="childNav" data-parent="forms">
 
             <li class="nav-item">
-                <a  href="{{ route('addseller') }}">
+                <a  href="{{ route('vendor.create')}}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New Vendor</span>
                 </a>
@@ -277,7 +277,7 @@
 
                 <ul class="childNav" data-parent="extrakits">
 
-           {{-- <li class="nav-item">
+           <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'createrefund' ? 'open' : '' }}"
                     href="{{ route('createrefund') }}">
                     <i class="nav-icon i-Arrow-Down-in-Circle"></i>
@@ -288,9 +288,9 @@
                 <a class="{{ Route::currentRouteName() == 'allrefunds' ? 'open' : '' }}"
                     href="{{ route('allrefunds') }}">
                     <i class="nav-icon i-Arrow-Down-in-Circle"></i>
-                    <span class="item-name">All Refundsx`</span>
+                    <span class="item-name">All Refunds`</span>
                 </a>
-            </li>--}}
+            </li>
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'pendingrefund' ? 'open' : '' }}"
                     href="{{ route('pendingrefund') }}">
