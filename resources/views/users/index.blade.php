@@ -40,16 +40,16 @@
                                 <td>{{ $user->zipcode}}</td>
                                 <td>{{ $user->status}}</td>
                             </tr> --}}
-                            <td>{{$data["first_name"]}}</td>
-                            <td>{{$data["last_name"]}}</td>
-                            <td>{{$data["contact_number"]}}</td>
-                            <td>{{$data["username"]}}</td>
-                            <td>{{$data["email"]}}</td>
-                            <td>{{$data["address"]}}</td>
-                            <td>{{$data["zipcode"]}}</td>
-                            <td>{{$data["status"]}}</td>
+                            <td>{{$user["first_name"]}}</td>
+                            <td>{{$user["last_name"]}}</td>
+                            <td>{{$user["contact_number"]}}</td>
+                            <td>{{$user["username"]}}</td>
+                            <td>{{$user["email"]}}</td>
+                            <td>{{$user["address"]}}</td>
+                            <td>{{$user["zipcode"]}}</td>
+                            <td>{{$user["status"]}}</td>
                             <td><a href="{{url('/admin/edit-service/' . $user['id'])}}" class="btn rounded-pill btn-icon btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                            <td><a href="{{url('/admin/edit-service/' . $user['id'])}}" class="btn rounded-pill btn-icon btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                                                        <td><a href="{{url('/admin/edit-service/' . $user['id'])}}" class="btn rounded-pill btn-icon btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                             @endforeach
                         </tbody>
                     </table>
