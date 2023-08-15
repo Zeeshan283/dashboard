@@ -18,69 +18,82 @@
                                 <div class="card-header bg-transparent">
                                     <h3 class="card-title"> Add New User</h3>
                                 </div>
-                                <form action="">
-                                    <div class="card-body">
 
+    {{-- <div class="row">
+        <div class="col-md-12">
+            @if($errors->any())
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif --}}
+                                <form method="post" action="{{ route('user.store')}}" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="card-body">
                                         <div class="row">
                                             <div class="form-group col-md-4">
-                                                <label for="inputtext11" class="ul-form__label">First Name:</label>
-                                                <input type="text" class="form-control" id="first_name" placeholder="Enter full name">
+                                                <label for="first_name" class="ul-form__label">First Name:</label>
+                                                <input type="text"  name="first_name" id="first_name" placeholder="Enter full name" required class="form-control">
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your first name
                                                 </small>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="inputtext11" class="ul-form__label">Last Name:</label>
-                                                <input type="text" class="form-control" id="last_name" placeholder="Enter full name">
+                                                <label for="last_name" class="ul-form__label">Last Name:</label>
+                                                <input type="text" name="last_name" id="last_name" placeholder="Enter full name" required class="form-control">
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your last name
                                                 </small>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="inputEmail12" class="ul-form__label">Contact Number:</label>
-                                                <input type="text" class="form-control" id="inputEmail12" placeholder="Enter Contact Number">
+                                                <label for="contact_number" class="ul-form__label">Contact Number:</label>
+                                                <input type="text" class="form-control" id="contact_number" placeholder="Enter Contact Number" required class="form-control">
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your contact number
                                                 </small>
                                             </div>
 
                                             <div class="form-group col-md-4">
-                                                <label for="inputEmail13" class="ul-form__label">Username:</label>
+                                                <label for="username" class="ul-form__label">Username:</label>
                                                 <div class="input-group mb-2">
                                                     <div class="input-group-text bg-transparent input-group-prepend">
                                                         <i class="i-Checked-User"></i>
                                                     </div>
-                                                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
+                                                    <input type="text" class="form-control" id="username" placeholder="Username" required class="form-control">
                                                 </div>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your username
                                                 </small>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="inputtext14" class="ul-form__label">Email:</label>
-                                                <input type="email" class="form-control" id="email" placeholder="Enter your email ">
+                                                <label for="email" class="ul-form__label">Email:</label>
+                                                <input type="email" class="form-control" id="email" placeholder="Enter your email" required class="form-control">
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your Email
                                                 </small>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="inputtext14" class="ul-form__label">Password:</label>
-                                                <input type="text" class="form-control" id="password" placeholder="Enter your Password ">
+                                                <label for="password" class="ul-form__label">Password:</label>
+                                                <input type="text" class="form-control" id="password" placeholder="Enter your Password" required class="form-control">
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your Password
                                                 </small>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="inputtext14" class="ul-form__label">Confirm Password:</label>
-                                                <input type="text" class="form-control" id="confirm_password" placeholder="Enter your confirme Password ">
+                                                <label for="confirm_password" class="ul-form__label">Confirm Password:</label>
+                                                <input type="text" class="form-control" id="confirm_password" placeholder="Enter your confirme Password" required class="form-control">
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Confirm Password
                                                 </small>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="inputEmail16" class="ul-form__label">Address:</label>
+                                                <label for="address" class="ul-form__label">Address:</label>
                                                 <div class="input-right-icon">
-                                                    <input type="text" class="form-control" id="inputEmail16" placeholder="Enter your address">
+                                                    <input type="text" class="form-control" id="address" placeholder="Enter your address">
                                                     <span class="span-right-input-icon">
                                                         <i class="ul-form__icon i-Map-Marker"></i>
                                                     </span>
@@ -95,9 +108,9 @@
 
                                         <div class="row">
                                             <div class="form-group col-md-4 me-2">
-                                                <label for="inputEmail17" class="ul-form__label">Postcode:</label>
+                                                <label for="zipcode" class="ul-form__label">Zipcode:</label>
                                                 <div class="input-right-icon">
-                                                    <input type="text" class="form-control" id="inputEmail17" placeholder="Enter your postcode">
+                                                    <input type="text" class="form-control" id="zipcode" placeholder="Enter your postcode" required class="form-control">
                                                     <span class="span-right-input-icon">
                                                         <i class="ul-form__icon i-New-Mail"></i>
                                                     </span>
@@ -108,21 +121,21 @@
                                                 </small>
                                             </div>
                                             <div class="form-group col-md-4 ">
-                                                <label for="inputEmail18" class="ul-form__label">Gender:</label>
+                                                <label for="status" class="ul-form__label">Status:</label>
                                                 <div class="ul-form__radio-inline">
                                                     <label class=" ul-radio__position radio radio-primary form-check-inline">
-                                                        <input type="radio" name="radio" value="0">
+                                                        <input type="radio" name="radio" value="0" id="status" required class="form-control">
                                                         <span class="ul-form__radio-font">Active</span>
                                                         <span class="checkmark"></span>
                                                     </label>
                                                     <label class="ul-radio__position radio radio-primary">
-                                                        <input type="radio" name="radio" value="0">
+                                                        <input type="radio" name="radio" value="1" id="status" class="form-control">
                                                         <span class="ul-form__radio-font">In Active</span>
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </div>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Select Your gender
+                                                    Select Your Status
                                                 </small>
                                             </div>
 
@@ -135,8 +148,8 @@
                                         <div class="mc-footer">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center">
-                                                    <button type="button" class="btn  btn-primary m-1">Save</button>
-                                                    <button type="button" class="btn btn-outline-secondary m-1">Cancel</button>
+                                                    <a href="{{ route('user.index')}}"><button type="submit" class="btn  btn-primary m-1">Submit</button></a>
+                                                    <button type="cancel" class="btn btn-outline-secondary m-1">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
