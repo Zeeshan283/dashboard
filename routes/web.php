@@ -91,7 +91,7 @@ Route::view('userlist','users.userlist')->name('userlist');
 
 // product reviews
 
-Route::view('addproduct','products.addproduct')->name('addproduct');
+// Route::view('addproduct','products.addproduct')->name('addproduct');
 // Route::view('allproducts','products.allproducts')->name('allproducts');
 Route::view('customerqueries','products.customerqueries')->name('customerqueries');
 Route::view('productinfo','products.productinfo')->name('productinfo');
@@ -127,8 +127,8 @@ Route::view('others/search-result', 'others.search-result')->name('search-result
 
 // login/sign-up checking 
 
-Route::view('login','auth.login')->name('login');
-Route::view('signup','auth.register')->name('register');
+// Route::view('login','auth.login')->name('login');
+// Route::view('signup','auth.register')->name('register');
 
 // Auth::routes();
 
@@ -140,10 +140,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-    // Route::resource('allproducts', ProductController::class); 
+
+    Route::resource('products', ProductController::class); 
 Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
 
 // orders using controller  

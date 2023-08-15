@@ -2,13 +2,15 @@
 @section('before-css')
 {{-- css link sheet  --}}
 <link rel="stylesheet" href="{{asset('assets/styles/vendor/smart.wizard/smart_wizard_theme_dots.min.css')}}">
-
+<link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
 @section('page-css')
     <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.bubble.css')}}">
     <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.snow.css')}}">
+    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
 @endsection
 
 @endsection
+
 
 @section('main-content')
   <div class="breadcrumb">
@@ -29,13 +31,39 @@
 
                            <div>
                             <div id="step-1" class="">
-                                <form action="">
+                            
+                            {!! Form::open([
+                                'url' => 'products',
+                                'method' => 'POST',
+                                
+                                'files' => 'true',
+                                'enctype' => 'multipart/form-data',
+                            ]) !!}
+                            
                                     <div>
                                         <div class="card-body">
                                             <div class="form-group row">
                                                 <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Model No:</label>
                                                 <div class="col-lg-3 ">
-                                                    <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
+                                                    <!-- <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number"> -->
+                                                    {!! Form::text('model_no', null, [
+                                                        'id' => 'model_no',
+                                                        'class' => 'form-control',
+                                                        'required' => 'required',
+                                                        'maxlength' => '100',
+                                                        // 'onselectstart' => 'return false',
+                                                        // 'onpaste' => 'return false;',
+                                                        // 'onCopy' => 'return false',
+                                                        // 'onCut' => 'return false',
+                                                        // 'onDrag' => 'return false',
+                                                        // 'onDrop' => 'return false',
+                                                        // 'autocomplete' => 'off',
+                                                        'placeholder' => 'Enter Model No'
+                                                    ]) !!}
+                                                    @if ($errors->has('model_no'))
+                                                        <span
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('model_no') }}</span>
+                                                    @endif
                                                     <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Model Number of the Product
                                                     </small>
@@ -43,27 +71,60 @@
     
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Product Name:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="text" class="form-control" id="staticEmail20" placeholder="Enter Your Product Name">
-                                                    <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                {!! Form::text('name', null, [
+                                                'id' => 'name',
+                                                'class' => 'form-control',
+                                                'required' => 'required',
+                                                'maxlength' => '150',
+                                                // 'onselectstart' => 'return false',
+                                                // 'onpaste' => 'return false;',
+                                                // 'onCopy' => 'return false',
+                                                // 'onCut' => 'return false',
+                                                // 'onDrag' => 'return false',
+                                                // 'onDrop' => 'return false',
+                                                // 'autocomplete' => 'off',
+                                            ]) !!}
+                                            @if ($errors->has('name'))
+                                                <span
+                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('name') }}</span>
+                                            @endif
+                                        <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product name
                                                     </small>
                                                 </div>
     
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Condition:</label>
                                                 <div class="form-group col-lg-3">
-                                                    <div class="input-group">
-                                                        <input type="text" id="menu-input-2" class="form-control" aria-label="Text input with dropdown button">
-                                                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Condition</button>
-                                                        <div class="dropdown-menu">
-                                                            <p class="dropdown-item" onclick="selectMenu('Option 1', 'menu-input-2')">Option 1</p>
-                                                            <p class="dropdown-item" onclick="selectMenu('Option 2', 'menu-input-2')">Option 2</p>
-                                                        </div>
-                                                    </div>
+                                                    
+                                                <select id="" name="condition[]"
+                                                    class="form-control @error('condition') is-invalid @enderror"
+                                                    placeholder="Select Condition"  required>
+                                                    @foreach ($conditions as $value)
+                                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                    @endforeach
+                                                </select>
                                                 </div>
     
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">New Price:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="text" class="form-control" id="staticEmail20" placeholder="Enter New Price"> <br>
+                                                    {!! Form::text('new_price', null, [
+                                                        'id' => 'new_price',
+                                                        'class' => 'form-control',
+                                                        'onkeypress' => 'return onlyDecimalNumberKey(event)',
+                                                        // 'required' => 'required',
+                                                        'onselectstart' => 'return false',
+                                                        'onpaste' => 'return false;',
+                                                        'onCopy' => 'return false',
+                                                        'onCut' => 'return false',
+                                                        'onDrag' => 'return false',
+                                                        'onDrop' => 'return false',
+                                                        'autocomplete' => 'off',
+                                                        'placeholder'=>'Enter New Price',
+                                                    ]) !!}
+                                                    @if ($errors->has('new_price'))
+                                                        <span
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_price') }}</span>
+                                                    @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product New Price
                                                     </small> --}}
@@ -71,7 +132,24 @@
     
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Sale Price:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="text" class="form-control" id="staticEmail20" placeholder="Enter N.Sale Price">
+                                                    {!! Form::text('new_sale_price', null, [
+                                                        'id' => 'new_sale_price',
+                                                        'class' => 'form-control',
+                                                        'onkeypress' => 'return onlyDecimalNumberKey(event)',
+                                                        // 'required' => 'required',
+                                                        'onselectstart' => 'return false',
+                                                        'onpaste' => 'return false;',
+                                                        'onCopy' => 'return false',
+                                                        'onCut' => 'return false',
+                                                        'onDrag' => 'return false',
+                                                        'onDrop' => 'return false',
+                                                        'autocomplete' => 'off',
+                                                        'placeholder'=>'Enter N.Sale Price',
+                                                    ]) !!}
+                                                    @if ($errors->has('new_sale_price'))
+                                                        <span
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_sale_price') }}</span>
+                                                    @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product N.Sale Price
                                                     </small> --}}
@@ -79,7 +157,24 @@
     
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Warranty Days:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="text" class="form-control" id="staticEmail20" placeholder="Enter N.Warranty Days">
+                                                    {!! Form::text('new_warranty_days', null, [
+                                                        'id' => 'new_warranty_days',
+                                                        'class' => 'form-control',
+                                                        'onkeypress' => 'return onlyNumberKey(event)',
+                                                        'required' => 'required',
+                                                        'onselectstart' => 'return false',
+                                                        'onpaste' => 'return false;',
+                                                        'onCopy' => 'return false',
+                                                        'onCut' => 'return false',
+                                                        'onDrag' => 'return false',
+                                                        'onDrop' => 'return false',
+                                                        'autocomplete' => 'off',
+                                                        'placeholder'=>'Enter N.Warranty Days',
+                                                    ]) !!}
+                                                    @if ($errors->has('new_warranty_days'))
+                                                        <span
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_warranty_days') }}</span>
+                                                    @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product N.Warranty Days
                                                     </small> --}}
@@ -87,7 +182,24 @@
     
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Return Days:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="text" class="form-control" id="staticEmail20" placeholder="Enter N.Return Days"> <br>
+                                                {!! Form::text('new_return_days', null, [
+                                                    'id' => 'new_return_days',
+                                                    'class' => 'form-control',
+                                                    'onkeypress' => 'return onlyNumberKey(event)',
+                                                    'required' => 'required',
+                                                    'onselectstart' => 'return false',
+                                                    'onpaste' => 'return false;',
+                                                    'onCopy' => 'return false',
+                                                    'onCut' => 'return false',
+                                                    'onDrag' => 'return false',
+                                                    'onDrop' => 'return false',
+                                                    'autocomplete' => 'off',
+                                                    'placeholder'=>'Enter N.Return Days',
+                                                ]) !!}
+                                                @if ($errors->has('new_return_days'))
+                                                    <span
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_return_days') }}</span>
+                                                @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product N.Return Days
                                                     </small> --}}
@@ -95,41 +207,142 @@
     
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Refurbished Price:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="text" class="form-control" id="staticEmail20" placeholder="Enter Refurbished Price">
+                                                {!! Form::text('refurnished_price', null, [
+                                                    'id' => 'refurnished_price',
+                                                    'class' => 'form-control',
+                                                    'onkeypress' => 'return onlyDecimalNumberKey(event)',
+                                                    // 'required' => 'required',
+                                                    'onselectstart' => 'return false',
+                                                    'onpaste' => 'return false;',
+                                                    'onCopy' => 'return false',
+                                                    'onCut' => 'return false',
+                                                    'onDrag' => 'return false',
+                                                    'onDrop' => 'return false',
+                                                    'autocomplete' => 'off',
+                                                    'placeholder'=>'Enter Refurbished Price',
+                                                ]) !!}
+                                                    @if ($errors->has('refurnished_price'))
+                                                        <span
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_price') }}</span>
+                                                    @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product Refurbished Price
                                                     </small> --}}
                                                 </div>
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">R.Sale Price:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="text" class="form-control" id="staticEmail20" placeholder="Enter R.Sale Price">
+                                                {!! Form::text('refurnished_sale_price', null, [
+                                                    'id' => 'refurnished_sale_price',
+                                                    'class' => 'form-control',
+                                                    'onkeypress' => 'return onlyDecimalNumberKey(event)',
+                                                    // 'required' => 'required',
+                                                    'onselectstart' => 'return false',
+                                                    'onpaste' => 'return false;',
+                                                    'onCopy' => 'return false',
+                                                    'onCut' => 'return false',
+                                                    'onDrag' => 'return false',
+                                                    'onDrop' => 'return false',
+                                                    'autocomplete' => 'off',
+                                                    'placeholder'=>'Enter R.Sale Price',
+                                                ]) !!}
+                                                @if ($errors->has('refurnished_sale_price'))
+                                                    <span
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_sale_price') }}</span>
+                                                @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product R.Sale Price
                                                     </small> --}}
                                                 </div>
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">R.Warranty Days:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="text" class="form-control" id="staticEmail20" placeholder="Enter R.Warranty Days">
+                                                {!! Form::text('refurnished_warranty_days', null, [
+                                                    'id' => 'refurnished_warranty_days',
+                                                    'class' => 'form-control',
+                                                    'onkeypress' => 'return onlyNumberKey(event)',
+                                                    // 'required' => 'required',
+                                                    'onselectstart' => 'return false',
+                                                    'onpaste' => 'return false;',
+                                                    'onCopy' => 'return false',
+                                                    'onCut' => 'return false',
+                                                    'onDrag' => 'return false',
+                                                    'onDrop' => 'return false',
+                                                    'autocomplete' => 'off',
+                                                    'placeholder'=>'Enter R.Warranty Days',
+                                                ]) !!}
+                                                @if ($errors->has('refurnished_warranty_days'))
+                                                    <span
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_warranty_days') }}</span>
+                                                @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product R.Warranty Days </small> --}}
                                                 </div>
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">R.Return Days:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="text" class="form-control" id="staticEmail20" placeholder="Enter Refurbished Price">
+                                                {!! Form::text('refurnished_return_days', null, [
+                                                    'id' => 'refurnished_return_days',
+                                                    'class' => 'form-control',
+                                                    'onkeypress' => 'return onlyNumberKey(event)',
+                                                    // 'required' => 'required',
+                                                    'onselectstart' => 'return false',
+                                                    'onpaste' => 'return false;',
+                                                    'onCopy' => 'return false',
+                                                    'onCut' => 'return false',
+                                                    'onDrag' => 'return false',
+                                                    'onDrop' => 'return false',
+                                                    'autocomplete' => 'off',
+                                                    'placeholder'=>'Enter R.Return Days',
+                                                ]) !!}
+                                                @if ($errors->has('refurnished_return_days'))
+                                                    <span
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_return_days') }}</span>
+                                                @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product R.Return Days
                                                     </small> --}}
                                                 </div>
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Min Order:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="text" class="form-control" id="staticEmail20" placeholder="Enter Minimum Order Quantity"> <br>
+                                                {!! Form::text('min_order', null, [
+                                                    'id' => 'min_order',
+                                                    'class' => 'form-control',
+                                                    'onkeypress' => 'return onlyNumberKey(event)',
+                                                    'required' => 'required',
+                                                    'onselectstart' => 'return false',
+                                                    'onpaste' => 'return false;',
+                                                    'onCopy' => 'return false',
+                                                    'onCut' => 'return false',
+                                                    'onDrag' => 'return false',
+                                                    'onDrop' => 'return false',
+                                                    'autocomplete' => 'off',
+                                                    'placeholder'=>'Enter Minimum Order Quantity',
+                                                ]) !!}
+                                                @if ($errors->has('min_order'))
+                                                    <span
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('min_order') }}</span>
+                                                @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Minimum order quantity
                                                     </small> --}}
                                                 </div>
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">SKU:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="text" class="form-control" id="staticEmail20" placeholder="Enter Product SKU">
+                                                {!! Form::text('sku', null, [
+                                                    'id' => 'sku',
+                                                    'class' => 'form-control',
+                                                    'required' => 'required',
+                                                    // 'onselectstart' => 'return false',
+                                                    // 'onpaste' => 'return false;',
+                                                    // 'onCopy' => 'return false',
+                                                    // 'onCut' => 'return false',
+                                                    // 'onDrag' => 'return false',
+                                                    // 'onDrop' => 'return false',
+                                                    // 'autocomplete' => 'off',
+                                                    'placeholder'=>'Enter Product SKU',
+                                                ]) !!}
+                                                @if ($errors->has('sku'))
+                                                    <span
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('sku') }}</span>
+                                                @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product Refurbished Price
                                                     </small> --}}
@@ -137,29 +350,32 @@
     
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Make:</label>
                                                 <div class="form-group col-lg-3">
-                                                    <div class="input-group">
-                                                        <input type="text" id="menu-input-1" class="form-control" aria-label="Text input with dropdown button">
-                                                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Role</button>
-                                                        <div class="dropdown-menu">
-                                                            <p class="dropdown-item" onclick="selectMenu('Super Admin', 'menu-input-1')">Super Admin</p>
-                                                            <p class="dropdown-item" onclick="selectMenu('Industry Mall', 'menu-input-1')">Industry Mall</p>
+                                                <div class="form-group">
+                                                   
+                                                    @if (Auth::User()->role=='Admin')
+                                                        {!! Form::select('vendors',$vendors,null,['id'=>'vendors','class'=>'form-control fstdropdown-select','onchange'=>'ChangeMakeCondition(this.value)']) !!}
+                                                        {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
+                                                        {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
+                                                    @else
+                                                        {!! Form::text('make1',Auth::User()->name,['id'=>'make1','class'=>'form-control','disabled'=>'disabled']) !!}
+                                                        {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
+                                                        {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
+                                                    @endif
 
-                                                            @if (Auth::User()->role=='Admin')
-                                                                {!! Form::select('vendors',$vendors,null,['id'=>'vendors','class'=>'form-control fstdropdown-select','onchange'=>'ChangeMakeCondition(this.value)']) !!}
-                                                                {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
-                                                                {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
-                                                            @else
-                                                                {!! Form::text('make1',Auth::User()->name,['id'=>'make1','class'=>'form-control','disabled'=>'disabled']) !!}
-                                                                {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
-                                                                {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
-                                                        @endif
-                                                        </div>
-                                                    </div>
+                                                    @if ($errors->has('make'))
+                                                        <span
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('make') }}</span>
+                                                    @endif
+                                                </div>
                                                 </div>
     
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Image:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="file" class="form-control" id="staticEmail20" placeholder="Enter Product SKU">
+                                                <input type="file" name="attachment" id="attachment"
+                                                    class="form-control @error('attachment') is-invalid @enderror">
+                                                @error('attachment')
+                                                    <span class="invalid-feedback font-weight-bold">{{ $message }}</span>
+                                                @enderror
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product Refurbished Price
                                                     </small> --}}
@@ -168,7 +384,7 @@
                                         </div>
                                     </div>
                                     <!-- end card 3 Columns Horizontal Form Layout-->
-                                </form>
+                               
                             </div>
                         </div>
                             <div id="step-2" class="">
@@ -183,14 +399,28 @@
                                                             <div class="mx-auto col-md-12">
                                                                 <div id="snow-editor-1" class="editor-container">
                                                                     <!-- Content will be generated by Quill -->
-                                                                    <h1>Enter Your Product Short Description here</h1>
+                                                                    <!-- <h1>Enter Your Product Short Description here</h1>
                                                                     <p><br></p>
                                                                     <p><br></p>
                                                                     <p><br></p>
                                                                     <p><br></p>
                                                                     <p><br></p>
                                                                     <p><br></p>
+                                                                    <p><br></p> -->
+                                                                    {!! Form::textarea('description', null, [
+                                                                        'id' => 'description',
+                                                                        'class' => 'form-control',
+                                                                        'maxlength' => '1000',
+                                                                    
+                                                                    ]) !!}
+                                                                    <h3>Enter Your Product Short Description here</h3>
                                                                     <p><br></p>
+                                                                    <p><br></p>
+                                                                    <p><br></p>
+                                                                    @if ($errors->has('description'))
+                                                                        <span
+                                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('description') }}</span>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -205,14 +435,20 @@
                                                             <div class="mx-auto col-md-12">
                                                                 <div id="snow-editor-2" class="editor-container">
                                                                     <!-- Content will be generated by Quill -->
-                                                                    <h1>Enter Your Product Full Description here</h1>
+                                                                    
+                                                                    {!! Form::textarea('details', null, [
+                                                                        'id' => 'details',
+                                                                        'class' => 'form-control',
+                                                                        
+                                                                    ]) !!}
+                                                                    <h3>Enter Your Product Full Description here</h3>
                                                                     <p><br></p>
                                                                     <p><br></p>
                                                                     <p><br></p>
-                                                                    <p><br></p>
-                                                                    <p><br></p>
-                                                                    <p><br></p>
-                                                                    <p><br></p>
+                                                                    @if ($errors->has('details'))
+                                                                        <span
+                                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('details') }}</span>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -227,18 +463,29 @@
                                 {{-- <div class="form-group row"> --}}
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Menu:</label>
                                     <div class="form-group col-lg-5">
-                                        <div class="input-group">
-                                            <input type="text" id="menu-input-3" class="form-control" aria-label="Text input with dropdown button">
-                                            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Menu</button>
-                                            <div class="dropdown-menu">
+                                        
+                                            <!-- <input type="text" id="menu-input-3" class="form-control" aria-label="Text input with dropdown button"> -->
+                                            <!-- <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Menu</button>
+                                             <div class="dropdown-menu">
                                                 <p class="dropdown-item" onclick="selectMenu('Super Admin', 'menu-input-3')">Super Admin</p>
                                                 <p class="dropdown-item" onclick="selectMenu('Industry Mall', 'menu-input-3')">Industry Mall</p>
-                                            </div>
-                                        </div><br>
+                                                
+                                            </div> -->
+                                            {!! Form::select('menu_id', $menus, null, [
+                                                'id' => 'menu_id',
+                                                'class' => 'form-control',
+                                                'required' => 'required',
+                                            ]) !!}
+                                            @if ($errors->has('menu_id'))
+                                                <span
+                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('menu_id') }}</span>
+                                            @endif
+                                        <br>
+                                        
                                     </div>
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Category:</label>
                                     <div class="form-group col-lg-5">
-                                        <div class="input-group">
+                                        <!-- <div class="input-group">
                                             <input type="text" id="menu-input-4" class="form-control" aria-label="Text input with dropdown button">
                                             <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Category</button>
                                             <div class="dropdown-menu">
@@ -247,12 +494,21 @@
                                                 <p class="dropdown-item" onclick="selectMenu('Category 3', 'menu-input-4')">Category 3</p>
                                                 <p class="dropdown-item" onclick="selectMenu('Category 4', 'menu-input-4')">Category 4</p>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        {!! Form::select('category_id', $categories, null, [
+                                            'id' => 'category_id',
+                                            'class' => 'form-control',
+                                            'required' => 'required',
+                                        ]) !!}
+                                        @if ($errors->has('category_id'))
+                                            <span
+                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('category_id') }}</span>
+                                        @endif
                                     </div>
 
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Sub Category:</label>
                                     <div class="form-group col-lg-5">
-                                        <div class="input-group">
+                                        <!-- <div class="input-group">
                                             <input type="text" id="menu-input-5" class="form-control" aria-label="Text input with dropdown button">
                                             <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Sub Category</button>
                                             <div class="dropdown-menu">
@@ -261,12 +517,22 @@
                                                 <p class="dropdown-item" onclick="selectMenu('Sub Category  3', 'menu-input-5')">Sub Category 3</p>
                                                 <p class="dropdown-item" onclick="selectMenu('Sub Category  4', 'menu-input-5')">Sub Category 4</p>
                                             </div>
-                                        </div>
+                                        </div> -->
+
+                                        {!! Form::select('subcategory_id', $sub_categories, null, [
+                                            'id' => 'subcategory_id',
+                                            'class' => 'form-control',
+                                            'required' => 'required',
+                                        ]) !!}
+                                        @if ($errors->has('subcategory_id'))
+                                            <span
+                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('subcategory_id') }}</span>
+                                        @endif
                                     </div>
 
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Brand:</label>
                                     <div class="form-group col-lg-5">
-                                        <div class="input-group">
+                                        <!-- <div class="input-group">
                                             <input type="text" id="menu-input-6" class="form-control" aria-label="Text input with dropdown button">
                                             <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Brand</button>
                                             <div class="dropdown-menu">
@@ -275,24 +541,140 @@
                                                 <p class="dropdown-item" onclick="selectMenu('Brand  3', 'menu-input-6')">Brand 3</p>
                                                 <p class="dropdown-item" onclick="selectMenu('Brand  4', 'menu-input-6')">Brand 4</p>
                                             </div>
-                                        </div><br>
+                                        </div> -->
+
+                                        {!! Form::select('brand_id', $brands, null, [
+                                            'id' => 'brand_id',
+                                            'class' => 'form-control',
+                                            'required' => 'required',
+                                        ]) !!}
+                                        @if ($errors->has('brand_id'))
+                                            <span
+                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('brand_id') }}</span>
+                                        @endif
+                                        <br>
                                     </div>
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Type:</label>
                                     <div class="form-group col-lg-5">
-                                        <div class="input-group">
+                                        <!-- <div class="input-group">
                                             <input type="text" id="menu-input-7" class="form-control" aria-label="Text input with dropdown button">
                                             <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Type</button>
                                             <div class="dropdown-menu">
                                                 <p class="dropdown-item" onclick="selectMenu('Parent', 'menu-input-7')">Parent</p>
                                                 <p class="dropdown-item" onclick="selectMenu('Child', 'menu-input-7')">Child</p>
                                             </div>
-                                        </div>
+                                        </div> -->
+
+                                        {!! Form::select('type', $type, null, [
+                                            'id' => 'type',
+                                            'class' => 'form-control fstdropdown-select',
+                                            'required' => 'required',
+                                        ]) !!}
+                                        @if ($errors->has('type'))
+                                            <span class="invalid-feedback1 font-weight-bold">{{ $errors->first('type') }}</span>
+                                        @endif
                                     </div>
 
+                            
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Image:</label>
-                                                <div class="col-lg-5">
-                                                    <input type="file" class="form-control" id="staticEmail20" placeholder="Enter Product SKU">
+                                        <div class="col-lg-5">
+                                        <div class="form-group">
+                                        <!-- <label>(1 File Size <= 100kb) (Total File Size 2MB) <span style="color: red;">*</span></label> -->
+                                
+                                        <div class="form-group " style="margin-top: ;">
+                                            <div class="card shadow-sm w-100">
+                                                <div class="card-header d-flex justify-content-between">
+                                                    <!-- <span action="#" method="post" class="form" id="main-form">
+                                                        <input type="file" name="images[]" id="image" class=""
+                                                            onchange="image_select()" multiple>
+                                                        <button class="btn btn-sm btn-primary" type="button"
+                                                            onclick="CHooseImage()">Choose Image</button>
+                                                    </span> -->
+
+                                                    <span  id="upload_image" enctype="multipart/form-data">
+                                    
+                                                        <input type="file" name="images[]" id="select_file" class="form-control"
+                                                        onchange="image_select()" multiple />
+                                                        <input type="submit" name="upload" id="upload" class="btn btn-primary d-none"
+                                                        onclick="CHooseImage()"    value="Upload">
+                                                    </span>
                                                 </div>
+                                                <!-- <div  class="img-thumbnail card-body d-flex flex-wrap justify-content-start" style="width:100px;height:80px;" id="all_images">
+                                                </div> -->
+                                                <div class="card-footer" id="images_paths"></div>
+                                            </div>
+                                        </div>
+
+                                
+                                <br />
+                                <span id="uploaded_image"></span>
+
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+                                <script>
+                                    
+                                    $.ajaxSetup({
+                                        headers: {
+                                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                }
+                                    });
+
+                                    $(document).ready(function() {
+
+                                        $('#upload_image , #select_file').on('change', function(event) {
+                                            //   event.preventDefault(); 
+
+                                            $.ajax({
+                                                url: "{{ asset('upload_image_ajax') }}",
+                                                method: "POST",
+                                                data: new FormData(this),
+                                                dataType: 'JSON',
+                                                contentType: false,
+                                                cache: false,
+                                                processData: false,
+                                                success: function(data) {
+                                                    var ImgHTML = '';
+                                                    var ImgPath = '';
+                                                    $.each(data, function(i, v) {
+                                                        ImgHTML += `<label id="row${v}">
+                                                        <img src="upload/products/${v}" class="img-thumbnail" style="width:100px;height:80px;" />
+                                                            <span data-path="${v}" id="remove_button" style="position:relative;top:-35px;left:-10px;background:red;color:white;padding:0px 5px 3px 5px;border-radius:100%;cursor:pointer;">x</span>  
+                                                        </div>  
+                                                        </label>`;
+
+                                                        ImgPath +=
+                                                            `<input type="hidden" id="${v}" name="images[]" value="${v}" />`;
+                                                    });
+
+                                                    $('#uploaded_image').append(ImgHTML);
+                                                    $('#select_file').val('');
+                                                    $('.images_names').append(ImgPath);
+                                                }
+                                            })
+                                        });
+
+
+                                        $(document).on('click', '#remove_button', function() {
+                                            var path = $(this).attr("data-path");
+                                            $.ajax({
+                                                url: "{{ asset('delete_image_ajax') }}",
+                                                type: "get",
+                                                data: {
+                                                    path: path
+                                                },
+                                                success: function(data) {
+                                                    document.getElementById('row' + path).remove();
+                                                    document.getElementById(path).remove();
+                                                }
+                                            });
+                                        });
+
+                                });
+                                
+                                </script>
+
+                                        </div>
+                                        </div>
                                     
                                 </div>
                             </div>
@@ -302,34 +684,94 @@
                                     <div class="card-header">Dimensions</div>
                                         <div class="card-block p-0">
                                         {{-- checking  --}}
-                                            <form action="">
+                                            
                                                 <div>
                                                     <div class="card-body">
                                                         <div class="form-group row">
                                                             <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Width:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                            <div class="col-lg-2 ">
+                                                            {!! Form::text('width', null, [
+                                                                'id' => 'width',
+                                                                'class' => 'form-control',
+                                                                'onkeypress' => 'return onlyNumberKey(event)',
+                                                                'onselectstart' => 'return false',
+                                                                'onpaste' => 'return false;',
+                                                                'onCopy' => 'return false',
+                                                                'onCut' => 'return false',
+                                                                'onDrag' => 'return false',
+                                                                'onDrop' => 'return false',
+                                                                'autocomplete' => 'off',
+                                                            ]) !!}
+                                                            @if ($errors->has('width'))
+                                                                <span
+                                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('width') }}</span>
+                                                            @endif
+                                        <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                                     Please enter product width
                                                                 </small>
                                                             </div>
                                                             <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">heidgt:</label>
-                                                            <div class="col-lg-5">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
+                                                            <div class="col-lg-2">
+                                                            {!! Form::text('height', null, [
+                                                                'id' => 'height',
+                                                                'class' => 'form-control',
+                                                                'onkeypress' => 'return onlyNumberKey(event)',
+                                                                'onselectstart' => 'return false',
+                                                                'onpaste' => 'return false;',
+                                                                'onCopy' => 'return false',
+                                                                'onCut' => 'return false',
+                                                                'onDrag' => 'return false',
+                                                                'onDrop' => 'return false',
+                                                                'autocomplete' => 'off',
+                                                            ]) !!}
+                                                            @if ($errors->has('height'))
+                                                                <span
+                                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('height') }}</span>
+                                                            @endif
                                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                                     Please enter product height
                                                                 </small>
                                                             </div>
                                                             <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Depth:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
+                                                            <div class="col-lg-2 ">
+                                                            {!! Form::text('depth', null, [
+                                                                'id' => 'depth',
+                                                                'class' => 'form-control',
+                                                                'onkeypress' => 'return onlyNumberKey(event)',
+                                                                'onselectstart' => 'return false',
+                                                                'onpaste' => 'return false;',
+                                                                'onCopy' => 'return false',
+                                                                'onCut' => 'return false',
+                                                                'onDrag' => 'return false',
+                                                                'onDrop' => 'return false',
+                                                                'autocomplete' => 'off',
+                                                            ]) !!}
+                                                            @if ($errors->has('depth'))
+                                                                <span
+                                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('depth') }}</span>
+                                                            @endif
                                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                                     Please enter product Depth
                                                                 </small>
                                                             </div>
                                                             <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Weight:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
+                                                            <div class="col-lg-2 ">
+                                                            {!! Form::text('weight', null, [
+                                                                'id' => 'weight',
+                                                                'class' => 'form-control',
+                                                                'onkeypress' => 'return onlyNumberKey(event)',
+                                                                'onselectstart' => 'return false',
+                                                                'onpaste' => 'return false;',
+                                                                'onCopy' => 'return false',
+                                                                'onCut' => 'return false',
+                                                                'onDrag' => 'return false',
+                                                                'onDrop' => 'return false',
+                                                                'autocomplete' => 'off',
+                                                            ]) !!}
+                                                            @if ($errors->has('weight'))
+                                                                <span
+                                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('weight') }}</span>
+                                                            @endif
                                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                                     Please enter product Weight
                                                                 </small>
@@ -339,148 +781,139 @@
                                                     </div>
                                                 </div>
                                                 <!-- end card 3 Columns Horizontal Form Layout-->
-                                            </form>
+                                            
                                         </div>
-                                    <div class="card-header">Pakistan</div>
+                                    @foreach ($locations as $value)
+                                    <input type="hidden" name="location_id[]" id="location_id" value="{{ $value->id }}">
+                                    <div class="card-header">{{$value->name}}</div>
                                         <div class="card-block p-0">
                                         {{-- checking  --}}
-                                            <form action="">
-                                                <div>
-                                                    <div class="card-body">
-                                                        <div class="form-group row">
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Shipping.Days:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter Shipping days for product
-                                                                </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Shipping.Charges:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter Shipping Chargers for product
-                                                                </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Import.Charges:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter product Import Charges
-                                                                </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Tax.Charges:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter product Charges
-                                                                </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Other.Charges:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter product Other Charges
-                                                                </small>
-                                                            </div>
+                                            <div>
+                                                <div class="card-body">
+                                                    <div class="form-group row">
+                                                        <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Shipping.Days:</label>
+                                                        <div class="col-lg-5 ">
+                                                        {!! Form::text('shipping_days[]', null, [
+                                                            'id' => 'shipping_days',
+                                                            'class' => 'form-control',
+                                                            'onkeypress' => 'return onlyNumberKey(event)',
+                                                            'onselectstart' => 'return false',
+                                                            'onpaste' => 'return false;',
+                                                            'onCopy' => 'return false',
+                                                            'onCut' => 'return false',
+                                                            'onDrag' => 'return false',
+                                                            'onDrop' => 'return false',
+                                                            'autocomplete' => 'off',
+                                                        ]) !!}
+                                                        @if ($errors->has('shipping_days'))
+                                                            <span
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('shipping_days') }}</span>
+                                                        @endif
+                                                            <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                                Please Enter Shipping days for product
+                                                            </small>
+                                                        </div>
+                                                        <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Shipping.Charges:</label>
+                                                        <div class="col-lg-5 ">
+                                                        {!! Form::text('shipping_charges[]', null, [
+                                                            'id' => 'shipping_charges',
+                                                            'class' => 'form-control',
+                                                            'onkeypress' => 'return onlyDecimalNumberKey(event)',
+                                                            'onselectstart' => 'return false',
+                                                            'onpaste' => 'return false;',
+                                                            'onCopy' => 'return false',
+                                                            'onCut' => 'return false',
+                                                            'onDrag' => 'return false',
+                                                            'onDrop' => 'return false',
+                                                            'autocomplete' => 'off',
+                                                        ]) !!}
+                                                        @if ($errors->has('shipping_charges'))
+                                                            <span
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('shipping_charges') }}</span>
+                                                        @endif
+                                                            <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                                Please Enter Shipping Chargers for product
+                                                            </small>
+                                                        </div>
+                                                        <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Import.Charges:</label>
+                                                        <div class="col-lg-5 ">
+                                                        {!! Form::text('import_charges[]', null, [
+                                                            'id' => 'import_charges',
+                                                            'class' => 'form-control',
+                                                            'onkeypress' => 'return onlyDecimalNumberKey(event)',
+                                                            'onselectstart' => 'return false',
+                                                            'onpaste' => 'return false;',
+                                                            'onCopy' => 'return false',
+                                                            'onCut' => 'return false',
+                                                            'onDrag' => 'return false',
+                                                            'onDrop' => 'return false',
+                                                            'autocomplete' => 'off',
+                                                        ]) !!}
+                                                        @if ($errors->has('import_charges'))
+                                                            <span
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('import_charges') }}</span>
+                                                        @endif
+                                                        <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                                Please Enter product Import Charges
+                                                            </small>
+                                                        </div>
+                                                        <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Tax.Charges:</label>
+                                                        <div class="col-lg-5 ">
+                                                        {!! Form::text('tax_charges[]', null, [
+                                                            'id' => 'tax_charges',
+                                                            'class' => 'form-control',
+                                                            'onkeypress' => 'return onlyDecimalNumberKey(event)',
+                                                            'onselectstart' => 'return false',
+                                                            'onpaste' => 'return false;',
+                                                            'onCopy' => 'return false',
+                                                            'onCut' => 'return false',
+                                                            'onDrag' => 'return false',
+                                                            'onDrop' => 'return false',
+                                                            'autocomplete' => 'off',
+                                                        ]) !!}
+                                                        @if ($errors->has('tax_charges'))
+                                                            <span
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('tax_charges') }}</span>
+                                                        @endif
+                                                            <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                                Please Enter product Charges
+                                                            </small>
+                                                        </div>
+                                                        <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Other.Charges:</label>
+                                                        <div class="col-lg-5 ">
+                                                        {!! Form::text('other_charges[]', null, [
+                                                            'id' => 'other_charges',
+                                                            'class' => 'form-control',
+                                                            'onkeypress' => 'return onlyDecimalNumberKey(event)',
+                                                            'onselectstart' => 'return false',
+                                                            'onpaste' => 'return false;',
+                                                            'onCopy' => 'return false',
+                                                            'onCut' => 'return false',
+                                                            'onDrag' => 'return false',
+                                                            'onDrop' => 'return false',
+                                                            'autocomplete' => 'off',
+                                                        ]) !!}
+                                                        @if ($errors->has('other_charges'))
+                                                            <span
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('other_charges') }}</span>
+                                                        @endif
+                                                            <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                                Please Enter product Other Charges
+                                                            </small>
                                                     </div>
                                                 </div>
-                                                <!-- end card 3 Columns Horizontal Form Layout-->
-                                            </form>
+                                            </div>
                                         </div>
-                                    <div class="card-header">Singapore</div>
-                                        <div class="card-block p-0">
-                                        {{-- checking  --}}
-                                            <form action="">
-                                                <div>
-                                                    <div class="card-body">
-                                                        <div class="form-group row">
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Shipping.Days:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter Shipping days for product
-                                                                </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Shipping.Charges:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter Shipping Chargers for product
-                                                                </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Import.Charges:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter product Import Charges
-                                                                </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Tax.Charges:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter product Charges
-                                                                </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Other.Charges:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter product Other Charges
-                                                                </small>
-                                                            </div>
-                                                    </div>
+                                    @endforeach
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="card">
+                                                <div class="card-footer">
+                                                    <button type="submit" name="primary" class="btn btn-primary">Submit</button>
                                                 </div>
-                                                <!-- end card 3 Columns Horizontal Form Layout-->
-                                            </form>
+                                            </div>
                                         </div>
-                                    <div class="card-header">USA</div>
-                                        <div class="card-block p-0">
-                                        {{-- checking  --}}
-                                            <form action="">
-                                                <div>
-                                                    <div class="card-body">
-                                                        <div class="form-group row">
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Shipping.Days:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter Shipping days for product
-                                                                </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Shipping.Charges:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter Shipping Chargers for product
-                                                                </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Import.Charges:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter product Import Charges
-                                                                </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Tax.Charges:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter product Charges
-                                                                </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Other.Charges:</label>
-                                                            <div class="col-lg-5 ">
-                                                                <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number">
-                                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                    Please Enter product Other Charges
-                                                                </small>
-                                                            </div>
-                                                    </div>
-                                                </div>
                                                 <!-- end card 3 Columns Horizontal Form Layout-->
-                                            </form>
+                                                
                                         </div>
                                 </div>
                                 </div>
@@ -488,11 +921,14 @@
                         </div>
                     </div>
                 </div>
+                
+                {!! Form::close() !!}  
+
             </div>
 
 
-@endsection
 
+@stop
 @section('page-js')
 
 
@@ -500,6 +936,62 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script src="{{asset('assets/js/vendor/quill.min.js')}}"></script>
+
+
+<script>
+        //Change Menus
+        $('#menu_id').change(function() {
+            var menu_id = $(this).val();
+            $.ajax({
+                url: "{{ asset('get-categories') }}?menu_id=" + menu_id,
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.length > 0) {
+                        var option = '<option value="" selected>Select Category</option>';
+                        $.each(response, function(i, v) {
+                            option += `<option value="${v.id}">${v.name}</option>`;
+                        });
+                        $('#category_id').html(option);
+                    } else {
+                        var option = '<option value="" selected>Category Not Found</option>';
+                        $('#category_id').html(option);
+                    }
+                }
+            });
+        });
+        // End Here
+
+
+
+        // Change Categories 
+
+        $('#category_id').change(function() {
+            var cat_id = $(this).val();
+            $.ajax({
+                url: "{{ asset('get-subcategories') }}?cat_id=" + cat_id,
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.length > 0) {
+                        var option = '<option value="" selected>Select Sub Category</option>';
+                        $.each(response, function(i, v) {
+                            option += `<option value="${v.id}">${v.name}</option>`;
+                        });
+                        $('#subcategory_id').html(option);
+                    } else {
+                        var option = '<option value="" selected>Sub Category Not Found</option>';
+                        $('#subcategory_id').html(option);
+                    }
+                }
+            });
+        });
+
+
+        // End Here
+    </script>
+<script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
+    {!! Toastr::message() !!}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const editorContainers = document.querySelectorAll('.editor-container');
@@ -519,9 +1011,108 @@
     }
 </script>
 
+<!-- Multi Select Dropdown -->
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+                removeItemButton: true,
+                // maxItemCount:5,
+                // searchResultLimit:5,
+                // renderChoiceLimit:5
+            });
+        });
+    </script>
+
+
+<script src="{{ asset('website-assets/js/multiple_images_uploading.js') }}"></script>
+
+<!-- include TinyMceEditor js -->
+<script src="https://cdn.tiny.cloud/1/nnd7pakaxqr7isf3oqefsdlew1jsidgl78umfeus6tg21ng0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+        selector: "textarea#description",
+        relative_urls: false,
+        paste_data_images: true,
+        image_title: true,
+        automatic_uploads: true,
+        // images_upload_url: '/post/image/upload',
+        // images_upload_url: '{{asset('upload')}}',
+        images_upload_url: '{{URL::to("/uploads3")}}',
+        file_picker_types: "image",
+        plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor colorpicker textpattern"
+        ],
+        toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        // override default upload handler to simulate successful upload
+        file_picker_callback: function(cb, value, meta) {
+            var input = document.createElement("input");
+            input.setAttribute("type", "file");
+            input.setAttribute("accept", "image/*");
+            input.onchange = function() {
+            var file = this.files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function() {
+                    var id = "blobid" + new Date().getTime();
+                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(",")[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+            };
+            input.click();
+        }
+    });
+</script>
+    <script>
+        tinymce.init({
+        selector: "textarea#details",
+        relative_urls: false,
+        paste_data_images: true,
+        image_title: true,
+        automatic_uploads: true,
+        // images_upload_url: '/post/image/upload',
+        // images_upload_url: '{{asset('upload')}}',
+        images_upload_url: '{{URL::to("/uploads3")}}',
+        file_picker_types: "image",
+        plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor colorpicker textpattern"
+        ],
+        toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        // override default upload handler to simulate successful upload
+        file_picker_callback: function(cb, value, meta) {
+            var input = document.createElement("input");
+            input.setAttribute("type", "file1");
+            input.setAttribute("accept", "image/*");
+            input.onchange = function() {
+            var file = this.files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function() {
+                    var id = "blobid" + new Date().getTime();
+                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(",")[1];
+                    var blobInfo = blobCache.create(id, file1, base64);
+                    blobCache.add(blobInfo);
+                    cb(blobInfo.blobUri(), { title: file1.name });
+                };
+            };
+            input.click();
+        }
+    });
+</script>
 @endsection
 
 @section('bottom-js')
+
 
 <script src="{{asset('assets/js/smart.wizard.script.js')}}"></script>
 <script src="{{asset('assets/js/quill.script.js')}}"></script>

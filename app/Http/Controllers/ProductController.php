@@ -33,6 +33,7 @@ class ProductController extends Controller
 
     public function index()
     {
+        
         $data = "";
         if (Auth::User()->role == 'Admin') {
             $data = Product::with('product_image')
@@ -50,7 +51,7 @@ class ProductController extends Controller
         }
 
 
-          return view('products.allproducts', compact('data'));
+        return view('products.allproducts', compact('data'));
     }
 
     public function create()
@@ -73,81 +74,82 @@ class ProductController extends Controller
         ->pluck('name','id')
         ->prepend($ActiveAdmin->name, $ActiveAdmin->id.'_'.$ActiveAdmin->name);
 
-        return view('products.create', compact('brands', 'menus', 'categories', 'sub_categories', 'locations', 'conditions', 'type', 'productsList','vendors'));
+        return view('products.addproduct', compact('brands', 'menus', 'categories', 'sub_categories', 'locations', 'conditions', 'type', 'productsList','vendors'));
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            // 'code' => 'required',
-            'name' => 'required',
-            // 'location.0' => 'required',
-            'condition.0' => 'required',
-            // 'new_price' => 'required',
-            // 'new_sale_price' => 'required',
-            'new_warranty_days' => 'required',
-            'new_return_days' => 'required',
-            // 'refurnished_price' => 'required',
-            // 'refurnished_sale_price' => 'required',
-            // 'refurnished_warranty_days' => 'required',
-            // 'refurnished_return_days' => 'required',
-            'model_no' => 'required',
-            'make' => 'required',
-            'min_order' => 'required',
-            'images.0' => 'required',
-            'attachment' => 'mimes:pdf,zip|max:11264',
-            'sku' => 'required|unique:products',
-            'description' => 'required',
-            // 'details' => 'required',
-            'type' => 'required',
-            'menu_id' => 'required',
-            'category_id' => 'required',
-            'subcategory_id' => 'required',
-            'brand_id' => 'required',
-            // 'parent_id'=>'required',
-            // 'width'=>'required',
-            // 'height'=>'required',
-            // 'depth'=>'required',
-            // 'weight'=>'required',
+        // dd($request->all());
+        // $this->validate($request, [
+        //     // 'code' => 'required',
+        //     'name' => 'required',
+        //     // 'location.0' => 'required',
+        //     // 'condition.0' => 'required',
+        //     // 'new_price' => 'required',
+        //     // 'new_sale_price' => 'required',
+        //     'new_warranty_days' => 'required',
+        //     'new_return_days' => 'required',
+        //     // 'refurnished_price' => 'required',
+        //     // 'refurnished_sale_price' => 'required',
+        //     // 'refurnished_warranty_days' => 'required',
+        //     // 'refurnished_return_days' => 'required',
+        //     'model_no' => 'required',
+        //     'make' => 'required',
+        //     'min_order' => 'required',
+        //     'images.0' => 'required',
+        //     'attachment' => 'mimes:pdf,zip|max:11264',
+        //     'sku' => 'required|unique:products',
+        //     'description' => 'required',
+        //     // 'details' => 'required',
+        //     'type' => 'required',
+        //     'menu_id' => 'required',
+        //     'category_id' => 'required',
+        //     'subcategory_id' => 'required',
+        //     'brand_id' => 'required',
+        //     // 'parent_id'=>'required',
+        //     // 'width'=>'required',
+        //     // 'height'=>'required',
+        //     // 'depth'=>'required',
+        //     // 'weight'=>'required',
 
 
 
-            // 'shipping_days.*'=>'required',
-            // 'shipping_charges.*'=>'required',
-            // 'import_charges.*'=>'required',
-            // 'tax_charges.*'=>'required',
-            // 'other_charges.*'=>'required'
-        ], [
-            'code.required' => 'The Product code field is required',
-            'name.required' => 'The Product name field is required',
-            'location.0.required' => 'The Location field is required',
-            'condition.0.required' => 'The Condition field is required',
-            'model_no.required' => 'The Model No field is required',
-            'make.required' => 'The Make field is required',
-            'sku.exists' => 'The SKU already exist',
-            'images.0.required' => 'The Image field is required',
-            'type.required' => 'The Type field is required',
-            'description.required' => 'The Description field is required',
-            'brand_id.required' => 'The Brand field is required',
-            'menu_id.required' => 'The Menu field is required',
-            'category_id.required' => 'The Category field is required',
-            'subcategory_id.required' => 'The Sub Category field is required',
-            'new_price.required' => 'The New price field is required',
-            'new_sale_price.required' => 'The New Sale price field is required',
-            'new_warranty_days.required' => 'The New Warranty days field is required',
-            'new_return_days.required' => 'The New Return days field is required',
-            'refurnished_price.required' => 'The Refurbished price field is required',
-            'refurnished_sale_price.required' => 'The Refubnished sale price field is required',
-            'refurnished_warranty_days.required' => 'The Refubnished Warranty days field is required',
-            'refurnished_return_days.required' => 'The Refubnished Return days field is required',
-            'parent_id.required' => 'The Product list field is required',
+        //     // 'shipping_days.*'=>'required',
+        //     // 'shipping_charges.*'=>'required',
+        //     // 'import_charges.*'=>'required',
+        //     // 'tax_charges.*'=>'required',
+        //     // 'other_charges.*'=>'required'
+        // ], [
+        //     'code.required' => 'The Product code field is required',
+        //     'name.required' => 'The Product name field is required',
+        //     'location.0.required' => 'The Location field is required',
+        //     'condition.0.required' => 'The Condition field is required',
+        //     'model_no.required' => 'The Model No field is required',
+        //     'make.required' => 'The Make field is required',
+        //     'sku.exists' => 'The SKU already exist',
+        //     'images.0.required' => 'The Image field is required',
+        //     'type.required' => 'The Type field is required',
+        //     'description.required' => 'The Description field is required',
+        //     'brand_id.required' => 'The Brand field is required',
+        //     'menu_id.required' => 'The Menu field is required',
+        //     'category_id.required' => 'The Category field is required',
+        //     'subcategory_id.required' => 'The Sub Category field is required',
+        //     'new_price.required' => 'The New price field is required',
+        //     'new_sale_price.required' => 'The New Sale price field is required',
+        //     'new_warranty_days.required' => 'The New Warranty days field is required',
+        //     'new_return_days.required' => 'The New Return days field is required',
+        //     'refurnished_price.required' => 'The Refurbished price field is required',
+        //     'refurnished_sale_price.required' => 'The Refubnished sale price field is required',
+        //     'refurnished_warranty_days.required' => 'The Refubnished Warranty days field is required',
+        //     'refurnished_return_days.required' => 'The Refubnished Return days field is required',
+        //     'parent_id.required' => 'The Product list field is required',
 
-            'shipping_days.*.required' => 'The Shipping Days field is required',
-            'shipping_charges.*.required' => 'The shipping charges field is required',
-            'import_charges.*.required' => 'The import charges field is required',
-            'tax_charges.*.required' => 'The Tax charges field is required',
-            'other_charges.*.required' => 'The Other charges field is required'
-        ]);
+        //     'shipping_days.*.required' => 'The Shipping Days field is required',
+        //     'shipping_charges.*.required' => 'The shipping charges field is required',
+        //     'import_charges.*.required' => 'The import charges field is required',
+        //     'tax_charges.*.required' => 'The Tax charges field is required',
+        //     'other_charges.*.required' => 'The Other charges field is required'
+        // ]);
 
         $counteShippingDays = 0;
 
@@ -185,12 +187,49 @@ class ProductController extends Controller
                 for ($i = 0; $i < count($request->images); $i++) {
                     $pImages = new ProductImages();
                     $pImages->pro_id = $p->id;
-                    $pImages->image = $request->images[$i];
-                    $pImages->url = 'root/upload/products/'.$request->images[$i];
+        
+                    // Get the uploaded image file
+                    $uploadedImage = $request->images[$i];
+                    
+                    // Generate a unique filename for the image
+                    $imageName = uniqid() . '_' . $uploadedImage->getClientOriginalName();
+        
+                    // Move the uploaded image to the "upload" folder
+                    $uploadedImage->move('upload/products', $imageName);
+        
+                    // Save the image details
+                    $pImages->image = $imageName;
+                    $pImages->url =  url('upload/products/' . $imageName); // Adjust this URL as needed
                     $pImages->save();
                 }
             }
 
+
+            // if (count($request->images) > 0) {
+            //     for ($i = 0; $i < count($request->images); $i++) {
+            //         $pImages = new ProductImages();
+            //         $pImages->pro_id = $p->id;
+            //         $pImages->image = $request->images[$i];
+            //         $pImages->url =  base_path('upload/products/'.$request->images[$i]);
+            //         $pImages->save();
+            //     }
+            // }
+
+
+            // if ($request->has('images')) {
+            //     foreach ($request->file('images') as $image) {
+            //         $pImages = new ProductImages();
+            //         $pImages->pro_id = $p->id;
+
+            //         // Save the image to storage and get its URL
+            //         $imagePath = 'upload/products/';
+            //         $imageName = time() . '_' . $image->getClientOriginalName();
+            //         $image->move(public_path($imagePath), $imageName);
+
+            //         $pImages->image = $imageName;
+            //         $pImages->url = $imagePath . $imageName;
+            //         $pImages->save();
+            //     }}
 
 
             if (count($request->shipping_days) > 0) {
@@ -740,8 +779,5 @@ class ProductController extends Controller
             $productContacts = ProductContact::where('vendor_id', Auth::User()->id)->orderBy('id', 'desc')->get();
             return view('products.vendor_contacts', compact('productContacts'));
         }
-        
     }
 }
-
-      

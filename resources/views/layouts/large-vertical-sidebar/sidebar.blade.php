@@ -205,7 +205,7 @@
 
         <ul class="childNav" data-parent="charts">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'addproduct' ? 'open' : '' }}" href="{{ route('addproduct') }}">
+                <a class="{{ Route::currentRouteName() == 'products' ? 'open' : '' }}" href="{{ route('products.create') }}">
                     <i class="nav-icon i-Add"></i>
                     <span class="item-name">Add Product</span>
                 </a>
@@ -277,7 +277,7 @@
 
                 <ul class="childNav" data-parent="extrakits">
 
-            <li class="nav-item">
+           {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'createrefund' ? 'open' : '' }}"
                     href="{{ route('createrefund') }}">
                     <i class="nav-icon i-Arrow-Down-in-Circle"></i>
@@ -290,7 +290,7 @@
                     <i class="nav-icon i-Arrow-Down-in-Circle"></i>
                     <span class="item-name">All Refundsx`</span>
                 </a>
-            </li>
+            </li>--}}
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'pendingrefund' ? 'open' : '' }}"
                     href="{{ route('pendingrefund') }}">
