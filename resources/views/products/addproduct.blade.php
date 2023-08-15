@@ -581,7 +581,7 @@
                                         <div class="form-group">
                                         <!-- <label>(1 File Size <= 100kb) (Total File Size 2MB) <span style="color: red;">*</span></label> -->
                                 
-                                        <div class="form-group " style="margin-top: ;">
+                                        <div class="form-group " style="margin-top: ">
                                             <div class="card shadow-sm w-100">
                                                 <div class="card-header d-flex justify-content-between">
                                                     <!-- <span action="#" method="post" class="form" id="main-form">

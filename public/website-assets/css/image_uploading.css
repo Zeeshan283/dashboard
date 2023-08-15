@@ -1,0 +1,186 @@
+.suggested-posts-article {
+    background: white;
+    -moz-box-shadow: rgba(0, 0, 0, 0.0666) 0 3px 10px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.0666) 0 3px 10px;
+    box-shadow: rgba(0, 0, 0, 0.0666) 0 3px 10px;
+    display: inline-block;
+    margin: 5px;
+    width: 23%;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section {
+    display: block;
+}
+
+article,
+aside,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+    display: block;
+}
+
+.suggested-posts-articlees {
+    display: inline-block;
+    width: 49.5%;
+}
+
+<blade media|%20screen%20and%20(max-width%3A450px)%20%7B%0D>.suggested-posts-article {
+
+    width: 40% !important;
+}
+}
+
+.more-photos:after {
+    right: 3px !important;
+    bottom: 0px !important;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section {
+    display: block;
+}
+
+.posts_article {
+    background-color: #333;
+    background-position: 50%;
+    background-size: cover;
+    margin-bottom: 2px;
+    padding-bottom: 63.5%;
+}
+
+
+.suggested-posts-article {
+
+    width: 40% !important;
+}
+
+.more-photos:after {
+    right: 3px !important;
+    bottom: 0px !important;
+}
+
+.more-photos {
+    cursor: pointer !important;
+}
+
+.bluess {
+    width: 100%;
+    margin: 10px;
+}
+
+
+.btn-group-sm>.btn,
+.btn-sm {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+}
+
+.btn-outline-secondary {
+    color: #868e96;
+    background-color: transparent;
+    background-image: none;
+    border-color: #868e96;
+}
+
+
+.btnxc {
+    display: inline-block;
+    padding: .5rem .75rem;
+    border: 1px solid #868e96;
+    margin: 3px;
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+    color: #868e96;
+}
+
+.rrrr {
+    color: red;
+    fill: red;
+}
+
+.rrrr2 {
+
+    background-color: red;
+
+}
+
+.datepost {
+    margin-top: -15px;
+}
+
+.anther_ma {
+    margin: 1px;
+}
+
+
+
+.set_process {
+    margin: 0px 7px 0px 0px;
+}
+
+.messaf {
+    display: none;
+}
+
+.progress {
+    width: 80%;
+}
+
+.success_msg {
+    color: green;
+    display: none;
+}
+
+#post_send {
+    margin: 8px 0 8px 0;
+}
+
+.fa_p {
+    margin-right: 20px;
+    margin-top: 10px;
+    border: 0px;
+    z-index: 9999
+}
+
+.p_run_div {
+    margin-top: -7px;
+    border-radius: 0px;
+    padding: 0px;
+    margin-bottom: 8px;
+    display: none;
+}
+
+.btnxc {
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.btnxc_r {
+    margin-left: 15px;
+    display: none;
+}

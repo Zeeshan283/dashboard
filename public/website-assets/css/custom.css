@@ -1,0 +1,229 @@
+
+html {
+    scroll-behavior: smooth;
+}
+body{
+    font-family: 'Roboto Condensed', sans-serif!important;
+}
+
+.instant-solutions-table tr td {
+    border: 2px solid #999999;
+    padding-top: 20px;
+}
+
+.instant-solutions-table {
+    margin-top: -20px;
+}
+
+.instant-solutions-table2 tr td {
+    border: 2px solid #999999;
+    /* padding-top: 20px; */
+    padding-bottom: 0px;
+}
+
+.instant-solutions-table2 {
+    margin-top: -20px;
+}
+
+.product-section-table>tbody>tr {
+    padding: 10px;
+}
+
+.product-section-table>tbody>tr.rec-not-found {
+    padding: 10px;
+}
+
+.product-section-table>tbody>tr:nth-child(odd) {
+    background-color: #E4E4E4 !important;
+}
+
+.whats-new-section {
+    margin-top: 40px;
+}
+
+.sticky-content.fixed.fix-bottom {
+    display: none;
+}
+
+.related-products-section {
+    background-color: #F2F2F2;
+}
+
+.features-table {
+    border: 1px solid gainsboro;
+}
+
+.features-table thead tr,
+.features-table tbody tr {
+    border: 1px solid gainsboro;
+}
+
+.features-table thead tr td,
+.features-table tbody tr td {
+    border: 1px solid gainsboro;
+}
+
+related-product-section>title-link-wrapper>.title {
+    margin-top: 50px;
+}
+
+.service-title-text {
+    font-size: 17px;
+}
+
+.about-us-services-title {
+    font-size: 40px !important;
+}
+
+.total-achievement {
+    color: #1C77C3 !important;
+}
+
+.single-product-contact-form-section {
+    background-color: #F2F2F2;
+    margin-top: 100px;
+    margin-bottom: -55px;
+    padding-bottom: 80px;
+    padding-top: 0px;
+}
+
+.single-product-contact-form-section>.container>.row>.col-lg-12>h4 {
+    color: black;
+    padding-top: 40px;
+}
+
+.single-product-msgbox {
+    border: 2px solid #9a9898;
+    background-color: white;
+}
+
+.single-product-input-box {
+    border: 2px solid #9a9898;
+    background-color: white;
+    /* margin-top: -7px; */
+}
+
+.warranty-return-section hr {
+    background-color: #3775AC;
+    height: 4px;
+}
+
+.card {
+    box-shadow: rgb(0 0 0 / 16%) 0px 1px 4px;
+    border-bottom: 2px solid #3775AC;
+    margin-bottom: 20px;
+}
+
+.card>.card-header {
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #3775AC;
+    padding: 0px;
+}
+
+.card>.card-header>div {
+    font-size: 20px;
+    font-weight: bold;
+    color: #3775AC;
+}
+
+.single-product-warranty-return-section tbody tr td:first-child {
+    font-weight: bold;
+}
+
+.terms-and-conditions-title {
+    color: #00A3C8;
+}
+
+.AddToCartBtnSM {
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.AddToCartBtnSM:hover {
+    background-color: #1C77C3;
+    color: white;
+    transition: .3s all ease-in-out;
+}
+
+.BuyNowBtnSM {
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.BuyNowBtnSM:hover {
+    background-color: #1C77C3;
+    color: white;
+    transition: .3s all ease-in-out;
+}
+
+.ask-about-text {
+    margin-top: 20px;
+}
+
+.changeCurrDropdown {
+    margin-bottom: 20px;
+    width: 150px;
+    margin-top: -10px;
+    float: right;
+}
+
+@media only screen and (max-width: 992px) {
+    .product-price {
+        margin-top: -40px;
+    }
+}
+
+#product-divider1 {
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+#product-divider2 {
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+#product-divider3 {
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.delivery-locations {
+    margin-top: -15px;
+}
+
+#social-links-wrapper {
+    margin-top: 0px;
+}
+
+.saved-prices {
+    margin-top: -25px !important;
+}
+
+@media only screen and (max-width: 992px) {
+    .product-price {
+        margin-top: -140px;
+    }
+}
+
+#brand-list:hover {
+    cursor: pointer;
+}
+
+#location-list:hover {
+    cursor: pointer;
+}
+
+.social-tumblr:hover {
+    background-color: #001833;
+    border-color: #001833;
+    transition: .3s all ease-in-out;
+}
+
+.social-google-plus:hover {
+    background-color: #db4a39;
+    border-color: #db4a39;
+    transition: .3s all ease-in-out;
+}

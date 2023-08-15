@@ -145,7 +145,8 @@ Auth::routes();
 
     Route::resource('products', ProductController::class); 
 Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
-
+Route::get('/get-categories', [ProductController::class, 'GetCategories']);
+Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
 // orders using controller  
 Route::get('allorders', [OrderController::class,'index'])->name('allorders'); 
 Route::get('pendingorders', [OrderController::class,'showOrders'])->name('pendingorders'); 

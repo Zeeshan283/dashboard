@@ -1,0 +1,53 @@
+.contact-form {
+    border: 1px solid gainsboro;
+    padding: 20px;
+}
+
+.required-title {
+    color: red;
+}
+.hr-1{
+    height: 2px;
+    background-color: #dfdfdf;
+    margin-top: -5px;
+}
+.text-red{
+    color: red;
+}
+.label-text{
+    font-size: 20px;
+    color: #444;
+    /* font-weight: 500; */
+}
+.form-control{
+    border: 1px solid #222222;
+}
+.form-submit-btn{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.invalid-feedback{
+    color: red;
+}
+.customer-support{
+    background-color: #F1F1F1;
+    padding: 20px;
+}
+#customer-support-timing-table{
+    font-size: 17px;
+    color: black;
+}
+.technical-support{
+    background-color: #F1F1F1;
+    padding: 20px;
+    margin-top: 30px;
+}
+#technical-support-timing-table{
+    font-size: 17px;
+    color: black;
+}
+.location-support{
+    background-color: #F1F1F1;
+    padding: 20px;
+    margin-top: 30px;
+}
