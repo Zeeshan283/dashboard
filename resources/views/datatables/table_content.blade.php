@@ -5,7 +5,7 @@
             <th>Order #</th>
             <th>Customer First Name</th>
             <th>Customer Last Name</th>
-            <th>Order Date</th> 
+            <th>Order Date</th>
             <th>Shipping Date</th>
             <th>Status</th>
             <th>Action</th>
@@ -21,7 +21,7 @@
                                         <td>{{ $orders->shipping }}</td>
                                         <td>{{ $orders->status}}</td>
                                         <td>
-                                           
+
                                             <div class="d-flex gap-2">
                                             <button type="button" class="btn btn-success ">
                                                 <i class="nav-icon i-Pen-2 "></i>
@@ -33,7 +33,7 @@
                                                 <i class="nav-icon i-Eye "></i>
                                             </button>
                                             </div>
-                                             
+
                                         </td>
                                     </tr>
         @endforeach
@@ -71,7 +71,7 @@
             <td>{{$order->shipping}}</td>
             <td>{{$order->status}}</td>
             <td>
-                                           
+
                 <div class="d-flex gap-2">
                 <button type="button" class="btn btn-success ">
                     <i class="nav-icon i-Pen-2 "></i>
@@ -83,7 +83,7 @@
                     <i class="nav-icon i-Eye "></i>
                 </button>
                 </div>
-                 
+
             </td>
         </tr>
     @endforeach
@@ -109,12 +109,12 @@
         <th>Shipping Date</th>
         <th>Status</th>
         <th>View Invoice</th>
-   
+
         <th>Reviews</th>
         <th>Actions</th>
     </thead>
     <tbody>
-    
+
         @foreach ($data as $value =>$order )
         <tr>
             <td>{{$value + 1}}</td>
@@ -123,20 +123,20 @@
             <td>{{$order->created_at}}</td>
             <td>{{$order->shipping}}</td>
             <td>{{$order->status}}</td>
-            <td>                 
+            <td>
                 <div class="d-flex ">
                 <button type="button" class="btn btn-info" style="width: 80px">
                     {{-- <i class="nav-icon i-Eye " style="width: 100px"></i> --}}
                     <span>invoice</span>
                 </button>
-                </div> 
+                </div>
             </td>
-            <td>                          
+            <td>
                 <div class="d-flex gap-2">
                     <span>*****</span>
-                 
+
             </td>
-            <td>                           
+            <td>
                 <div class="d-flex gap-2">
                     <button type="button" class="btn btn-success ">
                         <i class="nav-icon i-Pen-2 "></i>
@@ -184,20 +184,20 @@
             <td>{{$order->created_at}}</td>
             <td>{{$order->shipping}}</td>
             <td>{{$order->status}}</td>
-            <td>                          
+            <td>
                 <div class="d-flex gap-2">
                     <span>*****</span>
-                 
+
             </td>
-            <td>                 
+            <td>
                 <div class="d-flex ">
                 <button type="button" class="btn btn-info" style="width: 80px">
                     {{-- <i class="nav-icon i-Eye " style="width: 100px"></i> --}}
                     <span>invoice</span>
                 </button>
-                </div> 
+                </div>
             </td>
-            <td>                           
+            <td>
                 <div class="d-flex gap-2">
                     <button type="button" class="btn btn-success ">
                         <i class="nav-icon i-Pen-2 "></i>
@@ -408,14 +408,17 @@
         <th>Action</th>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-    </tr>
+        {{-- @foreach($data as $data)
+        <tr>
+            <td>{{$data->id}}</td>
+            <td>{{$data->name}}</td>
+            <td>{{$data->phone1}}</td>
+            <td>{{$data->email}}</td>
+            <td>{{$data->status}}</td>
+            <td><a href="{{url('/admin/edit-service/' . $data['id'])}}" class="btn rounded-pill btn-icon btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+        </tr>
+        @endforeach --}}
+
     </tbody>
     <tfoot>
     <tr>
@@ -584,7 +587,7 @@
     </thead>
     <tbody>
     @foreach ($refunds as $key => $refund )
-        
+
     @endforeach
     <tr>
         <td>{{ $key + 1 }}</td>
@@ -793,7 +796,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                           
+
                                             <div class="d-flex gap-2">
                                             <button type="button" class="btn btn-success ">
                                                 <i class="nav-icon i-Pen-2 "></i>
@@ -805,12 +808,12 @@
                                                 <i class="nav-icon i-Eye "></i>
                                             </button>
                                             </div>
-                                             
+
                                         </td>
                                     </tr>
                                 @endforeach
-                                
-        
+
+
     </tbody>
     <tfoot>
     <tr>
@@ -824,7 +827,7 @@
         <th>Action</th>
     </tr>
     </tfoot>
-    
+
 @elseif (Route::currentRouteName() == 'productreviews' )
     <thead>
         <th>Sr No</th>
@@ -898,7 +901,7 @@
 
     </tr>
     </tfoot>
-    
+
 @elseif (Route::currentRouteName() == 'allmenu' )
     <thead>
         <th>Sr No</th>
@@ -915,7 +918,7 @@
             <td>{{ $menu->name }}</td>
             <td><i class="{{ $menu->icon }}" style='color:#5233ff;  font-size: 30px;margin-right: 10px;'></i></td>
         </tr>
-        @endforeach 
+        @endforeach
     </tbody>
     <tfoot>
     <tr>
@@ -943,9 +946,9 @@
             <td>{{ $allcat->name }}</td>
             <td><img src="<?php echo $allcat['img']; ?>" width="50" height="50"></td>
             <td>{{ $allcat->biller}}</td>
-           
+
         </tr>
-        @endforeach 
+        @endforeach
     </tbody>
     <tfoot>
     <tr>
@@ -978,7 +981,7 @@
             <td><img src="<?php echo $allsubcat['img']; ?>" width="50" height="50"></td>
             <td>{{ $allsubcat->biller}}</td>
         </tr>
-        @endforeach 
+        @endforeach
     </tbody>
     <tfoot>
     <tr>
@@ -991,7 +994,7 @@
 
     </tr>
     </tfoot>
-    
+
 @endif
 
 <script>

@@ -11,6 +11,10 @@ use App\Http\Controllers\RefundController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\InsertVendorsController;
+use App\Http\Controllers\ShowVendorsController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +37,7 @@ use App\Http\Controllers\ProductController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);  
+// Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
 
 
@@ -60,7 +64,7 @@ Route::get('horizontal-bar/dashboard/dashboard1', function () {
 })->name('horizontal');
 
 Route::get('vertical/dashboard/dashboard1', function () {
-    // set layout sesion(key)   
+    // set layout sesion(key)
     session(['layout' => 'vertical']);
     return view('dashboard.dashboardv1');
 })->name('vertical');
@@ -72,6 +76,11 @@ Route::get('vertical/dashboard/dashboard1', function () {
 Route::view('addseller' , 'sellers.addseller')->name('addseller');
 Route::view('vendorlist', 'sellers.vendorlist')->name('vendorlist');
 Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
+Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
+ Route::post('add', [InsertVendorsController::class, 'add']);
+//  Route::get('show', [ShowVendorsController::class, 'show']);
+
+
 
 
 // Refund
@@ -125,7 +134,7 @@ Route::view('others/search-result', 'others.search-result')->name('search-result
 
 
 
-// login/sign-up checking 
+// login/sign-up checking
 
 // Route::view('login','auth.login')->name('login');
 // Route::view('signup','auth.register')->name('register');
@@ -143,40 +152,40 @@ Auth::routes();
 
 
 
-    Route::resource('products', ProductController::class); 
-Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
+    Route::resource('products', ProductController::class);
+Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
-// orders using controller  
-Route::get('allorders', [OrderController::class,'index'])->name('allorders'); 
-Route::get('pendingorders', [OrderController::class,'showOrders'])->name('pendingorders'); 
-Route::get('confirmedorders', [OrderController::class,'showOrders'])->name('confirmedorders'); 
-Route::get('packagingorders', [OrderController::class,'showOrders'])->name('packagingorders'); 
-Route::get('outofdelivery', [OrderController::class,'showOrders'])->name('outofdelivery'); 
-Route::get('delivered', [OrderController::class,'showOrders'])->name('delivered'); 
-Route::get('returned', [OrderController::class,'showOrders'])->name('returned'); 
-Route::get('ftod', [OrderController::class,'showOrders'])->name('ftod'); 
-Route::get('canceled', [OrderController::class,'showOrders'])->name('canceled'); 
+// orders using controller
+Route::get('allorders', [OrderController::class,'index'])->name('allorders');
+Route::get('pendingorders', [OrderController::class,'showOrders'])->name('pendingorders');
+Route::get('confirmedorders', [OrderController::class,'showOrders'])->name('confirmedorders');
+Route::get('packagingorders', [OrderController::class,'showOrders'])->name('packagingorders');
+Route::get('outofdelivery', [OrderController::class,'showOrders'])->name('outofdelivery');
+Route::get('delivered', [OrderController::class,'showOrders'])->name('delivered');
+Route::get('returned', [OrderController::class,'showOrders'])->name('returned');
+Route::get('ftod', [OrderController::class,'showOrders'])->name('ftod');
+Route::get('canceled', [OrderController::class,'showOrders'])->name('canceled');
 
-// home controller route 
+// home controller route
 Route::get('/',[HomeController::class, 'index'])->name('admin');
 Route::get('/',[HomeController::class, 'index'])->name('admin');
 
-// customer controller route 
+// customer controller route
 Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
 
 
-// menu controller route 
+// menu controller route
 Route::get('allmenu',[MenuController::class, 'index'])->name('allmenu');
 Route::get('allcat',[CategoryController::class,'index'])->name('allcat');
 Route::get('allsubcat',[SubCategoryController::class, 'index'])->name('allsubcat');
 
-// customer reviews controller 
+// customer reviews controller
 
 Route::get('creviews',[ReviewsController::class,'index'])->name('creviews');
 
 
-// refund controller 
+// refund controller
 
 // Route::view('refunded', 'refund.refunded')->name('refunded');
 Route::get('allrefunds',[RefundController::class,'refundstatus'])->name('allrefunds');

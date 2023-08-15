@@ -50,7 +50,7 @@ class VendorsController extends Controller
         ],[
             'phone1.required'=>'The phone no field is required'
         ]);
-        
+
         $user = User::create($request->all());
         $user->name = $request->first_name.' '.$request->last_name;
         $user->password = bcrypt($request->password);
@@ -137,7 +137,7 @@ class VendorsController extends Controller
 
 
         $products = Product::where('created_by',$id)->get();
-        
+
 
         foreach($products as $product){
             File::delete('root/upload/products/attachments/'.$product->attachment);
