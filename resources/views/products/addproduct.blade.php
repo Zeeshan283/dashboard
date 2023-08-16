@@ -990,9 +990,9 @@
 
         // End Here
     </script>
-<script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
-    {!! Toastr::message() !!}
-<script>
+{{-- <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
+    {!! Toastr::message() !!}--}}
+<script> 
     document.addEventListener('DOMContentLoaded', function () {
         const editorContainers = document.querySelectorAll('.editor-container');
 

@@ -398,7 +398,7 @@
 
 {{-- vendor list  --}}
 
-@elseif (Route::currentRouteName() == 'vendorlist' )
+@elseif (Route::currentRouteName() == 'vendor.index' )
     <thead>
         <th>Sr No</th>
         <th>Name</th>
@@ -408,14 +408,17 @@
         <th>Action</th>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-    </tr>
+        {{-- @foreach($data as $data)
+        <tr>
+            <td>{{$data->id}}</td>
+            <td>{{$data->name}}</td>
+            <td>{{$data->phone1}}</td>
+            <td>{{$data->email}}</td>
+            <td>{{$data->status}}</td>
+            <td><a href="{{url('/admin/edit-service/' . $data['id'])}}" class="btn rounded-pill btn-icon btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+        </tr>
+        @endforeach --}}
+
     </tbody>
     <tfoot>
     <tr>

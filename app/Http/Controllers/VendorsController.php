@@ -14,7 +14,6 @@ use App\Models\ProductShippment;
 use App\Models\Stock;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image as Image;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\File;
 
@@ -29,13 +28,13 @@ class VendorsController extends Controller
     {
         $vendors = User::select('id','name','phone1','email','status')->whereRole('vendor')->get();
         $data = Order::orderBy('id', 'desc')->get();
-        return view('vendors.index',compact('vendors', 'data'));
+        return view('sellers.vendorlist',compact('vendors', 'data'));
     }
 
     public function create()
     {
         $status = array('0'=>'Active','1'=>'In Active');
-        return view('vendors.create',compact('status'));
+        return view('sellers.addseller',compact('status'));
     }
 
     public function store(Request $request)
@@ -50,27 +49,15 @@ class VendorsController extends Controller
         ],[
             'phone1.required'=>'The phone no field is required'
         ]);
-        
+
         $user = User::create($request->all());
         $user->name = $request->first_name.' '.$request->last_name;
         $user->password = bcrypt($request->password);
         $user->save();
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $fileName = uniqid() . $file->getClientOriginalName();
+        Toastr::success('New Vendor Added Successfully!');
 
-            //prorgam image save in 2388 x 1150
-            $imagePath =  base_path('upload/logo/' . $fileName);
-            $img = Image::make($file);
-            $img->resize(2388, 1150);
-            $img->save($imagePath);
-
-            $user->image = $fileName;
-            $user->save();
-        }
-
-        return redirect()->back()->with(Toastr::success('New Vendor Added Successfully!'));
+        return redirect()->back();
     }
 
     public function show($id)
@@ -103,23 +90,9 @@ class VendorsController extends Controller
         $edit->status = $request->status;
         $edit->save();
 
-        if ($request->hasFile('image')) {
-            File::delete('root/upload/logo/'.$edit1->image);
+        Toastr::success('Vendor Updated Successfully!');
 
-            $file = $request->file('image');
-            $fileName = uniqid() . $file->getClientOriginalName();
-
-            //prorgam image save in 2388 x 1150
-            $imagePath =  base_path('upload/logo/' . $fileName);
-            $img = Image::make($file);
-            $img->resize(2388, 1150);
-            $img->save($imagePath);
-
-            $edit->image = $fileName;
-            $edit->save();
-        }
-
-        return redirect('vendors')->with(Toastr::success('Vendor Updated Successfully!'));
+        return redirect('vendors')->back();
     }
 
     public function destroy($id)
@@ -137,7 +110,7 @@ class VendorsController extends Controller
 
 
         $products = Product::where('created_by',$id)->get();
-        
+
 
         foreach($products as $product){
             File::delete('root/upload/products/attachments/'.$product->attachment);
@@ -157,6 +130,9 @@ class VendorsController extends Controller
 
         $vendor->delete();
 
-        return redirect()->back()->with(Toastr::success('Vendor Deleted Successfully!'));
+        Toastr::success('Vendor Deleted Successfully!');
+
+        return redirect('vendors')->back();
+        
     }
 }
