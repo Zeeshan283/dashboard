@@ -4,13 +4,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <div class="separator-breadcrumb border-top"></div>
-
     <div class="col-md-12 mb-4">
         <div class="card text-start">
-
             <div class="card-body">
                 <h4 class="card-title mb-3">User List</h4>
-
                 <div class="table-responsive">
                     <table id="customer_list_table" class="display table table-striped table-bordered" style="width:100%">
                         <thead>
