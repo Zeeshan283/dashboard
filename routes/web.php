@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InsertVendorsController;
-use App\Http\Controllers\VendorsController;
 use App\Models\User;
 
 
