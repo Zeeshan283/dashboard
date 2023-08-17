@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 @if (Route::currentRouteName() == 'allorders')
         <thead>
@@ -728,44 +729,61 @@
         <th>Email</th>
     </tr>
     </tfoot>
-@elseif (Route::currentRouteName() == 'index' )
+
+    @elseif (Route::currentRouteName() == 'userlist')
     <thead>
-        <th>Id</th>
-        <th>first_name</th>
-        <th>last_name</th>
-        <th>Contact Number</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Address</th>
-        <th>zipcode</th>
-        <th>Status</th>
-        <th>Action</th>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td><span class="i-Eye-Visible"></span></td>
-    </tr>
+        @foreach($users as $user)
+            <tr>
+                <td>{{$user->id}}</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->phone}}</td>
+                <td>{{$user->country}}</td>
+                <td>{{$user->city}}</td>
+                <td>{{$user->addres}}</td>
+                <td>{{$user->status}}</td>
+                <td><a href="{{ route('user.edit', ['id' => $user->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a></td>
+            </tr>
+        @endforeach
+    </tbody>
+
+        {{-- @foreach ($users as $value => $customers )
+        <tr>
+            <td>{{$value + 1}}</td>
+            <td>{{$customers->id}}</td>
+            <td>{{$customers->name}}</td>
+            <td>{{$customers->email}}</td>
+            <td>{{$customers->phone1}}</td>
+            <td>{{$customers->country}}</td>
+            <td>{{$customers->city}}</td>
+            <td>{{$customers->addres}}</td>
+            <td>{{$customers->status}}</td>
+        </tr>
+        @endforeach
     </tbody>
     <tfoot>
-    <tr>
+
         <th>Sr No</th>
         <th>Name</th>
         <th>Phone Number</th>
         <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-    </tfoot>
+
+    </tfoot>   --}}
 
 
     {{-- product info  --}}

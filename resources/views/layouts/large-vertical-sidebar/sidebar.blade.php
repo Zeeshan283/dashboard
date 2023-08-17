@@ -92,11 +92,7 @@
         <ul class="childNav" data-parent="users">
 
             <li class="nav-item">
-<<<<<<< HEAD
-                <a  href="{{ route('user.create') }}">
-=======
-                <a  href="{{ route('user.create')}}">
->>>>>>> 67666940cf6d07ed67171f6aa75a585e7e3dc153
+                <a href="{{ route('user.add') }}"> <!-- Updated route name -->
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New User</span>
                 </a>
@@ -104,13 +100,14 @@
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'userlist' ? 'open' : '' }}"
-                    href="{{ route('user.store') }}">
+                    href="{{ route('userlist') }}"> <!-- Updated route name -->
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">User List</span>
                 </a>
             </li>
 
         </ul>
+    </div>
 
 
 
