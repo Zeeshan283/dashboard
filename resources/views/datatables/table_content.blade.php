@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 @if (Route::currentRouteName() == 'allorders')
         <thead>
@@ -398,7 +399,7 @@
 
 {{-- vendor list  --}}
 
-@elseif (Route::currentRouteName() == 'vendorlist' )
+@elseif (Route::currentRouteName() == 'vendor.index' )
     <thead>
         <th>Sr No</th>
         <th>Name</th>
@@ -418,6 +419,64 @@
             <td><a href="{{url('/admin/edit-service/' . $data['id'])}}" class="btn rounded-pill btn-icon btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
         </tr>
         @endforeach --}}
+
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Sr No</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    </tfoot>
+{{-- vendor list  --}}
+
+@elseif (Route::currentRouteName() == 'vendorlist' )
+    <thead>
+        <th>Sr No</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        {{-- <tr>
+            <td>Tiger Nixon</td>
+            <td>System Architect</td>
+            <td>Edinburgh</td>
+            <td>61</td>
+            <td>2011/04/25</td>
+            <td>$320,800</td>
+        </tr> --}}
+        @foreach ($vendor as $value =>  $vendors )
+        <tr>
+            {{-- {{-- <td>{{$value + 1}}</td> --}}
+            <td>{{ $vendors->id}}</td>
+            <td>{{ $vendors->name}}</td>
+            <td>{{ $vendors->phone1}}</td>
+            <td>{{ $vendors->email}}</td>
+            {{-- <td>{{ $vendors->status}}</td> --}}
+            <td>
+                @if ( $vendors->status == '0')
+                    <span class="badge text-bg-success">Active</span>
+                @elseif ($vendors->status == '1')
+                    <span class="badge text-bg-success">In_Active</span>
+                @endif
+            </td>
+            <td>
+                <div class="d-flex gap-2">
+                    <a href="{{ url('editseller/'.$vendors->id) }}" class="btn btn-success"><i class="nav-icon i-Pen-2 "></i>Edit</a>
+                    {{-- <a href="{{ url('deleteseller/'.$vendors->id) }}" class="btn btn-danger"><i class="nav-icon i-Close-Window "></i>Delete</a> --}}
+                    {{-- <button type="button" value="{{ $vendors->id }}" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button> --}}
+                    {{-- <button type="button" class="btn btn-danger "><i class="nav-icon i-Close-Window "></i></button> --}}
+                {{-- <button type="button" class="btn btn-primary"> <i class="nav-icon i-Eye "></i> </button> --}}
+                </div>
+            </td>
+        </tr>
+        @endforeach
 
     </tbody>
     <tfoot>
@@ -728,35 +787,56 @@
         <th>Email</th>
     </tr>
     </tfoot>
-@elseif (Route::currentRouteName() == 'userlist' )
+
+
+    @elseif (Route::currentRouteName() == 'userlist' )
     <thead>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
+        <th>Id</th>
+        <th>name</th>
         <th>Email</th>
+        <th>Contact</th>
+        <th>Country</th>
+        <th>City</th>
+        <th>Address</th>
         <th>Status</th>
         <th>Action</th>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td><span class="i-Eye-Visible"></span></td>
-    </tr>
+        @foreach($users as $user)
+        <tr>
+            <td>{{$user["name"]}}</td>
+            <td>{{$user["email"]}}</td>
+            <td>{{$user["phone"]}}</td>
+            <td>{{$user["country"]}}</td>
+            <td>{{$user["city"]}}</td>
+            <td>{{$user["addres"]}}</td>
+            <td>{{$user["status"]}}</td>
+            <td>{{$user["action"]}}</td>
+                            <td><a href="{{url('' . $user['id'])}}" class="btn rounded-pill btn-icon btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                            @endforeach
+                        </tbody>
+        {{-- @foreach ($users as $value => $customers )
+        <tr>
+            <td>{{$value + 1}}</td>
+            <td>{{$customers->id}}</td>
+            <td>{{$customers->name}}</td>
+            <td>{{$customers->email}}</td>
+            <td>{{$customers->phone1}}</td>
+            <td>{{$customers->country}}</td>
+            <td>{{$customers->city}}</td>
+            <td>{{$customers->addres}}</td>
+            <td>{{$customers->status}}</td>
+        </tr>
+        @endforeach
     </tbody>
     <tfoot>
-    <tr>
+
         <th>Sr No</th>
         <th>Name</th>
         <th>Phone Number</th>
         <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-    </tfoot>
+
+    </tfoot>   --}}
 
 
     {{-- product info  --}}

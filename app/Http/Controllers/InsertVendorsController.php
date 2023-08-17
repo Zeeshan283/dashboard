@@ -48,6 +48,42 @@ class InsertVendorsController extends Controller
             'status'=>$request->input('radio')
 
         ]);
+        return redirect()->route('vendorlist');
     }
 
+    public function edit($id)
+    {
+        $vendors = user::find($id);
+        return view('sellers.editseller',compact('vendors'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $seller = User::find($id);
+        $seller->first_name = $request->input('firstname');
+        $seller->last_name = $request->input('lastname');
+        $seller->phone1 = $request->input('phonenumber');
+        $seller->name = $request->input('username');
+        $seller->email = $request->input('email');
+        $seller->addres = $request->input('address');
+        $seller->zipcode = $request->input('postcode');
+        $seller->status = $request->input('radio');
+        $seller->update();
+
+        // if ($request->has('password')) {
+        //     $user->password = Hash::make($request->input('password'));
+        // }
+
+        // $user->status = $request->input('status');
+
+
+        return redirect()->route('vendorlist');
+}
+
+// public function deleteseller($id)
+// {
+//     $deleteseller = user::find($id);
+//     $deleteseller->delete();
+//     return redirect()->route('vendorlist');
+// }
 }
