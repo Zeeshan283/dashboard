@@ -30,7 +30,7 @@
                 </a>
                 <div class="triangle"></div>
             </li>
-            
+
             <li class="nav-item {{ request()->is('extrakits/*') ? 'active' : '' }}" data-item="extrakits">
                 <a class="nav-item-hold" href="#">
                     <i class="nav-icon i-Money"></i>
@@ -45,7 +45,7 @@
                 </a>
                 <div class="triangle"></div>
             </li>
-            
+
 
             <li class="nav-item {{ request()->is('widgets/*') ? 'active' : '' }}" data-item="widgets">
                 <a class="nav-item-hold" href="#">
@@ -76,7 +76,7 @@
                 </a>
                 <div class="triangle"></div>
             </li>
-            
+
             {{-- <li class="nav-item">
                 <a class="nav-item-hold" href="http://demos.ui-lib.com/gull-htms-doc/" target="_blank">
                     <i class="nav-icon i-Safe-Box1"></i>
@@ -92,7 +92,11 @@
         <ul class="childNav" data-parent="users">
 
             <li class="nav-item">
-                <a  href="{{ route('adduser') }}">
+<<<<<<< HEAD
+                <a  href="{{ route('user.create') }}">
+=======
+                <a  href="{{ route('user.create')}}">
+>>>>>>> 67666940cf6d07ed67171f6aa75a585e7e3dc153
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New User</span>
                 </a>
@@ -100,7 +104,7 @@
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'userlist' ? 'open' : '' }}"
-                    href="{{ route('userlist') }}">
+                    href="{{ route('user.store') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">User List</span>
                 </a>
@@ -113,7 +117,7 @@
         <ul class="childNav" data-parent="forms">
 
             <li class="nav-item">
-                <a  href="{{ route('addseller') }}">
+                <a  href="{{ route('vendor.create')}}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New Vendor</span>
                 </a>
@@ -277,7 +281,7 @@
 
                 <ul class="childNav" data-parent="extrakits">
 
-           {{-- <li class="nav-item">
+           <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'createrefund' ? 'open' : '' }}"
                     href="{{ route('createrefund') }}">
                     <i class="nav-icon i-Arrow-Down-in-Circle"></i>
@@ -288,9 +292,9 @@
                 <a class="{{ Route::currentRouteName() == 'allrefunds' ? 'open' : '' }}"
                     href="{{ route('allrefunds') }}">
                     <i class="nav-icon i-Arrow-Down-in-Circle"></i>
-                    <span class="item-name">All Refundsx`</span>
+                    <span class="item-name">All Refunds`</span>
                 </a>
-            </li>--}}
+            </li>
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'pendingrefund' ? 'open' : '' }}"
                     href="{{ route('pendingrefund') }}">
@@ -413,7 +417,7 @@
                 <a class="{{ Route::currentRouteName() == 'pricing-table' ? 'open' : '' }}"
                     href="{{ route('pricing-table') }}">
                     <i class="nav-icon i-Gears"></i>
-                    <span class="item-name">All Purchases 
+                    <span class="item-name">All Purchases
                         {{-- <span class="ms-2 badge badge-pill text-bg-danger">New</span></span> --}}
                 </a>
             </li>
@@ -422,7 +426,7 @@
                 <a class="{{ Route::currentRouteName() == 'search-result' ? 'open' : '' }}"
                     href="{{ route('search-result') }}">
                     <i class="nav-icon i-Settings-Window"></i>
-                    <span class="item-name">Home Setting 
+                    <span class="item-name">Home Setting
                         {{-- <span class="badge badge-pill text-bg-danger">New</span></span> --}}
                 </a>
             </li>

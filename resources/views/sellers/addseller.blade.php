@@ -23,7 +23,7 @@
                                     <div class="card-body">
 
                                         <div class="row">
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-lg-6">
                                                 <label for="inputtext11" class="ul-form__label">First Name:</label>
                                                 <input type="text" class="form-control" id="first_name"  name="firstname"  placeholder="Enter full name" value="{{ old ('firstname')}}">
                                                 <span style="color: red">@error('firstname'){{ $message }}@enderror</span>
@@ -31,7 +31,7 @@
                                                     Please enter your first name
                                                 </small>
                                             </div>
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-lg-6">
                                                 <label for="inputtext11" class="ul-form__label">Last Name:</label>
                                                 <input type="text" class="form-control" id="last_name" name="lastname"  placeholder="Enter full name" value="{{ old ('lastname')}}">
                                                 <span style="color: red">@error('lastname'){{ $message }}@enderror</span>
@@ -39,7 +39,7 @@
                                                     Please enter your last name
                                                 </small>
                                             </div>
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-lg-6">
                                                 <label for="inputEmail12" class="ul-form__label">Contact Number:</label>
                                                 <input type="text" class="form-control" id="inputEmail12" name="phonenumber"  placeholder="Enter Contact Number"value="{{ old ('phonenumber')}}">
                                                 <span style="color: red">@error('phonenumber'){{ $message }}@enderror</span>
@@ -78,6 +78,9 @@
                                                     </span>
                                                 </div>
 
+                                            <div class="form-group col-lg-6">
+                                                <label for="inputtext14" class="ul-form__label">Password:</label>
+                                                <input type="text" class="form-control" id="email" placeholder="Enter your Password" name="password" required>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your address
                                                 </small>
@@ -100,7 +103,9 @@
                                                     Please enter your postcode
                                                 </small>
                                             </div>
-                                            <div class="form-group col-md-4 ">
+                                            
+                                            {{-- status hide for fun  --}}
+                                            {{-- <div class="form-group col-md-4 ">
                                                 <label for="inputEmail18" class="ul-form__label">Status:</label>
                                                 <div class="ul-form__radio-inline">
                                                     <label class=" ul-radio__position radio radio-primary form-check-inline">
@@ -117,10 +122,9 @@
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Select Your Status
                                                 </small>
-                                            </div>
+                                            </div> --}}
 
                                         </div>
-
 
                                     </div>
 

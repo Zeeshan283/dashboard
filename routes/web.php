@@ -7,7 +7,10 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\RefundController;
+use App\Http\Controllers\VendorsController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
@@ -75,7 +78,7 @@ Route::get('vertical/dashboard/dashboard1', function () {
 
 
 // sellers
-Route::view('addseller' , 'sellers.addseller')->name('addseller');
+// Route::view('addseller' , 'sellers.addseller')->name('addseller');
 Route::view('vendorlist', 'sellers.vendorlist')->name('vendorlist');
 Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
 Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
@@ -180,7 +183,7 @@ Route::get('canceled', [OrderController::class,'showOrders'])->name('canceled');
 
 // home controller route
 Route::get('/',[HomeController::class, 'index'])->name('admin');
-Route::get('/',[HomeController::class, 'index'])->name('admin');
+// Route::get('/',[HomeController::class, 'index'])->name('admin');
 
 // customer controller route
 Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
@@ -203,3 +206,12 @@ Route::get('allrefunds',[RefundController::class,'refundstatus'])->name('allrefu
 Route::get('refunded',[RefundController::class, 'index'])->name('refunded');
 Route::get('createrefund',[RefundController::class, 'create'])->name('createrefund');
 Route::post('/store-refund', [RefundController::class, 'store'])->name('refund.store');
+
+// vendors route
+
+Route::resource('/vendor', VendorsController::class);
+
+// add user role
+
+Route::resource('user', RoleController::class);
+
