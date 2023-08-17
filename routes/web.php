@@ -7,6 +7,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RefundController;
 use App\Http\Controllers\VendorsController;
@@ -108,10 +109,6 @@ Route::view('cwallet', 'customer.cwallet')->name('cwallet');
 
 // Users
 
-Route::view('adduser', 'users.adduser')->name('adduser');
-Route::view('userlist','users.userlist')->name('userlist');
-
-// product reviews
 
 // Route::view('addproduct','products.addproduct')->name('addproduct');
 // Route::view('allproducts','products.allproducts')->name('allproducts');
@@ -165,7 +162,7 @@ Auth::routes();
 
 
 
-    Route::resource('products', ProductController::class);
+Route::resource('products', ProductController::class);
 Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
@@ -213,4 +210,11 @@ Route::resource('/vendor', VendorsController::class);
 // add user role
 
 Route::resource('user', RoleController::class);
+
+// Coupon 
+
+// Route::resource('coupon',CouponController::class);
+
+Route::view('createcoupon', 'coupon.createcoupon')->name('createcoupon');
+
 
