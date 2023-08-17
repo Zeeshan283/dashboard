@@ -7,6 +7,11 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ReviewsController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\UserController;
+>>>>>>> main
 use App\Http\Controllers\RefundController;
 use App\Http\Controllers\VendorsController;
 use App\Http\Controllers\RoleController;
@@ -14,13 +19,18 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InsertVendorsController;
+<<<<<<< HEAD
 use App\Http\Controllers\ShowVendorsController;
 use App\Http\Controllers\UserController;
 
+=======
+use App\Models\User;
+>>>>>>> main
 
 
 
 /*
+
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -82,7 +92,16 @@ Route::view('vendorlist', 'sellers.vendorlist')->name('vendorlist');
 Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
 Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
  Route::post('add', [InsertVendorsController::class, 'add']);
-//  Route::get('show', [ShowVendorsController::class, 'show']);
+ Route::get('vendorlist', [VendorsController::class, 'vendorlist'])->name('vendorlist');
+//  Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
+
+    Route::get('editseller/{id}',[InsertVendorsController::class,'edit']);
+    Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
+    // Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
+
+
+
+
 
 
 
@@ -99,6 +118,7 @@ Route::view('cwallet', 'customer.cwallet')->name('cwallet');
 
 // Users
 
+<<<<<<< HEAD
 // Route::view('adduser', 'users.adduser')->name('adduser');
 // Route::view('userlist','users.userlist')->name('userlist');
 Route::get('users/userlist', [UserController::class, 'userlist'])->name('userlist');
@@ -110,6 +130,8 @@ Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('u
 
 
 // product reviews
+=======
+>>>>>>> main
 
 // Route::view('addproduct','products.addproduct')->name('addproduct');
 // Route::view('allproducts','products.allproducts')->name('allproducts');
@@ -163,7 +185,7 @@ Auth::routes();
 
 
 
-    Route::resource('products', ProductController::class);
+Route::resource('products', ProductController::class);
 Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
@@ -211,4 +233,11 @@ Route::resource('/vendor', VendorsController::class);
 // add user role
 
 Route::resource('users', RoleController::class);
+
+// Coupon 
+
+// Route::resource('coupon',CouponController::class);
+
+Route::view('createcoupon', 'coupon.createcoupon')->name('createcoupon');
+
 

@@ -92,7 +92,11 @@
         <ul class="childNav" data-parent="users">
 
             <li class="nav-item">
+<<<<<<< HEAD
                 <a href="{{ route('user.add') }}"> <!-- Updated route name -->
+=======
+                <a  href="{{ route('user.create') }}">
+>>>>>>> main
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New User</span>
                 </a>
@@ -379,11 +383,12 @@
         </ul>
         <ul class="childNav" data-parent="sessions">
             <li class="nav-item">
-                <a href="{{ route('signIn') }}">
-                    <i class="nav-icon i-Information"></i>
-                    <span class="item-name">About Us</span>
+                <a class="{{ Route::currentRouteName() == 'createcoupon' ? 'open' : '' }}" href="{{ route('createcoupon') }}"> 
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">Create Coupon</span>
                 </a>
             </li>
+            
             <li class="nav-item">
                 <a href="{{ route('signUp') }}">
                     <i class="nav-icon i-Zootool"></i>

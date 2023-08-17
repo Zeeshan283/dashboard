@@ -19,11 +19,18 @@ use Illuminate\Support\Facades\File;
 
 class VendorsController extends Controller
 {
+
+
     public function __construct()
     {
         $this->middleware('auth');
     }
-
+    public function vendorlist()
+    // Vendor  Display list function
+    {
+        $vendor = User::all();
+        return view('sellers.vendorlist',compact('vendor'));
+    }
     public function index()
     {
         $vendors = User::select('id','name','phone1','email','status')->whereRole('vendor')->get();
