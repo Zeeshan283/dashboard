@@ -142,7 +142,6 @@
                     <span class="item-name">Withdrawal Methods</span>
                 </a>
             </li>
-
         </ul>
         <ul class="childNav" data-parent="widgets">
             <li class="nav-item">

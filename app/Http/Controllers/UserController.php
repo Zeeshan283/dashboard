@@ -29,7 +29,7 @@ class UserController extends Controller
         $user->city = $request->input('city');
         $user->addres = $request->input('addres'); // Fix the spelling of 'addres'
         $user->password = Hash::make($request->input('password'));
-        $user->status = $request->input('status');
+        $user->gender = $request->input('gender');
         $user->save();
 
         return redirect()->route('userlist');
@@ -55,7 +55,7 @@ class UserController extends Controller
             $user->password = Hash::make($request->input('password'));
         }
 
-        $user->status = $request->input('status');
+        $user->gender = $request->input('gender');
         $user->save();
 
         return redirect()->route('userlist'); // Make sure you have defined the 'userlist' route

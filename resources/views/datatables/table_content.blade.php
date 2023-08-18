@@ -740,7 +740,7 @@
             <th>Country</th>
             <th>City</th>
             <th>Address</th>
-            <th>Status</th>
+            <th>gender</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -754,7 +754,7 @@
                 <td>{{$user->country}}</td>
                 <td>{{$user->city}}</td>
                 <td>{{$user->addres}}</td>
-                <td>{{$user->status}}</td>
+                <td>{{$user->gender}}</td>
                 <td><a href="{{ route('user.edit', ['id' => $user->id]) }}" class="btn rounded-pill btn-icon btn-primary">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </a></td>
@@ -772,7 +772,7 @@
             <td>{{$customers->country}}</td>
             <td>{{$customers->city}}</td>
             <td>{{$customers->addres}}</td>
-            <td>{{$customers->status}}</td>
+            <td>{{$customers->gender}}</td>
         </tr>
         @endforeach
     </tbody>
