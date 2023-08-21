@@ -757,7 +757,7 @@
 
 
     {{-- product info  --}}
-@elseif (Route::currentRouteName() == 'allproducts' )
+@elseif (Route::currentRouteName() == 'products.index' )
     <thead>
         <th>Sr No</th>
         <th>Name</th>
@@ -765,7 +765,7 @@
         <th>SKU</th>
         <th>Category</th>
         <th>Image</th>
-        <th>Type</th>
+        {{-- <th>Type</th> --}}
         <th>Action</th>
     </thead>
     <tbody>
@@ -784,25 +784,33 @@
                                                 {{ $product->subcategories->name }}
                                             @endif
                                         </td>
-                                        <td>Image</td>
-                                        <td>
+                                        @if($product->product_image)
+                                        <td><img src="{{ $product->product_image->url }}" width="50" height="50"></td>
+                                        @else
+                                        <td>image</td>
+                                        @endif
+                                        {{-- <td>
                                             @if ($product->type == 'Parent')
                                                 <span class="badge text-bg-success">{{ $product->type }}</span>
                                             @elseif ($product->type == 'Child')
                                                 <span class="badge text-bg-success">{{ $product->type }}</span>
                                             @endif
-                                        </td>
+                                        </td> --}}
                                         <td>
                                            
                                             <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-success ">
+                                            <a href="{{ URL::to('products/' . $product->id . '/edit') }}"><button type="button" class="btn btn-success ">
                                                 <i class="nav-icon i-Pen-2 "></i>
-                                            </button>
-                                                <button type="button" class="btn btn-danger ">
-                                                <i class="nav-icon i-Close-Window "></i>
-                                            </button>
+                                            </button></a>
+                                                <a href="{{ URL::to('product/' . $product->id . '/dupe')}}"><button type="button" class="btn btn-info ">
+                                                <i class="nav-icon i-Duplicate-Window "></i>
+                                            </button></a>
                                             <button type="button" class="btn btn-primary">
                                                 <i class="nav-icon i-Eye "></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-danger">
+                                                <i class="nav-icon i-Remove-Basket"></i>
                                             </button>
                                             </div>
                                              

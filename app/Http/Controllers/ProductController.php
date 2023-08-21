@@ -17,6 +17,8 @@ use App\Models\ProductLocations;
 use App\Models\ProductShippment;
 use App\Models\ProductSizes;
 use App\Models\User;
+use App\Models\Color;
+use App\Models\ProductColors;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image as Image;
 use Brian2694\Toastr\Facades\Toastr;
@@ -65,6 +67,7 @@ class ProductController extends Controller
         $type = array('Parent' => 'Parent', 'Child' => 'Child');
         $productsList = Product::whereType('parent')->orderBy('name')->pluck('sku', 'id');
        // $productsList = Product::whereType('parent')->orderBy('name')->pluck('model_no', 'id');
+       $colors = Color::select('id', 'name')->orderBy('id')->get();
 
 
         $ActiveAdmin = User::whereId(Auth::User()->id)->first();
@@ -74,82 +77,69 @@ class ProductController extends Controller
         ->pluck('name','id')
         ->prepend($ActiveAdmin->name, $ActiveAdmin->id.'_'.$ActiveAdmin->name);
 
-        return view('products.addproduct', compact('brands', 'menus', 'categories', 'sub_categories', 'locations', 'conditions', 'type', 'productsList','vendors'));
+        return view('products.addproduct', compact('brands', 'menus', 'categories', 'sub_categories', 'locations', 'conditions', 'type', 'productsList','vendors', 'colors'));
     }
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        // $this->validate($request, [
-        //     // 'code' => 'required',
-        //     'name' => 'required',
-        //     // 'location.0' => 'required',
-        //     // 'condition.0' => 'required',
-        //     // 'new_price' => 'required',
-        //     // 'new_sale_price' => 'required',
-        //     'new_warranty_days' => 'required',
-        //     'new_return_days' => 'required',
-        //     // 'refurnished_price' => 'required',
-        //     // 'refurnished_sale_price' => 'required',
-        //     // 'refurnished_warranty_days' => 'required',
-        //     // 'refurnished_return_days' => 'required',
-        //     'model_no' => 'required',
-        //     'make' => 'required',
-        //     'min_order' => 'required',
-        //     'images.0' => 'required',
-        //     'attachment' => 'mimes:pdf,zip|max:11264',
-        //     'sku' => 'required|unique:products',
-        //     'description' => 'required',
-        //     // 'details' => 'required',
-        //     'type' => 'required',
-        //     'menu_id' => 'required',
-        //     'category_id' => 'required',
-        //     'subcategory_id' => 'required',
-        //     'brand_id' => 'required',
-        //     // 'parent_id'=>'required',
-        //     // 'width'=>'required',
-        //     // 'height'=>'required',
-        //     // 'depth'=>'required',
-        //     // 'weight'=>'required',
+        $this->validate($request, [
+            
+            'name' => 'required',
+            
+            'new_warranty_days' => 'required',
+            'new_return_days' => 'required',
+            
+            // 'model_no' => 'required',
+            'make' => 'required',
+            'min_order' => 'required',
+            // 'images.0' => 'required',
+            // 'attachment' => 'mimes:pdf, zip|max:11264',
+            'sku' => 'required|unique:products',
+            'description' => 'required',
+            
+            
+            'menu_id' => 'required',
+            'category_id' => 'required',
+            'subcategory_id' => 'required',
+            'brand_id' => 'required',
+            
+        ]
+        , [
+            'code.required' => 'The Product code field is required',
+            'name.required' => 'The Product name field is required',
+            'location.0.required' => 'The Location field is required',
+            'condition.0.required' => 'The Condition field is required',
+            'model_no.required' => 'The Model No field is required',
+            'make.required' => 'The Make field is required',
+            'sku.exists' => 'The SKU already exist',
+            'images.0.required' => 'The Image field is required',
+            'type.required' => 'The Type field is required',
+            'description.required' => 'The Description field is required',
+            'brand_id.required' => 'The Brand field is required',
+            'menu_id.required' => 'The Menu field is required',
+            'category_id.required' => 'The Category field is required',
+            'subcategory_id.required' => 'The Sub Category field is required',
+            'new_price.required' => 'The New price field is required',
+            'new_sale_price.required' => 'The New Sale price field is required',
+            'new_warranty_days.required' => 'The New Warranty days field is required',
+            'new_return_days.required' => 'The New Return days field is required',
+            'refurnished_price.required' => 'The Refurbished price field is required',
+            'refurnished_sale_price.required' => 'The Refubnished sale price field is required',
+            'refurnished_warranty_days.required' => 'The Refubnished Warranty days field is required',
+            'refurnished_return_days.required' => 'The Refubnished Return days field is required',
+            'parent_id.required' => 'The Product list field is required',
 
+            'shipping_days.*.required' => 'The Shipping Days field is required',
+            'shipping_charges.*.required' => 'The shipping charges field is required',
+            'import_charges.*.required' => 'The import charges field is required',
+            'tax_charges.*.required' => 'The Tax charges field is required',
+            'other_charges.*.required' => 'The Other charges field is required'
+        ]
+        
+    );
 
-
-        //     // 'shipping_days.*'=>'required',
-        //     // 'shipping_charges.*'=>'required',
-        //     // 'import_charges.*'=>'required',
-        //     // 'tax_charges.*'=>'required',
-        //     // 'other_charges.*'=>'required'
-        // ], [
-        //     'code.required' => 'The Product code field is required',
-        //     'name.required' => 'The Product name field is required',
-        //     'location.0.required' => 'The Location field is required',
-        //     'condition.0.required' => 'The Condition field is required',
-        //     'model_no.required' => 'The Model No field is required',
-        //     'make.required' => 'The Make field is required',
-        //     'sku.exists' => 'The SKU already exist',
-        //     'images.0.required' => 'The Image field is required',
-        //     'type.required' => 'The Type field is required',
-        //     'description.required' => 'The Description field is required',
-        //     'brand_id.required' => 'The Brand field is required',
-        //     'menu_id.required' => 'The Menu field is required',
-        //     'category_id.required' => 'The Category field is required',
-        //     'subcategory_id.required' => 'The Sub Category field is required',
-        //     'new_price.required' => 'The New price field is required',
-        //     'new_sale_price.required' => 'The New Sale price field is required',
-        //     'new_warranty_days.required' => 'The New Warranty days field is required',
-        //     'new_return_days.required' => 'The New Return days field is required',
-        //     'refurnished_price.required' => 'The Refurbished price field is required',
-        //     'refurnished_sale_price.required' => 'The Refubnished sale price field is required',
-        //     'refurnished_warranty_days.required' => 'The Refubnished Warranty days field is required',
-        //     'refurnished_return_days.required' => 'The Refubnished Return days field is required',
-        //     'parent_id.required' => 'The Product list field is required',
-
-        //     'shipping_days.*.required' => 'The Shipping Days field is required',
-        //     'shipping_charges.*.required' => 'The shipping charges field is required',
-        //     'import_charges.*.required' => 'The import charges field is required',
-        //     'tax_charges.*.required' => 'The Tax charges field is required',
-        //     'other_charges.*.required' => 'The Other charges field is required'
-        // ]);
+    // dd($request->all());
+        
 
         $counteShippingDays = 0;
 
@@ -180,6 +170,16 @@ class ProductController extends Controller
                     $ProductConditions->pro_id = $p->id;
                     $ProductConditions->condition_id = $request->condition[$i];
                     $ProductConditions->save();
+                }
+            }
+
+            if(isset($request->colors)){
+                for($i=0; $i < count($request->colors); $i++){
+                    $productColor = new ProductColors();
+                    $productColor->pro_id = $p->id;
+                    $productColor->color_id = $request->colors[$i];
+                    $productColor->save();
+
                 }
             }
 
@@ -216,20 +216,7 @@ class ProductController extends Controller
             // }
 
 
-            // if ($request->has('images')) {
-            //     foreach ($request->file('images') as $image) {
-            //         $pImages = new ProductImages();
-            //         $pImages->pro_id = $p->id;
-
-            //         // Save the image to storage and get its URL
-            //         $imagePath = 'upload/products/';
-            //         $imageName = time() . '_' . $image->getClientOriginalName();
-            //         $image->move(public_path($imagePath), $imageName);
-
-            //         $pImages->image = $imageName;
-            //         $pImages->url = $imagePath . $imageName;
-            //         $pImages->save();
-            //     }}
+            
 
 
             if (count($request->shipping_days) > 0) {
@@ -266,7 +253,8 @@ class ProductController extends Controller
             if ($request->hasFile('attachment')) {
                 $file = $request->file('attachment');
                 $fileName = uniqid() . $file->getClientOriginalName();
-                $file->move('root/upload/products/attachments', $fileName);
+                $file->move('upload/products/attachments', $fileName);
+
                 $p->attachment = $fileName;
                 $p->save();
             }
@@ -310,51 +298,35 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            // 'code' => 'required',
+            
             'name' => 'required',
-            // 'location.0' => 'required',
-            'condition.0' => 'required',
-            // 'new_price' => 'required',
-            // 'new_sale_price' => 'required',
+            
             'new_warranty_days' => 'required',
             'new_return_days' => 'required',
-            // 'refurnished_price' => 'required',
-            // 'refurnished_sale_price' => 'required',
-            // 'refurnished_warranty_days' => 'required',
-            // 'refurnished_return_days' => 'required',
-            'model_no' => 'required',
+            
+            // 'model_no' => 'required',
             'make' => 'required',
             'min_order' => 'required',
             'images.0' => 'required',
-            'attachment' => 'mimes:pdf,zip|max:11264',
-            'sku' => 'required',
+            // 'attachment' => 'mimes:pdf, zip|max:11264',
+            'sku' => 'required|unique:products',
             'description' => 'required',
-            // 'details' => 'required',
+            
             'type' => 'required',
             'menu_id' => 'required',
             'category_id' => 'required',
             'subcategory_id' => 'required',
             'brand_id' => 'required',
-            // 'parent_id'=>'required',
-            // 'width'=>'required',
-            // 'height'=>'required',
-            // 'depth'=>'required',
-            // 'weight'=>'required',
-
-
-
-            // 'shipping_days.*'=>'required',
-            // 'shipping_charges.*'=>'required',
-            // 'import_charges.*'=>'required',
-            // 'tax_charges.*'=>'required',
-            // 'other_charges.*'=>'required'
-        ], [
+            
+        ]
+        , [
             'code.required' => 'The Product code field is required',
             'name.required' => 'The Product name field is required',
             'location.0.required' => 'The Location field is required',
             'condition.0.required' => 'The Condition field is required',
             'model_no.required' => 'The Model No field is required',
             'make.required' => 'The Make field is required',
+            'sku.exists' => 'The SKU already exist',
             'images.0.required' => 'The Image field is required',
             'type.required' => 'The Type field is required',
             'description.required' => 'The Description field is required',
@@ -369,7 +341,7 @@ class ProductController extends Controller
             'refurnished_price.required' => 'The Refurbished price field is required',
             'refurnished_sale_price.required' => 'The Refubnished sale price field is required',
             'refurnished_warranty_days.required' => 'The Refubnished Warranty days field is required',
-            'refurnished_return_days.required' => 'The Refurbished Return days field is required',
+            'refurnished_return_days.required' => 'The Refubnished Return days field is required',
             'parent_id.required' => 'The Product list field is required',
 
             'shipping_days.*.required' => 'The Shipping Days field is required',
@@ -377,7 +349,9 @@ class ProductController extends Controller
             'import_charges.*.required' => 'The import charges field is required',
             'tax_charges.*.required' => 'The Tax charges field is required',
             'other_charges.*.required' => 'The Other charges field is required'
-        ]);
+        ]
+        
+    );
 
         $edit = Product::findOrFail($id);
 
@@ -415,17 +389,46 @@ class ProductController extends Controller
                 }
             }
 
+            // if (count($request->images) > 0) {
+            //     ProductImages::where('pro_id', $id)->delete();
+
+            //     for ($i = 0; $i < count($request->images); $i++) {
+            //         $pImages = new ProductImages();
+            //         $pImages->pro_id = $edit->id;
+            //         $pImages->image = $request->images[$i];
+            //         $pImages->url = 'root/upload/products/'.$request->images[$i];
+            //         $pImages->save();
+            //     }
+            // }
+
+
+            if ($request->hasFile('images')) {
             if (count($request->images) > 0) {
+
                 ProductImages::where('pro_id', $id)->delete();
+
+                
 
                 for ($i = 0; $i < count($request->images); $i++) {
                     $pImages = new ProductImages();
                     $pImages->pro_id = $edit->id;
-                    $pImages->image = $request->images[$i];
-                    $pImages->url = 'root/upload/products/'.$request->images[$i];
+        
+                    // Get the uploaded image file
+                    $uploadedImage = $request->images[$i];
+                    
+                    // Generate a unique filename for the image
+                    $imageName = uniqid() . '_' . $uploadedImage->getClientOriginalName();
+        
+                    // Move the uploaded image to the "upload" folder
+                    $uploadedImage->move('upload/products', $imageName);
+        
+                    // Save the image details
+                    $pImages->image = $imageName;
+                    $pImages->url =  url('upload/products/' . $imageName); // Adjust this URL as needed
                     $pImages->save();
                 }
             }
+        }
 
 
             if (isset($request->shipping_days)) {
@@ -464,11 +467,11 @@ class ProductController extends Controller
             }
 
             if ($request->hasFile('attachment')) {
-                File::delete('root/upload/products/attachments/' . $edit->attachment);
+                File::delete('upload/products/attachments/' . $edit->attachment);
 
                 $file = $request->file('attachment');
                 $fileName = uniqid() . $file->getClientOriginalName();
-                $file->move('root/upload/products/attachments', $fileName);
+                $file->move('upload/products/attachments', $fileName);
                 $edit->attachment = $fileName;
                 $edit->save();
             }
@@ -481,6 +484,7 @@ class ProductController extends Controller
 
     public function dupe($id)
     {
+        
         $edit = Product::with('shipping_details')
             ->with('locations')
             ->with('conditions')
@@ -506,45 +510,31 @@ class ProductController extends Controller
     public function duplicate(Request $request, $id)
     {
         $this->validate($request, [
-            // 'code' => 'required',
+            
             'name' => 'required',
-            // 'location.0' => 'required',
-            'condition.0' => 'required',
-            // 'new_price' => 'required',
-            // 'new_sale_price' => 'required',
+            
             'new_warranty_days' => 'required',
             'new_return_days' => 'required',
-            // 'refurnished_price' => 'required',
-            // 'refurnished_sale_price' => 'required',
-            // 'refurnished_warranty_days' => 'required',
-            // 'refurnished_return_days' => 'required',
+            
             'model_no' => 'required',
+            'new_price' => 'required',
+            'new_sale_price' => 'required',
+            
             'make' => 'required',
             'min_order' => 'required',
             'images.0' => 'required',
-            'attachment' => 'mimes:pdf,zip|max:11264',
+            // 'attachment' => 'mimes:pdf, zip|max:11264',
             'sku' => 'required|unique:products',
             'description' => 'required',
-            // 'details' => 'required',
+            
             'type' => 'required',
             'menu_id' => 'required',
             'category_id' => 'required',
             'subcategory_id' => 'required',
             'brand_id' => 'required',
-            // 'parent_id'=>'required',
-            // 'width'=>'required',
-            // 'height'=>'required',
-            // 'depth'=>'required',
-            // 'weight'=>'required',
-
-
-
-            // 'shipping_days.*'=>'required',
-            // 'shipping_charges.*'=>'required',
-            // 'import_charges.*'=>'required',
-            // 'tax_charges.*'=>'required',
-            // 'other_charges.*'=>'required'
-        ], [
+            
+        ]
+        , [
             'code.required' => 'The Product code field is required',
             'name.required' => 'The Product name field is required',
             'location.0.required' => 'The Location field is required',
@@ -574,8 +564,11 @@ class ProductController extends Controller
             'import_charges.*.required' => 'The import charges field is required',
             'tax_charges.*.required' => 'The Tax charges field is required',
             'other_charges.*.required' => 'The Other charges field is required'
-        ]);
+        ]
+        
+    );
 
+    dd($request->all());
         $counteShippingDays = 0;
 
         for ($i = 0; $i < count($request->shipping_days); $i++) {
@@ -608,12 +601,33 @@ class ProductController extends Controller
                 }
             }
 
+            // if (count($request->images) > 0) {
+            //     for ($i = 0; $i < count($request->images); $i++) {
+            //         $pImages = new ProductImages();
+            //         $pImages->pro_id = $p->id;
+            //         $pImages->image = $request->images[$i];
+            //         $pImages->url = 'root/upload/products/'.$request->images[$i];
+            //         $pImages->save();
+            //     }
+            // }
+
             if (count($request->images) > 0) {
                 for ($i = 0; $i < count($request->images); $i++) {
                     $pImages = new ProductImages();
                     $pImages->pro_id = $p->id;
-                    $pImages->image = $request->images[$i];
-                    $pImages->url = 'root/upload/products/'.$request->images[$i];
+        
+                    // Get the uploaded image file
+                    $uploadedImage = $request->images[$i];
+                    
+                    // Generate a unique filename for the image
+                    $imageName = uniqid() . '_' . $uploadedImage->getClientOriginalName();
+        
+                    // Move the uploaded image to the "upload" folder
+                    $uploadedImage->move('upload/products', $imageName);
+        
+                    // Save the image details
+                    $pImages->image = $imageName;
+                    $pImages->url =  url('upload/products/' . $imageName); // Adjust this URL as needed
                     $pImages->save();
                 }
             }
@@ -654,7 +668,7 @@ class ProductController extends Controller
             if ($request->hasFile('attachment')) {
                 $file = $request->file('attachment');
                 $fileName = uniqid() . $file->getClientOriginalName();
-                $file->move('root/upload/products/attachments', $fileName);
+                $file->move('upload/products/attachments', $fileName);
                 $p->attachment = $fileName;
                 $p->save();
             }
@@ -665,17 +679,18 @@ class ProductController extends Controller
         }
     }
 
+
     public function destroy($id)
     {
         $pro = Product::findOrFail($id);
 
-        File::delete(base_path() . '/upload/products/attachments/' . $pro->attachment);
+        File::delete(base_path() . 'upload/products/attachments/' . $pro->attachment);
         $pro->delete();
 
         ProductConditions::where('pro_id', $id)->delete();
         $pImages = ProductImages::where('pro_id', $id)->get();
         foreach ($pImages as $value) {
-            File::delete(base_path() . '/upload/products/' . $value->image);
+            File::delete(base_path() . 'upload/products/' . $value->image);
         }
         ProductImages::where('pro_id', $id)->delete();
         ProductLocations::where('pro_id', $id)->delete();
@@ -741,7 +756,7 @@ class ProductController extends Controller
 
     public function DeleteImageAJax(Request $request)
     {
-        File::delete('root/upload/products/' . $request->path);
+        File::delete('upload/products/' . $request->path);
 
         ProductImages::where('image', $request->path)->delete();
         return "Deleted";
@@ -758,7 +773,7 @@ class ProductController extends Controller
         $image = $request->file('attachment');
         $new_name = uniqid() . $image->getClientOriginalName();
 
-        $image->move('root/upload/products/attachments', $new_name);
+        $image->move('upload/products/attachments', $new_name);
         return response()->json([
             'message'   => 'Image Upload Successfully'
         ]);
