@@ -1,6 +1,8 @@
 @extends('layouts.master')
-@section('main-content')
+@section('before-css')
 
+@endsection
+@section('main-content')
             <div class="separator-breadcrumb border-top"></div>
             <div class="2-columns-form-layout">
                 <div class="">
@@ -54,9 +56,4 @@
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
-@endsection
-@section('page-js')
-@endsection
-
-@section('bottom-js')
 @endsection

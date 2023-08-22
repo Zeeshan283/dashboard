@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -19,7 +20,7 @@ class UserController extends Controller
         return view('users/adduser');
     }
 
-    public function adduser(Request $request)
+public function adduser(Request $request)
     {
         $user = new User;
         $user->name = $request->input('name');
@@ -32,8 +33,11 @@ class UserController extends Controller
         $user->gender = $request->input('gender');
         $user->save();
 
+        Toastr::success('User added successfully', 'Success');
+
         return redirect()->route('userlist');
     }
+
 
     public function edit($id)
     {

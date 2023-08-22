@@ -133,6 +133,25 @@ class VendorsController extends Controller
         Toastr::success('Vendor Deleted Successfully!');
 
         return redirect('vendors')->back();
-        
+
+    }
+    public function dashboard()
+    {
+        $isVendor = auth()->user()->roles->contains('name', 'vendorOnly');
+        $disableProductsLink = $isVendor ? '' : 'disabled';
+
+        return view('vendor.dashboard', [
+            'disableProductsLink' => $disableProductsLink,
+        ]);
+    }
+
+    public function createProduct()
+    {
+        $isVendor = auth()->user()->roles->contains('name', 'vendorOnly');
+
+        if (!$isVendor) {
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to create products.');
+        }
+        return redirect()->route('dashboard')->with('success', 'Product created successfully.');
     }
 }

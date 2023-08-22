@@ -31,15 +31,15 @@
 
                            <div>
                             <div id="step-1" class="">
-                            
+
                             {!! Form::open([
                                 'url' => 'products',
                                 'method' => 'POST',
-                                
+
                                 'files' => 'true',
                                 'enctype' => 'multipart/form-data',
                             ]) !!}
-                            
+
                                     <div>
                                         <div class="card-body">
                                             <div class="form-group row">
@@ -68,7 +68,7 @@
                                                         Please enter Model Number of the Product
                                                     </small>
                                                 </div>
-    
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Product Name:</label>
                                                 <div class="col-lg-3">
                                                 {!! Form::text('name', null, [
@@ -92,10 +92,10 @@
                                                         Please enter Product name
                                                     </small>
                                                 </div>
-    
+
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Condition:</label>
                                                 <div class="form-group col-lg-3">
-                                                    
+
                                                 <select id="" name="condition[]"
                                                     class="form-control @error('condition') is-invalid @enderror"
                                                     placeholder="Select Condition"  required>
@@ -104,7 +104,7 @@
                                                     @endforeach
                                                 </select>
                                                 </div>
-    
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">New Price:</label>
                                                 <div class="col-lg-3">
                                                     {!! Form::text('new_price', null, [
@@ -129,7 +129,7 @@
                                                         Please enter Product New Price
                                                     </small> --}}
                                                 </div>
-    
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Sale Price:</label>
                                                 <div class="col-lg-3">
                                                     {!! Form::text('new_sale_price', null, [
@@ -154,7 +154,7 @@
                                                         Please enter Product N.Sale Price
                                                     </small> --}}
                                                 </div>
-    
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Warranty Days:</label>
                                                 <div class="col-lg-3">
                                                     {!! Form::text('new_warranty_days', null, [
@@ -179,7 +179,7 @@
                                                         Please enter Product N.Warranty Days
                                                     </small> --}}
                                                 </div>
-    
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Return Days:</label>
                                                 <div class="col-lg-3">
                                                 {!! Form::text('new_return_days', null, [
@@ -204,7 +204,7 @@
                                                         Please enter Product N.Return Days
                                                     </small> --}}
                                                 </div>
-    
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Refurbished Price:</label>
                                                 <div class="col-lg-3">
                                                 {!! Form::text('refurnished_price', null, [
@@ -347,11 +347,11 @@
                                                         Please enter Product Refurbished Price
                                                     </small> --}}
                                                 </div>
-    
+
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Make:</label>
                                                 <div class="form-group col-lg-3">
                                                 <div class="form-group">
-                                                   
+
                                                     @if (Auth::User()->role=='Admin')
                                                         {!! Form::select('vendors',$vendors,null,['id'=>'vendors','class'=>'form-control fstdropdown-select','onchange'=>'ChangeMakeCondition(this.value)']) !!}
                                                         {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
@@ -368,7 +368,7 @@
                                                     @endif
                                                 </div>
                                                 </div>
-    
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Image:</label>
                                                 <div class="col-lg-3">
                                                 <input type="file" name="attachment" id="attachment"
@@ -380,17 +380,17 @@
                                                         Please enter Product Refurbished Price
                                                     </small> --}}
                                                 </div>
-    
+
                                         </div>
                                     </div>
                                     <!-- end card 3 Columns Horizontal Form Layout-->
-                               
+
                             </div>
                         </div>
                             <div id="step-2" class="">
                                 {{-- <h3 class="border-bottom border-gray pb-2">Step 2 Content</h3> --}}
                                 <div>
-                                                
+
                                                 <div class="col-md-11 mb-4" style="padding-left: 60px">
                                                     <div>
                                                         <div class="card-body">
@@ -411,7 +411,7 @@
                                                                         'id' => 'description',
                                                                         'class' => 'form-control',
                                                                         'maxlength' => '1000',
-                                                                    
+
                                                                     ]) !!}
                                                                     <h3>Enter Your Product Short Description here</h3>
                                                                     <p><br></p>
@@ -426,7 +426,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-md-11 mb-4" style="padding-left: 60px">
                                                     <div>
                                                         <div class="card-body">
@@ -435,11 +435,11 @@
                                                             <div class="mx-auto col-md-12">
                                                                 <div id="snow-editor-2" class="editor-container">
                                                                     <!-- Content will be generated by Quill -->
-                                                                    
+
                                                                     {!! Form::textarea('details', null, [
                                                                         'id' => 'details',
                                                                         'class' => 'form-control',
-                                                                        
+
                                                                     ]) !!}
                                                                     <h3>Enter Your Product Full Description here</h3>
                                                                     <p><br></p>
@@ -458,18 +458,18 @@
                             </div>
                             <div id="step-3" class="">
                                 {{-- <div class="custom-separator"></div> --}}
-    
+
                                 <div class="form-group row" style="padding-left: 50px;padding-right:50px">
                                 {{-- <div class="form-group row"> --}}
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Menu:</label>
                                     <div class="form-group col-lg-5">
-                                        
+
                                             <!-- <input type="text" id="menu-input-3" class="form-control" aria-label="Text input with dropdown button"> -->
                                             <!-- <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Menu</button>
                                              <div class="dropdown-menu">
                                                 <p class="dropdown-item" onclick="selectMenu('Super Admin', 'menu-input-3')">Super Admin</p>
                                                 <p class="dropdown-item" onclick="selectMenu('Industry Mall', 'menu-input-3')">Industry Mall</p>
-                                                
+
                                             </div> -->
                                             {!! Form::select('menu_id', $menus, null, [
                                                 'id' => 'menu_id',
@@ -481,7 +481,7 @@
                                                     class="invalid-feedback1 font-weight-bold">{{ $errors->first('menu_id') }}</span>
                                             @endif
                                         <br>
-                                        
+
                                     </div>
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Category:</label>
                                     <div class="form-group col-lg-5">
@@ -575,12 +575,12 @@
                                         @endif
                                     </div>
 
-                            
+
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Image:</label>
                                         <div class="col-lg-5">
                                         <div class="form-group">
                                         <!-- <label>(1 File Size <= 100kb) (Total File Size 2MB) <span style="color: red;">*</span></label> -->
-                                
+
                                         <div class="form-group " style="margin-top: ">
                                             <div class="card shadow-sm w-100">
                                                 <div class="card-header d-flex justify-content-between">
@@ -592,7 +592,7 @@
                                                     </span> -->
 
                                                     <span  id="upload_image" enctype="multipart/form-data">
-                                    
+
                                                         <input type="file" name="images[]" id="select_file" class="form-control"
                                                         onchange="image_select()" multiple />
                                                         <input type="submit" name="upload" id="upload" class="btn btn-primary d-none"
@@ -605,14 +605,14 @@
                                             </div>
                                         </div>
 
-                                
+
                                 <br />
                                 <span id="uploaded_image"></span>
 
                                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
                                 <script>
-                                    
+
                                     $.ajaxSetup({
                                         headers: {
                                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -622,7 +622,7 @@
                                     $(document).ready(function() {
 
                                         $('#upload_image , #select_file').on('change', function(event) {
-                                            //   event.preventDefault(); 
+                                            //   event.preventDefault();
 
                                             $.ajax({
                                                 url: "{{ asset('upload_image_ajax') }}",
@@ -638,8 +638,8 @@
                                                     $.each(data, function(i, v) {
                                                         ImgHTML += `<label id="row${v}">
                                                         <img src="upload/products/${v}" class="img-thumbnail" style="width:100px;height:80px;" />
-                                                            <span data-path="${v}" id="remove_button" style="position:relative;top:-35px;left:-10px;background:red;color:white;padding:0px 5px 3px 5px;border-radius:100%;cursor:pointer;">x</span>  
-                                                        </div>  
+                                                            <span data-path="${v}" id="remove_button" style="position:relative;top:-35px;left:-10px;background:red;color:white;padding:0px 5px 3px 5px;border-radius:100%;cursor:pointer;">x</span>
+                                                        </div>
                                                         </label>`;
 
                                                         ImgPath +=
@@ -670,12 +670,12 @@
                                         });
 
                                 });
-                                
+
                                 </script>
 
                                         </div>
                                         </div>
-                                    
+
                                 </div>
                             </div>
                             <div id="step-4" class="">
@@ -684,7 +684,7 @@
                                     <div class="card-header">Dimensions</div>
                                         <div class="card-block p-0">
                                         {{-- checking  --}}
-                                            
+
                                                 <div>
                                                     <div class="card-body">
                                                         <div class="form-group row">
@@ -776,12 +776,12 @@
                                                                     Please enter product Weight
                                                                 </small>
                                                             </div>
-                
-                
+
+
                                                     </div>
                                                 </div>
                                                 <!-- end card 3 Columns Horizontal Form Layout-->
-                                            
+
                                         </div>
                                     @foreach ($locations as $value)
                                     <input type="hidden" name="location_id[]" id="location_id" value="{{ $value->id }}">
@@ -909,11 +909,12 @@
                                             <div class="card">
                                                 <div class="card-footer">
                                                     <button type="submit" name="primary" class="btn btn-primary">Submit</button>
+
                                                 </div>
                                             </div>
                                         </div>
                                                 <!-- end card 3 Columns Horizontal Form Layout-->
-                                                
+
                                         </div>
                                 </div>
                                 </div>
@@ -921,9 +922,7 @@
                         </div>
                     </div>
                 </div>
-                
-                {!! Form::close() !!}  
-
+                {!! Form::close() !!}
             </div>
 
 
@@ -964,7 +963,7 @@
 
 
 
-        // Change Categories 
+        // Change Categories
 
         $('#category_id').change(function() {
             var cat_id = $(this).val();
@@ -992,7 +991,7 @@
     </script>
 {{-- <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
     {!! Toastr::message() !!}--}}
-<script> 
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         const editorContainers = document.querySelectorAll('.editor-container');
 
@@ -1109,6 +1108,7 @@
         }
     });
 </script>
+
 @endsection
 
 @section('bottom-js')

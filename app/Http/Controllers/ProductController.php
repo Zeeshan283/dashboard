@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\VendorOnly;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -26,6 +27,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -763,6 +765,8 @@ class ProductController extends Controller
             'message'   => 'Image Upload Successfully'
         ]);
     }
+
+
 
     public function ProductsContacts(Request $request)
     {
