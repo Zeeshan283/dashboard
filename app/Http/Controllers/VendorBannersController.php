@@ -64,7 +64,7 @@ class VendorBannersController extends Controller
         }
         if ($request->hasFile('image3')) {
             File::delete('root/upload/vendor-banners/'.$userBanner->banner_image3);
-            
+
             $file = $request->file('image3');
             $fileName = uniqid() . $file->getClientOriginalName();
 

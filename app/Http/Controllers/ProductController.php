@@ -258,10 +258,9 @@ class ProductController extends Controller
                 $p->attachment = $fileName;
                 $p->save();
             }
+            Toastr::success('Refund request generated successfully', 'Success');
+            return redirect()->back();
 
-            return redirect()->back()->with(Toastr::success('Product Added Successfully!'));
-        } else {
-            return redirect()->back()->with(Toastr::error('Shipping Data Required !!!'));
         }
     }
 
@@ -289,6 +288,7 @@ class ProductController extends Controller
             // $productsList = Product::whereType('parent')->orderBy('name')->pluck('model_no', 'id');
             $productsList = Product::whereType('parent')->orderBy('name')->pluck('sku', 'id');
 
+            
             return view('products.edit', compact('edit', 'brands', 'menus', 'categories', 'sub_categories', 'locations', 'type', 'productsList', 'conditions'));
         } else {
             abort(404);

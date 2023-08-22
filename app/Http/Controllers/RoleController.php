@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Role;
+use Brian2694\Toastr\Facades\Toastr;
+
 use Session;
 use File;
 
@@ -18,18 +20,19 @@ class RoleController extends Controller
 
     public function index()
     {
-        $donors = User::where('type', '=', 'USER')->OrderBy('name', 'asc')->get();
-        return view('roles.index', Compact('donors'));
+        $users = User::where('type', '=', 'USER')->OrderBy('name', 'asc')->get();
+        return view('users.index', Compact('users'));
     }
 
     public function create()
     {
         $shop = Category::OrderBy('name', 'asc')->pluck('name', 'id');
-        return view('roles.create', Compact('shop'));
+        return view('users.create', Compact('shop'));
     }
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'email' => 'required|unique:users|max:255',
             'name' => 'required',
@@ -41,36 +44,25 @@ class RoleController extends Controller
         $student = new User(array(
             'name' => $request->get('name'),
             'email' => $request->get('email'),
-            'category_id' => $request->get('category_id'),
-            'phone'  => $request->get('phone'),
+            // 'category_id' => $request->get('category_id'),
+            'phone1'  => $request->get('phone1'),
             'country' => $request->get('country'),
             'city' => $request->get('city'),
-            'addres' => $request->get('addres'),
+            'address1' => $request->get('address1'),
             'gender' => $request->get('gender'),
-            'profession' => $request->get('profession'),
+            // 'profession' => $request->get('profession'),
             'type' => "USER",
             'password' => bcrypt($request->get('password')),
-            'biller_id' => $request->get('biller_id')
+            // 'biller_id' => $request->get('biller_id')
             //'image' => $imageName
         ));
         $student->save();
-        $student->roles()->attach(Role::where('name', 'Editor')->first());
+        // $student->roles()->attach(Role::where('name', 'Editor')->first());
 
-        if (!is_null($request->file('image'))) {
-            //return "enter";
-            $imageName = $request->file('image')->getClientOriginalName();
-            //return $imageName;
-            $request->file('image')->move(
-                base_path() . '/upload/users/',
-                $imageName
-            );
+        Toastr::success('User successfully added!', 'Success');
 
-            $student->image = $request->file('image')->getClientOriginalName();
-            $student->save();
-        }
+        return redirect()->back();
 
-        Session::flash('flash_message', 'User successfully added!');
-        return redirect('roles/create');
     }
 
     public function Assign(Request $request)
@@ -140,17 +132,22 @@ class RoleController extends Controller
             $update->save();
         }
         //return "jh";
-        Session::flash('flash_message', 'Record Updated Successfully!');
-        return redirect('roles');
+
+        Toastr::success('Record Updated Successfully!', 'Success');
+
+        return redirect()->back();
     }
 
     public function destroy($id)
     {
         $delete = User::findOrFail($id);
         $delete->delete();
-        $user = base_path("/upload/users/{$delete->image}");
-        File::delete($user);
-        Session::flash('flash_message', 'Record Deleted Successfully!');
-        return redirect('roles');
+
+        Toastr::success('Record Deleted Successfully!', 'Success');
+
+        return redirect()->back();
     }
+
+
+
 }
