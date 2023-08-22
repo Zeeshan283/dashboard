@@ -33,7 +33,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        
+
         $data = "";
         if (Auth::User()->role == 'Admin') {
             $data = Product::with('product_image')
@@ -187,16 +187,16 @@ class ProductController extends Controller
                 for ($i = 0; $i < count($request->images); $i++) {
                     $pImages = new ProductImages();
                     $pImages->pro_id = $p->id;
-        
+
                     // Get the uploaded image file
                     $uploadedImage = $request->images[$i];
-                    
+
                     // Generate a unique filename for the image
                     $imageName = uniqid() . '_' . $uploadedImage->getClientOriginalName();
-        
+
                     // Move the uploaded image to the "upload" folder
                     $uploadedImage->move('upload/products', $imageName);
-        
+
                     // Save the image details
                     $pImages->image = $imageName;
                     $pImages->url =  url('upload/products/' . $imageName); // Adjust this URL as needed
@@ -300,7 +300,7 @@ class ProductController extends Controller
             // $productsList = Product::whereType('parent')->orderBy('name')->pluck('model_no', 'id');
             $productsList = Product::whereType('parent')->orderBy('name')->pluck('sku', 'id');
 
-            
+
             return view('products.edit', compact('edit', 'brands', 'menus', 'categories', 'sub_categories', 'locations', 'type', 'productsList', 'conditions'));
         } else {
             abort(404);
@@ -710,7 +710,7 @@ class ProductController extends Controller
                 $new_name = uniqid() . $image->getClientOriginalName();
 
                 // $image->move('root/upload/products', $new_name);
-                
+
                 $imagePath =  base_path('upload/products/' . $new_name);
                 $img = Image::make($image);
                 $img->resize(1000, 957);
@@ -780,4 +780,15 @@ class ProductController extends Controller
             return view('products.vendor_contacts', compact('productContacts'));
         }
     }
+//     public function handle(Request $request,  $next)
+//     {
+//         if (Auth::check() && Auth::user()->isVendor()) {
+//             // Check if the current route is related to adding products
+//             if ($request->route()->getName() === 'product.create' || $request->route()->getName() === 'product.store') {
+//                 return $next($request);
+//             }
+//         }
+
+//         return redirect()->route('add.product');
+// }
 }

@@ -1,9 +1,4 @@
 @extends('layouts.master')
- @section('before-css')
- <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-
-@endsection
-
 @section('main-content')
 
             <div class="separator-breadcrumb border-top"></div>
@@ -59,4 +54,9 @@
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
+@endsection
+@section('page-js')
+@endsection
+
+@section('bottom-js')
 @endsection

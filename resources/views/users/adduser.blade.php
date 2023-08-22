@@ -1,11 +1,5 @@
 @extends('layouts.master')
- @section('before-css')
- <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-
-@endsection
-
 @section('main-content')
-
             <div class="separator-breadcrumb border-top"></div>
             <div class="2-columns-form-layout">
                 <div class="">
@@ -135,15 +129,7 @@
 @endsection
 
 @section('page-js')
-
-
-
-
 @endsection
 
 @section('bottom-js')
-
-
-
-
 @endsection
