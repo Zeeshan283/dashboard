@@ -787,7 +787,6 @@
         <th>Email</th>
     </tr>
     </tfoot>
-<<<<<<< HEAD
 
     @elseif (Route::currentRouteName() == 'userlist')
     <thead>
@@ -821,48 +820,6 @@
         @endforeach
     </tbody>
 
-        {{-- @foreach ($users as $value => $customers )
-        <tr>
-            <td>{{$value + 1}}</td>
-            <td>{{$customers->id}}</td>
-            <td>{{$customers->name}}</td>
-            <td>{{$customers->email}}</td>
-            <td>{{$customers->phone1}}</td>
-            <td>{{$customers->country}}</td>
-            <td>{{$customers->city}}</td>
-            <td>{{$customers->addres}}</td>
-            <td>{{$customers->status}}</td>
-        </tr>
-        @endforeach
-=======
-@elseif (Route::currentRouteName() == 'userlist' )
-    <thead>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td><span class="i-Eye-Visible"></span></td>
-    </tr>
->>>>>>> main
-    </tbody>
-    <tfoot>
-
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-
-    </tfoot>   --}}
 
 
     {{-- product info  --}}

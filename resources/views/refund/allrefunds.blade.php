@@ -25,7 +25,7 @@
                                 @include('datatables.table_content')
                             </table>
                         </div>
-    
+                        
                     </div>
                 </div>
             </div>

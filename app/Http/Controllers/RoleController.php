@@ -20,11 +20,7 @@ class RoleController extends Controller
     public function index()
     {
         $users = User::where('type', '=', 'USER')->OrderBy('name', 'asc')->get();
-<<<<<<< HEAD
-        return view('users.userlist', Compact('users'));
-=======
         return view('users.index', Compact('users'));
->>>>>>> main
     }
 
     public function create()
@@ -48,32 +44,19 @@ class RoleController extends Controller
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             // 'category_id' => $request->get('category_id'),
-<<<<<<< HEAD
-            'phone'  => $request->get('phone'),
-            'country' => $request->get('country'),
-            'city' => $request->get('city'),
-            'addres' => $request->get('addres'),
-            'status' => $request->get('status'),
-=======
             'phone1'  => $request->get('phone1'),
             'country' => $request->get('country'),
             'city' => $request->get('city'),
             'address1' => $request->get('address1'),
             'gender' => $request->get('gender'),
->>>>>>> main
             // 'profession' => $request->get('profession'),
             'type' => "USER",
             'password' => bcrypt($request->get('password')),
             // 'biller_id' => $request->get('biller_id')
             //'image' => $imageName
         ));
-<<<<<<< HEAD
-        $users->save();
-        $users->roles()->attach(Role::where('name', 'Editor')->first());
-=======
         $student->save();
         // $student->roles()->attach(Role::where('name', 'Editor')->first());
->>>>>>> main
 
         Toastr::success('User successfully added!', 'Success');
 

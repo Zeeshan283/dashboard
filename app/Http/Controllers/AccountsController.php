@@ -116,4 +116,6 @@ class AccountsController extends Controller
         Session::flash('flash_message', 'Record Deleted Successfully!');
         return redirect('accounts');
     }
+
+
 }

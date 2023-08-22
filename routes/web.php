@@ -7,11 +7,8 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ReviewsController;
-<<<<<<< HEAD
-=======
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\UserController;
->>>>>>> main
 use App\Http\Controllers\RefundController;
 use App\Http\Controllers\VendorsController;
 use App\Http\Controllers\RoleController;
@@ -19,13 +16,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InsertVendorsController;
-<<<<<<< HEAD
-use App\Http\Controllers\ShowVendorsController;
-use App\Http\Controllers\UserController;
-
-=======
 use App\Models\User;
->>>>>>> main
 
 
 
@@ -118,7 +109,6 @@ Route::view('cwallet', 'customer.cwallet')->name('cwallet');
 
 // Users
 
-<<<<<<< HEAD
 // Route::view('adduser', 'users.adduser')->name('adduser');
 // Route::view('userlist','users.userlist')->name('userlist');
 Route::get('users/userlist', [UserController::class, 'userlist'])->name('userlist');
@@ -130,8 +120,6 @@ Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('u
 
 
 // product reviews
-=======
->>>>>>> main
 
 // Route::view('addproduct','products.addproduct')->name('addproduct');
 // Route::view('allproducts','products.allproducts')->name('allproducts');
@@ -233,11 +221,11 @@ Route::resource('/vendor', VendorsController::class);
 // add user role
 
 Route::resource('users', RoleController::class);
+Route::resource('coupon', CouponController::class);
 
 // Coupon 
 
 // Route::resource('coupon',CouponController::class);
 
-Route::view('createcoupon', 'coupon.createcoupon')->name('createcoupon');
 
 
