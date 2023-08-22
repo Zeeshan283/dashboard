@@ -109,6 +109,17 @@ Route::view('cwallet', 'customer.cwallet')->name('cwallet');
 
 // Users
 
+// Route::view('adduser', 'users.adduser')->name('adduser');
+// Route::view('userlist','users.userlist')->name('userlist');
+Route::get('users/userlist', [UserController::class, 'userlist'])->name('userlist');
+Route::get('users/add', [UserController::class, 'add'])->name('user.add');
+Route::post('users/adduser', [UserController::class, 'adduser'])->name('user.adduser');
+Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+Route::post('users/update/{id}', [UserController::class, 'update'])->name('user.update');
+Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('user.delete');
+
+
+// product reviews
 
 // Route::view('addproduct','products.addproduct')->name('addproduct');
 // Route::view('allproducts','products.allproducts')->name('allproducts');
@@ -212,12 +223,12 @@ Route::resource('vendor', VendorsController::class);
 
 // add user role
 
-Route::resource('user', RoleController::class);
+Route::resource('users', RoleController::class);
+Route::resource('coupon', CouponController::class);
 
 // Coupon 
 
 // Route::resource('coupon',CouponController::class);
 
-Route::view('createcoupon', 'coupon.createcoupon')->name('createcoupon');
 
 

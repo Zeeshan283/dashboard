@@ -787,33 +787,39 @@
         <th>Email</th>
     </tr>
     </tfoot>
-@elseif (Route::currentRouteName() == 'userlist' )
+
+    @elseif (Route::currentRouteName() == 'userlist')
     <thead>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td><span class="i-Eye-Visible"></span></td>
-    </tr>
+        @foreach($users as $user)
+            <tr>
+                <td>{{$user->id}}</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->phone}}</td>
+                <td>{{$user->country}}</td>
+                <td>{{$user->city}}</td>
+                <td>{{$user->addres}}</td>
+                <td>{{$user->status}}</td>
+                <td><a href="{{ route('user.edit', ['id' => $user->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a></td>
+            </tr>
+        @endforeach
     </tbody>
-    <tfoot>
 
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-
-    </tfoot>   --}}
 
 
     {{-- product info  --}}
