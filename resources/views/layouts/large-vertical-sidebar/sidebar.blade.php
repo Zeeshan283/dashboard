@@ -284,7 +284,7 @@
                     <span class="item-name">Create Refund</span>
                 </a>
             </li>
-            {{--<li class="nav-item">
+            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'allrefunds' ? 'open' : '' }}"
                     href="{{ route('allrefunds') }}">
                     <i class="nav-icon i-Arrow-Down-in-Circle"></i>
@@ -441,13 +441,13 @@
                     <span class="item-name">Home Banner</span>
                 </a>
             </li>
-            {{-- <li class="nav-item">
+             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'starter' ? 'open' : '' }}" href="{{ route('starter') }}"
                     class="open">
                     <i class="nav-icon i-File-Horizontal"></i>
                     <span class="item-name">Blank Page</span>
                 </a>
-            </li> --}}
+            </li>
         </ul>
     </div>
     <div class="sidebar-overlay"></div>
