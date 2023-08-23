@@ -995,14 +995,14 @@
     document.addEventListener('DOMContentLoaded', function () {
         const editorContainers = document.querySelectorAll('.editor-container');
 
-        editorContainers.forEach((container, index) => {
-            const editor = new Quill(container, {
-                theme: 'snow',
-                // Add any other Quill configuration options you need.
+            editorContainers.forEach((container, index) => {
+                const editor = new Quill(container, {
+                    theme: 'snow',
+                    // Add any other Quill configuration options you need.
+                });
             });
         });
-    });
-</script>
+    </script>
 
 <script>
     function selectMenu(menuText, inputId) {

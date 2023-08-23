@@ -431,6 +431,64 @@
         <th>Action</th>
     </tr>
     </tfoot>
+{{-- vendor list  --}}
+
+@elseif (Route::currentRouteName() == 'vendorlist' )
+    <thead>
+        <th>Sr No</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        {{-- <tr>
+            <td>Tiger Nixon</td>
+            <td>System Architect</td>
+            <td>Edinburgh</td>
+            <td>61</td>
+            <td>2011/04/25</td>
+            <td>$320,800</td>
+        </tr> --}}
+        @foreach ($vendor as $value =>  $vendors )
+        <tr>
+            {{-- {{-- <td>{{$value + 1}}</td> --}}
+            <td>{{ $vendors->id}}</td>
+            <td>{{ $vendors->name}}</td>
+            <td>{{ $vendors->phone1}}</td>
+            <td>{{ $vendors->email}}</td>
+            {{-- <td>{{ $vendors->status}}</td> --}}
+            <td>
+                @if ( $vendors->status == '0')
+                    <span class="badge text-bg-success">Active</span>
+                @elseif ($vendors->status == '1')
+                    <span class="badge text-bg-success">In_Active</span>
+                @endif
+            </td>
+            <td>
+                <div class="d-flex gap-2">
+                    <a href="{{ url('editseller/'.$vendors->id) }}" class="btn btn-success"><i class="nav-icon i-Pen-2 "></i>Edit</a>
+                    {{-- <a href="{{ url('deleteseller/'.$vendors->id) }}" class="btn btn-danger"><i class="nav-icon i-Close-Window "></i>Delete</a> --}}
+                    {{-- <button type="button" value="{{ $vendors->id }}" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button> --}}
+                    {{-- <button type="button" class="btn btn-danger "><i class="nav-icon i-Close-Window "></i></button> --}}
+                {{-- <button type="button" class="btn btn-primary"> <i class="nav-icon i-Eye "></i> </button> --}}
+                </div>
+            </td>
+        </tr>
+        @endforeach
+
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Sr No</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    </tfoot>
 
 
     {{-- vendor withdrawl list  --}}
@@ -772,18 +830,11 @@
             <td>{{$customers->country}}</td>
             <td>{{$customers->city}}</td>
             <td>{{$customers->addres}}</td>
-            <td>{{$customers->gender}}</td>
+            <td>{{$customers->status}}</td>
         </tr>
         @endforeach
     </tbody>
     <tfoot>
-
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-
-    </tfoot>   --}}
 
 
     {{-- product info  --}}

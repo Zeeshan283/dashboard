@@ -7,6 +7,8 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\RefundController;
 use App\Http\Controllers\VendorsController;
 use App\Http\Controllers\RoleController;
@@ -14,13 +16,12 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InsertVendorsController;
-use App\Http\Controllers\ShowVendorsController;
-use App\Http\Controllers\UserController;
-
+use App\Models\User;
 
 
 
 /*
+
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -82,7 +83,16 @@ Route::view('vendorlist', 'sellers.vendorlist')->name('vendorlist');
 Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
 Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
  Route::post('add', [InsertVendorsController::class, 'add']);
-//  Route::get('show', [ShowVendorsController::class, 'show']);
+ Route::get('vendorlist', [VendorsController::class, 'vendorlist'])->name('vendorlist');
+//  Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
+
+    Route::get('editseller/{id}',[InsertVendorsController::class,'edit']);
+    Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
+    // Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
+
+
+
+
 
 
 
@@ -170,7 +180,7 @@ Auth::routes();
 
 
 
-    Route::resource('products', ProductController::class);
+Route::resource('products', ProductController::class);
 Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
@@ -218,4 +228,11 @@ Route::resource('/vendor', VendorsController::class);
 // add user role
 
 Route::resource('users', RoleController::class);
+Route::resource('coupon', CouponController::class);
+
+// Coupon 
+
+// Route::resource('coupon',CouponController::class);
+
+
 
