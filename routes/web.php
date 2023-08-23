@@ -163,9 +163,10 @@ Auth::routes();
 
 
     Route::resource('products', ProductController::class); 
+    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
     Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
     Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
-    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
+    Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
 
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);

@@ -844,8 +844,11 @@
                                                 {{ $product->subcategories->name }}
                                             @endif
                                         </td>
-                                        @if($product->product_image)
-                                        <td><img src="{{ $product->product_image->url }}" width="50" height="50"></td>
+                                        @if($product->url)
+                                        <td><img src="{{ $product->url }}" width="50" height="50"></td>
+                                        @elseif($product->product_image)
+                                        <td><img src="{{ $product->product_image->url}}" width="50" height="50"></td>
+
                                         @else
                                         <td>image</td>
                                         @endif
@@ -859,19 +862,29 @@
                                         <td>
 
                                             <div class="d-flex gap-2">
-                                            <a href="{{ URL::to('products/' . $product->id . '/edit') }}"><button type="button" class="btn btn-success ">
-                                                <i class="nav-icon i-Pen-2 "></i>
+                                            <a  target="_blank" href="{{ URL::to('products/' . $product->id . '/edit') }}"><button type="button"  class="btn btn btn-outline-secondary ">
+                                                <i 
+                                                {{-- class="fa fa-clone" --}}
+                                                 class=" nav-icon i-Pen-2" 
+                                                style="font-weight: bold;"></i>
                                             </button></a>
-                                                <a href="{{ URL::to('product/' . $product->id . '/dupe')}}"><button type="button" class="btn btn-info ">
-                                                <i class="nav-icon i-Duplicate-Window "></i>
-                                            </button></a>
-                                            <button type="button" class="btn btn-primary">
-                                                <i class="nav-icon i-Eye "></i>
-                                            </button>
+                                                {{-- <a  target="_blank" href="{{ URL::to('product/' . $product->id . '/dupe')}}"><button type="button"  class="btn btn-outline-secondary ">
+                                                <i class="fa fa-clone"
+                                                class="nav-icon i-Duplicate-Window"
+                                                 style="font-weight: bold;"></i>
+                                            </button></a> --}}
+                                            {{-- <a href="">
+                                            <button type="button" class="btn btn-outline-secondary ">
+                                                <i class="fa fa-eye"
+                                                class="nav-icon i-Eye"
+                                                ></i>
+                                            </button></a> --}}
 
+                                            {{-- <a href="{{URL::to('product/'. $product->id. '/delete')}}">
                                             <button type="button" class="btn btn-danger">
                                                 <i class="nav-icon i-Remove-Basket"></i>
                                             </button>
+                                            </a> --}}
                                             </div>
 
                                         </td>
@@ -888,7 +901,7 @@
         <th>SKU</th>
         <th>Category</th>
         <th>image</th>
-        <th>Type</th>
+        {{-- <th>Type</th> --}}
         <th>Action</th>
     </tr>
     </tfoot>

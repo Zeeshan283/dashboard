@@ -6,21 +6,21 @@
                     <i class="nav-icon i-Bar-Chart"></i>
                     <span class="nav-text">Dashboard</span>
                 </a>
-                <div class="triangle"></div>
+                
             </li>
             <li class="nav-item {{ request()->is('uikits/*') ? 'active' : '' }}" data-item="uikits">
                 <a class="nav-item-hold" href="#">
                     <i class="nav-icon i-Shopping-Cart"></i>
                     <span class="nav-text">Orders</span>
                 </a>
-                <div class="triangle"></div>
+                
             </li>
             <li class="nav-item {{ request()->is('addseller/*') ? 'active' : '' }}" data-item="forms">
                 <a class="nav-item-hold" href="#">
                     <i class="nav-icon i-File-Clipboard-File--Text"></i>
                     <span class="nav-text">All Sellers</span>
                 </a>
-                <div class="triangle"></div>
+                
             </li>
 
             <li class="nav-item {{ request()->is('charts/*') ? 'active' : '' }}" data-item="charts">
@@ -28,7 +28,7 @@
                     <i class="nav-icon i-Shopping-Bag"></i>
                     <span class="nav-text">Products</span>
                 </a>
-                <div class="triangle"></div>
+                
             </li>
 
             <li class="nav-item {{ request()->is('extrakits/*') ? 'active' : '' }}" data-item="extrakits">
@@ -36,14 +36,14 @@
                     <i class="nav-icon i-Money"></i>
                     <span class="nav-text">Refund Request</span>
                 </a>
-                <div class="triangle"></div>
+                
             </li>
             <li class="nav-item {{ request()->is('apps/*') ? 'active' : '' }}" data-item="apps">
                 <a class="nav-item-hold" href="#">
                     <i class="nav-icon i-Computer-Secure"></i>
                     <span class="nav-text">Customers</span>
                 </a>
-                <div class="triangle"></div>
+                
             </li>
 
 
@@ -52,7 +52,7 @@
                     <i class="nav-icon i-Windows-2"></i>
                     <span class="nav-text">Categories</span>
                 </a>
-                <div class="triangle"></div>
+                
             </li>
 
             <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="sessions">
@@ -60,21 +60,21 @@
                     <i class="nav-icon i-Information"></i>
                     <span class="nav-text">About Us</span>
                 </a>
-                <div class="triangle"></div>
+                
             </li>
             <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="sessions">
                 <a class="nav-item-hold" href="/test.html">
                     <i class="nav-icon i-Information"></i>
                     <span class="nav-text">Coupon</span>
                 </a>
-                <div class="triangle"></div>
+                
             </li>
             <li class="nav-item {{ request()->is('users/*') ? 'active' : '' }}" data-item="users">
                 <a class="nav-item-hold" href="/test.html">
                     <i class="nav-icon i-Find-User"></i>
                     <span class="nav-text">Users</span>
                 </a>
-                <div class="triangle"></div>
+                
             </li>
 
             {{-- <li class="nav-item">
@@ -82,7 +82,7 @@
                     <i class="nav-icon i-Safe-Box1"></i>
                     <span class="nav-text">Doc</span>
                 </a>
-                <div class="triangle"></div>
+                
             </li> --}}
         </ul>
     </div>
@@ -284,7 +284,7 @@
                     <span class="item-name">Create Refund</span>
                 </a>
             </li>
-            {{--<li class="nav-item">
+            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'allrefunds' ? 'open' : '' }}"
                     href="{{ route('allrefunds') }}">
                     <i class="nav-icon i-Arrow-Down-in-Circle"></i>
