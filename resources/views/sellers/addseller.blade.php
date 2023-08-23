@@ -102,6 +102,7 @@
                                                     Please enter your postcode
                                                 </small>
                                             </div>
+                                        </div>
 
                                             {{-- status hide for fun  --}}
                                             {{-- <div class="form-group col-md-4 ">

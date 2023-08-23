@@ -998,7 +998,7 @@
         </tr>
         @endforeach
     </tbody>
-    <tfoot>
+    {{-- <tfoot>
     <tr>
         <th>Sr No</th>
         <th>Id#</th>
@@ -1006,7 +1006,28 @@
         <th>Icon</th>
 
     </tr>
-    </tfoot>
+    </tfoot> --}}
+    @elseif (Route::currentRouteName() == 'addmenu' )
+    <thead>
+        <th>Sr No</th>
+        <th>Id#</th>
+        <th>Name</th>
+        <th>Icon</th>
+        <th>image</th>
+        <th>imageforapp</th>
+
+    </thead>
+    <tbody>
+        @foreach ($data as $key => $menu)
+        <tr>
+            <td>{{ $key + 1 }}</td>
+            <td>{{ $menu->id }}</td>
+            <td>{{ $menu->name }}</td>
+            <td><i class="{{ $menu->icon }}" style='color:#5233ff;  font-size: 30px;margin-right: 10px;'></i></td>
+            <td><i class="{{ $menu->icon }}"></i></td>
+        </tr>
+        @endforeach
+    </tbody>
 @elseif (Route::currentRouteName() == 'allcat' )
     <thead>
         <th>Sr No</th>

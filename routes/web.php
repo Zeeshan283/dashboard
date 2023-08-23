@@ -204,9 +204,11 @@ Route::get('customerlist',[CustomerController::class,'index'])->name('customerli
 
 
 // menu controller route
-Route::get('allmenu',[MenuController::class, 'index'])->name('allmenu');
-Route::get('allcat',[CategoryController::class,'index'])->name('allcat');
-Route::get('allsubcat',[SubCategoryController::class, 'index'])->name('allsubcat');
+Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
+Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
+Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
+Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
+Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
 
 // customer reviews controller
 
@@ -230,7 +232,7 @@ Route::resource('/vendor', VendorsController::class);
 Route::resource('users', RoleController::class);
 Route::resource('coupon', CouponController::class);
 
-// Coupon 
+// Coupon
 
 // Route::resource('coupon',CouponController::class);
 
