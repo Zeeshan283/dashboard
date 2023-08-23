@@ -928,7 +928,7 @@
 
 
 <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
- 
+    {!! Toastr::message() !!}
 
 
     {{-- <script> 

@@ -509,19 +509,19 @@ class ProductController extends Controller
 
 
         
-            $p = Product::findOrFail($id);
+        $p = Product::findOrFail($id);
 
-            if ($request->hasFile('feature_image')) {
-                $image = $request->file('feature_image');
-                $imageName = uniqid().'.'.$image->extension();
-                $image->move('upload/products', $imageName);
-            }
+        if ($request->hasFile('feature_image')) {
+            $image = $request->file('feature_image');
+            $imageName = uniqid().'.'.$image->extension();
+            $image->move('upload/products', $imageName);
+        }
 
-            $productData = $request->all();
-            $productData['url'] = asset('upload/products/'.$imageName);
-            $productData['feature_image'] = $imageName;
-            
-            $p->create($productData);
+        $productData = $request->all();
+        $productData['url'] = asset('upload/products/'.$imageName);
+        $productData['feature_image'] = $imageName;
+        
+        $p->create($productData);
 
 
             // $p = Product::create($request->all());
