@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image as Image;
+// use Intervention\Image\ImageManagerStatic as Image;
 
 class CategoryController extends Controller
 {
@@ -26,18 +27,13 @@ class CategoryController extends Controller
 
   public function create()
   {
-    $code = Category::OrderBy('id', 'asc')->get();
-    if (count($code) > 0) {
-      $codes = (int)$code->last()->code + 1;
-    } else {
-      $codes = 1;
-    }
-    $menu = Menu::OrderBy('id', 'asc')->pluck('name', 'id');
-    return view('categories.create', compact('codes', 'menu'));
+    $menus = Menu::all();
+    return view('category.addcat', compact('menus'));
   }
 
   public function store(Request $request)
   {
+    // dd($request->all());
     //return $request;
     $this->validate($request, [
       'name' => 'required',
@@ -53,25 +49,25 @@ class CategoryController extends Controller
     if ($request->hasFile('img')) {
       $file = $request->file('img');
       $fileName = uniqid() . $file->getClientOriginalName();
-      $imagePath =  'root/upload/category/' . $fileName;
+      $imagePath =  'upload/category/' . $fileName;
 
       $img = Image::make($file);
       $img->resize(100, 100);
       $img->save($imagePath);
 
-      $cat->img = 'root/upload/category/'.$fileName;
+      $cat->img = 'upload/category/'.$fileName;
       $cat->save();
   }
     if ($request->hasFile('imageforapp')) {
       $file = $request->file('imageforapp');
       $fileName = uniqid() . $file->getClientOriginalName();
-      $imagePath =  'root/upload/category/' . $fileName;
+      $imagePath =  'upload/category/' . $fileName;
 
       $img = Image::make($file);
       $img->resize(100, 100);
       $img->save($imagePath);
 
-      $cat->imageforapp ='root/upload/category/'.$fileName;
+      $cat->imageforapp ='upload/category/'.$fileName;
       $cat->save();
   }
 
@@ -112,26 +108,26 @@ class CategoryController extends Controller
       File::delete($update1->img);
       $file = $request->file('img');
       $fileName = uniqid() . $file->getClientOriginalName();
-      $imagePath =  'root/upload/category/' . $fileName;
+      $imagePath =  'upload/category/' . $fileName;
 
       $img = Image::make($file);
       $img->resize(100, 100);
       $img->save($imagePath);
 
-      $update->img = 'root/upload/category/'.$fileName;
+      $update->img = 'upload/category/'.$fileName;
       $update->save();
   }
     if ($request->hasFile('imageforapp')) {
       File::delete($update1->imageforapp);
       $file = $request->file('imageforapp');
       $fileName = uniqid() . $file->getClientOriginalName();
-      $imagePath =  'root/upload/category/' . $fileName;
+      $imagePath =  'upload/category/' . $fileName;
 
       $img = Image::make($file);
       $img->resize(100, 100);
       $img->save($imagePath);
 
-      $update->imageforapp ='root/upload/category/'.$fileName;
+      $update->imageforapp ='upload/category/'.$fileName;
       $update->save();
   }
 
@@ -157,7 +153,7 @@ class CategoryController extends Controller
         $imageName
       );
 
-      $update->img ='root/upload/category/'.$imageName;
+      $update->img ='upload/category/'.$imageName;
       $update->save();
     }
 

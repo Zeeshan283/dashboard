@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\User;
 use App\Models\Role;
 use Brian2694\Toastr\Facades\Toastr;
 
@@ -41,7 +40,7 @@ class RoleController extends Controller
             //'category_id' => 'required'
         ]);
 
-        $student = new User(array(
+        $users = new User(array(
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             // 'category_id' => $request->get('category_id'),

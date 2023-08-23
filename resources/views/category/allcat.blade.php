@@ -5,7 +5,14 @@
 
 @section('main-content')
     <div class="breadcrumb">
-                <h1>All Caegories</h1>
+                <div class="col-md-6">
+                    <h1>All Categories</h1>
+                </div>
+                <div class="col-md-6" style="text-align: right;  margin-left: auto;">
+                    <a href="{{ route('cat.create')}}"><button class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Create Category</span></button></a>
+
+                </div>
+                
             </div>
 
             <div class="separator-breadcrumb border-top"></div>

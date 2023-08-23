@@ -15,18 +15,21 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
+            $table->string('coupon_type');
+            $table->string('coupon_title');
             $table->string('coupon_code');
-            $table->decimal('discount_value',10,2);
+            $table->decimal('minimum_purchase', 10, 2);
             $table->date('start_date');
-            $table->data('expiration_date');
-            $table->integer('mpa')->nullable(); // minimum purchase amount
-            $table->integer('redemption_count')->default(0);
-            $table->unsignedBigInteger('vendor');
-            $table->enum('status', ['Active', 'Inactive', 'Expired']);  
+            $table->date('end_date');
+            $table->string('discount_type')->nullable();
+            $table->decimal('amount', 10, 2)->nullable();
+            $table->decimal('percentage', 5, 2)->nullable();
+            $table->integer('limit_same_user')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->timestamps();
-            
+
             // forigen key relation 
-            $table->foreign('vendor')->references('id')->on('users');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
         });
     }
 
