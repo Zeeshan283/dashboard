@@ -152,8 +152,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'allcat' ? 'open' : '' }}"
-                    href="{{ route('allcat') }}">
+                <a class="{{ Route::currentRouteName() == 'cat.index' ? 'open' : '' }}"
+                    href="{{ route('cat.index') }}">
                     <i class="nav-icon i-Folder"></i>
                     <span class="item-name">All Categories</span>
                 </a>

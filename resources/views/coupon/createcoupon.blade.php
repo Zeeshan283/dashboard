@@ -67,7 +67,7 @@
                                             {{-- common fileds  --}}
                                             <div class="form-group col-md-4">
                                                 <label for="commonField" class="ul-form__label">Minimum Purchase ($):</label>
-                                                <input type="text" class="form-control" id="commonField" name="minp" placeholder="Minimum Purchase">
+                                                <input type="number" class="form-control" id="commonField" name="minp" placeholder="Minimum Purchase">
                                                 <small class="ul-form__text form-text">
                                                     Minumum Purchase 
                                                 </small>
@@ -111,14 +111,14 @@
                                                     </div>
                                                     <div id="amountField" class="form-group col-md-4" style="display: none;">
                                                         <label for="amount" class="ul-form__label">Amount:</label>
-                                                        <input type="text" class="form-control" id="amount" name="amount1" placeholder="Amount">
+                                                        <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount">
                                                         <small class="ul-form__text form-text">
                                                             Amount
                                                         </small>
                                                     </div>
                                                     <div id="percentageField" class="form-group col-md-4" style="display: none;">
                                                         <label for="percentage" class="ul-form__label">Percentage:</label>
-                                                        <input type="text" class="form-control" id="percentage" name="percentage1" placeholder="Percentage">
+                                                        <input type="text" class="form-control" id="percentage" name="percentage" placeholder="Percentage">
                                                         <small class="ul-form__text form-text">
                                                             Percentage
                                                         </small>
@@ -144,7 +144,7 @@
                                                 <div class="row">
                                                     <div class="form-group col-md-4 vendor2Fields">
                                                         <label for="field2" class="ul-form__label">Limit For Same User:</label>
-                                                        <input type="number" class="form-control" id="field2" name="limit_same_user" placeholder="Limit For Same User">
+                                                        <input type="number" class="form-control" id="field2" name="limit_same_user1" placeholder="Limit For Same User">
                                                         <small class="ul-form__text form-text">
                                                             Limit For Same User
                                                         </small>
@@ -187,15 +187,15 @@
                                                         </small>
                                                     </div>
                                                     <div id="amountField3" class="form-group col-md-4" style="display: none;">
-                                                        <label for="amount" class="ul-form__label">Amount:</label>
-                                                        <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount">
+                                                        <label for="amount3" class="ul-form__label">Amount:</label>
+                                                        <input type="text" class="form-control" id="amount" name="amount3" placeholder="Amount">
                                                         <small class="ul-form__text form-text">
                                                             Amount
                                                         </small>
                                                     </div>
                                                     <div id="percentageField3" class="form-group col-md-4" style="display: none;">
-                                                        <label for="percentage" class="ul-form__label">Percentage:</label>
-                                                        <input type="text" class="form-control" id="percentage" name="percentage" placeholder="Percentage">
+                                                        <label for="percentage3" class="ul-form__label">Percentage:</label>
+                                                        <input type="text" class="form-control" id="percentage" name="percentage3" placeholder="Percentage">
                                                         <small class="ul-form__text form-text">
                                                             Percentage
                                                         </small>

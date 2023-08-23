@@ -201,8 +201,11 @@ Route::get('customerlist',[CustomerController::class,'index'])->name('customerli
 
 // menu controller route
 Route::get('allmenu',[MenuController::class, 'index'])->name('allmenu');
-Route::get('allcat',[CategoryController::class,'index'])->name('allcat');
 Route::get('allsubcat',[SubCategoryController::class, 'index'])->name('allsubcat');
+// Route::get('addcat',[CategoryController::class, 'create'])->name('addcat');
+// Route::get('allcat',[CategoryController::class,'index'])->name('allcat');
+
+Route::resource('cat', CategoryController::class);
 
 // customer reviews controller
 
@@ -216,6 +219,7 @@ Route::get('allrefunds',[RefundController::class,'refundstatus'])->name('allrefu
 Route::get('refunded',[RefundController::class, 'index'])->name('refunded');
 Route::get('createrefund',[RefundController::class, 'create'])->name('createrefund');
 Route::post('/store-refund', [RefundController::class, 'store'])->name('refund.store');
+
 
 // vendors route
 
