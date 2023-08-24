@@ -1001,7 +1001,7 @@
     </tr>
     </tfoot>
 
-@elseif (Route::currentRouteName() == 'allmenu' )
+@elseif (Route::currentRouteName() == 'menu.index' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>
@@ -1049,7 +1049,7 @@
         </tr>
         @endforeach
     </tbody>
-@elseif (Route::currentRouteName() == 'allcat' )
+@elseif (Route::currentRouteName() == 'cat.index' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>

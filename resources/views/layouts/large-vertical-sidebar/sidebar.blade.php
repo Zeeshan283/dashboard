@@ -69,16 +69,16 @@
 
         <ul class="childNav" data-parent="widgets">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'allmenu' ? 'open' : '' }}"
-                    href="{{ route('allmenu') }}">
+                <a class="{{ Route::currentRouteName() == 'menu.index' ? 'open' : '' }}"
+                    href="{{ route('menu.index') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">All Menus</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'addmenu' ? 'open' : '' }}"
-                    href="{{ route('addmenu') }}">
+                <a class="{{ Route::currentRouteName() == 'menu.create' ? 'open' : '' }}"
+                    href="{{ route('menu.create') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">Add Menus</span>
                 </a>

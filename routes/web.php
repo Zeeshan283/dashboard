@@ -96,7 +96,6 @@ Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
 
 
 
-
 // Refund
 Route::view('pendingrefund', 'refund.pendingrefund')->name('pendingrefund');
 Route::view('approvedrefund', 'refund.approvedrefund')->name('approvedrefund');
@@ -180,11 +179,11 @@ Auth::routes();
 
 
 
-    Route::resource('products', ProductController::class); 
-    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
-    Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
-    Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
-    Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+Route::resource('products', ProductController::class); 
+Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
+Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
+Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
 
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
@@ -208,20 +207,14 @@ Route::get('customerlist',[CustomerController::class,'index'])->name('customerli
 
 
 // menu controller route
-<<<<<<< HEAD
-Route::get('allmenu',[MenuController::class, 'index'])->name('allmenu');
-Route::get('allsubcat',[SubCategoryController::class, 'index'])->name('allsubcat');
-// Route::get('addcat',[CategoryController::class, 'create'])->name('addcat');
-// Route::get('allcat',[CategoryController::class,'index'])->name('allcat');
-
-Route::resource('cat', CategoryController::class);
-=======
-Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
+// Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
 Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
 Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
-Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
-Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
->>>>>>> origin/saliha
+// Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
+// Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
+Route::resource('menu', MenuController::class);
+
+Route::resource('cat', CategoryController::class);
 
 // customer reviews controller
 

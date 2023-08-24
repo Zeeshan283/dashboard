@@ -5,11 +5,13 @@
 
 @section('main-content')
     <div class="breadcrumb col-lg-12">
-                <h1 class="col-lg-10">All Menus</h1>
-                <a class="{{ Route::currentRouteName() == 'addmenu' ? 'open' : '' }}"
-                href="{{ route('addmenu') }}">
-                 <button class="btn btn-primary" type="submit" style="color: white;">Add Menu</button>
-             </a>
+             <div class="col-md-6">
+                <h1>All Menu</h1>
+            </div>
+            <div class="col-md-6" style="text-align: right;  margin-left: auto;">
+                <a href="{{ route('menu.create')}}"><button class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Create Menu</span></button></a>
+
+            </div>
             </div>
 
             <div class="separator-breadcrumb border-top"></div>
