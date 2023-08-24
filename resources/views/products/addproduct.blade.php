@@ -14,6 +14,8 @@
             max-height: 100px;
             margin: 5px;
         }
+        
+
     </style>
 @endsection
 
@@ -28,7 +30,9 @@
             <div class="separator-breadcrumb border-top"></div>
             <div class="breadcrumb">
             
-                @if (count($errors) > 0)
+            
+
+                {{-- @if (count($errors) > 0)
                     <div class="alert alert-danger  d-flex">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -36,7 +40,21 @@
                             @endforeach
                         </ul>
                     </div>
+                @endif --}}
+
+                <div id="error-alert">
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger d-flex" id="error-alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+
                 @endif
+            </div>
+
             </div>
             <div class="col-md-12 mb-4">
             <div class="row">
@@ -928,21 +946,23 @@
 
 
 <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
+{{-- <script>
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            toastr.error("{{ $error }}");
+        @endforeach
+    @endif
+</script> --}}
+
+    @if ($errors->any())
+    <script>
+        toastr.error("{{ $errors->first() }}");
+    </script>
+    @endif
+
     {!! Toastr::message() !!}
 
 
-    {{-- <script> 
-        document.addEventListener('DOMContentLoaded', function () {
-            const editorContainers = document.querySelectorAll('.editor-container');
-
-            editorContainers.forEach((container, index) => {
-                const editor = new Quill(container, {
-                    theme: 'snow',
-                    // Add any other Quill configuration options you need.
-                });
-            });
-        });
-    </script> --}}
 
 <script>
     function selectMenu(menuText, inputId) {
@@ -1057,73 +1077,21 @@
 
 @endsection
 
-{{-- <script>
-                                    
-    $.ajaxSetup({
-        headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-    });
-
-    $(document).ready(function() {
-
-        $('#upload_image , #select_file').on('change', function(event) {
-            //   event.preventDefault(); 
-
-            $.ajax({
-                url: "{{ asset('upload_image_ajax') }}",
-                method: "POST",
-                data: new FormData(this),
-                dataType: 'JSON',
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    var ImgHTML = '';
-                    var ImgPath = '';
-                    $.each(data, function(i, v) {
-                        ImgHTML += `<label id="row${v}">
-                        <img src="upload/products/${v}" class="img-thumbnail" style="width:100px;height:80px;" />
-                            <span  style="color: red;" data-path="${v}" id="remove_button" style="position:relative;top:-35px;left:-10px;background:red;color:white;padding:0px 5px 3px 5px;border-radius:100%;cursor:pointer;">x</span  style="color: red;">  
-                        </div>  
-                        </label>`;
-
-                        ImgPath +=
-                            `<input type="hidden" id="${v}" name="images[]" value="${v}" />`;
-                    });
-
-                    $('#uploaded_image').append(ImgHTML);
-                    $('#select_file').val('');
-                    $('.images_names').append(ImgPath);
-                }
-            })
-        });
-
-
-        $(document).on('click', '#remove_button', function() {
-            var path = $(this).attr("data-path");
-            $.ajax({
-                url: "{{ asset('delete_image_ajax') }}",
-                type: "get",
-                data: {
-                    path: path
-                },
-                success: function(data) {
-                    document.getElementById('row' + path).remove();
-                    document.getElementById(path).remove();
-                }
-            });
-        });
-
-});
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- --}}
 
 @section('bottom-js')
 
 
 <script src="{{asset('assets/js/smart.wizard.script.js')}}"></script>
 <script src="{{asset('assets/js/quill.script.js')}}"></script>
+
+                    <script>
+                        // Add JavaScript to hide the error message after 3 seconds
+                        setTimeout(function () {
+                            var errorAlert = document.getElementById('error-alert');
+                            if (errorAlert) {
+                                errorAlert.style.display = 'none';
+                            }
+                        }, 6000); // 3000 milliseconds (3 seconds)
+                    </script>
 
 @endsection

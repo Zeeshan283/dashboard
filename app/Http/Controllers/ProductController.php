@@ -92,6 +92,7 @@ class ProductController extends Controller
             // 'model_no' => 'required',
             'make' => 'required',
             'min_order' => 'required',
+            'feature_image' => 'required',
             // 'images.0' => 'required',
             'attachment' => 'mimes:pdf, zip|max:20480',
             'sku' => 'required|unique:products',
@@ -112,6 +113,7 @@ class ProductController extends Controller
             'model_no.required' => 'The Model No field is required',
             'make.required' => 'The Make field is required',
             'sku.exists' => 'The SKU already exist',
+            'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
             'type.required' => 'The Type field is required',
             'description.required' => 'The Description field is required',
@@ -144,11 +146,12 @@ class ProductController extends Controller
                 $image->move('upload/products', $imageName);
             }
 
-            // Create the product data including the image file name.
             $productData = $request->all();
+
+            if ($request->hasFile('feature_image')) {
             $productData['url'] = asset('upload/products/'.$imageName);
             $productData['feature_image'] = $imageName;
-
+            }
 
             
             $p = Product::create($productData);
@@ -177,6 +180,7 @@ class ProductController extends Controller
                 }
             }
 
+            if ($request->hasFile('images')) {
             if (count($request->images) > 0) {
                 for ($i = 0; $i < count($request->images); $i++) {
                     $pImages = new ProductImages();
@@ -195,6 +199,7 @@ class ProductController extends Controller
                     $pImages->image = $imageName;
                     $pImages->url =  url('upload/products/' . $imageName); // Adjust this URL as needed
                     $pImages->save();
+                    }
                 }
             }
 
@@ -272,6 +277,7 @@ class ProductController extends Controller
             'make' => 'required',
             'min_order' => 'required',
             // 'images.0' => 'required',
+            // 'feature_image' => 'required',
             'attachment' => 'mimes:pdf, zip|max:20480',
             'sku' => 'required',
             'description' => 'required',
@@ -291,6 +297,7 @@ class ProductController extends Controller
             'model_no.required' => 'The Model No field is required',
             'make.required' => 'The Make field is required',
             'sku.required' => 'The SKU field is required',
+            // 'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
             'type.required' => 'The Type field is required',
             'description.required' => 'The Description field is required',
@@ -326,8 +333,10 @@ class ProductController extends Controller
         }
 
         $productData = $request->all();
+        if ($request->hasFile('feature_image')) {
         $productData['url'] = asset('upload/products/'.$imageName);
         $productData['feature_image'] = $imageName;
+        }
         
         $edit->update($productData);
 
@@ -461,6 +470,7 @@ class ProductController extends Controller
             'make' => 'required',
             'min_order' => 'required',
             // 'images.0' => 'required',
+            'feature_image' => 'required',
             'attachment' => 'mimes:pdf, zip|max:20480',
             'sku' => 'required|unique:products',
             'description' => 'required',
@@ -480,6 +490,8 @@ class ProductController extends Controller
             'model_no.required' => 'The Model No field is required',
             'make.required' => 'The Make field is required',
             'sku.exists' => 'The SKU already exist',
+
+            'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
             'type.required' => 'The Type field is required',
             'description.required' => 'The Description field is required',
@@ -509,7 +521,7 @@ class ProductController extends Controller
 
 
         
-        $p = Product::findOrFail($id);
+        // $p = Product::findOrFail($id);
 
         if ($request->hasFile('feature_image')) {
             $image = $request->file('feature_image');
@@ -518,10 +530,13 @@ class ProductController extends Controller
         }
 
         $productData = $request->all();
+
+        if ($request->hasFile('feature_image')) {
         $productData['url'] = asset('upload/products/'.$imageName);
         $productData['feature_image'] = $imageName;
-        
-        $p->create($productData);
+        }
+
+        $p = Product::create($productData);
 
 
             // $p = Product::create($request->all());
@@ -567,21 +582,19 @@ class ProductController extends Controller
             //         $pImages->save();
             //     }
             // }
-
+            if ($request->hasFile('images')) {
             if (count($request->images) > 0) {
                 for ($i = 0; $i < count($request->images); $i++) {
                     $pImages = new ProductImages();
-                    $pImages->pro_id = $p->id;
-        
+                    $pImages->pro_id = $p->id;        
                     $uploadedImage = $request->images[$i];
-                    
                     $imageName = uniqid() . '_' . $uploadedImage->getClientOriginalName();
-        
                     $uploadedImage->move('upload/products', $imageName);
         
                     $pImages->image = $imageName;
                     $pImages->url =  url('upload/products/' . $imageName);
                     $pImages->save();
+                    }
                 }
             }
 
