@@ -48,7 +48,7 @@
                                                 </small>
                                             </div>
 
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-6">
                                                 <label for="inputEmail13" class="ul-form__label">Username:</label>
                                                 <div class="input-group mb-2">
                                                     <div class="input-group-text bg-transparent input-group-prepend">
@@ -61,7 +61,7 @@
                                                     Please enter your username
                                                 </small>
                                             </div>
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-6">
                                                 <label for="inputtext14" class="ul-form__label">Email:</label>
                                                 <input type="text" class="form-control" id="email" name="email"  placeholder="Enter your email " value="{{ old ('email')}}">
                                                 <span style="color: red">@error('email')@enderror</span>
@@ -69,7 +69,7 @@
                                                     Please enter your Email
                                                 </small>
                                             </div>
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-6">
                                                 <label for="inputEmail16" class="ul-form__label">Address:</label>
                                                 <div class="input-right-icon">
                                                     <input type="text" class="form-control" id="inputEmail16"  name="address"  placeholder="Enter your address" value="{{ old ('address')}}">
@@ -77,7 +77,7 @@
                                                         <i class="ul-form__icon i-Map-Marker"></i>
                                                     </span>
                                                 </div>
-
+{{--
                                             <div class="form-group col-lg-6">
                                                 <label for="inputtext14" class="ul-form__label">Password:</label>
                                                 <input type="text" class="form-control" id="email" placeholder="Enter your Password" name="password" required>
@@ -85,7 +85,8 @@
                                                     Please enter your address
                                                 </small>
 
-                                        </div>
+                                        </div> --}}
+                                    </div>
 
                                         <div class="custom-separator"></div>
 
@@ -103,9 +104,9 @@
                                                     Please enter your postcode
                                                 </small>
                                             </div>
-                                            
+
                                             {{-- status hide for fun  --}}
-                                            {{-- <div class="form-group col-md-4 ">
+                                            <div class="form-group col-md-6 ">
                                                 <label for="inputEmail18" class="ul-form__label">Status:</label>
                                                 <div class="ul-form__radio-inline">
                                                     <label class=" ul-radio__position radio radio-primary form-check-inline">
@@ -122,7 +123,7 @@
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Select Your Status
                                                 </small>
-                                            </div> --}}
+                                            </div>
 
                                         </div>
 
