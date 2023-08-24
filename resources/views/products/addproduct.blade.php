@@ -23,39 +23,21 @@
 
 
 @section('main-content')
-  <div class="breadcrumb">
-                <h1>Products</h1>
-            
-            </div>
-            <div class="separator-breadcrumb border-top"></div>
-            <div class="breadcrumb">
-            
-            
-
-                {{-- @if (count($errors) > 0)
-                    <div class="alert alert-danger  d-flex">
+<div class="breadcrumb">
+                <h1>Add Products</h1>
+                
+                
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger d-flex">
                         <ul>
                             @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>
-                @endif --}}
-
-                <div id="error-alert">
-                @if (count($errors) > 0)
-                    <div class="alert alert-danger d-flex" id="error-alert">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-
                 @endif
             </div>
-
-            </div>
+            <div class="separator-breadcrumb border-top"></div>
             <div class="col-md-12 mb-4">
             <div class="row">
                 <div class="col-md-12" style="padding: 20px;">
@@ -71,14 +53,14 @@
                            <div>
                             <div id="step-1" class="">
                             
-                            {!! Form::open([
-                                'url' => 'products',
-                                'method' => 'POST',
+                                {!! Form::open([
+                                    'url' => 'products',
+                                    'method' => 'POST',
+    
+                                    'files' => 'true',
+                                    'enctype' => 'multipart/form-data',
+                                ]) !!}
                                 
-                                'files' => 'true',
-                                'enctype' => 'multipart/form-data',
-                            ]) !!}
-                            
                                     <div>
                                         <div class="card-body">
                                             <div class="form-group row">
@@ -101,8 +83,8 @@
                                                 'placeholder' => 'Enter your Product Name'
                                             ]) !!}
                                             @if ($errors->has('name'))
-                                                <span  style="color: red;"
-                                                    class="invalid-feedback1 font-weight-bold " >{{ $errors->first('name') }}</span  style="color: red;">
+                                                <span   style="color: red;"
+                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('name') }}</span   style="color: red;">
                                             @endif
                                         {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product name
@@ -115,13 +97,14 @@
                                                     {!! Form::text('model_no', null, [
                                                         'id' => 'model_no',
                                                         'class' => 'form-control',
+                                                        // '' => '',
                                                         'maxlength' => '100',
                                                     
                                                         'placeholder' => 'Enter Model Numner'
                                                     ]) !!}
                                                     @if ($errors->has('model_no'))
-                                                        <span  style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold text-danger">{{ $errors->first('model_no') }}</span  style="color: red;">
+                                                        <span   style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('model_no') }}</span   style="color: red;">
                                                     @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Model Number of the Product
@@ -150,8 +133,8 @@
                                                         'placeholder'=>'Enter New Price',
                                                     ]) !!}
                                                     @if ($errors->has('new_price'))
-                                                        <span  style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_price') }}</span  style="color: red;">
+                                                        <span   style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_price') }}</span   style="color: red;">
                                                     @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product New Price
@@ -175,8 +158,8 @@
                                                         'placeholder'=>'Enter N.Sale Price',
                                                     ]) !!}
                                                     @if ($errors->has('new_sale_price'))
-                                                        <span  style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_sale_price') }}</span  style="color: red;">
+                                                        <span   style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_sale_price') }}</span   style="color: red;">
                                                     @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product N.Sale Price
@@ -200,8 +183,8 @@
                                                         'placeholder'=>'Enter N.Warranty Days',
                                                     ]) !!}
                                                     @if ($errors->has('new_warranty_days'))
-                                                        <span  style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold text-danger">{{ $errors->first('new_warranty_days') }}</span  style="color: red;">
+                                                        <span   style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_warranty_days') }}</span   style="color: red;">
                                                     @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product N.Warranty Days
@@ -225,8 +208,8 @@
                                                     'placeholder'=>'Enter N.Return Days',
                                                 ]) !!}
                                                 @if ($errors->has('new_return_days'))
-                                                    <span  style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_return_days') }}</span  style="color: red;">
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_return_days') }}</span   style="color: red;">
                                                 @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product N.Return Days
@@ -251,8 +234,8 @@
                                                     'placeholder'=>'Enter Refurbished Price',
                                                 ]) !!}
                                                     @if ($errors->has('refurnished_price'))
-                                                        <span  style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_price') }}</span  style="color: red;">
+                                                        <span   style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_price') }}</span   style="color: red;">
                                                     @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product Refurbished Price
@@ -275,8 +258,8 @@
                                                     'placeholder'=>'Enter R.Sale Price',
                                                 ]) !!}
                                                 @if ($errors->has('refurnished_sale_price'))
-                                                    <span  style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_sale_price') }}</span  style="color: red;">
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_sale_price') }}</span   style="color: red;">
                                                 @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product R.Sale Price
@@ -299,8 +282,8 @@
                                                     'placeholder'=>'Enter R.Warranty Days',
                                                 ]) !!}
                                                 @if ($errors->has('refurnished_warranty_days'))
-                                                    <span  style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_warranty_days') }}</span  style="color: red;">
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_warranty_days') }}</span   style="color: red;">
                                                 @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product R.Warranty Days </small> --}}
@@ -322,8 +305,8 @@
                                                     'placeholder'=>'Enter R.Return Days',
                                                 ]) !!}
                                                 @if ($errors->has('refurnished_return_days'))
-                                                    <span  style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_return_days') }}</span  style="color: red;">
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_return_days') }}</span   style="color: red;">
                                                 @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product R.Return Days
@@ -349,8 +332,8 @@
                                                     'placeholder'=>'Enter Minimum Order Quantity',
                                                 ]) !!}
                                                 @if ($errors->has('min_order'))
-                                                    <span  style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('min_order') }}</span  style="color: red;">
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('min_order') }}</span   style="color: red;">
                                                 @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Minimum order quantity
@@ -360,23 +343,23 @@
     
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Make:</label>
                                                 <div class="form-group col-lg-2">
-                                                <div class="form-group">
-                                                   
-                                                    @if (Auth::User()->role=='Admin')
-                                                        {!! Form::select('vendors',$vendors,null,['id'=>'vendors','class'=>'form-control fstdropdown-select','onchange'=>'ChangeMakeCondition(this.value)']) !!}
-                                                        {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
-                                                        {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
-                                                    @else
-                                                        {!! Form::text('make1',Auth::User()->name,['id'=>'make1','class'=>'form-control','disabled'=>'disabled']) !!}
-                                                        {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
-                                                        {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
-                                                    @endif
+                                                    <div class="form-group">
 
-                                                    @if ($errors->has('make'))
-                                                        <span  style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('make') }}</span  style="color: red;">
-                                                    @endif
-                                                </div>
+                                                        @if (Auth::User()->role=='Admin')
+                                                            {!! Form::select('vendors',$vendors,null,['id'=>'vendors','class'=>'form-control fstdropdown-select','onchange'=>'ChangeMakeCondition(this.value)']) !!}
+                                                            {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
+                                                            {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
+                                                        @else
+                                                            {!! Form::text('make1',Auth::User()->name,['id'=>'make1','class'=>'form-control','disabled'=>'disabled']) !!}
+                                                            {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
+                                                            {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
+                                                        @endif
+    
+                                                        @if ($errors->has('make'))
+                                                            <span  style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('make') }}</span  style="color: red;">
+                                                        @endif
+                                                    </div>
                                                 </div>
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">SKU:</label>
                                                 <div class="col-lg-2">
@@ -385,12 +368,10 @@
                                                     'class' => 'form-control',
                                                     // '' => '',
                                                     'placeholder'=>'Enter Product SKU',
-                                                    
                                                 ]) !!}
                                                 @if ($errors->has('sku'))
-                                                    <span  style="color: red;"
-                                                    
-                                                        class="invalid-feedback1 font-weight-bold  ">{{ $errors->first('sku') }}</span  style="color: red;">
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('sku') }}</span   style="color: red;">
                                                 @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter Product Refurbished Price
@@ -405,6 +386,7 @@
                                                         @foreach ($conditions as $value)
                                                             <option value="{{ $value->id }}">{{ $value->name }}</option>
                                                         @endforeach
+                                                        
                                                     </select>
                                                     {{-- </div> --}}
                                                 </div>
@@ -413,12 +395,42 @@
                                                         
                                                     <select id="choices-multiple-remove-button" name="colors[]"
                                                         class="form-control"
-                                                        placeholder="Select color" multiple>
+                                                        placeholder="Select color"  multiple>
+                                                        
+                                                        
                                                         @foreach ($colors as $value)
                                                                 <option value="{{$value->id}}">{{$value->name}}</option>
                                                         @endforeach
+
+                                                        {{-- @foreach ($colors as $key => $value)
+                                                            @php $n=0; @endphp
+                                                            @foreach ($edit->colors as $value1)
+                                                                @if ($value->id == $value1->color_id)
+                                                                    @php
+                                                                        $n++;
+                                                                        break;
+                                                                    @endphp
+                                                                @endif
+                                                            @endforeach
+                                                            @if ($n == 0)
+                                                                <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                            @else
+                                                                <option value="{{ $value->id }}" selected>{{ $value->name }}</option>
+                                                            @endif
+                                                        @endforeach --}}
                                                         
                                                     </select>
+
+                                                    {{-- {!! Form::select('colors[]', $colors, null, [
+                                                        'id' => 'choices-multiple-remove-button',
+                                                        'class' => 'form-control',
+
+                                                        // '' => '',
+                                                            ]) !!}
+                                                    @if ($errors->has('colors'))
+                                                        <span   style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('colors') }}</span   style="color: red;">
+                                                    @endif --}}
                                                     </div>
 
                                             </div>
@@ -446,8 +458,8 @@
                                                     'autocomplete' => 'off',
                                                 ]) !!}
                                                 @if ($errors->has('width'))
-                                                    <span  style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('width') }}</span  style="color: red;">
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('width') }}</span   style="color: red;">
                                                 @endif
                             <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter product width
@@ -468,8 +480,8 @@
                                                     'autocomplete' => 'off',
                                                 ]) !!}
                                                 @if ($errors->has('height'))
-                                                    <span  style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('height') }}</span  style="color: red;">
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('height') }}</span   style="color: red;">
                                                 @endif
                                                     <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter product height
@@ -490,8 +502,8 @@
                                                     'autocomplete' => 'off',
                                                 ]) !!}
                                                 @if ($errors->has('depth'))
-                                                    <span  style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('depth') }}</span  style="color: red;">
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('depth') }}</span   style="color: red;">
                                                 @endif
                                                     <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter product Depth
@@ -512,8 +524,8 @@
                                                     'autocomplete' => 'off',
                                                 ]) !!}
                                                 @if ($errors->has('weight'))
-                                                    <span  style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('weight') }}</span  style="color: red;">
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('weight') }}</span   style="color: red;">
                                                 @endif
                                                     <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                         Please enter product Weight
@@ -543,20 +555,21 @@
                                                             <h2>Short Description</h2>
                                                             {{-- <p>Enter Product Description 1</p> --}}
                                                             
-                                                        {{-- <textarea class="mx-auto col-md-12 	col-12" name="description" id="summernote"  rows="7"></textarea> --}}
+                                                        {{-- <textarea class="mx-auto col-md-12 	col-12" value={{ $edit->description }}  maxlength="10" name="description" id="summernote"  rows="7"></textarea> --}}
                                                                 
                                                                 
-                                                        {!! Form::textarea('description', null, [
-                                                            'id' => 'description1',
-                                                            'class' => 'mx-auto col-md-12 	col-12',
-                                                            'maxlength' => '1000',
-                                                            'rows' => '5',
-                                                        ]) !!} 
-                                                        
-                                                        @if ($errors->has('description'))
-                                                            <span  style="color: red;"
-                                                                class="invalid-feedback1 font-weight-bold ">{{ $errors->first('description') }}</span  style="color: red;">
-                                                        @endif
+                                                                                                                                    
+                                                                    {!! Form::textarea('description', null, [
+                                                                        'id' => 'description1',
+                                                                        'class' => 'mx-auto col-md-12 	col-12',
+                                                                        'maxlength' => '1000',
+                                                                        'rows' => '5',
+                                                                    ]) !!} 
+                                                                    
+                                                                    @if ($errors->has('description'))
+                                                                        <span   style="color: red;"
+                                                                            class="invalid-feedback1 font-weight-bold text-danger">{{ $errors->first('description') }}</span   style="color: red;">
+                                                                    @endif
                                                                 
                                                             
                                                         </div>
@@ -578,8 +591,8 @@
                                                                     
                                                                     ]) !!}
                                                                     @if ($errors->has('details'))
-                                                                        <span  style="color: red;"
-                                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('details') }}</span  style="color: red;">
+                                                                        <span   style="color: red;"
+                                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('details') }}</span   style="color: red;">
                                                                     @endif
                                                                 {{-- </div> --}}
                                                             </div>
@@ -610,8 +623,8 @@
                                                 // '' => '',
                                             ]) !!}
                                             @if ($errors->has('menu_id'))
-                                                <span  style="color: red;"
-                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('menu_id') }}</span  style="color: red;">
+                                                <span   style="color: red;"
+                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('menu_id') }}</span   style="color: red;">
                                             @endif
                                         <br>
                                         
@@ -634,8 +647,8 @@
                                             // '' => '',
                                         ]) !!}
                                         @if ($errors->has('category_id'))
-                                            <span  style="color: red;"
-                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('category_id') }}</span  style="color: red;">
+                                            <span   style="color: red;"
+                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('category_id') }}</span   style="color: red;">
                                         @endif
                                     </div>
 
@@ -658,8 +671,8 @@
                                             // '' => '',
                                         ]) !!}
                                         @if ($errors->has('subcategory_id'))
-                                            <span  style="color: red;"
-                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('subcategory_id') }}</span  style="color: red;">
+                                            <span   style="color: red;"
+                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('subcategory_id') }}</span   style="color: red;">
                                         @endif
                                     </div>
 
@@ -682,8 +695,8 @@
                                             // '' => '',
                                         ]) !!}
                                         @if ($errors->has('brand_id'))
-                                            <span  style="color: red;"
-                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('brand_id') }}</span  style="color: red;">
+                                            <span   style="color: red;"
+                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('brand_id') }}</span   style="color: red;">
                                         @endif
                                         <br>
                                     </div>
@@ -691,44 +704,58 @@
                                     
 
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Attachment:</label>
-                                        <div class="col-lg-5">
-                                        
-                                        <input type="file" name="attachment" id="attachment"
-                                            class="form-control @error('attachment') is-invalid @enderror">
-                                        
-                                            @error('attachment')
-                                            <span  style="color: red;" class="invalid-feedback font-weight-bold">{{ $message }}</span  style="color: red;">
-                                        @enderror
-                                        </div>
-        
+                                    <div class="col-lg-5">
+                                    
+                                    <input type="file" name="attachment" id="attachment"
+                                        class="form-control @error('attachment') is-invalid @enderror">
+                                    
+                                        @error('attachment')
+                                        <span   style="color: red;" class="invalid-feedback font-weight-bold">{{ $message }}</span   style="color: red;">
+                                    @enderror
+                                    </div>
+
                                     {{-- feature-image-upload --}}
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Feature Image:</label>
                                         <div class="col-lg-5">
                                             <div class="card-header d-flex justify-content-between" >
-                                                <input type="file" name="feature_image" class="form-control">
+                                                <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
+                                                {{-- @if($edit->url)
+                                                <img src="{{ $edit->url }}" class="" style="width:100px;height:80px;">
+                                                @else
+                                                <h6>No Feature Image</h6>
+                                                @endif --}}
+                                            
                                             </div>
+                                            
                                         </div>
+                                        
 
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Image:</label>
                                         <div class="col-lg-5">
                                         {{-- <div class="form-group"> --}}
-                                        <label>(1 File Size <= 100kb) (Total File Size 2MB) <span  style="color: red;">*</span ></label> 
-                                                <div class="card-header d-flex justify-content-between">
-                                                    <input type="file" name="images[]" id="image" class="form-control"
-                                                        onchange="image_select()"  multiple>
-                                                </div>
+                                        <!-- <label>(1 File Size <= 100kb) (Total File Size 2MB) <span   style="color: red;" style="color: red;">*</span   style="color: red;"></label> -->
+                                
+                                                <div class="card-header d-flex justify-content-between" >
                                                 
+                                                    <input type="file" name="images[]" id="image" class="form-control"
+                                                        onchange="image_select()"  multiple style="height: fit-content;">
+                                                    
+                                                </div>
                                                 <div  class="card-body d-flex justify-content-start"   id="all_images">
                                                 </div> 
                                                 <div class="card-footer d-none" id="images_paths"></div>
+                                                
                                                 {{-- <br /> --}}
-                                                {{-- <span   id="uploaded_image"></span  style="color: red;"> --}}
+                                                {{-- <span   style="color: red;" id="uploaded_image"></span   style="color: red;"> --}}
                                                 {{-- </div> --}}
-                                        </div>
-                                        
-
-                            </div>              
-                        </div>
+                                                {{-- <img src="{{ $edit->product_image->url }}" width="50" height="50"> --}}
+                                                {{-- @foreach ($edit->product_images as $value)
+                                                <img src="{{ URL::asset('upload/products/' . $value->image) }}"
+                                                class="img-thumbnail" style="width:100px;height:80px;" />
+                                                @endforeach --}}
+                                            </div>
+                                </div>
+                            </div>
                             
                             <div id="step-4" class="">
                                 {{-- <h3 class="border-bottom border-gray pb-2">Step 4 Content</h3> --}}
@@ -742,7 +769,7 @@
                                                         <div class="form-group row">
                                                             <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">GST%:</label>
                                                             <div class="col-lg-2 ">
-                                                            
+                                                                
                                                             {!! Form::number('GST_tax', null, [
                                                                     'id' => 'GST_tax',
                                                                     'class' => 'form-control',
@@ -754,10 +781,11 @@
                                                                     'onDrag' => 'return false',
                                                                     'onDrop' => 'return false',
                                                                     'autocomplete' => 'off',
+                                                                    
                                                                 ]) !!}
                                                                 @if ($errors->has('GST_tax'))
-                                                                    <span  style="color: red;"
-                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('GST_tax') }}</span  style="color: red;">
+                                                                    <span   style="color: red;"
+                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('GST_tax') }}</span   style="color: red;">
                                                                 @endif
                                                                     <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                                         Please Enter GST% (Goods and Services Tax) for product
@@ -778,8 +806,8 @@
                                                                     'autocomplete' => 'off',
                                                                 ]) !!}
                                                                 @if ($errors->has('VAT_tax'))
-                                                                    <span  style="color: red;"
-                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('VAT_tax') }}</span  style="color: red;">
+                                                                    <span   style="color: red;"
+                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('VAT_tax') }}</span   style="color: red;">
                                                                 @endif
                                                                     <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                                         Please Enter VAT % (Value-added Tax) for product
@@ -800,8 +828,8 @@
                                                                     'autocomplete' => 'off',
                                                                 ]) !!}
                                                                 @if ($errors->has('FED_tax'))
-                                                                    <span  style="color: red;"
-                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('FED_tax') }}</span  style="color: red;">
+                                                                    <span   style="color: red;"
+                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('FED_tax') }}</span   style="color: red;">
                                                                 @endif
                                                                     <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                                         Please Enter FED% (Federal Excise Duty) for product
@@ -822,8 +850,8 @@
                                                                     'autocomplete' => 'off',
                                                                 ]) !!}
                                                                 @if ($errors->has('Other_tax'))
-                                                                    <span  style="color: red;"
-                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('Other_tax') }}</span  style="color: red;">
+                                                                    <span   style="color: red;"
+                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('Other_tax') }}</span   style="color: red;">
                                                                 @endif
                                                                     <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                                         Please Enter Other% Charges for product
@@ -863,6 +891,8 @@
 
 @stop
 @section('page-js')
+
+
 
 <script>
     const imageInput = document.getElementById('imageInput');
@@ -946,23 +976,27 @@
 
 
 <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
-{{-- <script>
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            toastr.error("{{ $error }}");
-        @endforeach
-    @endif
-</script> --}}
 
     @if ($errors->any())
     <script>
         toastr.error("{{ $errors->first() }}");
     </script>
     @endif
-
     {!! Toastr::message() !!}
 
 
+    {{-- <script> 
+        document.addEventListener('DOMContentLoaded', function () {
+            const editorContainers = document.querySelectorAll('.editor-container');
+
+            editorContainers.forEach((container, index) => {
+                const editor = new Quill(container, {
+                    theme: 'snow',
+                    // Add any other Quill configuration options you need.
+                });
+            });
+        });
+    </script> --}}
 
 <script>
     function selectMenu(menuText, inputId) {
@@ -1071,7 +1105,6 @@
         }
     });
 </script>
-
 
 
 

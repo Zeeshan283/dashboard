@@ -1,11 +1,8 @@
 @extends('layouts.master')
- @section('before-css')
- <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+@section('before-css')
 
 @endsection
-
 @section('main-content')
-
             <div class="separator-breadcrumb border-top"></div>
             <div class="2-columns-form-layout">
                 <div class="">
@@ -91,7 +88,7 @@
 
 
                                             <div class="form-group col-md-4 ">
-                                                <label for="status" class="ul-form__label">Status:</label>
+                                                <label for="gender" class="ul-form__label">gender:</label>
                                                 <div class="ul-form__radio-inline">
                                                     <label class=" ul-radio__position radio radio-primary form-check-inline">
                                                         <input type="radio" name="gender" value="male">
@@ -105,7 +102,7 @@
                                                     </label>
                                                 </div>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Select Your Status
+                                                    Select Your gender
                                                 </small>
                                             </div>
 
@@ -131,19 +128,5 @@
                     </div>
                 </div>
             </div>
-
-@endsection
-
-@section('page-js')
-
-
-
-
-@endsection
-
-@section('bottom-js')
-
-
-
 
 @endsection

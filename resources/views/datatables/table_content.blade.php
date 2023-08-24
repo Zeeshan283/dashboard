@@ -789,31 +789,52 @@
     </tfoot>
 @elseif (Route::currentRouteName() == 'userlist' )
     <thead>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>gender</th>
+            <th>Action</th>
+        </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td><span class="i-Eye-Visible"></span></td>
-    </tr>
+        @foreach($users as $user)
+            <tr>
+                <td>{{$user->id}}</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->phone}}</td>
+                <td>{{$user->country}}</td>
+                <td>{{$user->city}}</td>
+                <td>{{$user->addres}}</td>
+                <td>{{$user->gender}}</td>
+                <td><a href="{{ route('user.edit', ['id' => $user->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a></td>
+            </tr>
+        @endforeach
     </tbody>
     <tfoot>
 
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-
-    </tfoot>   --}}
+        {{-- @foreach ($users as $value => $customers )
+        <tr>
+            <td>{{$value + 1}}</td>
+            <td>{{$customers->id}}</td>
+            <td>{{$customers->name}}</td>
+            <td>{{$customers->email}}</td>
+            <td>{{$customers->phone1}}</td>
+            <td>{{$customers->country}}</td>
+            <td>{{$customers->city}}</td>
+            <td>{{$customers->addres}}</td>
+            <td>{{$customers->status}}</td>
+        </tr>
+        @endforeach
+    </tbody>
+    <tfoot>
 
 
     {{-- product info  --}}
@@ -980,7 +1001,7 @@
     </tr>
     </tfoot>
 
-@elseif (Route::currentRouteName() == 'allmenu' )
+@elseif (Route::currentRouteName() == 'menu.index' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>
@@ -998,7 +1019,7 @@
         </tr>
         @endforeach
     </tbody>
-    <tfoot>
+    {{-- <tfoot>
     <tr>
         <th>Sr No</th>
         <th>Id#</th>
@@ -1006,8 +1027,29 @@
         <th>Icon</th>
 
     </tr>
-    </tfoot>
-@elseif (Route::currentRouteName() == 'allcat' )
+    </tfoot> --}}
+    @elseif (Route::currentRouteName() == 'addmenu' )
+    <thead>
+        <th>Sr No</th>
+        <th>Id#</th>
+        <th>Name</th>
+        <th>Icon</th>
+        <th>image</th>
+        <th>imageforapp</th>
+
+    </thead>
+    <tbody>
+        @foreach ($data as $key => $menu)
+        <tr>
+            <td>{{ $key + 1 }}</td>
+            <td>{{ $menu->id }}</td>
+            <td>{{ $menu->name }}</td>
+            <td><i class="{{ $menu->icon }}" style='color:#5233ff;  font-size: 30px;margin-right: 10px;'></i></td>
+            <td><i class="{{ $menu->icon }}"></i></td>
+        </tr>
+        @endforeach
+    </tbody>
+@elseif (Route::currentRouteName() == 'cat.index' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>

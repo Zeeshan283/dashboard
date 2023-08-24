@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Role;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Models\User;
 
 use Session;
 use File;
