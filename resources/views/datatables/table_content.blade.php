@@ -1007,7 +1007,7 @@
 
     </tr>
     </tfoot>
-@elseif (Route::currentRouteName() == 'allcat' )
+@elseif (Route::currentRouteName() == 'cat.index' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>

@@ -55,13 +55,7 @@
                 
             </li>
 
-            <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="sessions">
-                <a class="nav-item-hold" href="/test.html">
-                    <i class="nav-icon i-Information"></i>
-                    <span class="nav-text">About Us</span>
-                </a>
-                
-            </li>
+            
             <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="sessions">
                 <a class="nav-item-hold" href="/test.html">
                     <i class="nav-icon i-Information"></i>
@@ -383,25 +377,7 @@
                     <span class="item-name">Create Coupon</span>
                 </a>
             </li>
-            
-            <li class="nav-item">
-                <a href="{{ route('signUp') }}">
-                    <i class="nav-icon i-Zootool"></i>
-                    <span class="item-name">All Services</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('forgot') }}">
-                    <i class="nav-icon i-Quotes"></i>
-                    <span class="item-name">Testimonials</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('forgot') }}">
-                    <i class="nav-icon i-Bar-Chart"></i>
-                    <span class="item-name">Skills</span>
-                </a>
-            </li>
+          
         </ul>
         <ul class="childNav" data-parent="others">
             <li class="nav-item">
