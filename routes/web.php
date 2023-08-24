@@ -205,6 +205,9 @@ Route::get('allrefunds',[RefundController::class,'refundstatus'])->name('allrefu
 Route::get('refunded',[RefundController::class, 'index'])->name('refunded');
 Route::get('createrefund',[RefundController::class, 'create'])->name('createrefund');
 Route::post('/store-refund', [RefundController::class, 'store'])->name('refund.store');
+Route::post('/allrefunds', [RefundController::class, 'update']) ->name('refund.update');
+
+
 
 // vendors route
 

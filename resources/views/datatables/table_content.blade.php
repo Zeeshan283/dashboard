@@ -545,20 +545,23 @@
         <td>{{ $value->order_id}}</td>
         <td>{{ $value->reason}}</td>
         <td>{{ $value->amount}}</td>
+        <form   method ="POST" action="" >
+        @csrf
         <td>
                 <select class="form-control" id="product_id">
                     <option value="" selected disabled>Select Status</option>
                     {{-- @foreach ($products as $product) --}}
-                        <option value="Pending">Pending</option>
-                        <option value="Aproved">Approved</option>
-                        <option value="Refunded">Refunded</option>
-                        <option value="Rejected">Rejected</option>
+                        <option name="status[]" value="Pending">Pending</option>
+                        <option  name="status[]"  value="Aproved">Approved</option>
+                        <option   name="status[]" value="Refunded">Refunded</option>
+                        <option   name="status[]" value="Rejected">Rejected</option>
                     {{-- @endforeach --}}
                 </select>
         </td>
         <td>
-            <button class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Update</span></button>
+            <button type ="submit" class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Update</span></button>
         </td>
+    </form>
     </tr>
     @endforeach
     </tbody>
