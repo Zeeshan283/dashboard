@@ -71,8 +71,8 @@
 
         <ul class="childNav" data-parent="widgets">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'menu.index' ? 'open' : '' }}"
-                    href="{{ route('menu.index') }}">
+                <a class="{{ Route::currentRouteName() == 'addmenu' ? 'open' : '' }}"
+                    href="{{ route('addmenu') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">All Menus</span>
                 </a>
@@ -80,12 +80,12 @@
 
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'menu.create' ? 'open' : '' }}"
-                    href="{{ route('menu.create') }}">
+                <a class="{{ Route::currentRouteName() == 'addmenu.store' ? 'open' : '' }}"
+                    href="{{ route('addmenu.store') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">Add Menus</span>
                 </a>
-            </li> --}}
+            </li>
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'cat.index' ? 'open' : '' }}"
@@ -221,7 +221,7 @@
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}" href="{{ route('allorders') }}">
                     <i class="nav-icon i-Folder-Archive"></i>
-                    <span class="item-name">ALL</span>
+                    <span class="item-name">ALL Orders</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -282,23 +282,14 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('signUp') }}">
-                    <i class="nav-icon i-Zootool"></i>
-                    <span class="item-name">All Services</span>
+                <a class="{{ Route::currentRouteName() == 'coupon.index' ? 'open' : '' }}" href="{{ route('coupon.index') }}" >
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">All Coupon</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ route('forgot') }}">
-                    <i class="nav-icon i-Quotes"></i>
-                    <span class="item-name">Testimonials</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('forgot') }}">
-                    <i class="nav-icon i-Bar-Chart"></i>
-                    <span class="item-name">Skills</span>
-                </a>
-            </li>
+
+
+            
         </ul>
         <ul class="childNav" data-parent="others">
             <li class="nav-item">

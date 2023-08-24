@@ -15,7 +15,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "laravelcollective/html": "^6.4",
-        "yoeunes/toastr": "^2.3"
+
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

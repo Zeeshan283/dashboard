@@ -1125,6 +1125,52 @@
 
     </tr>
     </tfoot>
+@elseif (Route::currentRouteName() == 'coupon.index' )
+<thead>
+    <th>Sr No</th>
+    <th>Coupon Type</th>
+    <th>Coupon Title</th>
+    <th>Coupon Code</th>
+    <th>Limit for Same User</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+</thead>
+<tbody>
+@foreach ($coupons as $key => $item)
+    
+    <tr>
+        <td>{{ $key + 1 }}</td>
+        <td>
+          
+            @if( $item->coupon_type == 1)
+                <p>Discount on Purchase</p>
+            @elseif ($item->coupon_type == 2) 
+                <p>Free Delivery</p>
+            @elseif ($item->coupon_type == 3) 
+                <p>First Order</p>
+            @endif
+         
+        </td>
+        <td>{{ $item->coupon_title}}</td>
+        <td>{{ $item->coupon_code}}</td>
+        <td>{{ $item->limit_same_user}}</td>
+        <td>{{ $item->start_date}}</td>
+        <td>{{ $item->end_date}}</td>
+    </tr>
+@endforeach
+</tbody>
+<tfoot>
+<tr>
+    <th>Sr No</th>
+    <th>Coupon Type</th>
+    <th>Coupon Title</th>
+    <th>Coupon Code</th>
+    <th>Limit for Same User</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+</tr>
+</tfoot>
+
 
 @endif
 

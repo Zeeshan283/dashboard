@@ -977,7 +977,7 @@
     toastr.error("{{ $errors->first() }}");
 </script>
 @endif
-    {!! Toastr::message() !!}
+    {{-- {!! Toastr::message() !!} --}}
 
 
     {{-- <script> 

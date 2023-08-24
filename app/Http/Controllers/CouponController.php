@@ -10,7 +10,12 @@ use Illuminate\Http\Request;
 use function Termwind\render;
 
 class CouponController extends Controller
-{
+{ 
+    public function index(){
+
+        $coupons = Coupon::all();
+        return view('coupon.allcoupons', compact('coupons'));
+    }
     public function create(){
 
         $products = Product::all();
@@ -43,12 +48,7 @@ class CouponController extends Controller
     }
 
 
-    public function show(){
 
-        $coupons = Coupon::all();
-
-        return view('coupon.allcoupons', compact('coupons'));
-    }
 }
 
 

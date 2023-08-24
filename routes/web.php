@@ -86,9 +86,9 @@ Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
  Route::get('vendorlist', [VendorsController::class, 'vendorlist'])->name('vendorlist');
 //  Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
 
-    Route::get('editseller/{id}',[InsertVendorsController::class,'edit']);
-    Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
-    // Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
+Route::get('editseller/{id}',[InsertVendorsController::class,'edit']);
+Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
+// Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
 
 
 
@@ -121,9 +121,13 @@ Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('u
 // product reviews
 // Routes accessible only by vendors
 Route::middleware(['vendorOnly'])->group(function () {
-    Route::get('/dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
-    Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create');
-    Route::post('/products', [ProductsController::class, 'store'])->name('products.store');
+    Route::get('/dashboard', [VendorsController::class, 'dashboard'])->name('vendor.dashboard');
+    Route::resource('products', ProductController::class); 
+    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
+    Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+    Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
+    Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+    
 });
 
 // Other routes accessible to all users
@@ -179,11 +183,11 @@ Auth::routes();
 
 
 
-    Route::resource('products', ProductController::class); 
-    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
-    Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
-    Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
-    Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+Route::resource('products', ProductController::class); 
+Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
+Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
+Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
 
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
@@ -215,9 +219,9 @@ Route::delete('menu/delete/{id}', [MenuController::class, 'destroy'])->name('men
 // Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
 Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
 Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
-// Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
-// Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
-Route::resource('menu', MenuController::class);
+Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
+Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
+// Route::resource('menu', MenuController::class);
 
 Route::resource('cat', CategoryController::class);
 
@@ -244,10 +248,9 @@ Route::resource('vendor', VendorsController::class);
 
 Route::resource('users', RoleController::class);
 Route::resource('coupon', CouponController::class);
+// Route::get('coupon/all',[CouponController::class, 'all'])->name('couponall');
 
-// Coupon
 
-// Route::resource('coupon',CouponController::class);
 
 
 
