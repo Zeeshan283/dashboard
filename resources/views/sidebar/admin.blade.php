@@ -5,7 +5,13 @@
             <span class="nav-text">Dashboard</span>
         </a>
     </li>
-
+    <li class="nav-item {{ request()->is('charts/*') ? 'active' : '' }}" data-item="charts">
+        {{-- <a class="nav-item-hold {{ $Vendor ? '' : 'disabled' }}" href="{{ $Vendor ? route('products.create') : '#' }}"> --}}
+            <a class="nav-item-hold" href="#">
+            <i class="nav-icon i-Shopping-Bag"></i>
+            <span class="nav-text">Products</span>
+        </a>
+    </li>
     <li class="nav-item {{ request()->is('addseller/*') ? 'active' : '' }}" data-item="forms">
         <a class="nav-item-hold" href="#">
             <i class="nav-icon i-File-Clipboard-File--Text"></i>
@@ -74,3 +80,4 @@
     <div class="triangle"></div>
 </li>
 </ul>
+

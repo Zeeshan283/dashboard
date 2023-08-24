@@ -969,7 +969,14 @@
 
 
 
+
 <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
+
+@if ($errors->any())
+<script>
+    toastr.error("{{ $errors->first() }}");
+</script>
+@endif
     {!! Toastr::message() !!}
 
 

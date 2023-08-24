@@ -889,11 +889,11 @@
                                                  class=" nav-icon i-Pen-2" 
                                                 style="font-weight: bold;"></i>
                                             </button></a>
-                                                {{-- <a  target="_blank" href="{{ URL::to('product/' . $product->id . '/dupe')}}"><button type="button"  class="btn btn-outline-secondary ">
+                                                <a  target="_blank" href="{{ URL::to('product/' . $product->id . '/dupe')}}"><button type="button"  class="btn btn-outline-secondary ">
                                                 <i class="fa fa-clone"
-                                                class="nav-icon i-Duplicate-Window"
+                                                {{-- class="nav-icon i-Duplicate-Window" --}}
                                                  style="font-weight: bold;"></i>
-                                            </button></a> --}}
+                                            </button></a>
                                             {{-- <a href="">
                                             <button type="button" class="btn btn-outline-secondary ">
                                                 <i class="fa fa-eye"

@@ -6,6 +6,7 @@
         <span class="nav-text">Products</span>
     </a>
 </li>
+
 <li class="nav-item {{ request()->is('uikits/*') ? 'active' : '' }}" data-item="uikits">
     <a class="nav-item-hold" href="#">
         <i class="nav-icon i-Shopping-Cart"></i>

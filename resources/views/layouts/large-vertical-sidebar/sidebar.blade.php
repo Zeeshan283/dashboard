@@ -22,7 +22,7 @@
         <ul class="childNav" data-parent="users">
 
             <li class="nav-item">
-                <a  href="{{ route('user.add') }}">
+                <a  href="">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New User</span>
                 </a>
@@ -30,7 +30,7 @@
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'userlist' ? 'open' : '' }}"
-                    href="{{ route('userlist') }}">
+                    href="">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">User List</span>
                 </a>
@@ -43,6 +43,8 @@
                     <span class="item-name">Add New Vendor</span>
                 </a>
             </li>
+
+
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'vendorlist' ? 'open' : '' }}"
@@ -87,7 +89,7 @@
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'cat.index' ? 'open' : '' }}"
-                    href="{{ route('cat.index') }}">
+                    href="">
                     <i class="nav-icon i-Folder"></i>
                     <span class="item-name">All Categories</span>
                 </a>
@@ -97,7 +99,7 @@
 
 
                 <a class="{{ Route::currentRouteName() == 'allsubcat' ? 'open' : '' }}"
-                    href="{{ route('allsubcat') }}">
+                    href="">
                     <i class="nav-icon i-Folder-Open"></i>
                     <span class="item-name">All Sub Categories</span>
                 </a>
@@ -170,7 +172,7 @@
             </li>
 
         </ul>
-                <ul class="childNav" data-parent="extrakits">
+    <ul class="childNav" data-parent="extrakits">
 
            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'createrefund' ? 'open' : '' }}"
@@ -345,6 +347,8 @@
             </li>
         </ul>
     </div>
+
+    
     <div class="sidebar-overlay"></div>
 <!--=============== Left side End ================-->
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\VendorOnly;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -29,7 +28,6 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -37,7 +35,7 @@ class ProductController extends Controller
 
     public function index()
     {
-
+        
         $data = "";
         if (Auth::User()->role == 'Admin') {
             $data = Product::with('product_image')
@@ -94,6 +92,7 @@ class ProductController extends Controller
             // 'model_no' => 'required',
             'make' => 'required',
             'min_order' => 'required',
+            'feature_image' => 'required',
             // 'images.0' => 'required',
             'attachment' => 'mimes:pdf, zip|max:20480',
             'sku' => 'required|unique:products',
@@ -114,6 +113,7 @@ class ProductController extends Controller
             'model_no.required' => 'The Model No field is required',
             'make.required' => 'The Make field is required',
             'sku.exists' => 'The SKU already exist',
+            'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
             'type.required' => 'The Type field is required',
             'description.required' => 'The Description field is required',
@@ -146,11 +146,12 @@ class ProductController extends Controller
                 $image->move('upload/products', $imageName);
             }
 
-            // Create the product data including the image file name.
             $productData = $request->all();
+
+            if ($request->hasFile('feature_image')) {
             $productData['url'] = asset('upload/products/'.$imageName);
             $productData['feature_image'] = $imageName;
-
+            }
 
             
             $p = Product::create($productData);
@@ -179,24 +180,26 @@ class ProductController extends Controller
                 }
             }
 
+            if ($request->hasFile('images')) {
             if (count($request->images) > 0) {
                 for ($i = 0; $i < count($request->images); $i++) {
                     $pImages = new ProductImages();
                     $pImages->pro_id = $p->id;
-
+        
                     // Get the uploaded image file
                     $uploadedImage = $request->images[$i];
-
+                    
                     // Generate a unique filename for the image
                     $imageName = uniqid() . '_' . $uploadedImage->getClientOriginalName();
-
+        
                     // Move the uploaded image to the "upload" folder
                     $uploadedImage->move('upload/products', $imageName);
-
+        
                     // Save the image details
                     $pImages->image = $imageName;
                     $pImages->url =  url('upload/products/' . $imageName); // Adjust this URL as needed
                     $pImages->save();
+                    }
                 }
             }
 
@@ -252,8 +255,10 @@ class ProductController extends Controller
             // $productsList = Product::whereType('parent')->orderBy('name')->pluck('model_no', 'id');
             $productsList = Product::whereType('parent')->orderBy('name')->pluck('sku', 'id');
 
+            $colors = Color::orderBy('id')->get(['name', 'id']);
 
-            return view('products.edit', compact('edit', 'brands', 'menus', 'categories', 'sub_categories', 'locations', 'type', 'productsList', 'conditions'));
+            
+            return view('products.edit', compact('edit', 'brands', 'menus', 'categories', 'sub_categories', 'locations', 'type', 'productsList', 'conditions', 'colors'));
         } else {
             abort(404);
         }
@@ -272,6 +277,7 @@ class ProductController extends Controller
             'make' => 'required',
             'min_order' => 'required',
             // 'images.0' => 'required',
+            // 'feature_image' => 'required',
             'attachment' => 'mimes:pdf, zip|max:20480',
             'sku' => 'required',
             'description' => 'required',
@@ -291,6 +297,7 @@ class ProductController extends Controller
             'model_no.required' => 'The Model No field is required',
             'make.required' => 'The Make field is required',
             'sku.required' => 'The SKU field is required',
+            // 'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
             'type.required' => 'The Type field is required',
             'description.required' => 'The Description field is required',
@@ -326,8 +333,10 @@ class ProductController extends Controller
         }
 
         $productData = $request->all();
+        if ($request->hasFile('feature_image')) {
         $productData['url'] = asset('upload/products/'.$imageName);
         $productData['feature_image'] = $imageName;
+        }
         
         $edit->update($productData);
 
@@ -461,6 +470,7 @@ class ProductController extends Controller
             'make' => 'required',
             'min_order' => 'required',
             // 'images.0' => 'required',
+            'feature_image' => 'required',
             'attachment' => 'mimes:pdf, zip|max:20480',
             'sku' => 'required|unique:products',
             'description' => 'required',
@@ -480,6 +490,8 @@ class ProductController extends Controller
             'model_no.required' => 'The Model No field is required',
             'make.required' => 'The Make field is required',
             'sku.exists' => 'The SKU already exist',
+
+            'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
             'type.required' => 'The Type field is required',
             'description.required' => 'The Description field is required',
@@ -509,7 +521,7 @@ class ProductController extends Controller
 
 
         
-        $p = Product::findOrFail($id);
+        // $p = Product::findOrFail($id);
 
         if ($request->hasFile('feature_image')) {
             $image = $request->file('feature_image');
@@ -518,10 +530,13 @@ class ProductController extends Controller
         }
 
         $productData = $request->all();
+
+        if ($request->hasFile('feature_image')) {
         $productData['url'] = asset('upload/products/'.$imageName);
         $productData['feature_image'] = $imageName;
-        
-        $p->create($productData);
+        }
+
+        $p = Product::create($productData);
 
 
             // $p = Product::create($request->all());
@@ -567,21 +582,19 @@ class ProductController extends Controller
             //         $pImages->save();
             //     }
             // }
-
+            if ($request->hasFile('images')) {
             if (count($request->images) > 0) {
                 for ($i = 0; $i < count($request->images); $i++) {
                     $pImages = new ProductImages();
-                    $pImages->pro_id = $p->id;
-        
+                    $pImages->pro_id = $p->id;        
                     $uploadedImage = $request->images[$i];
-                    
                     $imageName = uniqid() . '_' . $uploadedImage->getClientOriginalName();
-        
                     $uploadedImage->move('upload/products', $imageName);
         
                     $pImages->image = $imageName;
                     $pImages->url =  url('upload/products/' . $imageName);
                     $pImages->save();
+                    }
                 }
             }
 
@@ -644,7 +657,7 @@ class ProductController extends Controller
                 $new_name = uniqid() . $image->getClientOriginalName();
 
                 // $image->move('root/upload/products', $new_name);
-
+                
                 $imagePath =  base_path('upload/products/' . $new_name);
                 $img = Image::make($image);
                 $img->resize(1000, 957);
@@ -698,8 +711,6 @@ class ProductController extends Controller
         ]);
     }
 
-
-
     public function ProductsContacts(Request $request)
     {
         if (Auth::User()->role == 'Admin') {
@@ -716,15 +727,4 @@ class ProductController extends Controller
             return view('products.vendor_contacts', compact('productContacts'));
         }
     }
-//     public function handle(Request $request,  $next)
-//     {
-//         if (Auth::check() && Auth::user()->isVendor()) {
-//             // Check if the current route is related to adding products
-//             if ($request->route()->getName() === 'product.create' || $request->route()->getName() === 'product.store') {
-//                 return $next($request);
-//             }
-//         }
-
-//         return redirect()->route('add.product');
-// }
 }
