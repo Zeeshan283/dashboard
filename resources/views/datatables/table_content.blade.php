@@ -1007,15 +1007,28 @@
         <th>Id#</th>
         <th>Name</th>
         <th>Icon</th>
-
+        <th>Action</th>
     </thead>
     <tbody>
         @foreach ($data as $key => $menu)
-        <tr>
+        <tr class="col-lg-11">
             <td>{{ $key + 1 }}</td>
             <td>{{ $menu->id }}</td>
             <td>{{ $menu->name }}</td>
-            <td><i class="{{ $menu->icon }}" style='color:#5233ff;  font-size: 30px;margin-right: 10px;'></i></td>
+            <td><i class="{{ $menu->icon }}" style='color:#5233ff; font-size: 30px; margin-right: 10px;'></i></td>
+            <td class="col-lg-1" style="white-space: nowrap;">
+                <a href="{{ route('menu.edit', ['id' => $menu->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                <form action="{{ route('menu.destroy', ['id' => $menu->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this menu item?')" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn rounded-pill btn-icon btn-danger">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </td>
+
         </tr>
         @endforeach
     </tbody>
@@ -1025,7 +1038,6 @@
         <th>Id#</th>
         <th>Name</th>
         <th>Icon</th>
-
     </tr>
     </tfoot> --}}
     @elseif (Route::currentRouteName() == 'addmenu' )
@@ -1046,7 +1058,6 @@
             <td>{{ $menu->name }}</td>
             <td><i class="{{ $menu->icon }}" style='color:#5233ff;  font-size: 30px;margin-right: 10px;'></i></td>
             <td><i class="{{ $menu->icon }}"></i></td>
-        </tr>
         @endforeach
     </tbody>
 @elseif (Route::currentRouteName() == 'cat.index' )

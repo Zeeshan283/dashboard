@@ -42,7 +42,7 @@ public function adduser(Request $request)
     public function edit($id)
     {
         $user = User::find($id);
-        return view('users/edit')->with('user', $user); // Assuming 'edit.blade.php' is in the 'resources/views' directory
+        return view('users/edit')->with('user', $user);
     }
 
     public function update(Request $request, $id)

@@ -76,13 +76,14 @@
                 </a>
             </li>
 
+
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'menu.create' ? 'open' : '' }}"
                     href="{{ route('menu.create') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">Add Menus</span>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'cat.index' ? 'open' : '' }}"

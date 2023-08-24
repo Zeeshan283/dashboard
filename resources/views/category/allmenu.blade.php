@@ -2,7 +2,6 @@
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
 @endsection
-
 @section('main-content')
     <div class="breadcrumb col-lg-12">
              <div class="col-md-6">

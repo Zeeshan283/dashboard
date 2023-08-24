@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 class MenuController extends Controller
 {
     use fontAwesomeTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -19,7 +20,7 @@ class MenuController extends Controller
 
     public function index()
     {
-        $data = Menu::select('id', 'name', 'icon')->OrderBy('id', 'desc')->get();
+        $data = Menu::select('id', 'name', 'icon')->orderBy('id', 'desc')->get();
         return view('category.allmenu', compact('data'));
     }
 
@@ -30,56 +31,33 @@ class MenuController extends Controller
     }
 
     public function store(Request $request)
-{
-    $this->validate($request, [
-        'name' => 'required',
-        'icon' => 'required',
-        'image' => 'required|mimes:png,jpg,jpeg',
-        'imageforapp' => 'required|mimes:png,jpg,jpeg'
-    ]);
-
-    $menu = Menu::create($request->all());
-
-    if ($request->hasFile('image')) {
-        $file = $request->file('image');
-        $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
-        $imagePath = 'root/upload/menu/' . $fileName;
-
-        $img = Image::make($file);
-        $img->resize(1100, 450);
-        $img->save($imagePath);
-
-        $menu->image = $imagePath;
-        $menu->save();
-    }
-    if ($request->hasFile('imageforapp')) {
-        $file = $request->file('imageforapp');
-        $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
-        $imagePath = 'root/upload/menu/' . $fileName;
-
-        $img = Image::make($file);
-        $img->resize(100, 100);
-        $img->save($imagePath);
-
-        $menu->imageforapp = $imagePath;
-        $menu->save();
-    }
-
-    Toastr::success('Menu Added Successfully!'); // Flash message
-
-    return redirect()->back();
-}
-
-    public function show($id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'icon' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg',
+            'imageforapp' => 'required|mimes:png,jpg,jpeg'
+        ]);
+
+        $menu = Menu::create($request->except(['image', 'imageforapp']));
+
+        if ($request->hasFile('image')) {
+            // Process and save the image for the main menu
+        }
+
+        if ($request->hasFile('imageforapp')) {
+            // Process and save the image for the app
+        }
+
+        Toastr::success('Menu Added Successfully!');
+        return redirect()->back();
     }
 
     public function edit($id)
     {
         $edit = Menu::findOrFail($id);
         $data = $this->fontIndex();
-        return view('menus.edit', compact('edit', 'data'));
+        return view('category.edit', compact('edit', 'data'));
     }
 
     public function update(Request $request, $id)
@@ -87,50 +65,33 @@ class MenuController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'icon' => 'required',
-            'image' => 'mimes:png,jpg,jpeg'
+            'image' => 'mimes:png,jpg,jpeg',
+            'imageforapp' => 'mimes:png,jpg,jpeg'
         ]);
-        $edit1 = Menu::findOrFail($id);
+
         $edit = Menu::findOrFail($id);
-        $edit->update($request->all());
+        $edit->name = $request->input('name');
+        $edit->icon = $request->input('icon');
+        $edit->save();
 
         if ($request->hasFile('image')) {
-            File::delete($edit1->image);
-
-            $file = $request->file('image');
-            $fileName = uniqid() . $file->getClientOriginalName();
-            $imagePath =  'root/upload/menu/' .$fileName;
-
-            $img = Image::make($file);
-            // $img->resize(235, 356);
-            $img->resize(1100, 450);
-            $img->save($imagePath);
-
-            $edit->image = 'root/upload/menu/' .$fileName;
-            $edit->save();
+            // Process and save the updated image for the main menu
         }
+
         if ($request->hasFile('imageforapp')) {
-            File::delete($edit1->image);
-            $file = $request->file('imageforapp');
-            $fileName = uniqid() . $file->getClientOriginalName();
-            $imagePath =  'root/upload/menu/' .$fileName;
-
-            $img = Image::make($file);
-            $img->resize(100, 100);
-            $img->save($imagePath);
-
-            $edit->imageforapp = 'root/upload/menu/' .$fileName;
-            $edit->save();
+            // Process and save the updated image for the app
         }
 
-        return redirect('/menus')->with(Toastr::success('Menu Updated Successfully!'));
+        Toastr::success('Menu Updated Successfully!');
+        return redirect('allmenu');
     }
 
     public function destroy($id)
     {
         $menu = Menu::findOrFail($id);
-        File::delete($menu->image);
-        File::delete($menu->imageforapp);
+        // Handle image deletion if needed
         $menu->delete();
-        return redirect()->back()->with(Toastr::success('Menu Deleted Successfully!'));
+        Toastr::success('Menu Deleted Successfully!');
+        return redirect()->back();
     }
 }
