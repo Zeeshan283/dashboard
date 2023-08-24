@@ -204,11 +204,16 @@ Route::get('customerlist',[CustomerController::class,'index'])->name('customerli
 
 
 // menu controller route
-Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
 Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
 Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
+Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
 Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
 Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
+Route::get('menu/edit/{id}', [MenuController::class, 'edit'])->name('menu.edit');
+Route::put('menu/update/{id}', [MenuController::class, 'update'])->name('menu.update');
+Route::delete('menu/delete/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
+
+
 
 // customer reviews controller
 
