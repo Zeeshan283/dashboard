@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -19,7 +20,7 @@ class UserController extends Controller
         return view('users/adduser');
     }
 
-    public function adduser(Request $request)
+public function adduser(Request $request)
     {
         $user = new User;
         $user->name = $request->input('name');
@@ -29,11 +30,14 @@ class UserController extends Controller
         $user->city = $request->input('city');
         $user->addres = $request->input('addres'); // Fix the spelling of 'addres'
         $user->password = Hash::make($request->input('password'));
-        $user->status = $request->input('status');
+        $user->gender = $request->input('gender');
         $user->save();
+
+        Toastr::success('User added successfully', 'Success');
 
         return redirect()->route('userlist');
     }
+
 
     public function edit($id)
     {
@@ -55,7 +59,7 @@ class UserController extends Controller
             $user->password = Hash::make($request->input('password'));
         }
 
-        $user->status = $request->input('status');
+        $user->gender = $request->input('gender');
         $user->save();
 
         return redirect()->route('userlist'); // Make sure you have defined the 'userlist' route

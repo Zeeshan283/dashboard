@@ -1,7 +1,6 @@
 @extends('layouts.master')
 @section('before-css')
-
-
+<link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
 @endsection
 
 @section('main-content')
@@ -104,6 +103,10 @@
                                                     Please enter your postcode
                                                 </small>
                                             </div>
+<<<<<<< HEAD
+=======
+                                        </div>
+>>>>>>> origin/saliha
 
                                             {{-- status hide for fun  --}}
                                             <div class="form-group col-md-6 ">

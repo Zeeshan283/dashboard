@@ -1,76 +1,12 @@
 <div class="side-content-wrap">
     <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
         <ul class="navigation-left">
-            <li class="nav-item {{ request()->is('dashboard/*') ? 'active' : '' }}" > {{-- removed ->  data-item="dashboard"  --}}
-                <a class="nav-item-hold" href="{{ route('admin' )}}">
-                    <i class="nav-icon i-Bar-Chart"></i>
-                    <span class="nav-text">Dashboard</span>
-                </a>
-                
-            </li>
-            <li class="nav-item {{ request()->is('uikits/*') ? 'active' : '' }}" data-item="uikits">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-Shopping-Cart"></i>
-                    <span class="nav-text">Orders</span>
-                </a>
-                
-            </li>
-            <li class="nav-item {{ request()->is('addseller/*') ? 'active' : '' }}" data-item="forms">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-File-Clipboard-File--Text"></i>
-                    <span class="nav-text">All Sellers</span>
-                </a>
-                
-            </li>
-
-            <li class="nav-item {{ request()->is('charts/*') ? 'active' : '' }}" data-item="charts">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-Shopping-Bag"></i>
-                    <span class="nav-text">Products</span>
-                </a>
-                
-            </li>
-
-            <li class="nav-item {{ request()->is('extrakits/*') ? 'active' : '' }}" data-item="extrakits">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-Money"></i>
-                    <span class="nav-text">Refund Request</span>
-                </a>
-                
-            </li>
-            <li class="nav-item {{ request()->is('apps/*') ? 'active' : '' }}" data-item="apps">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-Computer-Secure"></i>
-                    <span class="nav-text">Customers</span>
-                </a>
-                
-            </li>
-
-
-            <li class="nav-item {{ request()->is('widgets/*') ? 'active' : '' }}" data-item="widgets">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-Windows-2"></i>
-                    <span class="nav-text">Categories</span>
-                </a>
-                
-            </li>
-
-            
-            <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="sessions">
-                <a class="nav-item-hold" href="/test.html">
-                    <i class="nav-icon i-Information"></i>
-                    <span class="nav-text">Coupon</span>
-                </a>
-                
-            </li>
-            <li class="nav-item {{ request()->is('users/*') ? 'active' : '' }}" data-item="users">
-                <a class="nav-item-hold" href="/test.html">
-                    <i class="nav-icon i-Find-User"></i>
-                    <span class="nav-text">Users</span>
-                </a>
-                
-            </li>
-
+            @if (Auth::User()->role=='Admin')
+            @include('sidebar.admin')
+        @elseif (Auth::User()->role=='Vendor')
+            @include('sidebar.vendor')
+        @endif
+        </ul>
             {{-- <li class="nav-item">
                 <a class="nav-item-hold" href="http://demos.ui-lib.com/gull-htms-doc/" target="_blank">
                     <i class="nav-icon i-Safe-Box1"></i>
@@ -99,15 +35,10 @@
                     <span class="item-name">User List</span>
                 </a>
             </li>
-
         </ul>
-
-
-
         <ul class="childNav" data-parent="forms">
-
             <li class="nav-item">
-                <a  href="{{ route('vendor.create')}}">
+                <a href="{{ route('vendor.create') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New Vendor</span>
                 </a>
@@ -127,7 +58,6 @@
                     <span class="item-name">Vendor Withdrawls</span>
                 </a>
             </li>
-
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'withdrawl' ? 'open' : '' }}"
                     href="{{ route('withdrawl') }}">
@@ -135,8 +65,8 @@
                     <span class="item-name">Withdrawal Methods</span>
                 </a>
             </li>
-
         </ul>
+
         <ul class="childNav" data-parent="widgets">
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'allmenu' ? 'open' : '' }}"
@@ -145,6 +75,15 @@
                     <span class="item-name">All Menus</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'addmenu' ? 'open' : '' }}"
+                    href="{{ route('addmenu') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Add Menus</span>
+                </a>
+            </li>
+
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'cat.index' ? 'open' : '' }}"
                     href="{{ route('cat.index') }}">
@@ -198,12 +137,12 @@
         </ul>
 
         <ul class="childNav" data-parent="charts">
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'products' ? 'open' : '' }}" href="{{ route('products.create') }}">
-                    <i class="nav-icon i-Add"></i>
-                    <span class="item-name">Add Product</span>
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a class="{{ Route::currentRouteName() == 'products' ? 'open' : '' }}" href="{{ route('products.create') }}">
+                        <i class="nav-icon i-Add"></i>
+                        <span class="item-name">Add Product</span>
+                    </a>
+                </li>
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'products' ? 'open' : '' }}" href="{{ route('products.index') }}">
                     <i class="nav-icon i-Shopping-Bag"></i>
@@ -228,47 +167,8 @@
                     <span class="item-name">Product Reviews</span>
                 </a>
             </li>
-            {{-- <li class="nav-item dropdown-sidemenu">
-                <a>
-                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                    <span class="item-name">All Products</span>
-                    <i class="dd-arrow i-Arrow-Down"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a class="{{ Route::currentRouteName() == 'apexAreaCharts' ? 'open' : '' }}"
-                            href="{{ route('apexAreaCharts') }}">Area Charts</a></li>
-                    <li><a class="{{ Route::currentRouteName() == 'apexBarCharts' ? 'open' : '' }}"
-                            href="{{ route('apexBarCharts') }}">Bar Charts</a></li>
-                    <li><a class="{{ Route::currentRouteName() == 'apexBubbleCharts' ? 'open' : '' }}"
-                            href="{{ route('apexBubbleCharts') }}">Bubble Charts</a></li>
-                    <li><a class="{{ Route::currentRouteName() == 'apexColumnCharts' ? 'open' : '' }}"
-                            href="{{ route('apexColumnCharts') }}">Column Charts</a></li>
-                    <li><a class="{{ Route::currentRouteName() == 'apexCandleStickCharts' ? 'open' : '' }}"
-                            href="{{ route('apexCandleStickCharts') }}">CandleStick Charts</a></li>
-                    <li><a class="{{ Route::currentRouteName() == 'apexLineCharts' ? 'open' : '' }}"
-                            href="{{ route('apexLineCharts') }}">Line Charts</a></li>
-                    <li><a class="{{ Route::currentRouteName() == 'apexMixCharts' ? 'open' : '' }}"
-                            href="{{ route('apexMixCharts') }}">Mix Charts</a></li>
-                    <li><a class="{{ Route::currentRouteName() == 'apexPieDonutCharts' ? 'open' : '' }}"
-                            href="{{ route('apexPieDonutCharts') }}">PieDonut Charts</a></li>
-                    <li><a class="{{ Route::currentRouteName() == 'apexRadarCharts' ? 'open' : '' }}"
-                            href="{{ route('apexRadarCharts') }}">Radar Charts</a></li>
-                    <li><a class="{{ Route::currentRouteName() == 'apexRadialBarCharts' ? 'open' : '' }}"
-                            href="{{ route('apexRadialBarCharts') }}">RadialBar Charts</a></li>
-                    <li><a class="{{ Route::currentRouteName() == 'apexScatterCharts' ? 'open' : '' }}"
-                            href="{{ route('apexScatterCharts') }}">Scatter Charts</a></li>
-                    <li><a class="{{ Route::currentRouteName() == 'apexSparklineCharts' ? 'open' : '' }}"
-                            href="{{ route('apexSparklineCharts') }}">Sparkline Charts</a></li>
-
-                </ul>
-            </li> --}}
-
-
-
-
 
         </ul>
-
                 <ul class="childNav" data-parent="extrakits">
 
            <li class="nav-item">
@@ -372,12 +272,30 @@
         </ul>
         <ul class="childNav" data-parent="sessions">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'coupon.create' ? 'open' : '' }}" href="{{ route('coupon.create') }}" > 
+                <a class="{{ Route::currentRouteName() == 'coupon.create' ? 'open' : '' }}" href="{{ route('coupon.create') }}" >
                     <i class="nav-icon i-File-Trash"></i>
                     <span class="item-name">Create Coupon</span>
                 </a>
             </li>
-          
+
+            <li class="nav-item">
+                <a href="{{ route('signUp') }}">
+                    <i class="nav-icon i-Zootool"></i>
+                    <span class="item-name">All Services</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('forgot') }}">
+                    <i class="nav-icon i-Quotes"></i>
+                    <span class="item-name">Testimonials</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('forgot') }}">
+                    <i class="nav-icon i-Bar-Chart"></i>
+                    <span class="item-name">Skills</span>
+                </a>
+            </li>
         </ul>
         <ul class="childNav" data-parent="others">
             <li class="nav-item">
@@ -427,5 +345,5 @@
         </ul>
     </div>
     <div class="sidebar-overlay"></div>
-</div>
 <!--=============== Left side End ================-->
+

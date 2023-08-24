@@ -89,7 +89,7 @@
                                                     Please enter refund amount
                                                 </small>
                                             </div>
-                                           
+
                                             <div class="form-group col-lg-6">
                                                 <label for="inputEmail12" class="ul-form__label">Refund Reason:</label>
                                                 <input type="text" class="form-control" id="reason" name="reason" placeholder="Enter Contact Number" maxlength="9" required>
@@ -140,8 +140,8 @@
     @if(session('success'))
         toastr.success('{{ session('success') }}', 'Success');
     @endif
-        
-</script>   
+
+</script>
 
 
 

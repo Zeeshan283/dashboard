@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('addres');
             $table->string('password');
-            $table->enum('status', ['male', 'female']);
+            $table->enum('gender', ['male', 'female']);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -120,12 +120,19 @@ Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('u
 
 
 // product reviews
+// Routes accessible only by vendors
+Route::middleware(['vendorOnly'])->group(function () {
+    Route::get('/dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
+    Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create');
+    Route::post('/products', [ProductsController::class, 'store'])->name('products.store');
+});
 
-// Route::view('addproduct','products.addproduct')->name('addproduct');
-// Route::view('allproducts','products.allproducts')->name('allproducts');
-Route::view('customerqueries','products.customerqueries')->name('customerqueries');
-Route::view('productinfo','products.productinfo')->name('productinfo');
-Route::view('productreviews','products.productreviews')->name('productreviews');
+// Other routes accessible to all users
+Route::view('customerqueries', 'products.customerqueries')->name('customerqueries');
+Route::view('productinfo', 'products.productinfo')->name('productinfo');
+Route::view('productreviews', 'products.productreviews')->name('productreviews');
+
+
 
 // datatables
 Route::view('datatables/basic-tables', 'datatables.basic-tables')->name('basic-tables');
@@ -201,12 +208,20 @@ Route::get('customerlist',[CustomerController::class,'index'])->name('customerli
 
 
 // menu controller route
+<<<<<<< HEAD
 Route::get('allmenu',[MenuController::class, 'index'])->name('allmenu');
 Route::get('allsubcat',[SubCategoryController::class, 'index'])->name('allsubcat');
 // Route::get('addcat',[CategoryController::class, 'create'])->name('addcat');
 // Route::get('allcat',[CategoryController::class,'index'])->name('allcat');
 
 Route::resource('cat', CategoryController::class);
+=======
+Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
+Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
+Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
+Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
+Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
+>>>>>>> origin/saliha
 
 // customer reviews controller
 
@@ -231,7 +246,7 @@ Route::resource('vendor', VendorsController::class);
 Route::resource('users', RoleController::class);
 Route::resource('coupon', CouponController::class);
 
-// Coupon 
+// Coupon
 
 // Route::resource('coupon',CouponController::class);
 

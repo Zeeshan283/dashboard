@@ -1,11 +1,8 @@
 @extends('layouts.master')
- @section('before-css')
- <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+@section('before-css')
 
 @endsection
-
 @section('main-content')
-
             <div class="separator-breadcrumb border-top"></div>
             <div class="2-columns-form-layout">
                 <div class="">
@@ -48,10 +45,10 @@
                 <input type="password" name="password" id="password" class="form-control">
             </div>
             <div class="form-group col-md-4">
-                <label for="status">Status</label>
-                <select name="status" id="status" class="form-control">
-                    <option value="male" {{ $user->status === 'male' ? 'selected' : '' }}>Male</option>
-                    <option value="female" {{ $user->status === 'female' ? 'selected' : '' }}>Female</option>
+                <label for="gender">gender</label>
+                <select name="gender" id="gender" class="form-control">
+                    <option value="male" {{ $user->gender === 'male' ? 'selected' : '' }}>Male</option>
+                    <option value="female" {{ $user->gender === 'female' ? 'selected' : '' }}>Female</option>
                 </select>
             </div>
                 </div>
