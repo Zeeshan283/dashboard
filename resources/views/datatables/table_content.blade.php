@@ -1076,9 +1076,9 @@
         <th>Sr No</th>
         <th>Id#</th>
         <th>Name</th>
-        <th>Slug</th>
         <th>Image</th>
-        <th>Biller</th>
+        <th>Slug</th>
+        <th>Action</th>
 
     </thead>
     <tbody>
@@ -1087,13 +1087,24 @@
             <td>{{ $key + 1 }}</td>
             <td>{{ $allsubcat->category_id }}</td>
             <td>{{ $allsubcat->name }}</td>
+            <td><img src="<?php echo $allsubcat['image']; ?>" width="50" height="50"></td>
             <td>{{ $allsubcat->slug }}</td>
-            <td><img src="<?php echo $allsubcat['img']; ?>" width="50" height="50"></td>
-            <td>{{ $allsubcat->biller}}</td>
+            <td class="col-lg-1" style="white-space: nowrap;">
+                {{-- <a href="{{ route('subcategory.edit1', ['id' => $subcategory->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                <form action="{{ route('subcategory.destroy', ['id' => $subcategory->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this menu item?')" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn rounded-pill btn-icon btn-danger">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </form> --}}
+            </td>
         </tr>
         @endforeach
     </tbody>
-    <tfoot>
+    {{-- <tfoot>
     <tr>
         <th>Sr No</th>
         <th>Id#</th>
@@ -1103,10 +1114,48 @@
         <th>Biller</th>
 
     </tr>
-    </tfoot>
+    </tfoot> --}}
+    {{-- @if (Route::currentRouteName() == 'addsubcat' )
+    <thead>
+        <th>Sr No</th>
+        <th>Category Id</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Slug</th>
+    </thead>
+    <tbody>
+        @foreach ($data as $key => $subcategory)
+            <tr>
+                <td>{{ $key + 1 }}</td>
+                <td>{{ $subcategory->category_id }}</td>
+                <td>{{ $subcategory->name }}</td>
+                <td><img src="{{ asset($subcategory->img) }}" width="50" height="50"></td>
+                <td>{{ $subcategory->slug }}</td>
+            </tr>
+        @endforeach
+    </tbody>--}}
 
-@endif
-
+@elseif (Route::currentRouteName() == 'addsubcat' )
+    <table>
+        <thead>
+            <th>Sr No</th>
+            <th>Category Id</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Slug</th>
+        </thead>
+        <tbody>
+            @foreach ($data as $key => $subcat)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $subcat->category_id }}</td>
+                    <td>{{ $subcat->name }}</td>
+                    <td><img src="{{ asset($subcat->img) }}" width="50" height="50"></td>
+                    <td>{{ $subcat->slug }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+        @endif
 <script>
         $(function() {
             $("#example1").DataTable();

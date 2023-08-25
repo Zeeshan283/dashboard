@@ -93,10 +93,9 @@
             </li>
 
             <li class="nav-item">
-
-
-                <a class="{{ Route::currentRouteName() == 'allsubcat' ? 'open' : '' }}"
-                    href="{{ route('allsubcat') }}">
+                {{-- <a class="{{ Route::currentRouteName() == 'allsubcat' ? 'open' : '' }}"
+                    href="{{ route('allsubcat') }}"> --}}
+                    <a href="{{ url ('/sub-category') }}" id="list-item-color" class="nav-link menu-link {{(request()->route()->getName() == 'sub-category.index')? 'active': ''}}">
                     <i class="nav-icon i-Folder-Open"></i>
                     <span class="item-name">All Sub Categories</span>
                 </a>
