@@ -18031,7 +18031,8 @@ a.typo_link.text-gray-900:after {
   color: #663399;
 }
 .layout-sidebar-large .sidebar-left .navigation-left .nav-item.active .nav-item-hold {
-  color: #663399;
+  text-decoration: underline;
+  color: #3f51b5;
 }
 .layout-sidebar-large .sidebar-left .navigation-left .nav-item .nav-item-hold {
   display: block;
@@ -18066,7 +18067,7 @@ a.typo_link.text-gray-900:after {
   bottom: 0;
   border-style: solid;
   border-width: 0 0 30px 30px;
-  border-color: transparent transparent #663399 transparent;
+  border-color: transparent transparent #c2c6dc transparent;
 }
 .layout-sidebar-large .sidebar-left-secondary {
   left: calc(-220px - 20px);
@@ -18154,7 +18155,7 @@ a.typo_link.text-gray-900:after {
   right: 0;
   background: rgba(0, 0, 0, 0);
   z-index: 101;
-  cursor: w-resize;
+  cursor: default;
 }
 .layout-sidebar-large .sidebar-overlay.open {
   display: block;
@@ -18942,7 +18943,7 @@ ul.metismenu {
     right: 0;
     background: rgba(0, 0, 0, 0);
     z-index: 20000;
-    cursor: w-resize;
+    cursor: default;
   }
   .app-admin-wrap.sidebar-full .main-content-wrap {
     width: calc(100% - 0px);

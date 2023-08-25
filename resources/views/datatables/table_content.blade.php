@@ -787,8 +787,7 @@
         <th>Email</th>
     </tr>
     </tfoot>
-
-    @elseif (Route::currentRouteName() == 'userlist')
+@elseif (Route::currentRouteName() == 'userlist' )
     <thead>
         <tr>
             <th>Id</th>
@@ -819,6 +818,7 @@
             </tr>
         @endforeach
     </tbody>
+    <tfoot>
 
         {{-- @foreach ($users as $value => $customers )
         <tr>
@@ -838,7 +838,7 @@
 
 
     {{-- product info  --}}
-@elseif (Route::currentRouteName() == 'allproducts' )
+@elseif (Route::currentRouteName() == 'products.index' )
     <thead>
         <th>Sr No</th>
         <th>Name</th>
@@ -846,7 +846,7 @@
         <th>SKU</th>
         <th>Category</th>
         <th>Image</th>
-        <th>Type</th>
+        {{-- <th>Type</th> --}}
         <th>Action</th>
     </thead>
     <tbody>
@@ -865,26 +865,47 @@
                                                 {{ $product->subcategories->name }}
                                             @endif
                                         </td>
-                                        <td>Image</td>
-                                        <td>
+                                        @if($product->url)
+                                        <td><img src="{{ $product->url }}" width="50" height="50"></td>
+                                        @elseif($product->product_image)
+                                        <td><img src="{{ $product->product_image->url}}" width="50" height="50"></td>
+
+                                        @else
+                                        <td>image</td>
+                                        @endif
+                                        {{-- <td>
                                             @if ($product->type == 'Parent')
                                                 <span class="badge text-bg-success">{{ $product->type }}</span>
                                             @elseif ($product->type == 'Child')
                                                 <span class="badge text-bg-success">{{ $product->type }}</span>
                                             @endif
-                                        </td>
+                                        </td> --}}
                                         <td>
 
                                             <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-success ">
-                                                <i class="nav-icon i-Pen-2 "></i>
+                                            <a  target="_blank" href="{{ URL::to('products/' . $product->id . '/edit') }}"><button type="button"  class="btn btn btn-outline-secondary ">
+                                                <i 
+                                                {{-- class="fa fa-clone" --}}
+                                                 class=" nav-icon i-Pen-2" 
+                                                style="font-weight: bold;"></i>
+                                            </button></a>
+                                                {{-- <a  target="_blank" href="{{ URL::to('product/' . $product->id . '/dupe')}}"><button type="button"  class="btn btn-outline-secondary ">
+                                                <i class="fa fa-clone"
+                                                class="nav-icon i-Duplicate-Window"
+                                                 style="font-weight: bold;"></i>
+                                            </button></a> --}}
+                                            {{-- <a href="">
+                                            <button type="button" class="btn btn-outline-secondary ">
+                                                <i class="fa fa-eye"
+                                                class="nav-icon i-Eye"
+                                                ></i>
+                                            </button></a> --}}
+
+                                            {{-- <a href="{{URL::to('product/'. $product->id. '/delete')}}">
+                                            <button type="button" class="btn btn-danger">
+                                                <i class="nav-icon i-Remove-Basket"></i>
                                             </button>
-                                                <button type="button" class="btn btn-danger ">
-                                                <i class="nav-icon i-Close-Window "></i>
-                                            </button>
-                                            <button type="button" class="btn btn-primary">
-                                                <i class="nav-icon i-Eye "></i>
-                                            </button>
+                                            </a> --}}
                                             </div>
 
                                         </td>
@@ -901,7 +922,7 @@
         <th>SKU</th>
         <th>Category</th>
         <th>image</th>
-        <th>Type</th>
+        {{-- <th>Type</th> --}}
         <th>Action</th>
     </tr>
     </tfoot>
@@ -980,7 +1001,7 @@
     </tr>
     </tfoot>
 
-@elseif (Route::currentRouteName() == 'allmenu' )
+@elseif (Route::currentRouteName() == 'menu.index' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>
@@ -1039,7 +1060,7 @@
             <td><i class="{{ $menu->icon }}"></i></td>
         @endforeach
     </tbody>
-@elseif (Route::currentRouteName() == 'allcat' )
+@elseif (Route::currentRouteName() == 'cat.index' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>

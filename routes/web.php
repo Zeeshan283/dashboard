@@ -212,8 +212,6 @@ Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubca
 // Route::delete('subcategory/delete/{id}', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
 
 Route::resource('sub-category', SubCategoryController::class);
-// Route::get('sub-category/{id}/destroy', [SubCategoryController::class, 'destroy']);
-
 // menu controller route
 Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
 Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
