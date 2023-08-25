@@ -50,8 +50,8 @@
                                             <form action="{{ route('sub-category.destroy', ['sub_category' => $donor->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this menu item?')" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn rounded-pill btn-icon btn-danger">
-                                                     <i class="fa fa-trash" aria-hidden="true"></i>
+                                                <button type="submit" class="btn btn-danger">
+                                                     <i class="fa fa-trash" style="font-size: 14px;" aria-hidden="true"></i>
                                                 </button>
                                             </form>
                                         </td>
