@@ -15,7 +15,7 @@ class RefundController extends Controller
 {
     public function index(){
 
-        
+
         $refunds = Refund::with('product','customer')->get();
 
         return view('refund.refunded',compact('refunds'));
@@ -55,7 +55,7 @@ class RefundController extends Controller
         $refund->amount = $validatedData['amount'];
         $refund->reason = $validatedData['reason'];
 
-        // Save the record 
+        // Save the record
         $refund->save();
 
         Toastr::success('Refund request generated successfully', 'Success');
@@ -63,5 +63,16 @@ class RefundController extends Controller
         return redirect()->back();
         }
 
+ public function update( Request $request){
+    $request->validate([
+        'status' => 'required'
+    ]);
+    $status =  Refunds::where('refunds_status')->post();
+    $status->refunds_status =json_encode($request->status);
+        // update the status
+        $status ->update();
+        Toastr::success('Refund request generated successfully', 'Success');
+        return redirect()->back();
+ }
 
 }

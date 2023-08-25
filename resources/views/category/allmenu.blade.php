@@ -4,6 +4,7 @@
 @endsection
 @section('main-content')
     <div class="breadcrumb col-lg-12">
+
                 <h1 class="col-lg-10">All Menus</h1>
                 <a class="{{ Route::currentRouteName() == 'addmenu' ? 'open' : '' }}"
                 href="{{ route('addmenu') }}">

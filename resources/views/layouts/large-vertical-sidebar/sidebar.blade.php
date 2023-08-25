@@ -12,6 +12,7 @@
                     <i class="nav-icon i-Safe-Box1"></i>
                     <span class="nav-text">Doc</span>
                 </a>
+
                 <div class="triangle"></div>
             </li> --}}
         </ul>
@@ -22,7 +23,7 @@
         <ul class="childNav" data-parent="users">
 
             <li class="nav-item">
-                <a  href="{{ route('user.add') }}">
+                <a  href="">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New User</span>
                 </a>
@@ -30,7 +31,7 @@
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'userlist' ? 'open' : '' }}"
-                    href="{{ route('userlist') }}">
+                    href="">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">User List</span>
                 </a>
@@ -43,6 +44,8 @@
                     <span class="item-name">Add New Vendor</span>
                 </a>
             </li>
+
+
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'vendorlist' ? 'open' : '' }}"
@@ -76,15 +79,17 @@
                 </a>
             </li>
 
+
             {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'addmenu' ? 'open' : '' }}"
                     href="{{ route('addmenu') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">Add Menus</span>
                 </a>
-            </li> --}}
+            </li>
 
             <li class="nav-item">
+
                 <a class="{{ Route::currentRouteName() == 'allcat' ? 'open' : '' }}"
                     href="{{ route('allcat') }}">
                     <i class="nav-icon i-Folder"></i>
@@ -93,6 +98,7 @@
             </li>
 
             <li class="nav-item">
+
                 {{-- <a class="{{ Route::currentRouteName() == 'allsubcat' ? 'open' : '' }}"
                     href="{{ route('allsubcat') }}"> --}}
                     <a href="{{ url ('/sub-category') }}" id="list-item-color" class="nav-link menu-link {{(request()->route()->getName() == 'sub-category.index')? 'active': ''}}">
@@ -168,7 +174,7 @@
             </li>
 
         </ul>
-                <ul class="childNav" data-parent="extrakits">
+    <ul class="childNav" data-parent="extrakits">
 
            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'createrefund' ? 'open' : '' }}"
@@ -217,7 +223,7 @@
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}" href="{{ route('allorders') }}">
                     <i class="nav-icon i-Folder-Archive"></i>
-                    <span class="item-name">ALL</span>
+                    <span class="item-name">ALL Orders</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -278,23 +284,14 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('signUp') }}">
-                    <i class="nav-icon i-Zootool"></i>
-                    <span class="item-name">All Services</span>
+                <a class="{{ Route::currentRouteName() == 'coupon.index' ? 'open' : '' }}" href="{{ route('coupon.index') }}" >
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">All Coupon</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ route('forgot') }}">
-                    <i class="nav-icon i-Quotes"></i>
-                    <span class="item-name">Testimonials</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('forgot') }}">
-                    <i class="nav-icon i-Bar-Chart"></i>
-                    <span class="item-name">Skills</span>
-                </a>
-            </li>
+
+
+
         </ul>
         <ul class="childNav" data-parent="others">
             <li class="nav-item">
@@ -343,6 +340,8 @@
             </li> --}}
         </ul>
     </div>
+
+
     <div class="sidebar-overlay"></div>
 <!--=============== Left side End ================-->
 

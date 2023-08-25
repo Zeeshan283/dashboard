@@ -20,6 +20,7 @@ class User extends Authenticatable
         'addres', // Fix the spelling of 'address'
         'password',
         'gender',
+        'role',
     ];
 
     protected $hidden = [

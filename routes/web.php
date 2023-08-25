@@ -86,9 +86,9 @@ Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
  Route::get('vendorlist', [VendorsController::class, 'vendorlist'])->name('vendorlist');
 //  Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
 
-    Route::get('editseller/{id}',[InsertVendorsController::class,'edit']);
-    Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
-    // Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
+Route::get('editseller/{id}',[InsertVendorsController::class,'edit']);
+Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
+// Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
 
 
 
@@ -122,9 +122,13 @@ Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('u
 // product reviews
 // Routes accessible only by vendors
 Route::middleware(['vendorOnly'])->group(function () {
-    Route::get('/dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
-    Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create');
-    Route::post('/products', [ProductsController::class, 'store'])->name('products.store');
+    Route::get('/dashboard', [VendorsController::class, 'dashboard'])->name('vendor.dashboard');
+    Route::resource('products', ProductController::class);
+    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
+    Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+    Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
+    Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+
 });
 
 // Other routes accessible to all users
@@ -182,6 +186,11 @@ Auth::routes();
 
 Route::resource('products', ProductController::class);
 Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
+Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
+Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+
+
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
 // orders using controller
@@ -221,6 +230,14 @@ Route::put('menu/update/{id}', [MenuController::class, 'update'])->name('menu.up
 Route::delete('menu/delete/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
 
 
+//allcat
+Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
+Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
+
+// Route::resource('menu', MenuController::class);
+
+Route::resource('cat', CategoryController::class);
+
 
 // customer reviews controller
 
@@ -234,6 +251,9 @@ Route::get('allrefunds',[RefundController::class,'refundstatus'])->name('allrefu
 Route::get('refunded',[RefundController::class, 'index'])->name('refunded');
 Route::get('createrefund',[RefundController::class, 'create'])->name('createrefund');
 Route::post('/store-refund', [RefundController::class, 'store'])->name('refund.store');
+Route::post('/allrefunds', [RefundController::class, 'update']) ->name('refund.update');
+
+
 
 // vendors route
 
@@ -243,10 +263,9 @@ Route::resource('/vendor', VendorsController::class);
 
 Route::resource('users', RoleController::class);
 Route::resource('coupon', CouponController::class);
+// Route::get('coupon/all',[CouponController::class, 'all'])->name('couponall');
 
-// Coupon
 
-// Route::resource('coupon',CouponController::class);
 
 
 

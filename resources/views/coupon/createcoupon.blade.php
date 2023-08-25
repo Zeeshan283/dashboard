@@ -28,6 +28,9 @@
                                     <div class="card-body">
 
                                         <div class="row">
+                                            
+
+                                            
 
                                             <div class="form-group col-md-4">
                                                 <label for="vendor" class="ul-form__label">Coupon Type:</label>
@@ -124,8 +127,8 @@
                                                         </small>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="vendor" class="ul-form__label">Select product</label>
-                                                        <select class="form-control" name="product_id" >
+                                                        <label for="vendor" class="ul-form__label">Select product ww</label>
+                                                        <select class="form-control" name="product_id"  >
                                                             <option value="" selected disabled>Select Product</option>
                                                             @foreach ($products as $product)
                                                                 
@@ -200,6 +203,28 @@
                                                             Percentage
                                                         </small>
                                                     </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="vendor" class="ul-form__label">Store:</label>
+                                                        
+                                                        @if (Auth::User()->role=='Admin')
+                                                        {!! Form::select('vendors',$vendors,null,['id'=>'vendors','class'=>'form-control fstdropdown-select','onchange'=>'ChangeMakeCondition(this.value)']) !!}
+                                                        {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
+                                                        {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
+                                                        @else
+                                                            {!! Form::text('make1',Auth::User()->name,['id'=>'make1','class'=>'form-control','disabled'=>'disabled']) !!}
+                                                            {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
+                                                            {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
+                                                        @endif
+        
+                                                        @if ($errors->has('make'))
+                                                            <span  style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('make') }}</span  style="color: red;">
+                                                        @endif
+                                                        <small class="ul-form__text form-text">
+                                                            Select Coupon Type
+                                                        </small>
+                                                    </div>
+                                                    
                                                   
 
                                                 </div>

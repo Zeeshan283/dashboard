@@ -93,5 +93,5 @@ class MenuController extends Controller
         $menu->delete();
         Toastr::success('Menu Deleted Successfully!');
         return redirect()->back();
-    }
+}
 }

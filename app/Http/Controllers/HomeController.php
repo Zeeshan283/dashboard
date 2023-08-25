@@ -32,29 +32,81 @@ class HomeController extends Controller
   
 
     public function index()
-    {   
-        $totalOrders = Order::count();
-        $currenOrders = Order::where('status', '!=', 'confirmed')->count();
-        $products = Product::count();
-        $pending = Order::where('status', '=', 'In Process')->count();
-        $confirmed = Order::where('status', '=', 'confirmed')->count();
-        $packaging = Order::where('status', '=', 'packaging')->count();
-        $ftod = Order::where('status', '=', 'Field to Deliver')->count();
-        $delivered = Order::where('status', '=', 'delivered')->count();
-        $canceled = Order::where('status', '=', 'canceled')->count();
-        $returned = Order::where('status', '=', 'returned')->count();
-        $customer = User::count();
-        return view('dashboard.dashboardv1', 
-        compact('totalOrders',
-        'currenOrders', 
-        'products',
-        'pending',
-        'confirmed',
-        'packaging',
-        'ftod', 
-        'delivered',
-        'canceled',
-        'returned', 
-        'customer'));
+    {   $data = "";
+        if (Auth::User()->role == 'Admin') {
+            $totalOrders = Order::count();
+            $currenOrders = Order::where('status', '!=', 'confirmed')->count();
+            $products = Product::count();
+            $pending = OrderDetails::join('orders','orders.id','=','order_details.order_id')->where('order_details.vendor_id',Auth::User()->id)->count();
+            $confirmed = Order::where('status', '=', 'confirmed')->count();
+            $packaging = Order::where('status', '=', 'packaging')->count();
+            $ftod = Order::where('status', '=', 'Field to Deliver')->count();
+            $delivered = Order::where('status', '=', 'delivered')->count();
+            $canceled = Order::where('status', '=', 'canceled')->count();
+            $returned = Order::where('status', '=', 'returned')->count();
+            $customer = User::count();
+            return view('dashboard.dashboardv1', 
+            compact('totalOrders',
+            'currenOrders', 
+            'products',
+            'pending',
+            'confirmed',
+            'packaging',
+            'ftod', 
+            'delivered',
+            'canceled',
+            'returned', 
+            'customer'));
+        } else {
+            $totalOrders = OrderDetails::where('vendor_id', Auth::User()->id)->count();
+            // $currenOrders = Order::where('status', '!=', 'confirmed')->count();
+            $currenOrders = OrderDetails::join('orders','orders.id','=','order_details.order_id')
+            ->where('order_details.vendor_id',Auth::User()->id)
+            ->where('orders.status', '!=' , 'confirmed')->count();
+            $products = Product::where('created_by', Auth::User()->id)->count();
+            // $pending = OrderDetails::join('orders','orders.id','=','order_details.order_id')->where('order_details.vendor_id',Auth::User()->id)->count();
+            $pending = OrderDetails::join('orders','orders.id','=','order_details.order_id')
+            ->where('order_details.vendor_id',Auth::User()->id)
+            ->where('orders.status','=', 'pending')->count();
+            $confirmed = OrderDetails::join('orders','orders.id','=','order_details.order_id')
+            ->where('order_details.vendor_id',Auth::User()->id)
+            ->where('orders.status','=', 'confirmed')->count();
+            $packaging = OrderDetails::join('orders','orders.id','=','order_details.order_id')
+            ->where('order_details.vendor_id',Auth::User()->id)
+            ->where('orders.status','=', 'packaging')->count();
+            // $ftod = Order::where('status', '=', 'Field to Deliver')->count();
+            $ftod = OrderDetails::join('orders','orders.id','=','order_details.order_id')
+            ->where('order_details.vendor_id',Auth::User()->id)
+            ->where('orders.status','=', 'Dield to Deliver')->count();
+            // $delivered = Order::where('status', '=', 'delivered')->count();
+            $delivered = OrderDetails::join('orders','orders.id','=','order_details.order_id')
+            ->where('order_details.vendor_id',Auth::User()->id)
+            ->where('orders.status','=', 'delivered')->count();
+            // $canceled = Order::where('status', '=', 'canceled')->count();
+            $canceled = OrderDetails::join('orders','orders.id','=','order_details.order_id')
+            ->where('order_details.vendor_id',Auth::User()->id)
+            ->where('orders.status','=', 'canceled')->count();
+            // $returned = Order::where('status', '=', 'returned')->count();
+            $returned = OrderDetails::join('orders','orders.id','=','order_details.order_id')
+            ->where('order_details.vendor_id',Auth::User()->id)
+            ->where('orders.status','=', 'returned')->count();
+            $customer = User::count();
+            
+            return view('dashboard.dashboardv1', 
+            compact('totalOrders',
+            'currenOrders', 
+            'products',
+            'pending',
+            'confirmed',
+            'packaging',
+            'ftod', 
+            'delivered',
+            'canceled',
+            'returned', 
+            'customer'));
+        }
+
+        
+        
     }
 }

@@ -545,20 +545,23 @@
         <td>{{ $value->order_id}}</td>
         <td>{{ $value->reason}}</td>
         <td>{{ $value->amount}}</td>
+        <form   method ="POST" action="" >
+        @csrf
         <td>
                 <select class="form-control" id="product_id">
                     <option value="" selected disabled>Select Status</option>
                     {{-- @foreach ($products as $product) --}}
-                        <option value="Pending">Pending</option>
-                        <option value="Aproved">Approved</option>
-                        <option value="Refunded">Refunded</option>
-                        <option value="Rejected">Rejected</option>
+                        <option name="status[]" value="Pending">Pending</option>
+                        <option  name="status[]"  value="Aproved">Approved</option>
+                        <option   name="status[]" value="Refunded">Refunded</option>
+                        <option   name="status[]" value="Rejected">Rejected</option>
                     {{-- @endforeach --}}
                 </select>
         </td>
         <td>
-            <button class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Update</span></button>
+            <button type ="submit" class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Update</span></button>
         </td>
+    </form>
     </tr>
     @endforeach
     </tbody>
@@ -889,11 +892,11 @@
                                                  class=" nav-icon i-Pen-2"
                                                 style="font-weight: bold;"></i>
                                             </button></a>
-                                                {{-- <a  target="_blank" href="{{ URL::to('product/' . $product->id . '/dupe')}}"><button type="button"  class="btn btn-outline-secondary ">
+                                                <a  target="_blank" href="{{ URL::to('product/' . $product->id . '/dupe')}}"><button type="button"  class="btn btn-outline-secondary ">
                                                 <i class="fa fa-clone"
-                                                class="nav-icon i-Duplicate-Window"
+                                                {{-- class="nav-icon i-Duplicate-Window" --}}
                                                  style="font-weight: bold;"></i>
-                                            </button></a> --}}
+                                            </button></a>
                                             {{-- <a href="">
                                             <button type="button" class="btn btn-outline-secondary ">
                                                 <i class="fa fa-eye"
@@ -1135,6 +1138,57 @@
         <th>Biller</th>
 
     </tr>
+
+    </tfoot>
+@elseif (Route::currentRouteName() == 'coupon.index' )
+<thead>
+    <th>Sr No</th>
+    <th>Coupon Type</th>
+    <th>Coupon Title</th>
+    <th>Coupon Code</th>
+    <th>Limit for Same User</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+</thead>
+<tbody>
+@foreach ($coupons as $key => $item)
+
+    <tr>
+        <td>{{ $key + 1 }}</td>
+        <td>
+
+            @if( $item->coupon_type == 1)
+                <p>Discount on Purchase</p>
+            @elseif ($item->coupon_type == 2)
+                <p>Free Delivery</p>
+            @elseif ($item->coupon_type == 3)
+                <p>First Order</p>
+            @endif
+
+        </td>
+        <td>{{ $item->coupon_title}}</td>
+        <td>{{ $item->coupon_code}}</td>
+        <td>{{ $item->limit_same_user}}</td>
+        <td>{{ $item->start_date}}</td>
+        <td>{{ $item->end_date}}</td>
+    </tr>
+@endforeach
+</tbody>
+<tfoot>
+<tr>
+    <th>Sr No</th>
+    <th>Coupon Type</th>
+    <th>Coupon Title</th>
+    <th>Coupon Code</th>
+    <th>Limit for Same User</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+</tr>
+</tfoot>
+
+
+@endif
+
     </tfoot> --}}
     {{-- @if (Route::currentRouteName() == 'addsubcat' )
     <thead>
@@ -1155,6 +1209,7 @@
             </tr>
         @endforeach
     </tbody>--}}
+
 
 @elseif (Route::currentRouteName() == 'addsubcat' )
     <table>
