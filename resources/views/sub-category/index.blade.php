@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @extends('layouts.master')
 
 @section('page-css')
@@ -6,9 +7,6 @@
 @endsection
 
 @section('main-content')
-<link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-4oV5HzkIa7l6iZf6owFPrUrSG8Rf6wy8M8o8H5E5fDNE1f+2JcbJTI1/KJQGh/R3" crossorigin="anonymous">
-
     <section class="content-header"></section>
     <section class="content">
         <div class="row">
@@ -46,13 +44,14 @@
                                         <td>{{ $donor->slug }}</td>
                                         <td class="col-lg-1" style="white-space: nowrap;">
                                             <a href="{{ asset('sub-category') }}/{{ $donor->id }}/edit" class="btn rounded-pill btn-icon btn-primary">
-                                                <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                                                {{-- <i class="fas fa-pencil-alt" aria-hidden="true"></i> --}}
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
                                             <form action="{{ route('sub-category.destroy', ['sub_category' => $donor->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this menu item?')" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn rounded-pill btn-icon btn-danger">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                             </form>
                                         </td>
