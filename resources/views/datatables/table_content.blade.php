@@ -884,9 +884,9 @@
 
                                             <div class="d-flex gap-2">
                                             <a  target="_blank" href="{{ URL::to('products/' . $product->id . '/edit') }}"><button type="button"  class="btn btn btn-outline-secondary ">
-                                                <i 
+                                                <i
                                                 {{-- class="fa fa-clone" --}}
-                                                 class=" nav-icon i-Pen-2" 
+                                                 class=" nav-icon i-Pen-2"
                                                 style="font-weight: bold;"></i>
                                             </button></a>
                                                 {{-- <a  target="_blank" href="{{ URL::to('product/' . $product->id . '/dupe')}}"><button type="button"  class="btn btn-outline-secondary ">
@@ -1001,7 +1001,7 @@
     </tr>
     </tfoot>
 
-@elseif (Route::currentRouteName() == 'menu.index' )
+@elseif (Route::currentRouteName() == 'allmenu' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>
@@ -1046,8 +1046,8 @@
         <th>Id#</th>
         <th>Name</th>
         <th>Icon</th>
-        <th>image</th>
-        <th>imageforapp</th>
+        {{-- <th>image</th>
+        <th>imageforapp</th> --}}
 
     </thead>
     <tbody>
@@ -1057,7 +1057,7 @@
             <td>{{ $menu->id }}</td>
             <td>{{ $menu->name }}</td>
             <td><i class="{{ $menu->icon }}" style='color:#5233ff;  font-size: 30px;margin-right: 10px;'></i></td>
-            <td><i class="{{ $menu->icon }}"></i></td>
+            {{-- <td><i class="{{ $menu->icon }}"></i></td> --}}
         @endforeach
     </tbody>
 @elseif (Route::currentRouteName() == 'cat.index' )

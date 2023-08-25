@@ -12,7 +12,7 @@
                     <i class="nav-icon i-Safe-Box1"></i>
                     <span class="nav-text">Doc</span>
                 </a>
-                
+                <div class="triangle"></div>
             </li> --}}
         </ul>
     </div>
@@ -69,25 +69,24 @@
 
         <ul class="childNav" data-parent="widgets">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'menu.index' ? 'open' : '' }}"
-                    href="{{ route('menu.index') }}">
+                <a class="{{ Route::currentRouteName() == 'allmenu' ? 'open' : '' }}"
+                    href="{{ route('allmenu') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">All Menus</span>
                 </a>
             </li>
 
-
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'menu.create' ? 'open' : '' }}"
-                    href="{{ route('menu.create') }}">
+            {{-- <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'addmenu' ? 'open' : '' }}"
+                    href="{{ route('addmenu') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">Add Menus</span>
                 </a>
             </li> --}}
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'cat.index' ? 'open' : '' }}"
-                    href="{{ route('cat.index') }}">
+                <a class="{{ Route::currentRouteName() == 'allcat' ? 'open' : '' }}"
+                    href="{{ route('allcat') }}">
                     <i class="nav-icon i-Folder"></i>
                     <span class="item-name">All Categories</span>
                 </a>
@@ -144,7 +143,7 @@
                     </a>
                 </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'products' ? 'open' : '' }}" href="{{ route('products.index') }}">
+                <a class="{{ Route::currentRouteName() == 'allproducts' ? 'open' : '' }}" href="{{ route('allproducts') }}">
                     <i class="nav-icon i-Shopping-Bag"></i>
                     <span class="item-name">All Product</span>
                 </a>
@@ -335,13 +334,13 @@
                     <span class="item-name">Home Banner</span>
                 </a>
             </li>
-             <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'starter' ? 'open' : '' }}" href="{{ route('starter') }}"
                     class="open">
                     <i class="nav-icon i-File-Horizontal"></i>
                     <span class="item-name">Blank Page</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
     <div class="sidebar-overlay"></div>

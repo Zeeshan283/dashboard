@@ -7,6 +7,8 @@
 
 @section('main-content')
 <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-4oV5HzkIa7l6iZf6owFPrUrSG8Rf6wy8M8o8H5E5fDNE1f+2JcbJTI1/KJQGh/R3" crossorigin="anonymous">
+
     <section class="content-header"></section>
     <section class="content">
         <div class="row">
