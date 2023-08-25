@@ -89,7 +89,7 @@
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'cat.index' ? 'open' : '' }}"
-                    href="">
+                    href="{{route('cat.index')}}">
                     <i class="nav-icon i-Folder"></i>
                     <span class="item-name">All Categories</span>
                 </a>
@@ -99,7 +99,7 @@
 
 
                 <a class="{{ Route::currentRouteName() == 'allsubcat' ? 'open' : '' }}"
-                    href="">
+                    href="{{ route('allsubcat')}}">
                     <i class="nav-icon i-Folder-Open"></i>
                     <span class="item-name">All Sub Categories</span>
                 </a>
