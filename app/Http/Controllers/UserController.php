@@ -2,72 +2,74 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash; // Import the Hash facade
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index()
+    public function userlist()
     {
         $users = User::all();
-        return view('users.index', compact('users'));
+        return view('users/userlist')->with('users', $users);
     }
 
-    public function create()
+    public function add()
     {
-        $statuses = ['active' => 'Active', 'inactive' => 'Inactive'];
-        return view('users.create', compact('statuses'));
+        return view('users/adduser');
     }
 
-    public function add_user(Request $request)
+public function adduser(Request $request)
     {
-        $validatedData = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'contact_number' => 'required|string|max:20',
-            'username' => 'required|string|max:255|unique:users,username',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-            'confirm_password' => 'required|same:password',
-            'address' => 'required|string|max:255',
-            'zipcode' => 'required|string|max:10',
-            'status' => 'required|string|in:active,inactive',
-        ]);
+        $user = new User;
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->country = $request->input('country');
+        $user->city = $request->input('city');
+        $user->addres = $request->input('addres'); // Fix the spelling of 'addres'
+        $user->password = Hash::make($request->input('password'));
+        $user->gender = $request->input('gender');
+        $user->save();
 
-        // Hash the password
-        $validatedData['password'] = Hash::make($validatedData['password']);
+        Toastr::success('User added successfully', 'Success');
 
-        $user = User::create($validatedData);
+        return redirect()->route('userlist');
+    }
 
-        return redirect()->route('users.index')
-            ->with('success', 'User created successfully.');
 
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return view('users/edit')->with('user', $user);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->country = $request->input('country');
+        $user->city = $request->input('city');
+        $user->addres = $request->input('addres'); // Corrected spelling of 'address'
+
+        if ($request->has('password')) {
+            $user->password = Hash::make($request->input('password'));
         }
-        public function store(Request $request)
-        {
-            // $validatedData = $request->validate([
-                $request->validate([
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'contact_number' => 'required|string|max:20',
-                'username' => 'required|string|max:255|unique:users,username',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required|string|min:8',
-                'confirm_password' => 'required|same:password',
-                'address' => 'required|string|max:255',
-                'zipcode' => 'required|string|max:10',
-                'status' => 'required|string|in:active,inactive',
-            ]);
 
+        $user->gender = $request->input('gender');
+        $user->save();
 
-       print_r($request->all())  ;
-            // Hash the password before storing
-            $validatedData['password'] = bcrypt($validatedData['password']);
+        return redirect()->route('userlist'); // Make sure you have defined the 'userlist' route
+    }
 
-            $user = User::create($validatedData);
+    public function delete_user($id)
+    {
+        $user = User::find($id);
+        $user->delete();
 
-            return redirect()->route('users.index')
-                ->with('success', 'User created successfully.');
-        }
+        return redirect()->route('userlist');
+    }
 }

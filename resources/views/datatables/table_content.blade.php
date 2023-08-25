@@ -792,35 +792,56 @@
     </tfoot>
 @elseif (Route::currentRouteName() == 'userlist' )
     <thead>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>gender</th>
+            <th>Action</th>
+        </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td><span class="i-Eye-Visible"></span></td>
-    </tr>
+        @foreach($users as $user)
+            <tr>
+                <td>{{$user->id}}</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->phone}}</td>
+                <td>{{$user->country}}</td>
+                <td>{{$user->city}}</td>
+                <td>{{$user->addres}}</td>
+                <td>{{$user->gender}}</td>
+                <td><a href="{{ route('user.edit', ['id' => $user->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a></td>
+            </tr>
+        @endforeach
     </tbody>
     <tfoot>
 
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-
-    </tfoot>   --}}
+        {{-- @foreach ($users as $value => $customers )
+        <tr>
+            <td>{{$value + 1}}</td>
+            <td>{{$customers->id}}</td>
+            <td>{{$customers->name}}</td>
+            <td>{{$customers->email}}</td>
+            <td>{{$customers->phone1}}</td>
+            <td>{{$customers->country}}</td>
+            <td>{{$customers->city}}</td>
+            <td>{{$customers->addres}}</td>
+            <td>{{$customers->status}}</td>
+        </tr>
+        @endforeach
+    </tbody>
+    <tfoot>
 
 
     {{-- product info  --}}
-@elseif (Route::currentRouteName() == 'allproducts' )
+@elseif (Route::currentRouteName() == 'products.index' )
     <thead>
         <th>Sr No</th>
         <th>Name</th>
@@ -828,7 +849,7 @@
         <th>SKU</th>
         <th>Category</th>
         <th>Image</th>
-        <th>Type</th>
+        {{-- <th>Type</th> --}}
         <th>Action</th>
     </thead>
     <tbody>
@@ -847,26 +868,47 @@
                                                 {{ $product->subcategories->name }}
                                             @endif
                                         </td>
-                                        <td>Image</td>
-                                        <td>
+                                        @if($product->url)
+                                        <td><img src="{{ $product->url }}" width="50" height="50"></td>
+                                        @elseif($product->product_image)
+                                        <td><img src="{{ $product->product_image->url}}" width="50" height="50"></td>
+
+                                        @else
+                                        <td>image</td>
+                                        @endif
+                                        {{-- <td>
                                             @if ($product->type == 'Parent')
                                                 <span class="badge text-bg-success">{{ $product->type }}</span>
                                             @elseif ($product->type == 'Child')
                                                 <span class="badge text-bg-success">{{ $product->type }}</span>
                                             @endif
-                                        </td>
+                                        </td> --}}
                                         <td>
 
                                             <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-success ">
-                                                <i class="nav-icon i-Pen-2 "></i>
+                                            <a  target="_blank" href="{{ URL::to('products/' . $product->id . '/edit') }}"><button type="button"  class="btn btn btn-outline-secondary ">
+                                                <i 
+                                                {{-- class="fa fa-clone" --}}
+                                                 class=" nav-icon i-Pen-2" 
+                                                style="font-weight: bold;"></i>
+                                            </button></a>
+                                                <a  target="_blank" href="{{ URL::to('product/' . $product->id . '/dupe')}}"><button type="button"  class="btn btn-outline-secondary ">
+                                                <i class="fa fa-clone"
+                                                {{-- class="nav-icon i-Duplicate-Window" --}}
+                                                 style="font-weight: bold;"></i>
+                                            </button></a>
+                                            {{-- <a href="">
+                                            <button type="button" class="btn btn-outline-secondary ">
+                                                <i class="fa fa-eye"
+                                                class="nav-icon i-Eye"
+                                                ></i>
+                                            </button></a> --}}
+
+                                            {{-- <a href="{{URL::to('product/'. $product->id. '/delete')}}">
+                                            <button type="button" class="btn btn-danger">
+                                                <i class="nav-icon i-Remove-Basket"></i>
                                             </button>
-                                                <button type="button" class="btn btn-danger ">
-                                                <i class="nav-icon i-Close-Window "></i>
-                                            </button>
-                                            <button type="button" class="btn btn-primary">
-                                                <i class="nav-icon i-Eye "></i>
-                                            </button>
+                                            </a> --}}
                                             </div>
 
                                         </td>
@@ -883,7 +925,7 @@
         <th>SKU</th>
         <th>Category</th>
         <th>image</th>
-        <th>Type</th>
+        {{-- <th>Type</th> --}}
         <th>Action</th>
     </tr>
     </tfoot>
@@ -962,12 +1004,53 @@
     </tr>
     </tfoot>
 
-@elseif (Route::currentRouteName() == 'allmenu' )
+@elseif (Route::currentRouteName() == 'menu.index' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>
         <th>Name</th>
         <th>Icon</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        @foreach ($data as $key => $menu)
+        <tr class="col-lg-11">
+            <td>{{ $key + 1 }}</td>
+            <td>{{ $menu->id }}</td>
+            <td>{{ $menu->name }}</td>
+            <td><i class="{{ $menu->icon }}" style='color:#5233ff; font-size: 30px; margin-right: 10px;'></i></td>
+            <td class="col-lg-1" style="white-space: nowrap;">
+                <a href="{{ route('menu.edit', ['id' => $menu->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                <form action="{{ route('menu.destroy', ['id' => $menu->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this menu item?')" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn rounded-pill btn-icon btn-danger">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </td>
+
+        </tr>
+        @endforeach
+    </tbody>
+    {{-- <tfoot>
+    <tr>
+        <th>Sr No</th>
+        <th>Id#</th>
+        <th>Name</th>
+        <th>Icon</th>
+    </tr>
+    </tfoot> --}}
+    @elseif (Route::currentRouteName() == 'addmenu' )
+    <thead>
+        <th>Sr No</th>
+        <th>Id#</th>
+        <th>Name</th>
+        <th>Icon</th>
+        <th>image</th>
+        <th>imageforapp</th>
 
     </thead>
     <tbody>
@@ -977,19 +1060,10 @@
             <td>{{ $menu->id }}</td>
             <td>{{ $menu->name }}</td>
             <td><i class="{{ $menu->icon }}" style='color:#5233ff;  font-size: 30px;margin-right: 10px;'></i></td>
-        </tr>
+            <td><i class="{{ $menu->icon }}"></i></td>
         @endforeach
     </tbody>
-    <tfoot>
-    <tr>
-        <th>Sr No</th>
-        <th>Id#</th>
-        <th>Name</th>
-        <th>Icon</th>
-
-    </tr>
-    </tfoot>
-@elseif (Route::currentRouteName() == 'allcat' )
+@elseif (Route::currentRouteName() == 'cat.index' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>
@@ -1054,6 +1128,52 @@
 
     </tr>
     </tfoot>
+@elseif (Route::currentRouteName() == 'coupon.index' )
+<thead>
+    <th>Sr No</th>
+    <th>Coupon Type</th>
+    <th>Coupon Title</th>
+    <th>Coupon Code</th>
+    <th>Limit for Same User</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+</thead>
+<tbody>
+@foreach ($coupons as $key => $item)
+    
+    <tr>
+        <td>{{ $key + 1 }}</td>
+        <td>
+          
+            @if( $item->coupon_type == 1)
+                <p>Discount on Purchase</p>
+            @elseif ($item->coupon_type == 2) 
+                <p>Free Delivery</p>
+            @elseif ($item->coupon_type == 3) 
+                <p>First Order</p>
+            @endif
+         
+        </td>
+        <td>{{ $item->coupon_title}}</td>
+        <td>{{ $item->coupon_code}}</td>
+        <td>{{ $item->limit_same_user}}</td>
+        <td>{{ $item->start_date}}</td>
+        <td>{{ $item->end_date}}</td>
+    </tr>
+@endforeach
+</tbody>
+<tfoot>
+<tr>
+    <th>Sr No</th>
+    <th>Coupon Type</th>
+    <th>Coupon Title</th>
+    <th>Coupon Code</th>
+    <th>Limit for Same User</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+</tr>
+</tfoot>
+
 
 @endif
 

@@ -3,23 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'contact_number',
+        'name',
         'email',
+        'phone',
+        'country',
+        'city',
+        'addres', // Fix the spelling of 'address'
         'password',
-        'address',
-        'zipcode',
-        'status',
+        'gender',
+        'role',
     ];
 
     protected $hidden = [
@@ -30,4 +31,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-}
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles', 'role_user', 'role_id');
+    }
+    }
+

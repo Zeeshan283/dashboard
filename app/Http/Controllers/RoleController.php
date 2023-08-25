@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\User;
 use App\Models\Role;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Models\User;
 
 use Session;
 use File;
@@ -20,14 +20,14 @@ class RoleController extends Controller
 
     public function index()
     {
-        $donors = User::where('type', '=', 'USER')->OrderBy('name', 'asc')->get();
-        return view('users.userlist', Compact('donors'));
+        $users = User::where('type', '=', 'USER')->OrderBy('name', 'asc')->get();
+        return view('users.index', Compact('users'));
     }
 
     public function create()
     {
         $shop = Category::OrderBy('name', 'asc')->pluck('name', 'id');
-        return view('users.adduser', Compact('shop'));
+        return view('users.create', Compact('shop'));
     }
 
     public function store(Request $request)
@@ -41,23 +41,23 @@ class RoleController extends Controller
             //'category_id' => 'required'
         ]);
 
-        $student = new User(array(
+        $users = new User(array(
             'name' => $request->get('name'),
             'email' => $request->get('email'),
-            'category_id' => $request->get('category_id'),
-            'phone'  => $request->get('phone'),
+            // 'category_id' => $request->get('category_id'),
+            'phone1'  => $request->get('phone1'),
             'country' => $request->get('country'),
             'city' => $request->get('city'),
-            'addres' => $request->get('addres'),
+            'address1' => $request->get('address1'),
             'gender' => $request->get('gender'),
-            'profession' => $request->get('profession'),
+            // 'profession' => $request->get('profession'),
             'type' => "USER",
             'password' => bcrypt($request->get('password')),
             // 'biller_id' => $request->get('biller_id')
             //'image' => $imageName
         ));
         $student->save();
-        $student->roles()->attach(Role::where('name', 'Editor')->first());
+        // $student->roles()->attach(Role::where('name', 'Editor')->first());
 
         Toastr::success('User successfully added!', 'Success');
 

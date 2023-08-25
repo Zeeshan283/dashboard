@@ -162,6 +162,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Brian2694\Toastr\ToastrServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+
 
         /*
          * Package Service Providers...

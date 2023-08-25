@@ -7,6 +7,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RefundController;
 use App\Http\Controllers\VendorsController;
@@ -85,10 +86,9 @@ Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
  Route::get('vendorlist', [VendorsController::class, 'vendorlist'])->name('vendorlist');
 //  Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
 
-    Route::get('editseller/{id}',[InsertVendorsController::class,'edit']);
-    Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
-    // Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
-
+Route::get('editseller/{id}',[InsertVendorsController::class,'edit']);
+Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
+// Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
 
 
 
@@ -108,16 +108,34 @@ Route::view('cwallet', 'customer.cwallet')->name('cwallet');
 
 // Users
 
-Route::view('adduser', 'users.adduser')->name('adduser');
-Route::view('userlist','users.userlist')->name('userlist');
+// Route::view('adduser', 'users.adduser')->name('adduser');
+// Route::view('userlist','users.userlist')->name('userlist');
+Route::get('users/userlist', [UserController::class, 'userlist'])->name('userlist');
+Route::get('users/add', [UserController::class, 'add'])->name('user.add');
+Route::post('users/adduser', [UserController::class, 'adduser'])->name('user.adduser');
+Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+Route::post('users/update/{id}', [UserController::class, 'update'])->name('user.update');
+Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('user.delete');
+
 
 // product reviews
+// Routes accessible only by vendors
+Route::middleware(['vendorOnly'])->group(function () {
+    Route::get('/dashboard', [VendorsController::class, 'dashboard'])->name('vendor.dashboard');
+    Route::resource('products', ProductController::class); 
+    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
+    Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+    Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
+    Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+    
+});
 
-// Route::view('addproduct','products.addproduct')->name('addproduct');
-// Route::view('allproducts','products.allproducts')->name('allproducts');
-Route::view('customerqueries','products.customerqueries')->name('customerqueries');
-Route::view('productinfo','products.productinfo')->name('productinfo');
-Route::view('productreviews','products.productreviews')->name('productreviews');
+// Other routes accessible to all users
+Route::view('customerqueries', 'products.customerqueries')->name('customerqueries');
+Route::view('productinfo', 'products.productinfo')->name('productinfo');
+Route::view('productreviews', 'products.productreviews')->name('productreviews');
+
+
 
 // datatables
 Route::view('datatables/basic-tables', 'datatables.basic-tables')->name('basic-tables');
@@ -165,8 +183,12 @@ Auth::routes();
 
 
 
-    Route::resource('products', ProductController::class);
-Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
+Route::resource('products', ProductController::class); 
+Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
+Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
+Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
 // orders using controller
@@ -189,9 +211,20 @@ Route::get('customerlist',[CustomerController::class,'index'])->name('customerli
 
 
 // menu controller route
-Route::get('allmenu',[MenuController::class, 'index'])->name('allmenu');
-Route::get('allcat',[CategoryController::class,'index'])->name('allcat');
-Route::get('allsubcat',[SubCategoryController::class, 'index'])->name('allsubcat');
+Route::get('menu/edit/{id}', [MenuController::class, 'edit'])->name('menu.edit');
+Route::put('menu/update/{id}', [MenuController::class, 'update'])->name('menu.update');
+Route::delete('menu/delete/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
+
+
+// Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
+Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
+Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
+Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
+Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
+// Route::resource('menu', MenuController::class);
+
+Route::resource('cat', CategoryController::class);
+
 
 // customer reviews controller
 
@@ -209,11 +242,18 @@ Route::post('/allrefunds', [RefundController::class, 'update']) ->name('refund.u
 
 
 
+
 // vendors route
 
-Route::resource('/vendor', VendorsController::class);
+Route::resource('vendor', VendorsController::class);
 
 // add user role
 
-Route::resource('user', RoleController::class);
+Route::resource('users', RoleController::class);
+Route::resource('coupon', CouponController::class);
+// Route::get('coupon/all',[CouponController::class, 'all'])->name('couponall');
+
+
+
+
 
