@@ -122,12 +122,12 @@ Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('u
 // Routes accessible only by vendors
 Route::middleware(['vendorOnly'])->group(function () {
     Route::get('/dashboard', [VendorsController::class, 'dashboard'])->name('vendor.dashboard');
-    Route::resource('products', ProductController::class); 
-    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
+    Route::resource('products', ProductController::class);
+    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
     Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
     Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
     Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
-    
+
 });
 
 // Other routes accessible to all users
@@ -183,8 +183,8 @@ Auth::routes();
 
 
 
-Route::resource('products', ProductController::class); 
-Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
+Route::resource('products', ProductController::class);
+Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
 Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
 Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
 Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
@@ -211,16 +211,17 @@ Route::get('customerlist',[CustomerController::class,'index'])->name('customerli
 
 
 // menu controller route
+Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
+Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
+Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
 Route::get('menu/edit/{id}', [MenuController::class, 'edit'])->name('menu.edit');
 Route::put('menu/update/{id}', [MenuController::class, 'update'])->name('menu.update');
 Route::delete('menu/delete/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
 
-
-// Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
+//allcat
 Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
 Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
-Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
-Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
+
 // Route::resource('menu', MenuController::class);
 
 Route::resource('cat', CategoryController::class);

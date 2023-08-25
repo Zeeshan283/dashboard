@@ -887,9 +887,9 @@
 
                                             <div class="d-flex gap-2">
                                             <a  target="_blank" href="{{ URL::to('products/' . $product->id . '/edit') }}"><button type="button"  class="btn btn btn-outline-secondary ">
-                                                <i 
+                                                <i
                                                 {{-- class="fa fa-clone" --}}
-                                                 class=" nav-icon i-Pen-2" 
+                                                 class=" nav-icon i-Pen-2"
                                                 style="font-weight: bold;"></i>
                                             </button></a>
                                                 <a  target="_blank" href="{{ URL::to('product/' . $product->id . '/dupe')}}"><button type="button"  class="btn btn-outline-secondary ">
@@ -1004,7 +1004,7 @@
     </tr>
     </tfoot>
 
-@elseif (Route::currentRouteName() == 'menu.index' )
+@elseif (Route::currentRouteName() == 'allmenu' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>
@@ -1140,19 +1140,19 @@
 </thead>
 <tbody>
 @foreach ($coupons as $key => $item)
-    
+
     <tr>
         <td>{{ $key + 1 }}</td>
         <td>
-          
+
             @if( $item->coupon_type == 1)
                 <p>Discount on Purchase</p>
-            @elseif ($item->coupon_type == 2) 
+            @elseif ($item->coupon_type == 2)
                 <p>Free Delivery</p>
-            @elseif ($item->coupon_type == 3) 
+            @elseif ($item->coupon_type == 3)
                 <p>First Order</p>
             @endif
-         
+
         </td>
         <td>{{ $item->coupon_title}}</td>
         <td>{{ $item->coupon_code}}</td>

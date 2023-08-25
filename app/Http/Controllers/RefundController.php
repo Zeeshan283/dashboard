@@ -62,6 +62,7 @@ class RefundController extends Controller
 
         return redirect()->back();
         }
+
  public function update( Request $request){
     $request->validate([
         'status' => 'required'

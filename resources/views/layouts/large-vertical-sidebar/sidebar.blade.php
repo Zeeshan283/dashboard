@@ -12,7 +12,7 @@
                     <i class="nav-icon i-Safe-Box1"></i>
                     <span class="nav-text">Doc</span>
                 </a>
-                
+
             </li> --}}
         </ul>
     </div>
@@ -71,8 +71,8 @@
 
         <ul class="childNav" data-parent="widgets">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'addmenu' ? 'open' : '' }}"
-                    href="{{ route('addmenu') }}">
+                <a class="{{ Route::currentRouteName() == 'allmenu' ? 'open' : '' }}"
+                    href="{{ route('allmenu') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">All Menus</span>
                 </a>
@@ -289,7 +289,7 @@
             </li>
 
 
-            
+
         </ul>
         <ul class="childNav" data-parent="others">
             <li class="nav-item">
@@ -339,7 +339,7 @@
         </ul>
     </div>
 
-    
+
     <div class="sidebar-overlay"></div>
 <!--=============== Left side End ================-->
 

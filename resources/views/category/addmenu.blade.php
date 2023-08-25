@@ -15,7 +15,7 @@
         font-family: 'FontAwesome', 'sans-serif';
     }
 </style>
-<form method="post" action="{{ route('menu.store') }}" enctype="multipart/form-data">
+<form method="post" action="{{ route('addmenu.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="card-body">
         <div class="row">
