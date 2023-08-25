@@ -96,6 +96,7 @@ Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
 
 
 
+
 // Refund
 Route::view('pendingrefund', 'refund.pendingrefund')->name('pendingrefund');
 Route::view('approvedrefund', 'refund.approvedrefund')->name('approvedrefund');
@@ -189,6 +190,7 @@ Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
 Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
 Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
 
+
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
 // orders using controller
@@ -209,7 +211,16 @@ Route::get('/',[HomeController::class, 'index'])->name('admin');
 // customer controller route
 Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
 
+// Sub-Category controller route
+Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
+Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
+// Route::get('addsubcat', [SubCategoryController::class, 'create'])->name('addsubcat');
+// Route::post('addsubcat', [SubCategoryController::class, 'store'])->name('addsubcat.store');
+// Route::get('subcategory/edit/{id}', [SubCategoryController::class, 'edit'])->name('subcategory.edit');
+// Route::put('subcategory/update/{id}', [SubCategoryController::class, 'update'])->name('subcategory.update');
+// Route::delete('subcategory/delete/{id}', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
 
+Route::resource('sub-category', SubCategoryController::class);
 // menu controller route
 Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
 Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
@@ -217,6 +228,7 @@ Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
 Route::get('menu/edit/{id}', [MenuController::class, 'edit'])->name('menu.edit');
 Route::put('menu/update/{id}', [MenuController::class, 'update'])->name('menu.update');
 Route::delete('menu/delete/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
+
 
 //allcat
 Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
@@ -243,10 +255,9 @@ Route::post('/allrefunds', [RefundController::class, 'update']) ->name('refund.u
 
 
 
-
 // vendors route
 
-Route::resource('vendor', VendorsController::class);
+Route::resource('/vendor', VendorsController::class);
 
 // add user role
 
