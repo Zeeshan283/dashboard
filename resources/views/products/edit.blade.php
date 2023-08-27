@@ -725,7 +725,7 @@
                                             <div class="card-header d-flex justify-content-between" >
                                                 <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
                                                 @if($edit->url)
-                                                <img src="{{ $edit->url }}" class="" style="width:100px;height:80px;">
+                                                <img src="{{ $edit->url  }}" class="" style="width:100px;height:80px;">
                                                 @else
                                                 <h6>No Feature Image</h6>
                                                 @endif

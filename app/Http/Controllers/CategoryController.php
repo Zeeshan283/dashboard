@@ -82,11 +82,12 @@ class CategoryController extends Controller
 
   public function edit($id)
   {
-    $edit = Category::findOrFail($id);
-    $menu = Menu::OrderBy('id', 'asc')->pluck('name', 'id');
-    return view('categories.edit', compact('edit', 'menu'));
+      $edit = Category::findOrFail($id);
+      // dd($edit);
+      // $menus = Menu::orderBy('id', 'asc')->get();
+      $menus= Menu::all();
+      return view('category.editcat', compact('edit', 'menus'));
   }
-
   public function update(Request $request, $id)
   {
     $this->validate($request, [

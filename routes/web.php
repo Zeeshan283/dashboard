@@ -226,7 +226,7 @@ Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubca
 
 Route::resource('cat', CategoryController::class);
 
-
+Route::resource('sub-category', SubCategoryController::class);
 // customer reviews controller
 
 Route::get('creviews',[ReviewsController::class,'index'])->name('creviews');

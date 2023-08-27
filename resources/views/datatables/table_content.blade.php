@@ -1073,14 +1073,24 @@
 
     </thead>
     <tbody>
-        @foreach ($data as $key => $allcat)
+        @foreach ($data as $key => $cate)
         <tr>
             <td>{{ $key + 1 }}</td>
-            <td>{{ $allcat->id }}</td>
-            <td>{{ $allcat->name }}</td>
-            <td><img src="<?php echo $allcat['img']; ?>" width="50" height="50"></td>
-            <td>{{ $allcat->biller}}</td>
-
+            <td>{{ $cate->id }}</td>
+            <td>{{ $cate->name }}</td>
+            <td><img src="<?php echo $cate['img']; ?>" width="50" height="50"></td>
+            <td class="col-lg-1" style="white-space: nowrap;">
+                <a href="{{ route('cat.edit', ['cat' => $cate->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                <form action="{{ route('cat.destroy', ['cat' => $cate->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this menu item?')" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn rounded-pill btn-icon btn-danger">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </td>
         </tr>
         @endforeach
     </tbody>
@@ -1096,38 +1106,54 @@
     </tfoot>
 
 @elseif (Route::currentRouteName() == 'allsubcat' )
-    <thead>
-        <th>Sr No</th>
-        <th>Id#</th>
+<thead>
+    <tr>    
+        <th>Sr</th>
         <th>Name</th>
-        <th>Slug</th>
+        <th>Category</th>
         <th>Image</th>
-        <th>Biller</th>
-
-    </thead>
-    <tbody>
-        @foreach ($data as $key => $allsubcat)
+        <th>Slug</th>
+        <th>Actions</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach ($data as $key=>$donor)
         <tr>
-            <td>{{ $key + 1 }}</td>
-            <td>{{ $allsubcat->category_id }}</td>
-            <td>{{ $allsubcat->name }}</td>
-            <td>{{ $allsubcat->slug }}</td>
-            <td><img src="<?php echo $allsubcat['img']; ?>" width="50" height="50"></td>
-            <td>{{ $allsubcat->biller}}</td>
+            <td>{{ number_format($key+1) }}</td>
+            <td>{{ $donor->name }}</td>
+            <td>
+                @if ($donor->categories)
+                    {{ $donor->categories->name }}
+                @endif
+            </td>
+            <td><img src="{{ asset($donor->img) }}" alt="Subcategory Image"></td>
+            <td>{{ $donor->slug }}</td>
+            <td class="col-lg-1" style="white-space: nowrap;">
+                <a href="{{ asset('sub-category') }}/{{ $donor->id }}/edit" class="btn rounded-pill btn-icon btn-primary">
+                    {{-- <i class="fas fa-pencil-alt" aria-hidden="true"></i> --}}
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                <form action="{{ route('sub-category.destroy', ['sub_category' => $donor->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this menu item?')" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash" style="font-size: 14px;" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </td>
         </tr>
-        @endforeach
-    </tbody>
-    <tfoot>
+    @endforeach
+</tbody>
+<tfoot>
     <tr>
         <th>Sr No</th>
         <th>Id#</th>
         <th>Name</th>
-        <th>Slug</th>
         <th>Image</th>
-        <th>Biller</th>
-
+        <th>Slug</th>
+        <th>Actions</th>
     </tr>
-    </tfoot>
+</tfoot>
 @elseif (Route::currentRouteName() == 'coupon.index' )
 <thead>
     <th>Sr No</th>

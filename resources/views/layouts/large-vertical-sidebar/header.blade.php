@@ -1,6 +1,6 @@
 <div class="main-header">
-    <div class="logo">
-        <img src="{{ asset('root/upload/logo/logo1.png') }}" alt="">
+    <div class="">
+        <img src="{{ asset('root/upload/logo/dashboard-logo.jpg') }}" alt="">
     </div>
 
     <div class="menu-toggle">
@@ -9,12 +9,12 @@
         <div></div>
     </div>
 
-    <div class="d-flex align-items-center">
+    {{-- <div class="d-flex align-items-center">
         <div class="search-bar">
             <input type="text" placeholder="Search">
             <i class="search-icon text-muted i-Magnifi-Glass1"></i>
         </div>
-    </div>
+    </div> --}}
 
     <div style="margin: auto"></div>
 
@@ -95,7 +95,7 @@
         <!-- User avatar dropdown -->
         <div class="dropdown">
             <div class="user col align-self-end">
-                <img src="{{ asset('assets/images/faces/1.jpg') }}" id="userDropdown" alt=""
+                <img src="{{ asset('assets/images/faces/dashboard-logo.jpg') }}" id="userDropdown" alt=""
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
