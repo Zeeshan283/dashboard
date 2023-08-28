@@ -49,6 +49,20 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                {{-- testing new thing  --}}
+                                {{-- <div class="form-group col-md-6">
+                                    <label for="inputtext11" class="ul-form__label">Choose Menu:</label>
+                                    <select class="form-control" id="customer_id" name="menu_id" data-live-search="true">
+                                        <option value="" selected disabled>Select Menu</option>
+                                        @foreach ($menus as $menu)
+                                            <option value="{{ $menu->id}}">{{ $edit->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                        Please enter category name
+                                    </small>
+                                </div> --}}
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label>SubCategory Image (1200 x 300)</label>

@@ -26,7 +26,7 @@ class SubCategoryController extends Controller
     public function create()
     {
         $categories = Category::OrderBy('id', 'asc')->pluck('name', 'id');
-        return view('sub-category.create', Compact('categories'));
+        return view('category.createsubcat', Compact('categories'));
     }
 
     public function store(Request $request)

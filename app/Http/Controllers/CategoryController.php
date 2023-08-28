@@ -71,7 +71,9 @@ class CategoryController extends Controller
       $cat->save();
   }
 
-    return redirect()->back()->with(Toastr::success('Category Added Successfully!'));
+    // return redirect()->back()->with(Toastr::success('Category Added Successfully!'));
+    Toastr::success('Category created successfully', 'Success');
+    return redirect()->back();
   }
 
   public function show($id)
@@ -84,9 +86,9 @@ class CategoryController extends Controller
   {
       $edit = Category::findOrFail($id);
       // dd($edit);
-      // $menus = Menu::orderBy('id', 'asc')->get();
-      $menus= Menu::all();
-      return view('category.editcat', compact('edit', 'menus'));
+      $menus = Menu::orderBy('id', 'asc')->get();   
+      $categories = Category::OrderBy('id', 'asc')->pluck('name', 'id');
+      return view('category.editcat', Compact('edit', 'categories'));
   }
   public function update(Request $request, $id)
   {
@@ -167,6 +169,7 @@ class CategoryController extends Controller
     File::delete($delete->img);
     File::delete($delete->imageforapp);
     $delete->delete();
-    return redirect()->back()->with(Toastr::success('Category Deleted Successfully!'));
+    Toastr::success('Category deleted successfully', 'Success');
+    return redirect()->back();
   }
 }
