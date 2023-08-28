@@ -9,15 +9,16 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function userlist()
+    public function index()
     {
         $users = User::all();
-        return view('users/userlist')->with('users', $users);
+        return view('users.userlist', compact('users'));
     }
 
     public function add()
     {
-        return view('users/adduser');
+        $users = User::where('role', '=', 'Customer')->get();
+        return view('users.create', compact('users'));
     }
 
 public function adduser(Request $request)

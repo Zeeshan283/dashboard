@@ -21,7 +21,7 @@ class RoleController extends Controller
     public function index()
     {
         $users = User::where('type', '=', 'USER')->OrderBy('name', 'asc')->get();
-        return view('users.index', Compact('users'));
+        return view('users.userlist', Compact('users'));
     }
 
     public function create()

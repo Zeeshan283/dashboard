@@ -399,10 +399,10 @@
 
 {{-- vendor list  --}}
 
-@elseif (Route::currentRouteName() == 'vendor.index' )
+@elseif (Route::currentRouteName() == '1234' )
     <thead>
         <th>Sr No</th>
-        <th>Name</th>
+        <th>Name wsd</th>
         <th>Phone Number</th>
         <th>Email</th>
         <th>Status</th>
@@ -433,7 +433,7 @@
     </tfoot>
 {{-- vendor list  --}}
 
-@elseif (Route::currentRouteName() == 'vendorlist' )
+@elseif (Route::currentRouteName() == 'vendor.index' )
     <thead>
         <th>Sr No</th>
         <th>Name</th>
@@ -443,14 +443,7 @@
         <th>Action</th>
     </thead>
     <tbody>
-        {{-- <tr>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-            <td>$320,800</td>
-        </tr> --}}
+       
         @foreach ($vendor as $value =>  $vendors )
         <tr>
             {{-- {{-- <td>{{$value + 1}}</td> --}}
@@ -469,10 +462,7 @@
             <td>
                 <div class="d-flex gap-2">
                     <a href="{{ url('editseller/'.$vendors->id) }}" class="btn btn-success"><i class="nav-icon i-Pen-2 "></i>Edit</a>
-                    {{-- <a href="{{ url('deleteseller/'.$vendors->id) }}" class="btn btn-danger"><i class="nav-icon i-Close-Window "></i>Delete</a> --}}
-                    {{-- <button type="button" value="{{ $vendors->id }}" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button> --}}
-                    {{-- <button type="button" class="btn btn-danger "><i class="nav-icon i-Close-Window "></i></button> --}}
-                {{-- <button type="button" class="btn btn-primary"> <i class="nav-icon i-Eye "></i> </button> --}}
+                    
                 </div>
             </td>
         </tr>
@@ -790,7 +780,7 @@
         <th>Email</th>
     </tr>
     </tfoot>
-@elseif (Route::currentRouteName() == 'userlist' )
+@elseif (Route::currentRouteName() == 'users.index' )
     <thead>
         <tr>
             <th>Id</th>
@@ -822,22 +812,18 @@
         @endforeach
     </tbody>
     <tfoot>
-
-        {{-- @foreach ($users as $value => $customers )
         <tr>
-            <td>{{$value + 1}}</td>
-            <td>{{$customers->id}}</td>
-            <td>{{$customers->name}}</td>
-            <td>{{$customers->email}}</td>
-            <td>{{$customers->phone1}}</td>
-            <td>{{$customers->country}}</td>
-            <td>{{$customers->city}}</td>
-            <td>{{$customers->addres}}</td>
-            <td>{{$customers->status}}</td>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>gender</th>
+            <th>Action</th>
         </tr>
-        @endforeach
-    </tbody>
-    <tfoot>
+    </tfoot>
 
 
     {{-- product info  --}}
@@ -1069,7 +1055,7 @@
         <th>Id#</th>
         <th>Name</th>
         <th>Image</th>
-        <th>Biller</th>
+        <th>Actions</th>
 
     </thead>
     <tbody>
@@ -1100,7 +1086,7 @@
         <th>Id#</th>
         <th>Name</th>
         <th>Image</th>
-        <th>Biller</th>
+        <th>Actions</th>
 
     </tr>
     </tfoot>

@@ -207,7 +207,7 @@
                                                         <label for="vendor" class="ul-form__label">Store:</label>
                                                         
                                                         @if (Auth::User()->role=='Admin')
-                                                        {!! Form::select('vendors',$vendors,null,['id'=>'vendors','class'=>'form-control fstdropdown-select','onchange'=>'ChangeMakeCondition(this.value)']) !!}
+                                                        {!! Form::select('vendors',$products,null,['id'=>'vendors','class'=>'form-control fstdropdown-select','onchange'=>'ChangeMakeCondition(this.value)']) !!}
                                                         {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
                                                         {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
                                                         @else

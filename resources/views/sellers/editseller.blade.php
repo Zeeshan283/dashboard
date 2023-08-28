@@ -18,7 +18,7 @@
                                 <div class="card-header bg-transparent">
                                     <h3 class="card-title"> Update Vendor</h3>
                                 </div>
-                                <form action="{{ url('update_seller/'.$vendors->id) }}" method="POST">
+                                <form action="{{ route('vendor.update') }}" method="POST">
                                     @csrf
                                     @method('put')
                                     <div class="card-body">

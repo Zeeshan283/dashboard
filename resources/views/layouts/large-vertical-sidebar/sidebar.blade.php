@@ -22,15 +22,15 @@
         <ul class="childNav" data-parent="users">
 
             <li class="nav-item">
-                <a  href="">
+                <a  href="{{ route('user.add')}}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New User</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'userlist' ? 'open' : '' }}"
-                    href="{{ route('userlist')}}">
+                <a class="{{ Route::currentRouteName() == 'users.index' ? 'open' : '' }}"
+                    href="{{ route('users.index')}}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">User List</span>
                 </a>
@@ -47,8 +47,8 @@
 
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'vendorlist' ? 'open' : '' }}"
-                    href="{{ route('vendorlist') }}">
+                <a class="{{ Route::currentRouteName() == 'vendor.index' ? 'open' : '' }}"
+                    href="{{ route('vendor.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Vendor List</span>
                 </a>
@@ -293,49 +293,24 @@
         </ul>
         <ul class="childNav" data-parent="others">
             <li class="nav-item">
-                <a href="{{ route('notFound') }}">
+                <a href="#">
                     <i class="nav-icon i-Add"></i>
                     <span class="item-name">Add Purchase</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'pricing-table' ? 'open' : '' }}"
-                    href="{{ route('pricing-table') }}">
+                    href="#) }}">
                     <i class="nav-icon i-Gears"></i>
                     <span class="item-name">All Purchases
                         {{-- <span class="ms-2 badge badge-pill text-bg-danger">New</span></span> --}}
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'search-result' ? 'open' : '' }}"
-                    href="{{ route('search-result') }}">
-                    <i class="nav-icon i-Settings-Window"></i>
-                    <span class="item-name">Home Setting
-                        {{-- <span class="badge badge-pill text-bg-danger">New</span></span> --}}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'user-profile' ? 'open' : '' }}"
-                    href="{{ route('user-profile') }}">
-                    <i class="nav-icon i-Gear-2"></i>
-                    <span class="item-name">Blog Setting</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'faq' ? 'open' : '' }}" href="{{ route('faq') }}"
-                    class="open">
-                    <i class="nav-icon i-File-Text--Image"></i>
-                    <span class="item-name">Home Banner</span>
-                </a>
-            </li>
-             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'starter' ? 'open' : '' }}" href="{{ route('starter') }}"
-                    class="open">
-                    <i class="nav-icon i-File-Horizontal"></i>
-                    <span class="item-name">Blank Page</span>
-                </a>
-            </li>
+           
+            
+         
+             
         </ul>
     </div>
 

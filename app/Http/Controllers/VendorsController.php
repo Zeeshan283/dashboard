@@ -25,17 +25,12 @@ class VendorsController extends Controller
     {
         $this->middleware('auth');
     }
-    public function vendorlist()
-    // Vendor  Display list function
-    {
-        $vendor = User::all();
-        return view('sellers.vendorlist',compact('vendor'));
-    }
+   
     public function index()
     {
-        $vendors = User::select('id','name','phone1','email','status')->whereRole('vendor')->get();
+        $vendor = User::select('id','name','phone1','email','status')->whereRole('vendor')->get();
         $data = Order::orderBy('id', 'desc')->get();
-        return view('sellers.vendorlist',compact('vendors', 'data'));
+        return view('sellers.vendorlist',compact('vendor', 'data'));
     }
 
     public function create()
@@ -46,20 +41,12 @@ class VendorsController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'phone1'=>'required',
-            'email'=>'required|unique:users,email',
-            'password'=>'required',
-            'image'=>'required|mimes:jpg,png,jpeg',
-        ],[
-            'phone1.required'=>'The phone no field is required'
-        ]);
+        // dd($request->all());
 
         $user = User::create($request->all());
         $user->name = $request->first_name.' '.$request->last_name;
         $user->password = bcrypt($request->password);
+        $user->role = 'Vendor';
         $user->save();
 
         Toastr::success('New Vendor Added Successfully!');

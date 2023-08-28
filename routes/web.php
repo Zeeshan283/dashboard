@@ -79,19 +79,16 @@ Route::get('vertical/dashboard/dashboard1', function () {
 
 // sellers
 // Route::view('addseller' , 'sellers.addseller')->name('addseller');
-Route::view('vendorlist', 'sellers.vendorlist')->name('vendorlist');
+// Route::view('vendorlist', 'sellers.vendorlist')->name('vendorlist');
 Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
-Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
- Route::post('add', [InsertVendorsController::class, 'add']);
- Route::get('vendorlist', [VendorsController::class, 'vendorlist'])->name('vendorlist');
-//  Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
+// Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
+// Route::post('add', [InsertVendorsController::class, 'add']);
+// Route::get('vendorlist', [VendorsController::class, 'vendorlist'])->name('vendorlist');
+Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
 
 Route::get('editseller/{id}',[InsertVendorsController::class,'edit']);
 Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
 // Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
-
-
-
 
 
 
@@ -144,21 +141,6 @@ Route::view('datatables/basic-tables', 'datatables.basic-tables')->name('basic-t
 Route::view('sessions/signIn', 'sessions.signIn')->name('signIn');
 Route::view('sessions/signUp', 'sessions.signUp')->name('signUp');
 Route::view('sessions/forgot', 'sessions.forgot')->name('forgot');
-
-// widgets
-Route::view('widgets/card', 'widgets.card')->name('widget-card');
-Route::view('widgets/statistics', 'widgets.statistics')->name('widget-statistics');
-Route::view('widgets/list', 'widgets.list')->name('widget-list');
-Route::view('widgets/app', 'widgets.app')->name('widget-app');
-Route::view('widgets/weather-app', 'widgets.weather-app')->name('widget-weather-app');
-
-// others
-Route::view('others/notFound', 'others.notFound')->name('notFound');
-Route::view('others/user-profile', 'others.user-profile')->name('user-profile');
-Route::view('others/starter', 'starter')->name('starter');
-Route::view('others/faq', 'others.faq')->name('faq');
-Route::view('others/pricing-table', 'others.pricing-table')->name('pricing-table');
-Route::view('others/search-result', 'others.search-result')->name('search-result');
 
 
 // Auth::routes();
@@ -247,6 +229,8 @@ Route::post('/allrefunds', [RefundController::class, 'update']) ->name('refund.u
 // vendors route
 
 Route::resource('vendor', VendorsController::class);
+Route::post('vendor', [VendorsController::class, 'store'])->name('vendor.store');
+
 
 // add user role
 
