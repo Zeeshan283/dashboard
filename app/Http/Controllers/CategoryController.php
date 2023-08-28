@@ -103,7 +103,7 @@ class CategoryController extends Controller
     $update = Category::findOrFail($id);
     $update->update($request->all());
 
-    
+
     if ($request->hasFile('img')) {
       File::delete($update1->img);
       $file = $request->file('img');

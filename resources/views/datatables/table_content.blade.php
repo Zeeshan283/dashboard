@@ -1063,13 +1063,14 @@
             {{-- <td><i class="{{ $menu->icon }}"></i></td> --}}
         @endforeach
     </tbody>
-@elseif (Route::currentRouteName() == 'cat.index' )
+@elseif (Route::currentRouteName() == 'allcat' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>
+        <th>Menu</th>
         <th>Name</th>
+        <th>Commision</th>
         <th>Image</th>
-        <th>Biller</th>
 
     </thead>
     <tbody>
@@ -1077,14 +1078,26 @@
         <tr>
             <td>{{ $key + 1 }}</td>
             <td>{{ $allcat->id }}</td>
+            <td>{{ $allcat->menu }}</td>
             <td>{{ $allcat->name }}</td>
+            <td>{{ $allcat->commision }}</td>
             <td><img src="<?php echo $allcat['img']; ?>" width="50" height="50"></td>
-            <td>{{ $allcat->biller}}</td>
-
+            <td class="col-lg-1" style="white-space: nowrap;">
+                <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               </a>
+               <form action="{{ route('category.destroy', ['id' => $category->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category item?')" style="display: inline;">
+                   @csrf
+                   @method('DELETE')
+                   <button type="submit" class="btn rounded-pill btn-icon btn-danger">
+                       <i class="fa fa-trash" aria-hidden="true"></i>
+                   </button>
+               </form>
+           </td>
         </tr>
         @endforeach
     </tbody>
-    <tfoot>
+    {{-- <tfoot>
     <tr>
         <th>Sr No</th>
         <th>Id#</th>
@@ -1093,13 +1106,14 @@
         <th>Biller</th>
 
     </tr>
-    </tfoot>
+    </tfoot> --}}
 
 @elseif (Route::currentRouteName() == 'allsubcat' )
     <thead>
         <th>Sr No</th>
         <th>Id#</th>
         <th>Name</th>
+        <th>Category</th>
         <th>Image</th>
         <th>Slug</th>
         <th>Action</th>
@@ -1113,8 +1127,8 @@
             <td>{{ $allsubcat->name }}</td>
             <td><img src="<?php echo $allsubcat['image']; ?>" width="50" height="50"></td>
             <td>{{ $allsubcat->slug }}</td>
-            <td class="col-lg-1" style="white-space: nowrap;">
-                {{-- <a href="{{ route('subcategory.edit1', ['id' => $subcategory->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+            {{-- <td class="col-lg-1" style="white-space: nowrap;">
+                 <a href="{{ route('subcategory.edit', ['id' => $subcategory->id]) }}" class="btn rounded-pill btn-icon btn-primary">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </a>
                 <form action="{{ route('subcategory.destroy', ['id' => $subcategory->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this menu item?')" style="display: inline;">
@@ -1123,8 +1137,8 @@
                     <button type="submit" class="btn rounded-pill btn-icon btn-danger">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
-                </form> --}}
-            </td>
+                </form>
+            </td> --}}
         </tr>
         @endforeach
     </tbody>

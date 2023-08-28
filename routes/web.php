@@ -213,6 +213,8 @@ Route::get('customerlist',[CustomerController::class,'index'])->name('customerli
 
 // Sub-Category controller route
 Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
+Route::get('addcat', [CategoryController::class, 'create'])->name('addcat');
+Route::post('addcat', [MenuController::class, 'store'])->name('addcat.store');
 Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
 // Route::get('addsubcat', [SubCategoryController::class, 'create'])->name('addsubcat');
 // Route::post('addsubcat', [SubCategoryController::class, 'store'])->name('addsubcat.store');
