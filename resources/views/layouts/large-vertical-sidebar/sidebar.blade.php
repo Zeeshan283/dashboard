@@ -23,7 +23,7 @@
         <ul class="childNav" data-parent="users">
 
             <li class="nav-item">
-                <a  href="">
+                <a  href="{{ route('user.add') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New User</span>
                 </a>
@@ -31,7 +31,7 @@
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'userlist' ? 'open' : '' }}"
-                    href="">
+                    href="{{ route('userlist') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">User List</span>
                 </a>
@@ -79,14 +79,6 @@
                 </a>
             </li>
 
-
-            {{-- <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'addmenu' ? 'open' : '' }}"
-                    href="{{ route('addmenu') }}">
-                    <i class="nav-icon i-Blinklist"></i>
-                    <span class="item-name">Add Menus</span>
-                </a>
-            </li>
 
             <li class="nav-item">
 
