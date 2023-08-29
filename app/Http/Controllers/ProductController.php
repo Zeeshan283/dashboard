@@ -80,16 +80,21 @@ class ProductController extends Controller
         return view('products.addproduct', compact('brands', 'menus', 'categories', 'sub_categories', 'locations', 'conditions', 'type', 'productsList','vendors', 'colors'));
     }
 
+
+    public function test(){
+        return view('products.test');
+    }
+    public function testupload(Request $request){
+        dd($request);
+        return view('products.test');
+    }
+
     public function store(Request $request)
     {
-        $this->validate($request, [
+        dd($request->all());
+        $this->validate($request, [ 
             
             'name' => 'required',
-            
-            'new_warranty_days' => 'required',
-            'new_return_days' => 'required',
-            
-            // 'model_no' => 'required',
             'make' => 'required',
             'min_order' => 'required',
             'feature_image' => 'required',
@@ -97,8 +102,6 @@ class ProductController extends Controller
             'attachment' => 'mimes:pdf, zip|max:20480',
             'sku' => 'required|unique:products',
             'description' => 'required',
-            
-            
             'menu_id' => 'required',
             'category_id' => 'required',
             'subcategory_id' => 'required',
@@ -106,35 +109,17 @@ class ProductController extends Controller
             
         ]
         , [
-            'code.required' => 'The Product code field is required',
             'name.required' => 'The Product name field is required',
-            
-            'condition.0.required' => 'The Condition field is required',
-            'model_no.required' => 'The Model No field is required',
+            // 'condition.0.required' => 'The Condition field is required',
             'make.required' => 'The Make field is required',
             'sku.exists' => 'The SKU already exist',
             'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
-            'type.required' => 'The Type field is required',
             'description.required' => 'The Description field is required',
             'brand_id.required' => 'The Brand field is required',
             'menu_id.required' => 'The Menu field is required',
             'category_id.required' => 'The Category field is required',
             'subcategory_id.required' => 'The Sub Category field is required',
-            'new_price.required' => 'The New price field is required',
-            'new_sale_price.required' => 'The New Sale price field is required',
-            'new_warranty_days.required' => 'The New Warranty days field is required',
-            'new_return_days.required' => 'The New Return days field is required',
-            'refurnished_price.required' => 'The Refurbished price field is required',
-            'refurnished_sale_price.required' => 'The Refubnished sale price field is required',
-            'refurnished_warranty_days.required' => 'The Refubnished Warranty days field is required',
-            'refurnished_return_days.required' => 'The Refubnished Return days field is required',
-            'parent_id.required' => 'The Product list field is required',
-                
-            // 'GST_tax.*.required' => 'The  GST% (Goods and Services Tax) field is required',
-            // 'VAT_tax.*.required' => 'The VAT %(Value-added Tax) field is required',
-            // 'FED_tax.*.required' => 'The FED% (Federal Excise Duty) field is required',
-            // 'Other_tax.*.required' => 'The Other charges field is required'
         ]
         
     );
@@ -244,6 +229,7 @@ class ProductController extends Controller
             ->with('product_images')
             // ->where('created_by', Auth::User()->id)
             ->findOrFail($id);
+            // dd($edit);
         if ($edit) {
             $brands = Brand::OrderBy('brand_name')->pluck('brand_name', 'id')->prepend('Select Brand', '');
             $menus = Menu::orderBy('name')->pluck('name', 'id')->prepend('Select Menu', '');
@@ -257,11 +243,14 @@ class ProductController extends Controller
 
             $colors = Color::orderBy('id')->get(['name', 'id']);
 
-            
             return view('products.edit', compact('edit', 'brands', 'menus', 'categories', 'sub_categories', 'locations', 'type', 'productsList', 'conditions', 'colors'));
-        } else {
+        
+        } 
+        
+        else {
             abort(404);
         }
+
     }
 
     public function update(Request $request, $id)
@@ -270,8 +259,8 @@ class ProductController extends Controller
             
             'name' => 'required',
             
-            'new_warranty_days' => 'required',
-            'new_return_days' => 'required',
+            // 'new_warranty_days' => 'required',
+            // 'new_return_days' => 'required',
             
             // 'model_no' => 'required',
             'make' => 'required',
@@ -290,35 +279,17 @@ class ProductController extends Controller
             
         ]
         , [
-            'code.required' => 'The Product code field is required',
             'name.required' => 'The Product name field is required',
-            
-            'condition.0.required' => 'The Condition field is required',
-            'model_no.required' => 'The Model No field is required',
+            // 'condition.0.required' => 'The Condition field is required',
             'make.required' => 'The Make field is required',
-            'sku.required' => 'The SKU field is required',
-            // 'feature_image.required' => 'The Feature Image field is required',
+            'sku.exists' => 'The SKU already exist',
+            'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
-            'type.required' => 'The Type field is required',
             'description.required' => 'The Description field is required',
             'brand_id.required' => 'The Brand field is required',
             'menu_id.required' => 'The Menu field is required',
             'category_id.required' => 'The Category field is required',
             'subcategory_id.required' => 'The Sub Category field is required',
-            'new_price.required' => 'The New price field is required',
-            'new_sale_price.required' => 'The New Sale price field is required',
-            'new_warranty_days.required' => 'The New Warranty days field is required',
-            'new_return_days.required' => 'The New Return days field is required',
-            'refurnished_price.required' => 'The Refurbished price field is required',
-            'refurnished_sale_price.required' => 'The Refubnished sale price field is required',
-            'refurnished_warranty_days.required' => 'The Refubnished Warranty days field is required',
-            'refurnished_return_days.required' => 'The Refubnished Return days field is required',
-            'parent_id.required' => 'The Product list field is required',
-                
-            // 'GST_tax.*.required' => 'The  GST% (Goods and Services Tax) field is required',
-            // 'VAT_tax.*.required' => 'The VAT %(Value-added Tax) field is required',
-            // 'FED_tax.*.required' => 'The FED% (Federal Excise Duty) field is required',
-            // 'Other_tax.*.required' => 'The Other charges field is required'
         ]
         
     );
@@ -463,8 +434,8 @@ class ProductController extends Controller
             
             'name' => 'required',
             
-            'new_warranty_days' => 'required',
-            'new_return_days' => 'required',
+            // 'new_warranty_days' => 'required',
+            // 'new_return_days' => 'required',
             
             // 'model_no' => 'required',
             'make' => 'required',
@@ -483,36 +454,17 @@ class ProductController extends Controller
             
         ]
         , [
-            'code.required' => 'The Product code field is required',
             'name.required' => 'The Product name field is required',
-            
-            'condition.0.required' => 'The Condition field is required',
-            'model_no.required' => 'The Model No field is required',
+            // 'condition.0.required' => 'The Condition field is required',
             'make.required' => 'The Make field is required',
             'sku.exists' => 'The SKU already exist',
-
             'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
-            'type.required' => 'The Type field is required',
             'description.required' => 'The Description field is required',
             'brand_id.required' => 'The Brand field is required',
             'menu_id.required' => 'The Menu field is required',
             'category_id.required' => 'The Category field is required',
             'subcategory_id.required' => 'The Sub Category field is required',
-            'new_price.required' => 'The New price field is required',
-            'new_sale_price.required' => 'The New Sale price field is required',
-            'new_warranty_days.required' => 'The New Warranty days field is required',
-            'new_return_days.required' => 'The New Return days field is required',
-            'refurnished_price.required' => 'The Refurbished price field is required',
-            'refurnished_sale_price.required' => 'The Refubnished sale price field is required',
-            'refurnished_warranty_days.required' => 'The Refubnished Warranty days field is required',
-            'refurnished_return_days.required' => 'The Refubnished Return days field is required',
-            'parent_id.required' => 'The Product list field is required',
-                
-            // 'GST_tax.*.required' => 'The  GST% (Goods and Services Tax) field is required',
-            // 'VAT_tax.*.required' => 'The VAT %(Value-added Tax) field is required',
-            // 'FED_tax.*.required' => 'The FED% (Federal Excise Duty) field is required',
-            // 'Other_tax.*.required' => 'The Other charges field is required'
         ]
         
     );

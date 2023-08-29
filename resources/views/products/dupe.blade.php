@@ -8,15 +8,21 @@
     <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.snow.css')}}">
     <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/choices.min.css') }}">
+    <style>
+        .thumbnail {
+            max-width: auto;
+            max-height: 100px;
+            margin: 5px;
+        }
+    </style>
 @endsection
 
 @endsection
 
 
 @section('main-content')
-  <div class="breadcrumb">
-                <h1>Dupliacte Products</h1>
-                
+<div class="breadcrumb">
+                <h1>Edit Products</h1>
                 @if (count($errors) > 0)
                     <div class="alert alert-danger d-flex">
                         <ul>
@@ -37,10 +43,10 @@
                             <li><a href="#step-1">Step 1<br /><small>Product Details</small></a></li>
                             <li><a href="#step-2">Step 2<br /><small>Product Description</small></a></li>
                             <li><a href="#step-3">Step 3<br /><small>Select Category</small></a></li>
-                            <li><a href="#step-4">Step 4<br /><small>Location</small></a></li>
+                            {{-- <li><a href="#step-4">Step 4<br /><small>Location</small></a></li> --}}
                         </ul>
 
-                           <div>
+                        <div>
                             <div id="step-1" class="">
                             
                                 {!! Form::model($edit, [
@@ -53,20 +59,19 @@
                     
                                 {!! Form::hidden('updated_by', Auth::User()->id, ['id' => 'updated_by']) !!}
                     
-                                
                                     <div>
                                         <div class="card-body">
                                             <div class="form-group row">
                                                 
     
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Product Name:</label>
-                                                <div class="col-lg-5">
+                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Product Name:<span style="color: red;">*</span></label>
+                                                
+                                                <div class="col-lg-3">
                                                 {!! Form::text('name', null, [
+                                                    'required' => 'required',
                                                 'id' => 'name',
                                                 'class' => 'form-control',
-                                                // '' => '',
                                                 'maxlength' => '150',
-                                                
                                                 'placeholder' => 'Enter your Product Name'
                                             ]) !!}
                                             @if ($errors->has('name'))
@@ -79,14 +84,14 @@
                                                 </div>
 
                                                 <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Model No:</label>
-                                                <div class="col-lg-5 ">
+                                                <div class="col-lg-3 ">
                                                     <!-- <input type="text" class="form-control" id="staticEmail19" placeholder="Enter Model Number"> -->
                                                     {!! Form::text('model_no', null, [
                                                         'id' => 'model_no',
                                                         'class' => 'form-control',
                                                         // '' => '',
                                                         'maxlength' => '100',
-                                                        
+                                                    
                                                         'placeholder' => 'Enter Model Numner'
                                                     ]) !!}
                                                     @if ($errors->has('model_no'))
@@ -98,16 +103,89 @@
                                                     </small> --}}
                                                 </div>
 
+                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">SKU:<span style="color: red;">*</span></label>
+                                                <div class="col-lg-3">
+                                                {!! Form::text('sku', null, [
+                                                    'id' => 'sku',
+                                                    'class' => 'form-control',
+                                                    // '' => '',
+                                                    'placeholder'=>'Enter Product SKU',
+                                                ]) !!}
+                                                @if ($errors->has('sku'))
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('sku') }}</span   style="color: red;">
+                                                @endif
+                                                    {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                        Please enter Product Refurbished Price
+                                                    </small> --}}
+                                                </div>
+
+                                                <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Color</label>
+                                                <div class="mt-auto col-lg-3">
+                                                    
+                                                <select  id="choices-multiple-remove-button" name="colors[]"
+                                                    class="form-control"
+                                                    placeholder="Select Color (Maximum Lenght 5)"  multiple>
+                                                    @foreach ($colors as $value)
+                                                            <option value="{{$value->id}}">{{$value->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                
+                                                </div>
+<br>
+                                                <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Make:</label>
+                                                <div class=" col-lg-3">
+                                                
+                                                   
+                                                    {!! Form::text('make1',Auth::User()->name,['id'=>'make1','class'=>'form-control','disabled'=>'disabled']) !!}
+                                                    {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
+                                                    {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
+
+
+                                                    @if ($errors->has('make'))
+                                                        <span   style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('make') }}</span   style="color: red;">
+                                                    @endif
+                                                
+                                                </div>
+
                                         </div>
 
                                         <div class="separator-breadcrumb border-top"></div>
-                                        <div class="form-group row">
-
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Old Price:</label>
+                                            <div class="form-group row">
+                                                
+                                                {{-- <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Condition:</label>
                                                 <div class="col-lg-2">
-                                                    {!! Form::number('new_price', null, [
+                                                    <select id="choices-multiple-remove-button" name="condition[]"
+                                                        class=" @error('condition')  is-invalid @enderror"
+                                                        placeholder="Select Condition" multiple  >
+                                                        @foreach ($conditions as $value)
+                                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>
+                                                </div>
+                                                 --}}
+
+                                            </div>
+
+                                    </div>
+                                
+                                    <div class="card o-hidden">
+                                        <div class="card-header">New Price</div>
+                                            <div class="card-block p-0" >
+                                                <div>
+                                                    <div class="card-body">
+                                                        <div class="form-group row">
+            
+                                                            {{-- New Price Colume Start --}}
+                                                            
+                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Old Price:</label>
+                                                <div class="col-lg-2">
+                                                    {!! Form::text('new_price', null, [
                                                         'id' => 'new_price',
                                                         'class' => 'form-control',
+                                                        'maxlength' => '12',
                                                         'onkeypress' => 'return onlyDecimalNumberKey(event)',
                                                         // '' => '',
                                                         'onselectstart' => 'return false',
@@ -117,7 +195,8 @@
                                                         'onDrag' => 'return false',
                                                         'onDrop' => 'return false',
                                                         'autocomplete' => 'off',
-                                                        'placeholder'=>'Enter New Price',
+                                                        'placeholder'=>'Enter Old Price',
+                                                         
                                                     ]) !!}
                                                     @if ($errors->has('new_price'))
                                                         <span   style="color: red;"
@@ -128,11 +207,12 @@
                                                     </small> --}}
                                                 </div>
     
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Sale Price:</label>
+                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Sale Price:</label>
                                                 <div class="col-lg-2">
-                                                    {!! Form::number('new_sale_price', null, [
+                                                    {!! Form::text('new_sale_price', null, [
                                                         'id' => 'new_sale_price',
                                                         'class' => 'form-control',
+                                                        'maxlength' => '12',
                                                         'onkeypress' => 'return onlyDecimalNumberKey(event)',
                                                         // '' => '',
                                                         'onselectstart' => 'return false',
@@ -142,7 +222,7 @@
                                                         'onDrag' => 'return false',
                                                         'onDrop' => 'return false',
                                                         'autocomplete' => 'off',
-                                                        'placeholder'=>'Enter N.Sale Price',
+                                                        'placeholder'=>'Enter Sale Price',
                                                     ]) !!}
                                                     @if ($errors->has('new_sale_price'))
                                                         <span   style="color: red;"
@@ -153,11 +233,12 @@
                                                     </small> --}}
                                                 </div>
     
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Warranty Days:</label>
+                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Warranty Days:</label>
                                                 <div class="col-lg-2">
-                                                    {!! Form::number('new_warranty_days', null, [
+                                                    {!! Form::text('new_warranty_days', null, [
                                                         'id' => 'new_warranty_days',
                                                         'class' => 'form-control',
+                                                        'maxlength' => '4',
                                                         'onkeypress' => 'return onlyNumberKey(event)',
                                                         // '' => '',
                                                         'onselectstart' => 'return false',
@@ -167,7 +248,7 @@
                                                         'onDrag' => 'return false',
                                                         'onDrop' => 'return false',
                                                         'autocomplete' => 'off',
-                                                        'placeholder'=>'Enter N.Warranty Days',
+                                                        'placeholder'=>'Enter Warranty Days',
                                                     ]) !!}
                                                     @if ($errors->has('new_warranty_days'))
                                                         <span   style="color: red;"
@@ -178,11 +259,12 @@
                                                     </small> --}}
                                                 </div>
     
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Return Days:</label>
+                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Return Days:</label>
                                                 <div class="col-lg-2">
-                                                {!! Form::number('new_return_days', null, [
+                                                {!! Form::text('new_return_days', null, [
                                                     'id' => 'new_return_days',
                                                     'class' => 'form-control',
+                                                    'maxlength' => '4',
                                                     'onkeypress' => 'return onlyNumberKey(event)',
                                                     // '' => '',
                                                     'onselectstart' => 'return false',
@@ -192,7 +274,7 @@
                                                     'onDrag' => 'return false',
                                                     'onDrop' => 'return false',
                                                     'autocomplete' => 'off',
-                                                    'placeholder'=>'Enter N.Return Days',
+                                                    'placeholder'=>'Enter Return Days',
                                                 ]) !!}
                                                 @if ($errors->has('new_return_days'))
                                                     <span   style="color: red;"
@@ -202,111 +284,13 @@
                                                         Please enter Product N.Return Days
                                                     </small> --}}
                                                 </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Refurbished Price:</label>
-                                                <div class="col-lg-2    ">
-                                                {!! Form::number('refurnished_price', null, [
-                                                    'id' => 'refurnished_price',
-                                                    'class' => 'form-control',
-                                                    'onkeypress' => 'return onlyDecimalNumberKey(event)',
-                                                    '' => '',
-                                                    'onselectstart' => 'return false',
-                                                    'onpaste' => 'return false;',
-                                                    'onCopy' => 'return false',
-                                                    'onCut' => 'return false',
-                                                    'onDrag' => 'return false',
-                                                    'onDrop' => 'return false',
-                                                    'autocomplete' => 'off',
-                                                    'placeholder'=>'Enter Refurbished Price',
-                                                ]) !!}
-                                                    @if ($errors->has('refurnished_price'))
-                                                        <span   style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_price') }}</span   style="color: red;">
-                                                    @endif
-                                                    {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                        Please enter Product Refurbished Price
-                                                    </small> --}}
-                                                </div>
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">R.Sale Price:</label>
-                                                <div class="col-lg-2">
-                                                {!! Form::number('refurnished_sale_price', null, [
-                                                    'id' => 'refurnished_sale_price',
-                                                    'class' => 'form-control',
-                                                    'onkeypress' => 'return onlyDecimalNumberKey(event)',
-                                                    '' => '',
-                                                    'onselectstart' => 'return false',
-                                                    'onpaste' => 'return false;',
-                                                    'onCopy' => 'return false',
-                                                    'onCut' => 'return false',
-                                                    'onDrag' => 'return false',
-                                                    'onDrop' => 'return false',
-                                                    'autocomplete' => 'off',
-                                                    'placeholder'=>'Enter R.Sale Price',
-                                                ]) !!}
-                                                @if ($errors->has('refurnished_sale_price'))
-                                                    <span   style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_sale_price') }}</span   style="color: red;">
-                                                @endif
-                                                    {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                        Please enter Product R.Sale Price
-                                                    </small> --}}
-                                                </div>
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">R.Warranty Days:</label>
-                                                <div class="col-lg-2">
-                                                {!! Form::number('refurnished_warranty_days', null, [
-                                                    'id' => 'refurnished_warranty_days',
-                                                    'class' => 'form-control',
-                                                    'onkeypress' => 'return onlyNumberKey(event)',
-                                                    '' => '',
-                                                    'onselectstart' => 'return false',
-                                                    'onpaste' => 'return false;',
-                                                    'onCopy' => 'return false',
-                                                    'onCut' => 'return false',
-                                                    'onDrag' => 'return false',
-                                                    'onDrop' => 'return false',
-                                                    'autocomplete' => 'off',
-                                                    'placeholder'=>'Enter R.Warranty Days',
-                                                ]) !!}
-                                                @if ($errors->has('refurnished_warranty_days'))
-                                                    <span   style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_warranty_days') }}</span   style="color: red;">
-                                                @endif
-                                                    {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                        Please enter Product R.Warranty Days </small> --}}
-                                                </div>
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">R.Return Days:</label>
-                                                <div class="col-lg-2">
-                                                {!! Form::number('refurnished_return_days', null, [
-                                                    'id' => 'refurnished_return_days',
-                                                    'class' => 'form-control',
-                                                    'onkeypress' => 'return onlyNumberKey(event)',
-                                                    '' => '',
-                                                    'onselectstart' => 'return false',
-                                                    'onpaste' => 'return false;',
-                                                    'onCopy' => 'return false',
-                                                    'onCut' => 'return false',
-                                                    'onDrag' => 'return false',
-                                                    'onDrop' => 'return false',
-                                                    'autocomplete' => 'off',
-                                                    'placeholder'=>'Enter R.Return Days',
-                                                ]) !!}
-                                                @if ($errors->has('refurnished_return_days'))
-                                                    <span   style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_return_days') }}</span   style="color: red;">
-                                                @endif
-                                                    {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                        Please enter Product R.Return Days
-                                                    </small> --}}
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
 
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Min Order:</label>
-                                                <div class="col-lg-2">
-                                                {!! Form::number('min_order', null, [
+                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">MOQ:<span style="color: red;">*</span></label>
+                                                <div class="col-lg-2" style="margin-top: auto;">
+                                                {!! Form::text('min_order', null, [
                                                     'id' => 'min_order',
                                                     'class' => 'form-control',
+                                                    'maxlength' => '5',
                                                     'onkeypress' => 'return onlyNumberKey(event)',
                                                     // '' => '',
                                                     'onselectstart' => 'return false',
@@ -326,125 +310,186 @@
                                                         Please enter Minimum order quantity
                                                     </small> --}}
                                                 </div>
-                                                
-    
-                                                <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Make:</label>
-                                                <div class="form-group col-lg-2">
-                                                <div class="form-group">
-                                                   
-                                                    {!! Form::text('make1',Auth::User()->name,['id'=>'make1','class'=>'form-control','disabled'=>'disabled']) !!}
-                                                    {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
-                                                    {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
-
-
-                                                    @if ($errors->has('make'))
-                                                        <span   style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('make') }}</span   style="color: red;">
-                                                    @endif
+                        
+                                                            {{-- New Price Column End --}}
+            
+                                                            
+            
+                                                            
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                </div>
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">SKU:</label>
-                                                <div class="col-lg-2">
-                                                {!! Form::text('sku', null, [
-                                                    'id' => 'sku',
+                                            </div>
+            
+                                    </div>
+                                    <br>
+                                    <br>
+
+                                    <div class="card o-hidden">
+                                        <div class="card-header">Refurbished Price</div>
+                                            <div class="card-block p-0" >
+                                                <div>
+                                                    <div class="card-body">
+                                                        <div class="form-group row">
+            
+                                                            {{-- Refurbished Colume Start --}}
+                                                            
+                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Refurbished Price:</label>
+                                                            <div class="col-lg-2    ">
+                                                            {!! Form::text('refurnished_price', null, [
+                                                                'id' => 'refurnished_price',
+                                                                'class' => 'form-control',
+                                                                'maxlength' => '12',
+                                                                'onkeypress' => 'return onlyDecimalNumberKey(event)',
+                                                                '' => '',
+                                                                'onselectstart' => 'return false',
+                                                                'onpaste' => 'return false;',
+                                                                'onCopy' => 'return false',
+                                                                'onCut' => 'return false',
+                                                                'onDrag' => 'return false',
+                                                                'onDrop' => 'return false',
+                                                                'autocomplete' => 'off',
+                                                                'placeholder'=>'Enter Refurbished Price',
+                                                            ]) !!}
+                                                                @if ($errors->has('refurnished_price'))
+                                                                    <span   style="color: red;"
+                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_price') }}</span   style="color: red;">
+                                                                @endif
+                                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                                    Please enter Product Refurbished Price
+                                                                </small> --}}
+                                                            </div>
+                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Sale Price:</label>
+                                                            <div class="col-lg-2">
+                                                            {!! Form::text('refurnished_sale_price', null, [
+                                                                'id' => 'refurnished_sale_price',
+                                                                'class' => 'form-control',
+                                                                'maxlength' => '12',
+                                                                'onkeypress' => 'return onlyDecimalNumberKey(event)',
+                                                                '' => '',
+                                                                'onselectstart' => 'return false',
+                                                                'onpaste' => 'return false;',
+                                                                'onCopy' => 'return false',
+                                                                'onCut' => 'return false',
+                                                                'onDrag' => 'return false',
+                                                                'onDrop' => 'return false',
+                                                                'autocomplete' => 'off',
+                                                                'placeholder'=>'Enter Sale Price',
+                                                            ]) !!}
+                                                            @if ($errors->has('refurnished_sale_price'))
+                                                                <span   style="color: red;"
+                                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_sale_price') }}</span   style="color: red;">
+                                                            @endif
+                                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                                    Please enter Product R.Sale Price
+                                                                </small> --}}
+                                                            </div>
+                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Warranty Days:</label>
+                                                            <div class="col-lg-2">
+                                                            {!! Form::text('refurnished_warranty_days', null, [
+                                                                'id' => 'refurnished_warranty_days',
+                                                                'class' => 'form-control',
+                                                                'maxlength' => '4',
+                                                                'onkeypress' => 'return onlyNumberKey(event)',
+                                                                '' => '',
+                                                                'onselectstart' => 'return false',
+                                                                'onpaste' => 'return false;',
+                                                                'onCopy' => 'return false',
+                                                                'onCut' => 'return false',
+                                                                'onDrag' => 'return false',
+                                                                'onDrop' => 'return false',
+                                                                'autocomplete' => 'off',
+                                                                'placeholder'=>'Enter Warranty Days',
+                                                            ]) !!}
+                                                            @if ($errors->has('refurnished_warranty_days'))
+                                                                <span   style="color: red;"
+                                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_warranty_days') }}</span   style="color: red;">
+                                                            @endif
+                                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                                    Please enter Product R.Warranty Days </small> --}}
+                                                            </div>
+                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Return Days:</label>
+                                                            <div class="col-lg-2">
+                                                            {!! Form::text('refurnished_return_days', null, [
+                                                                'id' => 'refurnished_return_days',
+                                                                'class' => 'form-control',
+                                                                'maxlength' => '4',
+                                                                'onkeypress' => 'return onlyNumberKey(event)',
+                                                                '' => '',
+                                                                'onselectstart' => 'return false',
+                                                                'onpaste' => 'return false;',
+                                                                'onCopy' => 'return false',
+                                                                'onCut' => 'return false',
+                                                                'onDrag' => 'return false',
+                                                                'onDrop' => 'return false',
+                                                                'autocomplete' => 'off',
+                                                                'placeholder'=>'Enter Return Days',
+                                                            ]) !!}
+                                                            @if ($errors->has('refurnished_return_days'))
+                                                                <span   style="color: red;"
+                                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('refurnished_return_days') }}</span   style="color: red;">
+                                                            @endif
+                                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                                    Please enter Product R.Return Days
+                                                                </small> --}}
+                                                            </div>
+
+                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">MOQ:<span style="color: red;">*</span></label>
+                                                <div class="col-lg-2" style="margin-top: auto;">
+                                                {!! Form::text('min_ref_order', null, [
+                                                    'id' => 'min_ref_order',
                                                     'class' => 'form-control',
+                                                    'maxlength' => '5',
+                                                    'onkeypress' => 'return onlyNumberKey(event)',
                                                     // '' => '',
-                                                    'placeholder'=>'Enter Product SKU',
+                                                    'onselectstart' => 'return false',
+                                                    'onpaste' => 'return false;',
+                                                    'onCopy' => 'return false',
+                                                    'onCut' => 'return false',
+                                                    'onDrag' => 'return false',
+                                                    'onDrop' => 'return false',
+                                                    'autocomplete' => 'off',
+                                                    'placeholder'=>'Enter Minimum Order Quantity',
                                                 ]) !!}
-                                                @if ($errors->has('sku'))
+                                                @if ($errors->has('min_ref_order'))
                                                     <span   style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('sku') }}</span   style="color: red;">
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('min_ref_order') }}</span   style="color: red;">
                                                 @endif
                                                     {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                        Please enter Product Refurbished Price
+                                                        Please enter Minimum order quantity
                                                     </small> --}}
                                                 </div>
-                                                <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Condition:</label>
-                                                <div class="col-lg-2">
-                                                    {{-- <div class="form-control"> --}}
-                                                    <select id="choices-multiple-remove-button" name="condition[]"
-                                                        class=" @error('condition')  is-invalid @enderror"
-                                                        placeholder="Select Condition" multiple  >
-                                                        {{-- @foreach ($conditions as $value)
-                                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                                        @endforeach --}}
-                                                        @foreach ($conditions as $key => $value)
-                                                            @php $n=0; @endphp
-                                                            @foreach ($edit->conditions as $value1)
-                                                                @if ($value->id == $value1->condition_id)
-                                                                    @php
-                                                                        $n++;
-                                                                        break;
-                                                                    @endphp
-                                                                @endif
-                                                            @endforeach
-                                                            @if ($n == 0)
-                                                                <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                                            @else
-                                                                <option value="{{ $value->id }}" selected>{{ $value->name }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                    {{-- </div> --}}
-                                                </div>
-                                                <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Color</label>
-                                                    <div class="form-group col-lg-2">
-                                                        
-                                                    <select id="choices-multiple-remove-button" name="colors[]"
-                                                        class="form-control"
-                                                        placeholder="Select color"  multiple>
-                                                        
-                                                        
-                                                        @foreach ($colors as $value)
-                                                                <option value="{{$value->id}}">{{$value->name}}</option>
-                                                        @endforeach
-
-                                                        {{-- @foreach ($colors as $key => $value)
-                                                            @php $n=0; @endphp
-                                                            @foreach ($edit->colors as $value1)
-                                                                @if ($value->id == $value1->color_id)
-                                                                    @php
-                                                                        $n++;
-                                                                        break;
-                                                                    @endphp
-                                                                @endif
-                                                            @endforeach
-                                                            @if ($n == 0)
-                                                                <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                                            @else
-                                                                <option value="{{ $value->id }}" selected>{{ $value->name }}</option>
-                                                            @endif
-                                                        @endforeach --}}
-                                                        
-                                                    </select>
-
-                                                    {{-- {!! Form::select('colors[]', $colors, null, [
-                                                        'id' => 'choices-multiple-remove-button',
-                                                        'class' => 'form-control',
-
-                                                        // '' => '',
-                                                            ]) !!}
-                                                    @if ($errors->has('colors'))
-                                                        <span   style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('colors') }}</span   style="color: red;">
-                                                    @endif --}}
+                        
+                                                            {{-- Refurbished Column End --}}
+            
+                                                            
+            
+                                                            
+                                                        </div>
                                                     </div>
-
+                                                </div>
                                             </div>
-
+            
                                     </div>
-                                    <!-- end card 3 Columns Horizontal Form Layout-->
+<br>
+<br>
                         <div class="card o-hidden">
                             <div class="card-header">Dimensions</div>
-                                <div class="card-block p-0">
+                                <div class="card-block p-0" >
                                     <div>
                                         <div class="card-body">
                                             <div class="form-group row">
-                                                <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Width:</label>
-                                                <div class="col-lg-2 ">
-                                                {!! Form::number('width', null, [
+
+                                                {{-- Measurement Colume Start --}}
+                                                
+
+                                                
+                                                <label for="staticEmail19" id="widthLable" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Width:</label>
+                                                <div class="col-lg-2 "   id="widthField">
+                                                {!! Form::text('width', null, [
                                                     'id' => 'width',
                                                     'class' => 'form-control',
+                                                    'maxlength' => '5',
                                                     'onkeypress' => 'return onlyNumberKey(event)',
                                                     'onselectstart' => 'return false',
                                                     'onpaste' => 'return false;',
@@ -453,20 +498,23 @@
                                                     'onDrag' => 'return false',
                                                     'onDrop' => 'return false',
                                                     'autocomplete' => 'off',
+                                                    
                                                 ]) !!}
                                                 @if ($errors->has('width'))
                                                     <span   style="color: red;"
                                                         class="invalid-feedback1 font-weight-bold">{{ $errors->first('width') }}</span   style="color: red;">
                                                 @endif
-                            <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                        Please enter product width
-                                                    </small>
+                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                        Please enter width
+                                                    </small> --}}
                                                 </div>
-                                                <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">heidgt:</label>
-                                                <div class="col-lg-2">
-                                                {!! Form::number('height', null, [
+
+                                                <label for="staticEmail19" id="widthLable" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Height:</label>
+                                                <div class="col-lg-2 "  id="widthField">
+                                                {!! Form::text('height', null, [
                                                     'id' => 'height',
                                                     'class' => 'form-control',
+                                                    'maxlength' => '5',
                                                     'onkeypress' => 'return onlyNumberKey(event)',
                                                     'onselectstart' => 'return false',
                                                     'onpaste' => 'return false;',
@@ -475,20 +523,23 @@
                                                     'onDrag' => 'return false',
                                                     'onDrop' => 'return false',
                                                     'autocomplete' => 'off',
+                                                    
                                                 ]) !!}
                                                 @if ($errors->has('height'))
                                                     <span   style="color: red;"
                                                         class="invalid-feedback1 font-weight-bold">{{ $errors->first('height') }}</span   style="color: red;">
                                                 @endif
-                                                    <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                        Please enter product height
-                                                    </small>
+                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                        Please enter height
+                                                    </small> --}}
                                                 </div>
-                                                <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Depth:</label>
-                                                <div class="col-lg-2 ">
-                                                {!! Form::number('depth', null, [
+
+                                                <label for="staticEmail19" id="widthLable" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Depth:</label>
+                                                <div class="col-lg-2 "   id="widthField">
+                                                {!! Form::text('depth', null, [
                                                     'id' => 'depth',
                                                     'class' => 'form-control',
+                                                    'maxlength' => '5',
                                                     'onkeypress' => 'return onlyNumberKey(event)',
                                                     'onselectstart' => 'return false',
                                                     'onpaste' => 'return false;',
@@ -497,20 +548,38 @@
                                                     'onDrag' => 'return false',
                                                     'onDrop' => 'return false',
                                                     'autocomplete' => 'off',
+                                                    
                                                 ]) !!}
                                                 @if ($errors->has('depth'))
                                                     <span   style="color: red;"
                                                         class="invalid-feedback1 font-weight-bold">{{ $errors->first('depth') }}</span   style="color: red;">
                                                 @endif
-                                                    <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                        Please enter product Depth
-                                                    </small>
+                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                        Please enter depth
+                                                    </small> --}}
                                                 </div>
-                                                <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Weight:</label>
-                                                <div class="col-lg-2 ">
-                                                {!! Form::number('weight', null, [
+                                            
+                                                <label for="Weight" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Select Unit:</label>
+                                                <div class="col-lg-2">
+                                                <select class="form-control" name="m_unit" id="m_unit" >
+                                                    <option value="" selected >Select Measurement Unit:</option>
+                                                    <option value="Millimeter">Millimeter(mm)</option>
+                                                    <option value="Centimeter">Centimeter(cm)</option>
+                                                    <option value="Inch">Inch(in)</option>
+                                                    <option value="Meter">Meter(m)</option>
+                                                </select>
+                                                </div>
+            
+                                                {{-- Measurement Column End --}}
+
+                                                {{-- Weight Column Start --}}
+                                                
+                                                <label for="staticEmail19" id="weightLable"  class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">weight:</label>
+                                                <div class="col-lg-2 "  style="margin-top: auto;" id="weightField">
+                                                {!! Form::text('weight', null, [
                                                     'id' => 'weight',
                                                     'class' => 'form-control',
+                                                    'maxlength' => '5',
                                                     'onkeypress' => 'return onlyNumberKey(event)',
                                                     'onselectstart' => 'return false',
                                                     'onpaste' => 'return false;',
@@ -519,25 +588,39 @@
                                                     'onDrag' => 'return false',
                                                     'onDrop' => 'return false',
                                                     'autocomplete' => 'off',
+                                                    'placeholder' => ''
                                                 ]) !!}
                                                 @if ($errors->has('weight'))
                                                     <span   style="color: red;"
                                                         class="invalid-feedback1 font-weight-bold">{{ $errors->first('weight') }}</span   style="color: red;">
                                                 @endif
-                                                    <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                        Please enter product Weight
-                                                    </small>
+                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                        Please enter Ounze
+                                                    </small> --}}
                                                 </div>
-    
-    
+                                            
+                                                <label for="Weight" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Select Unit::</label>
+                                                <div class="col-lg-2 mt-auto">
+                                                <select class="form-control " name="weight_unit" id="weight_unit" >
+                                                    <option value="" selected >Select Weight Unit:</option>
+                                                    <option value="Ounce">Ounce(oz)</option>
+                                                    <option value="Milligram">Milligram(mg)</option>
+                                                    <option value="Gram">Gram(g)</option>
+                                                    <option value="Kilogram">Kilogram(kg)</option>
+                                                    <option value="MetricTon">Metric Ton(t)</option>
+                                                </select>
+                                                </div>
+                                                
+                                                {{-- Weight Column End --}}
+
+                                                
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- end card 3 Columns Horizontal Form Layout-->
-                                
-                                    </div>
                                 </div>
+
                         </div>
-                        </div>
+                    </div>
 
                             
                         </div>
@@ -549,7 +632,8 @@
                                                     <div>
 
                                                         <div class="card-body">
-                                                            <h2>Short Description</h2>
+                                                <label for="staticEmail20" class=col-form-label ">Short Description:<span style="color: red;">*</span></label>
+
                                                             {{-- <p>Enter Product Description 1</p> --}}
                                                             
                                                         {{-- <textarea class="mx-auto col-md-12 	col-12" value={{ $edit->description }}  maxlength="10" name="description" id="summernote"  rows="7"></textarea> --}}
@@ -560,7 +644,9 @@
                                                                         'id' => 'description1',
                                                                         'class' => 'mx-auto col-md-12 	col-12',
                                                                         'maxlength' => '1000',
+                                                                        // 'minlength' => '50',
                                                                         'rows' => '5',
+                                                                        // 'required' => 'required',
                                                                     ]) !!} 
                                                                     
                                                                     @if ($errors->has('description'))
@@ -576,7 +662,9 @@
                                                 <div class="col-md-11 mb-4" style="padding-left: 60px">
                                                     <div>
                                                         <div class="card-body">
-                                                            <h2>Details</h2>
+                                                            
+                                                            <label for="staticEmail20" class="  col-form-label ">Details:<span style="color: red;">*</span></label>
+
                                                             {{-- <p>Enter Product Description 2</p> --}}
                                                             <div class="mx-auto col-md-12">
                                                                 {{-- <div id="snow-editor-2" class="editor-container"> --}}
@@ -604,7 +692,7 @@
     
                                 <div class="form-group row" style="padding-left: 50px;padding-right:50px">
                                 {{-- <div class="form-group row"> --}}
-                                    <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Menu:</label>
+                                    <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Menu:<span style="color: red;">*</span></label>
                                     <div class="form-group col-lg-5">
                                         
                                             <!-- <input type="text" id="menu-input-3" class="form-control" aria-label="Text input with dropdown button"> -->
@@ -626,7 +714,7 @@
                                         <br>
                                         
                                     </div>
-                                    <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Category:</label>
+                                    <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Category:<span style="color: red;">*</span></label>
                                     <div class="form-group col-lg-5">
                                         <!-- <div class="input-group">
                                             <input type="text" id="menu-input-4" class="form-control" aria-label="Text input with dropdown button">
@@ -649,7 +737,7 @@
                                         @endif
                                     </div>
 
-                                    <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Sub Category:</label>
+                                    <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Sub Category:<span style="color: red;">*</span></label>
                                     <div class="form-group col-lg-5">
                                         <!-- <div class="input-group">
                                             <input type="text" id="menu-input-5" class="form-control" aria-label="Text input with dropdown button">
@@ -669,22 +757,12 @@
                                         ]) !!}
                                         @if ($errors->has('subcategory_id'))
                                             <span   style="color: red;"
-                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('subcategory_id') }}</span   style="color: red;">
+                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('subcategory_id') }}</span>
                                         @endif
                                     </div>
 
-                                    <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Brand:</label>
+                                    <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Brand:<span style="color: red;">*</span></label>
                                     <div class="form-group col-lg-5">
-                                        <!-- <div class="input-group">
-                                            <input type="text" id="menu-input-6" class="form-control" aria-label="Text input with dropdown button">
-                                            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Brand</button>
-                                            <div class="dropdown-menu">
-                                                <p class="dropdown-item" onclick="selectMenu('Brand  1', 'menu-input-6')">Brand 1</p>
-                                                <p class="dropdown-item" onclick="selectMenu('Brand  2', 'menu-input-6')">Brand 2</p>
-                                                <p class="dropdown-item" onclick="selectMenu('Brand  3', 'menu-input-6')">Brand 3</p>
-                                                <p class="dropdown-item" onclick="selectMenu('Brand  4', 'menu-input-6')">Brand 4</p>
-                                            </div>
-                                        </div> -->
 
                                         {!! Form::select('brand_id', $brands, null, [
                                             'id' => 'brand_id',
@@ -709,56 +787,129 @@
                                         @error('attachment')
                                         <span   style="color: red;" class="invalid-feedback font-weight-bold">{{ $message }}</span   style="color: red;">
                                     @enderror
-                                    </div>
-                                    {{-- feature-image-upload --}}
-                                    <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Feature Image:</label>
-                                    <div class="col-lg-5">
-                                        <div class="card-header d-flex justify-content-between" >
-                                            <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
-                                            {{-- @if($edit->url)
-                                            <img src="{{ $edit->url }}" class="" style="width:100px;height:80px;">
-                                            @else
-                                            <h6>No Feature Image</h6>
-                                            @endif --}}
-                                        
+                                    
                                         </div>
-                                        
-                                    </div>
 
-
-                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Image:</label>
-                            <div class="col-lg-5">
-                            {{-- <div class="form-group"> --}}
-                            <!-- <label>(1 File Size <= 100kb) (Total File Size 2MB) <span   style="color: red;" style="color: red;">*</span   style="color: red;"></label> -->
-
-                                    <div class="card-header d-flex justify-content-between" >
                                     
-                                        <input type="file" name="images[]" id="image" class="form-control"
-                                            onchange="image_select()"  multiple style="height: fit-content;">
-                                        
-                                    </div>
-                                    <div  class="card-body d-flex justify-content-start"   id="all_images">
-                                    </div> 
-                                    <div class="card-footer d-none" id="images_paths"></div>
+
                                     
-                                    {{-- <br /> --}}
-                                    {{-- <span   style="color: red;" id="uploaded_image"></span   style="color: red;"> --}}
-                                    {{-- </div> --}}
+                                    {{-- feature-image-upload --}}
+                                    <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Feature Image: <span style="color: red;">*</span></label>
+                                        <div class="col-lg-5">
+                                            <div class="card-header d-flex justify-content-between" >
+                                                <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
+                                                
+                                                {{-- @if($edit->url)
+                                                <img src="{{ $edit->url }}" class="" style="width:100px;height:80px;">
+                                                @else
+                                                <h6>No Feature Image</h6>
+                                                @endif --}}
+                                            </div>
+                                            @if ($errors->has('feature_image'))
+                                                <span   style="color: red;"
+                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('feature_image') }}</span>
+                                                @endif
+                                                
+                                            
+                                        </div>
+
+                                    <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Images:</label>
+                                        <div class="col-lg-5">
+                                        {{-- <div class="form-group"> --}}
+                                        <!-- <label>(1 File Size <= 100kb) (Total File Size 2MB) <span   style="color: red;" style="color: red;">*</span   style="color: red;"></label> -->
+                                
+                                                <div class="card-header d-flex justify-content-between" >
+                                                
+                                                    {{-- <input type="file" name="images[]" id="image" class="form-control"
+                                                        onchange="image_select()"  multiple style="height: fit-content;">
+                                                 --}}
+                                                        <input type="file" name="images[]" id="imageInput"  class="form-control" multiple >
+                                                        <button type="button" class="d-none form-control" style="width: auto;"id="chooseImages">Choose Images</button>
+                                                    </div>
+                                                    
+                                                    <br>
+                                                    {{-- @foreach ($edit->product_images as $value)
+                                                    <img src="{{ URL::asset('upload/products/' . $value->image) }}"
+                                                    class="img-thumbnail" style="width:100px;height:80px;" />
+                                                    @endforeach --}}
+                                                    <p id="fileLimitMessage" style="color: red;"></p>
+
                                     {{-- <img src="{{ $edit->product_image->url }}" width="50" height="50"> --}}
-                                    {{-- @foreach ($edit->product_images as $value)
-                                    <img src="{{ URL::asset('upload/products/' . $value->image) }}"
-                                    class="img-thumbnail" style="width:100px;height:80px;" />
-                                    @endforeach --}}
-                                </div>
-                            </div>
+                                    
+                                            <div id="thumbnails"></div>
+
+                                            </div>
+                                            {{-- <div class="container">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div  class="thumbnail d-flex justify-content-start"    id="all_images"></div>
+                                                        <div class="card-footer d-none" id="images_paths"></div>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
+
+                                            
+                                                
+                                                
+                                        
+                                            
+                                            <script>
+                                                document.getElementById('chooseImages').addEventListener('click', function () {
+                                                    document.getElementById('imageInput').click();
+                                                });
+                                            
+                                                document.getElementById('imageInput').addEventListener('change', function () {
+                                                    var files = this.files;
+                                                    var maxImages = 6; // Set your maximum image limit here
+                                                    var fileLimitMessage = document.getElementById('fileLimitMessage');
+                                                    if (files.length > maxImages) {
+                                                        fileLimitMessage.textContent = 'Please select a maximum of ' + maxImages + ' images.';
+                                                        this.value = ''; // Clear selected files
+                                                    } else {
+                                                        fileLimitMessage.textContent = ''; // Clear the message if within the limit
+                                                    }
+                                                });
+                                                document.getElementById('imageInput').addEventListener('change', function () {
+                                                    
+                                                    var thumbnails = document.getElementById('thumbnails');
+                                                    thumbnails.innerHTML = ''; // Clear previous thumbnails
+                                            
+                                                    var files = this.files;
+                                                var maxImages = 6; // Set your maximum image limit here
+                                                for (var i = 0; i < Math.min(files.length, maxImages); i++) {
+                                                    var img = document.createElement('img');
+                                                    img.src = URL.createObjectURL(files[i]);
+                                                    img.style.maxWidth = '100px';
+                                                    thumbnails.appendChild(img);
+                                                }
+                                            
+                                                    // Show the upload button when at least one image is selected
+                                                    
+                                                });
+                                            </script>
+
+                                            
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="card">
+                                                <div class="card-footer" style="
+                                                text-align: end;
+                                            ">
+                                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                                    
                             </div>
                             
-                            <div id="step-4" class="">
-                                {{-- <h3 class="border-bottom border-gray pb-2">Step 4 Content</h3> --}}
+                            {{-- <div id="step-4" class="">
+                                <h3 class="border-bottom border-gray pb-2">Step 4 Content</h3>
                                 <div class="card o-hidden">
                                     <div class="card-header">Tax Charges</div>
                                         <div class="card-block p-0">
-                                        {{-- checking  --}}
+                                        checking 
                                             
                                                 <div>
                                                     <div class="card-body">
@@ -766,9 +917,10 @@
                                                             <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">GST%:</label>
                                                             <div class="col-lg-2 ">
                                                                 
-                                                            {!! Form::number('GST_tax', null, [
+                                                            {!! Form::text('GST_tax', null, [
                                                                     'id' => 'GST_tax',
                                                                     'class' => 'form-control',
+                                                                    'maxlength' =>'12',
                                                                     'onkeypress' => 'return onlyNumberKey(event)',
                                                                     'onselectstart' => 'return false',
                                                                     'onpaste' => 'return false;',
@@ -789,9 +941,10 @@
                                                             </div>
                                                             <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">VAT%:</label>
                                                             <div class="col-lg-2">
-                                                                {!! Form::number('VAT_tax', null, [
+                                                                {!! Form::text('VAT_tax', null, [
                                                                     'id' => 'VAT_tax',
                                                                     'class' => 'form-control',
+                                                                    'maxlength' =>'12',
                                                                     'onkeypress' => 'return onlyNumberKey(event)',
                                                                     'onselectstart' => 'return false',
                                                                     'onpaste' => 'return false;',
@@ -811,9 +964,10 @@
                                                             </div>
                                                             <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">FED%:</label>
                                                             <div class="col-lg-2 ">
-                                                                {!! Form::number('FED_tax', null, [
+                                                                {!! Form::text('FED_tax', null, [
                                                                     'id' => 'FED_tax',
                                                                     'class' => 'form-control',
+                                                                    'maxlength' =>'12',
                                                                     'onkeypress' => 'return onlyNumberKey(event)',
                                                                     'onselectstart' => 'return false',
                                                                     'onpaste' => 'return false;',
@@ -833,9 +987,10 @@
                                                             </div>
                                                             <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Other%:</label>
                                                             <div class="col-lg-2 ">
-                                                                {!! Form::number('Other_tax', null, [
+                                                                {!! Form::text('Other_tax', null, [
                                                                     'id' => 'Other_tax',
                                                                     'class' => 'form-control',
+                                                                    'maxlength' =>'12',
                                                                     'onkeypress' => 'return onlyNumberKey(event)',
                                                                     'onselectstart' => 'return false',
                                                                     'onpaste' => 'return false;',
@@ -857,24 +1012,23 @@
                 
                                                     </div>
                                                 </div>
-                                                <!-- end card 3 Columns Horizontal Form Layout-->
                                             
                                         </div>
                                     
                                     
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <div class="card">
-                                                <div class="card-footer">
+                                                    <div class="card">
+                                                        <div class="card-footer">
                                                     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
                                                 <!-- end card 3 Columns Horizontal Form Layout-->
                                                 
                                         </div>
                                 </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -887,6 +1041,26 @@
 
 @stop
 @section('page-js')
+<script>
+    
+    function onlyNumberKey(evt) {
+        // Only ASCII character in that range allowed
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+        return true;
+    }
+
+    function onlyDecimalNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31 &&
+            (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>
+
 
 <script>
     const imageInput = document.getElementById('imageInput');
@@ -969,29 +1143,15 @@
 
 
 
-
 <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
 
-@if ($errors->any())
-<script>
-    toastr.error("{{ $errors->first() }}");
-</script>
-@endif
-    {{-- {!! Toastr::message() !!} --}}
+    @if ($errors->any())
+    <script>
+        toastr.error("{{ $errors->first() }}");
+    </script>
+    @endif
 
-
-    {{-- <script> 
-        document.addEventListener('DOMContentLoaded', function () {
-            const editorContainers = document.querySelectorAll('.editor-container');
-
-            editorContainers.forEach((container, index) => {
-                const editor = new Quill(container, {
-                    theme: 'snow',
-                    // Add any other Quill configuration options you need.
-                });
-            });
-        });
-    </script> --}}
+    {!! Toastr::message() !!}
 
 <script>
     function selectMenu(menuText, inputId) {
@@ -1005,7 +1165,8 @@
         $(document).ready(function() {
             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
                 removeItemButton: true,
-                // maxItemCount:5,
+                maxItemCount:5,
+
                 // searchResultLimit:5,
                 // renderChoiceLimit:5
 
@@ -1103,13 +1264,23 @@
 
 
 
-
 @endsection
+
 
 @section('bottom-js')
 
 
 <script src="{{asset('assets/js/smart.wizard.script.js')}}"></script>
 <script src="{{asset('assets/js/quill.script.js')}}"></script>
+
+                    <script>
+                        // Add JavaScript to hide the error message after 3 seconds
+                        setTimeout(function () {
+                            var errorAlert = document.getElementById('error-alert');
+                            if (errorAlert) {
+                                errorAlert.style.display = 'none';
+                            }
+                        }, 6000); // 3000 milliseconds (3 seconds)
+                    </script>
 
 @endsection
