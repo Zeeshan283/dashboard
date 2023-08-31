@@ -1151,7 +1151,7 @@
     </script>
     @endif
 
-    {!! Toastr::message() !!}
+    {{-- {!! Toastr::message() !!} --}}
 
 <script>
     function selectMenu(menuText, inputId) {

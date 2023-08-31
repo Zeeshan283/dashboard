@@ -84,6 +84,7 @@ class ProductController extends Controller
     public function test(){
         return view('products.test');
     }
+
     public function testupload(Request $request){
         dd($request);
         return view('products.test');
@@ -91,16 +92,21 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $this->validate($request, [ 
+            
             
             'name' => 'required',
             'make' => 'required',
             'min_order' => 'required',
+            'sku' => 'required|unique:products',
+            'new_price' => 'nullable|gt:new_sale_price',
+            'new_sale_price' => 'nullable',
+            'refurnished_price' => 'nullable|gt:refurnished_sale_price',
+            'refurnished_sale_price' => 'nullable',
             'feature_image' => 'required',
             // 'images.0' => 'required',
             'attachment' => 'mimes:pdf, zip|max:20480',
-            'sku' => 'required|unique:products',
             'description' => 'required',
             'menu_id' => 'required',
             'category_id' => 'required',
@@ -109,10 +115,13 @@ class ProductController extends Controller
             
         ]
         , [
+            
             'name.required' => 'The Product name field is required',
             // 'condition.0.required' => 'The Condition field is required',
             'make.required' => 'The Make field is required',
             'sku.exists' => 'The SKU already exist',
+            'new_sale_price.lte' => 'Sale price must be less than or equal to the old price.',
+            'refurnished_sale_price.lte' => 'Refurbished Sale price must be less than or equal to the old Refurbished price.',
             'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
             'description.required' => 'The Description field is required',
@@ -258,20 +267,16 @@ class ProductController extends Controller
         $this->validate($request, [
             
             'name' => 'required',
-            
-            // 'new_warranty_days' => 'required',
-            // 'new_return_days' => 'required',
-            
-            // 'model_no' => 'required',
             'make' => 'required',
             'min_order' => 'required',
-            // 'images.0' => 'required',
             // 'feature_image' => 'required',
-            'attachment' => 'mimes:pdf, zip|max:20480',
             'sku' => 'required',
+            'new_price' => 'nullable|gt:new_sale_price',
+            'new_sale_price' => 'nullable',
+            'refurnished_price' => 'nullable|gt:refurnished_sale_price',
+            'refurnished_sale_price' => 'nullable',
             'description' => 'required',
-            
-            
+            'attachment' => 'mimes:pdf, zip|max:20480',
             'menu_id' => 'required',
             'category_id' => 'required',
             'subcategory_id' => 'required',
@@ -280,9 +285,10 @@ class ProductController extends Controller
         ]
         , [
             'name.required' => 'The Product name field is required',
-            // 'condition.0.required' => 'The Condition field is required',
             'make.required' => 'The Make field is required',
             'sku.exists' => 'The SKU already exist',
+            'new_sale_price.lte' => 'Sale price must be less than or equal to the old price.',
+            'refurnished_sale_price.lte' => 'Refurbished Sale price must be less than or equal to the old Refurbished price.',
             'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
             'description.required' => 'The Description field is required',
@@ -433,20 +439,17 @@ class ProductController extends Controller
         $this->validate($request, [
             
             'name' => 'required',
-            
-            // 'new_warranty_days' => 'required',
-            // 'new_return_days' => 'required',
-            
-            // 'model_no' => 'required',
             'make' => 'required',
             'min_order' => 'required',
-            // 'images.0' => 'required',
-            'feature_image' => 'required',
             'attachment' => 'mimes:pdf, zip|max:20480',
             'sku' => 'required|unique:products',
+            'new_price' => 'nullable|gt:new_sale_price',
+            'new_sale_price' => 'nullable',
+            'refurnished_price' => 'nullable|gt:refurnished_sale_price',
+            'refurnished_sale_price' => 'nullable',
             'description' => 'required',
-            
-            
+            // 'images.0' => 'required',
+            'feature_image' => 'required',
             'menu_id' => 'required',
             'category_id' => 'required',
             'subcategory_id' => 'required',
@@ -455,12 +458,13 @@ class ProductController extends Controller
         ]
         , [
             'name.required' => 'The Product name field is required',
-            // 'condition.0.required' => 'The Condition field is required',
             'make.required' => 'The Make field is required',
             'sku.exists' => 'The SKU already exist',
-            'feature_image.required' => 'The Feature Image field is required',
+            'new_sale_price.lte' => 'Sale price must be less than or equal to the old price.',
+            'refurnished_sale_price.lte' => 'Refurbished Sale price must be less than or equal to the old Refurbished price.',
             // 'images.0.required' => 'The Image field is required',
             'description.required' => 'The Description field is required',
+            'feature_image.required' => 'The Feature Image field is required',
             'brand_id.required' => 'The Brand field is required',
             'menu_id.required' => 'The Menu field is required',
             'category_id.required' => 'The Category field is required',
@@ -470,10 +474,7 @@ class ProductController extends Controller
     );
 
     // dd($request->all());
-
-
-        
-        // $p = Product::findOrFail($id);
+    // $p = Product::findOrFail($id);
 
         if ($request->hasFile('feature_image')) {
             $image = $request->file('feature_image');

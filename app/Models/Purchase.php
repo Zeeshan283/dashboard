@@ -8,19 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     use HasFactory;
-    protected $fillable = ['date', 'bill_no', 'supplier_id', 'biller_id', 'status'];
-    public function producs(){
-        return $this->BelongsTo('App\Models\Product', 'produc_id');
+
+    protected $fillable = [
+        'date',
+        'bill_number',
+        'user_id',
+        'product_sku',
+        'selected_product_model',
+        'quantity',
+        'selected_product_price',
+        'total_value',
+    ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
-     public function accounts(){
-        return $this->BelongsTo('App\Models\Account', 'supplier_id');
-    }
-  
-    public function users(){
-        return $this->BelongsTo('App\Models\User', 'biller_id');
-    }
-    public function purchase_details(){
-        return $this->hasMany('App\Models\PurchaseDetail', 'purchase_id');
+
+    // Relationship with Product model
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
         

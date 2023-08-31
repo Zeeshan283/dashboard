@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RefundController;
 use App\Http\Controllers\VendorsController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
@@ -236,9 +237,16 @@ Route::post('vendor', [VendorsController::class, 'store'])->name('vendor.store')
 
 Route::resource('users', RoleController::class);
 Route::resource('coupon', CouponController::class);
+
+Route::resource('purchase', PurchaseController::class);
+Route::get('purchase/{id}/destroy', [PurchaseController::class, 'destroy']);
+Route::get('purchase/{id}/edit', [PurchaseController::class, 'edit']);
+
+Route::get('/purchase/create', [PurchaseController::class, 'create'])->name('purchase.create');
+Route::get('/get-product-name/{sku}', [PurchaseController::class, 'getProductName']);
+
+
+
+// Route::get('/get-product-name/{sku}', [PurchaseController::class,'getProductName'])->name('get.product.name');
 // Route::get('coupon/all',[CouponController::class, 'all'])->name('couponall');
-
-
-
-
 

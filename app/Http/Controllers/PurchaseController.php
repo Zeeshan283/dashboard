@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Account;
-use App\Models\UOM;
-use App\Models\Carat;
+use App\Models\Purchase;
 use App\Models\Stock;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -21,94 +19,62 @@ class PurchaseController extends Controller
 
     public function index()
     {
-        $data = Stock::where('biller_id', Auth::User()->id)
-            ->select('id', 'date', 'bill_no')
-            ->where('type', 'PURCHASE')
-            ->orderBy('bill_no', 'desc')
-            ->groupBy('bill_no')
-            ->distinct()
-            ->get();
+        // $data = Stock::where('biller_id', Auth::User()->id)
+        //     ->select('id', 'date', 'bill_no')
+        //     ->where('type', 'PURCHASE')
+        //     ->orderBy('bill_no', 'desc')
+        //     ->groupBy('bill_no')
+        //     ->distinct()
+        //     ->get();
 
-        return view('purchase.index', compact('data'));
+        return view('purchase.index' );
     }
 
     public function create()
     {
-        $code = Stock::where('biller_id', Auth::User()->id)
-            ->where('type', '=',  'PURCHASE')
-            ->orderBy('bill_no', 'desc')
-            ->first();
-
-        if (isset($code) > 0) {
-            $codes = (int)$code->bill_no + 1;
-        } else {
-            $codes = 1;
-        }
-
-        $p = Product::select(DB::raw('CONCAT(`id`, "_", `name`, "_", `new_sale_price`, "_", `sku`) AS `id`, `name`, `sku`'))->where('created_by', Auth::User()->id)->OrderBy('id', 'asc')->pluck('sku', 'id')->prepend('Select SKU', '')->toArray();
-        $uom = UOM::select(DB::raw('CONCAT(`id`, "_", `uom`) AS `id`, `uom`'))->OrderBy('id', 'asc')->pluck('uom', 'id')->toArray();
-        $carat = Carat::select(DB::raw('CONCAT(`id`, "_", `name`) AS `id`, `name`'))->OrderBy('id', 'asc')->pluck('name', 'id')->toArray();
-
-        $c = Account::with('accounts')->OrderBy('account_name')->pluck('account_name', 'id');
-        return view('purchase.create', compact('p', 'c', 'uom', 'codes', 'carat'));
+        $user = auth()->user();
+        $products = Product::where('created_by', '=', $user->id)->get();
+        
+        return view('purchase.addpurchase', compact('products'));
     }
 
     public function store(Request $request)
     {
-        if (!isset($request->product_id)) {
-            return redirect()->back()->with('failure_message', 'Enter 1 Record Must');
-        }
-        if (!isset($request->bill_no)) {
-            return redirect()->back()->with('failure_message', 'Enter Bill No Must');
-        }
+         // dd($request->all());
+        $product = Product::where('sku', $request->product_sku)->first();
 
-        $check = Stock::where('bill_no', '=', $request->bill_no)->where('type', '=', 'PURCHASE')->get();
+        // Validate the form input
+        $request->validate([
+            'date' => 'required|date',
+            'bill_number' => 'required|numeric',
+            'product_sku' => 'required',
+            'selected_product_model' => 'required',
+            'quantity' => 'required|integer',
+            'selected_product_price' => 'required|numeric',
+            'total_value' => 'required|numeric',
+        ]);
 
-        if (count($check) > 0) {
-            Stock::where('bill_no', '=', $request->bill_no)->where('type', 'PURCHASE')->delete();
+        // Create a new Purchase instance and fill it with form data
+        $purchase = new Purchase();
+        $purchase->date = $request->date;
+        $purchase->bill_number = $request->bill_number;
+        $purchase->user_id = auth()->user()->id; // Assuming you're using Laravel's built-in authentication
+        $purchase->product_id = $product->id; // Use the product_id from the retrieved product
+        $purchase->selected_product_model = $request->selected_product_model;
+        $purchase->quantity = $request->quantity;
+        $purchase->selected_product_price = $request->selected_product_price;
+        $purchase->total_value = $request->total_value;
 
-            $count = count($request->product_id);
-            for ($i = 0; $i < $count; $i++) {
-                $stock = new Stock();
-                $stock->bill_no = $request->bill_no;
-                $stock->date = $request->date;
-                $stock->pro_id = $request->product_id[$i];
-                $stock->unit_id = 2;
-                $stock->cost = $request->cost[$i];
-                $stock->total = $request->cost[$i] * $request->quantity[$i];
-                $stock->type = $request->type;
-                $stock->qty_in = $request->quantity[$i];
-                $stock->qty_out = 0;
-                $stock->biller_id = Auth::User()->id;
-                $stock->save();
-            }
-        } else {
-            if (!isset($request->product_id)) {
-                return redirect()->back()->with('failure_message', 'Enter 1 Record Must');
-            }
-            if (!isset($request->bill_no)) {
-                return redirect()->back()->with('failure_message', 'Enter Bill No Must');
-            }
-            $count = count($request->product_id);
-            for ($i = 0; $i < $count; $i++) {
-                $stock = new Stock();
-                $stock->bill_no = $request->bill_no;
-                $stock->date = $request->date;
-                $stock->pro_id = $request->product_id[$i];
-                $stock->unit_id = 2;
-                $stock->cost = $request->cost[$i];
-                $stock->total = $request->cost[$i] * $request->quantity[$i];
-                $stock->type = $request->type;
-                $stock->qty_in = $request->quantity[$i];
-                $stock->qty_out = 0;
-                $stock->biller_id = Auth::User()->id;
-                $stock->save();
-            }
-        }
+       
+        // Save the purchase record
+        $purchase->save();
 
-        return redirect()->back()->with('flash_message', 'Record successfully added!');
+        Toastr::success('Purchase Added successfully', 'Success');
+
+        return redirect()->back();
     }
 
+    
     public function show($id)
     {
         $details = Stock::with('product')
@@ -134,15 +100,26 @@ class PurchaseController extends Controller
         return $productsArray;
     }
 
-    public function showbill(Request $request)
-    {
-        $bill = $request->bill_no;
-        $p = Stock::with('product')
-            ->with('uoms')
-            ->where('bill_no', $bill)
-            ->where('type', 'PURCHASE')
-            ->get();
 
-        return $p;
+    public function getProductName($sku)
+    {
+        // dd($sku);
+        $product = Product::where('sku',$sku)->first();
+
+        if ($product) {
+            return response()->json([
+                'productName' => $product->name,
+                'productPrice' => $product->new_sale_price,
+                'productModel' => $product->model_no,
+            ]);
+        } else {
+            return response()->json([
+                'productName' => '',
+                'productPrice' => '',
+                'productModel' => '',
+            ]);
+        }
+        
     }
+
 }

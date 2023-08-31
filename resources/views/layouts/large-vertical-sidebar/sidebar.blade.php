@@ -36,6 +36,23 @@
                 </a>
             </li>
         </ul>
+        <ul class="childNav" data-parent="purchase">
+
+            <li class="nav-item">
+                <a  href="{{ route('purchase.create') }}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Add  Purchase</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'users.index' ? 'open' : '' }}"
+                    href="{{ route('purchase.index')}}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">All Purchases </span>
+                </a>
+            </li>
+        </ul>
         <ul class="childNav" data-parent="forms">
             <li class="nav-item">
                 <a href="{{ route('vendor.create') }}">

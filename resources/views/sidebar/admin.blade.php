@@ -33,10 +33,15 @@
     </a>
 </li>
 <li class="nav-item {{ request()->is('charts/*') ? 'active' : '' }}" data-item="charts">
-    {{-- <a class="nav-item-hold {{ $Vendor ? '' : 'disabled' }}" href="{{ $Vendor ? route('products.create') : '#' }}"> --}}
         <a class="nav-item-hold" href="#">
         <i class="nav-icon i-Shopping-Bag"></i>
         <span class="nav-text">Products</span>
+    </a>
+</li>
+<li class="nav-item {{ request()->is('purchase/*') ? 'active' : '' }}" data-item="purchase">
+        <a class="nav-item-hold" href="#">
+        <i class="nav-icon i-Film-Cartridge"></i>
+        <span class="nav-text">Purchase</span>
     </a>
 </li>
 <li class="nav-item {{ request()->is('uikits/*') ? 'active' : '' }}" data-item="uikits">

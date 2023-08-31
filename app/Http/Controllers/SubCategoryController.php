@@ -39,7 +39,7 @@ class SubCategoryController extends Controller
         ]);
 
         $s = SubCategory::create($request->all());
-        $s->slug = Str::slug($request->name);
+        // $s->slug = Str::slug($request->name);
         $s->save();
         if ($request->hasFile('img')) {
             $file = $request->file('img');

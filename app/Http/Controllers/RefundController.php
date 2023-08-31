@@ -67,7 +67,7 @@ class RefundController extends Controller
     $request->validate([
         'status' => 'required'
     ]);
-    $status =  Refunds::where('refunds_status')->post();
+    $status =  Refund::where('refunds_status')->post();
     $status->refunds_status =json_encode($request->status);
         // update the status
         $status ->update();

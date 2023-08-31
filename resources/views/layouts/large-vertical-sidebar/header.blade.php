@@ -1,6 +1,6 @@
 <div class="main-header">
     <div class="">
-        <img src="{{ asset('root/upload/logo/dashboard-logo.jpg') }}" alt="">
+        <a href="{{ route('admin') }}"><img src="{{ asset('root/upload/logo/dashboard-logo.jpg') }}" alt=""></a>
     </div>
 
     <div class="menu-toggle">
