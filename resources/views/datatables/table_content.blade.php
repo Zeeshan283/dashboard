@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 @if (Route::currentRouteName() == 'allorders')
         <thead>
@@ -1067,26 +1068,26 @@
     <thead>
         <th>Sr No</th>
         <th>Id#</th>
-        <th>Menu</th>
         <th>Name</th>
-        <th>Commision</th>
+        <th>Menu</th>
+        <th>Commission</th>
         <th>Image</th>
-
+        <th>Action</th>
     </thead>
     <tbody>
         @foreach ($data as $key => $allcat)
         <tr>
             <td>{{ $key + 1 }}</td>
             <td>{{ $allcat->id }}</td>
-            <td>{{ $allcat->menu }}</td>
             <td>{{ $allcat->name }}</td>
+            <td>{{ $allcat->menu }}</td>
             <td>{{ $allcat->commision }}</td>
             <td><img src="<?php echo $allcat['img']; ?>" width="50" height="50"></td>
             <td class="col-lg-1" style="white-space: nowrap;">
-                <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                <a href="{{ route('category.editcat', ['id' => $allcat->id]) }}" class="btn rounded-pill btn-icon btn-primary">
                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </a>
-               <form action="{{ route('category.destroy', ['id' => $category->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category item?')" style="display: inline;">
+               <form action="{{ route('category.destroy', ['id' => $allcat->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category item?')" style="display: inline;">
                    @csrf
                    @method('DELETE')
                    <button type="submit" class="btn rounded-pill btn-icon btn-danger">
@@ -1245,7 +1246,66 @@
                 </tr>
             @endforeach
         </tbody>
-        @endif
+
+@elseif (Route::currentRouteName() == 'allterm')
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($data as $item)
+                <tr>
+                    <td>{{ $item["id"] }}</td>
+                    <td>{{ $item["title"] }}</td>
+                    {{-- <td>{{ $item["description"] }}</td> --}}
+                    <td>
+                        @if(Route::currentRouteName() == 'allterm')
+                        {{ Str::limit($item["description"], 90) }}
+                        @else
+                            {{ $item["description"] }}
+                        @endif
+                    </td>
+                    <td class="col-lg-1" style="white-space: nowrap;">
+                        <a href="{{ route('terms.edit', ['id' => $item->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+                        <form action="{{ route('terms.destroy', ['id' => $item->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this term?')" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn rounded-pill btn-icon btn-danger">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                        <a href="{{ route('terms.show', $item->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    @elseif (Route::currentRouteName() == 'addterm')
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($data as $item)
+                <tr>
+                    <td>{{ $item["id"] }}</td>
+                    <td>{{ $item["title"] }}</td>
+                    <td>{{ $item["description"] }}</td>
+                    {{-- <td>{{ date('d-m-Y', strtotime($item["created_at"])) }}</td> --}}
+                </tr>
+            @endforeach
+        </tbody>
+    @endif
+
 <script>
         $(function() {
             $("#example1").DataTable();

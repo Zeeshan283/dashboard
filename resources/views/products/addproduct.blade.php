@@ -14,7 +14,7 @@
             max-height: 100px;
             margin: 5px;
         }
-        
+
 
     </style>
 @endsection
@@ -25,8 +25,8 @@
 @section('main-content')
 <div class="breadcrumb">
                 <h1>Add Products</h1>
-                
-                
+
+
                 @if (count($errors) > 0)
                     <div class="alert alert-danger d-flex">
                         <ul>
@@ -52,20 +52,20 @@
 
                            <div>
                             <div id="step-1" class="">
-                            
+
                                 {!! Form::open([
                                     'url' => 'products',
                                     'method' => 'POST',
-    
+
                                     'files' => 'true',
                                     'enctype' => 'multipart/form-data',
                                 ]) !!}
-                                
+
                                     <div>
                                         <div class="card-body">
                                             <div class="form-group row">
-                                                
-    
+
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Product Name:</label>
                                                 <div class="col-lg-5">
                                                 {!! Form::text('name', null, [
@@ -99,7 +99,7 @@
                                                         'class' => 'form-control',
                                                         // '' => '',
                                                         'maxlength' => '100',
-                                                    
+
                                                         'placeholder' => 'Enter Model Numner'
                                                     ]) !!}
                                                     @if ($errors->has('model_no'))
@@ -140,7 +140,7 @@
                                                         Please enter Product New Price
                                                     </small> --}}
                                                 </div>
-    
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Sale Price:</label>
                                                 <div class="col-lg-2">
                                                     {!! Form::number('new_sale_price', null, [
@@ -165,7 +165,7 @@
                                                         Please enter Product N.Sale Price
                                                     </small> --}}
                                                 </div>
-    
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Warranty Days:</label>
                                                 <div class="col-lg-2">
                                                     {!! Form::number('new_warranty_days', null, [
@@ -190,7 +190,7 @@
                                                         Please enter Product N.Warranty Days
                                                     </small> --}}
                                                 </div>
-    
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Return Days:</label>
                                                 <div class="col-lg-2">
                                                 {!! Form::number('new_return_days', null, [
@@ -339,8 +339,8 @@
                                                         Please enter Minimum order quantity
                                                     </small> --}}
                                                 </div>
-                                                
-    
+
+
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Make:</label>
                                                 <div class="form-group col-lg-2">
                                                     <div class="form-group">
@@ -354,7 +354,7 @@
                                                             {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
                                                             {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
                                                         @endif
-    
+
                                                         @if ($errors->has('make'))
                                                             <span  style="color: red;"
                                                                 class="invalid-feedback1 font-weight-bold">{{ $errors->first('make') }}</span  style="color: red;">
@@ -386,18 +386,18 @@
                                                         @foreach ($conditions as $value)
                                                             <option value="{{ $value->id }}">{{ $value->name }}</option>
                                                         @endforeach
-                                                        
+
                                                     </select>
                                                     {{-- </div> --}}
                                                 </div>
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Color</label>
                                                     <div class="form-group col-lg-2">
-                                                        
+
                                                     <select id="choices-multiple-remove-button" name="colors[]"
                                                         class="form-control"
                                                         placeholder="Select color"  multiple>
-                                                        
-                                                        
+
+
                                                         @foreach ($colors as $value)
                                                                 <option value="{{$value->id}}">{{$value->name}}</option>
                                                         @endforeach
@@ -418,7 +418,7 @@
                                                                 <option value="{{ $value->id }}" selected>{{ $value->name }}</option>
                                                             @endif
                                                         @endforeach --}}
-                                                        
+
                                                     </select>
 
                                                     {{-- {!! Form::select('colors[]', $colors, null, [
@@ -531,51 +531,51 @@
                                                         Please enter product Weight
                                                     </small>
                                                 </div>
-    
-    
+
+
                                         </div>
                                     </div>
                                     <!-- end card 3 Columns Horizontal Form Layout-->
-                                
+
                                     </div>
                                 </div>
                         </div>
                         </div>
 
-                            
+
                         </div>
                             <div id="step-2" class="">
                                 {{-- <h3 class="border-bottom border-gray pb-2">Step 2 Content</h3> --}}
                                 <div>
-                                                
+
                                                 <div class="col-md-11 mb-4" style="padding-left: 60px">
                                                     <div>
 
                                                         <div class="card-body">
                                                             <h2>Short Description</h2>
                                                             {{-- <p>Enter Product Description 1</p> --}}
-                                                            
+
                                                         {{-- <textarea class="mx-auto col-md-12 	col-12" value={{ $edit->description }}  maxlength="10" name="description" id="summernote"  rows="7"></textarea> --}}
-                                                                
-                                                                
-                                                                                                                                    
+
+
+
                                                                     {!! Form::textarea('description', null, [
                                                                         'id' => 'description1',
                                                                         'class' => 'mx-auto col-md-12 	col-12',
                                                                         'maxlength' => '1000',
                                                                         'rows' => '5',
-                                                                    ]) !!} 
-                                                                    
+                                                                    ]) !!}
+
                                                                     @if ($errors->has('description'))
                                                                         <span   style="color: red;"
                                                                             class="invalid-feedback1 font-weight-bold text-danger">{{ $errors->first('description') }}</span   style="color: red;">
                                                                     @endif
-                                                                
-                                                            
+
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-md-11 mb-4" style="padding-left: 60px">
                                                     <div>
                                                         <div class="card-body">
@@ -584,11 +584,11 @@
                                                             <div class="mx-auto col-md-12">
                                                                 {{-- <div id="snow-editor-2" class="editor-container"> --}}
                                                                     <!-- Content will be generated by Quill -->
-                                                                    
+
                                                                     {!! Form::textarea('details', null, [
                                                                         'id' => 'details',
                                                                         'class' => 'form-control',
-                                                                    
+
                                                                     ]) !!}
                                                                     @if ($errors->has('details'))
                                                                         <span   style="color: red;"
@@ -601,21 +601,21 @@
                                                 </div>
                                 </div>
                             </div>
-                            
+
                             <div id="step-3" class="">
                                 {{-- <div class="custom-separator"></div> --}}
-    
+
                                 <div class="form-group row" style="padding-left: 50px;padding-right:50px">
                                 {{-- <div class="form-group row"> --}}
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Menu:</label>
                                     <div class="form-group col-lg-5">
-                                        
+
                                             <!-- <input type="text" id="menu-input-3" class="form-control" aria-label="Text input with dropdown button"> -->
                                             <!-- <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Menu</button>
                                              <div class="dropdown-menu">
                                                 <p class="dropdown-item" onclick="selectMenu('Super Admin', 'menu-input-3')">Super Admin</p>
                                                 <p class="dropdown-item" onclick="selectMenu('Industry Mall', 'menu-input-3')">Industry Mall</p>
-                                                
+
                                             </div> -->
                                             {!! Form::select('menu_id', $menus, null, [
                                                 'id' => 'menu_id',
@@ -627,7 +627,7 @@
                                                     class="invalid-feedback1 font-weight-bold">{{ $errors->first('menu_id') }}</span   style="color: red;">
                                             @endif
                                         <br>
-                                        
+
                                     </div>
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Category:</label>
                                     <div class="form-group col-lg-5">
@@ -701,14 +701,14 @@
                                         <br>
                                     </div>
 
-                                    
+
 
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Attachment:</label>
                                     <div class="col-lg-5">
-                                    
+
                                     <input type="file" name="attachment" id="attachment"
                                         class="form-control @error('attachment') is-invalid @enderror">
-                                    
+
                                         @error('attachment')
                                         <span   style="color: red;" class="invalid-feedback font-weight-bold">{{ $message }}</span   style="color: red;">
                                     @enderror
@@ -724,27 +724,27 @@
                                                 @else
                                                 <h6>No Feature Image</h6>
                                                 @endif --}}
-                                            
+
                                             </div>
-                                            
+
                                         </div>
-                                        
+
 
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Image:</label>
                                         <div class="col-lg-5">
                                         {{-- <div class="form-group"> --}}
                                         <!-- <label>(1 File Size <= 100kb) (Total File Size 2MB) <span   style="color: red;" style="color: red;">*</span   style="color: red;"></label> -->
-                                
+
                                                 <div class="card-header d-flex justify-content-between" >
-                                                
+
                                                     <input type="file" name="images[]" id="image" class="form-control"
                                                         onchange="image_select()"  multiple style="height: fit-content;">
-                                                    
+
                                                 </div>
                                                 <div  class="card-body d-flex justify-content-start"   id="all_images">
-                                                </div> 
+                                                </div>
                                                 <div class="card-footer d-none" id="images_paths"></div>
-                                                
+
                                                 {{-- <br /> --}}
                                                 {{-- <span   style="color: red;" id="uploaded_image"></span   style="color: red;"> --}}
                                                 {{-- </div> --}}
@@ -756,20 +756,20 @@
                                             </div>
                                 </div>
                             </div>
-                            
+
                             <div id="step-4" class="">
                                 {{-- <h3 class="border-bottom border-gray pb-2">Step 4 Content</h3> --}}
                                 <div class="card o-hidden">
                                     <div class="card-header">Tax Charges</div>
                                         <div class="card-block p-0">
                                         {{-- checking  --}}
-                                            
+
                                                 <div>
                                                     <div class="card-body">
                                                         <div class="form-group row">
                                                             <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">GST%:</label>
                                                             <div class="col-lg-2 ">
-                                                                
+
                                                             {!! Form::number('GST_tax', null, [
                                                                     'id' => 'GST_tax',
                                                                     'class' => 'form-control',
@@ -781,7 +781,7 @@
                                                                     'onDrag' => 'return false',
                                                                     'onDrop' => 'return false',
                                                                     'autocomplete' => 'off',
-                                                                    
+
                                                                 ]) !!}
                                                                 @if ($errors->has('GST_tax'))
                                                                     <span   style="color: red;"
@@ -857,15 +857,15 @@
                                                                         Please Enter Other% Charges for product
                                                                     </small>
                                                             </div>
-                
-                
+
+
                                                     </div>
                                                 </div>
                                                 <!-- end card 3 Columns Horizontal Form Layout-->
-                                            
+
                                         </div>
-                                    
-                                    
+
+
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="card">
                                                 <div class="card-footer">
@@ -874,7 +874,7 @@
                                             </div>
                                         </div>
                                                 <!-- end card 3 Columns Horizontal Form Layout-->
-                                                
+
                                         </div>
                                 </div>
                                 </div>
@@ -882,12 +882,12 @@
                         </div>
                     </div>
                 </div>
-                
-                {!! Form::close() !!}  
+
+                {!! Form::close() !!}
 
             </div>
 
-            
+
 
 
 
@@ -948,7 +948,7 @@
         });
         // End Here
 
-        // Change Categories 
+        // Change Categories
 
         $('#category_id').change(function() {
             var cat_id = $(this).val();
@@ -987,7 +987,7 @@
     {{-- {!! Toastr::message() !!} --}}
 
 
-    {{-- <script> 
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function () {
             const editorContainers = document.querySelectorAll('.editor-container');
 
@@ -1026,7 +1026,7 @@
 <!-- include TinyMceEditor js -->
 <script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 {{-- <script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> --}}
-    
+
     <script>
         tinymce.init({
         selector: "textarea#description",

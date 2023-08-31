@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TermsConditions;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Session;
 
 class TermsConditionsController extends Controller
@@ -15,13 +16,13 @@ class TermsConditionsController extends Controller
 
     public function index()
     {
-        $data = TermsConditions::OrderBy('id')->get();
-        return view('terms-conditions.index', compact('data'));
+        $data = TermsConditions::orderBy('id')->get();
+        return view('terms.allterm', compact('data'));
     }
 
     public function create()
     {
-        return view('terms-conditions.create');
+        return view('terms.addterm');
     }
 
     public function store(Request $request)
@@ -32,19 +33,16 @@ class TermsConditionsController extends Controller
         ]);
         TermsConditions::create($request->all());
 
-        Session::flash('flash_message', 'Terms Added Successfully!');
+        // Session::flash('flash_message', 'Terms Added Successfully!');
+        // return redirect()->route('allterm');
+        Toastr::success('Terms Added Successfully!');
         return redirect()->back();
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit($id)
     {
         $edit = TermsConditions::findOrFail($id);
-        return view('terms-conditions.edit', compact('edit'));
+        return view('terms.edit', compact('edit'));
     }
 
     public function update(Request $request, $id)
@@ -56,15 +54,29 @@ class TermsConditionsController extends Controller
         $edit = TermsConditions::findOrFail($id);
         $edit->update($request->all());
 
-        Session::flash('flash_message', 'Terms Updated Successfully!');
-        return redirect('/our-terms-conditions');
+        // Session::flash('flash_message', 'Terms Updated Successfully!');
+        // return redirect()->route('allterm');
+        Toastr::success('Term Updated Successfully!');
+        return redirect('allterm');
     }
+
+    public function show($id)
+    {
+        $item = TermsConditions::find($id);
+
+        if (!$item) {
+            return redirect()->back()->with('error', 'Term not found.');
+        }
+
+        return view('terms.show', compact('item'));
+    }
+
 
     public function destroy($id)
     {
         TermsConditions::findOrFail($id)->delete();
 
         Session::flash('flash_message', 'Terms Deleted Successfully!');
-        return redirect()->back();
+        return redirect()->route('allterm');
     }
 }

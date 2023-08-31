@@ -1,3 +1,4 @@
+
 <ul class="navigation-left">
     <li class="nav-item {{ request()->is('dashboard/*') ? 'active' : '' }}">
         <a class="nav-item-hold" href="{{ route('admin') }}">
@@ -81,6 +82,14 @@
     <a class="nav-item-hold" href="/test.html">
         <i class="nav-icon i-Find-User"></i>
         <span class="nav-text">Users</span>
+    </a>
+    <div class="triangle"></div>
+</li>
+
+<li class="nav-item {{ request()->is('terms/*') ? 'active' : '' }}" data-item="terms">
+    <a class="nav-item-hold" href="/test.html">
+        <i class="nav-icon i-Windows-2"></i>
+        <span class="nav-text">Terms</span>
     </a>
     <div class="triangle"></div>
 </li>

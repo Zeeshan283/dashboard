@@ -33,7 +33,7 @@ class CategoryController extends Controller
 
   public function store(Request $request)
   {
-    // dd($request->all());
+ //dd($request->all());
     //return $request;
     $this->validate($request, [
       'name' => 'required',
@@ -41,6 +41,7 @@ class CategoryController extends Controller
       'commission' => 'required',
       'img'=>'mimes:png,jpg,jpeg',
       'imageforapp'=>'mimes:png,jpg,jpeg',
+    //   'menu' => 'required',
     ], [
       'menu_id.required' => 'The menu field is required'
     ]);
@@ -49,29 +50,31 @@ class CategoryController extends Controller
     if ($request->hasFile('img')) {
       $file = $request->file('img');
       $fileName = uniqid() . $file->getClientOriginalName();
-      $imagePath =  'upload/category/' . $fileName;
+      $imagePath =  'root/upload/category/' . $fileName;
 
       $img = Image::make($file);
       $img->resize(100, 100);
       $img->save($imagePath);
 
-      $cat->img = 'upload/category/'.$fileName;
+      $cat->img = 'root/upload/category/'.$fileName;
       $cat->save();
   }
     if ($request->hasFile('imageforapp')) {
       $file = $request->file('imageforapp');
       $fileName = uniqid() . $file->getClientOriginalName();
-      $imagePath =  'upload/category/' . $fileName;
+      $imagePath =  'root/upload/category/' . $fileName;
 
       $img = Image::make($file);
       $img->resize(100, 100);
       $img->save($imagePath);
 
-      $cat->imageforapp ='upload/category/'.$fileName;
+      $cat->imageforapp ='root/upload/category/'.$fileName;
       $cat->save();
   }
 
-    return redirect()->back()->with(Toastr::success('Category Added Successfully!'));
+    // return redirect()->back()->with(Toastr::success('Category Added Successfully!'));
+    Toastr::success('Category created successfully', 'Success');
+    return redirect()->back();
   }
 
   public function show($id)
@@ -82,9 +85,10 @@ class CategoryController extends Controller
 
   public function edit($id)
   {
-    $edit = Category::findOrFail($id);
-    $menu = Menu::OrderBy('id', 'asc')->pluck('name', 'id');
-    return view('categories.edit', compact('edit', 'menu'));
+      $edit = Category::findOrFail($id);
+      $menus = Menu::orderBy('id', 'asc')->get();
+      $categories = Category::orderBy('id', 'asc')->pluck('name', 'id');
+      return view('category.editcat', compact('edit', 'categories', 'menus'));
   }
 
   public function update(Request $request, $id)
@@ -95,6 +99,7 @@ class CategoryController extends Controller
       'commission' => 'required',
       'img'=>'mimes:png,jpg,jpeg',
       'imageforapp'=>'mimes:png,jpg,jpeg',
+    //   'menu' => 'required',
     ], [
       'menu_id.required' => 'The menu field is required'
     ]);
@@ -105,29 +110,30 @@ class CategoryController extends Controller
 
 
     if ($request->hasFile('img')) {
-      File::delete($update1->img);
-      $file = $request->file('img');
-      $fileName = uniqid() . $file->getClientOriginalName();
-      $imagePath =  'upload/category/' . $fileName;
+        File::delete($update1->img);
+        $file = $request->file('img');
+        $fileName = uniqid() . $file->getClientOriginalName();
+        $imagePath = public_path('root/upload/category/' . $fileName);
 
-      $img = Image::make($file);
-      $img->resize(100, 100);
-      $img->save($imagePath);
+        $img = Image::make($file);
+        $img->resize(100, 100);
+        $img->save($imagePath);
 
-      $update->img = 'upload/category/'.$fileName;
-      $update->save();
-  }
+        $update->img = 'root/upload/category/'.$fileName;
+        $update->save();
+    }
+
     if ($request->hasFile('imageforapp')) {
       File::delete($update1->imageforapp);
       $file = $request->file('imageforapp');
       $fileName = uniqid() . $file->getClientOriginalName();
-      $imagePath =  'upload/category/' . $fileName;
+      $imagePath =  'root/upload/category/' . $fileName;
 
       $img = Image::make($file);
       $img->resize(100, 100);
       $img->save($imagePath);
 
-      $update->imageforapp ='upload/category/'.$fileName;
+      $update->imageforapp ='root/upload/category/'.$fileName;
       $update->save();
   }
 
@@ -137,7 +143,7 @@ class CategoryController extends Controller
 
       $imageName = $request->file('img')->getClientOriginalName();
       $request->file('img')->move(
-        base_path() . '/upload/category/',
+        base_path() . 'root/upload/category/',
         $imageName
       );
 
@@ -149,15 +155,15 @@ class CategoryController extends Controller
 
       $imageName = $request->file('imageforapp')->getClientOriginalName();
       $request->file('imageforapp')->move(
-        base_path() . '/upload/category/',
+        base_path() . 'root/upload/category/',
         $imageName
       );
 
-      $update->img ='upload/category/'.$imageName;
+      $update->img ='root/upload/category/'.$imageName;
       $update->save();
     }
-
-    return redirect('categories')->with(Toastr::success('Category Updated Successfully!'));
+    Toastr::success('Category created successfully', 'Success');
+    return redirect()->back();
   }
 
   public function destroy($id)
@@ -166,6 +172,7 @@ class CategoryController extends Controller
     File::delete($delete->img);
     File::delete($delete->imageforapp);
     $delete->delete();
-    return redirect()->back()->with(Toastr::success('Category Deleted Successfully!'));
+    Toastr::success('Category deleted successfully', 'Success');
+    return redirect()->back();
   }
 }

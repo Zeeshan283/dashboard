@@ -331,6 +331,15 @@
                 </a>
             </li> --}}
         </ul>
+         <ul class="childNav" data-parent="terms">
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'allterm' ? 'open' : '' }}"
+                    href="{{ route('allterm') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Terms & Conditions</span>
+                </a>
+            </li>
+        </ul>
     </div>
 
 
