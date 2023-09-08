@@ -13,6 +13,7 @@ use App\Http\Controllers\RefundController;
 use App\Http\Controllers\VendorsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
@@ -240,13 +241,15 @@ Route::resource('coupon', CouponController::class);
 
 Route::resource('purchase', PurchaseController::class);
 Route::get('purchase/{id}/destroy', [PurchaseController::class, 'destroy']);
+Route::get('purchase/history', [PurchaseController::class, 'history'])->name('purchaseHistory');
 Route::get('purchase/{id}/edit', [PurchaseController::class, 'edit']);
-
 Route::get('/purchase/create', [PurchaseController::class, 'create'])->name('purchase.create');
 Route::get('/get-product-name/{sku}', [PurchaseController::class, 'getProductName']);
+Route::get('/purchase/invoice/{purchaseId}', [PurchaseController::class,'invoice'])->name('purchase.invoice');
+Route::get('/purchase/bill/{purchaseId}', [PurchaseController::class,'bill'])->name('purchase.bill');
 
 
-
+Route::resource('supplier',SupplierController::class);
 // Route::get('/get-product-name/{sku}', [PurchaseController::class,'getProductName'])->name('get.product.name');
 // Route::get('coupon/all',[CouponController::class, 'all'])->name('couponall');
 

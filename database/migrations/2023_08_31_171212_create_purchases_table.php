@@ -12,6 +12,7 @@ class CreatePurchasesTable extends Migration
             $table->id();
             $table->date('date');
             $table->unsignedBigInteger('bill_number');
+            $table->unsignedBigInteger('supplier');
             $table->unsignedBigInteger('user_id'); // New field for user ID
             $table->unsignedBigInteger('product_id');
             $table->string('selected_product_model');
@@ -21,6 +22,7 @@ class CreatePurchasesTable extends Migration
             $table->timestamps();
     
             // Foreign key relationship with products table
+            $table->foreign('supplier')->references('id')->on('supplier'); // Assuming 'sku' is the column name in the products table
             $table->foreign('product_id')->references('id')->on('products'); // Assuming 'sku' is the column name in the products table
             $table->foreign('user_id')->references('id')->on('users'); // Assuming your users table has 'id' as primary key
         });

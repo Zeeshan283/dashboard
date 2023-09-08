@@ -12,6 +12,7 @@ class Purchase extends Model
     protected $fillable = [
         'date',
         'bill_number',
+        'supplier',
         'user_id',
         'product_sku',
         'selected_product_model',
@@ -28,6 +29,15 @@ class Purchase extends Model
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+    public function purchaseHistory()
+    {
+        return $this->hasMany(PurchaseHistory::class, 'purchase_id');
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class,'supplier');
     }
 
         

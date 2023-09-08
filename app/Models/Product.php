@@ -91,4 +91,8 @@ class Product extends Model
     {
         return $this->hasMany(ProductColors::class, 'pro_id')->with('colors');
     }
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class, 'product_id');
+    }
 }

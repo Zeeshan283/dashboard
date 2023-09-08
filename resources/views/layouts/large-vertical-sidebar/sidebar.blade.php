@@ -47,11 +47,30 @@
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'users.index' ? 'open' : '' }}"
-                    href="{{ route('purchase.index')}}">
+                    href="{{ route('supplier.index')}}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                    <span class="item-name">All Purchases </span>
+                    <span class="item-name">Add Supplier</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'users.index' ? 'open' : '' }}"
+                    href="{{ route('purchase.index')}}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Stock </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'users.index' ? 'open' : '' }}"
+                    href="{{ route('purchaseHistory')}}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Purchase History</span>
+                </a>
+            </li>
+
+            
+
         </ul>
         <ul class="childNav" data-parent="forms">
             <li class="nav-item">
@@ -315,11 +334,11 @@
                     <span class="item-name">Add Purchase</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item">   
                 <a class="{{ Route::currentRouteName() == 'pricing-table' ? 'open' : '' }}"
                     href="#) }}">
                     <i class="nav-icon i-Gears"></i>
-                    <span class="item-name">All Purchases
+                    <span class="item-name">Stock
                         {{-- <span class="ms-2 badge badge-pill text-bg-danger">New</span></span> --}}
                 </a>
             </li>

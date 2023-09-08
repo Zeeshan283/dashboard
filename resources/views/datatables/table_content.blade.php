@@ -1021,14 +1021,14 @@
         </tr>
         @endforeach
     </tbody>
-    {{-- <tfoot>
+    <tfoot>
     <tr>
         <th>Sr No</th>
         <th>Id#</th>
         <th>Name</th>
         <th>Icon</th>
     </tr>
-    </tfoot> --}}
+    </tfoot>
     @elseif (Route::currentRouteName() == 'addmenu' )
     <thead>
         <th>Sr No</th>
@@ -1146,6 +1146,8 @@
     <th>Coupon Type</th>
     <th>Coupon Title</th>
     <th>Coupon Code</th>
+    <th>Product</th>
+    <th>Minimum Purchase</th>
     <th>Limit for Same User</th>
     <th>Start Date</th>
     <th>End Date</th>
@@ -1168,6 +1170,7 @@
         </td>
         <td>{{ $item->coupon_title}}</td>
         <td>{{ $item->coupon_code}}</td>
+        {{-- <td>{{ $item->product->name}}</td> --}}
         <td>{{ $item->limit_same_user}}</td>
         <td>{{ $item->start_date}}</td>
         <td>{{ $item->end_date}}</td>
@@ -1180,9 +1183,171 @@
     <th>Coupon Type</th>
     <th>Coupon Title</th>
     <th>Coupon Code</th>
+    <th>Product</th>
+    <th>Minimum Purchase</th>
     <th>Limit for Same User</th>
     <th>Start Date</th>
     <th>End Date</th>
+</tr>
+</tfoot>
+
+
+
+{{-- All Purchases  --}}
+
+@elseif (Route::currentRouteName() == 'purchase.index' )
+<thead>
+    <th>Sr No</th>
+    {{-- <th>Date</th> --}}
+    <th>Purchase Id</th>
+    {{-- <th>Bill Number</th> --}}
+    <th>Product Name</th>
+    <th>Model No</th>
+    <th>SKU</th>
+    <th>Quantity( In Stock )</th>
+    <th>Action</th>
+</thead>
+<tbody>
+    @foreach ($purchases as $key => $purchase)
+        <tr>
+        <td>{{ $key + 1 }}</td>
+            {{-- <td>{{ $purchase->date}}</td> --}}
+            <td>{{ $purchase->id}}</td>
+            {{-- <td>{{ $purchase->bill_number}}</td> --}}
+            <td>{{ $purchase->product->name}}</td>
+            <td>{{ $purchase->product->model_no}}</td>
+            <td>{{ $purchase->product->sku}}</td>
+            <td>{{ $purchase->quantity}}</td>
+            <td class="col-lg-1" style="white-space: nowrap;">
+                <a href="{{ route('purchaseHistory')}}"><button type="button" class="btn btn-info">
+                    <i class="nav-icon i-Calendar "></i>
+                </button></a>
+                <button type="button" class="btn btn-info">
+                    <i class="nav-icon i-Eye "></i>
+                </button>
+                <a href="{{ route('purchase.edit', ['purchase' => $purchase->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                <form action="{{ route('purchase.destroy', ['purchase' => $purchase->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this menu item?')" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn rounded-pill btn-icon btn-danger">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </form>
+                
+            </td>
+            
+        </tr>
+    @endforeach
+
+</tbody>
+<tfoot>
+<tr>
+    <th>Sr No</th>
+    {{-- <th>Date</th> --}}
+    {{-- <th>Bill No#</th> --}}
+    <th>Purchase Id</th>
+    <th>Product Name</th>
+    <th>Model No</th>
+    <th>SKU</th>
+    <th>Quantity( In Stock )</th>
+    <th>Action</th>
+</tr>
+</tfoot>
+
+
+@elseif (Route::currentRouteName() == 'purchase.show' )
+<thead>
+    <th>Sr No</th>
+    <th>Date</th>
+    <th>Purchase Id</th>
+    <th>Bill No</th>
+    {{-- <th>Added By</th> --}}
+    <th>Product Name</th>
+    <th>SKU</th>
+    <th>Quantity(Stock)</th>
+    <th>Cost</th>
+    <th>Total</th>
+    <th>Action</th>
+</thead>
+<tbody>
+    {{-- {{$histories}} --}}
+    @foreach ($histories as $key => $history)
+        <tr>
+            <td>{{ $key + 1 }}</td>
+            <td>{{ $history->date}}</td>
+            <td>{{ $history->purchase_id}}</td>
+            <td>{{ $history->bill_number}}</td>
+            {{-- <td>{{ $history->user->name}}</td> --}}
+            <td>{{ $history->product->name}}</td>
+            <td>{{ $history->product->sku}}</td>
+            <td>{{ $history->quantity}}</td>
+            <td>{{ $history->cost}}</td>
+            <td>{{ $history->total}}</td>
+            <td>
+                <button type="button" class="btn btn-info">
+                    <i class="nav-icon i-Eye "></i>
+                </button>
+                {{-- <a href="{{ route('history.edit', ['history' => $purchase->id]) }}" class="btn rounded-pill btn-icon btn-primary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a> --}}
+                <a href="{{ route('purchase.bill', ['purchaseId' => $history->bill_number]) }}" class="btn btn-danger">View Bill</a>
+                <a href="{{ route('purchase.invoice', ['purchaseId' => $history->purchase_id]) }}" class="btn btn-primary">Total Puchase</a>
+
+            </td>
+        </tr>
+    @endforeach
+
+</tbody>
+<tfoot>
+<tr>
+    <th>Sr No</th>
+    <th>Date</th>
+    <th>Purchase Id</th>
+    <th>Bill No</th>
+    {{-- <th>Added By</th> --}}
+    <th>Product Name</th>
+    <th>SKU</th>
+    <th>Quantity(Stock)</th>
+    <th>Cost</th>
+    <th>Total</th>
+    <th>Action</th>
+</tr>
+</tfoot>
+
+
+
+@elseif (Route::currentRouteName() == 'supplier.index' )
+<thead>
+    <th>Sr No</th>
+    <th>Name</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>Website </th>
+    <th>Address</th>
+</thead>
+<tbody>
+    @foreach ($suppliers as $key => $supplier)
+        <tr>
+            <td>{{ $key + 1 }}</td>
+            <td>{{ $supplier->name}}</td>
+            <td>{{ $supplier->phone}}</td>
+            <td>{{ $supplier->email}}</td>
+            <td>{{ $supplier->website}}</td>
+            <td>{{ $supplier->address}}</td>
+        </tr>
+    @endforeach 
+
+</tbody>
+<tfoot>
+<tr>
+    <th>Sr No</th>
+    <th>Name</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>Website </th>
+    <th>Address</th>
 </tr>
 </tfoot>
 

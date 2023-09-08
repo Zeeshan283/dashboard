@@ -29,7 +29,7 @@ public function adduser(Request $request)
         $user->phone = $request->input('phone');
         $user->country = $request->input('country');
         $user->city = $request->input('city');
-        $user->addres = $request->input('addres'); // Fix the spelling of 'addres'
+        $user->addres = $request->input('addres'); // 
         $user->password = Hash::make($request->input('password'));
         $user->gender = $request->input('gender');
         $user->save();
