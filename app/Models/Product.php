@@ -13,6 +13,8 @@ class Product extends Model
         'brand_id', 'menu_id', 'category_id', 'subcategory_id', 'model_no', 'make', 'type', 'slug',
         'parent_id', 'refurnished_price', 'refurnished_sale_price', 'refurnished_warranty_days', 'refurnished_return_days',
         'attachment', 'width', 'height', 'depth', 'weight', 'min_order', 'status', 'created_by', 'updated_by','GST_tax','VAT_tax', 'FED_tax', 'Other_tax','url' , 'feature_image'
+        ,'weight_unit','weight','m_unit','width','height',
+        'depth','min_ref_order',
     ];
 
     public function menu()
@@ -89,6 +91,6 @@ class Product extends Model
     }
     public function colors()
     {
-        return $this->hasMany(ProductColors::class, 'pro_id')->with('colors');
+        return $this->hasMany(ProductColors::class, 'pro_id')->with('color');
     }
 }

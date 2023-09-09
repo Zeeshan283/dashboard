@@ -218,7 +218,7 @@
         </ul>
         <ul class="childNav" data-parent="uikits">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}" href="{{ route('allorders') }}">
+                <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}" href="{{ route('allorders.index') }}">
                     <i class="nav-icon i-Folder-Archive"></i>
                     <span class="item-name">ALL</span>
                 </a>

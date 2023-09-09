@@ -34,8 +34,8 @@ class MenuController extends Controller
     $this->validate($request, [
         'name' => 'required',
         'icon' => 'required',
-        'image' => 'required|mimes:png,jpg,jpeg',
-        'imageforapp' => 'required|mimes:png,jpg,jpeg'
+        'image' => 'mimes:png,jpg,jpeg',
+        'imageforapp' => 'mimes:png,jpg,jpeg'
     ]);
 
     $menu = Menu::create($request->all());

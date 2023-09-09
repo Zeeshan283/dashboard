@@ -2,14 +2,13 @@
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
 @endsection
-
 @section('main-content')
     <div class="breadcrumb col-lg-12">
              <div class="col-md-6">
                 <h1>All Menu</h1>
             </div>
             <div class="col-md-6" style="text-align: right;  margin-left: auto;">
-                <a href="{{ route('menu.create')}}"><button class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Create Menu</span></button></a>
+                <a href="{{ route('addmenu')}}"><button class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Menu</span></button></a>
 
             </div>
             </div>

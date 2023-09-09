@@ -121,7 +121,7 @@ Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('u
 // product reviews
 // Routes accessible only by vendors
 Route::middleware(['vendorOnly'])->group(function () {
-    Route::get('/dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
+    Route::get('/dashboard', [VendorsController::class, 'dashboard'])->name('vendor.dashboard');
     Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductsController::class, 'store'])->name('products.store');
 });
@@ -177,8 +177,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 
-
-
     Route::resource('products', ProductController::class); 
     Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
     Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
@@ -188,7 +186,8 @@ Auth::routes();
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
 // orders using controller
-Route::get('allorders', [OrderController::class,'index'])->name('allorders');
+Route::resource('allorders', OrderController::class);
+// Route::get('allorders', [OrderController::class,'index'])->name('allorders');
 Route::get('pendingorders', [OrderController::class,'showOrders'])->name('pendingorders');
 Route::get('confirmedorders', [OrderController::class,'showOrders'])->name('confirmedorders');
 Route::get('packagingorders', [OrderController::class,'showOrders'])->name('packagingorders');
@@ -244,4 +243,5 @@ Route::resource('coupon', CouponController::class);
 // Route::resource('coupon',CouponController::class);
 
 
-
+Route::get('test', [ProductController::class, 'test'])->name('test');
+Route::post('testupload', [ProductController::class, 'testupload'])->name('testupload');
