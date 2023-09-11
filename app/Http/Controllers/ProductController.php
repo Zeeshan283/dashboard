@@ -559,7 +559,9 @@ class ProductController extends Controller
                 $p->save();
             }
 
-            return redirect()->back()->with(Toastr::success('Product Duplicated Successfully!'));
+            Toastr::success('Product Duplicated Successfully!', 'Success');
+            return redirect()->back();
+            // return redirect()->back()->with(Toastr::success('Product Duplicated Successfully!','success'));
         
     }
 

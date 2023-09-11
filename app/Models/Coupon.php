@@ -22,5 +22,6 @@ class Coupon extends Model
         'limit_same_user',
         'store',
         'product_id',
+        'stauts',
     ];
 }

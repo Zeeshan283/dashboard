@@ -27,6 +27,7 @@ return new class extends Migration
             $table->decimal('percentage', 5, 2)->nullable();
             $table->integer('limit_same_user')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
+            $table->string('status')->nullable();
             $table->unsignedBigInteger('store')->nullable();
             $table->timestamps();
 

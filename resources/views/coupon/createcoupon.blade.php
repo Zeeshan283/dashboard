@@ -76,6 +76,8 @@
                                                 </small>
                                             </div>
                                            
+                                            
+                                           
                                             <div class="form-group col-md-4">
                                                 <label for="commonField" class="ul-form__label">Start Date:</label>
                                                 <input type="date" class="form-control" id="commonField" name="start_date" placeholder="Start Date">
@@ -236,6 +238,9 @@
 
                                     </div>
 
+                                    <div class="form-group col-md-4">
+                                        <input type="text" class="form-control" id="commonField" name="status" value="Active" hidden>
+                                    </div>
                                     <div class="card-footer">
                                         <div class="mc-footer">
                                             <div class="row">

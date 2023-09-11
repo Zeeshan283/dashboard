@@ -103,7 +103,6 @@ Route::view('refundrejected', 'refund.refundrejected')->name('refundrejected');
 
 // Customer
 
-Route::view('cwallet', 'customer.cwallet')->name('cwallet');
 
 
 // Users
@@ -121,14 +120,20 @@ Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('u
 // Routes accessible only by vendors
 Route::middleware(['vendorOnly'])->group(function () {
     Route::get('/dashboard', [VendorsController::class, 'dashboard'])->name('vendor.dashboard');
-    Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create');
-    Route::post('/products', [ProductsController::class, 'store'])->name('products.store');
+    Route::resource('products', ProductController::class);
+    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
+    Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+    Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
+    Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+
 });
 
 // Other routes accessible to all users
 Route::view('customerqueries', 'products.customerqueries')->name('customerqueries');
 Route::view('productinfo', 'products.productinfo')->name('productinfo');
 Route::view('productreviews', 'products.productreviews')->name('productreviews');
+// Route::view('cwallet', 'customer.cwallet')->name('cwallet');
+Route::get('cwallet',[CustomerController::class,'cwallet'])->name('cwallet');
 
 
 
@@ -161,17 +166,19 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 
-    Route::resource('products', ProductController::class); 
-    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
-    Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
-    Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
-    Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+
+
+Route::resource('products', ProductController::class);
+Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
+Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
+Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+
 
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
 // orders using controller
-Route::resource('allorders', OrderController::class);
-// Route::get('allorders', [OrderController::class,'index'])->name('allorders');
+Route::get('allorders', [OrderController::class,'index'])->name('allorders');
 Route::get('pendingorders', [OrderController::class,'showOrders'])->name('pendingorders');
 Route::get('confirmedorders', [OrderController::class,'showOrders'])->name('confirmedorders');
 Route::get('packagingorders', [OrderController::class,'showOrders'])->name('packagingorders');
@@ -187,6 +194,7 @@ Route::get('/',[HomeController::class, 'index'])->name('admin');
 
 // customer controller route
 Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
+
 
 // Sub-Category controller route
 Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
@@ -251,14 +259,26 @@ Route::post('/allrefunds', [RefundController::class, 'update']) ->name('refund.u
 Route::resource('vendor', VendorsController::class);
 Route::post('vendor', [VendorsController::class, 'store'])->name('vendor.store');
 
-Route::resource('/vendor', VendorsController::class);
 
 // add user role
 
 Route::resource('users', RoleController::class);
 Route::resource('coupon', CouponController::class);
-Route::post('/update-coupon-status', 'CouponController@updateStatus');
+Route::post('/toggle-coupon-status',[CouponController::class,'toggleStatus']);
+Route::get('coupon/{id}/destroy', [PurchaseController::class, 'destroy']);
 
 
-Route::get('test', [ProductController::class, 'test'])->name('test');
-Route::post('testupload', [ProductController::class, 'testupload'])->name('testupload');
+Route::resource('purchase', PurchaseController::class);
+Route::get('purchase/{id}/destroy', [PurchaseController::class, 'destroy']);
+Route::get('purchase/history', [PurchaseController::class, 'history'])->name('purchaseHistory');
+Route::get('purchase/{id}/edit', [PurchaseController::class, 'edit']);
+Route::get('/purchase/create', [PurchaseController::class, 'create'])->name('purchase.create');
+Route::get('/get-product-name/{sku}', [PurchaseController::class, 'getProductName']);
+Route::get('/purchase/invoice/{purchaseId}', [PurchaseController::class,'invoice'])->name('purchase.invoice');
+Route::get('/purchase/bill/{purchaseId}', [PurchaseController::class,'bill'])->name('purchase.bill');
+
+
+Route::resource('supplier',SupplierController::class);
+// Route::get('/get-product-name/{sku}', [PurchaseController::class,'getProductName'])->name('get.product.name');
+// Route::get('coupon/all',[CouponController::class, 'all'])->name('couponall');
+

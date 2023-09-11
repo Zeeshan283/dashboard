@@ -831,7 +831,7 @@
 
 
     {{-- product info  --}}
-@elseif (Route::currentRouteName() == 'products.index' )
+@elseif (Route::currentRouteName() == 'allproducts' )
     <thead>
         <th>Sr No</th>
         <th>Name</th>
@@ -999,6 +999,55 @@
     </tr>
     </tfoot>
 
+
+@elseif (Route::currentRouteName() == 'cwallet' )
+<thead>
+    <th>Sr No</th>
+    <th>Transcation Id</th>
+    <th>Customer</th>
+    <th>Credit</th>
+    <th>Debit </th>
+    <th>Balance</th>
+    <th>Transcation type</th>
+    <th>Reference</th>
+</thead>
+<tbody>
+    <tr>
+        <td>Sr No</td>
+        <td>2343</td>
+        <td>Ali</td>
+        <td>27</td>
+        <td>32</td>
+        <td>123</td>
+        <td>Order place</td>
+        <td>order payment</td>
+    </tr>
+    <tr>
+        <td>Sr No</td>
+        <td>2343</td>
+        <td>Waqas</td>
+        <td>234</td>
+        <td>645</td>
+        <td>164</td>
+        <td>Order place</td>
+        <td>order payment</td>
+    </tr>
+</tbody>
+<tfoot>
+<tr>
+    <th>Sr No</th>
+    <th>Transcation Id</th>
+    <th>Customer</th>
+    <th>Credit</th>
+    <th>Debit </th>
+    <th>Balance</th>
+    <th>Transcation type</th>
+    <th>Reference</th>
+</tr>
+</tfoot>
+
+
+
 @elseif (Route::currentRouteName() == 'allmenu' )
     <thead>
         <th>Sr No</th>
@@ -1105,7 +1154,7 @@
 
 @elseif (Route::currentRouteName() == 'allsubcat' )
 <thead>
-    <tr>    
+
         <th>Sr</th>
         <th>Name</th>
         <th>Category</th>
@@ -1137,7 +1186,7 @@
         </tr>
         @endforeach
     </tbody>
-    {{-- <tfoot>
+     <tfoot>
     <tr>
         <th>Sr No</th>
         <th>Id#</th>
@@ -1148,6 +1197,7 @@
     </tr>
 
     </tfoot>
+
 @elseif (Route::currentRouteName() == 'coupon.index' )
 <thead>
     <th>Sr No</th>
@@ -1161,11 +1211,12 @@
     <th>Amount</th>
     <th>Percentage</th>
     <th>Duration</th>
-    <th>Action</th>
+    <th>Status</th>
+    <th>Actions</th>
 </thead>
 <tbody>
+    
 @foreach ($coupons as $key => $item)
-
     <tr>
         <td>{{ $key + 1 }}</td>
         <td>
@@ -1187,16 +1238,29 @@
         <td>{{ $item->limit_same_user ?: 'Nill'}}</td>
         <td>{{ $item->amount ?: 'Nill'}}</td>
         <td>{{ $item->percentage ?: 'Nill'}}</td>
-        <td>{{ $item->start_date}} : {{ $item->end_date}}</td>\
-
+        <td>{{ $item->start_date}} : {{ $item->end_date}}</td>
         <td>
+            <form id="toggle-form" method="POST" action="/toggle-coupon-status">
+                @csrf
+                <input type="hidden" name="coupon_id" value="{{ $item->id }}">
+                <input type="hidden" name="status" value="{{ $item->status }}">
+            </form>
+            
             <label class="switch">
-                <input type="checkbox" class="coupon-status-toggle" data-coupon-id="{{ $item->id }}" {{ $item->stauts ? 'checked' : '' }}>
+                <input type="checkbox" class="coupon-status-toggle" data-coupon-id="{{ $item->id }}" {{ $item->status === 'active' ? 'checked' : ''  }}>
                 <span class="slider round"></span>
             </label>
         </td>
+        <td>
+            <form action="{{ route('coupon.destroy', ['coupon' => $item->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this menu item?')" style="display: inline;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn rounded-pill btn-icon btn-danger">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </form>
+        </td>
 
-        
     </tr>   
 @endforeach
 </tbody>
@@ -1213,7 +1277,8 @@
     <th>Amount</th>
     <th>Percentage</th>
     <th>Duration</th>
-    <th>Action</th>
+    <th>Status</th>
+    <th>Actions</th>
 </tr>
 </tfoot>
 
@@ -1315,9 +1380,6 @@
                 <button type="button" class="btn btn-info">
                     <i class="nav-icon i-Eye "></i>
                 </button>
-                {{-- <a href="{{ route('history.edit', ['history' => $purchase->id]) }}" class="btn rounded-pill btn-icon btn-primary">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                </a> --}}
                 <a href="{{ route('purchase.bill', ['purchaseId' => $history->bill_number]) }}" class="btn btn-danger">View Bill</a>
                 <a href="{{ route('purchase.invoice', ['purchaseId' => $history->purchase_id]) }}" class="btn btn-primary">Total Puchase</a>
 
@@ -1469,28 +1531,29 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('.coupon-status-toggle').on('change', function() {
-            const couponId = $(this).data('coupon-id');
-            const isActive = this.checked ? 1 : 0; // 1 for active, 0 for inactive
+   $(document).ready(function() {
+    $('.coupon-status-toggle').change(function() {
+        var isChecked = $(this).is(':checked');
+        var statusInput = $('#toggle-form input[name="status"]');
+        var couponId = $('#toggle-form input[name="coupon_id"]').val();
 
-            // Send an AJAX request to update the coupon status
-            $.ajax({
-                type: 'POST',
-                url: '/update-coupon-status', // Replace with your update route
-                data: {
-                    coupon_id: couponId,
-                    is_active: isActive,
-                },
-                success: function(response) {
-                    // Handle success (e.g., show a message)
-                    console.log('Coupon status updated successfully.');
-                },
-                error: function(error) {
-                    // Handle error (e.g., show an error message)
-                    console.error('Error updating coupon status.');
-                },
-            });
+        if (isChecked) {
+            statusInput.val('active');
+        } else {
+            statusInput.val('inactive');
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/toggle-coupon-status',
+            data: $('#toggle-form').serialize(), // Serialize the form data
+            success: function(response) {
+                alert(response.message); // Show a success message
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText); // Handle errors
+            }
         });
     });
+});
 </script>

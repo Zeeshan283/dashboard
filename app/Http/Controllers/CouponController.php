@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Coupon;
+use Brian2694\Toastr\Facades\Toastr;
 
 use Illuminate\Http\Request;
 
@@ -44,6 +45,7 @@ class CouponController extends Controller
             'limit_same_user' => $request->input('limit_same_user'),
             'store'=> $request->input('store'),
             'product_id' => $request->input('product_id'),
+            'status' => $request->input('status'),
         ]);
         
         // Save the coupon
@@ -53,22 +55,43 @@ class CouponController extends Controller
     }
 
 
-    public function updateStatus(Request $request)
-{
-    $couponId = $request->input('coupon_id');
-    $isActive = $request->input('is_active');
 
-    // Update the coupon status in your database
-    $coupon = Coupon::find($couponId);
-    if ($coupon) {
-        $coupon->is_active = $isActive;
-        $coupon->save();
 
-        return response()->json(['message' => 'Coupon status updated successfully']);
+    public function toggleStatus(Request $request)
+    {
+        $requestData = $request->all();
+        $couponModel = Coupon::find($requestData['coupon_id']);
+
+        if ($couponModel) {
+            $couponModel->status = $requestData['status'];
+            $couponModel->save();
+
+            return response()->json(['message' => 'Coupon status toggled successfully']);
+        }
+
+        return response()->json(['message' => 'Coupon not found'], 404);
     }
 
-    return response()->json(['error' => 'Coupon not found'], 404);
-}
+    public function destroy($id)
+    {
+        $coupon = Coupon::find($id);
+
+        if (!$coupon) {
+            // Handle the case where the coupon with the given ID is not found.
+            // You can display an error message or take other actions as needed.
+            Toastr::error('Coupon not found', 'Error');
+            return redirect()->back();
+        }
+
+        $coupon->delete();
+
+        // Assuming you are using the Toastr library for notifications.
+        Toastr::success('Coupon deleted successfully', 'Success');
+        
+        return redirect()->back();
+
+    }
+
 
 
 

@@ -1171,7 +1171,6 @@
     </script>
     @endif
 
-    {!! Toastr::message() !!}
 
 <script>
     function selectMenu(menuText, inputId) {

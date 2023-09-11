@@ -200,7 +200,7 @@
                     <span class="item-name">Product Reviews</span>
                 </a>
             </li>
-
+            
         </ul>
     <ul class="childNav" data-parent="extrakits">
 
@@ -215,7 +215,7 @@
                 <a class="{{ Route::currentRouteName() == 'allrefunds' ? 'open' : '' }}"
                     href="{{ route('allrefunds') }}">
                     <i class="nav-icon i-Arrow-Down-in-Circle"></i>
-                    <span class="item-name">All Refunds`</span>
+                    <span class="item-name">All Refunds</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -249,7 +249,7 @@
         </ul>
         <ul class="childNav" data-parent="uikits">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}" href="{{ route('allorders.index') }}">
+                <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}" href="{{ route('allorders') }}">
                     <i class="nav-icon i-Folder-Archive"></i>
                     <span class="item-name">ALL Orders</span>
                 </a>

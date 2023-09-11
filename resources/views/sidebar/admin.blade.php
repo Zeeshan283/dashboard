@@ -75,13 +75,7 @@
     </a>
     <div class="triangle"></div>
 </li>
-<li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="sessions">
-    <a class="nav-item-hold" href="/test.html">
-        <i class="nav-icon i-Information"></i>
-        <span class="nav-text">Coupon</span>
-    </a>
-    <div class="triangle"></div>
-</li>
+
 
 <li class="nav-item {{ request()->is('users/*') ? 'active' : '' }}" data-item="users">
     <a class="nav-item-hold" href="/test.html">
