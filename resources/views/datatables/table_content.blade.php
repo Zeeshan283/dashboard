@@ -1118,7 +1118,7 @@
         <th>Action</th>
     </thead>
     <tbody>
-        @foreach ($data as $key => $cate)
+        @foreach ($data as $key => $allcat)
         <tr>
             <td>{{ $key + 1 }}</td>
             <td>{{ $allcat->id }}</td>
