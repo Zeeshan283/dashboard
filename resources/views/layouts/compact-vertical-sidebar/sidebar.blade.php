@@ -473,7 +473,7 @@
             <ul class="childNav" data-parent="uikits">
                 <li class="nav-item">
                     <a class="{{ Route::currentRouteName() == 'alerts' ? 'open' : '' }}"
-                        href="{{ route('allorders') }}">
+                        href="{{ route('allorders.index') }}">
                         <i class="nav-icon i-Bell1"></i>
                         <span class="item-name">All orders</span>
                     </a>

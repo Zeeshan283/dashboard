@@ -12,7 +12,8 @@
                     <i class="nav-icon i-Safe-Box1"></i>
                     <span class="nav-text">Doc</span>
                 </a>
-                
+
+                <div class="triangle"></div>
             </li> --}}
         </ul>
     </div>
@@ -22,7 +23,7 @@
         <ul class="childNav" data-parent="users">
 
             <li class="nav-item">
-                <a  href="">
+                <a  href="{{ route('user.add') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New User</span>
                 </a>
@@ -30,11 +31,47 @@
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'userlist' ? 'open' : '' }}"
-                    href="">
+                    href="{{ route('userlist') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">User List</span>
                 </a>
             </li>
+        </ul>
+        <ul class="childNav" data-parent="purchase">
+
+            <li class="nav-item">
+                <a  href="{{ route('purchase.create') }}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Add  Purchase</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'users.index' ? 'open' : '' }}"
+                    href="{{ route('supplier.index')}}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Add Supplier</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'users.index' ? 'open' : '' }}"
+                    href="{{ route('purchase.index')}}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Stock </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'users.index' ? 'open' : '' }}"
+                    href="{{ route('purchaseHistory')}}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Purchase History</span>
+                </a>
+            </li>
+
+            
+
         </ul>
         <ul class="childNav" data-parent="forms">
             <li class="nav-item">
@@ -47,8 +84,8 @@
 
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'vendorlist' ? 'open' : '' }}"
-                    href="{{ route('vendorlist') }}">
+                <a class="{{ Route::currentRouteName() == 'vendor.index' ? 'open' : '' }}"
+                    href="{{ route('vendor.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Vendor List</span>
                 </a>
@@ -71,8 +108,8 @@
 
         <ul class="childNav" data-parent="widgets">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'menu.index' ? 'open' : '' }}"
-                    href="{{ route('menu.index') }}">
+                <a class="{{ Route::currentRouteName() == 'allmenu' ? 'open' : '' }}"
+                    href="{{ route('allmenu') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">All Menus</span>
                 </a>
@@ -80,16 +117,9 @@
 
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'menu.create' ? 'open' : '' }}"
-                    href="{{ route('menu.create') }}">
-                    <i class="nav-icon i-Blinklist"></i>
-                    <span class="item-name">Add Menus</span>
-                </a>
-            </li> --}}
 
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'cat.index' ? 'open' : '' }}"
-                    href="">
+                <a class="{{ Route::currentRouteName() == 'allcat' ? 'open' : '' }}"
+                    href="{{ route('allcat') }}">
                     <i class="nav-icon i-Folder"></i>
                     <span class="item-name">All Categories</span>
                 </a>
@@ -97,9 +127,9 @@
 
             <li class="nav-item">
 
-
-                <a class="{{ Route::currentRouteName() == 'allsubcat' ? 'open' : '' }}"
-                    href="">
+                {{-- <a class="{{ Route::currentRouteName() == 'allsubcat' ? 'open' : '' }}"
+                    href="{{ route('allsubcat') }}"> --}}
+                    <a href="{{ url ('/sub-category') }}" id="list-item-color" class="nav-link menu-link {{(request()->route()->getName() == 'sub-category.index')? 'active': ''}}">
                     <i class="nav-icon i-Folder-Open"></i>
                     <span class="item-name">All Sub Categories</span>
                 </a>
@@ -147,7 +177,7 @@
                     </a>
                 </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'products' ? 'open' : '' }}" href="{{ route('products.index') }}">
+                <a class="{{ Route::currentRouteName() == 'allproducts' ? 'open' : '' }}" href="{{ route('allproducts') }}">
                     <i class="nav-icon i-Shopping-Bag"></i>
                     <span class="item-name">All Product</span>
                 </a>
@@ -170,7 +200,7 @@
                     <span class="item-name">Product Reviews</span>
                 </a>
             </li>
-
+            
         </ul>
     <ul class="childNav" data-parent="extrakits">
 
@@ -185,7 +215,7 @@
                 <a class="{{ Route::currentRouteName() == 'allrefunds' ? 'open' : '' }}"
                     href="{{ route('allrefunds') }}">
                     <i class="nav-icon i-Arrow-Down-in-Circle"></i>
-                    <span class="item-name">All Refunds`</span>
+                    <span class="item-name">All Refunds</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -221,7 +251,7 @@
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}" href="{{ route('allorders.index') }}">
                     <i class="nav-icon i-Folder-Archive"></i>
-                    <span class="item-name">ALL</span>
+                    <span class="item-name">ALL Orders</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -282,73 +312,44 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('signUp') }}">
-                    <i class="nav-icon i-Zootool"></i>
-                    <span class="item-name">All Services</span>
+                <a class="{{ Route::currentRouteName() == 'coupon.index' ? 'open' : '' }}" href="{{ route('coupon.index') }}" >
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">All Coupon</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ route('forgot') }}">
-                    <i class="nav-icon i-Quotes"></i>
-                    <span class="item-name">Testimonials</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('forgot') }}">
-                    <i class="nav-icon i-Bar-Chart"></i>
-                    <span class="item-name">Skills</span>
-                </a>
-            </li>
+
+
+
         </ul>
         <ul class="childNav" data-parent="others">
             <li class="nav-item">
-                <a href="{{ route('notFound') }}">
+                <a href="#">
                     <i class="nav-icon i-Add"></i>
                     <span class="item-name">Add Purchase</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item">   
                 <a class="{{ Route::currentRouteName() == 'pricing-table' ? 'open' : '' }}"
-                    href="{{ route('pricing-table') }}">
+                    href="#) }}">
                     <i class="nav-icon i-Gears"></i>
-                    <span class="item-name">All Purchases
+                    <span class="item-name">Stock
                         {{-- <span class="ms-2 badge badge-pill text-bg-danger">New</span></span> --}}
                 </a>
             </li>
 
+        </ul>
+         <ul class="childNav" data-parent="terms">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'search-result' ? 'open' : '' }}"
-                    href="{{ route('search-result') }}">
-                    <i class="nav-icon i-Settings-Window"></i>
-                    <span class="item-name">Home Setting
-                        {{-- <span class="badge badge-pill text-bg-danger">New</span></span> --}}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'user-profile' ? 'open' : '' }}"
-                    href="{{ route('user-profile') }}">
-                    <i class="nav-icon i-Gear-2"></i>
-                    <span class="item-name">Blog Setting</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'faq' ? 'open' : '' }}" href="{{ route('faq') }}"
-                    class="open">
-                    <i class="nav-icon i-File-Text--Image"></i>
-                    <span class="item-name">Home Banner</span>
-                </a>
-            </li>
-             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'starter' ? 'open' : '' }}" href="{{ route('starter') }}"
-                    class="open">
-                    <i class="nav-icon i-File-Horizontal"></i>
-                    <span class="item-name">Blank Page</span>
+                <a class="{{ Route::currentRouteName() == 'allterm' ? 'open' : '' }}"
+                    href="{{ route('allterm') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Terms & Conditions</span>
                 </a>
             </li>
         </ul>
     </div>
 
-    
+
     <div class="sidebar-overlay"></div>
 <!--=============== Left side End ================-->
 

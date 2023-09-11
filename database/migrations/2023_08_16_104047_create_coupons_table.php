@@ -22,14 +22,18 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->string('discount_type')->nullable();
+            $table->string('apply')->nullable();
             $table->decimal('amount', 10, 2)->nullable();
             $table->decimal('percentage', 5, 2)->nullable();
             $table->integer('limit_same_user')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
+            $table->string('status')->nullable();
+            $table->unsignedBigInteger('store')->nullable();
             $table->timestamps();
 
             // forigen key relation 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
+            $table->foreign('store')->references('id')->on('user')->onDelete('set null');
         });
     }
 

@@ -34,4 +34,8 @@ class OrderDetails extends Model
    {
       return $this->belongsTo(User::class, 'vendor_id');
    }
+   public function user()
+   {
+      return $this->belongsTo(User::class, 'customer_id');
+   }
 }

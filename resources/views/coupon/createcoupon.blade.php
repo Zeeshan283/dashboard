@@ -28,6 +28,9 @@
                                     <div class="card-body">
 
                                         <div class="row">
+                                            
+
+                                            
 
                                             <div class="form-group col-md-4">
                                                 <label for="vendor" class="ul-form__label">Coupon Type:</label>
@@ -73,6 +76,8 @@
                                                 </small>
                                             </div>
                                            
+                                            
+                                           
                                             <div class="form-group col-md-4">
                                                 <label for="commonField" class="ul-form__label">Start Date:</label>
                                                 <input type="date" class="form-control" id="commonField" name="start_date" placeholder="Start Date">
@@ -85,6 +90,39 @@
                                                 <input type="date" class="form-control" id="commonField" name="end_date" placeholder="End Date">
                                                 <small class="ul-form__text form-text">
                                                     End Date
+                                                </small>
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label for="vendor" class="ul-form__label">Apply Coupon:</label>
+                                                <select class="form-control" id="apply" name="apply" >
+                                                    <option value="" selected disabled>Select Discount Type</option>
+                                                    <option value="6">Store</option>
+                                                    <option value="7">Product</option>
+                                                </select>
+                                                <small class="ul-form__text form-text">
+                                                    Apply Coupon
+                                                </small>
+                                            </div>
+                                            <div id="storeField4" class="form-group col-md-4" style="display: none;">
+                                                <label for="amount" class="ul-form__label">Store:</label>
+                                                <input type="text" class="form-control" id="storeField4" name="store" value="{{$user->name}}"  readonly>
+                                                <small class="ul-form__text form-text">
+                                                    Store
+                                                </small>
+                                            </div>
+                                            <div id="productField4" class="form-group col-md-4" style="display: none;">
+                                                <label for="vendor" class="ul-form__label">Select product</label>
+                                                <select class="form-control" id="productField4" name="product"  >
+                                                    <option value="" selected disabled>Select Product</option>
+                                                    @foreach ($products as $product)
+                                                        
+                                                        <option value="{{ $product->id}}">{{ $product->sku}}</option>
+
+                                                    @endforeach
+                                                </select>
+                                                <small class="ul-form__text form-text">
+                                                   Select Product
                                                 </small>
                                             </div>
 
@@ -123,20 +161,7 @@
                                                             Percentage
                                                         </small>
                                                     </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="vendor" class="ul-form__label">Select product</label>
-                                                        <select class="form-control" name="product_id" >
-                                                            <option value="" selected disabled>Select Product</option>
-                                                            @foreach ($products as $product)
-                                                                
-                                                                <option value="{{ $product->id}}">{{ $product->sku}}</option>
-
-                                                            @endforeach
-                                                        </select>
-                                                        <small class="ul-form__text form-text">
-                                                           Select Product
-                                                        </small>
-                                                    </div>
+                                                   
                                                 </div>
                                             </div>
 
@@ -149,7 +174,7 @@
                                                             Limit For Same User
                                                         </small>
                                                     </div>
-                                                    <div class="form-group col-md-4">
+                                                    {{-- <div class="form-group col-md-4">
                                                         <label for="vendor" class="ul-form__label">Select product</label>
                                                         <select class="form-control" name="product_id" >
                                                             <option value="" selected disabled>Select Product</option>
@@ -162,7 +187,7 @@
                                                         <small class="ul-form__text form-text">
                                                            Select Product
                                                         </small>
-                                                    </div>
+                                                    </div> --}}
 
                                                 </div>
                                                 <!-- Add more fields specific to Vendor 3 as needed -->
@@ -200,6 +225,8 @@
                                                             Percentage
                                                         </small>
                                                     </div>
+                                                    
+                                                    
                                                   
 
                                                 </div>
@@ -211,6 +238,9 @@
 
                                     </div>
 
+                                    <div class="form-group col-md-4">
+                                        <input type="text" class="form-control" id="commonField" name="status" value="Active" hidden>
+                                    </div>
                                     <div class="card-footer">
                                         <div class="mc-footer">
                                             <div class="row">
@@ -289,6 +319,8 @@
         }
     });
 
+    
+
     document.getElementById("discount3").addEventListener("change", function () {
         var selectedValue = this.value;
         var amountField3 = document.getElementById("amountField3");
@@ -305,6 +337,26 @@
             percentageField3.style.display = "none";
         }
     });
+
+
+    document.getElementById("apply").addEventListener("change", function () {
+        var selectedValue = this.value;
+        var storeField4 = document.getElementById("storeField4");
+        var productField4 = document.getElementById("productField4");
+
+        if (selectedValue === "6") {
+            storeField4.style.display = "block";
+            productField4.style.display = "none";
+        } else if (selectedValue === "7") {
+            storeField4.style.display = "none";
+            productField4.style.display = "block";
+        } else {
+            storeField4.style.display = "none";
+            productField4.style.display = "none";
+        }
+    });
+
+
 </script>
 
 

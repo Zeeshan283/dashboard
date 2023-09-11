@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
      protected $table='categories';
-    protected $fillable = ['menu_id', 'code', 'name', 'img','imageforapp','commission', 'biller'];
+    protected $fillable = [ 'menu_id', 'name', 'commission', 'img','imageforapp', 'menu', ];
 
     public function menus()
     {
@@ -17,6 +17,6 @@ class Category extends Model
 
     public function subcategories()
     {
-        return $this->hasMany(SubCategory::class, 'category_id');
+        return $this->hasMany(Category::class, 'category_id');
     }
 }

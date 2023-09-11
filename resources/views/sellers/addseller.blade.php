@@ -17,14 +17,14 @@
                                 <div class="card-header bg-transparent">
                                     <h3 class="card-title"> Add New Vendor</h3>
                                 </div>
-                                <form action="add" method="POST">
+                                <form action="{{ route('vendor.store') }}" method="POST">
                                     @csrf
                                     <div class="card-body">
 
                                         <div class="row">
                                             <div class="form-group col-lg-6">
                                                 <label for="inputtext11" class="ul-form__label">First Name:</label>
-                                                <input type="text" class="form-control" id="first_name"  name="firstname"  placeholder="Enter full name" value="{{ old ('firstname')}}">
+                                                <input type="text" class="form-control" id="first_name"  name="first_name"  placeholder="Enter full name" value="{{ old ('firstname')}}">
                                                 <span style="color: red">@error('firstname'){{ $message }}@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your first name
@@ -32,7 +32,7 @@
                                             </div>
                                             <div class="form-group col-lg-6">
                                                 <label for="inputtext11" class="ul-form__label">Last Name:</label>
-                                                <input type="text" class="form-control" id="last_name" name="lastname"  placeholder="Enter full name" value="{{ old ('lastname')}}">
+                                                <input type="text" class="form-control" id="last_name" name="last_name"  placeholder="Enter full name" value="{{ old ('lastname')}}">
                                                 <span style="color: red">@error('lastname'){{ $message }}@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your last name
@@ -40,69 +40,35 @@
                                             </div>
                                             <div class="form-group col-lg-6">
                                                 <label for="inputEmail12" class="ul-form__label">Contact Number:</label>
-                                                <input type="text" class="form-control" id="inputEmail12" name="phonenumber"  placeholder="Enter Contact Number"value="{{ old ('phonenumber')}}">
+                                                <input type="number" class="form-control" id="inputEmail12" name="phone1"  placeholder="Enter Contact Number"value="{{ old ('phonenumber')}}">
                                                 <span style="color: red">@error('phonenumber'){{ $message }}@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your contact number
                                                 </small>
                                             </div>
 
-                                            <div class="form-group col-md-6">
-                                                <label for="inputEmail13" class="ul-form__label">Username:</label>
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-text bg-transparent input-group-prepend">
-                                                        <i class="i-Checked-User"></i>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="inlineFormInputGroup" name="username"  placeholder="Username"value="{{ old ('username')}}">
-                                                </div>
-                                                <span style="color: red">@error('username'){{ $message }}@enderror</span>
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your username
-                                                </small>
-                                            </div>
+                                            
                                             <div class="form-group col-md-6">
                                                 <label for="inputtext14" class="ul-form__label">Email:</label>
-                                                <input type="text" class="form-control" id="email" name="email"  placeholder="Enter your email " value="{{ old ('email')}}">
+                                                <input type="email" class="form-control" id="email" name="email"  placeholder="Enter your email " value="{{ old ('email')}}">
                                                 <span style="color: red">@error('email')@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your Email
                                                 </small>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="inputEmail16" class="ul-form__label">Address:</label>
+                                                <label for="inputEmail16" class="ul-form__label">Password:</label>
                                                 <div class="input-right-icon">
-                                                    <input type="text" class="form-control" id="inputEmail16"  name="address"  placeholder="Enter your address" value="{{ old ('address')}}">
-                                                    <span class="span-right-input-icon" style="color: red">@error('address'){{ $message }}@enderror
+                                                    <input type="password" class="form-control" id="inputEmail16"  name="password"  placeholder="Enter your address" value="{{ old ('address')}}">
+                                                    <span class="span-right-input-icon" style="color: red">@error('password'){{ $message }}@enderror
                                                         <i class="ul-form__icon i-Map-Marker"></i>
                                                     </span>
                                                 </div>
-{{--
-                                            <div class="form-group col-lg-6">
-                                                <label for="inputtext14" class="ul-form__label">Password:</label>
-                                                <input type="text" class="form-control" id="email" placeholder="Enter your Password" name="password" required>
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your address
-                                                </small>
 
-                                        </div> --}}
                                     </div>
 
-                                        <div class="custom-separator"></div>
-
-                                        <div class="row">
-                                            <div class="form-group col-md-4 me-2">
-                                                <label for="inputEmail17" class="ul-form__label">Postcode:</label>
-                                                <div class="input-right-icon">
-                                                    <input type="text" class="form-control" id="inputEmail17" name="postcode" placeholder="Enter your postcode" value="{{ old ('postcode')}}">
-                                                    <span class="span-right-input-icon" style="color: red">@error('postcode'){{ $message }}@enderror
-                                                        <i class="ul-form__icon i-New-Mail"></i>
-                                                    </span>
-                                                </div>
-
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your postcode
-                                                </small>
-                                            </div>
+                                  
+                                            
 
                                             {{-- status hide for fun  --}}
                                             <div class="form-group col-md-6 ">
@@ -124,7 +90,7 @@
                                                 </small>
                                             </div>
 
-                                        </div>
+                                        
 
                                     </div>
 

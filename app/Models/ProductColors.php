@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ProductColors extends Model
 {
     use HasFactory;
-    protected $fillable = ['pro_id', 'color_id'];
+    protected $fillable =  array('pro_id', 'color_id');
 
-    public function colors()
+    public function color()
     {
         return $this->belongsTo(Color::class, 'color_id')->select(['id','name']);
     }

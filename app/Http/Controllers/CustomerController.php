@@ -48,4 +48,12 @@ class CustomerController extends Controller
     {
         //
     }
+
+    public function cwallet()
+    {
+        
+        $customer = User::orderBy('id','asc')->get();
+
+        return view('customer.cwallet',compact('customer'));
+    }
 }

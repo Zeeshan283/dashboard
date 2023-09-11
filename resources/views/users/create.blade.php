@@ -18,23 +18,8 @@
                                 <div class="card-header bg-transparent">
                                     <h3 class="card-title"> Add New User</h3>
                                 </div>
-                                <form action="{{ route('user.store')}}" method="POST">
-                                    @csrf
-                                    <div class="card-body">
 
-    {{-- <div class="row">
-        <div class="col-md-12">
-            @if($errors->any())
-            <div class="alert alert-danger alert-dismissible" role="alert">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif --}}
-                                <form method="post" action="{{ route('user.store')}}" enctype="multipart/form-data">
+                                <form method="post" action="{{ route('user.adduser')}}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="card-body">
                                         <div class="row">

@@ -12,10 +12,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RefundController;
 use App\Http\Controllers\VendorsController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InsertVendorsController;
+use App\Http\Controllers\TermsConditionsController;
 use App\Models\User;
 
 
@@ -79,19 +82,16 @@ Route::get('vertical/dashboard/dashboard1', function () {
 
 // sellers
 // Route::view('addseller' , 'sellers.addseller')->name('addseller');
-Route::view('vendorlist', 'sellers.vendorlist')->name('vendorlist');
+// Route::view('vendorlist', 'sellers.vendorlist')->name('vendorlist');
 Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
-Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
- Route::post('add', [InsertVendorsController::class, 'add']);
- Route::get('vendorlist', [VendorsController::class, 'vendorlist'])->name('vendorlist');
-//  Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
+// Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
+// Route::post('add', [InsertVendorsController::class, 'add']);
+// Route::get('vendorlist', [VendorsController::class, 'vendorlist'])->name('vendorlist');
+Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
 
-    Route::get('editseller/{id}',[InsertVendorsController::class,'edit']);
-    Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
-    // Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
-
-
-
+Route::get('editseller/{id}',[InsertVendorsController::class,'edit']);
+Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
+// Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
 
 
 
@@ -103,7 +103,6 @@ Route::view('refundrejected', 'refund.refundrejected')->name('refundrejected');
 
 // Customer
 
-Route::view('cwallet', 'customer.cwallet')->name('cwallet');
 
 
 // Users
@@ -117,19 +116,24 @@ Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('user.edit'
 Route::post('users/update/{id}', [UserController::class, 'update'])->name('user.update');
 Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('user.delete');
 
-
 // product reviews
 // Routes accessible only by vendors
 Route::middleware(['vendorOnly'])->group(function () {
-    Route::get('/dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
-    Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create');
-    Route::post('/products', [ProductsController::class, 'store'])->name('products.store');
+    Route::get('/dashboard', [VendorsController::class, 'dashboard'])->name('vendor.dashboard');
+    Route::resource('products', ProductController::class);
+    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
+    Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+    Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
+    Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+
 });
 
 // Other routes accessible to all users
 Route::view('customerqueries', 'products.customerqueries')->name('customerqueries');
 Route::view('productinfo', 'products.productinfo')->name('productinfo');
 Route::view('productreviews', 'products.productreviews')->name('productreviews');
+// Route::view('cwallet', 'customer.cwallet')->name('cwallet');
+Route::get('cwallet',[CustomerController::class,'cwallet'])->name('cwallet');
 
 
 
@@ -140,21 +144,6 @@ Route::view('datatables/basic-tables', 'datatables.basic-tables')->name('basic-t
 Route::view('sessions/signIn', 'sessions.signIn')->name('signIn');
 Route::view('sessions/signUp', 'sessions.signUp')->name('signUp');
 Route::view('sessions/forgot', 'sessions.forgot')->name('forgot');
-
-// widgets
-Route::view('widgets/card', 'widgets.card')->name('widget-card');
-Route::view('widgets/statistics', 'widgets.statistics')->name('widget-statistics');
-Route::view('widgets/list', 'widgets.list')->name('widget-list');
-Route::view('widgets/app', 'widgets.app')->name('widget-app');
-Route::view('widgets/weather-app', 'widgets.weather-app')->name('widget-weather-app');
-
-// others
-Route::view('others/notFound', 'others.notFound')->name('notFound');
-Route::view('others/user-profile', 'others.user-profile')->name('user-profile');
-Route::view('others/starter', 'starter')->name('starter');
-Route::view('others/faq', 'others.faq')->name('faq');
-Route::view('others/pricing-table', 'others.pricing-table')->name('pricing-table');
-Route::view('others/search-result', 'others.search-result')->name('search-result');
 
 
 // Auth::routes();
@@ -179,11 +168,12 @@ Auth::routes();
 
 
 
-    Route::resource('products', ProductController::class); 
-    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts'); 
-    Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
-    Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
-    Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+Route::resource('products', ProductController::class);
+Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
+Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
+Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+
 
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
@@ -206,22 +196,48 @@ Route::get('/',[HomeController::class, 'index'])->name('admin');
 Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
 
 
+// Sub-Category controller route
+Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
+ Route::get('addcat', [CategoryController::class, 'create'])->name('addcat');
+Route::post('addcat', [CategoryController::class, 'store'])->name('addcat.store');
+Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
+// Route::get('addsubcat', [SubCategoryController::class, 'create'])->name('addsubcat');
+// Route::post('addsubcat', [SubCategoryController::class, 'store'])->name('addsubcat.store');
+ Route::get('category/editcat/{id}', [CategoryController::class, 'edit'])->name('category.editcat');
+Route::put('category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+Route::delete('category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+
+Route::resource('sub-category', SubCategoryController::class);
+//categories
+// Route::resource('category', CategoryController::class);
 // menu controller route
+Route::get('allterm', [TermsConditionsController::class, 'index'])->name('allterm');
+Route::get('addterm', [TermsConditionsController::class, 'create'])->name('addterm');
+Route::post('addterm', [TermsConditionsController::class, 'store'])->name('addterm.store');
+Route::get('terms/edit/{id}', [TermsConditionsController::class, 'edit'])->name('terms.edit');
+Route::put('terms/update/{id}', [TermsConditionsController::class, 'update'])->name('terms.update');
+Route::delete('terms/delete/{id}', [TermsConditionsController::class, 'destroy'])->name('terms.destroy');
+Route::get('terms/show/{id}', [TermsConditionsController::class, 'show'])->name('terms.show');
+
+
+
+//terms & Conditions
+Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
+Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
+Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
 Route::get('menu/edit/{id}', [MenuController::class, 'edit'])->name('menu.edit');
 Route::put('menu/update/{id}', [MenuController::class, 'update'])->name('menu.update');
 Route::delete('menu/delete/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
 
-
-// Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
+//allcat
 Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
 Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
-// Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
-// Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
-Route::resource('menu', MenuController::class);
+
+// Route::resource('menu', MenuController::class);
 
 Route::resource('cat', CategoryController::class);
 
-
+Route::resource('sub-category', SubCategoryController::class);
 // customer reviews controller
 
 Route::get('creviews',[ReviewsController::class,'index'])->name('creviews');
@@ -234,20 +250,35 @@ Route::get('allrefunds',[RefundController::class,'refundstatus'])->name('allrefu
 Route::get('refunded',[RefundController::class, 'index'])->name('refunded');
 Route::get('createrefund',[RefundController::class, 'create'])->name('createrefund');
 Route::post('/store-refund', [RefundController::class, 'store'])->name('refund.store');
+Route::post('/allrefunds', [RefundController::class, 'update']) ->name('refund.update');
+
 
 
 // vendors route
 
 Route::resource('vendor', VendorsController::class);
+Route::post('vendor', [VendorsController::class, 'store'])->name('vendor.store');
+
 
 // add user role
 
 Route::resource('users', RoleController::class);
 Route::resource('coupon', CouponController::class);
-
-// Coupon
-
-// Route::resource('coupon',CouponController::class);
+Route::post('/toggle-coupon-status',[CouponController::class,'toggleStatus']);
+Route::get('coupon/{id}/destroy', [PurchaseController::class, 'destroy']);
 
 
+Route::resource('purchase', PurchaseController::class);
+Route::get('purchase/{id}/destroy', [PurchaseController::class, 'destroy']);
+Route::get('purchase/history', [PurchaseController::class, 'history'])->name('purchaseHistory');
+Route::get('purchase/{id}/edit', [PurchaseController::class, 'edit']);
+Route::get('/purchase/create', [PurchaseController::class, 'create'])->name('purchase.create');
+Route::get('/get-product-name/{sku}', [PurchaseController::class, 'getProductName']);
+Route::get('/purchase/invoice/{purchaseId}', [PurchaseController::class,'invoice'])->name('purchase.invoice');
+Route::get('/purchase/bill/{purchaseId}', [PurchaseController::class,'bill'])->name('purchase.bill');
+
+
+Route::resource('supplier',SupplierController::class);
+// Route::get('/get-product-name/{sku}', [PurchaseController::class,'getProductName'])->name('get.product.name');
+// Route::get('coupon/all',[CouponController::class, 'all'])->name('couponall');
 

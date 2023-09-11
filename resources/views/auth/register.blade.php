@@ -88,6 +88,22 @@
                                         class="form-control-rounded form-control" name="password_confirmation" required
                                         autocomplete="new-password">
                                 </div>
+                                <div class="form-group col-md-6 ">
+                                    <label for="inputEmail18" class="ul-form__label">Select Your Type:</label>
+                                    <div class="ul-form__radio-inline">
+                                        <label class=" ul-radio__position radio radio-primary form-check-inline">
+                                            <input type="radio" name="role" value="Vendor">
+                                            <span class="ul-form__radio-font">Vendor</span>
+                                            <span class="checkmark" style="color: red" > @error('postcode'){{ $message }}@enderror</span>
+                                        </label>
+                                        <label class="ul-radio__position radio radio-primary">
+                                            <input type="radio" name="role" value="Customer">
+                                            <span class="ul-form__radio-font">Customer</span>
+                                            <span class="checkmark" style="color: red">@error('postcode'){{ $message }}@enderror</span>
+                                        </label>
+                                    </div>
+                                    
+                                </div>
                                 <button type="submit" class="btn btn-primary w-100 btn-rounded mt-3">Sign
                                     Up</button> <br>
                                 <u>Already Have a Account </u>

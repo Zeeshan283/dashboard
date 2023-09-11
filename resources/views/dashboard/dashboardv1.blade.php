@@ -153,7 +153,7 @@
         
             </div>
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-8 col-md-12">
                     <div class="card mb-4">
                         <div class="card-body">
@@ -438,7 +438,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
 
 
 @endsection
