@@ -39,13 +39,9 @@
 @section('main-content')
 <div class="breadcrumb">
     <span>w</span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+    <span>w</span>
+    <span>wksdhznkx</span>
+    
                 <h1>Add Products</h1>
                 @if (count($errors) > 0)
                     <div class="alert alert-danger d-flex">
