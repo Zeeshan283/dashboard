@@ -4,12 +4,18 @@
 @endsection
 @section('main-content')
     <div class="breadcrumb col-lg-12">
-
-                <h1 class="col-lg-10">All Terms & Conditions</h1>
-                <a class="{{ Route::currentRouteName() == 'addterm' ? 'open' : '' }}"
+        <div class="col-md-6">
+            <h1 class="col-lg-10">All Terms & Conditions</h1>
+        </div>
+        <div class="col-md-6" style="text-align: right;  margin-left: auto;">
+            <a class="{{ Route::currentRouteName() == 'addterm' ? 'open' : '' }}"
                 href="{{ route('addterm') }}">
                  <button class="btn btn-primary" type="submit" style="color: white;">Add Terms & Conditions</button>
              </a>
+        </div>
+
+                
+                
             </div>
 
             <div class="separator-breadcrumb border-top"></div>

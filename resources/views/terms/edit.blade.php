@@ -15,7 +15,7 @@
                     {{-- <label for="title" class="form-label">Title</label>
                     <input name="title" title="Title" id="title" type="text" :value="$edit->title" required/> --}}
                     <label for="inputtext11" class="ul-form__label">Title</label>
-                    <input type="text" class="form-control" id="name" placeholder="title" name="title" required>
+                    <input type="text" class="form-control" id="name" placeholder="title" name="title" value="{{$edit->title}}" required>
                     <small id="passwordHelpBlock" class="ul-form__text form-text">
                     </small>
                 </div>

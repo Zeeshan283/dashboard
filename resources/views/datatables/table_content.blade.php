@@ -536,7 +536,7 @@
         <td>{{ $value->order_id}}</td>
         <td>{{ $value->reason}}</td>
         <td>{{ $value->amount}}</td>
-        <form   method ="POST" action="" >
+        <form   method ="POST" action="{{ route('refund.update')}}" >
         @csrf
         <td>
                 <select class="form-control" id="product_id">
@@ -569,6 +569,7 @@
         <th>Action</th>
     </tr>
     </tfoot>
+
 @elseif (Route::currentRouteName() == 'pendingrefund' )
     <thead>
         <th>Sr No</th>
@@ -1335,7 +1336,6 @@
 </tfoot>
 
 
-
 @elseif (Route::currentRouteName() == 'supplier.index' )
 <thead>
     <th>Sr No</th>
@@ -1368,6 +1368,9 @@
     <th>Address</th>
 </tr>
 </tfoot>
+
+
+
 
 
 
