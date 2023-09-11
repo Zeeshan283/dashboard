@@ -87,10 +87,10 @@ Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
 // Route::get('sellers.addseller', [InsertVendorsController::class, 'vendorlist']);
 // Route::post('add', [InsertVendorsController::class, 'add']);
 // Route::get('vendorlist', [VendorsController::class, 'vendorlist'])->name('vendorlist');
-Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
+Route::get('customerlist', [CustomerController::class, 'index'])->name('customerlist');
 
-Route::get('editseller/{id}',[InsertVendorsController::class,'edit']);
-Route::put('update_seller/{id}',[InsertVendorsController::class,'update']);
+Route::get('editseller/{id}', [InsertVendorsController::class, 'edit']);
+Route::put('update_seller/{id}', [InsertVendorsController::class, 'update']);
 // Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
 
 
@@ -121,11 +121,10 @@ Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('u
 Route::middleware(['vendorOnly'])->group(function () {
     Route::get('/dashboard', [VendorsController::class, 'dashboard'])->name('vendor.dashboard');
     Route::resource('products', ProductController::class);
-    Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
-    Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+    Route::get('allproducts', [ProductController::class, 'index'])->name('allproducts');
+    Route::get('product/{id}/dupe', [ProductController::class, 'dupe']);
     Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
     Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
-
 });
 
 // Other routes accessible to all users
@@ -133,7 +132,7 @@ Route::view('customerqueries', 'products.customerqueries')->name('customerquerie
 Route::view('productinfo', 'products.productinfo')->name('productinfo');
 Route::view('productreviews', 'products.productreviews')->name('productreviews');
 // Route::view('cwallet', 'customer.cwallet')->name('cwallet');
-Route::get('cwallet',[CustomerController::class,'cwallet'])->name('cwallet');
+Route::get('cwallet', [CustomerController::class, 'cwallet'])->name('cwallet');
 
 
 
@@ -169,8 +168,8 @@ Auth::routes();
 
 
 Route::resource('products', ProductController::class);
-Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
-Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
+// Route::get('allproducts', [ProductController::class,'index'])->name('allproducts');
+Route::get('product/{id}/dupe', [ProductController::class, 'dupe']);
 Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
 Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
 
@@ -178,32 +177,32 @@ Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
 // orders using controller
-Route::get('allorders', [OrderController::class,'index'])->name('allorders');
-Route::get('pendingorders', [OrderController::class,'showOrders'])->name('pendingorders');
-Route::get('confirmedorders', [OrderController::class,'showOrders'])->name('confirmedorders');
-Route::get('packagingorders', [OrderController::class,'showOrders'])->name('packagingorders');
-Route::get('outofdelivery', [OrderController::class,'showOrders'])->name('outofdelivery');
-Route::get('delivered', [OrderController::class,'showOrders'])->name('delivered');
-Route::get('returned', [OrderController::class,'showOrders'])->name('returned');
-Route::get('ftod', [OrderController::class,'showOrders'])->name('ftod');
-Route::get('canceled', [OrderController::class,'showOrders'])->name('canceled');
+Route::get('allorders', [OrderController::class, 'index'])->name('allorders');
+Route::get('pendingorders', [OrderController::class, 'showOrders'])->name('pendingorders');
+Route::get('confirmedorders', [OrderController::class, 'showOrders'])->name('confirmedorders');
+Route::get('packagingorders', [OrderController::class, 'showOrders'])->name('packagingorders');
+Route::get('outofdelivery', [OrderController::class, 'showOrders'])->name('outofdelivery');
+Route::get('delivered', [OrderController::class, 'showOrders'])->name('delivered');
+Route::get('returned', [OrderController::class, 'showOrders'])->name('returned');
+Route::get('ftod', [OrderController::class, 'showOrders'])->name('ftod');
+Route::get('canceled', [OrderController::class, 'showOrders'])->name('canceled');
 
 // home controller route
-Route::get('/',[HomeController::class, 'index'])->name('admin');
+Route::get('/', [HomeController::class, 'index'])->name('admin');
 // Route::get('/',[HomeController::class, 'index'])->name('admin');
 
 // customer controller route
-Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
+Route::get('customerlist', [CustomerController::class, 'index'])->name('customerlist');
 
 
 // Sub-Category controller route
 Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
- Route::get('addcat', [CategoryController::class, 'create'])->name('addcat');
+Route::get('addcat', [CategoryController::class, 'create'])->name('addcat');
 Route::post('addcat', [CategoryController::class, 'store'])->name('addcat.store');
 Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
 // Route::get('addsubcat', [SubCategoryController::class, 'create'])->name('addsubcat');
 // Route::post('addsubcat', [SubCategoryController::class, 'store'])->name('addsubcat.store');
- Route::get('category/editcat/{id}', [CategoryController::class, 'edit'])->name('category.editcat');
+Route::get('category/editcat/{id}', [CategoryController::class, 'edit'])->name('category.editcat');
 Route::put('category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
 Route::delete('category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
@@ -240,17 +239,17 @@ Route::resource('cat', CategoryController::class);
 Route::resource('sub-category', SubCategoryController::class);
 // customer reviews controller
 
-Route::get('creviews',[ReviewsController::class,'index'])->name('creviews');
+Route::get('creviews', [ReviewsController::class, 'index'])->name('creviews');
 
 
 // refund controller
 
 // Route::view('refunded', 'refund.refunded')->name('refunded');
-Route::get('allrefunds',[RefundController::class,'refundstatus'])->name('allrefunds');
-Route::get('refunded',[RefundController::class, 'index'])->name('refunded');
-Route::get('createrefund',[RefundController::class, 'create'])->name('createrefund');
+Route::get('allrefunds', [RefundController::class, 'refundstatus'])->name('allrefunds');
+Route::get('refunded', [RefundController::class, 'index'])->name('refunded');
+Route::get('createrefund', [RefundController::class, 'create'])->name('createrefund');
 Route::post('/store-refund', [RefundController::class, 'store'])->name('refund.store');
-Route::post('/allrefunds', [RefundController::class, 'update']) ->name('refund.update');
+Route::post('/allrefunds', [RefundController::class, 'update'])->name('refund.update');
 
 
 
@@ -264,7 +263,7 @@ Route::post('vendor', [VendorsController::class, 'store'])->name('vendor.store')
 
 Route::resource('users', RoleController::class);
 Route::resource('coupon', CouponController::class);
-Route::post('/toggle-coupon-status',[CouponController::class,'toggleStatus']);
+Route::post('/toggle-coupon-status', [CouponController::class, 'toggleStatus']);
 Route::get('coupon/{id}/destroy', [PurchaseController::class, 'destroy']);
 
 
@@ -274,11 +273,10 @@ Route::get('purchase/history', [PurchaseController::class, 'history'])->name('pu
 Route::get('purchase/{id}/edit', [PurchaseController::class, 'edit']);
 Route::get('/purchase/create', [PurchaseController::class, 'create'])->name('purchase.create');
 Route::get('/get-product-name/{sku}', [PurchaseController::class, 'getProductName']);
-Route::get('/purchase/invoice/{purchaseId}', [PurchaseController::class,'invoice'])->name('purchase.invoice');
-Route::get('/purchase/bill/{purchaseId}', [PurchaseController::class,'bill'])->name('purchase.bill');
+Route::get('/purchase/invoice/{purchaseId}', [PurchaseController::class, 'invoice'])->name('purchase.invoice');
+Route::get('/purchase/bill/{purchaseId}', [PurchaseController::class, 'bill'])->name('purchase.bill');
 
 
-Route::resource('supplier',SupplierController::class);
+Route::resource('supplier', SupplierController::class);
 // Route::get('/get-product-name/{sku}', [PurchaseController::class,'getProductName'])->name('get.product.name');
 // Route::get('coupon/all',[CouponController::class, 'all'])->name('couponall');
-

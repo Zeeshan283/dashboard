@@ -831,7 +831,7 @@
 
 
     {{-- product info  --}}
-@elseif (Route::currentRouteName() == 'allproducts' )
+@elseif (Route::currentRouteName() == 'products.index' )
     <thead>
         <th>Sr No</th>
         <th>Name</th>
