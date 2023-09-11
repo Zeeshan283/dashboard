@@ -92,14 +92,14 @@ class OrderController extends Controller
 	public function show($id)
 	{
 		 $order = Order::with(['order_details' => function ($query) {
-			$query->with('products')->with('product_image')->with('vendor');
+			$query->with('products')->with('product_image')->with('vendor')->with('user');
 		}])->where('id', '=', $id)->first();
 		
 		$cus= $order->order_details[0]->vendor;
 		
 		// $vendor = OrderDetails::where('customer_id',$cus->id,)->get();
 
-		return view('order.details', compact('order','cus'));
+		return view('orders.details', compact('order','cus'));
 	
 	
 		// 	$order = Order::with(['order_details' => function ($query) {

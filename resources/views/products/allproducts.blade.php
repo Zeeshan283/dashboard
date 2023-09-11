@@ -6,8 +6,14 @@
 
 @section('main-content')
     <div class="breadcrumb">
+        <div class="col-md-6">
                 <h1>All Products</h1>
-            </div>
+        </div>
+        <div class="col-md-6" style="text-align: right;  margin-left: auto;">
+            <a href="{{ route('products.create')}}"><button class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Product</span></button></a>
+
+        </div>
+    </div>
 
             <div class="separator-breadcrumb border-top"></div>
             <div class="col-md-12 mb-4">

@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-@if (Route::currentRouteName() == 'allorders')
+@if (Route::currentRouteName() == 'allorders.index')
         <thead>
             <th>Sr No</th>
             <th>Order #</th>
@@ -25,12 +25,14 @@
                                         <td>
 
                                             <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-success ">
-                                                <i class="nav-icon i-Pen-2 "></i>
+                                            <button type="button" class="btn btn-danger ">
+                                                <i class="nav-icon i-Close-Window  "></i>
                                             </button>
-                                                <button type="button" class="btn btn-danger ">
-                                                <i class="nav-icon i-Close-Window "></i>
-                                            </button>
+                                                {{-- </a><a href="{{ asset('orders/'.$orders->id) }}" class="btn btn-success btn-sm" target="_blank">Details</a> --}}
+                                            <a href="{{ asset('allorders/'.$orders->id) }}" target="_blank"><button type="button" class="btn btn-success ">
+                                                <i class="nav-icon  i-Pen-2"></i>
+                                            </button></a>
+
                                             <button type="button" class="btn btn-primary">
                                                 <i class="nav-icon i-Eye "></i>
                                             </button>
@@ -836,6 +838,7 @@
         <th>Model#</th>
         <th>SKU</th>
         <th>Category</th>
+        <th>Supplier</th>
         <th>Image</th>
         {{-- <th>Type</th> --}}
         <th>Action</th>
@@ -856,6 +859,8 @@
                                                 {{ $product->subcategories->name }}
                                             @endif
                                         </td>
+                                        <td>{{$product->make}}</td>
+
                                         @if($product->url)
                                         <td><img src="{{ $product->url }}" width="50" height="50"></td>
                                         @elseif($product->product_image)
@@ -864,6 +869,7 @@
                                         @else
                                         <td>image</td>
                                         @endif
+
                                         {{-- <td>
                                             @if ($product->type == 'Parent')
                                                 <span class="badge text-bg-success">{{ $product->type }}</span>
@@ -912,6 +918,7 @@
         <th>Model#</th>
         <th>SKU</th>
         <th>Category</th>
+        <th>Supplier</th>
         <th>image</th>
         {{-- <th>Type</th> --}}
         <th>Action</th>

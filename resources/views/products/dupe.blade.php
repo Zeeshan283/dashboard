@@ -14,6 +14,20 @@
             max-height: 100px;
             margin: 5px;
         }
+        .choices__inner{
+            background:#f3f4f6;
+        }
+        .choices__input{
+            background:#f3f4f6;
+        }
+        .choices__list--multiple .choices__item {
+            background-color: #6b7280;
+            color: #ffffff;
+            border:#6b7280;
+        }
+        .choices[data-type*=select-multiple] .choices__button{
+            border-left: white;
+        }
     </style>
 @endsection
 
@@ -123,13 +137,13 @@
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Color</label>
                                                 <div class="mt-auto col-lg-3">
                                                     
-                                                <select  id="choices-multiple-remove-button" name="colors[]"
-                                                    class="form-control"
-                                                    placeholder="Select Color (Maximum Lenght 5)"  multiple>
-                                                    @foreach ($colors as $value)
-                                                            <option value="{{$value->id}}">{{$value->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                    <select id="choices-multiple-remove-button" name="colors[]" class="form-control custom-select" multiple>
+                                                        @foreach ($colors as $value)
+                                                            <option value="{{ $value->id }}" @if ($edit->colors->contains('color_id', $value->id)) selected @endif>
+                                                                {{ $value->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 
                                                 </div>
 <br>
@@ -562,7 +576,7 @@
                                                 <label for="Weight" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Select Unit:</label>
                                                 <div class="col-lg-2">
                                                 <select class="form-control" name="m_unit" id="m_unit" >
-                                                    <option value="" selected >Select Measurement Unit:</option>
+                                                    <option value="{{$edit->m_unit}}" selected >{{$edit->m_unit}}</option>
                                                     <option value="Millimeter">Millimeter(mm)</option>
                                                     <option value="Centimeter">Centimeter(cm)</option>
                                                     <option value="Inch">Inch(in)</option>
@@ -602,7 +616,7 @@
                                                 <label for="Weight" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Select Unit::</label>
                                                 <div class="col-lg-2 mt-auto">
                                                 <select class="form-control " name="weight_unit" id="weight_unit" >
-                                                    <option value="" selected >Select Weight Unit:</option>
+                                                    <option value="{{$edit->weight_unit}}" selected >{{$edit->weight_unit}}</option>
                                                     <option value="Ounce">Ounce(oz)</option>
                                                     <option value="Milligram">Milligram(mg)</option>
                                                     <option value="Gram">Gram(g)</option>
@@ -645,7 +659,7 @@
                                                                         'class' => 'mx-auto col-md-12 	col-12',
                                                                         'maxlength' => '1000',
                                                                         // 'minlength' => '50',
-                                                                        'rows' => '5',
+                                                                        'rows' => '12',
                                                                         // 'required' => 'required',
                                                                     ]) !!} 
                                                                     
@@ -663,7 +677,7 @@
                                                     <div>
                                                         <div class="card-body">
                                                             
-                                                            <label for="staticEmail20" class="  col-form-label ">Details:<span style="color: red;">*</span></label>
+                                                            <label for="staticEmail20" class="  col-form-label ">Details:</label>
 
                                                             {{-- <p>Enter Product Description 2</p> --}}
                                                             <div class="mx-auto col-md-12">
@@ -673,7 +687,7 @@
                                                                     {!! Form::textarea('details', null, [
                                                                         'id' => 'details',
                                                                         'class' => 'form-control',
-                                                                    
+                                                                        'rows' => '20',
                                                                     ]) !!}
                                                                     @if ($errors->has('details'))
                                                                         <span   style="color: red;"
@@ -794,7 +808,7 @@
 
                                     
                                     {{-- feature-image-upload --}}
-                                    <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Feature Image: <span style="color: red;">*</span></label>
+                                    <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Feature Image:<span style="color: red;">*</span></label>
                                         <div class="col-lg-5">
                                             <div class="card-header d-flex justify-content-between" >
                                                 <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
@@ -895,7 +909,7 @@
                                                 <div class="card-footer" style="
                                                 text-align: end;
                                             ">
-                                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" name="submit" class="btn btn-outline-secondary  ladda-button example-button m-1">Duplicate</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -1151,7 +1165,7 @@
     </script>
     @endif
 
-    {{-- {!! Toastr::message() !!} --}}
+    {!! Toastr::message() !!}
 
 <script>
     function selectMenu(menuText, inputId) {
@@ -1162,6 +1176,42 @@
 <!-- Multi Select Dropdown -->
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
     <script>
+
+        function changeBackgroundColor() {
+                var colorMap = {
+                    '1': '#FF0000',
+                    '2': '#0000FF',
+                    '3': '#FFFDD0',
+                    '4': '#FFFF33',
+                    '5': '#006400',
+                    '6': '#FFFFFF',
+                    '7': '#FF6600',
+                    '8': '#964B00',
+                    '9': '#000000',
+                    '10': '#007FFF',
+                    '11': '#FFFFF0',
+                    '12': '#A020F0',
+                    '13': '#C3B091',
+                    '14': '#FFC0CB',
+                    '15': '#FFD700',
+                    '16': '#808000',
+                    '17': '#00FFFF',
+                    '18': '#673147',
+                    '19': '#808080',
+                    '20': '#C0C0C0',
+                    '21': '#000080',
+                    '22': '#FAF9F6'
+                };
+
+                var selectedOptions = $('#choices-multiple-remove-button').val();
+                
+                $('.choices__list--multiple .choices__item').each(function(index, element) {
+                    var dataValue = $(element).attr('data-value');
+                    var backgroundColor = selectedOptions.includes(dataValue) ? colorMap[dataValue] : '';
+                    $(element).css('background-color', backgroundColor);
+                });
+                }
+
         $(document).ready(function() {
             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
                 removeItemButton: true,
@@ -1170,7 +1220,13 @@
                 // searchResultLimit:5,
                 // renderChoiceLimit:5
 
+                
             });
+            $('#choices-multiple-remove-button').on('change', changeBackgroundColor);
+
+                document.addEventListener('click', function() {
+                changeBackgroundColor();
+                });
         });
     </script>
 
@@ -1181,49 +1237,12 @@
 <script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 {{-- <script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> --}}
     
-    <script>
-        tinymce.init({
-        selector: "textarea#description",
-        relative_urls: false,
-        paste_data_images: true,
-        image_title: true,
-        automatic_uploads: true,
-        // images_upload_url: '/post/image/upload',
-        // images_upload_url: '{{asset('upload')}}',
-        images_upload_url: '{{URL::to("/uploads3")}}',
-        file_picker_types: "image",
-        plugins: [
-            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-            "searchreplace wordcount visualblocks visualchars code fullscreen",
-            "insertdatetime media nonbreaking save table contextmenu directionality",
-            "emoticons template paste textcolor colorpicker textpattern"
-        ],
-        toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-        // override default upload handler to simulate successful upload
-        file_picker_callback: function(cb, value, meta) {
-            var input = document.createElement("input");
-            input.setAttribute("type", "file");
-            input.setAttribute("accept", "image/*");
-            input.onchange = function() {
-            var file = this.files[0];
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function() {
-                    var id = "blobid" + new Date().getTime();
-                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                    var base64 = reader.result.split(",")[1];
-                    var blobInfo = blobCache.create(id, file, base64);
-                    blobCache.add(blobInfo);
-                    cb(blobInfo.blobUri(), { title: file.name });
-                };
-            };
-            input.click();
-        }
-    });
+    
 </script>
     <script>
         tinymce.init({
         selector: "textarea#details",
+        height: 650, 
         relative_urls: false,
         paste_data_images: true,
         image_title: true,
