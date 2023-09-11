@@ -14,6 +14,8 @@
             max-height: 100px;
             margin: 5px;
         }
+        
+
     </style>
 @endsection
 
@@ -23,6 +25,8 @@
 @section('main-content')
 <div class="breadcrumb">
                 <h1>Add Products</h1>
+
+
                 @if (count($errors) > 0)
                     <div class="alert alert-danger d-flex">
                         <ul>
@@ -48,24 +52,22 @@
 
                         <div>
                             <div id="step-1" class="">
-                            
+
                                 {!! Form::open([
                                     'url' => 'products',
                                     'method' => 'POST',
-    
+
                                     'files' => 'true',
                                     'enctype' => 'multipart/form-data',
                                 ]) !!}
-                                
-                                
+
                                     <div>
                                         <div class="card-body">
                                             <div class="form-group row">
-                                                
-    
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Product Name:<span style="color: red;">*</span></label>
-                                                
-                                                <div class="col-lg-3">
+
+
+                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Product Name:</label>
+                                                <div class="col-lg-5">
                                                 {!! Form::text('name', null, [
                                                     'required' => 'required',
                                                 'id' => 'name',
@@ -90,7 +92,7 @@
                                                         'class' => 'form-control',
                                                         // '' => '',
                                                         'maxlength' => '100',
-                                                    
+
                                                         'placeholder' => 'Enter Model Numner'
                                                     ]) !!}
                                                     @if ($errors->has('model_no'))
@@ -215,6 +217,8 @@
                                                 </div>
     
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Sale Price:</label>
+
+                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Sale Price:</label>
                                                 <div class="col-lg-2">
                                                     {!! Form::text('new_sale_price', null, [
                                                         'id' => 'new_sale_price',
@@ -241,6 +245,8 @@
                                                 </div>
     
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Warranty Days:</label>
+
+                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Warranty Days:</label>
                                                 <div class="col-lg-2">
                                                     {!! Form::text('new_warranty_days', null, [
                                                         'id' => 'new_warranty_days',
@@ -267,6 +273,8 @@
                                                 </div>
     
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Return Days:</label>
+
+                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">N.Return Days:</label>
                                                 <div class="col-lg-2">
                                                 {!! Form::text('new_return_days', null, [
                                                     'id' => 'new_return_days',
@@ -326,6 +334,100 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+
+                                                <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Make:</label>
+                                                <div class="form-group col-lg-2">
+                                                    <div class="form-group">
+
+                                                        @if (Auth::User()->role=='Admin')
+                                                            {!! Form::select('vendors',$vendors,null,['id'=>'vendors','class'=>'form-control fstdropdown-select','onchange'=>'ChangeMakeCondition(this.value)']) !!}
+                                                            {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
+                                                            {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
+                                                        @else
+                                                            {!! Form::text('make1',Auth::User()->name,['id'=>'make1','class'=>'form-control','disabled'=>'disabled']) !!}
+                                                            {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
+                                                            {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
+                                                        @endif
+
+                                                        @if ($errors->has('make'))
+                                                            <span  style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('make') }}</span  style="color: red;">
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">SKU:</label>
+                                                <div class="col-lg-2">
+                                                {!! Form::text('sku', null, [
+                                                    'id' => 'sku',
+                                                    'class' => 'form-control',
+                                                    // '' => '',
+                                                    'placeholder'=>'Enter Product SKU',
+                                                ]) !!}
+                                                @if ($errors->has('sku'))
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('sku') }}</span   style="color: red;">
+                                                @endif
+                                                    {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                        Please enter Product Refurbished Price
+                                                    </small> --}}
+                                                </div>
+                                                <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Condition:</label>
+                                                <div class="col-lg-2">
+                                                    {{-- <div class="form-control"> --}}
+                                                    <select id="choices-multiple-remove-button" name="condition[]"
+                                                        class=" @error('condition')  is-invalid @enderror"
+                                                        placeholder="Select Condition" multiple  >
+                                                        @foreach ($conditions as $value)
+                                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                        @endforeach
+
+                                                    </select>
+                                                    {{-- </div> --}}
+                                                </div>
+                                                <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Color</label>
+                                                    <div class="form-group col-lg-2">
+
+                                                    <select id="choices-multiple-remove-button" name="colors[]"
+                                                        class="form-control"
+                                                        placeholder="Select color"  multiple>
+
+
+                                                        @foreach ($colors as $value)
+                                                                <option value="{{$value->id}}">{{$value->name}}</option>
+                                                        @endforeach
+
+                                                        {{-- @foreach ($colors as $key => $value)
+                                                            @php $n=0; @endphp
+                                                            @foreach ($edit->colors as $value1)
+                                                                @if ($value->id == $value1->color_id)
+                                                                    @php
+                                                                        $n++;
+                                                                        break;
+                                                                    @endphp
+                                                                @endif
+                                                            @endforeach
+                                                            @if ($n == 0)
+                                                                <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                            @else
+                                                                <option value="{{ $value->id }}" selected>{{ $value->name }}</option>
+                                                            @endif
+                                                        @endforeach --}}
+
+                                                    </select>
+
+                                                    {{-- {!! Form::select('colors[]', $colors, null, [
+                                                        'id' => 'choices-multiple-remove-button',
+                                                        'class' => 'form-control',
+
+                                                        // '' => '',
+                                                            ]) !!}
+                                                    @if ($errors->has('colors'))
+                                                        <span   style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('colors') }}</span   style="color: red;">
+                                                    @endif --}}
+                                                    </div>
+
                                             </div>
             
                                     </div>
@@ -624,28 +726,36 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+                                        </div>
+                                    </div>
+                                    <!-- end card 3 Columns Horizontal Form Layout-->
+
+                                    </div>
                                 </div>
 
                         </div>
                     </div>
 
-                            
+
                         </div>
                             <div id="step-2" class="">
                                 {{-- <h3 class="border-bottom border-gray pb-2">Step 2 Content</h3> --}}
                                 <div>
                                     
+
                                                 <div class="col-md-11 mb-4" style="padding-left: 60px">
                                                     <div>
                                                         <div class="card-body">
                                                             <label for="staticEmail20" class=col-form-label ">Short Description:<span style="color: red;">*</span></label>
 
                                                             {{-- <p>Enter Product Description 1</p> --}}
-                                                            
+
                                                         {{-- <textarea class="mx-auto col-md-12 	col-12" value={{ $edit->description }}  maxlength="10" name="description" id="summernote"  rows="7"></textarea> --}}
-                                                                
-                                                                
-                                                                                                                                    
+
+
+
                                                                     {!! Form::textarea('description', null, [
                                                                         'id' => 'description1',
                                                                         'class' => 'mx-auto col-md-12 	col-12',
@@ -655,16 +765,18 @@
                                                                         // 'required' => 'required',
                                                                     ]) !!} 
                                                                     
+                                                                    ]) !!}
+
                                                                     @if ($errors->has('description'))
                                                                         <span   style="color: red;"
                                                                             class="invalid-feedback1 font-weight-bold text-danger">{{ $errors->first('description') }}</span   style="color: red;">
                                                                     @endif
-                                                                
-                                                            
+
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-md-11 mb-4" style="padding-left: 60px">
                                                     <div>
                                                         <div class="card-body">
@@ -675,11 +787,11 @@
                                                             <div class="mx-auto col-md-12">
                                                                 {{-- <div id="snow-editor-2" class="editor-container"> --}}
                                                                     <!-- Content will be generated by Quill -->
-                                                                    
+
                                                                     {!! Form::textarea('details', null, [
                                                                         'id' => 'details',
                                                                         'class' => 'form-control',
-                                                                    
+
                                                                     ]) !!}
                                                                     @if ($errors->has('details'))
                                                                         <span   style="color: red;"
@@ -692,22 +804,22 @@
                                                 </div>
                                 </div>
                             </div>
-                            
+
                             <div id="step-3" class="">
                                 {{-- <div class="custom-separator"></div> --}}
-    
+
                                 <div class="form-group row" style="padding-left: 50px;padding-right:50px">
                                 {{-- <div class="form-group row"> --}}
                                     
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Menu:<span style="color: red;">*</span></label>
                                     <div class="form-group col-lg-5">
-                                        
+
                                             <!-- <input type="text" id="menu-input-3" class="form-control" aria-label="Text input with dropdown button"> -->
                                             <!-- <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Menu</button>
                                              <div class="dropdown-menu">
                                                 <p class="dropdown-item" onclick="selectMenu('Super Admin', 'menu-input-3')">Super Admin</p>
                                                 <p class="dropdown-item" onclick="selectMenu('Industry Mall', 'menu-input-3')">Industry Mall</p>
-                                                
+
                                             </div> -->
                                             {!! Form::select('menu_id', $menus, null, [
                                                 'id' => 'menu_id',
@@ -719,7 +831,7 @@
                                                     class="invalid-feedback1 font-weight-bold">{{ $errors->first('menu_id') }}</span   style="color: red;">
                                             @endif
                                         <br>
-                                        
+
                                     </div>
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Category:<span style="color: red;">*</span></label>
                                     <div class="form-group col-lg-5">
@@ -783,14 +895,14 @@
                                         <br>
                                     </div>
 
-                                    
+
 
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Attachment:</label>
                                     <div class="col-lg-5">
-                                    
+
                                     <input type="file" name="attachment" id="attachment"
                                         class="form-control @error('attachment') is-invalid @enderror">
-                                    
+
                                         @error('attachment')
                                         <span   style="color: red;" class="invalid-feedback font-weight-bold">{{ $message }}</span   style="color: red;">
                                     @enderror
@@ -819,11 +931,16 @@
                                         
                                         
 
+                                            </div>
+
+                                        </div>
+
+
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Images:</label>
                                         <div class="col-lg-5">
                                         {{-- <div class="form-group"> --}}
                                         <!-- <label>(1 File Size <= 100kb) (Total File Size 2MB) <span   style="color: red;" style="color: red;">*</span   style="color: red;"></label> -->
-                                
+
                                                 <div class="card-header d-flex justify-content-between" >
                                                 
                                                     {{-- <input type="file" name="images[]" id="image" class="form-control"
@@ -838,6 +955,23 @@
 
                                             <div id="thumbnails"></div>
 
+
+                                                    <input type="file" name="images[]" id="image" class="form-control"
+                                                        onchange="image_select()"  multiple style="height: fit-content;">
+
+                                                </div>
+                                                <div  class="card-body d-flex justify-content-start"   id="all_images">
+                                                </div>
+                                                <div class="card-footer d-none" id="images_paths"></div>
+
+                                                {{-- <br /> --}}
+                                                {{-- <span   style="color: red;" id="uploaded_image"></span   style="color: red;"> --}}
+                                                {{-- </div> --}}
+                                                {{-- <img src="{{ $edit->product_image->url }}" width="50" height="50"> --}}
+                                                {{-- @foreach ($edit->product_images as $value)
+                                                <img src="{{ URL::asset('upload/products/' . $value->image) }}"
+                                                class="img-thumbnail" style="width:100px;height:80px;" />
+                                                @endforeach --}}
                                             </div>
                                             {{-- <div class="container">
                                                 <div class="row">
@@ -911,6 +1045,14 @@
                                         <div class="card-block p-0">
                                         checking 
                                             
+
+                            <div id="step-4" class="">
+                                {{-- <h3 class="border-bottom border-gray pb-2">Step 4 Content</h3> --}}
+                                <div class="card o-hidden">
+                                    <div class="card-header">Tax Charges</div>
+                                        <div class="card-block p-0">
+                                        {{-- checking  --}}
+
                                                 <div>
                                                     <div class="card-body">
                                                         <div class="form-group row">
@@ -929,7 +1071,7 @@
                                                                     'onDrag' => 'return false',
                                                                     'onDrop' => 'return false',
                                                                     'autocomplete' => 'off',
-                                                                    
+
                                                                 ]) !!}
                                                                 @if ($errors->has('GST_tax'))
                                                                     <span   style="color: red;"
@@ -1008,14 +1150,14 @@
                                                                         Please Enter Other% Charges for product
                                                                     </small>
                                                             </div>
-                
-                
+
+
                                                     </div>
                                                 </div>
-                                            
+                                                
                                         </div>
-                                    
-                                    
+
+
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                                     <div class="card">
                                                         <div class="card-footer">
@@ -1024,7 +1166,7 @@
                                                     </div>
                                                 </div>
                                                 <!-- end card 3 Columns Horizontal Form Layout-->
-                                                
+
                                         </div>
                                 </div>
                                 </div>
@@ -1032,8 +1174,8 @@
                         </div>
                     </div>
                 </div>
-                
-                {!! Form::close() !!}  
+
+                {!! Form::close() !!}
 
             </div>
 
@@ -1129,7 +1271,7 @@
         });
         // End Here
 
-        // Change Categories 
+        // Change Categories
 
         $('#category_id').change(function() {
             var cat_id = $(this).val();
@@ -1182,7 +1324,7 @@
 <!-- include TinyMceEditor js -->
 <script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 {{-- <script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> --}}
-    
+
     <script>
         tinymce.init({
         selector: "textarea#description",

@@ -20,7 +20,7 @@ class SubCategoryController extends Controller
     public function index()
     {
         $data = SubCategory::with('categories:id,name')->OrderBy('name', 'asc')->get();
-        return view('category.allsubcat', compact('data'));
+        return view('sub-category.index', compact('data'));
     }
 
     public function create()

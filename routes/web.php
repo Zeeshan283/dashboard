@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InsertVendorsController;
+use App\Http\Controllers\TermsConditionsController;
 use App\Models\User;
 
 
@@ -116,7 +117,6 @@ Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('user.edit'
 Route::post('users/update/{id}', [UserController::class, 'update'])->name('user.update');
 Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('user.delete');
 
-
 // product reviews
 // Routes accessible only by vendors
 Route::middleware(['vendorOnly'])->group(function () {
@@ -173,6 +173,7 @@ Route::get('product/{id}/dupe',[ProductController::class,'dupe']);
 Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
 Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
 
+
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
 // orders using controller
@@ -193,8 +194,32 @@ Route::get('/',[HomeController::class, 'index'])->name('admin');
 // customer controller route
 Route::get('customerlist',[CustomerController::class,'index'])->name('customerlist');
 
+// Sub-Category controller route
+Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
+ Route::get('addcat', [CategoryController::class, 'create'])->name('addcat');
+Route::post('addcat', [CategoryController::class, 'store'])->name('addcat.store');
+Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
+// Route::get('addsubcat', [SubCategoryController::class, 'create'])->name('addsubcat');
+// Route::post('addsubcat', [SubCategoryController::class, 'store'])->name('addsubcat.store');
+ Route::get('category/editcat/{id}', [CategoryController::class, 'edit'])->name('category.editcat');
+Route::put('category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+Route::delete('category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
+Route::resource('sub-category', SubCategoryController::class);
+//categories
+// Route::resource('category', CategoryController::class);
 // menu controller route
+Route::get('allterm', [TermsConditionsController::class, 'index'])->name('allterm');
+Route::get('addterm', [TermsConditionsController::class, 'create'])->name('addterm');
+Route::post('addterm', [TermsConditionsController::class, 'store'])->name('addterm.store');
+Route::get('terms/edit/{id}', [TermsConditionsController::class, 'edit'])->name('terms.edit');
+Route::put('terms/update/{id}', [TermsConditionsController::class, 'update'])->name('terms.update');
+Route::delete('terms/delete/{id}', [TermsConditionsController::class, 'destroy'])->name('terms.destroy');
+Route::get('terms/show/{id}', [TermsConditionsController::class, 'show'])->name('terms.show');
+
+
+
+//terms & Conditions
 Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
 Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
 Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
@@ -227,12 +252,12 @@ Route::post('/allrefunds', [RefundController::class, 'update']) ->name('refund.u
 
 
 
-
 // vendors route
 
 Route::resource('vendor', VendorsController::class);
 Route::post('vendor', [VendorsController::class, 'store'])->name('vendor.store');
 
+Route::resource('/vendor', VendorsController::class);
 
 // add user role
 

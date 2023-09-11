@@ -18,7 +18,7 @@
                                 <div class="card-header bg-transparent">
                                     <h3 class="card-title"> Create category</h3>
                                 </div>
-                                <form action="{{route('cat.store')}}" method="POST" enctype="multipart/form-data">
+                                <form action="{{route('addcat.store')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="card-body">
 
@@ -53,9 +53,9 @@
                                                     Commission
                                                 </small>
                                             </div>
-                  
-                                            
-                                         
+
+
+
                                             <div class="form-group col-md-6">
                                                 <label for="inputEmail16" class="ul-form__label">Category Image:</label>
                                                 <div class="input-right-icon">
@@ -71,9 +71,9 @@
                                                 </div>
                                             </div>
 
-                                           
 
-                                        
+
+
                                     </div>
 
                                     <div class="card-footer">

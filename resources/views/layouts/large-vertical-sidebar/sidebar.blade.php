@@ -13,6 +13,7 @@
                     <span class="nav-text">Doc</span>
                 </a>
 
+                <div class="triangle"></div>
             </li> --}}
         </ul>
     </div>
@@ -22,15 +23,15 @@
         <ul class="childNav" data-parent="users">
 
             <li class="nav-item">
-                <a  href="{{ route('user.add')}}">
+                <a  href="{{ route('user.add') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add New User</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'users.index' ? 'open' : '' }}"
-                    href="{{ route('users.index')}}">
+                <a class="{{ Route::currentRouteName() == 'userlist' ? 'open' : '' }}"
+                    href="{{ route('userlist') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">User List</span>
                 </a>
@@ -116,16 +117,9 @@
 
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'addmenu.store' ? 'open' : '' }}"
-                    href="{{ route('addmenu.store') }}">
-                    <i class="nav-icon i-Blinklist"></i>
-                    <span class="item-name">Add Menus</span>
-                </a>
-            </li>
 
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'cat.index' ? 'open' : '' }}"
-                    href="{{route('cat.index')}}">
+                <a class="{{ Route::currentRouteName() == 'allcat' ? 'open' : '' }}"
+                    href="{{ route('allcat') }}">
                     <i class="nav-icon i-Folder"></i>
                     <span class="item-name">All Categories</span>
                 </a>
@@ -133,9 +127,9 @@
 
             <li class="nav-item">
 
-
-                <a class="{{ Route::currentRouteName() == 'allsubcat' ? 'open' : '' }}"
-                    href="{{ route('allsubcat')}}">
+                {{-- <a class="{{ Route::currentRouteName() == 'allsubcat' ? 'open' : '' }}"
+                    href="{{ route('allsubcat') }}"> --}}
+                    <a href="{{ url ('/sub-category') }}" id="list-item-color" class="nav-link menu-link {{(request()->route()->getName() == 'sub-category.index')? 'active': ''}}">
                     <i class="nav-icon i-Folder-Open"></i>
                     <span class="item-name">All Sub Categories</span>
                 </a>
@@ -183,7 +177,7 @@
                     </a>
                 </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'products' ? 'open' : '' }}" href="{{ route('products.index') }}">
+                <a class="{{ Route::currentRouteName() == 'allproducts' ? 'open' : '' }}" href="{{ route('allproducts') }}">
                     <i class="nav-icon i-Shopping-Bag"></i>
                     <span class="item-name">All Product</span>
                 </a>
@@ -343,10 +337,44 @@
                 </a>
             </li>
 
-           
-            
-         
-             
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'search-result' ? 'open' : '' }}"
+                    href="{{ route('search-result') }}">
+                    <i class="nav-icon i-Settings-Window"></i>
+                    <span class="item-name">Home Setting
+                        {{-- <span class="badge badge-pill text-bg-danger">New</span></span> --}}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'user-profile' ? 'open' : '' }}"
+                    href="{{ route('user-profile') }}">
+                    <i class="nav-icon i-Gear-2"></i>
+                    <span class="item-name">Blog Setting</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'faq' ? 'open' : '' }}" href="{{ route('faq') }}"
+                    class="open">
+                    <i class="nav-icon i-File-Text--Image"></i>
+                    <span class="item-name">Home Banner</span>
+                </a>
+            </li>
+            {{-- <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'starter' ? 'open' : '' }}" href="{{ route('starter') }}"
+                    class="open">
+                    <i class="nav-icon i-File-Horizontal"></i>
+                    <span class="item-name">Blank Page</span>
+                </a>
+            </li> --}}
+        </ul>
+         <ul class="childNav" data-parent="terms">
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'allterm' ? 'open' : '' }}"
+                    href="{{ route('allterm') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Terms & Conditions</span>
+                </a>
+            </li>
         </ul>
     </div>
 
