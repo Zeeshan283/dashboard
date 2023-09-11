@@ -238,6 +238,8 @@ Route::post('vendor', [VendorsController::class, 'store'])->name('vendor.store')
 
 Route::resource('users', RoleController::class);
 Route::resource('coupon', CouponController::class);
+Route::post('/update-coupon-status', 'CouponController@updateStatus');
+
 
 Route::resource('purchase', PurchaseController::class);
 Route::get('purchase/{id}/destroy', [PurchaseController::class, 'destroy']);

@@ -16,9 +16,11 @@ class Coupon extends Model
         'start_date',
         'end_date',
         'discount_type',
+        'apply',
         'amount',
         'percentage',
         'limit_same_user',
+        'store',
         'product_id',
     ];
 }

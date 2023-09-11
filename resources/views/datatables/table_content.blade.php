@@ -1146,11 +1146,14 @@
     <th>Coupon Type</th>
     <th>Coupon Title</th>
     <th>Coupon Code</th>
+    <th>Store</th>
     <th>Product</th>
     <th>Minimum Purchase</th>
     <th>Limit for Same User</th>
-    <th>Start Date</th>
-    <th>End Date</th>
+    <th>Amount</th>
+    <th>Percentage</th>
+    <th>Duration</th>
+    <th>Action</th>
 </thead>
 <tbody>
 @foreach ($coupons as $key => $item)
@@ -1168,13 +1171,25 @@
             @endif
 
         </td>
-        <td>{{ $item->coupon_title}}</td>
-        <td>{{ $item->coupon_code}}</td>
-        {{-- <td>{{ $item->product->name}}</td> --}}
-        <td>{{ $item->limit_same_user}}</td>
-        <td>{{ $item->start_date}}</td>
-        <td>{{ $item->end_date}}</td>
-    </tr>
+        <td>{{ $item->coupon_title ?: 'Nill'}}</td>
+        <td>{{ $item->coupon_code ?: 'Nill'}}</td>
+        <td>{{ $item->store ?: 'Nill'}}</td>
+        <td>{{ $item->product_id ?: 'Nill'}}</td>
+        <td>{{ $item->minimum_purchase ?: 'Nill'}}</td>
+        <td>{{ $item->limit_same_user ?: 'Nill'}}</td>
+        <td>{{ $item->amount ?: 'Nill'}}</td>
+        <td>{{ $item->percentage ?: 'Nill'}}</td>
+        <td>{{ $item->start_date}} : {{ $item->end_date}}</td>\
+
+        <td>
+            <label class="switch">
+                <input type="checkbox" class="coupon-status-toggle" data-coupon-id="{{ $item->id }}" {{ $item->stauts ? 'checked' : '' }}>
+                <span class="slider round"></span>
+            </label>
+        </td>
+
+        
+    </tr>   
 @endforeach
 </tbody>
 <tfoot>
@@ -1183,11 +1198,14 @@
     <th>Coupon Type</th>
     <th>Coupon Title</th>
     <th>Coupon Code</th>
+    <th>Store</th>
     <th>Product</th>
     <th>Minimum Purchase</th>
     <th>Limit for Same User</th>
-    <th>Start Date</th>
-    <th>End Date</th>
+    <th>Amount</th>
+    <th>Percentage</th>
+    <th>Duration</th>
+    <th>Action</th>
 </tr>
 </tfoot>
 
@@ -1358,4 +1376,32 @@
         $(function() {
             $("#example1").DataTable();
         });
-    </script>
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.coupon-status-toggle').on('change', function() {
+            const couponId = $(this).data('coupon-id');
+            const isActive = this.checked ? 1 : 0; // 1 for active, 0 for inactive
+
+            // Send an AJAX request to update the coupon status
+            $.ajax({
+                type: 'POST',
+                url: '/update-coupon-status', // Replace with your update route
+                data: {
+                    coupon_id: couponId,
+                    is_active: isActive,
+                },
+                success: function(response) {
+                    // Handle success (e.g., show a message)
+                    console.log('Coupon status updated successfully.');
+                },
+                error: function(error) {
+                    // Handle error (e.g., show an error message)
+                    console.error('Error updating coupon status.');
+                },
+            });
+        });
+    });
+</script>
