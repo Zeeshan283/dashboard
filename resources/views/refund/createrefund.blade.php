@@ -56,18 +56,31 @@
                                                     </small>
                                                 </div>
 
-                                                <div class="form-group col-lg-6">
-                                                    <label for="inputtext11" class="ul-form__label">Customer Id & Name:</label>
-                                                    <select class="form-control" id="customer_id" name="customer_id" required>
-                                                        <option value="" selected disabled>Select Customer id</option>
-                                                        @foreach ($customers as $customer)
-                                                            <option value="{{$customer->id}}">{{ $customer->id}} => {{$customer->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <small id="passwordHelpBlock" class="ul-form__text form-text">
-                                                        Select Customer/Buyer Id
-                                                    </small>
-                                                </div>
+                                               <div class="form-group col-lg-6">
+    <label for="inputtext11" class="ul-form__label">Name</label>
+    <select class="form-control" id="customer_id" name="customer_id" required>
+        <option value="" selected disabled>Select Name</option>
+        @foreach ($customers as $customer)
+            <option value="{{$customer->id}}">{{ $customer->id}} => {{$customer->name}}</option>
+        @endforeach
+    </select>
+    <small id="passwordHelpBlock" class="ul-form__text form-text">
+        Select Name
+    </small>
+</div>
+
+<div id="selectedName"></div>
+
+<script>
+    var selectElement = document.getElementById('customer_id');
+    var selectedNameDisplay = document.getElementById('selectedName');
+
+    selectElement.addEventListener('change', function() {
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        selectedNameDisplay.textContent = selectedOption.textContent;
+    });
+</script>
+
 
                                                 <div class="form-group col-lg-6">
                                                     <label for="inputtext11" class="ul-form__label">Order Id:</label>
@@ -92,7 +105,7 @@
 
                                             <div class="form-group col-lg-6">
                                                 <label for="inputEmail12" class="ul-form__label">Refund Reason:</label>
-                                                <input type="text" class="form-control" id="reason" name="reason" placeholder="Enter Contact Number" maxlength="9" required>
+                                                <input type="text" class="form-control" id="reason" name="reason" placeholder="Enter Reason here" maxlength="20" required>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter Refund Reason
                                                 </small>

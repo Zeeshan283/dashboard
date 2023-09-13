@@ -96,18 +96,6 @@ Route::put('update_seller/{id}', [InsertVendorsController::class, 'update']);
 
 
 
-
-// Refund
-Route::view('pendingrefund', 'refund.pendingrefund')->name('pendingrefund');
-Route::view('approvedrefund', 'refund.approvedrefund')->name('approvedrefund');
-Route::view('refundrejected', 'refund.refundrejected')->name('refundrejected');
-
-// Customer
-
-
-
-// Users
-
 // Route::view('adduser', 'users.adduser')->name('adduser');
 // Route::view('userlist','users.userlist')->name('userlist');
 Route::get('users/userlist', [UserController::class, 'userlist'])->name('userlist');

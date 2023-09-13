@@ -89,7 +89,6 @@ class MenuController extends Controller
     public function destroy($id)
     {
         $menu = Menu::findOrFail($id);
-        // Handle image deletion if needed
         $menu->delete();
         Toastr::success('Menu Deleted Successfully!');
         return redirect()->back();
