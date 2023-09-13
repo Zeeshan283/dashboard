@@ -24,7 +24,7 @@
         .choices__list--multiple .choices__item {
             background-color: #6b7280;
             color: #ffffff;
-            border:#6b7280;
+            border:4px solid;
         }
         .choices[data-type*=select-multiple] .choices__button{
             border-left: white;
@@ -1223,7 +1223,7 @@
                 $('.choices__list--multiple .choices__item').each(function(index, element) {
                     var dataValue = $(element).attr('data-value');
                     var backgroundColor = selectedOptions.includes(dataValue) ? colorMap[dataValue] : '';
-                    $(element).css('background-color', backgroundColor);
+                    $(element).css('border-color', backgroundColor);
                 });
                 }
 
