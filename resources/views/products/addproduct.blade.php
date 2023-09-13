@@ -25,11 +25,14 @@
         .choices__list--multiple .choices__item {
             background-color: #6b7280;
             color: #ffffff;
-            border:#6b7280;
+            border:4px solid;
         }
         .choices[data-type*=select-multiple] .choices__button{
             border-left: white;
         }
+        /* .choices-custom-button{
+            background-color: red;
+        } */
     </style>
 @endsection
 
@@ -38,6 +41,10 @@
 
 @section('main-content')
 <div class="breadcrumb">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
                 <h1>Add Products</h1>
                 @if (count($errors) > 0)
                     <div class="alert alert-danger d-flex">
@@ -1062,7 +1069,7 @@ $(document).ready(function() {
                 $('.choices__list--multiple .choices__item').each(function(index, element) {
                     var dataValue = $(element).attr('data-value');
                     var backgroundColor = selectedOptions.includes(dataValue) ? colorMap[dataValue] : '';
-                    $(element).css('background-color', backgroundColor);
+                    $(element).css('border-color',  backgroundColor);
                 });
                 }
 
@@ -1074,6 +1081,9 @@ $(document).ready(function() {
                 // searchResultLimit:5,
                 // renderChoiceLimit:5
 
+                // classNames: {
+                //     button: 'choices-custom-button', // Add a custom class for the button
+                //     },
                 
             });
             $('#choices-multiple-remove-button').on('change', changeBackgroundColor);

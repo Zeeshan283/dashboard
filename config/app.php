@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Brian2694\Toastr\ToastrServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        // Laravel\Passport\PassportServiceProvider::class,
 
 
         /*

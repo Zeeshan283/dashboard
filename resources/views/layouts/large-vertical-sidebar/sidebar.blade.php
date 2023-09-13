@@ -177,7 +177,7 @@
                     </a>
                 </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'allproducts' ? 'open' : '' }}" href="{{ route('allproducts') }}">
+                <a class="{{ Route::currentRouteName() == 'products.index' ? 'open' : '' }}" href="{{ route('products.index') }}">
                     <i class="nav-icon i-Shopping-Bag"></i>
                     <span class="item-name">All Product</span>
                 </a>
