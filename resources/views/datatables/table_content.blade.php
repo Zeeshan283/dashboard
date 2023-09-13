@@ -1196,12 +1196,16 @@
         <th>Action</th>
     </thead>
     <tbody>
+        {{-- {{$data}} --}}
+        @isset($menuNames)
+            
+        @endisset
         @foreach ($data as $key => $allcat)
         <tr>
             <td>{{ $key + 1 }}</td>
             <td>{{ $allcat->id }}</td>
             <td>{{ $allcat->name }}</td>
-            <td>{{ $allcat->menu }}</td>
+            <td>{{ isset($menuNames[$allcat->id]) ? $menuNames[$allcat->id] : 'Menu Not Found' }}</td>
             <td>{{ $allcat->commision }}</td>
             <td><img src="<?php echo $allcat['img']; ?>" width="50" height="50"></td>
             <td class="col-lg-1" style="white-space: nowrap;">

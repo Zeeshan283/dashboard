@@ -85,23 +85,29 @@ class CategoryController extends Controller
 
   public function edit($id)
   {
-      $edit = Category::findOrFail($id);
-      $menus = Menu::orderBy('id', 'asc')->get();
-      $categories = Category::orderBy('id', 'asc')->pluck('name', 'id');
-      return view('category.editcat', compact('edit', 'categories', 'menus'));
+    $data = Category::with('menu')->orderBy('id', 'asc')->get();
+
+    $menuNames = [];
+
+    foreach ($data as $category) {
+        $cat_menu = Menu::find($category->menu_id);
+        $menuNames[$category->id] = $cat_menu ? $cat_menu->name : 'Menu Not Found';
+    }
+
+    return view('category.allcat', compact('data', 'menuNames'));
   }
   public function update(Request $request, $id)
   {
-    $this->validate($request, [
-      'name' => 'required',
-      'menu_id' => 'required',
-      'commission' => 'required',
-      'img'=>'mimes:png,jpg,jpeg',
-      'imageforapp'=>'mimes:png,jpg,jpeg',
-    //   'menu' => 'required',
-    ], [
-      'menu_id.required' => 'The menu field is required'
-    ]);
+    // $this->validate($request, [
+    //   'name' => 'required',
+    //   'menu_id' => 'required',
+    //   'commission' => 'required',
+    //   'img'=>'mimes:png,jpg,jpeg',
+    //   'imageforapp'=>'mimes:png,jpg,jpeg',
+    // //   'menu' => 'required',
+    // ], [
+    //   'menu_id.required' => 'The menu field is required'
+    // ]);
 
     $update1 = Category::findOrFail($id);
     $update = Category::findOrFail($id);
@@ -112,13 +118,13 @@ class CategoryController extends Controller
         File::delete($update1->img);
         $file = $request->file('img');
         $fileName = uniqid() . $file->getClientOriginalName();
-        $imagePath = public_path('root/upload/category/' . $fileName);
+        $imagePath = public_path('/upload/category/' . $fileName);
 
         $img = Image::make($file);
         $img->resize(100, 100);
         $img->save($imagePath);
 
-        $update->img = 'root/upload/category/'.$fileName;
+        $update->img = '/upload/category/'.$fileName;
         $update->save();
     }
 
@@ -126,13 +132,13 @@ class CategoryController extends Controller
       File::delete($update1->imageforapp);
       $file = $request->file('imageforapp');
       $fileName = uniqid() . $file->getClientOriginalName();
-      $imagePath =  'root/upload/category/' . $fileName;
+      $imagePath =  '/upload/category/' . $fileName;
 
       $img = Image::make($file);
       $img->resize(100, 100);
       $img->save($imagePath);
 
-      $update->imageforapp ='root/upload/category/'.$fileName;
+      $update->imageforapp ='/upload/category/'.$fileName;
       $update->save();
   }
 
@@ -142,11 +148,11 @@ class CategoryController extends Controller
 
       $imageName = $request->file('img')->getClientOriginalName();
       $request->file('img')->move(
-        base_path() . 'root/upload/category/',
+        base_path() . '/upload/category/',
         $imageName
       );
 
-      $update->img = 'root/upload/category/'.$imageName;
+      $update->img = '/upload/category/'.$imageName;
       $update->save();
     }
     if (!is_null($request->file('imageforapp'))) {
@@ -154,11 +160,11 @@ class CategoryController extends Controller
 
       $imageName = $request->file('imageforapp')->getClientOriginalName();
       $request->file('imageforapp')->move(
-        base_path() . 'root/upload/category/',
+        base_path() . '/upload/category/',
         $imageName
       );
 
-      $update->img ='root/upload/category/'.$imageName;
+      $update->img ='/upload/category/'.$imageName;
       $update->save();
     }
     Toastr::success('Category created successfully', 'Success');
