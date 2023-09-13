@@ -20,7 +20,7 @@ class ApiController extends Controller
 
     public function menus()
     {
-        $menus = Menu::select('id', 'name', 'image', 'imageforapp')->orderBy('id')->get();
+        $menus = Menu::select('id', 'name', 'icon','image', 'imageforapp')->orderBy('id')->get();
         return json_encode($menus);
     }
 
