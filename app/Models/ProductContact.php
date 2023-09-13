@@ -10,7 +10,7 @@ class ProductContact extends Model
     use HasFactory;
     protected $fillable = array(
         'make', 'pro_id', 'pro_name', 'message', 'model_no', 'brand_name', 'moq',
-        'delivery_location', 'vendor_id', 'ptcl', 'phoneno', 'company', 'address'
+        'delivery_location', 'vendor_id', 'ptcl', 'phoneno', 'company', 'address','email','website'
     );
 
     public function vendor()

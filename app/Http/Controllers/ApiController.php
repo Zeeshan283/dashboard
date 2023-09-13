@@ -53,7 +53,7 @@ class ApiController extends Controller
         $products = Product::with('product_image')->with('colors')->orderBy('id')->get();
         return response()->json([$products]);
     }
-
+    
     public function GetSubCategoryProduct($id)
     {
         $sub = SubCategory::where('id', $id)->first();
@@ -111,7 +111,8 @@ class ApiController extends Controller
                 'company' => 'max:255|min:1',
                 'address' => 'required|max:255|min:1',
                 'phoneno' => 'required|max:255|min:1',
-                'vendor_id' => 'required'
+                'vendor_id' => 'required',
+                'email' => 'required',
             ], [
                 'pro_id.required' => 'Something went wrong',
                 'make.required' => 'Something went wrong',
@@ -122,7 +123,8 @@ class ApiController extends Controller
                 'moq.required' => 'The MOQ field is required',
                 'delivery_location.required' => 'The Location field is required',
                 'phoneno.required' => 'The Phone no field is required',
-                'vendor_id.required' => 'The Vendor field is required'
+                'vendor_id.required' => 'The Vendor field is required',
+                'email.required' => 'The Email field is required'
             ]);
 
             if ($validator->fails()) {
