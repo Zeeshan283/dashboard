@@ -17,6 +17,7 @@ use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductContactController;
 use App\Http\Controllers\InsertVendorsController;
 use App\Http\Controllers\TermsConditionsController;
 use App\Models\User;
@@ -116,7 +117,7 @@ Route::middleware(['vendorOnly'])->group(function () {
 });
 
 // Other routes accessible to all users
-Route::view('customerqueries', 'products.customerqueries')->name('customerqueries');
+// Route::view('customerqueries', 'products.customerqueries')->name('customerqueries');
 Route::view('productinfo', 'products.productinfo')->name('productinfo');
 Route::view('productreviews', 'products.productreviews')->name('productreviews');
 // Route::view('cwallet', 'customer.cwallet')->name('cwallet');
@@ -160,6 +161,8 @@ Route::resource('products', ProductController::class);
 Route::get('product/{id}/dupe', [ProductController::class, 'dupe']);
 Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
 Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+
+Route::resource('CustomerQueries', ProductContactController::class);
 
 
 Route::get('/get-categories', [ProductController::class, 'GetCategories']);

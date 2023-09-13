@@ -183,7 +183,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'customerqueries' ? 'open' : '' }}" href="{{ route('customerqueries') }}">
+                <a class="{{ Route::currentRouteName() == 'CustomerQueries.index' ? 'open' : '' }}" href="{{ route('CustomerQueries.index') }}">
                     <i class="nav-icon i-Pen-2"></i>
                     <span class="item-name">Customer Queries</span>
                 </a>
