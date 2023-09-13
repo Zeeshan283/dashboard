@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-@if (Route::currentRouteName() == 'allorders.index')
+@if (Route::currentRouteName() == 'allorders')
         <thead>
             <th>Sr No</th>
             <th>Order #</th>
@@ -10,36 +10,43 @@
             <th>Order Date</th>
             <th>Shipping Date</th>
             <th>Status</th>
-            <th>Action</th>
+            <th>Update/View</th>
         </thead>
         <tbody>
         @foreach ($data as $value => $orders )
-                                    <tr>
-                                        <td>{{ $value + 1 }}</td>
-                                        <td>{{ $orders->id }}</td>
-                                        <td>{{ $orders->first_name }}</td>
-                                        <td>{{ $orders->last_name }}</td>
-                                        <td>{{ $orders->date }}</td>
-                                        <td>{{ $orders->shipping }}</td>
-                                        <td>{{ $orders->status}}</td>
-                                        <td>
-
-                                            <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-danger ">
-                                                <i class="nav-icon i-Close-Window  "></i>
-                                            </button>
-                                                {{-- </a><a href="{{ asset('orders/'.$orders->id) }}" class="btn btn-success btn-sm" target="_blank">Details</a> --}}
-                                            <a href="{{ asset('allorders/'.$orders->id) }}" target="_blank"><button type="button" class="btn btn-success ">
-                                                <i class="nav-icon  i-Pen-2"></i>
-                                            </button></a>
-
-                                            <button type="button" class="btn btn-primary">
-                                                <i class="nav-icon i-Eye "></i>
-                                            </button>
-                                            </div>
-
-                                        </td>
-                                    </tr>
+            <tr>
+                <td>{{ $value + 1 }}</td>
+                <td>{{ $orders->id }}</td>
+                <td>{{ $orders->first_name }}</td>
+                <td>{{ $orders->last_name }}</td>
+                <td>{{ $orders->date }}</td>
+                <td>{{ $orders->shipping }}</td>
+               
+                <form method="POST" action="{{ route('order.status', ['id' => $orders->id])}}">
+                    @csrf
+                    @method('PATCH')
+                <td>
+                    <select class="form-control" name="status" id="status{{ $orders->id }}">
+                        <option value="" selected disabled>{{ $orders->status}}</option>
+                        <option value="canceled">Canceled</option>
+                        <option value="Field to Deliver">Field to Deliver</option>
+                        <option value="out of delivery">Out of Delivery</option>
+                        <option value="packaging">Packaging</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="returned">Returned</option>
+                        <option value="In Process">In Process</option>
+                        <option value="confirmed">Confirmed</option>
+                    </select>
+                </td>
+                <td>
+                    <button type ="submit" class="btn btn-info ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Update</span></button>
+                    <button type="button" class="btn btn-danger">
+                        <i class="nav-icon i-Eye "></i>
+                    </button>
+                    </div>
+                </td> 
+            </form>
+            </tr>
         @endforeach
         </tbody>
         <tfoot>
@@ -51,7 +58,7 @@
             <th>Order Date</th>
             <th>Shipping Date</th>
             <th>Status</th>
-            <th>Action</th>
+            <th>Update/View</th>
         </tr>
         </tfoot>
 @elseif (Route::currentRouteName() == 'pendingorders' )
@@ -516,20 +523,71 @@
     </tfoot>
 
 {{-- Refund tables  --}}
-@elseif (Route::currentRouteName() == 'allrefunds' )
-    <thead>
-        <th>Sr No</th>
-        <th>Vedor</th>
-        <th>Product Id#</th>
-        <th>Customer Id#</th>
-        <th>Order_Id#</th>
-        <th>Reason</th>
-        <th>Amount</th>
-        <th>Status</th>
-        <th>Action</th>
-    </thead>
-    <tbody>
-        @foreach ($refund_status as $key => $value)
+@elseif (Route::currentRouteName() == 'allrefunds')
+<thead>
+    <th>Sr No</th>
+    <th>Vendor</th>
+    <th>Product Id#</th>
+    <th>Name</th>
+    <th>Order_Id#</th>
+    <th>Reason</th>
+    <th>Amount</th>
+    <th>Status</th>
+    <th>Action</th>
+</thead>
+<tbody>
+    @foreach ($refund_status as $key => $value)
+<tr>
+    <td>{{ $value->id }}</td>
+    <td>{{ $value->Vendor}}</td>
+    <td>{{ $value->product->sku }}</td>
+    <td>{{ $value->customer_id}}</td>
+    <td>{{ $value->order_id}}</td>
+    <td>{{ $value->reason}}</td>
+    <td>{{ $value->amount}}</td>
+    <form method="POST" action="{{ route('refund.update', ['id' => $value->id])}}">
+        @csrf
+        @method('PATCH')
+    <td>
+    <select class="form-control" name="status" id="status{{ $value->id }}">
+        <option value="" selected disabled>{{$value->status}}</option>
+        <option value="Pending">Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Refunded">Refunded</option>
+        <option value="Rejected">Rejected</option>
+    </select>
+    </td>
+    <td>
+        <button type ="submit" class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Update</span></button>
+    </td>
+</form>
+</tr>
+@endforeach
+</tbody>
+<tfoot>
+    <th>Sr No</th>
+    <th>Vendor</th>
+    <th>Product Id#</th>
+    <th>Name</th>
+    <th>Order_Id#</th>
+    <th>Reason</th>
+    <th>Amount</th>
+    <th>Status</th>
+    <th>Action</th>
+</tfoot>
+@elseif (Route::currentRouteName() == 'pendingrefund' )
+<thead>
+    <th>Sr No</th>
+    <th>Vendor</th>
+    <th>Product Id#</th>
+    <th>Name</th>
+    <th>Order_Id#</th>
+    <th>Reason</th>
+    <th>Amount</th>
+    <th>Status</th>
+</thead>
+<tbody>
+    @foreach ($refund_status as $key => $value)
     <tr>
         <td>{{ $value->id }}</td>
         <td>{{ $value->Vendor}}</td>
@@ -538,222 +596,166 @@
         <td>{{ $value->order_id}}</td>
         <td>{{ $value->reason}}</td>
         <td>{{ $value->amount}}</td>
-        <form   method ="POST" action="{{ route('refund.update')}}" >
-        @csrf
-        <td>
-                <select class="form-control" id="product_id">
-                    <option value="" selected disabled>Select Status</option>
-                    {{-- @foreach ($products as $product) --}}
-                        <option name="status[]" value="Pending">Pending</option>
-                        <option  name="status[]"  value="Aproved">Approved</option>
-                        <option   name="status[]" value="Refunded">Refunded</option>
-                        <option   name="status[]" value="Rejected">Rejected</option>
-                    {{-- @endforeach --}}
-                </select>
-        </td>
-        <td>
-            <button type ="submit" class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Update</span></button>
-        </td>
-    </form>
+        <td>{{ $value->status}}</td>
     </tr>
-    @endforeach
-    </tbody>
-    <tfoot>
-    <tr>
-        <th>Sr No</th>
-        <th>Vedor</th>
-        <th>Product Id#</th>
-        <th>Customer Id#</th>
-        <th>Order_Id#</th>
-        <th>Reason</th>
-        <th>Amount</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-    </tfoot>
-
-@elseif (Route::currentRouteName() == 'pendingrefund' )
-    <thead>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td>$320,800</td>
-    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-    </tfoot>
+@endforeach
+</tbody>
+<tfoot>
+    <th>Sr No</th>
+    <th>Vendor</th>
+    <th>Product Id#</th>
+    <th>Name</th>
+    <th>Order_Id#</th>
+    <th>Reason</th>
+    <th>Amount</th>
+    <th>Status</th>
+</tfoot>
 
 @elseif (Route::currentRouteName() == 'approvedrefund' )
-    <thead>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td><span class="i-Eye-Visible"></span></td>
-    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-    </tfoot>
+<thead>
+    <th>Sr No</th>
+    <th>Vedor</th>
+    <th>Product Id#</th>
+    <th>Name</th>
+    <th>Order_Id#</th>
+    <th>Reason</th>
+    <th>Amount</th>
+    <th>Status</th>
+</thead>
+<tbody>
+    @foreach ($refund_status as $key => $value)
+<tr>
+    <td>{{ $value->id }}</td>
+    <td>{{ $value->Vendor}}</td>
+    <td>{{ $value->product->sku }}</td>
+    <td>{{ $value->customer_id}}</td>
+    <td>{{ $value->order_id}}</td>
+    <td>{{ $value->reason}}</td>
+    <td>{{ $value->amount}}</td>
+    <td>{{ $value->status}}</td>
+</tr>
+@endforeach
+</tbody>
+<tfoot>
+    <th>Sr No</th>
+    <th>Vedor</th>
+    <th>Product Id#</th>
+    <th>Name</th>
+    <th>Order_Id#</th>
+    <th>Reason</th>
+    <th>Amount</th>
+    <th>Status</th>
+</tfoot>
+
 
 @elseif (Route::currentRouteName() == 'refunded' )
-    <thead>
-        <th>Sr No</th>
-        <th>Refund Id#</th>
-        <th>Customer Name</th>
-        <th>Product</th>
-        <th>Amount</th>
-        <th>Reason</th>
-    </thead>
-    <tbody>
-    @foreach ($refunds as $key => $refund )
-
-    @endforeach
-    <tr>
-        <td>{{ $key + 1 }}</td>
-        <td>{{ $refund->id}}</td>
-        <td>{{ $refund->customer->name }}</td>
-        <td>{{ $refund->product->sku }}</td>
-        <td>{{ $refund->amount}}</td>
-        <td>{{ $refund->reason}}</td>
-
-        <td><span class="i-Eye-Visible"></span></td>    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <th>Sr No</th>
-        <th>Refund Id#</th>
-        <th>Customer Name</th>
-        <th>Product</th>
-        <th>Amount</th>
-        <th>Reason</th>
-    </tr>
-    </tfoot>
-
-@elseif (Route::currentRouteName() == 'refundrejected' )
-    <thead>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td><span class="i-Eye-Visible"></span></td>
-    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-    </tfoot>
+<thead>
+    <th>Sr No</th>
+    <th>Vedor</th>
+    <th>Product Id#</th>
+    <th>Name</th>
+    <th>Order_Id#</th>
+    <th>Reason</th>
+    <th>Amount</th>
+    <th>Status</th>
+</thead>
+<tbody>
+    @foreach ($refund_status as $key => $value)
+<tr>
+    <td>{{ $value->id }}</td>
+    <td>{{ $value->Vendor}}</td>
+    <td>{{ $value->product->sku }}</td>
+    <td>{{ $value->customer_id}}</td>
+    <td>{{ $value->order_id}}</td>
+    <td>{{ $value->reason}}</td>
+    <td>{{ $value->amount}}</td>
+    <td>{{ $value->status}}</td>
+</tr>
+@endforeach
+</tbody>
+<tfoot>
+    <th>Sr No</th>
+    <th>Vedor</th>
+    <th>Product Id#</th>
+    <th>Name</th>
+    <th>Order_Id#</th>
+    <th>Reason</th>
+    <th>Amount</th>
+    <th>Status</th>
+</tfoot>
 
 @elseif (Route::currentRouteName() == 'refundrejected' )
-    <thead>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td><span class="i-Eye-Visible"></span></td>
-    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-    </tfoot>
+<thead>
+    <th>Sr No</th>
+    <th>Vedor</th>
+    <th>Product Id#</th>
+    <th>Name</th>
+    <th>Order_Id#</th>
+    <th>Reason</th>
+    <th>Amount</th>
+    <th>Status</th>
+</thead>
+<tbody>
+    @foreach ($refund_status as $key => $value)
+<tr>
+    <td>{{ $value->id }}</td>
+    <td>{{ $value->Vendor}}</td>
+    <td>{{ $value->product->sku }}</td>
+    <td>{{ $value->customer_id}}</td>
+    <td>{{ $value->order_id}}</td>
+    <td>{{ $value->reason}}</td>
+    <td>{{ $value->amount}}</td>
+    <td>{{ $value->status}}</td>
+</tr>
+@endforeach
+</tbody>
+<tfoot>
+    <th>Sr No</th>
+    <th>Vedor</th>
+    <th>Product Id#</th>
+    <th>Name</th>
+    <th>Order_Id#</th>
+    <th>Reason</th>
+    <th>Amount</th>
+    <th>Status</th>
+</tfoot>
+
 @elseif (Route::currentRouteName() == 'refundrejected' )
-    <thead>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Tiger Nixon</td>
-        <td>System Architect</td>
-        <td>Edinburgh</td>
-        <td>61</td>
-        <td>2011/04/25</td>
-        <td><span class="i-Eye-Visible"></span></td>
-    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <th>Sr No</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-    </tfoot>
+<thead>
+    <th>Sr No</th>
+    <th>Vedor</th>
+    <th>Product Id#</th>
+    <th>Name</th>
+    <th>Order_Id#</th>
+    <th>Reason</th>
+    <th>Amount</th>
+    <th>Status</th>
+</thead>
+<tbody>
+    @foreach ($refund_status as $key => $value)
+<tr>
+    <td>{{ $value->id }}</td>
+    <td>{{ $value->Vendor}}</td>
+    <td>{{ $value->product->sku }}</td>
+    <td>{{ $value->customer_id}}</td>
+    <td>{{ $value->order_id}}</td>
+    <td>{{ $value->reason}}</td>
+    <td>{{ $value->amount}}</td>
+    <td>{{ $value->status}}</td>
+</tr>
+@endforeach
+</tbody>
+<thead>
+    <th>Sr No</th>
+    <th>Vedor</th>
+    <th>Product Id#</th>
+    <th>Name</th>
+    <th>Order_Id#</th>
+    <th>Reason</th>
+    <th>Amount</th>
+    <th>Status</th>
+</thead>
+
 
 {{-- customer related tables  --}}
 @elseif (Route::currentRouteName() == 'customerlist' )

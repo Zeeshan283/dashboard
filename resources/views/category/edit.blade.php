@@ -10,37 +10,39 @@
 <form action="{{ route('menu.update', ['id' => $edit->id]) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="form-group">
-            <label>Name</label>
-             {!! Form::text('name', null, [
-                'id' => 'name',
-                'class' => 'form-control',
-                'autofocus' => 'autofocus',
-                'required' => 'required',
-            ]) !!}
-            @error('name')
-                <span class="invalid-feedback1 font-weight-bold">{{ $message }}</span>
-            @enderror
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+                <label>Name</label>
+                 {!! Form::text('name', null, [
+                    'id' => 'name',
+                    'class' => 'form-control',
+                    'autofocus' => 'autofocus',
+                    'required' => 'required',
+                ]) !!}
+                @error('name')
+                    <span class="invalid-feedback1 font-weight-bold">{{ $message }}</span>
+                @enderror
+            </div>
         </div>
-    </div>
-    <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="form-group">
-            <label>Icon</label>
-            <select name="icon" id="icon"
-                class="form-control faselect fstdropdown-select @error('icon') is-invalid @enderror"
-                required>
-                <option value="">Select Icon</option>
-                @for ($i = 0; $i < count($data); $i++)
-                    <option value="{{ $data[$i]['name'] }}">{!! $data[$i]['code'] !!}
-                        {{ $data[$i]['name'] }}</option>
-                @endfor
-            </select>
-            @error('icon')
-                <span class="invalid-feedback1 font-weight-bold">{{ $message }}</span>
-            @enderror
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+                <label>Icon</label>
+                <select name="icon" id="icon"
+                    class="form-control faselect fstdropdown-select @error('icon') is-invalid @enderror"
+                    required>
+                    <option value="">Select Icon</option>
+                    @for ($i = 0; $i < count($data); $i++)
+                        <option value="{{ $data[$i]['name'] }}">{!! $data[$i]['code'] !!}
+                            {{ $data[$i]['name'] }}</option>
+                    @endfor
+                </select>
+                @error('icon')
+                    <span class="invalid-feedback1 font-weight-bold">{{ $message }}</span>
+                @enderror
+            </div>
         </div>
-    </div>
+    
     <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="form-group">
             <label>Image (1100 x 450)</label>
@@ -59,7 +61,19 @@
             @enderror
         </div>
     </div>
-    <button type="submit">Update</button>
+    {{-- <div style="text-align: right;  margin-left: auto;"> 
+        <button  class="btn btn-primary" type="submit">Update</button>
+    </div> --}}
+    <br>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-footer" style="text-align: right;">
+                <button type="submit" name="submit" class="btn btn-outline-secondary  ladda-button example-button m-1">Update</button>
+            </div>
+        </div>
+    </div>
+
+</div >
 </form>
 @endsection
 

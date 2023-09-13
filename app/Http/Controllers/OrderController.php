@@ -185,8 +185,18 @@ class OrderController extends Controller
 		return view('order.vendor_order_report', compact('order', 'order_detail'));
 	}
 
-	public function destroy($id)
+	public function status(Request $request, $id)
 	{
-		//
+		$validatedData = $request->validate([
+            'status' => 'required|in:canceled,Field to Deliver,out of delivery,packaging, delivered, returned, In Process,confirmed ',
+        ]);
+
+        $orderstatus = Order::findOrFail($id);
+        $orderstatus->status = $validatedData['status'];
+        $orderstatus->save();
+
+		Toastr::success('Order Status Updated successfully', 'Success');
+		return redirect()->back();
+
 	}
 }
