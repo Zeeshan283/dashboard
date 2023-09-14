@@ -21,6 +21,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6 col-sm-6">
+                    <a href="{{ route('products.index')}}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <i class="i-Add-Cart"></i>
@@ -29,10 +30,11 @@
                                 <p class="text-primary text-24 line-height-1 mb-2">{{ $products}}</p>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
 
                 <div class="col-lg-4 col-md-6 col-sm-6">
+                    <a href="{{ route('allorders')}}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <i class="i-Shopping-Cart"></i>
@@ -41,7 +43,7 @@
                                 <p class="text-primary text-24 line-height-1 mb-2">{{ $currenOrders}}</p>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
 
 
@@ -50,6 +52,20 @@
             {{-- medium icons and values  --}}
             <div class="row" >
                 <!-- ICON BG -->
+                @if(Auth::User()->role == 'Admin')
+                <div class="col-lg-3 col-md-6 col-sm-6" >
+                    <a href="{{ route('vendor.index')}}">
+                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" >
+                        <div class="card-body text-center">
+                            <i class="i-Add-User" style="height: 30px"></i>
+                            <div class="content">
+                                <p class="text-muted mt-2 mb-0">TotalVendors</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $vendorlist }}</p>
+                            </div>
+                        </div>
+                    </div></a>
+                </div>
+
                 <div class="col-lg-3 col-md-6 col-sm-6" >
                     <a href="{{ route('customerlist')}}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" >
@@ -58,6 +74,20 @@
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">TotalCustomers</p>
                                 <p class="text-primary text-15 line-height-1 mb-2">{{ $customer }}</p>
+                            </div>
+                        </div>
+                    </div></a>
+                </div>
+
+                @endif
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <a href="{{ route('CustomerQueries.index')}}">
+                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                        <div class="card-body text-center">
+                            <i class="i-Timer1" style="height: 30px"></i>
+                            <div class="content" >
+                                <p class="text-muted mt-2 mb-0">CustomerQueries</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $customerQueries }}</p>
                             </div>
                         </div>
                     </div></a>
@@ -149,6 +179,7 @@
                         </div>
                     </div></a>
                 </div>
+                
 
         
             </div>

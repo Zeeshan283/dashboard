@@ -181,6 +181,7 @@ Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
 // orders using controller
 Route::get('allorders', [OrderController::class, 'index'])->name('allorders');
+Route::get('order-invoice/{id}', [OrderController::class, 'show'])->name('orderInvoice');
 Route::get('pendingorders', [OrderController::class, 'showOrders'])->name('pendingorders');
 Route::get('confirmedorders', [OrderController::class, 'showOrders'])->name('confirmedorders');
 Route::get('packagingorders', [OrderController::class, 'showOrders'])->name('packagingorders');

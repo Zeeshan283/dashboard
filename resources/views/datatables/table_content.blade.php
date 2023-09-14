@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-@if (Route::currentRouteName() == 'allorders.index')
+@if (Route::currentRouteName() == 'allorders')
         <thead>
             <th>Sr No</th>
             <th>Order #</th>
@@ -33,9 +33,10 @@
                                                 <i class="nav-icon  i-Pen-2"></i>
                                             </button></a>
 
+                                            <a href="{{asset('order-invoice/'.$orders->id)}}" target="_blank">
                                             <button type="button" class="btn btn-primary">
                                                 <i class="nav-icon i-Eye "></i>
-                                            </button>
+                                            </button></a>
                                             </div>
 
                                         </td>
