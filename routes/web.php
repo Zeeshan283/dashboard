@@ -20,6 +20,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductContactController;
 use App\Http\Controllers\InsertVendorsController;
 use App\Http\Controllers\TermsConditionsController;
+use App\Http\Controllers\BrandController;
 use App\Models\User;
 
 
@@ -273,3 +274,6 @@ Route::get('/purchase/bill/{purchaseId}', [PurchaseController::class, 'bill'])->
 Route::resource('supplier', SupplierController::class);
 // Route::get('/get-product-name/{sku}', [PurchaseController::class,'getProductName'])->name('get.product.name');
 // Route::get('coupon/all',[CouponController::class, 'all'])->name('couponall');
+
+Route::resource('brands',BrandController::class);
+Route::get('brands/{id}/destroy', [BrandController::class, 'destroy']);

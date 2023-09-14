@@ -1595,8 +1595,57 @@
                 </tr>
             @endforeach
         </tbody>
-    @endif
+    
 
+    @elseif (Route::currentRouteName() == 'brands.index' )
+<thead>
+    <tr>
+    <th>Sr No</th>
+    <th>Name</th>
+    <th>Image</th>
+    <th>Action</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach ($data as $key => $value)
+        <tr>
+            <td>{{ $key + 1 }}</td>
+            <td>{{ $value->brand_name}}</td>
+            
+                @if($value->logo)
+                <td><img src="{{ asset("/root/upload/brands/small/".$value->logo) }}" width="50" height="50"></td>
+                
+                @else
+                <td>N/A</td>
+                @endif
+            
+                <td>
+                    <div class="d-flex gap-2">
+                                            <a  target="_blank" href="{{ URL::to('brands/' . $value->id . '/edit') }}"><button type="button"  class="btn btn-outline-secondary ">
+                                                <i
+                                                 class=" nav-icon i-Pen-2"
+                                                style="font-weight: bold;"></i>
+                                            </button></a>
+
+                                            <a href="{{ asset('brands/'.$value->id.'/destroy') }}">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="nav-icon i-Remove-Basket"></i>
+                                            </button></a>
+                                            </div>
+                </td>
+        </tr>
+    @endforeach 
+
+</tbody>
+<tfoot>
+<tr>
+    <th>Sr No</th>
+    <th>Name</th>
+    <th>Image</th>
+    <th>Action</th>
+</tr>
+</tfoot>
+@endif
 <script>
         $(function() {
             $("#example1").DataTable();

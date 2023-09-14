@@ -88,7 +88,7 @@
 <li class="nav-item {{ request()->is('terms/*') ? 'active' : '' }}" data-item="terms">
     <a class="nav-item-hold" href="/test.html">
         <i class="nav-icon i-Windows-2"></i>
-        <span class="nav-text">Terms</span>
+        <span class="nav-text">Setting</span>
     </a>
     <div class="triangle"></div>
 </li>
