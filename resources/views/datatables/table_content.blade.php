@@ -471,7 +471,11 @@
             </td>
             <td>
                 <div class="d-flex gap-2">
-                    <a href="{{ url('editseller/'.$vendors->id) }}" class="btn btn-success"><i class="nav-icon i-Pen-2 "></i>Edit</a>
+                    <a href="{{ url('editseller/'.$vendors->id) }}" ><button type="button"  class="btn btn-outline-secondary ">
+                                                <i
+                                                 class=" nav-icon i-Pen-2"
+                                                style="font-weight: bold;"></i>
+                                            </button></a>
                     
                 </div>
             </td>
@@ -1560,18 +1564,29 @@
                             {{ $item["description"] }}
                         @endif
                     </td>
-                    <td class="col-lg-1" style="white-space: nowrap;">
-                        <a href="{{ route('terms.edit', ['id' => $item->id]) }}" class="btn rounded-pill btn-icon btn-primary">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        </a>
+                    <td>
+                        <div class="d-flex gap-2">
+                        <a  target="_blank" href="{{ route('terms.edit', ['id' => $item->id]) }}"><button type="button"  class="btn btn-outline-secondary ">
+                            <i
+                                class=" nav-icon i-Pen-2"
+                            style="font-weight: bold;"></i>
+                        </button></a>
+
                         <form action="{{ route('terms.destroy', ['id' => $item->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this term?')" style="display: inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn rounded-pill btn-icon btn-danger">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            <button type="submit" class="btn btn-outline-danger">
+                                <i class="nav-icon i-Remove-Basket"></i>
                             </button>
                         </form>
-                        <a href="{{ route('terms.show', $item->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
+
+                        <a  target="_blank" href="{{ route('terms.show', $item->id) }}">
+                        <button type="button"  class="btn btn btn-outline-secondary ">
+                        <i class="nav-icon i-Eye"
+                        style="font-weight: bold;"></i>
+                        </button></a>
+                        
+                        </div>
                     </td>
                 </tr>
             @endforeach
