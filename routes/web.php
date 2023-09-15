@@ -235,13 +235,14 @@ Route::get('creviews', [ReviewsController::class, 'index'])->name('creviews');
 
 // refund controller
 
-// Route::view('refunded', 'refund.refunded')->name('refunded');
-Route::get('allrefunds', [RefundController::class, 'refundstatus'])->name('allrefunds');
-Route::get('refunded', [RefundController::class, 'index'])->name('refunded');
+Route::get('refunded', [RefundController::class, 'refunded'])->name('refunded');
 Route::get('createrefund', [RefundController::class, 'create'])->name('createrefund');
 Route::post('/store-refund', [RefundController::class, 'store'])->name('refund.store');
-Route::post('/allrefunds', [RefundController::class, 'update'])->name('refund.update');
-
+Route::get('allrefunds', [RefundController::class, 'allRefunds'])->name('allrefunds');
+Route::get('pendingrefund', [RefundController::class, 'pendingRefunds'])->name('pendingrefund');
+Route::get('approvedrefund', [RefundController::class, 'approvedRefunds'])->name('approvedrefund');
+Route::get('refundrejected', [RefundController::class, 'refundRejected'])->name('refundrejected');
+Route::patch('/update-refund/{id}', [RefundController::class, 'update'])->name('refund.update');
 
 
 // vendors route
