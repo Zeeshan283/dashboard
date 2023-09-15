@@ -14,25 +14,6 @@
             max-height: 100px;
             margin: 5px;
         }
-    
-        .choices__inner{
-            background:#f3f4f6;
-        }
-        .choices__input{
-            background:#f3f4f6;
-        }
-
-        .choices__list--multiple .choices__item {
-            background-color: #6b7280;
-            color: #ffffff;
-            border:4px solid;
-        }
-        .choices[data-type*=select-multiple] .choices__button{
-            border-left: white;
-        }
-        /* .choices-custom-button{
-            background-color: red;
-        } */
     </style>
 @endsection
 
@@ -41,11 +22,7 @@
 
 @section('main-content')
 <div class="breadcrumb">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-                <h1>Add Product</h1>
+                <h1>Add Products</h1>
                 @if (count($errors) > 0)
                     <div class="alert alert-danger d-flex">
                         <ul>
@@ -104,7 +81,7 @@
                                                 {!! Form::text('name', null, [
                                                     'required' => 'required',
                                                 'id' => 'name',
-                                                'class' => 'form-control input-field',
+                                                'class' => 'form-control',
                                                 'maxlength' => '150',
                                                 'placeholder' => 'Enter your Product Name'
                                             ]) !!}
@@ -144,12 +121,15 @@
                                                     <span   style="color: red;"
                                                         class="invalid-feedback1 font-weight-bold">{{ $errors->first('sku') }}</span   style="color: red;">
                                                 @endif
+                                                    {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                        Please enter Product Refurbished Price
+                                                    </small> --}}
                                                 </div>
 
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Color</label>
                                                     <div class=" col-lg-3 mt-auto">
                                                         
-                                                    <select  id="choices-multiple-remove-button" name="colors[]"
+                                                    <select  id="choices-multiple-remove-button" name="cos[]"
                                                         class="form-control"
                                                         placeholder="Select Color (Maximum Lenght 5)"  multiple>
                                                         @foreach ($colors as $value)
@@ -184,6 +164,7 @@
 
                                         <div class="separator-breadcrumb border-top"></div>
                                             <div class="form-group row">
+                                                
                                                 {{-- <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Condition:</label>
                                                 <div class="col-lg-2">
                                                     <select id="choices-multiple-remove-button" name="condition[]"
@@ -194,8 +175,14 @@
                                                         @endforeach
                                                         
                                                     </select>
+
+                                                    
                                                 </div> --}}
+                                                
+                                                
+
                                             </div>
+
                                     </div>
                                 
                                     <div class="card o-hidden">
@@ -207,7 +194,7 @@
             
                                                             {{-- New Price Colume Start --}}
                                                             
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Old Price:</label>
+                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Old Price:</label>
                                                 <div class="col-lg-2">
                                                     {!! Form::text('new_price', null, [
                                                         'id' => 'new_price',
@@ -253,8 +240,7 @@
                                                             class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_sale_price') }}</span   style="color: red;">
                                                     @endif
                                                 </div>
-
-
+    
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Warranty Days:</label>
                                                 <div class="col-lg-2">
                                                     {!! Form::text('new_warranty_days', null, [
@@ -307,7 +293,7 @@
                                                     </small> --}}
                                                 </div>
 
-                                                <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">MOQ:</label>
+                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">MOQ:<span style="color: red;">*</span></label>
                                                 <div class="col-lg-2" style="margin-top: auto;">
                                                 {!! Form::text('min_order', null, [
                                                     'id' => 'min_order',
@@ -324,21 +310,37 @@
                                                     'autocomplete' => 'off',
                                                     'placeholder'=>'Enter Minimum Order Quantity',
                                                 ]) !!}
-                                                </div>                        
-{{-- New Price Column End --}}
+                                                @if ($errors->has('min_order'))
+                                                    <span   style="color: red;"
+                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('min_order') }}</span   style="color: red;">
+                                                @endif
+                                                    {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                        Please enter Minimum order quantity
+                                                    </small> --}}
+                                                </div>
+                        
+                                                            {{-- New Price Column End --}}
+            
+                                                            
+            
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+            
                                     </div>
-                                </div>
-                            </div>
-                            <br><br>
+                                    <br>
+                                    <br>
+
                                     <div class="card o-hidden">
                                         <div class="card-header">Refurbished Price</div>
                                             <div class="card-block p-0" >
                                                 <div>
                                                     <div class="card-body">
-                                                        <div class="form-group row">            
-{{-- Refurbished Colume Start --}}
+                                                        <div class="form-group row">
+            
+                                                            {{-- Refurbished Colume Start --}}
                                                             
                                                             <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Refurbished Price:</label>
                                                             <div class="col-lg-2    ">
@@ -440,7 +442,7 @@
                                                                 </small> --}}
                                                             </div>
 
-                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">MOQ:</label>
+                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">MOQ:<span style="color: red;">*</span></label>
                                                             <div class="col-lg-2" style="margin-top: auto;">
                                                             {!! Form::text('min_ref_order', null, [
                                                                 'id' => 'min_ref_order',
@@ -457,6 +459,13 @@
                                                                 'autocomplete' => 'off',
                                                                 'placeholder'=>'Enter Minimum Order Quantity',
                                                             ]) !!}
+                                                            @if ($errors->has('min_ref_order'))
+                                                                <span   style="color: red;"
+                                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('min_ref_order') }}</span   style="color: red;">
+                                                            @endif
+                                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                                    Please enter Minimum order quantity
+                                                                </small> --}}
                                                             </div>
                         
                                                             {{-- Refurbished Column End --}}
@@ -483,8 +492,8 @@
                                                 
 
                                                 
-                                                <label for="staticEmail19" style="display: none;"   id="W_L" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Width:</label>
-                                                <div class="col-lg-2 " style="display: none;"   id="W_Fields">
+                                                <label for="staticEmail19" id="widthLable" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Width:</label>
+                                                <div class="col-lg-2 "   id="widthField">
                                                 {!! Form::text('width', null, [
                                                     'id' => 'width',
                                                     'class' => 'form-control',
@@ -503,10 +512,13 @@
                                                     <span   style="color: red;"
                                                         class="invalid-feedback1 font-weight-bold">{{ $errors->first('width') }}</span   style="color: red;">
                                                 @endif
+                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                        Please enter width
+                                                    </small> --}}
                                                 </div>
 
-                                                <label for="staticEmail19" style="display: none;"   id="H_L" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Height:</label>
-                                                <div class="col-lg-2 " style="display: none;"  id="H_Fields">
+                                                <label for="staticEmail19" id="widthLable" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Height:</label>
+                                                <div class="col-lg-2 "  id="widthField">
                                                 {!! Form::text('height', null, [
                                                     'id' => 'height',
                                                     'class' => 'form-control',
@@ -525,10 +537,13 @@
                                                     <span   style="color: red;"
                                                         class="invalid-feedback1 font-weight-bold">{{ $errors->first('height') }}</span   style="color: red;">
                                                 @endif
+                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                        Please enter height
+                                                    </small> --}}
                                                 </div>
 
-                                                <label for="staticEmail19" style="display: none;"   id="D_L" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Depth:</label>
-                                                <div class="col-lg-2 " style="display: none;"   id="D_Fields">
+                                                <label for="staticEmail19" id="widthLable" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Depth:</label>
+                                                <div class="col-lg-2 "   id="widthField">
                                                 {!! Form::text('depth', null, [
                                                     'id' => 'depth',
                                                     'class' => 'form-control',
@@ -547,8 +562,11 @@
                                                     <span   style="color: red;"
                                                         class="invalid-feedback1 font-weight-bold">{{ $errors->first('depth') }}</span   style="color: red;">
                                                 @endif
+                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                        Please enter depth
+                                                    </small> --}}
                                                 </div>
-                                            </sp>
+                                            
                                                 <label for="Weight" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Select Unit:</label>
                                                 <div class="col-lg-2">
                                                 <select class="form-control" name="m_unit" id="m_unit" >
@@ -559,16 +577,13 @@
                                                     <option value="Meter">Meter(m)</option>
                                                 </select>
                                                 </div>
-                                            </div>
             
                                                 {{-- Measurement Column End --}}
 
-                                            <div class="form-group row">
-
                                                 {{-- Weight Column Start --}}
                                                 
-                                                <label for="staticEmail19" style="display: none;" id="Weight_L"  class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">weight:</label>
-                                                <div class="col-lg-2 "  style="display:none; margin-top: auto;" id="Weight_Field">
+                                                <label for="staticEmail19" id="weightLable"  class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">weight:</label>
+                                                <div class="col-lg-2 "  style="margin-top: auto;" id="weightField">
                                                 {!! Form::text('weight', null, [
                                                     'id' => 'weight',
                                                     'class' => 'form-control',
@@ -655,7 +670,7 @@
                                                     <div>
                                                         <div class="card-body">
                                                             
-                                                            <label for="staticEmail20" class="  col-form-label ">Details:</label>
+                                                            <label for="staticEmail20" class="  col-form-label ">Details:<span style="color: red;">*</span></label>
 
                                                             {{-- <p>Enter Product Description 2</p> --}}
                                                             <div class="mx-auto col-md-12">
@@ -755,7 +770,7 @@
                                     </div>
 
                                     {{-- feature-image-upload --}}
-                                    <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Feature Image:<span style="color: red;">*</span></label>
+                                    <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Feature Image: <span style="color: red;">*</span></label>
                                         <div class="col-lg-5">
                                             <div class="card-header d-flex justify-content-between" >
                                                 <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
@@ -850,8 +865,10 @@
 
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="card">
-                                                <div class="card-footer" style="text-align: right;">
-                                                    <button type="submit" name="submit" class="btn btn-outline-secondary  ladda-button example-button m-1">Submit</button>
+                                                <div class="card-footer" style="
+                                                text-align: end;
+                                            ">
+                                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -998,81 +1015,9 @@
 @stop
 @section('page-js')
 
-<script>
-    $(document).ready(function () {
-        $('#smartwizard').smartWizard({
-            selected: 0,  // Initial step
-            keyNavigation: false, // Enable keyboard navigation
-
-        });
-    });
-</script>
-
-
-<script>
-$(document).ready(function() {
-    $("#m_unit").change(function() {
-        var selectedValue = $(this).val();
-
-        $("#W_Fields, #H_Fields, #D_Fields, #W_L, #H_L, #D_L").hide();
-
-        if (selectedValue === "Millimeter" || selectedValue === "Centimeter" || selectedValue === "Inch" || selectedValue === "Meter") {
-            $("#W_Fields, #H_Fields, #D_Fields, #W_L, #H_L, #D_L").show();
-        };
-    });
-
-    $("#weight_unit").change(function() {
-        var selectedValue = $(this).val();
-
-        $("#Weight_Field,#Weight_L").hide();
-
-        if (selectedValue === "Ounce" || selectedValue === "Milligram" || selectedValue === "Gram" || selectedValue === "Kilogram" || selectedValue === "MetricTon" ) {
-            $("#Weight_Field,#Weight_L").show();
-        };
-    });
-});
-
-
-</script>
 <!-- Multi Select Dropdown -->
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
     <script>
-
-        function changeBackgroundColor() {
-                var colorMap = {
-                    '1': '#FF0000',
-                    '2': '#0000FF',
-                    '3': '#FFFDD0',
-                    '4': '#FFFF33',
-                    '5': '#006400',
-                    '6': '#FFFFFF',
-                    '7': '#FF6600',
-                    '8': '#964B00',
-                    '9': '#000000',
-                    '10': '#007FFF',
-                    '11': '#FFFFF0',
-                    '12': '#A020F0',
-                    '13': '#C3B091',
-                    '14': '#FFC0CB',
-                    '15': '#FFD700',
-                    '16': '#808000',
-                    '17': '#00FFFF',
-                    '18': '#673147',
-                    '19': '#808080',
-                    '20': '#C0C0C0',
-                    '21': '#000080',
-                    '22': '#FAF9F6'
-                };
-
-                var selectedOptions = $('#choices-multiple-remove-button').val();
-                
-                $('.choices__list--multiple .choices__item').each(function(index, element) {
-                    var dataValue = $(element).attr('data-value');
-                    var backgroundColor = selectedOptions.includes(dataValue) ? colorMap[dataValue] : '';
-                    $(element).css('border-color',  backgroundColor);
-                });
-                }
-
         $(document).ready(function() {
             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
                 removeItemButton: true,
@@ -1081,106 +1026,9 @@ $(document).ready(function() {
                 // searchResultLimit:5,
                 // renderChoiceLimit:5
 
-                // classNames: {
-                //     button: 'choices-custom-button', // Add a custom class for the button
-                //     },
-                
             });
-            $('#choices-multiple-remove-button').on('change', changeBackgroundColor);
-
-                document.addEventListener('click', function() {
-                changeBackgroundColor();
-                });
-        
-
-
-            // Function to change background color based on selected option
-        //  function changeBackgroundColor() {
-        //     var selectedOptions = $('#choices-multiple-remove-button').val();
-        //     $('.choices__list--multiple .choices__item').each(function(index, element) {
-        //         var backgroundColor = '';
-        //         if (selectedOptions.includes($(element).attr('data-value'))) {
-        //             if ($(element).attr('data-value') === '1') {
-        //                 backgroundColor = '#FF0000';
-        //             } else if ($(element).attr('data-value') === '2') {
-        //                 backgroundColor = '#0000FF';
-        //             }
-        //             else if ($(element).attr('data-value') === '3') {
-        //                 backgroundColor = '#FFFDD0';
-        //             } 
-        //             else if ($(element).attr('data-value') === '4') {
-        //                 backgroundColor = '#FFFF00';
-        //             } 
-        //             else if ($(element).attr('data-value') === '5') {
-        //                 backgroundColor = '	#006400';
-        //             } 
-        //             else if ($(element).attr('data-value') === '6') {
-        //                 backgroundColor = '#FFFFFF';
-        //             }
-        //             else if ($(element).attr('data-value') === '7') {
-        //                 backgroundColor = '#FF6600';
-        //             }
-        //             else if ($(element).attr('data-value') === '8') {
-        //                 backgroundColor = '#964B00';
-        //             }
-        //             else if ($(element).attr('data-value') === '9') {
-        //                 backgroundColor = '#000000';
-        //             }
-        //             else if ($(element).attr('data-value') === '10') {
-        //                 backgroundColor = '#007FFF';
-        //             }
-        //             else if ($(element).attr('data-value') === '11') {
-        //                 backgroundColor = '#FFFFF0';
-        //             }
-        //             else if ($(element).attr('data-value') === '12') {
-        //                 backgroundColor = '#A020F0';
-        //             }
-        //             else if ($(element).attr('data-value') === '13') {
-        //                 backgroundColor = '#C3B091';
-        //             }
-        //             else if ($(element).attr('data-value') === '14') {
-        //                 backgroundColor = '	#FFC0CB';
-        //             }
-        //             else if ($(element).attr('data-value') === '15') {
-        //                 backgroundColor = '#FFD700';
-        //             }
-        //             else if ($(element).attr('data-value') === '16') {
-        //                 backgroundColor = '	#808000';
-        //             }
-        //             else if ($(element).attr('data-value') === '17') {
-        //                 backgroundColor = '#00FFFF';
-        //             }
-        //             else if ($(element).attr('data-value') === '18') {
-        //                 backgroundColor = '#673147';
-        //             }
-        //             else if ($(element).attr('data-value') === '19') {
-        //                 backgroundColor = '#808080';
-        //             }
-        //             else if ($(element).attr('data-value') === '20') {
-        //                 backgroundColor = '#C0C0C0';
-        //             }
-        //             else if ($(element).attr('data-value') === '21') {
-        //                 backgroundColor = '	#000080';
-        //             }
-        //             else if ($(element).attr('data-value') === '22') {
-        //                 backgroundColor = '	#FAF9F6';
-        //             }
-        //         } 
-        //         $(element).css('background-color', backgroundColor);
-        //     });
-        // }
-
-        // // Call the function when the select element value changes
-        // $('#choices-multiple-remove-button').on('change', changeBackgroundColor);
-        // $(document).on('click', function() {
-        //     changeBackgroundColor(); // Call the function to reset colors
-        // });
         });
     </script>
-
-
-
-
 <script>
     
     function onlyNumberKey(evt) {
@@ -1193,7 +1041,8 @@ $(document).ready(function() {
 
     function onlyDecimalNumberKey(evt) {
         var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+        if (charCode != 46 && charCode > 31 &&
+            (charCode < 48 || charCode > 57))
             return false;
 
         return true;

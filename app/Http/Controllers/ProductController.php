@@ -84,7 +84,6 @@ class ProductController extends Controller
     public function test(){
         return view('products.test');
     }
-
     public function testupload(Request $request){
         dd($request);
         return view('products.test');
@@ -92,9 +91,8 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $this->validate($request, [ 
-            
             
             'name' => 'required',
             'make' => 'required',
@@ -115,7 +113,6 @@ class ProductController extends Controller
             
         ]
         , [
-            
             'name.required' => 'The Product name field is required',
             // 'condition.0.required' => 'The Condition field is required',
             'make.required' => 'The Make field is required',
@@ -267,6 +264,11 @@ class ProductController extends Controller
         $this->validate($request, [
             
             'name' => 'required',
+            
+            // 'new_warranty_days' => 'required',
+            // 'new_return_days' => 'required',
+            
+            // 'model_no' => 'required',
             'make' => 'required',
             // 'min_order' => 'required',
             // 'feature_image' => 'required',
@@ -285,10 +287,9 @@ class ProductController extends Controller
         ]
         , [
             'name.required' => 'The Product name field is required',
+            // 'condition.0.required' => 'The Condition field is required',
             'make.required' => 'The Make field is required',
             'sku.exists' => 'The SKU already exist',
-            'new_sale_price.lte' => 'Sale price must be less than or equal to the old price.',
-            'refurnished_sale_price.lte' => 'Refurbished Sale price must be less than or equal to the old Refurbished price.',
             'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
             'description.required' => 'The Description field is required',
@@ -439,6 +440,11 @@ class ProductController extends Controller
         $this->validate($request, [
             
             'name' => 'required',
+            
+            // 'new_warranty_days' => 'required',
+            // 'new_return_days' => 'required',
+            
+            // 'model_no' => 'required',
             'make' => 'required',
             // 'min_order' => 'required',
             'attachment' => 'mimes:pdf,zip|max:20480',
@@ -458,10 +464,10 @@ class ProductController extends Controller
         ]
         , [
             'name.required' => 'The Product name field is required',
+            // 'condition.0.required' => 'The Condition field is required',
             'make.required' => 'The Make field is required',
             'sku.exists' => 'The SKU already exist',
-            'new_sale_price.lte' => 'Sale price must be less than or equal to the old price.',
-            'refurnished_sale_price.lte' => 'Refurbished Sale price must be less than or equal to the old Refurbished price.',
+            'feature_image.required' => 'The Feature Image field is required',
             // 'images.0.required' => 'The Image field is required',
             'description.required' => 'The Description field is required',
             'feature_image.required' => 'The Feature Image field is required',

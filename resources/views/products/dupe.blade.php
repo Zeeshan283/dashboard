@@ -14,20 +14,6 @@
             max-height: 100px;
             margin: 5px;
         }
-        .choices__inner{
-            background:#f3f4f6;
-        }
-        .choices__input{
-            background:#f3f4f6;
-        }
-        .choices__list--multiple .choices__item {
-            background-color: #6b7280;
-            color: #ffffff;
-            border:4px solid;
-        }
-        .choices[data-type*=select-multiple] .choices__button{
-            border-left: white;
-        }
     </style>
 @endsection
 
@@ -137,13 +123,13 @@
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Color</label>
                                                 <div class="mt-auto col-lg-3">
                                                     
-                                                    <select id="choices-multiple-remove-button" name="colors[]" class="form-control custom-select" multiple>
-                                                        @foreach ($colors as $value)
-                                                            <option value="{{ $value->id }}" @if ($edit->colors->contains('color_id', $value->id)) selected @endif>
-                                                                {{ $value->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+                                                <select  id="choices-multiple-remove-button" name="colors[]"
+                                                    class="form-control"
+                                                    placeholder="Select Color (Maximum Lenght 5)"  multiple>
+                                                    @foreach ($colors as $value)
+                                                            <option value="{{$value->id}}">{{$value->name}}</option>
+                                                    @endforeach
+                                                </select>
                                                 
                                                 </div>
 <br>
@@ -576,7 +562,7 @@
                                                 <label for="Weight" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Select Unit:</label>
                                                 <div class="col-lg-2">
                                                 <select class="form-control" name="m_unit" id="m_unit" >
-                                                    <option value="{{$edit->m_unit}}" selected >{{$edit->m_unit}}</option>
+                                                    <option value="" selected >Select Measurement Unit:</option>
                                                     <option value="Millimeter">Millimeter(mm)</option>
                                                     <option value="Centimeter">Centimeter(cm)</option>
                                                     <option value="Inch">Inch(in)</option>
@@ -616,7 +602,7 @@
                                                 <label for="Weight" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Select Unit::</label>
                                                 <div class="col-lg-2 mt-auto">
                                                 <select class="form-control " name="weight_unit" id="weight_unit" >
-                                                    <option value="{{$edit->weight_unit}}" selected >{{$edit->weight_unit}}</option>
+                                                    <option value="" selected >Select Weight Unit:</option>
                                                     <option value="Ounce">Ounce(oz)</option>
                                                     <option value="Milligram">Milligram(mg)</option>
                                                     <option value="Gram">Gram(g)</option>
@@ -659,7 +645,7 @@
                                                                         'class' => 'mx-auto col-md-12 	col-12',
                                                                         'maxlength' => '1000',
                                                                         // 'minlength' => '50',
-                                                                        'rows' => '12',
+                                                                        'rows' => '5',
                                                                         // 'required' => 'required',
                                                                     ]) !!} 
                                                                     
@@ -677,7 +663,7 @@
                                                     <div>
                                                         <div class="card-body">
                                                             
-                                                            <label for="staticEmail20" class="  col-form-label ">Details:</label>
+                                                            <label for="staticEmail20" class="  col-form-label ">Details:<span style="color: red;">*</span></label>
 
                                                             {{-- <p>Enter Product Description 2</p> --}}
                                                             <div class="mx-auto col-md-12">
@@ -808,7 +794,7 @@
 
                                     
                                     {{-- feature-image-upload --}}
-                                    <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Feature Image:<span style="color: red;">*</span></label>
+                                    <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Feature Image: <span style="color: red;">*</span></label>
                                         <div class="col-lg-5">
                                             <div class="card-header d-flex justify-content-between" >
                                                 <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
@@ -909,7 +895,7 @@
                                                 <div class="card-footer" style="
                                                 text-align: end;
                                             ">
-                                            <button type="submit" name="submit" class="btn btn-outline-secondary  ladda-button example-button m-1">Duplicate</button>
+                                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -1165,7 +1151,7 @@
     </script>
     @endif
 
-    {{-- {!! Toastr::message() !!} --}}
+    {!! Toastr::message() !!}
 
 <script>
     function selectMenu(menuText, inputId) {

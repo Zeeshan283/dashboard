@@ -14,25 +14,7 @@
             max-height: 100px;
             margin: 5px;
         }
-        .choices__inner{
-            background:#f3f4f6;
-        }
-        .choices__input{
-            background:#f3f4f6;
-        }
-
-        .choices__list--multiple .choices__item {
-            background-color: #6b7280;
-            color: #ffffff;
-            border:4px solid;
-        }
-        .choices[data-type*=select-multiple] .choices__button{
-            border-left: white;
-        }
-
-
     </style>
-    
 @endsection
 
 @endsection
@@ -41,7 +23,8 @@
 @section('main-content')
 <div class="breadcrumb">
                 <h1>Edit Products</h1>
-                
+        
+
                 @if (count($errors) > 0)
                     <div class="alert alert-danger d-flex">
                         <ul>
@@ -141,21 +124,23 @@
 
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Color</label>
                                                     <div class="mt-auto col-lg-3">
-                                                    
-                                                    <select id="choices-multiple-remove-button" name="colors[]" class="form-control attachment_choise custom-select" multiple>
+                                                        
+                                                    <select  id="choices-multiple-remove-button" name="colors[]"
+                                                        class="form-control"
+                                                        placeholder="Select Color (Maximum Lenght 5)"  multiple>
+                                                        
                                                         @foreach ($colors as $value)
-                                                            <option value="{{ $value->id }}" @if ($edit->colors->contains('color_id', $value->id)) selected @endif>
-                                                                {{ $value->name }}
-                                                            </option>
+                                                                <option value="{{$value->id}}">{{$value->name}}</option>
                                                         @endforeach
                                                     </select>
+
+                                                    
                                                     </div>
 <br>
                                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Make:</label>
                                                 <div class="col-lg-3">
                                                 
                                                    
-                                                    
                                                     {!! Form::text('make1',Auth::User()->name,['id'=>'make1','class'=>'form-control','disabled'=>'disabled']) !!}
                                                     {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
                                                     {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
@@ -304,7 +289,7 @@
                                                     </small> --}}
                                                 </div>
 
-                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">MOQ:</label>
+                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">MOQ:<span style="color: red;">*</span></label>
                                                 <div class="col-lg-2" style="margin-top: auto;">
                                                 {!! Form::text('min_order', null, [
                                                     'id' => 'min_order',
@@ -453,7 +438,7 @@
                                                                 </small> --}}
                                                             </div>
 
-                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">MOQ:</label>
+                                                            <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">MOQ:<span style="color: red;">*</span></label>
                                                             <div class="col-lg-2" style="margin-top: auto;">
                                                             {!! Form::text('min_ref_order', null, [
                                                                 'id' => 'min_ref_order',
@@ -664,7 +649,7 @@
                                                                         'class' => 'mx-auto col-md-12 	col-12',
                                                                         'maxlength' => '1000',
                                                                         // 'minlength' => '50',
-                                                                        'rows' => '16',
+                                                                        'rows' => '5',
                                                                         // 'required' => 'required',
                                                                     ]) !!} 
                                                                     
@@ -790,30 +775,20 @@
                                     
                                         </div>
 
-                                    <script>
-                                        document.getElementById('attachment').addEventListener('change', function () {
-                                            var RemoveA = document.getElementById('r_attachment');
-                                                    if (RemoveA) {
-                                                        RemoveA.style.display = 'none';
-                                                    }
-                                                });
-                                    </script>
-
                                     
 
                                     
                                     {{-- feature-image-upload --}}
-                                    <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Feature Image:<span style="color: red;">*</span></label>
+                                    <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Feature Image: <span style="color: red;">*</span></label>
                                         <div class="col-lg-5">
                                             <div class="card-header d-flex justify-content-between" >
-                                                <input type="file" id="f_image" name="feature_image" class="form-control" style="height: fit-content;">
-                                                <div id="f_i_thumnails">
+                                                <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
+                                                
                                                 @if($edit->url)
                                                 <img src="{{ $edit->url }}" class="" style="width:100px;height:80px;">
                                                 @else
                                                 <h6>No Feature Image</h6>
                                                 @endif
-                                                </div>
                                             </div>
                                             @if ($errors->has('feature_image'))
                                                 <span   style="color: red;"
@@ -823,15 +798,6 @@
                                             
                                         </div>
 
-                                        <script>
-                                            document.getElementById('f_image').addEventListener('change', function () {
-                                                var RemoveA = document.getElementById('f_i_thumnails');
-                                                        if (RemoveA) {
-                                                            RemoveA.style.display = 'none';
-                                                        }
-                                                    });
-                                        </script>
-
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Images:</label>
                                         <div class="col-lg-5">
                                         {{-- <div class="form-group"> --}}
@@ -839,36 +805,45 @@
                                 
                                                 <div class="card-header d-flex justify-content-between" >
                                                 
+                                                    {{-- <input type="file" name="images[]" id="image" class="form-control"
+                                                        onchange="image_select()"  multiple style="height: fit-content;">
+                                                 --}}
                                                         <input type="file" name="images[]" id="imageInput"  class="form-control" multiple >
                                                         <button type="button" class="d-none form-control" style="width: auto;"id="chooseImages">Choose Images</button>
                                                     </div>
                                                     
                                                     <br>
-                                                    <div id="loopImg">
-                                                        @foreach ($edit->product_images as $value)
-                                                        <img src="{{ URL::asset('upload/products/' . $value->image) }}"
-                                                        class="img-thumbnail"  style="width:100px;height:80px;" />
-                                                        @endforeach
-                                                    </div>
+                                                    @foreach ($edit->product_images as $value)
+                                    <img src="{{ URL::asset('upload/products/' . $value->image) }}"
+                                    class="img-thumbnail" style="width:100px;height:80px;" />
+                                    @endforeach
                                                     <p id="fileLimitMessage" style="color: red;"></p>
 
                                     {{-- <img src="{{ $edit->product_image->url }}" width="50" height="50"> --}}
                                     
                                             <div id="thumbnails"></div>
+
                                             </div>
+                                            {{-- <div class="container">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div  class="thumbnail d-flex justify-content-start"    id="all_images"></div>
+                                                        <div class="card-footer d-none" id="images_paths"></div>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
+
+                                            
+                                                
+                                                
+                                        
+                                            
                                             <script>
                                                 document.getElementById('chooseImages').addEventListener('click', function () {
                                                     document.getElementById('imageInput').click();
-                                                    
                                                 });
                                             
                                                 document.getElementById('imageInput').addEventListener('change', function () {
-                                                    
-                                                    var RemoveImg = document.getElementById('loopImg');
-                                                    if (RemoveImg) {
-                                                        RemoveImg.style.display = 'none';
-                                                    }
-
                                                     var files = this.files;
                                                     var maxImages = 6; // Set your maximum image limit here
                                                     var fileLimitMessage = document.getElementById('fileLimitMessage');
@@ -905,7 +880,7 @@
                                                 <div class="card-footer" style="
                                                 text-align: end;
                                             ">
-                                            <button type="submit" name="submit" class="btn btn-outline-secondary  ladda-button example-button m-1">Update</button>
+                                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -1061,16 +1036,6 @@
         return true;
     }
 
-<script>
-    
-    function onlyNumberKey(evt) {
-        // Only ASCII character in that range allowed
-        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-            return false;
-        return true;
-    }
-
     function onlyDecimalNumberKey(evt) {
         var charCode = (evt.which) ? evt.which : evt.keyCode;
         if (charCode != 46 && charCode > 31 &&
@@ -1171,6 +1136,7 @@
     </script>
     @endif
 
+    {!! Toastr::message() !!}
 
 <script>
     function selectMenu(menuText, inputId) {
