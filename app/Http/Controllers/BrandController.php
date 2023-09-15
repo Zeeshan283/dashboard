@@ -17,7 +17,7 @@ class BrandController extends Controller
 
     public function index()
     {
-        $data = Brand::whereType('brand')->orderBy('brand_name')->get(['id', 'brand_name']);
+        $data = Brand::whereType('brand')->orderBy('brand_name')->get(['id', 'brand_name', 'logo']);
         return view('brands.index', compact('data'));
     }
 
@@ -31,8 +31,8 @@ class BrandController extends Controller
         $this->validate($request, [
             'brand_name' => 'required|unique:brands',
             'logo' => 'required|mimes:png,jpg',
-            'link' => 'required',
-            'type' => 'required'
+            'link' => '',
+            'type' => ''
         ], [
             'brand_name' => 'The Brand name field is required'
         ]);
@@ -44,13 +44,13 @@ class BrandController extends Controller
             $fileName = uniqid() . $file->getClientOriginalName();
 
             //prorgam image save in 410 x 186 
-            $imagePath =  base_path('upload/brands/big/' . $fileName);
+            $imagePath =  'root/upload/brands/big/' . $fileName;
             $img = Image::make($file);
             $img->resize(410, 186);
             $img->save($imagePath);
 
             //prorgam image save in 136 x 62 
-            $imagePath =  base_path('upload/brands/small/' . $fileName);
+            $imagePath = 'root/upload/brands/small/' . $fileName;
             $img = Image::make($file);
             $img->resize(136, 62);
             $img->save($imagePath);
@@ -58,8 +58,8 @@ class BrandController extends Controller
             $b->logo = $fileName;
             $b->save();
         }
-
-        return redirect()->back()->with(Toastr::success('Brand Added Successfully!'));
+        Toastr::success('Brand Added Successfully!');
+        return redirect('brands');
     }
 
     public function show($id)
@@ -69,8 +69,8 @@ class BrandController extends Controller
 
     public function edit($id)
     {
-        $edit = Brand::findOrFail($id);
-        return view('brands.edit', compact('edit'));
+        $data = Brand::findOrFail($id);
+        return view('brands.edit', compact('data'));
     }
 
     public function update(Request $request, $id)
@@ -78,8 +78,8 @@ class BrandController extends Controller
         $this->validate($request, [
             'brand_name' => 'required',
             'logo' => 'mimes:png,jpg',
-            'link' => 'required',
-            'type' => 'required'
+            'link' => '',
+            'type' => ''
         ], [
             'brand_name' => 'The Brand name field is required'
         ]);
@@ -95,13 +95,13 @@ class BrandController extends Controller
             $fileName = uniqid() . $file->getClientOriginalName();
 
             //prorgam image save in 410 x 186 
-            $imagePath =  base_path('upload/brands/big/' . $fileName);
+            $imagePath =  'root/upload/brands/big/' . $fileName;
             $img = Image::make($file);
             $img->resize(410, 186);
             $img->save($imagePath);
 
             //prorgam image save in 136 x 62 
-            $imagePath =  base_path('upload/brands/small/' . $fileName);
+            $imagePath =  'root/upload/brands/small/' . $fileName;
             $img = Image::make($file);
             $img->resize(136, 62);
             $img->save($imagePath);
@@ -110,7 +110,8 @@ class BrandController extends Controller
             $update->save();
         }
 
-        return redirect('brand')->with(Toastr::success('Brand Updated Successfully!'));
+        Toastr::success('Brand Updated Successfully!');
+        return redirect('brands');
     }
 
     public function destroy($id)

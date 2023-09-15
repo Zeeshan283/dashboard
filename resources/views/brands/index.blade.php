@@ -7,10 +7,10 @@
 @section('main-content')
     <div class="breadcrumb">
         <div class="col-md-6">
-                <h1>Product's Management</h1>
+                <h1>Brand's Management</h1>
         </div>
         <div class="col-md-6" style="text-align: right;  margin-left: auto;">
-            <a href="{{ route('products.create')}}"><button class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Product</span></button></a>
+            <a href="{{ route('brands.create')}}"><button class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Brand</span></button></a>
 
         </div>
     </div>
@@ -20,7 +20,7 @@
                 <div class="card text-start">
     
                     <div class="card-body">
-                        <h4 class="card-title mb-3">All Product's</h4>
+                        <h4 class="card-title mb-3">All Brand's</h4>
 
     
                         <div class="table-responsive">

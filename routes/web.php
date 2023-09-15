@@ -20,6 +20,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductContactController;
 use App\Http\Controllers\InsertVendorsController;
 use App\Http\Controllers\TermsConditionsController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\HomeSettingsController;
 use App\Models\User;
 
 
@@ -169,6 +171,7 @@ Route::get('/get-categories', [ProductController::class, 'GetCategories']);
 Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
 // orders using controller
 Route::get('allorders', [OrderController::class, 'index'])->name('allorders');
+Route::get('order-invoice/{id}', [OrderController::class, 'show'])->name('orderInvoice');
 Route::get('pendingorders', [OrderController::class, 'showOrders'])->name('pendingorders');
 Route::get('confirmedorders', [OrderController::class, 'showOrders'])->name('confirmedorders');
 Route::get('packagingorders', [OrderController::class, 'showOrders'])->name('packagingorders');
@@ -272,3 +275,9 @@ Route::get('/purchase/bill/{purchaseId}', [PurchaseController::class, 'bill'])->
 Route::resource('supplier', SupplierController::class);
 // Route::get('/get-product-name/{sku}', [PurchaseController::class,'getProductName'])->name('get.product.name');
 // Route::get('coupon/all',[CouponController::class, 'all'])->name('couponall');
+
+Route::resource('brands',BrandController::class);
+Route::get('brands/{id}/destroy', [BrandController::class, 'destroy']);
+
+Route::get('/home-settings', [HomeSettingsController::class, 'index'])->name('home-settings');
+Route::post('/update-home-settings', [HomeSettingsController::class, 'UpdateHomeSettings']);

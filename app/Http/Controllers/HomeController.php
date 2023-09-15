@@ -44,7 +44,10 @@ class HomeController extends Controller
             $delivered = Order::where('status', '=', 'delivered')->count();
             $canceled = Order::where('status', '=', 'canceled')->count();
             $returned = Order::where('status', '=', 'returned')->count();
-            $customer = User::count();
+            $customer = User::where('role', '=', 'Customer')->count();
+            $customerQueries = ProductContact::count();
+            $vendorlist = User::where('role','=','Vendor')->count();
+
             return view('dashboard.dashboardv1', 
             compact('totalOrders',
             'currenOrders', 
@@ -56,7 +59,9 @@ class HomeController extends Controller
             'delivered',
             'canceled',
             'returned', 
-            'customer'));
+            'customer',
+            'customerQueries',
+            'vendorlist'));
         } else {
             $totalOrders = OrderDetails::where('vendor_id', Auth::User()->id)->count();
             // $currenOrders = Order::where('status', '!=', 'confirmed')->count();
@@ -91,6 +96,7 @@ class HomeController extends Controller
             ->where('order_details.vendor_id',Auth::User()->id)
             ->where('orders.status','=', 'returned')->count();
             $customer = User::count();
+            $customerQueries = ProductContact::where('vendor_id','=',Auth::user()->id )->count();
             
             return view('dashboard.dashboardv1', 
             compact('totalOrders',
@@ -103,7 +109,8 @@ class HomeController extends Controller
             'delivered',
             'canceled',
             'returned', 
-            'customer'));
+            'customer',
+            'customerQueries'));
         }
 
         

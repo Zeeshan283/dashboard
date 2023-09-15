@@ -45,7 +45,7 @@
     <span></span>
     <span></span>
     <span></span>
-                <h1>Add Products</h1>
+                <h1>Add Product</h1>
                 @if (count($errors) > 0)
                     <div class="alert alert-danger d-flex">
                         <ul>

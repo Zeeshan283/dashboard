@@ -340,6 +340,20 @@
         </ul>
          <ul class="childNav" data-parent="terms">
             <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'home-settings' ? 'open' : '' }}"
+                    href="{{ route('home-settings') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Home Settings</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'brands' ? 'open' : '' }}"
+                    href="{{ route('brands.index') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Brands</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'allterm' ? 'open' : '' }}"
                     href="{{ route('allterm') }}">
                     <i class="nav-icon i-Blinklist"></i>
