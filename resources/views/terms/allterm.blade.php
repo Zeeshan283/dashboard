@@ -3,16 +3,16 @@
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
 @endsection
 @section('main-content')
-    <div class="breadcrumb col-lg-12">
+
+        <div class="breadcrumb">
         <div class="col-md-6">
-            <h1 class="col-lg-10">All Terms & Conditions</h1>
+                <h1>Terms & Conditions Management</h1>
         </div>
         <div class="col-md-6" style="text-align: right;  margin-left: auto;">
-            <a class="{{ Route::currentRouteName() == 'addterm' ? 'open' : '' }}"
-                href="{{ route('addterm') }}">
-                 <button class="btn btn-primary" type="submit" style="color: white;">Add Terms & Conditions</button>
-             </a>
+            <a href="{{ route('addterm') }}"><button class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Terms & Conditions</span></button></a>
+
         </div>
+    </div>
 
                 
                 
@@ -23,10 +23,8 @@
                 <div class="card text-start">
 
                     <div class="card-body">
-                        <h4 class="card-title mb-3">Terms & Conditions</h4>
-                        <p>With DataTables you can alter the ordering characteristics of the table at initialisation time. Using
-                            the order initialisation parameter, you can set the table to display the data in exactly the order
-                            that you want.</p>
+                        <h4 class="card-title mb-3">All Terms & Conditions</h4>
+                        <p>.....</p>
 
                         <div class="table-responsive">
                             <table id="deafult_ordering_table" class="display table table-striped table-bordered"
