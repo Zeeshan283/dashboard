@@ -21,6 +21,7 @@ use App\Http\Controllers\ProductContactController;
 use App\Http\Controllers\InsertVendorsController;
 use App\Http\Controllers\TermsConditionsController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\HomeSettingsController;
 use App\Models\User;
 
 
@@ -288,3 +289,6 @@ Route::resource('supplier', SupplierController::class);
 
 Route::resource('brands',BrandController::class);
 Route::get('brands/{id}/destroy', [BrandController::class, 'destroy']);
+
+Route::get('/home-settings', [HomeSettingsController::class, 'index'])->name('home-settings');
+Route::post('/update-home-settings', [HomeSettingsController::class, 'UpdateHomeSettings']);
