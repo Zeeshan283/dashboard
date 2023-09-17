@@ -67,6 +67,14 @@
     </a>
     <div class="triangle"></div>
 </li>
+<li class="nav-item {{ request()->is('apps/*') ? 'active' : '' }}" data-item="Ewallet">
+    <a class="nav-item-hold" href="#">
+        <i class="nav-icon i-Computer-Secure"></i>
+        <span class="nav-text">Ewallet</span>
+
+    </a>
+    <div class="triangle"></div>
+</li>
 <li class="nav-item {{ request()->is('widgets/*') ? 'active' : '' }}" data-item="widgets">
     <a class="nav-item-hold" href="#">
         <i class="nav-icon i-Windows-2"></i>

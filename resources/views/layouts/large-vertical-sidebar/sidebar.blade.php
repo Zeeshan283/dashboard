@@ -303,6 +303,62 @@
                 </a>
             </li>
         </ul>
+        <ul class="childNav" data-parent="Ewallet">
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'collectedcash' ? 'open' : '' }}" href="{{ route('collectedcash') }}">
+                    <i class="nav-icon i-Folder-Archive"></i>
+                    <span class="item-name">Collected Cash</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'Totalbuying' ? 'open' : '' }}" href="{{ route('Totalbuying') }}">
+                    <i class="nav-icon i-Clock"></i>
+                    <span class="item-name">Total Buying</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'totalrefund' ? 'open' : '' }}" href="{{ route('totalrefund') }}">
+                    <i class="nav-icon i-Checkout"></i>
+                    <span class="item-name">Total Refunds</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'totalwithdrawl' ? 'open' : '' }}" href="{{ route('totalwithdrawl') }}">
+                    <i class="nav-icon i-Safe-Box"></i>
+                    <span class="item-name">Total Withdrawals</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'transcationhistory' ? 'open' : '' }}" href="{{ route('transcationhistory') }}">
+                    <i class="nav-icon i-Arrow-Circle"></i>
+                    <span class="item-name">Transaction History</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'totalpendingwithdrawls' ? 'open' : '' }}" href="{{ route('totalpendingwithdrawls') }}">
+                    <i class="nav-icon i-Check"></i>
+                    <span class="item-name">Total Pending withdrawn</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'totalspendondeals' ? 'open' : '' }}" href="{{ route('totalspendondeals') }}">
+                    <i class="nav-icon i-Redo"></i>
+                    <span class="item-name">Total Spent on Offer & Deals</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'ftod' ? 'open' : '' }}" href="{{ route('ftod') }}">
+                    <i class="nav-icon i-Over-Time-2"></i>
+                    <span class="item-name">Failed to Deliver</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'canceled' ? 'open' : '' }}" href="{{ route('canceled') }}">
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">Canceled</span>
+                </a>
+            </li>
+        </ul>
         <ul class="childNav" data-parent="sessions">
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'coupon.create' ? 'open' : '' }}" href="{{ route('coupon.create') }}" >

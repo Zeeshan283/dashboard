@@ -14,6 +14,7 @@ use App\Http\Controllers\VendorsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\EwalletController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
@@ -95,6 +96,15 @@ Route::get('customerlist', [CustomerController::class, 'index'])->name('customer
 Route::get('editseller/{id}', [InsertVendorsController::class, 'edit']);
 Route::put('update_seller/{id}', [InsertVendorsController::class, 'update']);
 // Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
+
+// ewallet now 
+Route::get('ewallet/collectedcash',[EwalletController::class,'collectedcash'])->name('collectedcash');
+Route::get('ewallet/Totalbuying',[EwalletController::class,'Totalbuying'])->name('Totalbuying');
+Route::get('ewallet/totalpendingwithdrawls',[EwalletController::class,''])->name('totalpendingwithdrawls');
+Route::get('ewallet/totalrefund',[EwalletController::class,'totalrefund'])->name('totalrefund');
+Route::get('ewallet/totalspendondeals',[EwalletController::class,'totalspendondeals'])->name('totalspendondeals');
+Route::get('ewallet/totalwithdrawl',[EwalletController::class,'totalwithdrawl'])->name('totalwithdrawl');
+Route::get('ewallet/transcationhistory',[EwalletController::class,'transcationhistory'])->name('transcationhistory');
 
 
 

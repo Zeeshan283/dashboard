@@ -1664,6 +1664,209 @@
     <th>Action</th>
 </tr>
 </tfoot>
+
+{{-- ewallet scetion --}}
+
+
+@elseif (Route::currentRouteName() == 'collectedcash' )
+    <thead>
+        <th>Sr No</th>
+        <th>Customer Name</th>
+        <th>Transcation Id</th>
+        <th>Transcatio Type</th>
+        <th>Amount</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>Ali</td>
+        <td>X2123bh8sdh</td>
+        <td>Cash</td>
+        <td>28</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Sr No</th>
+        <th>Customer Name</th>
+        <th>Transcation Id</th>
+        <th>Transcatio Type</th>
+        <th>Amount</th>
+    </tr>
+    </tfoot>
+
+@elseif (Route::currentRouteName() == 'Totalbuying' )
+    <thead>
+        <th>Sr No</th>
+        <th>Date</th>
+        <th>Product Name</th>
+        <th>Model No</th>
+        <th>SUpplier Info</th>
+        <th>Total Amount</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Sr No</td>
+        <td>Date</td>
+        <td>Product Name</td>
+        <td>Model No</td>
+        <td>SUpplier Info</td>
+        <td>Total Amount</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Sr No</th>
+        <th>Date</th>
+        <th>Product Name</th>
+        <th>Model No</th>
+        <th>SUpplier Info</th>
+        <th>Total Amount</th>
+    </tfoot>
+
+
+@elseif (Route::currentRouteName() == 'totalpendingwithdrawls' )
+    <thead>
+        <th>Sr. No</th>
+        <th>Withdrawal ID</th>
+        <th>Date</th>
+        <th>Card info</th>
+        <th>Amount</th>
+        <th>Status</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Sr No</td>
+        <td>Date</td>
+        <td>Product Name</td>
+        <td>Model No</td>
+        <td>SUpplier Info</td>
+        <td>Total Amount</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Sr No</th>
+        <th>Date</th>
+        <th>Product Name</th>
+        <th>Model No</th>
+        <th>SUpplier Info</th>
+        <th>Total Amount</th>
+    </tfoot>
+
+@elseif (Route::currentRouteName() == 'totalrefund' )
+    <thead>
+        <th>Sr. No</th>
+        <th>Order ID</th>
+        <th>Product Name + Pic</th>
+        <th>Model No</th>
+        <th>Customer Info</th>
+        <th>Total Amount</th>
+        <th>Refund Status</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>54651</td>
+        <td>Name goes here</td>
+        <td>215645</td>
+        <td>Customer Name</td>
+        <td>Total Amount</td>
+        <td>Refund Status</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Sr. No</th>
+        <th>Order ID</th>
+        <th>Product Name + Pic</th>
+        <th>Model No</th>
+        <th>Customer Info</th>
+        <th>Total Amount</th>
+        <th>Refund Status</th>
+    </tfoot>
+
+@elseif (Route::currentRouteName() == 'totalspendondeals' )
+    <thead>
+        <th>Sr. No</th>
+        <th>Date</th>
+        <th>Transaction ID</th>
+        <th>Coupon Type</th>
+        <th>Coupon Code</th>
+        <th>Amount</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>01</td>
+        <td>27-07-2023</td>
+        <td>5463423423451</td>
+        <td>Eid Sale</td>
+        <td>BIG-SALE-8656</td>
+        <td>$1464</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Sr. No</th>
+        <th>Date</th>
+        <th>Transaction ID</th>
+        <th>Coupon Type</th>
+        <th>Coupon Code</th>
+        <th>Amount</th>
+    </tfoot>
+
+@elseif (Route::currentRouteName() == 'totalwithdrawl' )
+    <thead>
+        <th>Sr. No</th>
+        <th>Withdrawl ID</th>
+        <th>Date</th>
+        <th>Card info</th>
+        <th>Amount</th>
+        <th>Status</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>01</td>
+        <td>5463423423451</td>
+        <td>27-07-2023</td>
+        <td>********5467</td>
+        <td>$12424</td>
+        <td>Completed</td>
+    </tr>
+    </tbody>
+    <tfoot>
+        <th>Sr. No</th>
+        <th>Withdrawl ID</th>
+        <th>Date</th>
+        <th>Card info</th>
+        <th>Amount</th>
+        <th>Status</th>
+    </tfoot>
+
+@elseif (Route::currentRouteName() == 'transcationhistory' )
+    <thead>
+        <th>Sr. No</th>
+        <th>Date</th>
+        <th>Withdrawl ID</th>
+        <th>Transaction Type</th>
+        <th>Amount</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>01</td>
+        <td>27-07-2023</td>
+        <td>5463423423451</td>
+        <td>Order placed/Refund/Received/Commission</td>
+        <td>$$142651</td>
+    </tr>
+    </tbody>
+    <tfoot>
+        <th>Sr. No</th>
+        <th>Date</th>
+        <th>Withdrawl ID</th>
+        <th>Transaction Type</th>
+        <th>Amount</th>
+    </tfoot>
 @endif
 <script>
         $(function() {
