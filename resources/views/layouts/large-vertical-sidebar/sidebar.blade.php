@@ -367,6 +367,13 @@
                     <span class="item-name">Terms & Conditions</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == '' ? 'open' : '' }}"
+                    href="{{  URL::to('settings/1/edit') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Site Profile</span>
+                </a>
+            </li>
         </ul>
     </div>
 

@@ -1627,7 +1627,7 @@
             <td>{{ $value->brand_name}}</td>
             
                 @if($value->logo)
-                <td><img src="{{ asset("/root/upload/brands/small/".$value->logo) }}" width="50" height="50"></td>
+                <td><img src="{{ asset($value->logo) }}" width="50" height="50"></td>
                 
                 @else
                 <td>N/A</td>
@@ -1682,21 +1682,19 @@
             <td>{{ $value->offer}}</td>
             <td><img src="{{  $value->image}}" width="50" height="50" alt="No"></td>
             <td><img src="{{  $value->bg_image}}" width="50" height="50" alt="No"></td>
-                
-            
                 <td>
                     <div class="d-flex gap-2">
-                                            <a  target="_blank" href="{{ URL::to('banners/' . $value->id . '/edit') }}"><button type="button"  class="btn btn-outline-secondary ">
-                                                <i
-                                                 class=" nav-icon i-Pen-2"
-                                                style="font-weight: bold;"></i>
-                                            </button></a>
+                        <a  target="_blank" href="{{ URL::to('banners/' . $value->id . '/edit') }}"><button type="button"  class="btn btn-outline-secondary ">
+                            <i
+                                class=" nav-icon i-Pen-2"
+                            style="font-weight: bold;"></i>
+                        </button></a>
 
-                                            <a href="{{ asset('banners/destroy/'.$value->id) }}">
-                                            <button type="button" class="btn btn-outline-danger">
-                                                <i class="nav-icon i-Remove-Basket"></i>
-                                            </button></a>
-                                            </div>
+                        <a href="{{ asset('banners/destroy/'.$value->id) }}">
+                        <button type="button" class="btn btn-outline-danger">
+                            <i class="nav-icon i-Remove-Basket"></i>
+                        </button></a>
+                        </div>
                 </td>
         </tr>
     @endforeach 

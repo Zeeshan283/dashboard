@@ -57,8 +57,19 @@
                             <li><a href="#step-1">Step 1<br /><small>Product Details</small></a></li>
                             <li><a href="#step-2">Step 2<br /><small>Product Description</small></a></li>
                             <li><a href="#step-3">Step 3<br /><small>Select Category</small></a></li>
-                            {{-- <li><a href="#step-4">Step 4<br /><small>Location</small></a></li> --}}
+                            <li><a href="#step-4">Step 4<br /><small>Tax Charges</small></a></li>
                         </ul>
+
+                        <span>
+                            <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end">
+                            <div class="btn-group me-2 sw-btn-group" role="group">
+                                <button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button>
+                                <button class="btn btn-secondary sw-btn-next" type="button">Next</button>
+                            </div>
+                            <div class="btn-group me-2 sw-btn-group-extra" role="group">
+                            </div>
+                            </div>
+                        </span>
 
                         <div>
                             <div id="step-1" class="">
@@ -904,123 +915,64 @@
 
                                             
 
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <div class="card">
-                                                <div class="card-footer" style="
-                                                text-align: end;
-                                            ">
-                                            <button type="submit" name="submit" class="btn btn-outline-secondary  ladda-button example-button m-1">Duplicate</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
 
                                                     
                             </div>
                             
-                            {{-- <div id="step-4" class="">
-                                <h3 class="border-bottom border-gray pb-2">Step 4 Content</h3>
+                            <div id="step-4" class="">
+                                
                                 <div class="card o-hidden">
                                     <div class="card-header">Tax Charges</div>
                                         <div class="card-block p-0">
-                                        checking 
-                                            
                                                 <div>
                                                     <div class="card-body">
                                                         <div class="form-group row">
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">GST%:</label>
-                                                            <div class="col-lg-2 ">
+                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Tax Title:</label>
+                                                            <div class="col-lg-3 ">
+                                                                <input type="text" value="{{$edit->tax_title}}" id="tax_title" name="tax_title" class="form-control">
+                                                            <small id="" class="ul-form__text form-text ">
+                                                                Please Enter Product Tax Title
+                                                            </small>
+                                                            </div>
+
+                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Tax Type:</label>
+                                                            <div class="col-lg-3" >
                                                                 
-                                                            {!! Form::text('GST_tax', null, [
-                                                                    'id' => 'GST_tax',
-                                                                    'class' => 'form-control',
-                                                                    'maxlength' =>'12',
-                                                                    'onkeypress' => 'return onlyNumberKey(event)',
-                                                                    'onselectstart' => 'return false',
-                                                                    'onpaste' => 'return false;',
-                                                                    'onCopy' => 'return false',
-                                                                    'onCut' => 'return false',
-                                                                    'onDrag' => 'return false',
-                                                                    'onDrop' => 'return false',
-                                                                    'autocomplete' => 'off',
-                                                                    
-                                                                ]) !!}
-                                                                @if ($errors->has('GST_tax'))
-                                                                    <span   style="color: red;"
-                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('GST_tax') }}</span   style="color: red;">
-                                                                @endif
-                                                                    <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                        Please Enter GST% (Goods and Services Tax) for product
-                                                                    </small>
+                                                            <select name="tax_type" id="tax_type" class="form-control">
+                                                                <option value="{{$edit->tax_type}}">{{$edit->tax_type}}</option>
+                                                                <option value="Amount">Amount</option>
+                                                                <option value="Percentage">Percentage</option>
+                                                            </select>
+                                                            <small id="" class="ul-form__text form-text ">
+                                                                Please Choose Product Tax Type
+                                                            </small>
+
                                                             </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">VAT%:</label>
-                                                            <div class="col-lg-2">
-                                                                {!! Form::text('VAT_tax', null, [
-                                                                    'id' => 'VAT_tax',
-                                                                    'class' => 'form-control',
-                                                                    'maxlength' =>'12',
-                                                                    'onkeypress' => 'return onlyNumberKey(event)',
-                                                                    'onselectstart' => 'return false',
-                                                                    'onpaste' => 'return false;',
-                                                                    'onCopy' => 'return false',
-                                                                    'onCut' => 'return false',
-                                                                    'onDrag' => 'return false',
-                                                                    'onDrop' => 'return false',
-                                                                    'autocomplete' => 'off',
-                                                                ]) !!}
-                                                                @if ($errors->has('VAT_tax'))
-                                                                    <span   style="color: red;"
-                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('VAT_tax') }}</span   style="color: red;">
-                                                                @endif
-                                                                    <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                        Please Enter VAT % (Value-added Tax) for product
-                                                                    </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">FED%:</label>
-                                                            <div class="col-lg-2 ">
-                                                                {!! Form::text('FED_tax', null, [
-                                                                    'id' => 'FED_tax',
-                                                                    'class' => 'form-control',
-                                                                    'maxlength' =>'12',
-                                                                    'onkeypress' => 'return onlyNumberKey(event)',
-                                                                    'onselectstart' => 'return false',
-                                                                    'onpaste' => 'return false;',
-                                                                    'onCopy' => 'return false',
-                                                                    'onCut' => 'return false',
-                                                                    'onDrag' => 'return false',
-                                                                    'onDrop' => 'return false',
-                                                                    'autocomplete' => 'off',
-                                                                ]) !!}
-                                                                @if ($errors->has('FED_tax'))
-                                                                    <span   style="color: red;"
-                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('FED_tax') }}</span   style="color: red;">
-                                                                @endif
-                                                                    <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                        Please Enter FED% (Federal Excise Duty) for product
-                                                                    </small>
-                                                            </div>
-                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Other%:</label>
-                                                            <div class="col-lg-2 ">
-                                                                {!! Form::text('Other_tax', null, [
-                                                                    'id' => 'Other_tax',
-                                                                    'class' => 'form-control',
-                                                                    'maxlength' =>'12',
-                                                                    'onkeypress' => 'return onlyNumberKey(event)',
-                                                                    'onselectstart' => 'return false',
-                                                                    'onpaste' => 'return false;',
-                                                                    'onCopy' => 'return false',
-                                                                    'onCut' => 'return false',
-                                                                    'onDrag' => 'return false',
-                                                                    'onDrop' => 'return false',
-                                                                    'autocomplete' => 'off',
-                                                                ]) !!}
-                                                                @if ($errors->has('Other_tax'))
-                                                                    <span   style="color: red;"
-                                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('Other_tax') }}</span   style="color: red;">
-                                                                @endif
-                                                                    <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                                        Please Enter Other% Charges for product
-                                                                    </small>
+                                                            
+                                                            <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Tax Charges:</label>
+                                                            <div class="col-lg-3 ">
+                                                                
+                                                            {!! Form::text('tax_charges', null, [
+                                                            'id' => 'tax_charges',
+                                                            'class' => 'form-control',
+                                                            'maxlength' => '12',
+                                                            'onkeypress' => 'return onlyDecimalNumberKey(event)',
+                                                            // '' => '',
+                                                            'onselectstart' => 'return false',
+                                                            'onpaste' => 'return false;',
+                                                            'onCopy' => 'return false',
+                                                            'onCut' => 'return false',
+                                                            'onDrag' => 'return false',
+                                                            'onDrop' => 'return false',
+                                                            'autocomplete' => 'off',
+                                                            // 'placeholder'=>'',
+                                                            
+                                                            ]) !!}      
+                                                            <small id="" class="ul-form__text form-text ">
+                                                                Please Enter Product Tax Changes
+                                                                </small>
                                                             </div>
                 
                 
@@ -1030,19 +982,19 @@
                                         </div>
                                     
                                     
+                                                
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    <div class="card">
-                                                        <div class="card-footer">
-                                                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-                                                        </div>
-                                                    </div>
+                                            <div class="card">
+                                                <div class="card-footer" style="text-align: right;">
+                                                    <button type="submit" name="submit" class="btn btn-outline-secondary  ladda-button example-button m-1">Submit</button>
                                                 </div>
+                                            </div>
+                                        </div>
                                                 <!-- end card 3 Columns Horizontal Form Layout-->
                                                 
                                         </div>
                                 </div>
                                 </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -1055,6 +1007,17 @@
 
 @stop
 @section('page-js')
+
+<script>
+    $(document).ready(function () {
+        $('#smartwizard').smartWizard({
+            selected: 0,  // Initial step
+            keyNavigation: false, // Enable keyboard navigation
+
+        });
+    });
+</script>
+
 <script>
     
     function onlyNumberKey(evt) {

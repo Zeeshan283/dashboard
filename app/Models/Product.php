@@ -14,7 +14,7 @@ class Product extends Model
         'parent_id', 'refurnished_price', 'refurnished_sale_price', 'refurnished_warranty_days', 'refurnished_return_days',
         'attachment', 'width', 'height', 'depth', 'weight', 'min_order', 'status', 'created_by', 'updated_by','GST_tax','VAT_tax', 'FED_tax', 'Other_tax','url' , 'feature_image'
         ,'weight_unit','weight','m_unit','width','height',
-        'depth','min_ref_order',
+        'depth','min_ref_order', 'tax_title','tax_type','tax_charges'
     ];
 
     public function menu()

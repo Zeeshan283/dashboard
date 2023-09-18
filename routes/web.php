@@ -23,6 +23,7 @@ use App\Http\Controllers\TermsConditionsController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HomeSettingsController;
 use App\Http\Controllers\BannersController;
+use App\Http\Controllers\SettingsController;
 use App\Models\User;
 
 
@@ -296,3 +297,5 @@ Route::post('/update-home-settings', [HomeSettingsController::class, 'UpdateHome
 
 Route::resource('/banners', BannersController::class);
 Route::get('/banners/destroy/{id}', [BannersController::class, 'destroy'])->whereNumber('id');
+
+Route::resource('/settings',SettingsController::class);

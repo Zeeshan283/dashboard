@@ -39,7 +39,9 @@ Route::get('/single-product/{id}', [ApiController::class, 'GetSingleProduct'])->
 Route::match(['get', 'post'], 'send-product-contact-message', [ApiController::class, 'ProductContactSendMessage']);
 Route::get('/search/product/{character}', [ApiController::class, 'SearchProduct']);
 
+Route::get('/brands', [ApiController::class, 'Brands']);
 Route::get('/home-banners', [ApiController::class, 'Home_Banners']);
 Route::get('/home-setting', [ApiController::class, 'Home_setting']);
+Route::get('/site-profile', [ApiController::class, 'Site_Profile']);
 
 Route::match(['get', 'post'], '/order-submit', [ApiController::class, 'OrderSubmit']);

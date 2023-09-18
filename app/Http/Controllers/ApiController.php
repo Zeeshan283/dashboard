@@ -175,4 +175,16 @@ class ApiController extends Controller
         $homeBanners =  Banners::all();
         return Response::json(['data'=> $homeBanners]);
     }
+
+    public function Site_Profile()
+    {
+        $Site_Profile =  Settings::all();
+        return Response::json(['data' => $Site_Profile]);
+    }
+
+    public function Brands()
+    {
+        $Brands =  Brand::where('type','=','brand')->select('id','brand_name','logo')->get();
+        return Response::json(['data' => $Brands]);
+    }
 }

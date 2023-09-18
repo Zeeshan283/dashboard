@@ -55,15 +55,15 @@ class SettingsController extends Controller
         if(!is_null($request->file('logo')))
         {   
             $imageName = $request->file('logo')->getClientOriginalName();
-            $request->file('logo')->move(base_path() . '/upload/logo/', $imageName);
+            $request->file('logo')->move( 'upload/logo/', $imageName);
             $update->update(array('logo' => $imageName));
         }
         if(!is_null($request->file('header_logo')))
         {   
             $file = $request->file('header_logo');
             $fileName = uniqid() . $file->getClientOriginalName();
-            $file->move('root/upload/logo/header_logo/', $fileName);
-            $update->header_logo = '/root/upload/logo/header_logo/' .$fileName;
+            $file->move('upload/logo/header_logo/', $fileName);
+            $update->header_logo = 'upload/logo/header_logo/' .$fileName;
             $update->save();
         }
 
@@ -83,7 +83,7 @@ class SettingsController extends Controller
         // }
 
         Session::flash('flash_message', 'Record successfully Updated!');
-        return redirect('/home');
+        return redirect()->back();
     }
 
     public function destroy($id)
