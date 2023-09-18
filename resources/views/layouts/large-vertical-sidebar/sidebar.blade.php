@@ -340,6 +340,13 @@
         </ul>
          <ul class="childNav" data-parent="terms">
             <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'banners.index' ? 'open' : '' }}"
+                    href="{{ route('banners.index') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Home Banners</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'home-settings' ? 'open' : '' }}"
                     href="{{ route('home-settings') }}">
                     <i class="nav-icon i-Blinklist"></i>

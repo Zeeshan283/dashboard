@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
      protected $table='categories';
-    protected $fillable = [ 'menu_id', 'name', 'commission', 'img','imageforapp', 'menu', ];
+    protected $fillable = [ 'menu_id', 'name', 'commission', 'img','imageforapp', 'menu' ];
 
     public function menus()
-    {
+    {           
         return $this->belongsTo(Menu::class, 'menu_id');
     }
 

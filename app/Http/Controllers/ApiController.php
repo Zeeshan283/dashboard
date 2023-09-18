@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banners;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\HomeSettings;
 use App\Models\Menu;
 use App\Models\Product;
 use App\Models\ProductContact;
@@ -155,5 +157,22 @@ class ApiController extends Controller
         // }
 
         return Response::json(['data' => $products]);
+    }
+
+    public function Home_setting()
+    {
+        $HomeSettings = HomeSettings::with([
+            'category1Info', 
+            'category2Info', 
+            'category3Info', 
+            'category4Info', 
+        ])->get();
+        // dd($HomeSettings);
+        return Response::json(['data' => $HomeSettings]);
+    }
+
+    public function Home_Banners(){
+        $homeBanners =  Banners::all();
+        return Response::json(['data'=> $homeBanners]);
     }
 }

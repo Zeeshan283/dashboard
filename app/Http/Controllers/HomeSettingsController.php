@@ -101,13 +101,13 @@ class HomeSettingsController extends Controller
 
             $fileName = uniqid() . '.' . $request->file('center_image1')->getClientOriginalExtension();
 
-            //Home Settings image save in 610 x 200 
-            $imagePath =  'root/upload/home-settings/' . $fileName;
+            //Home Settings image save in 1656 x 302 
+            $imagePath =  'upload/home-settings/' . $fileName;
             $img = Image::make($request->file('center_image1'));
-            $img->resize(610, 200);
+            $img->resize(1656, 302);
             $img->save($imagePath);
 
-            $h->center_image1 = $request->root() . '/root/upload/home-settings/' . $fileName;
+            $h->center_image1 = $request->root() . '/upload/home-settings/' . $fileName;
             $h->save();
         }
 

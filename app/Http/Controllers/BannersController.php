@@ -17,7 +17,7 @@ class BannersController extends Controller
 
     public function index()
     {
-        $banners = Banners::OrderBy('id')->get(['id', 'title1', 'title2', 'offer']);
+        $banners = Banners::OrderBy('id')->get(['id', 'title1', 'title2', 'offer','image','bg_image']);
         return view('banners.index', compact('banners'));
     }
 
@@ -36,6 +36,7 @@ class BannersController extends Controller
             'bg_image' => 'required|mimes:jpg,png,jpeg',
             'url' => 'required'
         ]);
+        
         $banner = Banners::create($request->all());
 
         if ($request->hasFile('image')) {
@@ -43,12 +44,12 @@ class BannersController extends Controller
             $fileName = uniqid() . $request->file('image')->getClientOriginalName();
 
             //banner image save in 474 x 397
-            $imagePath =  base_path('upload/banners/' . $fileName);
+            $imagePath = 'upload/banners/' . $fileName;
             $img = Image::make($file);
             $img->resize(474, 397);
             $img->save($imagePath);
 
-            $banner->image = $request->root() . '/root/upload/banners/' . $fileName;
+            $banner->image = $request->root() . '/upload/banners/' . $fileName;
             $banner->save();
         }
         if ($request->hasFile('bg_image')) {
@@ -56,12 +57,12 @@ class BannersController extends Controller
             $fileName = uniqid() . $request->file('bg_image')->getClientOriginalName();
 
             //banner image save in 1903 x 520
-            $imagePath = base_path('upload/banners/' . $fileName);
+            $imagePath = 'upload/banners/' . $fileName;
             $img = Image::make($file);
             $img->resize(1903, 520);
             $img->save($imagePath);
 
-            $banner->bg_image = $request->root() . '/root/upload/banners/' . $fileName;
+            $banner->bg_image = $request->root() . '/upload/banners/' . $fileName;
             $banner->save();
         }
 
@@ -96,19 +97,19 @@ class BannersController extends Controller
 
         if ($request->hasFile('image')) {
             // return $request->root().'/root/upload/banners/' . $edit1->image;
-            File::delete('root/upload/banners/' . $edit1->image);
+            File::delete('upload/banners/' . $edit1->image);
 
             $file = $request->file('image');
             $fileName = uniqid() . $request->file('image')->getClientOriginalName();
 
             //banner image save in 474 x 397
-            $imagePath =  base_path('upload/banners/' . $fileName);
+            $imagePath =  'upload/banners/' . $fileName;
 
             $img = Image::make($file);
             $img->resize(474, 397);
             $img->save($imagePath);
 
-            $edit->image = $request->root() . '/root/upload/banners/' . $fileName;
+            $edit->image = $request->root() . '/upload/banners/' . $fileName;
             $edit->save();
         }
         if ($request->hasFile('bg_image')) {
@@ -118,12 +119,12 @@ class BannersController extends Controller
             $fileName = uniqid() . $request->file('bg_image')->getClientOriginalName();
 
             //banner image save in 1903 x 520
-            $imagePath =  base_path('upload/banners/' . $fileName);
+            $imagePath =  'upload/banners/' . $fileName;
             $img = Image::make($file);
             $img->resize(1903, 520);
             $img->save($imagePath);
 
-            $edit->bg_image = $request->root() . '/root/upload/banners/' . $fileName;
+            $edit->bg_image = $request->root() . '/upload/banners/' . $fileName;
             $edit->save();
         }
 
@@ -133,8 +134,8 @@ class BannersController extends Controller
     public function destroy($id)
     {
         $banner = Banners::findOrFail($id);
-        File::delete('root/upload/banners/' . $banner->image);
-        File::delete('root/upload/banners/' . $banner->bg_image);
+        File::delete('upload/banners/' . $banner->image);
+        File::delete('upload/banners/' . $banner->bg_image);
         $banner->delete();
 
         return redirect()->back()->with(Toastr::success('Banner Deleted Successfully!'));

@@ -1659,7 +1659,62 @@
     <th>Action</th>
 </tr>
 </tfoot>
+
+
+@elseif (Route::currentRouteName() == 'banners.index' )
+<thead>
+    <tr>
+    <th>Sr No</th>
+    <th>Title1</th>
+    <th>Title2</th>
+    <th>Offer</th>
+    <th>Image</th>
+    <th>Bg Image</th>
+    <th>Action</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach ($banners as $key => $value)
+        <tr>
+            <td>{{ $key + 1 }}</td>
+            <td>{{ $value->title1}}</td>
+            <td>{{ $value->title2}}</td>
+            <td>{{ $value->offer}}</td>
+            <td><img src="{{  $value->image}}" width="50" height="50" alt="No"></td>
+            <td><img src="{{  $value->bg_image}}" width="50" height="50" alt="No"></td>
+                
+            
+                <td>
+                    <div class="d-flex gap-2">
+                                            <a  target="_blank" href="{{ URL::to('banners/' . $value->id . '/edit') }}"><button type="button"  class="btn btn-outline-secondary ">
+                                                <i
+                                                 class=" nav-icon i-Pen-2"
+                                                style="font-weight: bold;"></i>
+                                            </button></a>
+
+                                            <a href="{{ asset('banners/destroy/'.$value->id) }}">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="nav-icon i-Remove-Basket"></i>
+                                            </button></a>
+                                            </div>
+                </td>
+        </tr>
+    @endforeach 
+
+</tbody>
+<tfoot>
+<tr>
+    <th>Sr No</th>
+    <th>Title1</th>
+    <th>Title2</th>
+    <th>Offer</th>
+    <th>Image</th>
+    <th>Bg Image</th>
+    <th>Action</th>
+</tr>
+</tfoot>
 @endif
+
 <script>
         $(function() {
             $("#example1").DataTable();

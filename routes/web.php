@@ -22,6 +22,7 @@ use App\Http\Controllers\InsertVendorsController;
 use App\Http\Controllers\TermsConditionsController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HomeSettingsController;
+use App\Http\Controllers\BannersController;
 use App\Models\User;
 
 
@@ -292,3 +293,6 @@ Route::get('brands/{id}/destroy', [BrandController::class, 'destroy']);
 
 Route::get('/home-settings', [HomeSettingsController::class, 'index'])->name('home-settings');
 Route::post('/update-home-settings', [HomeSettingsController::class, 'UpdateHomeSettings']);
+
+Route::resource('/banners', BannersController::class);
+Route::get('/banners/destroy/{id}', [BannersController::class, 'destroy'])->whereNumber('id');
