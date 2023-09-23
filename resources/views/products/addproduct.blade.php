@@ -1322,14 +1322,5 @@ $(document).ready(function() {
 <script src="{{asset('assets/js/smart.wizard.script.js')}}"></script>
 <script src="{{asset('assets/js/quill.script.js')}}"></script>
 
-                    <script>
-                        // Add JavaScript to hide the error message after 3 seconds
-                        setTimeout(function () {
-                            var errorAlert = document.getElementById('error-alert');
-                            if (errorAlert) {
-                                errorAlert.style.display = 'none';
-                            }
-                        }, 6000); // 3000 milliseconds (3 seconds)
-                    </script>
 
 @endsection

@@ -1192,6 +1192,10 @@
 .i-Virus:before {
   content: "\eb83";
 }
+
+.i-verified:before{
+  content: "\F26A";
+}
 .i-Camera:before {
   content: "\eb8d";
 }

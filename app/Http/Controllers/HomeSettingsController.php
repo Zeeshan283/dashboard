@@ -48,7 +48,7 @@ class HomeSettingsController extends Controller
             $img->resize(620, 277);
             $img->save($imagePath);
 
-            $h->f_s_banner_1 = $request->root() . '/upload/home-settings/' . $fileName;
+            $h->f_s_banner_1 =   '/upload/home-settings/' . $fileName;
             $h->save();
         }
 
@@ -63,7 +63,7 @@ class HomeSettingsController extends Controller
             $img->resize(620, 277);
             $img->save($imagePath);
 
-            $h->f_s_banner_2 = $request->root() . '/upload/home-settings/' . $fileName;
+            $h->f_s_banner_2 =  '/upload/home-settings/' . $fileName;
             $h->save();
         }
 
@@ -78,7 +78,7 @@ class HomeSettingsController extends Controller
             $img->resize(620, 277);
             $img->save($imagePath);
 
-            $h->f_s_banner_3 = $request->root() . '/upload/home-settings/' . $fileName;
+            $h->f_s_banner_3 =  '/upload/home-settings/' . $fileName;
             $h->save();
         }
         // if ($request->hasFile('category1_image')) {
@@ -107,7 +107,7 @@ class HomeSettingsController extends Controller
             $img->resize(1656, 302);
             $img->save($imagePath);
 
-            $h->center_image1 = $request->root() . '/upload/home-settings/' . $fileName;
+            $h->center_image1 =  '/upload/home-settings/' . $fileName;
             $h->save();
         }
 
@@ -122,7 +122,7 @@ class HomeSettingsController extends Controller
             $img->resize(620, 277);
             $img->save($imagePath);
 
-            $h->e_s_banner_1 = $request->root() . '/upload/home-settings/' . $fileName;
+            $h->e_s_banner_1 = '/upload/home-settings/' . $fileName;
             $h->save();
         }
 
@@ -137,7 +137,7 @@ class HomeSettingsController extends Controller
             $img->resize(620, 277);
             $img->save($imagePath);
 
-            $h->e_s_banner_2 = $request->root() . '/upload/home-settings/' . $fileName;
+            $h->e_s_banner_2 =  '/upload/home-settings/' . $fileName;
             $h->save();
         }
 
@@ -152,7 +152,7 @@ class HomeSettingsController extends Controller
             $img->resize(620, 277);
             $img->save($imagePath);
 
-            $h->e_s_banner_3 = $request->root() . '/upload/home-settings/' . $fileName;
+            $h->e_s_banner_3 =  '/upload/home-settings/' . $fileName;
             $h->save();
         }
 

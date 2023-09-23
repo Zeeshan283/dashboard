@@ -375,6 +375,23 @@
                 </a>
             </li>
         </ul>
+        
+        <ul class="childNav" data-parent="profile">
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'vendor-profile' && Auth::user()->role == 'Vendor' ? 'open' : '' }}" href="{{ URL::to('vendor-profile/' . Auth::user()->id) }}">
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">Profile</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'verified-seller' && Auth::user()->role == 'Vendor' ? 'open' : '' }}" href="{{ URL::to('verified-seller/' . Auth::user()->id) }}">
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">Become A Verified</span>
+                </a>
+            </li>
+            
+        </ul>
     </div>
 
 

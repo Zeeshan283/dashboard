@@ -20,6 +20,11 @@ $(document).ready(function () {
             [1, "desc"]
         ]
     });
+    $('#deafult_ordering_table1').DataTable({
+        "order": [
+            [1, "desc"]
+        ]
+    });
 
     // multi column ordering
     $('#multicolumn_ordering_table').DataTable({

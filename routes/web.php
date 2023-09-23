@@ -266,6 +266,25 @@ Route::post('/allrefunds', [RefundController::class, 'update'])->name('refund.up
 Route::resource('vendor', VendorsController::class);
 Route::post('vendor', [VendorsController::class, 'store'])->name('vendor.store');
 
+Route::get('vendor-profile/{id}', [VendorsController::class, 'vendorProfile'])->name('vendorProfile')->middleware('check.vendor.access');
+Route::patch('vendorProfileSave/{id}', [VendorsController::class, 'vendorProfileSave']);
+
+
+Route::get('verified-seller/{id}', [VendorsController::class, 'verifiedSeller'])->middleware('check.vendor.access');
+Route::post('trustedSellerSave/{id}', [VendorsController::class, 'trustedSellerSave']);
+Route::patch('verifiedSellerSave/{id}', [VendorsController::class, 'verifiedSellerSave']);
+
+Route::post('SellerDocumentSave/{id}', [VendorsController::class, 'SellerDocumentSave']);
+
+Route::get('vendor_document/{id}/delete', [VendorsController::class, 'delete_document'])->middleware('check.vendor.access');
+Route::get('bank/{id}/delete', [VendorsController::class, 'delete_bank_details'])->middleware('check.vendor.access');
+
+Route::delete('delete-image/{image}', [VendorsController::class, 'deleteImage'])->name('delete.image');
+
+
+Route::post('/delete-image', 'VendorsController@deleteImage');
+
+// end
 
 // add user role
 
@@ -289,7 +308,7 @@ Route::resource('supplier', SupplierController::class);
 // Route::get('/get-product-name/{sku}', [PurchaseController::class,'getProductName'])->name('get.product.name');
 // Route::get('coupon/all',[CouponController::class, 'all'])->name('couponall');
 
-Route::resource('brands',BrandController::class);
+Route::resource('brands', BrandController::class);
 Route::get('brands/{id}/destroy', [BrandController::class, 'destroy']);
 
 Route::get('/home-settings', [HomeSettingsController::class, 'index'])->name('home-settings');
@@ -298,4 +317,4 @@ Route::post('/update-home-settings', [HomeSettingsController::class, 'UpdateHome
 Route::resource('/banners', BannersController::class);
 Route::get('/banners/destroy/{id}', [BannersController::class, 'destroy'])->whereNumber('id');
 
-Route::resource('/settings',SettingsController::class);
+Route::resource('/settings', SettingsController::class);

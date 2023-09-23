@@ -49,7 +49,7 @@ class BannersController extends Controller
             $img->resize(474, 397);
             $img->save($imagePath);
 
-            $banner->image = $request->root() . '/upload/banners/' . $fileName;
+            $banner->image =   '/upload/banners/' . $fileName;
             $banner->save();
         }
         if ($request->hasFile('bg_image')) {
@@ -62,7 +62,7 @@ class BannersController extends Controller
             $img->resize(1903, 520);
             $img->save($imagePath);
 
-            $banner->bg_image = $request->root() . '/upload/banners/' . $fileName;
+            $banner->bg_image =   '/upload/banners/' . $fileName;
             $banner->save();
         }
 
@@ -96,7 +96,7 @@ class BannersController extends Controller
         $edit->update($request->all());
 
         if ($request->hasFile('image')) {
-            // return $request->root().'/root/upload/banners/' . $edit1->image;
+            // return ./root/upload/banners/' . $edit1->image;
             File::delete('upload/banners/' . $edit1->image);
 
             $file = $request->file('image');
@@ -109,7 +109,7 @@ class BannersController extends Controller
             $img->resize(474, 397);
             $img->save($imagePath);
 
-            $edit->image = $request->root() . '/upload/banners/' . $fileName;
+            $edit->image =   '/upload/banners/' . $fileName;
             $edit->save();
         }
         if ($request->hasFile('bg_image')) {
@@ -124,7 +124,7 @@ class BannersController extends Controller
             $img->resize(1903, 520);
             $img->save($imagePath);
 
-            $edit->bg_image = $request->root() . '/upload/banners/' . $fileName;
+            $edit->bg_image =   '/upload/banners/' . $fileName;
             $edit->save();
         }
 
