@@ -270,6 +270,10 @@ Route::get('vendor-profile/{id}', [VendorsController::class, 'vendorProfile'])->
 Route::patch('vendorProfileSave/{id}', [VendorsController::class, 'vendorProfileSave']);
 
 
+
+
+
+
 Route::get('verified-seller/{id}', [VendorsController::class, 'verifiedSeller'])->middleware('check.vendor.access');
 Route::post('trustedSellerSave/{id}', [VendorsController::class, 'trustedSellerSave']);
 Route::patch('verifiedSellerSave/{id}', [VendorsController::class, 'verifiedSellerSave']);
