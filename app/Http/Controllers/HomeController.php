@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\OrderDetails;
+use App\Models\OrderDetail;
 use App\Models\ProductContact;
 use App\Models\Product;
 use App\Models\Stock;
@@ -37,7 +37,7 @@ class HomeController extends Controller
             $totalOrders = Order::count();
             $currenOrders = Order::where('status', '!=', 'confirmed')->count();
             $products = Product::count();
-            $pending = OrderDetails::join('orders','orders.id','=','order_details.order_id')->where('order_details.vendor_id',Auth::User()->id)->count();
+            $pending = Order::where('status','=','pending')->count();
             $confirmed = Order::where('status', '=', 'confirmed')->count();
             $packaging = Order::where('status', '=', 'packaging')->count();
             $ftod = Order::where('status', '=', 'Field to Deliver')->count();
@@ -63,38 +63,19 @@ class HomeController extends Controller
             'customerQueries',
             'vendorlist'));
         } else {
-            $totalOrders = OrderDetails::where('vendor_id', Auth::User()->id)->count();
+            $totalOrders = Order::where('o_vendor_id', Auth::User()->id)->count();
             // $currenOrders = Order::where('status', '!=', 'confirmed')->count();
-            $currenOrders = OrderDetails::join('orders','orders.id','=','order_details.order_id')
-            ->where('order_details.vendor_id',Auth::User()->id)
-            ->where('orders.status', '!=' , 'confirmed')->count();
+            $currenOrders = Order::where('o_vendor_id', Auth::user()->id)->where('status', 'pending')->count();
             $products = Product::where('created_by', Auth::User()->id)->count();
-            // $pending = OrderDetails::join('orders','orders.id','=','order_details.order_id')->where('order_details.vendor_id',Auth::User()->id)->count();
-            $pending = OrderDetails::join('orders','orders.id','=','order_details.order_id')
-            ->where('order_details.vendor_id',Auth::User()->id)
-            ->where('orders.status','=', 'pending')->count();
-            $confirmed = OrderDetails::join('orders','orders.id','=','order_details.order_id')
-            ->where('order_details.vendor_id',Auth::User()->id)
-            ->where('orders.status','=', 'confirmed')->count();
-            $packaging = OrderDetails::join('orders','orders.id','=','order_details.order_id')
-            ->where('order_details.vendor_id',Auth::User()->id)
-            ->where('orders.status','=', 'packaging')->count();
-            // $ftod = Order::where('status', '=', 'Field to Deliver')->count();
-            $ftod = OrderDetails::join('orders','orders.id','=','order_details.order_id')
-            ->where('order_details.vendor_id',Auth::User()->id)
-            ->where('orders.status','=', 'Dield to Deliver')->count();
-            // $delivered = Order::where('status', '=', 'delivered')->count();
-            $delivered = OrderDetails::join('orders','orders.id','=','order_details.order_id')
-            ->where('order_details.vendor_id',Auth::User()->id)
-            ->where('orders.status','=', 'delivered')->count();
-            // $canceled = Order::where('status', '=', 'canceled')->count();
-            $canceled = OrderDetails::join('orders','orders.id','=','order_details.order_id')
-            ->where('order_details.vendor_id',Auth::User()->id)
-            ->where('orders.status','=', 'canceled')->count();
+            $pending = Order::where('o_vendor_id', Auth::user()->id)->where('status', 'pending')->count();
+            $confirmed = Order::where('o_vendor_id', Auth::user()->id)->where('status', 'confirmed')->count();
+            $packaging = Order::where('o_vendor_id', Auth::user()->id)->where('status', 'packaging')->count();
+            $ftod = Order::where('o_vendor_id', Auth::user()->id)->where('status', 'Field to Deliver')->count();
+            $delivered = Order::where('o_vendor_id', Auth::user()->id)->where('status', 'delivered')->count();            
+            $canceled = Order::where('o_vendor_id', Auth::user()->id)->where('status', 'canceled')->count();
+            $returned = Order::where('o_vendor_id', Auth::user()->id)->where('status', 'returned')->count();
             // $returned = Order::where('status', '=', 'returned')->count();
-            $returned = OrderDetails::join('orders','orders.id','=','order_details.order_id')
-            ->where('order_details.vendor_id',Auth::User()->id)
-            ->where('orders.status','=', 'returned')->count();
+        
             $customer = User::count();
             $customerQueries = ProductContact::where('vendor_id','=',Auth::user()->id )->count();
             
