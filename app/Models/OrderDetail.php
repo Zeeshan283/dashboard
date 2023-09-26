@@ -39,4 +39,5 @@ class OrderDetail extends Model
         return $this->belongsTo(ProductVendor::class, 'p_vendor_id');
     }
     
+    
 }

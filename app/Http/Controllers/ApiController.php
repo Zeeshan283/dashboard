@@ -264,74 +264,116 @@ class ApiController extends Controller
         return response()->json($data);
     }
 
-    public function storeOrder(Request $request)
-	{
+    // public function storeOrder(Request $request)
+	// {
         
-		$order = new Order();
-		$order->date = now(); // Use the current date and time
-		$order->first_name = $request->input('first_name');
-		$order->last_name = $request->input('last_name');
-		$order->company = $request->input('company');
-		$order->country = $request->input('country');
-		$order->address_01 = $request->input('address_01');
-		$order->address_02 = $request->input('address_02');
-		$order->city = $request->input('city');
-		$order->state = $request->input('state');
-		$order->postal_code = $request->input('postal_code');
-		$order->phone1 = $request->input('phone1');
-		$order->phone2 = $request->input('phone2');
-		$order->email = $request->input('email');
-		$order->comments = $request->input('comments');
-		$order->payment_method = $request->input('payment_method');
-		$order->status = $request->input('status');
-		$order->shipping = $request->input('shipping');
-		$order->customer_id = $request->input('customer_id');
-        $order->o_vendor_id = $request->input('o_vendor_id');
+	// 	$order = new Order();
+	// 	$order->date = now(); // Use the current date and time
+	// 	$order->first_name = $request->input('first_name');
+	// 	$order->last_name = $request->input('last_name');
+	// 	$order->company = $request->input('company');
+	// 	$order->country = $request->input('country');
+	// 	$order->address_01 = $request->input('address_01');
+	// 	$order->address_02 = $request->input('address_02');
+	// 	$order->city = $request->input('city');
+	// 	$order->state = $request->input('state');
+	// 	$order->postal_code = $request->input('postal_code');
+	// 	$order->phone1 = $request->input('phone1');
+	// 	$order->phone2 = $request->input('phone2');
+	// 	$order->email = $request->input('email');
+	// 	$order->comments = $request->input('comments');
+	// 	$order->payment_method = $request->input('payment_method');
+	// 	$order->status = $request->input('status');
+	// 	$order->shipping = $request->input('shipping');
+	// 	$order->customer_id = $request->input('customer_id');
+    //     $order->o_vendor_id = $request->input('o_vendor_id');
         
-		$order->save();
+	// 	$order->save();
 
-        $orderID = $order->id;
+    //     $orderID = $order->id;
 
-		// Retrieve product details from the form
-		$productIds = $request->input('product_ids');
-		$quantities = $request->input('quantities');
-		$pVendorIds = $request->input('p_vendor_ids'); // Assuming this is the product vendor ID
-        $p_price = $request->input('p_price');
+	// 	// Retrieve product details from the form
+	// 	$productIds = $request->input('product_ids');
+	// 	$quantities = $request->input('quantities');
+	// 	$pVendorIds = $request->input('p_vendor_ids'); // Assuming this is the product vendor ID
+    //     $p_price = $request->input('p_price');
 	
-		// Store product details in the orderdetails table
+	// 	// Store product details in the orderdetails table
 
-        if (!is_array($productIds)) {
-            // If there's only one product, convert it to an array for consistency.
-            $productIds = [$productIds];
-            $quantities = [$quantities];
-            $pVendorIds = [$pVendorIds];
-            $p_price = [$p_price];
+    //     if (!is_array($productIds)) {
+    //         // If there's only one product, convert it to an array for consistency.
+    //         $productIds = [$productIds];
+    //         $quantities = [$quantities];
+    //         $pVendorIds = [$pVendorIds];
+    //         $p_price = [$p_price];
 
-        }
+    //     }
 
 
-		foreach ($productIds as $index => $productId) {
+	// 	foreach ($productIds as $index => $productId) {
             
-			$orderDetail = new OrderDetail();
-			$orderDetail->order_id = $orderID;
-			$orderDetail->product_id = $productId;
-			$orderDetail->quantity = $quantities[$index];
-			$orderDetail->p_vendor_id = $pVendorIds[$index];
-			$orderDetail->p_price = $p_price[$index];
+	// 		$orderDetail = new OrderDetail();
+	// 		$orderDetail->order_id = $orderID;
+	// 		$orderDetail->product_id = $productId;
+	// 		$orderDetail->quantity = $quantities[$index];
+	// 		$orderDetail->p_vendor_id = $pVendorIds[$index];
+	// 		$orderDetail->p_price = $p_price[$index];
             
-            // handling stock related to product 
+    //         // handling stock related to product 
 
+    //         $p_id = $orderDetail->product_id;
+    //         $p_stock = Purchase::where('product_id', $p_id)->first();
+    //         $p_stock->quantity = $p_stock->quantity - $orderDetail->quantity ;
+    //         $p_stock->update();
+
+
+	// 		$orderDetail->save();
+	// 	}
+
+	// 	return Response::json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);
+	// }
+
+    public function storeOrder(Request $request)
+    {
+        // Extract customer information
+        $customerData = $request->only([
+            'first_name', 'last_name', 'company', 'country', 'address_01', 'address_02',
+            'city', 'state', 'postal_code', 'phone1', 'phone2', 'email', 'comments',
+            'payment_method', 'status', 'shipping', 'customer_id', 'o_vendor_id'
+        ]);
+    
+        $customerData['date'] = now(); // Set the current date and time
+    
+        // Create the order with customer information
+        $order = Order::create($customerData);
+    
+        // Retrieve product details from the request
+        $products = $request->input('products');
+    
+        // Loop through the products and create order details
+        foreach ($products as $product) {
+            $orderDetail = new OrderDetail([
+                'product_id' => $product['product_id'],
+                'quantity' => $product['quantity'],
+                'p_vendor_id' => $product['p_vendor_id'],
+                'p_price' => $product['p_price'],
+            ]);
+    
+            // Save the order detail and associate it with the order
+            $order->orderDetails()->save($orderDetail);
+    
+            // Handle stock related to the product
             $p_id = $orderDetail->product_id;
             $p_stock = Purchase::where('product_id', $p_id)->first();
-            $p_stock->quantity = $p_stock->quantity - $orderDetail->quantity ;
-            $p_stock->update();
+            $p_stock->quantity -= $orderDetail->quantity;
+            $p_stock->save();
+        }
+    
+        // Return a JSON response indicating success
+        return response()->json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);
+    }
+    
 
-
-			$orderDetail->save();
-		}
-
-		return Response::json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);
-	}
 
 
 }

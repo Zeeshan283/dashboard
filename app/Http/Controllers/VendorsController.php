@@ -31,7 +31,7 @@ class VendorsController extends Controller
 
     public function index()
     {
-        $vendor = User::select('id', 'name', 'phone1', 'email', 'status')->whereRole('vendor')->get();
+        $vendor = User::select('id', 'name', 'phone1', 'email', 'status', 'verified_status','trusted_status')->whereRole('vendor')->get();
         $data = Order::orderBy('id', 'desc')->get();
         return view('sellers.vendorlist', compact('vendor', 'data'));
     }
@@ -68,7 +68,12 @@ class VendorsController extends Controller
     }
     public function show($id)
     {
-        //
+        
+        $edit = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
+        $bankDetail = VendorBankDetail::with('vendor_profile')->where('vendor_id', '=', $id)->get();
+        $vendordocument = VendorDocument::with('vendor_profile')->where('vendor_id', '=', $id)->get();
+        
+        return view('sellers.vendorview', compact( 'edit', 'bankDetail', 'vendordocument'));
     }
 
     public function edit($id)
@@ -81,20 +86,26 @@ class VendorsController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->all());
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-        ], [
-            'email.required' => 'The email field is required',
-            'name.required' => 'The Name field is required'
-        ]);
+        
 
         $seller = User::findOrFail($id);
-        $seller->phone1 = $request->input('phonenumber');
-        $seller->name = $request->input('username');
-        $seller->email = $request->input('email');
-        $seller->addres = $request->input('address');
-        $seller->status = $request->input('radio');
+
+        if($request->input('radio') == ''){
+        $seller->status = '0';
+        }else{
+            $seller->status = $request->input('radio');
+        }
+
+        if($request->input('verified') == ''){
+        $seller->verified_status = '0';
+        }else{
+            $seller->verified_status = $request->input('verified');
+        }
+        if ($request->input('trusted') == '') {
+            $seller->trusted_status = '0';
+        } else {
+            $seller->trusted_status = $request->input('trusted');
+        }
         $seller->update();
 
         Toastr::success('Vendor Updated Successfully!');

@@ -461,56 +461,83 @@
         </tr>
     </tfoot>
     {{-- vendor list  --}}
-@elseif (Route::currentRouteName() == 'vendor.index')
+    @elseif (Route::currentRouteName() == 'vendor.index' )
     <thead>
         <th>Sr No</th>
         <th>Name</th>
         <th>Phone Number</th>
         <th>Email</th>
+        <th>Verified</th>
+        <th>Trusted</th>
         <th>Status</th>
         <th>Action</th>
     </thead>
     <tbody>
-
-        @foreach ($vendor as $value => $vendors)
-            <tr>
-                {{-- {{-- <td>{{$value + 1}}</td> --}}
-                <td>{{ $vendors->id }}</td>
-                <td>{{ $vendors->name }}</td>
-                <td>{{ $vendors->phone1 }}</td>
-                <td>{{ $vendors->email }}</td>
-                {{-- <td>{{ $vendors->status}}</td> --}}
-                <td>
-                    @if ($vendors->status == '0')
-                        <span class="badge text-bg-secondary">Active</span>
-                    @elseif ($vendors->status == '1')
-                        <span class="badge text-bg-secondary">In_Active</span>
-                    @endif
-                </td>
-                <td>
-                    <div class="d-flex gap-2">
-                        <a href="{{ URL::to('vendor/' . $vendors->id . '/edit') }}"><button type="button"
-                                class="btn btn-outline-secondary ">
-                                <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
-                            </button></a>
-                    </div>
-                </td>
-            </tr>
+       
+        @foreach ($vendor as $value =>  $vendors )
+        <tr>
+            {{-- {{-- <td>{{$value + 1}}</td> --}}
+            <td>{{ $vendors->id}}</td>
+            <td>{{ $vendors->name}}</td>
+            <td>{{ $vendors->phone1}}</td>
+            <td>{{ $vendors->email}}</td>
+            {{-- <td>{{ $vendors->status}}</td> --}}
+            <td>
+                @if ( $vendors->verified_status == '1')
+                    <span class="badge  badge-round-success md"><p style="font-size: revert;">✓</p></span></h3>
+                    @elseif ($vendors->verified_status == '0')
+                    {{-- <span class="badge  badge-round-danger md"><p style="font-size: revert;">X</p></span></h3> --}}
+                    <h6>x</h6>
+                @endif
+            </td>
+            <td>
+                @if ( $vendors->trusted_status == '1')
+                    <span class="badge  badge-round-info md"><p style="font-size: revert;">✓</p></span>
+                @elseif ($vendors->trusted_status == '0')
+                <h6>x</h6>
+                {{-- <span class="badge  badge-round-secondary md"><p style="font-size: revert;">x</p></span> --}}
+                @endif
+            </td>
+            <td>
+                @if ( $vendors->status == '1')
+                    <span class="badge text-bg-success">Active</span>
+                @elseif ($vendors->status == '0')
+                    <span class="badge text-bg-danger">In_Active</span>
+                @endif
+            </td>
+            <td>
+                <div class="d-flex gap-2">
+                    <a href="{{ URL::to('vendor/' . $vendors->id . '/edit') }}" >
+                        <button type="button"  class="btn btn-outline-secondary ">
+                        <i class=" nav-icon i-Pen-2"
+                        style="font-weight: bold;"></i>
+                        </button>
+                    </a>
+                    
+                    <a href="{{route('vendor.show', $vendors->id)}}" >
+                        <button type="button"  class="btn btn-outline-secondary ">
+                        <i class="nav-icon i-Eye"
+                        style="font-weight: bold;"></i>
+                        </button>
+                    </a>
+                </div>
+            </td>
+        </tr>
         @endforeach
 
     </tbody>
     <tfoot>
-        <tr>
-            <th>Sr No</th>
-            <th>Name</th>
-            <th>Phone Number</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
+    <tr>
+        <th>Sr No</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Verified</th>
+        <th>Trusted</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
     </tfoot>
-
-
     {{-- vendor withdrawl list  --}}
 @elseif (Route::currentRouteName() == 'withdrawl')
     <thead>
