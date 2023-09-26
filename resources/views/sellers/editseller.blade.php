@@ -1,7 +1,13 @@
 @extends('layouts.master')
 @section('before-css')
 
+<link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+@section('page-css')
+<link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
 
+@endsection
 @endsection
 
 @section('main-content')
@@ -18,37 +24,12 @@
                                 <div class="card-header bg-transparent">
                                     <h3 class="card-title"> Update Vendor</h3>
                                 </div>
-                                <form action="{{ route('vendor.update') }}" method="POST">
+                                <form action="{{ route('vendor.update', ['vendor' => $vendors->id]) }}" method="POST">
                                     @csrf
-                                    @method('put')
+                                    @method('patch')
                                     <div class="card-body">
 
                                         <div class="row">
-                                            <div class="form-group col-md-4">
-                                                <label for="inputtext11" class="ul-form__label">First Name:</label>
-                                                <input type="text" class="form-control" id="first_name"  name="firstname"  placeholder="Enter full name" value=" {{  $vendors ->first_name}}" autofocus>
-                                                <span style="color: red">@error('firstname'){{ $message }}@enderror</span>
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your first name
-                                                </small>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputtext11" class="ul-form__label">Last Name:</label>
-                                                <input type="text" class="form-control" id="last_name" name="lastname"  placeholder="Enter full name" value="{{ $vendors->last_name}} " autofocus>
-                                                <span style="color: red">@error('lastname'){{ $message }}@enderror</span>
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your last name
-                                                </small>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputEmail12" class="ul-form__label">Contact Number:</label>
-                                                <input type="text" class="form-control" id="inputEmail12" name="phonenumber"  placeholder="Enter Contact Number" value="{{ $vendors->phone1}} " autofocus>
-                                                <span style="color: red">@error('phonenumber'){{ $message }}@enderror</span>
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your contact number
-                                                </small>
-                                            </div>
-
                                             <div class="form-group col-md-4">
                                                 <label for="inputEmail13" class="ul-form__label">Username:</label>
                                                 <div class="input-group mb-2">
@@ -63,42 +44,21 @@
                                                 </small>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="inputtext14" class="ul-form__label">Email:</label>
-                                                <input type="text" class="form-control" id="email" name="email"  placeholder="Enter your email " value=" {{ $vendors->email }} " autofocus>
-                                                <span style="color: red">@error('email')@enderror</span>
+                                                <label for="inputEmail12" class="ul-form__label">Contact Number:</label>
+                                                <input type="text" class="form-control" id="inputEmail12" name="phonenumber"  placeholder="Enter Contact Number" value="{{ $vendors->phone1}} " autofocus>
+                                                <span style="color: red">@error('phonenumber'){{ $message }}@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your Email
+                                                    Please enter your contact number
                                                 </small>
                                             </div>
+
+                                            
                                             <div class="form-group col-md-4">
-                                                <label for="inputEmail16" class="ul-form__label">Address:</label>
-                                                <div class="input-right-icon">
-                                                    <input type="text" class="form-control" id="inputEmail16"  name="address"  placeholder="Enter your address" value=" {{ $vendors->addres }} " autofocus>
-                                                    <span class="span-right-input-icon" style="color: red">@error('address'){{ $message }}@enderror
-                                                        <i class="ul-form__icon i-Map-Marker"></i>
-                                                    </span>
-                                                </div>
-
+                                                <label for="inputtext14" class="ul-form__label">Email:</label>
+                                                <input type="text" class="form-control" id="email" name="email"  placeholder="Enter your email " value=" {{ $vendors->email }} " autofocus>
+                                                <span style="color: red">@error('email'){{ $message }}@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your address
-                                                </small>
-
-                                        </div>
-
-                                        <div class="custom-separator"></div>
-
-                                        <div class="row">
-                                            <div class="form-group col-md-4 me-2">
-                                                <label for="inputEmail17" class="ul-form__label">Postcode:</label>
-                                                <div class="input-right-icon">
-                                                    <input type="text" class="form-control" id="inputEmail17" name="postcode" placeholder="Enter your postcode" value=" {{ $vendors->zipcode }} " autofocus>
-                                                    <span class="span-right-input-icon" style="color: red">@error('postcode'){{ $message }}@enderror
-                                                        <i class="ul-form__icon i-New-Mail"></i>
-                                                    </span>
-                                                </div>
-
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your postcode
+                                                    Please enter your Email
                                                 </small>
                                             </div>
                                             <div class="form-group col-md-4 ">
@@ -119,8 +79,11 @@
                                                     Select Your Status
                                                 </small>
                                             </div>
+                                            
 
-                                        </div>
+                                        <div class="custom-separator"></div>
+
+                                        
 
 
                                     </div>
@@ -129,7 +92,7 @@
                                         <div class="mc-footer">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center">
-                                                    <button type="submit" class="btn  btn-primary m-1">Update</button>
+                                                    <button type="submit" class="btn  btn-outline-secondary m-1">Update</button>
                                                     <button type="button" class="btn btn-outline-secondary m-1">Cancel</button>
                                                 </div>
                                             </div>
@@ -142,13 +105,20 @@
                     </div>
                 </div>
             </div>
-
+<script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
+     @if ($errors->any())
+    <script>
+        toastr.error("{{ $errors->first() }}");
+    </script>
+    @endif
+    {!! Toastr::message() !!}
 @endsection
 
 @section('page-js')
 
 
-
+<script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 
 @endsection
 
@@ -156,5 +126,6 @@
 
 
 
-
+<script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 @endsection

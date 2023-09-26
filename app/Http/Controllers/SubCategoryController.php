@@ -20,7 +20,7 @@ class SubCategoryController extends Controller
     public function index()
     {
         $data = SubCategory::with('categories:id,name')->OrderBy('name', 'asc')->get();
-        return view('sub-category.index', compact('data'));
+        return view('category.allsubcat', compact('data'));
     }
 
     public function create()
@@ -69,7 +69,7 @@ class SubCategoryController extends Controller
     {
         $edit = SubCategory::findOrFail($id);
         $categories = Category::OrderBy('id', 'asc')->pluck('name', 'id');
-        return view('category.editcat', Compact('edit', 'categories'));
+        return view('category.editsubcat', Compact('edit', 'categories'));
     }
 
     public function update(Request $request, $id)

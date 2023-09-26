@@ -26,36 +26,36 @@
                                             <div class="form-group col-md-4">
                                                 <label for="inputtext11" class="ul-form__label">Date:</label>
                                                 <input type="date" class="form-control" id="date" placeholder="Select Date"  >
-                                                {{-- <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your  name
-                                                </small> --}}
+                                                @error('date')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                             </div>
     
                                             <div class="form-group col-md-4">
                                                 <label for="inputtext11" class="ul-form__label">Bill Number:</label>
-                                                <input type="number" class="form-control" id="bill_number" placeholder="Enter your Bill Number" >
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your  Bill Number
-                                                </small>
+                                                <input type="number" class="form-control" id="bill_number" placeholder="Enter your Bill Number"  >
+                                                @error('bill_number')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                             </div>
 
 
                                             <div class="form-group col-md-4">
                                                 <label for="product_sku" class="ul-form__label">Select Supplier:</label>
-                                                <select class="form-control" id="supplier" data-live-search="true">
+                                                <select class="form-control" id="supplier" data-live-search="true" >
                                                     <option value="" selected disabled>Select Product Supplier</option>
                                                     @foreach ($suppliers as $supplier)
                                                         <option value="{{ $supplier->id}}">{{ $supplier->name}}</option>
                                                     @endforeach
                                                 </select>
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please Select Product SKU
-                                                </small>
+                                                @error('product_sku')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                            
                                             <div class="form-group col-md-4">
                                                 <label for="product_sku" class="ul-form__label">Select SKU:</label>
-                                                <select class="form-control" id="product_sku" data-live-search="true">
+                                                <select class="form-control" id="product_sku" data-live-search="true" >
                                                     <option value="" selected disabled>Select Product Vendor</option>
                                                     @foreach ($products as $product)
                                                         <option value="{{ $product->sku}}">{{ $product->sku}}</option>
@@ -84,26 +84,26 @@
                                                 <label for="selected_product_name" class="ul-form__label">Product Model No#:</label>
                                                 {{-- <input type="text" class="form-control" id="selected_product_name" value=""  readonly> --}}
                                                 <input type="text" class="form-control"  id="selected_product_model" placeholder="Product Model No"  readonly>
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Product Model No
-                                                </small>
+                                                @error('selected_product_model')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
 
                                             
                                             <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">Quantity:</label>
                                                 <input type="number" class="form-control" id="quantity" placeholder="Enter product quantity"  >
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please Enter Product quantity
-                                                </small>
+                                                @error('quantity')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">Cost:</label>
-                                                <input type="text" class="form-control" id="selected_product_price"   placeholder="Product Cost"  >
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Prodcut Cost 
-                                                </small>
+                                                <input type="text" class="form-control" id="selected_product_price"   placeholder="Product Cost"   >
+                                                @error('selected_product_price')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
 
 
@@ -111,9 +111,9 @@
                                             <div class="form-group col-md-4">
                                                 <label for="inputtext14" class="ul-form__label">Total:</label>
                                                 <input type="text" class="form-control" id="total_value" placeholder="Total Cost"  readonly>
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Total Cost
-                                                </small>
+                                                @error('total_value')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
 
 
@@ -123,43 +123,45 @@
 
 
                                     </div>
-                                    <table class="table" id="recordTable" style="display: none;">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Bill Number</th>
-                        <th>Product Name</th>
-                        <th>Product SKU</th>
-                        <th>Product Model</th>
-                        <th>Quantity</th>
-                        <th>Cost</th>
-                        <th>Total</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Date</th>
-                        <th>Bill Number</th>
-                        <th>Product Name</th>
-                        <th>Product SKU</th>
-                        <th>Product Model</th>
-                        <th>Quantity</th>
-                        <th>Cost</th>
-                        <th>Total</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-            </table>
+                                                                <table class="table" id="recordTable" style="display: none;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Bill Number</th>
+						    <th>Supplier Id#</th>
+                                                    <th>Product Name</th>
+                                                    <th>Product SKU</th>
+                                                    <th>Product Model</th>
+                                                    <th>Quantity</th>
+                                                    <th>Cost</th>
+                                                    <th>Total</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Bill Number</th>
+						    <th>Supplier Id#</th>
+                                                    <th>Product Name</th>
+                                                    <th>Product SKU</th>
+                                                    <th>Product Model</th>
+                                                    <th>Quantity</th>
+                                                    <th>Cost</th>
+                                                    <th>Total</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
 
                                     <div class="card-footer">
                                         <div class="mc-footer">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center">
-                                                    <button type="submit" class="btn  btn-primary m-1">Save</button>
+                                                    <button type="submit" class="btn btn-primary m-1" id="savebutton" disabled>Save</button>
                                                     <button type="button" class="btn btn-outline-secondary m-1" id="addRecordBtn">Add Purchase</button>
 
                                                 </div>
@@ -224,8 +226,10 @@
 
 $(document).ready(function () {
     var records = [];
+    
 
     $(document).ready(function () {
+
     var recordCount = 1; // Initialize record count for unique IDs
 
     // Attach the click event handler to a parent element that exists when the page loads
@@ -243,6 +247,13 @@ $(document).ready(function () {
         var quantity = $('#quantity').val();
         var selected_product_price = $('#selected_product_price').val();
         var total_value = quantity * selected_product_price;
+
+        if (!date || !bill_number || !supplier || !selected_product_name || !product_sku || !selected_product_model || !quantity || !selected_product_price) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        $('#savebutton').prop('disabled', false);
 
         var newRow = '<tr>' +
             '<td>' + date + '</td>' +
@@ -283,10 +294,10 @@ $(document).ready(function () {
         $('#quantity').val('');
         $('#selected_product_price').val('');
         $('#total_value').val('');
-
-
+       
         records.push(record);
         $('#recordsData').val(JSON.stringify(records));
+
 
     });
 
@@ -295,7 +306,10 @@ $(document).ready(function () {
     $('.delete-btn').click(function() {
         $(this).closest('tr').remove(); // Remove the corresponding row
     });
+
     });
+
+
 });
 </script>
 

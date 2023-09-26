@@ -26,7 +26,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="phone">Phone</label>
-                <input type="text" name="phone" id="phone" class="form-control" value="{{ $user->phone }}">
+                <input type="number" name="phone" id="phone" class="form-control" value="{{ $user->phone }}">
             </div>
             <div class="form-group col-md-4">
                 <label for="country">Country</label>
@@ -40,10 +40,10 @@
                 <label for="addres">Address</label>
                 <input type="text" name="addres" id="addres" class="form-control" value="{{ $user->addres }}">
             </div>
-            <div class="form-group col-md-4">
+            {{-- <div class="form-group col-md-4">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" class="form-control">
-            </div>
+            </div> --}}
             <div class="form-group col-md-4">
                 <label for="gender">gender</label>
                 <select name="gender" id="gender" class="form-control">
@@ -53,7 +53,7 @@
             </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-outline-secondary">Update</button>
         </form>
     </div>
 @endsection

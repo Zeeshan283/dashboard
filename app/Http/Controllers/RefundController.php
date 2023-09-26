@@ -17,7 +17,7 @@ class RefundController extends Controller
     public function index()
     {
         $refund_status = Refund::with('product', 'customer')->get();
-        return view('refund.refunded', compact('refund_status'));
+        return view('refund.allrefunds', compact('refund_status'));
     }
 
     public function create()
@@ -30,34 +30,34 @@ class RefundController extends Controller
     }
 
     public function refundstatus()
-{
-    $refund_status = Refund::all(); // Correct variable name: $refund_status
+    {
+        $refund_status = Refund::all(); 
 
-    return view('refund.allrefunds', compact('refund_status'));
-}
+        return view('refund.allrefunds', compact('refund_status'));
+    }
 
     public function pendingRefunds()
     {
-        $refund_status = Refund::where('status', 'pending')->get();
-        return view('pendingrefund', compact('refund_status'));
+        $refund_status = Refund::with('user')->where('status', 'pending')->get();
+        return view('refund.pendingrefund', compact('refund_status'));
     }
 
     public function approvedRefunds()
     {
         $refund_status = Refund::where('status', 'approved')->get();
-        return view('approvedrefund', compact('refund_status'));
+        return view('refund.approvedrefund', compact('refund_status'));
     }
 
     public function refundedRefunds()
     {
         $refund_status = Refund::where('status', 'refunded')->get();
-        return view('refunded', compact('refund_status'));
+        return view('refund.refunded', compact('refund_status'));
     }
 
     public function rejectedRefunds()
     {
         $refund_status = Refund::where('status', 'rejected')->get();
-        return view('refundrejected', compact('refund_status'));
+        return view('refund.refundrejected', compact('refund_status'));
     }
 
     public function store(Request $request)
@@ -69,7 +69,7 @@ class RefundController extends Controller
             'order_id' => 'required',
             'amount' => 'required|numeric',
             'reason' => 'required',
-            'status' => ['pending', 'approved', 'refunded', 'rejected'],
+            // 'status' => ['pending', 'approved', 'refunded', 'rejected'],
         ]);
 
         $refund = new Refund();
@@ -98,34 +98,34 @@ class RefundController extends Controller
         }
     }
     public function update(Request $request) {
+
+        // dd($request->all());
         $request->validate([
             'status' => 'required'
         ]);
 
         // Assuming 'refunds_status' is the column name you want to filter by
-        $refund = Refund::where('refunds_status', 'some_value')->first();
+        $refund = Refund::where('id', $request->id)->first();
 
-        // Update the status
-        $newStatus = $request->input('status');
-        $refund->refunds_status = json_encode($newStatus);
+        $refund->status = $request->status;
         $refund->update();
 
         $redirectRoute = '';
 
-        if ($newStatus === 'Pending') {
-            $redirectRoute = 'pendingrefund';
-        } elseif ($newStatus === 'Approved') {
-            $redirectRoute = 'approvedrefund';
-        } elseif ($newStatus === 'Refunded') {
-            $redirectRoute = 'refunded';
-        } elseif ($newStatus === 'Rejected') {
-            $redirectRoute = 'refundrejected';
-        } else {
-            $redirectRoute = 'allrefunds';
-        }
+        // if ($newStatus === 'Pending') {
+        //     $redirectRoute = 'pendingrefund';
+        // } elseif ($newStatus === 'Approved') {
+        //     $redirectRoute = 'approvedrefund';
+        // } elseif ($newStatus === 'Refunded') {
+        //     $redirectRoute = 'refunded';
+        // } elseif ($newStatus === 'Rejected') {
+        //     $redirectRoute = 'refundrejected';
+        // } else {
+        //     $redirectRoute = 'allrefunds';
+        // }
 
         Toastr::success('Refund request updated successfully', 'Success');
-        return redirect()->route($redirectRoute);
+        return redirect()->back();
     }
 
 

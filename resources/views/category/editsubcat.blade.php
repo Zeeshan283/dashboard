@@ -17,13 +17,8 @@
                         <div class="card-header">
                             <h3 class="card-title">Edit Sub Category</h3>
                         </div>
-
-                        {!! Form::model($edit, [
-                            'method' => 'PATCH',
-                            'action' => ['App\Http\Controllers\SubCategoryController@update', $edit->id],
-                            'class' => 'form-horizontal',
-                            'enctype' => 'multipart/form-data',
-                        ]) !!}
+                        {!! Form::model($edit, ['route' => ['sub-category.update', $edit->id], 'method' => 'PUT', 'class' => 'form-horizontal','enctype' => 'multipart/form-data']) !!}
+                        <input type="hidden" name="biller" id="biller" value="{{ Auth::User()->name }}">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -31,7 +26,7 @@
                                         <label>Name</label>
                                         <input type="text" name="name" id="name"
                                             class="form-control @error('name') is-invalid @enderror"
-                                            value="{{ $edit->name }}" autofocus>
+                                            value="{{ old('name', $edit->name) }}" autofocus>
                                         @error('name')
                                             <span class="invalid-feedback">{{ $message }}</span>
                                         @enderror
@@ -40,12 +35,12 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Select Category</label>
-                                        {!! Form::select('category_id', $categories, null, [
+                                        {!! Form::select('category_id', $categories, old('category_id', $edit->category_id), [
                                             'id' => 'category_id',
                                             'class' => 'form-control fstdropdown-select',
                                         ]) !!}
                                         @error('category_id')
-                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        <span class="invalid-feedback">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -61,17 +56,28 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Slug</label>
-                                        <input type="text" name="slug" id="slug" class="form-control">
+                                        <input type="text" name="slug" id="slug" class="form-control"
+                                            value="{{ old('slug', $edit->slug) }}">
                                         @error('slug')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Previous Image</label>
+                                        @if ($edit->img)
+                                            <img src="{{ asset($edit->img) }}" alt="Previous Image"
+                                                class="img-thumbnail" style="max-width: 300px;">
+                                        @else
+                                            <p>No previous image</p>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-outline-secondary">Update</button>
                         </div>
                         {!! Form::close() !!}
                     </div>
@@ -79,10 +85,9 @@
             </div>
         </div>
     </section>
-    @endsection
+@endsection
 
-    @section('page-js')
-        <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
-        <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
-    @endsection
-
+@section('page-js')
+    <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
+@endsection

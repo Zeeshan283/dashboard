@@ -45,3 +45,7 @@ Route::get('/home-setting', [ApiController::class, 'Home_setting']);
 Route::get('/site-profile', [ApiController::class, 'Site_Profile']);
 
 Route::match(['get', 'post'], '/order-submit', [ApiController::class, 'OrderSubmit']);
+
+Route::get('/homeapi',[ApiController::class,'homepage']);
+
+Route::get('/checkout', [ApiController::class, 'storeOrder']);

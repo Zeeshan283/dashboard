@@ -14,6 +14,7 @@ use App\Http\Controllers\VendorsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\EwalletController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
@@ -94,19 +95,18 @@ Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
 // Route::get('vendorlist', [VendorsController::class, 'vendorlist'])->name('vendorlist');
 Route::get('customerlist', [CustomerController::class, 'index'])->name('customerlist');
 
-Route::get('editseller/{id}', [InsertVendorsController::class, 'edit']);
-Route::put('update_seller/{id}', [InsertVendorsController::class, 'update']);
-// Route::get('deleteseller/{id}',[InsertVendorsController::class,'deleteseller']);
 
 
 
 
 // Refund
-Route::view('pendingrefund', 'refund.pendingrefund')->name('pendingrefund');
-Route::view('approvedrefund', 'refund.approvedrefund')->name('approvedrefund');
-Route::view('refundrejected', 'refund.refundrejected')->name('refundrejected');
 
-// Customer
+Route::get('pendingrefund',[RefundController::class,'pendingRefunds'])->name('pendingrefund');
+Route::get('approvedrefund',[RefundController::class,'approvedRefunds'])->name('approvedrefund');
+Route::get('refundrejected',[RefundController::class,'rejectedRefunds'])->name('refundrejected');
+Route::get('refunded',[RefundController::class,'refundedRefunds'])->name('refunded');
+
+
 
 
 
@@ -114,7 +114,7 @@ Route::view('refundrejected', 'refund.refundrejected')->name('refundrejected');
 
 // Route::view('adduser', 'users.adduser')->name('adduser');
 // Route::view('userlist','users.userlist')->name('userlist');
-Route::get('users/userlist', [UserController::class, 'userlist'])->name('userlist');
+Route::get('users/userlist', [UserController::class, 'index'])->name('userlist');
 Route::get('users/add', [UserController::class, 'add'])->name('user.add');
 Route::post('users/adduser', [UserController::class, 'adduser'])->name('user.adduser');
 Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
@@ -195,6 +195,7 @@ Route::get('returned', [OrderController::class, 'showOrders'])->name('returned')
 Route::get('ftod', [OrderController::class, 'showOrders'])->name('ftod');
 Route::get('canceled', [OrderController::class, 'showOrders'])->name('canceled');
 
+Route::patch('orderstatus',[OrderController::class,'update'])->name('order.status');
 // home controller route
 Route::get('/', [HomeController::class, 'index'])->name('admin');
 // Route::get('/',[HomeController::class, 'index'])->name('admin');
@@ -254,7 +255,7 @@ Route::get('creviews', [ReviewsController::class, 'index'])->name('creviews');
 
 // Route::view('refunded', 'refund.refunded')->name('refunded');
 Route::get('allrefunds', [RefundController::class, 'refundstatus'])->name('allrefunds');
-Route::get('refunded', [RefundController::class, 'index'])->name('refunded');
+// Route::get('refunded', [RefundController::class, 'index'])->name('refunded');
 Route::get('createrefund', [RefundController::class, 'create'])->name('createrefund');
 Route::post('/store-refund', [RefundController::class, 'store'])->name('refund.store');
 Route::post('/allrefunds', [RefundController::class, 'update'])->name('refund.update');
@@ -318,3 +319,13 @@ Route::resource('/banners', BannersController::class);
 Route::get('/banners/destroy/{id}', [BannersController::class, 'destroy'])->whereNumber('id');
 
 Route::resource('/settings', SettingsController::class);
+
+
+// Ewallet 
+Route::get('ewallet/collectedcash',[EwalletController::class,'collectedcash'])->name('collectedcash');
+Route::get('ewallet/Totalbuying',[EwalletController::class,'Totalbuying'])->name('Totalbuying');
+Route::get('ewallet/totalpendingwithdrawls',[EwalletController::class,''])->name('totalpendingwithdrawls');
+Route::get('ewallet/totalrefund',[EwalletController::class,'totalrefund'])->name('totalrefund');
+Route::get('ewallet/totalspendondeals',[EwalletController::class,'totalspendondeals'])->name('totalspendondeals');
+Route::get('ewallet/totalwithdrawl',[EwalletController::class,'totalwithdrawl'])->name('totalwithdrawl');
+Route::get('ewallet/transcationhistory',[EwalletController::class,'transcationhistory'])->name('transcationhistory');

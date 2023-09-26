@@ -9,7 +9,7 @@
                     <h1>All Categories</h1>
                 </div>
                 <div class="col-md-6" style="text-align: right;  margin-left: auto;">
-                    <a href="{{ route('addcat')}}"><button class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Create Category</span></button></a>
+                    <a href="{{ route('addcat')}}"><button class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Create Category</span></button></a>
 
                 </div>
 
@@ -22,9 +22,9 @@
                     <div class="card-body">
                         <h4 class="card-title mb-3">All Categories</h4>
 
-                        <p>With DataTables you can alter the ordering characteristics of the table at initialisation time. Using
+                        {{-- <p>With DataTables you can alter the ordering characteristics of the table at initialisation time. Using
                             the order initialisation parameter, you can set the table to display the data in exactly the order
-                            that you want.</p>
+                            that you want.</p> --}}
 
                         <div class="table-responsive">
                             <table id="deafult_ordering_table" class="display table table-striped table-bordered"

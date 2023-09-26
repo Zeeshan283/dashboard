@@ -16,7 +16,7 @@
     <li class="nav-item {{ request()->is('addseller/*') ? 'active' : '' }}" data-item="forms">
         <a class="nav-item-hold" href="#">
             <i class="nav-icon i-File-Clipboard-File--Text"></i>
-            <span class="nav-text">All Sellers</span>
+            <span class="nav-text">Vendors</span>
         </a>
     </li>
 <li class="nav-item {{ request()->is('extrakits/*') ? 'active' : '' }}" data-item="extrakits">
@@ -33,22 +33,22 @@
         <span class="nav-text">Orders</span>
     </a>
 </li>
-<li class="nav-item {{ request()->is('charts/*') ? 'active' : '' }}" data-item="charts">
+{{-- <li class="nav-item {{ request()->is('charts/*') ? 'active' : '' }}" data-item="charts">
         <a class="nav-item-hold" href="#">
         <i class="nav-icon i-Shopping-Bag"></i>
         <span class="nav-text">Products</span>
     </a>
-</li>
+</li> --}}
 <li class="nav-item {{ request()->is('purchase/*') ? 'active' : '' }}" data-item="purchase">
         <a class="nav-item-hold" href="#">
         <i class="nav-icon i-Film-Cartridge"></i>
         <span class="nav-text">Purchase</span>
     </a>
 </li>
-<li class="nav-item {{ request()->is('uikits/*') ? 'active' : '' }}" data-item="uikits">
+<li class="nav-item {{ request()->is('ewallet/*') ? 'active' : '' }}" data-item="ewallet">
     <a class="nav-item-hold" href="#">
-        <i class="nav-icon i-Shopping-Cart"></i>
-        <span class="nav-text">Orders</span>
+        <i class="nav-icon i-Money"></i>
+        <span class="nav-text">EWallet</span>
     </a>
 </li>
 <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="sessions">

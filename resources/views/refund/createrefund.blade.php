@@ -100,6 +100,7 @@
                                         </div>
 
                                     </div>
+                                    <input type="text" name="status" value="pending" hidden>
 
                                     <div class="card-footer">
                                         <div class="mc-footer">

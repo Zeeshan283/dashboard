@@ -27,6 +27,13 @@
     {{-- <div class="triangle"></div> --}}
 </li>
 
+<li class="nav-item {{ request()->is('ewallet/*') ? 'active' : '' }}" data-item="ewallet">
+    <a class="nav-item-hold" href="#">
+        <i class="nav-icon i-Money"></i>
+        <span class="nav-text">EWallet</span>
+    </a>
+</li>
+
 <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="profile">
     <a class="nav-item-hold" href="#">
         <i class="nav-icon i-Find-User"></i>

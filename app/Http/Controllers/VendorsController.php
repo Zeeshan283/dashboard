@@ -45,18 +45,27 @@ class VendorsController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-
-        $user = User::create($request->all());
+        $this->validate($request, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ], [
+            'email.required' => 'The email field is required',
+            'password.required' => 'The password field is required'
+        ]);
+        $user = new User;
         $user->name = $request->first_name . ' ' . $request->last_name;
+        $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->role = 'Vendor';
+        $user->status = $request->input('radio');
         $user->save();
 
-        Toastr::success('New Vendor Added Successfully!');
+        Toastr::success('Bank Details Added Successfully!', 'Success');
 
-        return redirect()->back();
+        return redirect()->route('vendor.index');
     }
-
     public function show($id)
     {
         //
@@ -64,32 +73,33 @@ class VendorsController extends Controller
 
     public function edit($id)
     {
-        $edit = User::findOrFail($id);
+        $vendors = user::find($id);
         $status = array('0' => 'Active', '1' => 'In Active');
-        return view('vendors.edit', compact('edit', 'status'));
+        return view('sellers.editseller', compact('vendors','status'));
     }
 
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'phone1' => 'required',
-            'image' => 'mimes:jpg,png,jpeg',
+            'name' => 'required',
+            'email' => 'required',
         ], [
-            'phone1.required' => 'The phone no field is required'
+            'email.required' => 'The email field is required',
+            'name.required' => 'The Name field is required'
         ]);
 
-        $edit1 = User::findOrFail($id);
-        $edit = User::findOrFail($id);
-
-        $edit->name = $request->first_name . ' ' . $request->last_name;
-        $edit->status = $request->status;
-        $edit->save();
+        $seller = User::findOrFail($id);
+        $seller->phone1 = $request->input('phonenumber');
+        $seller->name = $request->input('username');
+        $seller->email = $request->input('email');
+        $seller->addres = $request->input('address');
+        $seller->status = $request->input('radio');
+        $seller->update();
 
         Toastr::success('Vendor Updated Successfully!');
 
-        return redirect('vendors')->back();
+        return redirect()->route('vendor.index');
     }
 
     public function destroy($id)

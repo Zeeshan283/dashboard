@@ -28,7 +28,7 @@
                                     <div class="form-group">
                                         <label for="title1">Title 1</label>
                                         <input type="text" name="title1" id="title1"
-                                            class="form-control @error('title1') is-invalid @enderror" value="{{ $edit->title1 }}" maxlength="15" required autofocus>
+                                            class="form-control @error('title1') is-invalid @enderror" value="{{ $edit->title1 }}"  required autofocus>
                                         @error('title1')
                                             <span class="invalid-feedback">{{ $message }}</span>
                                         @enderror
@@ -38,7 +38,7 @@
                                     <div class="form-group">
                                         <label for="title2">Title 2</label>
                                         <input type="text" name="title2" id="title2"
-                                            class="form-control @error('title2') is-invalid @enderror" value="{{ $edit->title2 }}" maxlength="15" required>
+                                            class="form-control @error('title2') is-invalid @enderror" value="{{ $edit->title2 }}"  required>
                                         @error('title2')
                                             <span class="invalid-feedback">{{ $message }}</span>
                                         @enderror
@@ -88,7 +88,7 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-outline-secondary">Submit</button>
                         </div>
                         {!! Form::close() !!}
                     </div>
