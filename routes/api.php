@@ -48,4 +48,4 @@ Route::match(['get', 'post'], '/order-submit', [ApiController::class, 'OrderSubm
 
 Route::get('/homeapi',[ApiController::class,'homepage']);
 
-Route::get('/checkout', [ApiController::class, 'storeOrder']);
+Route::post('/checkout', [ApiController::class, 'storeOrder']);

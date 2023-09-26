@@ -292,9 +292,6 @@ class ApiController extends Controller
 
         $orderID = $order->id;
 
-
-
-	
 		// Retrieve product details from the form
 		$productIds = $request->input('product_ids');
 		$quantities = $request->input('quantities');
@@ -320,7 +317,7 @@ class ApiController extends Controller
 			$orderDetail->product_id = $productId;
 			$orderDetail->quantity = $quantities[$index];
 			$orderDetail->p_vendor_id = $pVendorIds[$index];
-			$orderDetail->p_price = $p_price[$index ];
+			$orderDetail->p_price = $p_price[$index];
             
             // handling stock related to product 
 
