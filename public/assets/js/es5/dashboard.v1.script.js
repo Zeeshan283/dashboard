@@ -96,37 +96,92 @@ $(document).ready(function () {
     }
 
     // Chart in Dashboard version 1
+    // var echartElemPie = document.getElementById('echartPie');
+    // if (echartElemPie) {
+    //     var echartPie = echarts.init(echartElemPie);
+    //     echartPie.setOption({
+    //         color: ['#62549c', '#7566b5', '#7d6cbb', '#8877bd', '#9181bd', '#6957af'],
+    //         tooltip: {
+    //             show: true,
+    //             backgroundColor: 'rgba(0, 0, 0, .8)'
+    //         },
+
+    //         series: [{
+    //             name: 'Sales by Country',
+    //             type: 'pie',
+    //             radius: '60%',
+    //             center: ['50%', '50%'],
+    //             data: [{ value: 535, name: 'USA' }, { value: 310, name: 'Brazil' }, { value: 234, name: 'France' }, { value: 155, name: 'BD' }, { value: 130, name: 'UK' }, { value: 348, name: 'India' }],
+    //             itemStyle: {
+    //                 emphasis: {
+    //                     shadowBlur: 10,
+    //                     shadowOffsetX: 0,
+    //                     shadowColor: 'rgba(0, 0, 0, 0.5)'
+    //                 }
+    //             }
+    //         }]
+    //     });
+    //     $(window).on('resize', function () {
+    //         setTimeout(function () {
+    //             echartPie.resize();
+    //         }, 500);
+    //     });
+    // }
+
+    // testing 
     var echartElemPie = document.getElementById('echartPie');
     if (echartElemPie) {
         var echartPie = echarts.init(echartElemPie);
-        echartPie.setOption({
-            color: ['#62549c', '#7566b5', '#7d6cbb', '#8877bd', '#9181bd', '#6957af'],
-            tooltip: {
-                show: true,
-                backgroundColor: 'rgba(0, 0, 0, .8)'
-            },
 
-            series: [{
-                name: 'Sales by Country',
-                type: 'pie',
-                radius: '60%',
-                center: ['50%', '50%'],
-                data: [{ value: 535, name: 'USA' }, { value: 310, name: 'Brazil' }, { value: 234, name: 'France' }, { value: 155, name: 'BD' }, { value: 130, name: 'UK' }, { value: 348, name: 'India' }],
-                itemStyle: {
-                    emphasis: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }]
+        $.ajax({
+            type: "GET",
+            url: "/fetch-vendor-products", // Updated Laravel route URL
+            dataType: "json",
+            success: function(data) {
+                var pieChartData = data.map(function (item) {
+                    return {
+                        value: item.totalProducts, // Use totalProducts instead of totalSales
+                        name: 'Vendor ' + item.created_by
+                    };
+                });
+    
+                echartPie.setOption({
+                    color: ['#62549c', '#7566b5', '#7d6cbb', '#8877bd', '#9181bd', '#6957af'],
+                    tooltip: {
+                        show: true,
+                        backgroundColor: 'rgba(0, 0, 0, .8)'
+                    },
+                    series: [{
+                        name: 'Sales by Vendor',
+                        type: 'pie',
+                        radius: '60%',
+                        center: ['50%', '50%'],
+                        data: pieChartData,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }]
+                });
+            },
+            error: function (error) {
+                console.error("Error fetching data: " + error);
+            }
         });
+
         $(window).on('resize', function () {
             setTimeout(function () {
                 echartPie.resize();
             }, 500);
         });
     }
+
+
+
+    // testing end 
 
     // Chart in Dashboard version 1
     var echartElem1 = document.getElementById('echart1');

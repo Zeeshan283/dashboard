@@ -188,18 +188,19 @@
                 <div class="col-lg-8 col-md-12">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <div class="card-title">This Year Sales</div>
-                            <div id="echartBar" style="height: 300px;"></div>
+                            <div class="card-title">Top Product by Category</div>
+                            {{-- <div id="echartBar" style="height: 300px;"></div> --}}
+                            <div id="productChart" style="height: 300px;"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-12">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <div class="card-title">Sales by Countries</div>
+                            <div class="card-title">Products By Vendor</div>
                             <div id="echartPie" style="height: 300px;"></div>
                         </div>
-                    </div>
+                    </div>  
                 </div>
             </div>
 
@@ -252,94 +253,32 @@
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">Name</th>
-                                                    <th scope="col">Avatar</th>
                                                     <th scope="col">Email</th>
-                                                    <th scope="col">Status</th>
+                                                    <th scope="col">Phone</th>
+                                                    {{-- <th scope="col">Status</th> --}}
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($new_users as $key => $user)
+                                                    
                                                 <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Smith Doe</td>
-                                                    <td>
-
-                                                        <img class="rounded-circle m-0 avatar-sm-table " src="/assets/images/faces/1.jpg" alt="">
-
-                                                    </td>
-
-                                                    <td>Smith@gmail.com</td>
-                                                    <td><span class="badge text-bg-success">Active</span></td>
-                                                    <td>
-                                                        <a href="#" class="text-success me-2">
-                                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                                        </a>
-                                                        <a href="#" class="text-danger me-2">
-                                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                                        </a>
-                                                    </td>
+                                                    <th scope="row">{{$key + 1}}</th>
+                                                    <td>{{$user->name}}</td>
+                                                    <td>{{$user->email}}</td>
+                                                    <td>{{$user->phone1}}</td>
+                                                    <td><form action="{{ route('user.delete', ['id' => $user->id]) }}" method="POST"
+                                                        onsubmit="return confirm('Are you sure you want to delete this menu item?')"
+                                                        style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-outline-secondary">
+                                                            <i class="nav-icon i-Close-Window font-weight-bold" aria-hidden="true"></i>
+                                                        </button>
+                                                    </form></td>
                                                 </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Jhon Doe</td>
-                                                    <td>
+                                                @endforeach
 
-                                                        <img class="rounded-circle m-0 avatar-sm-table " src="/assets/images/faces/1.jpg" alt="">
-
-                                                    </td>
-
-                                                    <td>Jhon@gmail.com</td>
-                                                    <td><span class="badge text-bg-info">Pending</span></td>
-                                                    <td>
-                                                        <a href="#" class="text-success me-2">
-                                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                                        </a>
-                                                        <a href="#" class="text-danger me-2">
-                                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Alex</td>
-                                                    <td>
-
-                                                        <img class="rounded-circle m-0 avatar-sm-table " src="/assets/images/faces/1.jpg" alt="">
-
-                                                    </td>
-
-                                                    <td>Otto@gmail.com</td>
-                                                    <td><span class="badge text-bg-warning">Not Active</span></td>
-                                                    <td>
-                                                        <a href="#" class="text-success me-2">
-                                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                                        </a>
-                                                        <a href="#" class="text-danger me-2">
-                                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <th scope="row">4</th>
-                                                    <td>Mathew Doe</td>
-                                                    <td>
-
-                                                        <img class="rounded-circle m-0 avatar-sm-table " src="/assets/images/faces/1.jpg" alt="">
-
-                                                    </td>
-
-                                                    <td>Mathew@gmail.com</td>
-                                                    <td><span class="badge text-bg-success">Active</span></td>
-                                                    <td>
-                                                        <a href="#" class="text-success me-2">
-                                                            <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                                        </a>
-                                                        <a href="#" class="text-danger me-2">
-                                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -357,55 +296,25 @@
 
                     <div class="card mb-4">
                         <div class="card-body">
-                            <div class="card-title">Top  Products</div>
+                            <div class="card-title">Top  Products</div> 
+                            @foreach ($top_products as $item)
                             <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
-                                <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3" src="{{asset('assets/images/products/headphone-4.jpg')}}" alt="">
+                                <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3" src="{{ asset($item->url)}}" alt="">
                                 <div class="flex-grow-1">
-                                    <h5 class=""><a href="">Wireless Headphone E23</a></h5>
-                                    <p class="m-0 text-small text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <p class="text-small text-danger m-0">$450 <del class="text-muted">$500</del></p>
+                                    <h5 class=""><a href="">{{ $item->name}}</a></h5>
+                                    <p class="m-0 text-small text-muted">{{$item->slug}}</p>
+                                    <p class="text-small text-danger m-0"> {{$item->new_sale_price}} <del class="text-muted">{{$item->new_price}}</del></p>
                                 </div>
                                 <div>
-                                    <button class="btn btn-outline-primary btn-rounded btn-sm">View details</button>
+                                    <button class="btn btn-outline-primary btn-rounded btn-sm">{{ $item->description }}</button>
                                 </div>
                             </div>
-                            <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
-                                <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3" src="{{asset('assets/images/products/headphone-2.jpg')}}" alt="">
-                                <div class="flex-grow-1">
-                                    <h5 class=""><a href="">Wireless Headphone Y902</a></h5>
-                                    <p class="m-0 text-small text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <p class="text-small text-danger m-0">$550 <del class="text-muted">$600</del></p>
-                                </div>
-                                <div>
-                                    <button class="btn btn-outline-primary btn-sm btn-rounded m-3 m-sm-0">View details</button>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
-                                <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3" src="{{asset('assets/images/products/headphone-3.jpg')}}" alt="">
-                                <div class="flex-grow-1">
-                                    <h5 class=""><a href="">Wireless Headphone E09</a></h5>
-                                    <p class="m-0 text-small text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <p class="text-small text-danger m-0">$250 <del class="text-muted">$300</del></p>
-                                </div>
-                                <div>
-                                    <button class="btn btn-outline-primary btn-sm btn-rounded m-3 m-sm-0">View details</button>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
-                                <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3" src="{{asset('assets/images/products/headphone-4.jpg')}}" alt="">
-                                <div class="flex-grow-1">
-                                    <h5 class=""><a href="">Wireless Headphone X89</a></h5>
-                                    <p class="m-0 text-small text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <p class="text-small text-danger m-0">$450 <del class="text-muted">$500</del></p>
-                                </div>
-                                <div>
-                                    <button class="btn btn-outline-primary btn-sm btn-rounded m-3 m-sm-0">View details</button>
-                                </div>
-                            </div>
+                            @endforeach
+                    
                         </div>
                     </div>
 
-                    <div class="card mb-4">
+                    {{-- <div class="card mb-4">
                         <div class="card-body p-0">
                             <div class="card-title border-bottom d-flex align-items-center m-0 p-3">
                                 <span>User activity</span>
@@ -456,18 +365,18 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
 
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                     <div class="card mb-4">
                         <div class="card-body p-0">
                             <h5 class="card-title m-0 p-3">Last 20 Day Leads</h5>
                             <div id="echart3" style="height: 360px;"></div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
 
@@ -479,4 +388,69 @@
      <script src="{{asset('assets/js/es5/echart.options.min.js')}}"></script>
      <script src="{{asset('assets/js/es5/dashboard.v1.script.js')}}"></script>
 
+     <script>
+        // Initialize ECharts instance
+        var productChart = echarts.init(document.getElementById('productChart'));
+    
+        // Fetch data from the Laravel backend
+        $.get('/get-product-chart-data', function (data) {
+            // Define chart options
+            var options = {
+                legend: {
+                    borderRadius: 0,
+                    orient: 'horizontal',
+                    x: 'right',
+                    data: ['Online']
+                },
+                grid: {
+                    left: '8px',
+                    right: '8px',
+                    bottom: '0',
+                    containLabel: true
+                },
+                tooltip: {
+                    show: true,
+                    backgroundColor: 'rgba(0, 0, 0, .8)'
+                },
+                xAxis: [{
+                    type: 'category',
+                    data: data.categories,
+                    axisLabel: {
+                        position: 'top'
+                    }
+                }],
+                yAxis: [{
+                    type: 'value',
+                    name: 'Product Count'
+                }],
+                grid: {
+                    left: '10%', 
+                    right: '10%', 
+                    bottom: '10%', 
+                    containLabel: true
+                },
+                series: [{
+                    name: 'Online',
+                    type: 'bar',
+                    barWidth: '20%', // Adjust the bar width as needed
+                    label: {
+                        show: true, // Display the value on top of each bar
+                        position: 'inside'
+                    },
+                    data: data.productCounts,
+                    // Change the color to blue
+                    itemStyle: {
+                        color: '#7569B3'
+                    }
+                }]
+            };
+    
+            // Set the chart options
+            productChart.setOption(options);
+        });
+    </script>
+    
+    
+    
+    
 @endsection

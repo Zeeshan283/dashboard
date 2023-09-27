@@ -682,4 +682,22 @@ class ProductController extends Controller
             return view('products.vendor_contacts', compact('productContacts'));
         }
     }
+
+    public function getProductChartData()
+    {
+    $productCounts = Product::groupBy('category_id')
+    ->selectRaw('count(*) as total_count, category_id')
+    ->pluck('total_count', 'category_id');
+
+    // Get the category names for the chart labels
+    $categories = Category::whereIn('id', $productCounts->keys())->pluck('name');
+
+    $data = [
+        'categories' => $categories,
+        'productCounts' => array_values($productCounts->toArray()),
+    ];
+
+    return response()->json($data);
+    }
+
 }

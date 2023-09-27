@@ -27,6 +27,8 @@ use App\Http\Controllers\BannersController;
 use App\Http\Controllers\SettingsController;
 use App\Models\User;
 
+use Illuminate\Support\Facades\DB;
+
 
 
 /*
@@ -110,7 +112,31 @@ Route::get('refunded',[RefundController::class,'refundedRefunds'])->name('refund
 
 
 
-// Users
+// chart
+Route::get('fetch-vendor-products', function () {
+    $vendorProductData = DB::table('products')
+        ->select('created_by', DB::raw('COUNT(*) as totalProducts'))
+        ->groupBy('created_by')
+        ->get();
+    return response()->json($vendorProductData);
+});
+
+Route::get('/get-product-chart-data', [ProductController::class, 'getProductChartData']); // product chart data
+
+// views 
+// Route::get('/views-over-last-20-days', function () {
+//     $twentyDaysAgo = now()->subDays(20);
+
+//     $viewsData = DB::table('views')
+//         ->select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(count) as total_views'))
+//         ->where('created_at', '>=', $twentyDaysAgo)
+//         ->groupBy('date')
+//         ->orderBy('date', 'asc')
+//         ->get();
+
+//     return response()->json($viewsData);
+// });
+
 
 // Route::view('adduser', 'users.adduser')->name('adduser');
 // Route::view('userlist','users.userlist')->name('userlist');
@@ -119,7 +145,7 @@ Route::get('users/add', [UserController::class, 'add'])->name('user.add');
 Route::post('users/adduser', [UserController::class, 'adduser'])->name('user.adduser');
 Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
 Route::post('users/update/{id}', [UserController::class, 'update'])->name('user.update');
-Route::get('users/delete/{id}', [UserController::class, 'delete_user'])->name('user.delete');
+Route::delete('users/delete/{id}', [UserController::class, 'delete_user'])->name('user.delete');
 
 // product reviews
 // Routes accessible only by vendors
