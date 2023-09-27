@@ -48,6 +48,9 @@ class HomeController extends Controller
             $customerQueries = ProductContact::count();
             $vendorlist = User::where('role','=','Vendor')->count();
 
+
+            // $products = Product::
+
             return view('dashboard.dashboardv1', 
             compact('totalOrders',
             'currenOrders', 

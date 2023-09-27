@@ -104,11 +104,7 @@
                                                         <label for="inputtext11" class="ul-form__label">Company Name:</label>
                                                         {!! Form::text('company_name', null, ['id' => 'company_name', 'class' => 'form-control']) !!}
                                                     </div>
-            
-                                                    <div class="form-group col-md-4">
-                                                        <label for="inputtext11" class="ul-form__label">Country:</label>
-                                                        {!! Form::text('country', null, ['id' => 'country', 'class' => 'form-control']) !!}
-                                                    </div>
+    
                                                     <div class="form-group col-md-4">
                                                         <label for="inputtext11" class="ul-form__label">First Name:</label>
                                                         {!! Form::text('first_name', $edit->user->first_name, ['id' => 'first_name', 'class' => 'form-control']) !!}

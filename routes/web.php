@@ -267,18 +267,18 @@ Route::post('/allrefunds', [RefundController::class, 'update'])->name('refund.up
 Route::resource('vendor', VendorsController::class);
 Route::post('vendor', [VendorsController::class, 'store'])->name('vendor.store');
 
-Route::get('vendor-profile/{id}', [VendorsController::class, 'vendorProfile'])->name('vendorProfile')->middleware('check.vendor.access');
+Route::get('vendor-profile/{id}', [VendorsController::class, 'vendorProfile'])->name('vendorProfile');
 Route::patch('vendorProfileSave/{id}', [VendorsController::class, 'vendorProfileSave']);
 
 
-Route::get('verified-seller/{id}', [VendorsController::class, 'verifiedSeller'])->middleware('check.vendor.access');
+Route::get('verified-seller/{id}', [VendorsController::class, 'verifiedSeller']);
 Route::post('trustedSellerSave/{id}', [VendorsController::class, 'trustedSellerSave']);
 Route::patch('verifiedSellerSave/{id}', [VendorsController::class, 'verifiedSellerSave']);
 
 Route::post('SellerDocumentSave/{id}', [VendorsController::class, 'SellerDocumentSave']);
 
-Route::get('vendor_document/{id}/delete', [VendorsController::class, 'delete_document'])->middleware('check.vendor.access');
-Route::get('bank/{id}/delete', [VendorsController::class, 'delete_bank_details'])->middleware('check.vendor.access');
+Route::get('vendor_document/{id}/delete', [VendorsController::class, 'delete_document']);
+Route::get('bank/{id}/delete', [VendorsController::class, 'delete_bank_details']);
 
 Route::delete('delete-image/{image}', [VendorsController::class, 'deleteImage'])->name('delete.image');
 

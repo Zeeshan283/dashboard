@@ -41,3 +41,9 @@
     </a>
     {{-- <div class="triangle"></div> --}}
 </li>
+<li class="nav-item {{ request()->is('purchase/*') ? 'active' : '' }}" data-item="purchase">
+    <a class="nav-item-hold" href="#">
+    <i class="nav-icon i-Film-Cartridge"></i>
+    <span class="nav-text">Purchase</span>
+</a>
+</li>
