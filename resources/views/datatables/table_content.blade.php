@@ -1727,25 +1727,68 @@
                 </tr>
             @endforeach
         </tbody>
-    @elseif (Route::currentRouteName() == 'addterm')
-        <thead>
+        <tfoot>
             <tr>
                 <th>Id</th>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Action</th>
             </tr>
+        </tfoot>
+    
+        @elseif (Route::currentRouteName() == 'helpcenter.index')
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Action</th>
+            </tr>
         </thead>
         <tbody>
-            @foreach ($data as $item)
+            @foreach ($data as $key => $value)
                 <tr>
-                    <td>{{ $item['id'] }}</td>
-                    <td>{{ $item['title'] }}</td>
-                    <td>{{ $item['description'] }}</td>
-                    {{-- <td>{{ date('d-m-Y', strtotime($item["created_at"])) }}</td> --}}
+                    <td>{{ $key + 1 }}</td>
+                    <td>
+                        @if (Route::currentRouteName() == 'helpcenter.index')
+                            {{ Str::limit($value['question'], 40) }}
+                        @else
+                            {{ $value['question'] }}
+                        @endif
+                    </td>
+
+                    <td>
+                        @if (Route::currentRouteName() == 'helpcenter.index')
+                            {{ Str::limit($value['answer'], 130) }}
+                        @else
+                            {{ $value['answer'] }}
+                        @endif
+                    </td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a target="_blank" href="{{ URL::to('helpcenter/' . $value->id . '/edit') }}"><button
+                                    type="button" class="btn btn-outline-secondary ">
+                                    <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
+                                </button></a>
+
+                            <a href="{{ asset('helpcenter/' . $value->id . '/destroy') }}">
+                                <button type="button" class="btn btn-outline-secondary">
+                                    <i class="nav-icon i-Remove-Basket"></i>
+                                </button></a>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
+
         </tbody>
+        <tfoot>
+            <tr>
+                <th>Sr No</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Action</th>
+            </tr>
+        </tfoot>
     @elseif (Route::currentRouteName() == 'brands.index')
         <thead>
             <tr>

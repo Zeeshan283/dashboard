@@ -425,6 +425,16 @@
                     <span class="item-name">Terms & Conditions</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'helpcenter' ? 'open' : '' }}"
+                    href="{{ route('helpcenter.index') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Help Center</span>
+                </a>
+            </li>
+
+
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == '' ? 'open' : '' }}"
                     href="{{  URL::to('settings/1/edit') }}">

@@ -25,6 +25,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HomeSettingsController;
 use App\Http\Controllers\BannersController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\HelpCenterController;
 use App\Models\User;
 
 
@@ -227,6 +228,8 @@ Route::put('terms/update/{id}', [TermsConditionsController::class, 'update'])->n
 Route::delete('terms/delete/{id}', [TermsConditionsController::class, 'destroy'])->name('terms.destroy');
 Route::get('terms/show/{id}', [TermsConditionsController::class, 'show'])->name('terms.show');
 
+Route::resource('helpcenter', HelpCenterController::class);
+Route::get('helpcenter/{id}/destroy', [HelpCenterController::class, 'destroy']);
 
 
 //terms & Conditions
@@ -324,7 +327,7 @@ Route::resource('/settings', SettingsController::class);
 // Ewallet 
 Route::get('ewallet/collectedcash',[EwalletController::class,'collectedcash'])->name('collectedcash');
 Route::get('ewallet/Totalbuying',[EwalletController::class,'Totalbuying'])->name('Totalbuying');
-Route::get('ewallet/totalpendingwithdrawls',[EwalletController::class,''])->name('totalpendingwithdrawls');
+Route::get('ewallet/totalpendingwithdrawls',[EwalletController::class,'totalpendingwithdrawls'])->name('totalpendingwithdrawls');
 Route::get('ewallet/totalrefund',[EwalletController::class,'totalrefund'])->name('totalrefund');
 Route::get('ewallet/totalspendondeals',[EwalletController::class,'totalspendondeals'])->name('totalspendondeals');
 Route::get('ewallet/totalwithdrawl',[EwalletController::class,'totalwithdrawl'])->name('totalwithdrawl');

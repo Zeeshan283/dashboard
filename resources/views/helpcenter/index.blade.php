@@ -6,10 +6,10 @@
 
         <div class="breadcrumb">
         <div class="col-md-6">
-                <h1>Terms & Conditions Management</h1>
+                <h1>Help Center Management</h1>
         </div>
         <div class="col-md-6" style="text-align: right;  margin-left: auto;">
-            <a href="{{ route('addterm') }}"><button class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Terms & Conditions</span></button></a>
+            <a href="{{ route('helpcenter.create') }}"><button class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Create</span></button></a>
 
         </div>
     </div>
@@ -23,7 +23,7 @@
                 <div class="card text-start">
 
                     <div class="card-body">
-                        <h4 class="card-title mb-3">All Terms & Conditions</h4>
+                        <h4 class="card-title mb-3">FAQ's</h4>
                         {{-- <p>.....</p> --}}
 
                         <div class="table-responsive">
