@@ -432,7 +432,7 @@
                 series: [{
                     name: 'Online',
                     type: 'bar',
-                    barWidth: '20%', // Adjust the bar width as needed
+                    barWidth: '70%', // Adjust the bar width as needed
                     label: {
                         show: true, // Display the value on top of each bar
                         position: 'inside'

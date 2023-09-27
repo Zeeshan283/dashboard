@@ -78,7 +78,8 @@
                                             <h3 class="card-title">Profile Info </h3>
                                         </div>
                                         <div class="form-group avatar">
-                                            <figure class="figure col-md-2 col-sm-3 col-xs-12">
+                                            <div>
+                                            <figure class="figure col-md-2 col-sm-3 col-xs-12" style="margin: revert;">
                                                 <img class="img-rounded img-responsive"
                                                 
                                                     @if ($edit && isset($edit->logo))
@@ -89,8 +90,9 @@
                                                     @endif
                                                 
                                             </figure>
-                                            <div class="form-inline col-md-10 col-sm-9 col-xs-12">
+                                            <div class="form-inline col-md-10 col-sm-9 col-xs-12" style="margin-left: 40px;">
                                                 <input type="file" id="logo" name="logo" class="file-uploader pull-left">
+                                            </div>
                                             </div>
                                         </div>
 
@@ -211,13 +213,13 @@
                                                         <label for="inputEmail12" class="ul-form__label">Annual Revenue:</label>
                                                         {!! Form::text('annual_revenue', $edit->user->annual_revenue,  ['id' => 'annaul_revenue', 'class' => 'form-control']) !!}
                                                     </div>
-
-
-                                                
-
-                                                    
-
                                                 </div>
+
+                                                <div class="form-group"style="text-align: right;">
+                                            <div class="">
+                                                <input class="btn btn-outline-secondary" type="submit" value="Update Profile">
+                                            </div>
+                                        </div>
 
 
                                             </div>
@@ -275,7 +277,12 @@
                                                     <div id="fileLimitMessage" style="color: red;"></div>
                                                 </div>    
                                             </div>    
-                            </div>              
+                            </div>  
+                                            <div class="form-group"style="text-align: right;">
+                                            <div class="">
+                                                <input class="btn btn-outline-secondary" type="submit" value="Update Profile">
+                                            </div>
+                                        </div>            
                         </div>
                     </div>
                 </div>
@@ -541,7 +548,11 @@
                                         </div>
 
                                             
-                                            
+                                            <div class="form-group"style="text-align: right;">
+                                            <div class="">
+                                                <input class="btn btn-outline-secondary" type="submit" value="Update Profile">
+                                            </div>
+                                        </div>
 
                                             
 
@@ -639,12 +650,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script src="{{asset('assets/js/vendor/quill.min.js')}}"></script>
 <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
-     @if ($errors->any())
-    <script>
-        toastr.error("{{ $errors->first() }}");
-    </script>
-    @endif
-    {!! Toastr::message() !!}
+    
 <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
 <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 
