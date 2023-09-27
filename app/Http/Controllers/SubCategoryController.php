@@ -20,7 +20,7 @@ class SubCategoryController extends Controller
     public function index()
     {
         $data = SubCategory::with('categories:id,name')->OrderBy('name', 'asc')->get();
-        return view('sub-category.index', compact('data'));
+        return view('category.allsubcat', compact('data'));
     }
 
     public function create()
@@ -44,20 +44,17 @@ class SubCategoryController extends Controller
         if ($request->hasFile('img')) {
             $file = $request->file('img');
             $fileName = uniqid() . $file->getClientOriginalName();
-            $imagePath =  'root/upload/subcategory/' .$fileName;
+            $imagePath =  'upload/subcategory/' .$fileName;
 
             $img = Image::make($file);
-            $img->resize(100, 100);
+            // $img->resize(100, 100);
             $img->save($imagePath);
 
-            $s->img = 'root/upload/subcategory/'.$fileName;
+            $s->img = 'upload/subcategory/'.$fileName;
             $s->save();
         }
-        return redirect()->back()->with([
-            'success' => 'Sub Category Added Successfully!'
-        ]);
-
-
+        Toastr::success('Sub-Category Added Successfully!', 'Success');
+        return redirect()->route('sub-category.index');
     }
 
     public function show($id)
@@ -69,7 +66,7 @@ class SubCategoryController extends Controller
     {
         $edit = SubCategory::findOrFail($id);
         $categories = Category::OrderBy('id', 'asc')->pluck('name', 'id');
-        return view('category.editcat', Compact('edit', 'categories'));
+        return view('category.editsubcat', Compact('edit', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -87,19 +84,17 @@ class SubCategoryController extends Controller
             File::delete($update1->img);
             $file = $request->file('img');
             $fileName = uniqid() . $file->getClientOriginalName();
-            $imagePath =  'root/upload/subcategory/' .$fileName;
+            $imagePath =  'upload/subcategory/' .$fileName;
 
             $img = Image::make($file);
-            $img->resize(100, 100);
+            // $img->resize(100, 100);
             $img->save($imagePath);
 
-            $update->img = 'root/upload/subcategory/'.$fileName;
+            $update->img = 'upload/subcategory/'.$fileName;
             $update->save();
         }
-
-        return redirect()->back()->with([
-            'success' => 'Sub Category Added Successfully!'
-        ]);
+        Toastr::success('Sub-Category Update Successfully!', 'Success');
+        return redirect()->route('sub-category.index');
     }
 
     public function destroy($id)
@@ -109,8 +104,9 @@ class SubCategoryController extends Controller
         // File::delete($delete->imageforapp);
         $delete->delete();
 
-        return redirect()->back()->with([
-            'success' => 'Sub Category Deleted Successfully!'
-        ]);
+        Toastr::success('Sub-Category Delete Successfully!', 'Deleted');
+        return redirect()->route('sub-category.index');
+
+
     }
 }

@@ -25,7 +25,7 @@
                     <label for="description" class="form-label">Description</label>
                     <textarea name="description" id="description" class="form-control" rows="4" required>{{ $edit->description }}</textarea>
                 </div>
-                <button type="submit" class="btn btn-primary me-2">Update</button>
+                <button type="submit" class="btn btn-outline-secondary me-2">Update</button>
             </div>
         </div>
     </div>

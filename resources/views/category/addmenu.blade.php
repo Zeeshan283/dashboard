@@ -21,7 +21,7 @@
         <div class="row">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-5 col-md-5 col-sm-12">
                         <div class="form-group">
                             <label>Name</label>
                              {!! Form::text('name', null, [
@@ -35,7 +35,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-5 col-md-5 col-sm-12">
                         <div class="form-group">
                             <label>Icon</label>
                             <select name="icon" id="icon"
@@ -52,7 +52,12 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-2 col-md-2 col-sm-12" style="margin-top: auto">
+                        <div class="form-group" >
+                            <button class="btn btn-outline-secondary" type="submit">Add Menu</button>
+                        </div>
+                    </div>
+                    {{-- <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label>Image (1100 x 450)</label>
                             <input type="file" name="image" id="image" class="form-control" required>
@@ -69,12 +74,12 @@
                                 <span class="invalid-feedback1 font-weight-bold">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
     </div>
-    <button class="btn btn-primary" type="submit" style="color: white;">Add Menu</button>
+
 </form>
 @endsection
 

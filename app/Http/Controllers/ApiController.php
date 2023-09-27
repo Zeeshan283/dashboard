@@ -7,9 +7,13 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\HomeSettings;
 use App\Models\Menu;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\ProductContact;
 use App\Models\Settings;
+use App\Models\Coupon;
+use App\Models\Purchase;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -52,7 +56,7 @@ class ApiController extends Controller
 
     public function Products()
     {
-        $products = Product::with('product_image')->with('colors')->orderBy('id')->get();
+        $products = Product::with('product_image')->with('colors')->with('brand')->orderBy('id')->get();
         return response()->json([$products]);
     }
     
@@ -97,6 +101,9 @@ class ApiController extends Controller
             return response()->json(['data' => 'Product Not Found', 'status' => '200']);
         }
     }
+
+ 
+
 
     public function ProductContactSendMessage(Request $request)
     {
@@ -187,4 +194,186 @@ class ApiController extends Controller
         $Brands =  Brand::where('type','=','brand')->select('id','brand_name','logo')->get();
         return Response::json(['data' => $Brands]);
     }
+
+    public function homepage()
+    {
+        $menus = Menu::all();
+        $categories = Category::all();
+        $sub_categories = SubCategory::all();
+        $products = Product::with('product_image')->with('colors')->with('brand')->get();
+        $banners = Banners::all();
+        $brands = Brand::all();
+        $settings = Settings::all();
+        $homesettings = HomeSettings::all();
+        $coupons = Coupon::all();
+
+        $data = [];
+
+        $data['brands'] = $brands->toArray();
+        $data['banners'] = $banners->toArray();
+        $data['Homesetting'] = $homesettings->toArray();
+        $data['coupons'] = $coupons->toArray();
+
+
+        foreach ($menus as $menu) {
+            $menuNameWords = explode(' ', $menu->name);
+            $menuName = $menuNameWords[0] ?? $menu->name;
+    
+            
+            $menuData = [
+                'menu_name' => $menu->name,
+                'categories' => [],
+            ];
+    
+    
+            foreach ($categories as $category) {
+                if ($category->menu_id == $menu->id) {
+                    $categoryData = $category->toArray();
+                    $categoryData['sub_categories'] = [];
+    
+                    foreach ($sub_categories as $sub_category) {
+                        if ($sub_category->category_id == $category->id) {
+                            $subCategoryData = $sub_category->toArray();
+                            $subCategoryData['products'] = [];
+    
+                            foreach ($products as $product) {
+                                if ($product->subcategory_id == $sub_category->id) {
+                                    $productData = $product->toArray();
+    
+                                    // Add stock information to the product data
+                                    $productData['stock'] = $product->purchases->sum('quantity');
+    
+                                    $subCategoryData['products'][] = $productData;
+                                }
+                            }
+    
+                            $categoryData['sub_categories'][] = $subCategoryData;
+                        }
+                    }
+    
+                    $menuData['categories'][] = $categoryData;
+                }
+            }
+    
+            // Use the first word from the menu name as the key for categories
+            $data['menus'][$menuName] = $menuData;
+        }
+    
+        $data['setting'] = $settings->toArray();
+    
+        return response()->json($data);
+    }
+
+    // public function storeOrder(Request $request)
+	// {
+        
+	// 	$order = new Order();
+	// 	$order->date = now(); // Use the current date and time
+	// 	$order->first_name = $request->input('first_name');
+	// 	$order->last_name = $request->input('last_name');
+	// 	$order->company = $request->input('company');
+	// 	$order->country = $request->input('country');
+	// 	$order->address_01 = $request->input('address_01');
+	// 	$order->address_02 = $request->input('address_02');
+	// 	$order->city = $request->input('city');
+	// 	$order->state = $request->input('state');
+	// 	$order->postal_code = $request->input('postal_code');
+	// 	$order->phone1 = $request->input('phone1');
+	// 	$order->phone2 = $request->input('phone2');
+	// 	$order->email = $request->input('email');
+	// 	$order->comments = $request->input('comments');
+	// 	$order->payment_method = $request->input('payment_method');
+	// 	$order->status = $request->input('status');
+	// 	$order->shipping = $request->input('shipping');
+	// 	$order->customer_id = $request->input('customer_id');
+    //     $order->o_vendor_id = $request->input('o_vendor_id');
+        
+	// 	$order->save();
+
+    //     $orderID = $order->id;
+
+	// 	// Retrieve product details from the form
+	// 	$productIds = $request->input('product_ids');
+	// 	$quantities = $request->input('quantities');
+	// 	$pVendorIds = $request->input('p_vendor_ids'); // Assuming this is the product vendor ID
+    //     $p_price = $request->input('p_price');
+	
+	// 	// Store product details in the orderdetails table
+
+    //     if (!is_array($productIds)) {
+    //         // If there's only one product, convert it to an array for consistency.
+    //         $productIds = [$productIds];
+    //         $quantities = [$quantities];
+    //         $pVendorIds = [$pVendorIds];
+    //         $p_price = [$p_price];
+
+    //     }
+
+
+	// 	foreach ($productIds as $index => $productId) {
+            
+	// 		$orderDetail = new OrderDetail();
+	// 		$orderDetail->order_id = $orderID;
+	// 		$orderDetail->product_id = $productId;
+	// 		$orderDetail->quantity = $quantities[$index];
+	// 		$orderDetail->p_vendor_id = $pVendorIds[$index];
+	// 		$orderDetail->p_price = $p_price[$index];
+            
+    //         // handling stock related to product 
+
+    //         $p_id = $orderDetail->product_id;
+    //         $p_stock = Purchase::where('product_id', $p_id)->first();
+    //         $p_stock->quantity = $p_stock->quantity - $orderDetail->quantity ;
+    //         $p_stock->update();
+
+
+	// 		$orderDetail->save();
+	// 	}
+
+	// 	return Response::json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);
+	// }
+
+    public function storeOrder(Request $request)
+    {
+        // Extract customer information
+        $customerData = $request->only([
+            'first_name', 'last_name', 'company', 'country', 'address_01', 'address_02',
+            'city', 'state', 'postal_code', 'phone1', 'phone2', 'email', 'comments',
+            'payment_method', 'status', 'shipping', 'customer_id', 'o_vendor_id', 'discount','total_purchase'
+        ]);
+    
+        $customerData['date'] = now(); // Set the current date and time
+    
+        // Create the order with customer information
+        $order = Order::create($customerData);
+    
+        // Retrieve product details from the request
+        $products = $request->input('products');
+    
+        // Loop through the products and create order details
+        foreach ($products as $product) {
+            $orderDetail = new OrderDetail([
+                'product_id' => $product['product_id'],
+                'quantity' => $product['quantity'],
+                'p_vendor_id' => $product['p_vendor_id'],
+                'p_price' => $product['p_price'],
+            ]);
+    
+            // Save the order detail and associate it with the order
+            $order->orderDetails()->save($orderDetail);
+    
+            // Handle stock related to the product
+            $p_id = $orderDetail->product_id;
+            $p_stock = Purchase::where('product_id', $p_id)->first();
+            $p_stock->quantity -= $orderDetail->quantity;
+            $p_stock->save();
+        }
+    
+        // Return a JSON response indicating success
+        return response()->json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);
+    }
+    
+
+
+
 }

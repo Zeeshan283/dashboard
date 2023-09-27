@@ -32,7 +32,7 @@ class OrderController extends Controller
 		$routeName = Route::currentRouteName();
 
 		if($routeName === 'pendingorders'){
-			$data = Order::where('status', '=', 'In Process')->orderBy('id','desc')->get();
+			$data = Order::where('status', '=', 'pending')->orderBy('id','desc')->get();
 		return view('orders.pendingorders', compact('data'));
 		}
 		if($routeName === 'confirmedorders'){
@@ -130,45 +130,23 @@ class OrderController extends Controller
 		return view('order.edit_status', compact('edit', 'status', 'locations', 'orderTrackerDetails', 'data'));
 	}
 
-	public function update(Request $request, $id)
+	public function update(Request $request)
 	{
+		// dd($request->all());
 		$this->validate($request, [
 			'order_id' => 'required',
-			'updatedby' => 'required',
-			'datetime' => 'required',
-			'status1' => 'required',
-			// 'direction' => 'required',
-			'icon' => 'required'
+			'status' => 'required',
+			'id' => 'required'
 		], [
-			'status1.required' => 'The status field is required'
+			'status.required' => 'The status field is required'
 		]);
-		$totalTrackOrder = OrderTracker::where('order_id', $id)->count();
-		if ($totalTrackOrder > 5) {
-			return redirect()->back()->with(Toastr::error('Sorry! 6 Steps are completed'));
-		} else {
-			$findSameOrderTracker = OrderTracker::where('order_id', $id)->where('status', $request->status1)->count();
-			if ($findSameOrderTracker > 0) {
-				return redirect()->back()->with(Toastr::error('Sorry! Status Already Exist!!!'));
-			} else {
-				$update = Order::findOrFail($id);
-				if ($update) {
-					$update->status = $request->status1;
-					$update->save();
 
-					$orderTracker = OrderTracker::create($request->all());
-					$orderTracker->status = $request->status1;
-					$orderTracker->save();
+		$order_status = Order::where('id',$request->id)->first();
+		$order_status->status = $request->status;
+		$order_status->update();
 
-					if (Auth::User()->role == 'Vendor') {
-						return redirect('/vendor-orders')->with(Toastr::success('Status Updated Successfully!'));
-					}
+		return redirect()->back();
 
-					return redirect('/orders')->with(Toastr::success('Status Updated Successfully!'));
-				} else {
-					return redirect()->back()->with(Toastr::error('Something went wrong!!!'));
-				}
-			}
-		}
 	}
 
 	public function VendorOrders()

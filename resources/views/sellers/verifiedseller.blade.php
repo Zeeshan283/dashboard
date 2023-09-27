@@ -78,14 +78,9 @@
                                     <div class="card">
                                         <div class="card-header bg-transparent">
                                             <h3 class="card-title">Become a Trusted Supplier 
-                                            @if(!$edit->account_title == '' && 
-                                                !$edit->account_no == '' && 
-                                                !$edit->iban_no == '' && 
-                                                !$edit->bank_name == '' && 
-                                                !$edit->bank_address == '' && 
-                                                !$edit->branch_code == '')
+                                             
                                                 <span class="badge  badge-round-success md"><p style="font-size: revert;">✓</p></span></h3>
-                                            @endif
+                                             
                                         </div>
                                         
 
@@ -207,9 +202,9 @@
                             <div class="card">
                                 <div class="card-header bg-transparent">
                                     <h3 class="card-title">Become a Verified Supplier  
-                                        @if( !$edit->id_front == '' && !$edit->id_back == '')
+                                        
                                         <span class="badge  badge-round-info md"><p style="font-size: revert;">✓</p></span></h3>
-                                        @endif
+                                        
                                     </div>
                                     <div class="card-body">
                                         <div class="row">

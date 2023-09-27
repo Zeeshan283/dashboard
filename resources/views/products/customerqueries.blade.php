@@ -49,9 +49,9 @@
     
                     <div class="card-body">
                         <h4 class="card-title mb-3">Customer Queries</h4>
-    
+{{--     
                         <p>.....</p>
-    
+     --}}
                         <div class="table-responsive">
                             <table id="deafult_ordering_table" class="display table table-striped table-bordered"
                                 style="width:100%">

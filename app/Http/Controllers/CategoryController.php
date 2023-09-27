@@ -22,12 +22,14 @@ class CategoryController extends Controller
   public function index()
   {
     $data = Category::orderby('id','asc')->get();
-    return view('category.allcat', compact('data'));
+    $menus = Menu::all();
+    return view('category.allcat', compact('data','menus'));
   }
 
   public function create()
   {
     $menus = Menu::all();
+
     return view('category.addcat', compact('menus'));
   }
 
@@ -38,7 +40,7 @@ class CategoryController extends Controller
     $this->validate($request, [
       'name' => 'required',
       'menu_id' => 'required',
-      'commission' => 'required',
+      'commission' => '',
       'img'=>'mimes:png,jpg,jpeg',
       'imageforapp'=>'mimes:png,jpg,jpeg',
     //   'menu' => 'required',
@@ -50,52 +52,87 @@ class CategoryController extends Controller
     if ($request->hasFile('img')) {
       $file = $request->file('img');
       $fileName = uniqid() . $file->getClientOriginalName();
-      $imagePath =  'root/upload/category/' . $fileName;
+      $imagePath =  'upload/category/' . $fileName;
 
       $img = Image::make($file);
-      $img->resize(100, 100);
+      // $img->resize(1920, 500);
       $img->save($imagePath);
 
-      $cat->img = 'root/upload/category/'.$fileName;
+      $cat->img = 'upload/category/'.$fileName;
       $cat->save();
-  }
+    }
     if ($request->hasFile('imageforapp')) {
       $file = $request->file('imageforapp');
       $fileName = uniqid() . $file->getClientOriginalName();
-      $imagePath =  'root/upload/category/' . $fileName;
+      $appimagePath =  'upload/category/' . $fileName;
 
       $img = Image::make($file);
-      $img->resize(100, 100);
-      $img->save($imagePath);
+      // $img->resize(100, 100);
+      $img->save($appimagePath);
 
-      $cat->imageforapp ='root/upload/category/'.$fileName;
+      $cat->imageforapp ='upload/category/'.$fileName;
       $cat->save();
-  }
+    }
+
+    if ($request->hasFile('side_sliders')) {
+      foreach ($request->file('side_sliders') as $image) {
+        if ($image->isValid()) {
+          $extension = $image->getClientOriginalExtension();
+          $fileName = uniqid() . '.' . $extension;
+          $path = $image->move('upload/category/sliders', $fileName);
+
+          $images[] = $path->getPathname();
+        }
+      }
+
+      // Merge the new images with the existing ones
+      $existingImages = json_decode($cat->side_sliders, true);
+
+      if (is_array($existingImages)) {
+        $images = array_merge($existingImages, $images);
+      } else {
+        // Handle the case where JSON decoding failed or $existingImages is not an array
+      }
+      $cat->side_sliders = json_encode($images);
+      $cat->save();
+    }
 
     // return redirect()->back()->with(Toastr::success('Category Added Successfully!'));
     Toastr::success('Category created successfully', 'Success');
-    return redirect()->back();
+    return redirect()->route('allcat');
   }
 
-  public function show($id)
-  {
-    $data =  Category::findOrfail($id);
-    return view('allcat',compact('data'));
-  }
+  // public function show($id)
+  // {
+  //   $data =  Category::findOrfail($id);
+
+  //   return view('allcat',compact('data'));
+  // }
 
   public function edit($id)
   {
-      $edit = Category::findOrFail($id);
-      $menus = Menu::orderBy('id', 'asc')->get();
-      $categories = Category::orderBy('id', 'asc')->pluck('name', 'id');
-      return view('category.editcat', compact('edit', 'categories', 'menus'));
+    $data = Category::with('menus')->orderBy('id', 'asc')->get();
+
+    $edit = Category::where('id',$id)->first();
+
+    $cat_name = Menu::where('id', $edit->menu_id)->first();
+
+    $menus = Menu::all();
+    $menuNames = [];
+
+    foreach ($data as $category) {
+        $cat_menu = Menu::find($category->menu_id);
+        $menuNames[$category->id] = $cat_menu ? $cat_menu->name : 'Menu Not Found';
+    }
+
+    return view('category.editcat', compact('edit','menus','cat_name','data', 'menuNames'));
   }
   public function update(Request $request, $id)
   {
     $this->validate($request, [
       'name' => 'required',
       'menu_id' => 'required',
-      'commission' => 'required',
+      'commission' => '',
       'img'=>'mimes:png,jpg,jpeg',
       'imageforapp'=>'mimes:png,jpg,jpeg',
     //   'menu' => 'required',
@@ -112,13 +149,13 @@ class CategoryController extends Controller
         File::delete($update1->img);
         $file = $request->file('img');
         $fileName = uniqid() . $file->getClientOriginalName();
-        $imagePath = public_path('root/upload/category/' . $fileName);
+        $imagePath = 'upload/category/' . $fileName;
 
         $img = Image::make($file);
-        $img->resize(100, 100);
+        // $img->resize(100, 100);
         $img->save($imagePath);
 
-        $update->img = 'root/upload/category/'.$fileName;
+        $update->img = 'upload/category/'.$fileName;
         $update->save();
     }
 
@@ -126,43 +163,62 @@ class CategoryController extends Controller
       File::delete($update1->imageforapp);
       $file = $request->file('imageforapp');
       $fileName = uniqid() . $file->getClientOriginalName();
-      $imagePath =  'root/upload/category/' . $fileName;
+      $imagePath =  'upload/category/' . $fileName;
 
       $img = Image::make($file);
-      $img->resize(100, 100);
+      // $img->resize(100, 100);
       $img->save($imagePath);
 
-      $update->imageforapp ='root/upload/category/'.$fileName;
+      $update->imageforapp ='upload/category/'.$fileName;
       $update->save();
   }
+
+    if ($request->hasFile('side_sliders')) {
+      foreach ($request->file('side_sliders') as $image) {
+        if ($image->isValid()) {
+          $extension = $image->getClientOriginalExtension();
+          $fileName = uniqid() . '.' . $extension;
+          $path = $image->move('upload/category/sliders', $fileName);
+
+          $images[] = $path->getPathname();
+        }
+      }
+
+      // Merge the new images with the existing ones
+      $existingImages = json_decode($update->side_sliders, true);
+
+      if (is_array($existingImages)) {
+        $images = array_merge($existingImages, $images);
+      } else {
+        // Handle the case where JSON decoding failed or $existingImages is not an array
+      }
+      $update->side_sliders = json_encode($images);
+      $update->save();
+    }
 
 
     if (!is_null($request->file('img'))) {
       File::delete($update1->img);
 
       $imageName = $request->file('img')->getClientOriginalName();
-      $request->file('img')->move(
-        base_path() . 'root/upload/category/',
-        $imageName
+      $request->file('img')->move('upload/category/',$imageName
       );
 
-      $update->img = 'root/upload/category/'.$imageName;
+      $update->img = 'upload/category/'.$imageName;
       $update->save();
     }
     if (!is_null($request->file('imageforapp'))) {
       File::delete($update1->imageforapp);
 
       $imageName = $request->file('imageforapp')->getClientOriginalName();
-      $request->file('imageforapp')->move(
-        base_path() . 'root/upload/category/',
-        $imageName
+      $request->file('imageforapp')->move('upload/category/',$imageName
       );
 
-      $update->img ='root/upload/category/'.$imageName;
+      $update->img ='upload/category/'.$imageName;
       $update->save();
     }
-    Toastr::success('Category created successfully', 'Success');
-    return redirect()->back();
+    Toastr::success('Category Updated successfully', 'Success');
+    return redirect()->route('allcat');
   }
 
   public function destroy($id)
@@ -170,8 +226,9 @@ class CategoryController extends Controller
     $delete = Category::findOrFail($id);
     File::delete($delete->img);
     File::delete($delete->imageforapp);
+    File::delete($delete->side_sliders);
     $delete->delete();
     Toastr::success('Category deleted successfully', 'Success');
-    return redirect()->back();
+    return redirect()->route('allcat');
   }
 }

@@ -45,14 +45,15 @@
                                                     Name
                                                 </small>
                                             </div>
-                                            <div class="form-group col-md-6">
+                                            {{-- <div class="form-group col-md-6">
                                                 <label for="inputtext11" class="ul-form__label">Commision:</label>
                                                 <input type="number" class="form-control" id="commission" name="commission"  placeholder=Commission" value="{{ old ('lastname')}}">
                                                 <span style="color: red">@error('commision'){{ $message }}@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Commission
                                                 </small>
-                                            </div>
+                                            </div> --}}
+
 
 
 
@@ -71,6 +72,20 @@
                                                 </div>
                                             </div>
 
+                                            <div class="form-group col-md-6">
+                                                <label for="inputtext11" class="ul-form__label">Category Side Slider's:</label>
+                                                
+                                                <input type="file" name="side_sliders[]" id="imageInput"  class="form-control" multiple >
+                                                <button type="button" class="d-none form-control" style="width: auto;"id="chooseImages">Choose Images</button>
+                                                    
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+
+                                                    <div id="thumbnails" class="image-container_1"></div>
+                                                    <div id="fileLimitMessage" style="color: red;"></div>
+                                                </div>
+
 
 
 
@@ -80,7 +95,7 @@
                                         <div class="mc-footer">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center">
-                                                    <button type="submit" class="btn  btn-primary m-1">Save</button>
+                                                    <button type="submit" class="btn  btn-outline-secondary m-1">Save</button>
                                                     <button type="button" class="btn btn-outline-secondary m-1">Cancel</button>
                                                 </div>
                                             </div>
@@ -98,7 +113,47 @@
 
 @section('page-js')
 
+<script>
+    document.getElementById('chooseImages').addEventListener('click', function () {
+        document.getElementById('imageInput').click();
+        
+    });
 
+    document.getElementById('imageInput').addEventListener('change', function () {
+        
+        var RemoveImg = document.getElementById('loopImg');
+        if (RemoveImg) {
+            RemoveImg.style.display = 'none';
+        }
+
+        var files = this.files;
+        var maxImages = 100; // Set your maximum image limit here
+        var fileLimitMessage = document.getElementById('fileLimitMessage');
+        if (files.length > maxImages) {
+            fileLimitMessage.textContent = 'Please select a maximum of ' + maxImages + ' images.';
+            this.value = ''; // Clear selected files
+        } else {
+            fileLimitMessage.textContent = ''; // Clear the message if within the limit
+        }
+    });
+    document.getElementById('imageInput').addEventListener('change', function () {
+        
+        var thumbnails = document.getElementById('thumbnails');
+        thumbnails.innerHTML = ''; // Clear previous thumbnails
+
+        var files = this.files;
+    var maxImages = 100; // Set your maximum image limit here
+    for (var i = 0; i < Math.min(files.length, maxImages); i++) {
+        var img = document.createElement('img');
+        img.src = URL.createObjectURL(files[i]);
+        img.style.maxWidth = '100px';
+        thumbnails.appendChild(img);
+    }
+
+        // Show the upload button when at least one image is selected
+        
+    });
+</script>
 
 
 @endsection

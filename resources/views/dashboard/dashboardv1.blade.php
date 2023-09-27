@@ -184,7 +184,7 @@
         
             </div>
 
-            {{-- <div class="row">
+            <div class="row">
                 <div class="col-lg-8 col-md-12">
                     <div class="card mb-4">
                         <div class="card-body">
@@ -357,7 +357,7 @@
 
                     <div class="card mb-4">
                         <div class="card-body">
-                            <div class="card-title">Top Selling Products</div>
+                            <div class="card-title">Top  Products</div>
                             <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
                                 <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3" src="{{asset('assets/images/products/headphone-4.jpg')}}" alt="">
                                 <div class="flex-grow-1">
@@ -469,7 +469,7 @@
                     </div>
                 </div>
 
-            </div> --}}
+            </div>
 
 
 @endsection

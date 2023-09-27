@@ -52,6 +52,17 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Commission</label>
+                                        <input type="number" name="commission" id="commission" class="form-control">
+                                        @error('commission')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Slug</label>
@@ -64,7 +75,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-outline-secondary">Submit</button>
                         </div>
                         {!! Form::close() !!}
                     </div>
@@ -72,6 +83,8 @@
             </div>
         </div>
     </section>
+
+    
     @endsection
 
     @section('page-js')

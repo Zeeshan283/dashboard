@@ -23,6 +23,16 @@ class UserController extends Controller
 
 public function adduser(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ], [
+            'email.required' => 'The email field is required',
+            'name.required' => 'The Name field is required',
+            'password.required' => 'The Password field is required'
+        ]);
+
         $user = new User;
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -48,6 +58,15 @@ public function adduser(Request $request)
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+        ], [
+            'email.required' => 'The email field is required',
+            'name.required' => 'The Name field is required',
+            'password.required' => 'The Password field is required'
+        ]);
+
         $user = User::find($id);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -55,10 +74,6 @@ public function adduser(Request $request)
         $user->country = $request->input('country');
         $user->city = $request->input('city');
         $user->addres = $request->input('addres'); // Corrected spelling of 'address'
-
-        if ($request->has('password')) {
-            $user->password = Hash::make($request->input('password'));
-        }
 
         $user->gender = $request->input('gender');
         $user->save();

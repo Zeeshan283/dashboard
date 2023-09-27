@@ -34,7 +34,7 @@
 
                                             <div class="form-group col-md-4">
                                                 <label for="vendor" class="ul-form__label">Coupon Type:</label>
-                                                <select class="form-control" id="vendor" name="coupon_type" >
+                                                <select class="form-control" id="vendor" name="coupon_type" required >
                                                     <option value="" selected disabled>Select Coupon Type</option>
                                                     <option value="1">Discount on Purchase</option>
                                                     <option value="2">Free Delivery</option>
@@ -48,14 +48,14 @@
                                             <!-- Common Field -->
                                             <div class="form-group col-md-4">
                                                 <label for="commonField" class="ul-form__label">Coupon Title:</label>
-                                                <input type="text" class="form-control" id="commonField" name="coupon_title" placeholder="Coupon Title">
+                                                <input type="text" class="form-control" id="commonField" name="coupon_title" placeholder="Coupon Title" required>
                                                 <small class="ul-form__text form-text">
                                                     Coupon Title here 
                                                 </small>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="commonField" class="ul-form__label">Coupon Code:</label>
-                                                <input type="text" class="form-control" id="commonField" name="coupon_code" placeholder="Coupon Code">
+                                                <input type="text" class="form-control" id="commonField" name="coupon_code" placeholder="Coupon Code" required>
                                                 <small class="ul-form__text form-text">
                                                     Coupon Code Here
                                                 </small>
@@ -70,7 +70,7 @@
                                             {{-- common fileds  --}}
                                             <div class="form-group col-md-4">
                                                 <label for="commonField" class="ul-form__label">Minimum Purchase ($):</label>
-                                                <input type="number" class="form-control" id="commonField" name="minp" placeholder="Minimum Purchase">
+                                                <input type="number" class="form-control" id="commonField" name="minp" placeholder="Minimum Purchase" required>
                                                 <small class="ul-form__text form-text">
                                                     Minumum Purchase 
                                                 </small>
@@ -80,14 +80,14 @@
                                            
                                             <div class="form-group col-md-4">
                                                 <label for="commonField" class="ul-form__label">Start Date:</label>
-                                                <input type="date" class="form-control" id="commonField" name="start_date" placeholder="Start Date">
+                                                <input type="date" class="form-control" id="commonField" name="start_date" placeholder="Start Date" required>
                                                 <small class="ul-form__text form-text">
                                                     Start Date
                                                 </small>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="commonField" class="ul-form__label">End Date:</label>
-                                                <input type="date" class="form-control" id="commonField" name="end_date" placeholder="End Date">
+                                                <input type="date" class="form-control" id="commonField" name="end_date" placeholder="End Date" required>
                                                 <small class="ul-form__text form-text">
                                                     End Date
                                                 </small>
@@ -95,7 +95,7 @@
 
                                             <div class="form-group col-md-4">
                                                 <label for="vendor" class="ul-form__label">Apply Coupon:</label>
-                                                <select class="form-control" id="apply" name="apply" >
+                                                <select class="form-control" id="apply" name="apply" required >
                                                     <option value="" selected disabled>Select Discount Type</option>
                                                     <option value="6">Store</option>
                                                     <option value="7">Product</option>
@@ -113,7 +113,7 @@
                                             </div>
                                             <div id="productField4" class="form-group col-md-4" style="display: none;">
                                                 <label for="vendor" class="ul-form__label">Select product</label>
-                                                <select class="form-control" id="productField4" name="product"  >
+                                                <select class="form-control" id="productField4" name="product"  required>
                                                     <option value="" selected disabled>Select Product</option>
                                                     @foreach ($products as $product)
                                                         
@@ -245,7 +245,7 @@
                                         <div class="mc-footer">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center">
-                                                    <button type="submit" class="btn  btn-primary m-1">Create Coupon</button>
+                                                    <button type="submit" class="btn  btn-outline-secondary m-1">Create Coupon</button>
                                                      
                                                     <a href="{{ route('admin')}}"><button type="button" class="btn btn-outline-secondary m-1">Cancel</button></a>
                                                 </div>

@@ -11,7 +11,7 @@ class Order extends Model
     protected $fillable = [
         'date', 'first_name', 'last_name', 'company', 'country', 'address_01',
         'address_02', 'city', 'state', 'postal_code', 'phone1', 'phone2', 'email', 'comments',
-        'payment_method', 'status', 'shipping', 'updatedby', 'customer_id'
+        'payment_method', 'status', 'shipping', 'updatedby', 'customer_id','total_purchase','discount'
     ];
 
     public function order_details()
@@ -27,5 +27,10 @@ class Order extends Model
     public function customer_orders()
     {
         return $this->hasMany(OrderDetails::class, 'order_id');
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetails::class);
     }
 }

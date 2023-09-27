@@ -24,7 +24,7 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
-                                        <label for="f_s_banner_1">First Small Banner 1 (Dim: 620 x 277)</label>
+                                        <label for="f_s_banner_1">First Small Banner 1 (Dim: 540 x 244)</label>
                                         <input type="file" name="f_s_banner_1" id="f_s_banner_1" class="form-control">
                                         @error('f_s_banner_1')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
-                                        <label for="f_s_banner_2">First Small Banner 2 (Dim: 620 x 277)</label>
+                                        <label for="f_s_banner_2">First Small Banner 2 (Dim: 540 x 244)</label>
                                         <input type="file" name="f_s_banner_2" id="f_s_banner_2" class="form-control">
                                         @error('f_s_banner_2')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
-                                        <label for="f_s_banner_3">First Small Banner 3 (Dim: 620 x 277)</label>
+                                        <label for="f_s_banner_3">First Small Banner 3 (Dim: 540 x 244)</label>
                                         <input type="file" name="f_s_banner_3" id="f_s_banner_3" class="form-control">
                                         @error('f_s_banner_3')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -137,7 +137,7 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
-                                        <label for="e_s_banner_1">End Small Banner 1 (Dim: 620 x 277)</label>
+                                        <label for="e_s_banner_1">End Small Banner 1 (Dim: 540 x 244)</label>
                                         <input type="file" name="e_s_banner_1" id="e_s_banner_1" class="form-control">
                                         @error('e_s_banner_1')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
-                                        <label for="e_s_banner_2">End Small Banner 2 (Dim: 620 x 277)</label>
+                                        <label for="e_s_banner_2">End Small Banner 2 (Dim: 540 x 244)</label>
                                         <input type="file" name="e_s_banner_2" id="e_s_banner_2" class="form-control">
                                         @error('e_s_banner_2')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -155,7 +155,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
-                                        <label for="e_s_banner_3">End Small Banner 3 (Dim: 620 x 277)</label>
+                                        <label for="e_s_banner_3">End Small Banner 3 (Dim: 540 x 244)</label>
                                         <input type="file" name="e_s_banner_3" id="e_s_banner_3" class="form-control">
                                         @error('e_s_banner_3')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -167,7 +167,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-outline-secondary">Submit</button>
                         </div>
                         {!! Form::close() !!}
                     </div>

@@ -40,7 +40,7 @@
             <div style="
     text-align: center;
 ">
-            <button type="submit" class="btn btn-primary ">Update</button>
+            <button type="submit" class="btn btn-outline-secondary ">Update</button>
 </div>
             
         {!! Form::close() !!}

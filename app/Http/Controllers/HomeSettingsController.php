@@ -45,7 +45,7 @@ class HomeSettingsController extends Controller
             // Home Settings image save in 620 x 277 
             $imagePath =  'upload/home-settings/' . $fileName;
             $img = Image::make($request->file('f_s_banner_1'));
-            $img->resize(620, 277);
+            $img->resize(540, 244);
             $img->save($imagePath);
 
             $h->f_s_banner_1 =   '/upload/home-settings/' . $fileName;
@@ -60,7 +60,7 @@ class HomeSettingsController extends Controller
             // Home Settings image save in 620 x 277 
             $imagePath =  'upload/home-settings/' . $fileName;
             $img = Image::make($request->file('f_s_banner_2'));
-            $img->resize(620, 277);
+            $img->resize(540, 244);
             $img->save($imagePath);
 
             $h->f_s_banner_2 =  '/upload/home-settings/' . $fileName;
@@ -75,7 +75,7 @@ class HomeSettingsController extends Controller
             // Home Settings image save in 620 x 277 
             $imagePath =  'upload/home-settings/' . $fileName;
             $img = Image::make($request->file('f_s_banner_3'));
-            $img->resize(620, 277);
+            $img->resize(540, 244);
             $img->save($imagePath);
 
             $h->f_s_banner_3 =  '/upload/home-settings/' . $fileName;
@@ -119,7 +119,7 @@ class HomeSettingsController extends Controller
             // Home Settings image save in 620 x 277 
             $imagePath =  'upload/home-settings/' . $fileName;
             $img = Image::make($request->file('e_s_banner_1'));
-            $img->resize(620, 277);
+            $img->resize(540, 244);
             $img->save($imagePath);
 
             $h->e_s_banner_1 = '/upload/home-settings/' . $fileName;
@@ -134,7 +134,7 @@ class HomeSettingsController extends Controller
             // Home Settings image save in 620 x 277 
             $imagePath =  'upload/home-settings/' . $fileName;
             $img = Image::make($request->file('e_s_banner_2'));
-            $img->resize(620, 277);
+            $img->resize(540, 244);
             $img->save($imagePath);
 
             $h->e_s_banner_2 =  '/upload/home-settings/' . $fileName;
@@ -149,7 +149,7 @@ class HomeSettingsController extends Controller
             // Home Settings image save in 620 x 277 
             $imagePath =  'upload/home-settings/' . $fileName;
             $img = Image::make($request->file('e_s_banner_3'));
-            $img->resize(620, 277);
+            $img->resize(540, 244);
             $img->save($imagePath);
 
             $h->e_s_banner_3 =  '/upload/home-settings/' . $fileName;

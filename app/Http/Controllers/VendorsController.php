@@ -31,7 +31,7 @@ class VendorsController extends Controller
 
     public function index()
     {
-        $vendor = User::select('id', 'name', 'phone1', 'email', 'status')->whereRole('vendor')->get();
+        $vendor = User::select('id', 'name', 'phone1', 'email', 'status', 'verified_status','trusted_status')->whereRole('vendor')->get();
         $data = Order::orderBy('id', 'desc')->get();
         return view('sellers.vendorlist', compact('vendor', 'data'));
     }
@@ -45,51 +45,72 @@ class VendorsController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-
-        $user = User::create($request->all());
+        $this->validate($request, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ], [
+            'email.required' => 'The email field is required',
+            'password.required' => 'The password field is required'
+        ]);
+        $user = new User;
         $user->name = $request->first_name . ' ' . $request->last_name;
+        $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->role = 'Vendor';
+        $user->status = $request->input('radio');
         $user->save();
 
-        Toastr::success('New Vendor Added Successfully!');
+        Toastr::success('Bank Details Added Successfully!', 'Success');
 
-        return redirect()->back();
+        return redirect()->route('vendor.index');
     }
-
     public function show($id)
     {
-        //
+        
+        $edit = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
+        $bankDetail = VendorBankDetail::with('vendor_profile')->where('vendor_id', '=', $id)->get();
+        $vendordocument = VendorDocument::with('vendor_profile')->where('vendor_id', '=', $id)->get();
+        
+        return view('sellers.vendorview', compact( 'edit', 'bankDetail', 'vendordocument'));
     }
 
     public function edit($id)
     {
-        $edit = User::findOrFail($id);
+        $vendors = user::find($id);
         $status = array('0' => 'Active', '1' => 'In Active');
-        return view('vendors.edit', compact('edit', 'status'));
+        return view('sellers.editseller', compact('vendors','status'));
     }
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'phone1' => 'required',
-            'image' => 'mimes:jpg,png,jpeg',
-        ], [
-            'phone1.required' => 'The phone no field is required'
-        ]);
+        // dd($request->all());
+        
 
-        $edit1 = User::findOrFail($id);
-        $edit = User::findOrFail($id);
+        $seller = User::findOrFail($id);
 
-        $edit->name = $request->first_name . ' ' . $request->last_name;
-        $edit->status = $request->status;
-        $edit->save();
+        if($request->input('radio') == ''){
+        $seller->status = '0';
+        }else{
+            $seller->status = $request->input('radio');
+        }
+
+        if($request->input('verified') == ''){
+        $seller->verified_status = '0';
+        }else{
+            $seller->verified_status = $request->input('verified');
+        }
+        if ($request->input('trusted') == '') {
+            $seller->trusted_status = '0';
+        } else {
+            $seller->trusted_status = $request->input('trusted');
+        }
+        $seller->update();
 
         Toastr::success('Vendor Updated Successfully!');
 
-        return redirect('vendors')->back();
+        return redirect()->route('vendor.index');
     }
 
     public function destroy($id)

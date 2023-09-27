@@ -24,7 +24,7 @@
                                         <div class="row">
                                             <div class="form-group col-lg-6">
                                                 <label for="inputtext11" class="ul-form__label">Supplier Name:</label>
-                                                <input type="text" class="form-control" id="name"  name="name"  placeholder="Enter your supplier name" value="{{ old ('name')}}">
+                                                <input type="text" class="form-control" id="name"  name="name"  placeholder="Enter your supplier name" value="{{ old ('name')}}" required>
                                                 <span style="color: red">@error('firstname'){{ $message }}@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your Supplier Name
@@ -33,7 +33,7 @@
                                     
                                             <div class="form-group col-lg-6">
                                                 <label for="inputEmail12" class="ul-form__label">Supplier Contact Number:</label>
-                                                <input type="number" class="form-control" id="phone" name="phone"  placeholder="Enter your supplier Contact Number"value="{{ old ('phone')}}">
+                                                <input type="number" class="form-control" id="phone" name="phone"  placeholder="Enter your supplier Contact Number"value="{{ old ('phone')}}" required>
                                                 <span style="color: red">@error('phonenumber'){{ $message }}@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your supplier contact number
@@ -44,7 +44,7 @@
                                             
                                             <div class="form-group col-md-6">
                                                 <label for="inputtext14" class="ul-form__label">Supplier Email:</label>
-                                                <input type="email" class="form-control" id="email" name="email"  placeholder="Enter your supplier email " value="{{ old ('email')}}">
+                                                <input type="email" class="form-control" id="email" name="email"  placeholder="Enter your supplier email " value="{{ old ('email')}}" required>
                                                 <span style="color: red">@error('email')@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your supplier Email
@@ -53,7 +53,7 @@
 
                                             <div class="form-group col-lg-6">
                                                 <label for="inputEmail12" class="ul-form__label">Supplier Website:</label>
-                                                <input type="=text" class="form-control" id="website" name="website"  placeholder="Enter Your Supplier Website"value="{{ old ('website')}}">
+                                                <input type="=text" class="form-control" id="website" name="website"  placeholder="Enter Your Supplier Website"value="{{ old ('website')}}" required>
                                                 <span style="color: red">@error('phonenumber'){{ $message }}@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your supplier Website
@@ -61,7 +61,7 @@
                                             </div>                                           
                                             <div class="form-group col-lg-6">
                                                 <label for="inputEmail12" class="ul-form__label">Supplier Address:</label>
-                                                <input type="=text" class="form-control" id="address" name="address"  placeholder="Enter Your Supplier Address"value="{{ old ('address')}}">
+                                                <input type="=text" class="form-control" id="address" name="address"  placeholder="Enter Your Supplier Address"value="{{ old ('address')}}" required>
                                                 <span style="color: red">@error('phonenumber'){{ $message }}@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your supplier Address

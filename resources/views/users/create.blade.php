@@ -25,7 +25,8 @@
                                         <div class="row">
                                             <div class="form-group col-md-4">
                                                 <label for="inputtext11" class="ul-form__label">Username:</label>
-                                                <input type="text" class="form-control" id="first_name" placeholder="Enter full name" name="name" required>
+                                                <input type="text" class="form-control" id="first_name" placeholder="Enter full name" name="name" >
+                                                <span style="color: red">@error('name'){{ $message }}@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your  name
                                                 </small>
@@ -33,7 +34,9 @@
     
                                             <div class="form-group col-md-4">
                                                 <label for="inputtext11" class="ul-form__label">Email:</label>
-                                                <input type="email" class="form-control" id="first_name" placeholder="Enter your Email" name="email" required>
+                                                <input type="email" class="form-control" id="first_name" placeholder="Enter your Email" name="email" >
+                                                <span style="color: red">@error('email'){{ $message }}@enderror</span>
+
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your  Email
                                                 </small>
@@ -41,7 +44,7 @@
     
                                             <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">Contact Number:</label>
-                                                <input type="number" class="form-control" id="inputEmail12" placeholder="Enter Contact Number" name="phone1" required>
+                                                <input type="number" class="form-control" id="inputEmail12" placeholder="Enter Contact Number" name="phone1" >
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your contact number
                                                 </small>
@@ -49,7 +52,7 @@
 
                                             <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">Country:</label>
-                                                <input type="text" class="form-control" id="inputEmail12" placeholder="Enter Your Country" name="country" required>
+                                                <input type="text" class="form-control" id="inputEmail12" placeholder="Enter Your Country" name="country" >
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your country
                                                 </small>
@@ -57,7 +60,7 @@
 
                                             <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">City:</label>
-                                                <input type="text" class="form-control" id="inputEmail12" placeholder="Enter your city" name="city" required>
+                                                <input type="text" class="form-control" id="inputEmail12" placeholder="Enter your city" name="city" >
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your city
                                                 </small>
@@ -65,7 +68,7 @@
 
                                             <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">Address:</label>
-                                                <input type="text" class="form-control" id="inputEmail12" placeholder="Enter your address" name="address1" required>
+                                                <input type="text" class="form-control" id="inputEmail12" placeholder="Enter your address" name="addres" >
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your Address
                                                 </small>
@@ -75,7 +78,8 @@
                                             
                                             <div class="form-group col-md-4">
                                                 <label for="inputtext14" class="ul-form__label">Password:</label>
-                                                <input type="text" class="form-control" id="password" placeholder="Enter your Password " name="password" required>
+                                                <input type="text" class="form-control" id="password" placeholder="Enter your Password " name="password" >
+                                                <span style="color: red">@error('password'){{ $message }}@enderror</span>
                                                 <small id="passwordHelpBlock" class="ul-form__text form-text ">
                                                     Please enter your Password
                                                 </small>
@@ -110,7 +114,7 @@
                                         <div class="mc-footer">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center">
-                                                    <button type="submit" class="btn  btn-primary m-1">Save</button>
+                                                    <button type="submit" class="btn  btn-outline-secondary m-1">Save</button>
                                                     <button type="button" class="btn btn-outline-secondary m-1">Cancel</button>
                                                 </div>
                                             </div>

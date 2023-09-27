@@ -20,10 +20,14 @@
     @if (Session::get('layout') == 'vertical')
         <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome-free-5.10.1-web/css/all.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/styles/vendor/metisMenu.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+
     @endif
     <link id="gull-theme" rel="stylesheet" href="{{ asset('assets\fonts\iconsmind\iconsmind.css') }}">
     <link id="gull-theme" rel="stylesheet" href="{{ asset('assets/styles/css/themes/lite-purple.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/perfect-scrollbar.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+
     {{-- page specific css --}}
     @yield('page-css')
 </head>
@@ -39,9 +43,9 @@
     @endphp
 
     <!-- Pre Loader Strat  -->
-    <div class='loadscreen' id="preloader">
+    <div   @if (request()->routeIs('products.index')) class=""@else class='loadscreen' @endif  id="preloader">
 
-        <div class="loader spinner-bubble spinner-bubble-primary">
+        <div @if (request()->routeIs('products.index')) class=""@else  class="loader spinner-bubble spinner-bubble-primary" @endif >
 
 
         </div>
@@ -116,11 +120,12 @@
     {{-- theme javascript --}}
     {{-- <script src="{{ mix('assets/js/es5/script.js') }}"></script>
         --}}
+        
     <script src="{{ asset('assets/js/script.js') }}"></script>
 
 
     @if ($layout == 'compact')
-        <script src="{{ asset('assets/js/sidebar.compact.script.js') }}"></script>
+        <script src="{{ asset('assets/js/sidebar.compact.script.js') }}"></s>
     @elseif($layout == 'normal')
         <script src="{{ asset('assets/js/sidebar.large.script.js') }}"></script>
     @elseif($layout == 'horizontal')
@@ -142,6 +147,13 @@
     {{-- laravel js --}}
     {{-- <script src="{{ mix('assets/js/laravel/app.js') }}"></script>
         --}}
+        <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
+     @if ($errors->any())
+    <script>
+        toastr.error("{{ $errors->first() }}");
+    </script>
+    @endif
+    {!! Toastr::message() !!}
 
     @yield('bottom-js')
 </body>

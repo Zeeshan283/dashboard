@@ -15,7 +15,7 @@
                     <div class="card-body">
                         <h4 class="card-title mb-3">All Customers</h4>
 
-                        <p>.....</p>
+                        {{-- <p>.....</p> --}}
 
                         <div class="table-responsive">
                             <table id="deafult_ordering_table" class="display table table-striped table-bordered"

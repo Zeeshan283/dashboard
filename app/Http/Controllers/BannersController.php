@@ -29,9 +29,9 @@ class BannersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title1' => 'required|max:15',
-            'title2' => 'required|max:15',
-            'offer' => 'required|max:20',
+            'title1' => 'required',
+            'title2' => 'required',
+            'offer' => 'required',
             'image' => 'required|mimes:jpg,png,jpeg',
             'bg_image' => 'required|mimes:jpg,png,jpeg',
             'url' => 'required'
@@ -46,7 +46,7 @@ class BannersController extends Controller
             //banner image save in 474 x 397
             $imagePath = 'upload/banners/' . $fileName;
             $img = Image::make($file);
-            $img->resize(474, 397);
+            // $img->resize(474, 397);
             $img->save($imagePath);
 
             $banner->image =   '/upload/banners/' . $fileName;
@@ -59,14 +59,14 @@ class BannersController extends Controller
             //banner image save in 1903 x 520
             $imagePath = 'upload/banners/' . $fileName;
             $img = Image::make($file);
-            $img->resize(1903, 520);
+            // $img->resize(1903, 520);
             $img->save($imagePath);
 
             $banner->bg_image =   '/upload/banners/' . $fileName;
             $banner->save();
         }
-
-        return redirect()->back()->with(Toastr::success('Banner Added Successfully!'));
+        Toastr::success('Banner Added Successfully!', 'Success');
+        return redirect()->back();
     }
 
     public function show($id)
@@ -83,9 +83,9 @@ class BannersController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'title1' => 'required|max:15',
-            'title2' => 'required|max:15',
-            'offer' => 'required|max:20',
+            'title1' => 'required',
+            'title2' => 'required',
+            'offer' => 'required',
             'image' => 'mimes:jpg,png,jpeg',
             'bg_image' => 'mimes:jpg,png,jpeg',
             'url' => 'required'
@@ -106,7 +106,7 @@ class BannersController extends Controller
             $imagePath =  'upload/banners/' . $fileName;
 
             $img = Image::make($file);
-            $img->resize(474, 397);
+            // $img->resize(474, 397);
             $img->save($imagePath);
 
             $edit->image =   '/upload/banners/' . $fileName;
@@ -121,14 +121,14 @@ class BannersController extends Controller
             //banner image save in 1903 x 520
             $imagePath =  'upload/banners/' . $fileName;
             $img = Image::make($file);
-            $img->resize(1903, 520);
+            // $img->resize(1903, 520);
             $img->save($imagePath);
 
             $edit->bg_image =   '/upload/banners/' . $fileName;
             $edit->save();
         }
-
-        return redirect('banners')->with(Toastr::success('Banner Updated Successfully!'));
+        Toastr::success('Banner Updated Successfully!', 'Success');
+        return redirect('banners');
     }
 
     public function destroy($id)
@@ -137,7 +137,7 @@ class BannersController extends Controller
         File::delete('upload/banners/' . $banner->image);
         File::delete('upload/banners/' . $banner->bg_image);
         $banner->delete();
-
-        return redirect()->back()->with(Toastr::success('Banner Deleted Successfully!'));
+        Toastr::success('Banner Deleted Successfully!');
+        return redirect()->back();
     }
 }

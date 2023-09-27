@@ -35,8 +35,8 @@ class MenuController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'icon' => 'required',
-            'image' => 'required|mimes:png,jpg,jpeg',
-            'imageforapp' => 'required|mimes:png,jpg,jpeg'
+            'image' => 'mimes:png,jpg,jpeg',
+            'imageforapp' => 'mimes:png,jpg,jpeg'
         ]);
 
         $menu = Menu::create($request->except(['image', 'imageforapp']));
@@ -50,7 +50,7 @@ class MenuController extends Controller
         }
 
         Toastr::success('Menu Added Successfully!');
-        return redirect()->back();
+        return redirect()->route('allmenu');
     }
 
     public function edit($id)
@@ -83,7 +83,8 @@ class MenuController extends Controller
         }
 
         Toastr::success('Menu Updated Successfully!');
-        return redirect('allmenu');
+        return redirect()->route('allmenu');
+
     }
 
     public function destroy($id)
@@ -92,6 +93,7 @@ class MenuController extends Controller
         // Handle image deletion if needed
         $menu->delete();
         Toastr::success('Menu Deleted Successfully!');
-        return redirect()->back();
+        return redirect()->route('allmenu');
+
 }
 }
