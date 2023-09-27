@@ -106,7 +106,7 @@
                                         <div class="mc-footer">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center">
-                                                    <button type="submit" class="btn  btn-primary m-1">Create Request</button>
+                                                    <button type="submit" class="btn  btn-outline-secondary m-1">Create Request</button>
                                                     <a href="{{ route('admin')}}"><button type="button" class="btn btn-outline-secondary m-1">Cancel</button></a>
                                                 </div>
                                             </div>
