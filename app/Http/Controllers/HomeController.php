@@ -49,7 +49,9 @@ class HomeController extends Controller
             $vendorlist = User::where('role','=','Vendor')->count();
 
 
-            // $products = Product::
+            $top_products = Product::take(10)->get();
+            $new_users = User::where('role','=','Customer')->latest()->take(6)->get();
+
 
             return view('dashboard.dashboardv1', 
             compact('totalOrders',
@@ -64,7 +66,10 @@ class HomeController extends Controller
             'returned', 
             'customer',
             'customerQueries',
-            'vendorlist'));
+            'vendorlist',
+            'top_products',
+            'new_users'
+        ));
         } else {
             $totalOrders = Order::where('o_vendor_id', Auth::User()->id)->count();
             // $currenOrders = Order::where('status', '!=', 'confirmed')->count();

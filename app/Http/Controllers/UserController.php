@@ -86,6 +86,6 @@ public function adduser(Request $request)
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->route('userlist');
+        return redirect()->back();
     }
 }
