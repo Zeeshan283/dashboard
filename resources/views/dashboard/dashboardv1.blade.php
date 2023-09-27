@@ -256,7 +256,11 @@
                                                     <th scope="col">Email</th>
                                                     <th scope="col">Phone</th>
                                                     {{-- <th scope="col">Status</th> --}}
-                                                    <th scope="col">Action</th>
+
+                                                    @if($isAdmin) {{-- Check if admin is logged in --}}
+                                                        <th scope="col">Action</th>
+                                                    @endif
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -267,15 +271,19 @@
                                                     <td>{{$user->name}}</td>
                                                     <td>{{$user->email}}</td>
                                                     <td>{{$user->phone1}}</td>
-                                                    <td><form action="{{ route('user.delete', ['id' => $user->id]) }}" method="POST"
-                                                        onsubmit="return confirm('Are you sure you want to delete this menu item?')"
-                                                        style="display: inline;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-outline-secondary">
-                                                            <i class="nav-icon i-Close-Window font-weight-bold" aria-hidden="true"></i>
-                                                        </button>
-                                                    </form></td>
+                                                    @if($isAdmin) {{-- Check if admin is logged in --}}
+                                                        <td>
+                                                            <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="POST"
+                                                                onsubmit="return confirm('Are you sure you want to delete this menu item?')"
+                                                                style="display: inline;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-outline-secondary">
+                                                                    <i class="nav-icon i-Close-Window font-weight-bold" aria-hidden="true"></i>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    @endif
                                                 </tr>
                                                 @endforeach
 
