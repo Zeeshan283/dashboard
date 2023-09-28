@@ -190,7 +190,7 @@ Route::view('sessions/forgot', 'sessions.forgot')->name('forgot');
 
 
 Route::group(['middleware' => ['auth','verified']],function(){
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', [HomeController::class,'index'])->name('admin');
 });
 
 
