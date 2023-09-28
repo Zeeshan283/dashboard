@@ -330,7 +330,6 @@ class ApiController extends Controller
                 'p_vendor_id' => $product['p_vendor_id'],
                 'p_price' => $product['p_price'],
             ]);
-
             // Save the order detail and associate it with the order
             $order->orderDetails()->save($orderDetail);
 
