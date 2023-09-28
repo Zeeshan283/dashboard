@@ -483,8 +483,8 @@
                                                 
 
                                                 
-                                                <label for="staticEmail19" style="display: none;"   id="W_L" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Width:</label>
-                                                <div class="col-lg-2 " style="display: none;"   id="W_Fields">
+                                                <label for="staticEmail19"    id="W_L" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Width:</label>
+                                                <div class="col-lg-2 "    id="W_Fields">
                                                 {!! Form::text('width', null, [
                                                     'id' => 'width',
                                                     'class' => 'form-control',
@@ -505,8 +505,8 @@
                                                 @endif
                                                 </div>
 
-                                                <label for="staticEmail19" style="display: none;"   id="H_L" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Height:</label>
-                                                <div class="col-lg-2 " style="display: none;"  id="H_Fields">
+                                                <label for="staticEmail19"    id="H_L" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Height:</label>
+                                                <div class="col-lg-2 "   id="H_Fields">
                                                 {!! Form::text('height', null, [
                                                     'id' => 'height',
                                                     'class' => 'form-control',
@@ -527,8 +527,8 @@
                                                 @endif
                                                 </div>
 
-                                                <label for="staticEmail19" style="display: none;"   id="D_L" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Depth:</label>
-                                                <div class="col-lg-2 " style="display: none;"   id="D_Fields">
+                                                <label for="staticEmail19"    id="D_L" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Depth:</label>
+                                                <div class="col-lg-2 "    id="D_Fields">
                                                 {!! Form::text('depth', null, [
                                                     'id' => 'depth',
                                                     'class' => 'form-control',
@@ -551,7 +551,7 @@
                                             </sp>
                                                 <label for="Weight" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Select Unit:</label>
                                                 <div class="col-lg-2">
-                                                <select class="form-control" name="m_unit" id="m_unit" >
+                                                <select class="form-control" name="m_unit" id="m_unit1" >
                                                     <option value="" selected >Select Measurement Unit:</option>
                                                     <option value="Millimeter">Millimeter(mm)</option>
                                                     <option value="Centimeter">Centimeter(cm)</option>
@@ -567,8 +567,8 @@
 
                                                 {{-- Weight Column Start --}}
                                                 
-                                                <label for="staticEmail19" style="display: none;" id="Weight_L"  class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">weight:</label>
-                                                <div class="col-lg-2 "  style="display:none; margin-top: auto;" id="Weight_Field">
+                                                <label for="staticEmail19"  id="Weight_L"  class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">weight:</label>
+                                                <div class="col-lg-2 "  style=" margin-top: auto;" id="Weight_Field">
                                                 {!! Form::text('weight', null, [
                                                     'id' => 'weight',
                                                     'class' => 'form-control',
@@ -594,7 +594,7 @@
                                             
                                                 <label for="Weight" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Select Unit::</label>
                                                 <div class="col-lg-2 mt-auto">
-                                                <select class="form-control " name="weight_unit" id="weight_unit" >
+                                                <select class="form-control " name="weight_unit" id="weight_unit1" >
                                                     <option value="" selected >Select Weight Unit:</option>
                                                     <option value="Ounce">Ounce(oz)</option>
                                                     <option value="Milligram">Milligram(mg)</option>
@@ -1243,13 +1243,13 @@ $(document).ready(function() {
 
 
 
-<script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
+{{-- <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script> --}}
 
-    @if ($errors->any())
+    {{-- @if ($errors->any())
     <script>
         toastr.error("{{ $errors->first() }}");
     </script>
-    @endif
+    @endif --}}
 
     {{-- {!! Toastr::message() !!} --}}
 

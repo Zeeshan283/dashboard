@@ -18,6 +18,7 @@ class UserAPIController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -46,7 +47,7 @@ class UserAPIController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:255',
+            'phone_number' => 'required|number|max:255',
             'email' => 'required|string|email|unique:users|max:255',
             'password' => 'required|string|min:8|max:16',
             'c_password' => 'required|same:password|min:8|max:16',

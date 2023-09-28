@@ -66,7 +66,7 @@
 
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Slug</label>
+                                        <label>Commission</label>
                                         <input type="text" name="commission" id="commission" class="form-control"
                                             value="{{ old('commission', $edit->commission) }}">
                                         @error('commission')
@@ -74,8 +74,7 @@
                                         @enderror
                                     </div>
                                 </div>
-
-
+                                
                             </div>
                         </div>
                         <div class="card-footer">

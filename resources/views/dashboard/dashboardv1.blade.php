@@ -397,10 +397,11 @@
             // Define chart options
             var options = {
                 legend: {
-                    borderRadius: 0,
-                    orient: 'horizontal',
-                    x: 'right',
-                    data: ['Online']
+                    // borderRadius: 0,
+                    // orient: 'horizontal',
+                    // x: 'right',
+                    // data: ['Online'],
+                    show: false,
                 },
                 grid: {
                     left: '8px',
@@ -416,7 +417,8 @@
                     type: 'category',
                     data: data.categories,
                     axisLabel: {
-                        position: 'top'
+                        // position: 'top',
+                        show: false,
                     }
                 }],
                 yAxis: [{

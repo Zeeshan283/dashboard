@@ -6,6 +6,8 @@
 @section('page-css')
 <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('css/choices.min.css') }}">
+
 <style>
     .image-container_1 {
     max-height: 400px; /* Set the maximum height you want for the images */
@@ -23,9 +25,10 @@
 
 @section('main-content')
 <div class="breadcrumb">
+ {{-- {{$edit->pay}} --}}
  
                 <h1>Seller Verification Management's</h1>
-                @if (count($errors) > 0)
+                {{-- @if (count($errors) > 0)
                     <div class="alert alert-danger d-flex">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -33,7 +36,7 @@
                             @endforeach
                         </ul>
                     </div>
-                @endif
+                @endif --}}
             </div>
 
 <div class="separator-breadcrumb border-top"></div>
@@ -86,7 +89,7 @@
                                                         <img src="{{ asset($edit->logo) }}" style="width:100px;height:80px;" alt="logo">
                                                     @else
                                                         {{-- Handle the case where $edit is null or does not have a 'logo' property --}}
-                                                        <p>No logo available</p>
+                                                        <p>N/A</p>
                                                     @endif
                                                 
                                             </figure>
@@ -103,45 +106,79 @@
 
                                                         
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputtext11" class="ul-form__label">Company Name:</label>
+                                                        <label for="inputtext11" class="ul-form__label">Company Name:<span style="color: red;">*</span></label>
                                                         {!! Form::text('company_name', null, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        @if ($errors->has('company_name'))
+                                                            <span   style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('company_name') }}</span   style="color: red;">
+                                                        @endif
                                                     </div>
     
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputtext11" class="ul-form__label">First Name:</label>
+                                                        <label for="inputtext11" class="ul-form__label">First Name:<span style="color: red;">*</span></label>
                                                         {!! Form::text('first_name', $edit->user->first_name, ['id' => 'first_name', 'class' => 'form-control']) !!}
-
+                                                        @if ($errors->has('first_name'))
+                                                            <span   style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('first_name') }}</span   style="color: red;">
+                                                        @endif
                                                     </div>
             
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputtext11" class="ul-form__label">Last Name:</label>
+                                                        <label for="inputtext11" class="ul-form__label">Last Name:<span style="color: red;">*</span></label>
                                                         {!! Form::text('last_name', $edit->user->last_name, ['id' => 'last_name', 'class' => 'form-control']) !!}
+                                                        @if ($errors->has('last_name'))
+                                                            <span   style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('last_name') }}</span   style="color: red;">
+                                                        @endif
                                                     </div>
             
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputEmail12" class="ul-form__label">Phone# 1</label>
-                                                        {!! Form::text('phone1', $edit->user->phone1,  ['id' => 'phone1', 'class' => 'form-control']) !!}
+                                                        <label for="inputEmail12" class="ul-form__label">Phone# 1<span style="color: red;">*</span></label>
+                                                        {!! Form::text('phone1', $edit->user->phone1,  ['id' => 'phone1', 'class' => 'form-control','maxlength' => '18',
+                                                        'onkeypress' => 'return onlyDecimalNumberKey(event)',]) !!}
+                                                        @if ($errors->has('phone1'))
+                                                            <span   style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('phone1') }}</span   style="color: red;">
+                                                        @endif
                                                     </div>
 
                                                     <div class="form-group col-md-4">
                                                         <label for="inputEmail12" class="ul-form__label">Phone# 2:</label>
-                                                        {!! Form::text('phone2', $edit->user->phone2,  ['id' => 'phone2', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('phone2', $edit->user->phone2,  ['id' => 'phone2', 'class' => 'form-control','maxlength' => '18',
+                                                        'onkeypress' => 'return onlyDecimalNumberKey(event)',]) !!}
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputEmail12" class="ul-form__label">Country:</label>
+                                                        <label for="inputEmail12" class="ul-form__label">Country:<span style="color: red;">*</span></label>
                                                         {!! Form::text('country', $edit->user->country,  ['id' => 'country', 'class' => 'form-control']) !!}
+                                                        {{-- {!! Form::select('countries',  [], ['id' => 'countries', 'class' => 'form-control']) !!} --}}
+                                                        {{-- <select class="form-control selectpicker countrypicker" id="country" name="country" ata-flag="true">
+                                                            <option value=""></option>  
+                                                        </select> --}}
+                                                        
+                                                        @if ($errors->has('country'))
+                                                            <span   style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('country') }}</span   style="color: red;">
+                                                        @endif
                                                     </div>
 
                                                     
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputEmail12" class="ul-form__label">City:</label>
+                                                        <label for="inputEmail12" class="ul-form__label">City:<span style="color: red;">*</span></label>
                                                         {!! Form::text('city', $edit->user->city,  ['id' => 'city', 'class' => 'form-control']) !!}
+                                                        @if ($errors->has('city'))
+                                                            <span   style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('city') }}</span   style="color: red;">
+                                                        @endif
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputEmail12" class="ul-form__label">Address:</label>
+                                                        <label for="inputEmail12" class="ul-form__label">Address:<span style="color: red;">*</span></label>
                                                         {!! Form::text('address1', $edit->user->address1,  ['id' => 'address1', 'class' => 'form-control']) !!}
+                                                        @if ($errors->has('address1'))
+                                                            <span   style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('address1') }}</span   style="color: red;">
+                                                        @endif
                                                     </div>
 
                                                     <div class="form-group col-md-4">
@@ -150,13 +187,38 @@
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputEmail12" class="ul-form__label">NTN:</label>
-                                                        {!! Form::text('ntn', $edit->user->ntn,  ['id' => 'ntn', 'class' => 'form-control']) !!}
+                                                        <label for="inputEmail12" class="ul-form__label">Tax Registration Title:<span style="color: red;">*</span></label>
+                                                        {!! Form::text('tax_reg_title', $edit->user->tax_reg_title,  ['id' => 'tax_reg_title', 'class' => 'form-control']) !!}
+                                                        @if ($errors->has('tax_reg_title'))
+                                                            <span   style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('tax_reg_title') }}</span   style="color: red;">
+                                                        @endif
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputEmail12" class="ul-form__label">STRN:</label>
-                                                        {!! Form::text('strn', $edit->user->strn,  ['id' => 'strn', 'class' => 'form-control']) !!}
+                                                        <label for="inputEmail12" class="ul-form__label">Tax Registration Number:<span style="color: red;">*</span></label>
+                                                        {!! Form::text('tax_reg_number', $edit->user->tax_reg_number,  ['id' => 'tax_reg_number', 'class' => 'form-control']) !!}
+                                                        @if ($errors->has('tax_reg_number'))
+                                                            <span   style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('tax_reg_number') }}</span   style="color: red;">
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputEmail12" class="ul-form__label">Accept Payment Type:<span style="color: red;">*</span></label>
+                                                        {{-- {!! Form::text('accepted_payment_type', $edit->user->accepted_payment_type,  ['id' => 'accept_payment_type', 'class' => 'form-control']) !!} --}}
+                                                        <select  id="choices-multiple-remove-button" name="accepted_payment_type[]"
+                                                        class="form-control"
+                                                        placeholder="Select Payment Type"  multiple>
+                                                        
+                                                        @foreach ($accepted_payment_type as $value)
+                                                                <option value="{{$value->id}}"  
+                                                                     @if ($edit->paymethod->contains('pay_id', $value->id)) selected @endif
+                                                                    >
+                                                                    {{$value->name}}</option>
+                                                        @endforeach
+
+                                                    </select>
                                                     </div>
 
                                                     <div class="form-group col-md-4">
@@ -188,11 +250,7 @@
                                                         <label for="inputEmail12" class="ul-form__label">Website Link:</label>
                                                         {!! Form::text('website_link', $edit->user->website_link,  ['id' => 'website_link', 'class' => 'form-control']) !!}
                                                     </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label for="inputEmail12" class="ul-form__label">Accept Payment Type:</label>
-                                                        {!! Form::text('accepted_payment_type', $edit->user->accepted_payment_type,  ['id' => 'accept_payment_type', 'class' => 'form-control']) !!}
-                                                    </div>
+                            
 
                                                     <div class="form-group col-md-4">
                                                         <label for="inputEmail12" class="ul-form__label">Major Clients:</label>
@@ -245,13 +303,20 @@
                 <div class="">
                     <div class="row">
                                                 <div class="form-group col-md-4">
-                                                    <label for="inputtext11" class="ul-form__label">Slider Images:</label>
+                                                    <label for="inputtext11" class="ul-form__label">Slider Images:<span style="color: red;">*</span></label>
                                                     
                                                     <input type="file" name="slider_images[]" id="imageInput"  class="form-control" multiple >
                                                     <button type="button" class="d-none form-control" style="width: auto;"id="chooseImages">Choose Images</button>
                                                         
+                                                    @if ($errors->has('slider_images'))
+                                                            <span   style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('slider_images') }}</span   style="color: red;">
+                                                    @endif
                                                 </div>
+
                                                 <div class="form-group col-md-8">
+                                                    <label for="inputtext11" class="ul-form__label">Images</label>
+
                                                     <div id="loopImg" style="display: flex;">
                                                         {{-- @foreach (json_decode($edit->slider_images) as $value)
                                                             <img src="{{ asset($value) }}" class="img-thumbnail" style="width:100px;height:80px;" />
@@ -294,15 +359,19 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header bg-transparent">
-                                    <h3 class="card-title">Slider</h3>
+                                    <h3 class="card-title">About</h3>
                                 </div>
                                     <div class="card-body">
                                         
                             <div class="">
                                 <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label for="inputtext11" class="ul-form__label">About:</label>
+                                                <label for="inputtext11" class="ul-form__label">About:<span style="color: red;">*</span></label>
                                                 {!! Form::textarea('about', null, ['id' => 'description', 'class' => 'form-control']) !!}
+                                            @if ($errors->has('about'))
+                                                            <span   style="color: red;"
+                                                                class="invalid-feedback1 font-weight-bold">{{ $errors->first('about') }}</span   style="color: red;">
+                                                        @endif
                                             </div>
     
                                         </div>
@@ -341,6 +410,7 @@
                                                         
                                                 </div>
                                                 <div class="form-group col-md-4">
+                                                    <label for="inputtext11" class="ul-form__label">Images</label>
                                                     
                                                 <div id="loopImg_p" class="image-container_1" style="display: flex;">
                                                     {{-- @foreach (json_decode($edit->p_c1_images) as $value)
@@ -406,6 +476,7 @@
                                                         
                                                 </div>
                                                 <div class="form-group col-md-4">
+                                                    <label for="inputtext11" class="ul-form__label">Images</label>
                                                     
                                                 <div id="loopImg_p" class="image-container_1" style="display: flex;">
                                                     @if (!empty($edit->p_c2_images))
@@ -445,6 +516,7 @@
                                                         
                                                 </div>
                                                 <div class="form-group col-md-4">
+                                                    <label for="inputtext11" class="ul-form__label">Images</label>
                                                     
                                                 <div id="loopImg_p" class="image-container_1" style="display: flex;">
                                                         @if (!empty($edit->p_c3_images))
@@ -483,6 +555,7 @@
                                                         
                                                 </div>
                                                 <div class="form-group col-md-4">
+                                                    <label for="inputtext11" class="ul-form__label">Images</label>
                                                     
                                                 <div id="loopImg_p" class="image-container_1" style="display: flex;">
                                                         @if (!empty($edit->p_c4_images))
@@ -522,6 +595,7 @@
                                                         
                                                 </div>
                                                 <div class="form-group col-md-4">
+                                                    <label for="inputtext11" class="ul-form__label">Images</label>
                                                     
                                                 <div id="loopImg_p" class="image-container_1" style="display: flex;">
                                                         @if (!empty($edit->p_c5_images))
@@ -630,10 +704,40 @@
                     
                 {!! Form::close() !!}
 
-           
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+                removeItemButton: true,
+                // maxItemCount:5,
+                // searchResultLimit:5,
+                // renderChoiceLimit:5
+            });
+        });
+    </script>
 @endsection
 
 @section('page-js')
+
+
+<script>
+    
+    function onlyNumberKey(evt) {
+        // Only ASCII character in that range allowed
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+        return true;
+    }
+
+    function onlyDecimalNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{asset('assets/js/vendor/jquery.smartWizard.min.js')}}"></script>
@@ -654,6 +758,7 @@
 <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
 <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 
+ </script>
 @endsection
 
 @section('bottom-js')

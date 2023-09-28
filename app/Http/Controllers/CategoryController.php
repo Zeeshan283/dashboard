@@ -197,26 +197,6 @@ class CategoryController extends Controller
     }
 
 
-    if (!is_null($request->file('img'))) {
-      File::delete($update1->img);
-
-      $imageName = $request->file('img')->getClientOriginalName();
-      $request->file('img')->move('upload/category/',$imageName
-      );
-
-      $update->img = 'upload/category/'.$imageName;
-      $update->save();
-    }
-    if (!is_null($request->file('imageforapp'))) {
-      File::delete($update1->imageforapp);
-
-      $imageName = $request->file('imageforapp')->getClientOriginalName();
-      $request->file('imageforapp')->move('upload/category/',$imageName
-      );
-
-      $update->img ='upload/category/'.$imageName;
-      $update->save();
-    }
     Toastr::success('Category Updated successfully', 'Success');
     return redirect()->route('allcat');
   }

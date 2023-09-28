@@ -16,4 +16,9 @@ class vendorProfile extends Model
     {
         return $this->belongsTo(User::class, 'vendor_id');
     }
+
+    public function paymethod()
+    {
+        return $this->hasMany(VendorProfilePayMethod::class, 'profile_id')->with('paymethods');
+    }
 }

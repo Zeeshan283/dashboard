@@ -80,7 +80,6 @@ class ProductController extends Controller
         return view('products.addproduct', compact('brands', 'menus', 'categories', 'sub_categories', 'locations', 'conditions', 'type', 'productsList','vendors', 'colors'));
     }
 
-
     public function test(){
         return view('products.test');
     }
@@ -92,7 +91,10 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+        // dd($user);
         // dd($request->all());
+        if(!$user->first_name == '' && !$user->phone1 == '' && !$user->address1 == ''&& !$user->city == ''){
         $this->validate($request, [ 
             
             
@@ -220,8 +222,14 @@ class ProductController extends Controller
             }
             Toastr::success('Product Added successfully', 'Success');
             return redirect()->back();
+        }
+        else
+            {
+            Toastr::success('Please Fill Your Profile First', 'Success');
+            $user_id =Auth::user()->id;
+            return redirect()->to('vendor-profile/' . $user_id);
 
-        
+            }
     }
 
     public function show($id)

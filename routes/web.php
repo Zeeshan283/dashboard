@@ -194,9 +194,14 @@ Route::view('sessions/forgot', 'sessions.forgot')->name('forgot');
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+// Auth::routes([
+//     'verify' => true
+// ]);
+Route::get('/', [HomeController::class, 'index'])->name('admin');
+// ->middleware('verified');
+
+
 Auth::routes();
-
-
 
 
 Route::resource('products', ProductController::class);
@@ -224,12 +229,10 @@ Route::get('canceled', [OrderController::class, 'showOrders'])->name('canceled')
 
 Route::patch('orderstatus',[OrderController::class,'update'])->name('order.status');
 // home controller route
-Route::get('/', [HomeController::class, 'index'])->name('admin');
 // Route::get('/',[HomeController::class, 'index'])->name('admin');
 
 // customer controller route
 Route::get('customerlist', [CustomerController::class, 'index'])->name('customerlist');
-
 
 // Sub-Category controller route
 Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
