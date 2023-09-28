@@ -50,7 +50,8 @@ class UserAPIController extends Controller
             'email' => 'required|string|email|unique:users|max:255',
             'password' => 'required|string|min:8|max:16',
             'c_password' => 'required|same:password|min:8|max:16',
-            'gender' => 'required|string'
+            'gender' => 'required|string',
+            'role' => 'required|string'
         ], [
             'c_password.required' => 'The confirm password field is required'
         ]);
@@ -70,7 +71,7 @@ class UserAPIController extends Controller
             'phone1' => $data['phone_number'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => 'Customer',
+            'role' => $data['role'],
             'gender' => $data['gender']
         ]);
 

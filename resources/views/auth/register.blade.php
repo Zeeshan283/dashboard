@@ -111,6 +111,10 @@
                                     <i class="i-Mail-with-At-Sign"></i> Login Here
                                 </a>
                                 
+
+                                <div class="mt-3">
+                                    <p>After signing up, please check your email for a verification link to confirm your email address.</p>
+                                </div>
                             </form>
                         </div>
                     </div>

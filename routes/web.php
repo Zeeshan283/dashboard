@@ -189,12 +189,13 @@ Route::view('sessions/forgot', 'sessions.forgot')->name('forgot');
 // Auth::routes();
 
 
+Route::group(['middleware' => ['auth','verified']],function(){
+    Route::get('/home', 'HomeController@index')->name('home');
+});
 
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 
 
@@ -358,3 +359,6 @@ Route::get('ewallet/totalrefund',[EwalletController::class,'totalrefund'])->name
 Route::get('ewallet/totalspendondeals',[EwalletController::class,'totalspendondeals'])->name('totalspendondeals');
 Route::get('ewallet/totalwithdrawl',[EwalletController::class,'totalwithdrawl'])->name('totalwithdrawl');
 Route::get('ewallet/transcationhistory',[EwalletController::class,'transcationhistory'])->name('transcationhistory');
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

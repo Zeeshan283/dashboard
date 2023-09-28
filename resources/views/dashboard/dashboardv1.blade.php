@@ -1,4 +1,11 @@
 @extends('layouts.master')
+
+@section('page-css')
+
+    <link rel="stylesheet" href="{{asset('assets/styles/vendor/apexcharts.css')}}">
+    
+@endsection
+
 @section('main-content')    
            <div class="breadcrumb"> 
                 <h1><a href="{{ route('admin') }}">Admin Dashboard</a></h1>
@@ -205,20 +212,21 @@
             </div>
 
             <div class="row">
+
+                
                 <div class="col-lg-6 col-md-12">
 
                     <div class="row">
-                        <div class="col-lg-6 col-md-12">
-                            <div class="card card-chart-bottom o-hidden mb-4">
+                        <div class="">
+                            <div class="card mb-4">
                                 <div class="card-body">
-                                    <div class="text-muted">Last Month Sales</div>
-                                    <p class="mb-4 text-primary text-24">$40250</p>
+                                    <div class="card-title"> Total Sale</div>
+                                    <div id="zoomableLine-chart"></div>
                                 </div>
-                                <div id="echart1" style="height: 260px;"></div>
                             </div>
                         </div>
 
-                        <div class="col-lg-6 col-md-12">
+                        {{-- <div class="col-lg-6 col-md-12">
                             <div class="card card-chart-bottom o-hidden mb-4">
                                 <div class="card-body">
                                     <div class="text-muted">Last Week Sales</div>
@@ -226,156 +234,191 @@
                                 </div>
                                 <div id="echart2" style="height: 260px;"></div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card o-hidden mb-4">
-                                <div class="card-header d-flex align-items-center border-0">
-                                    <h3 class="w-50 float-start card-title m-0">New Users</h3>
-                                    <div class="dropdown dropleft text-end w-50 float-end">
-                                        <button class="btn bg-gray-100" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="nav-icon i-Gear-2"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item" href="#">Add new user</a>
-                                            <a class="dropdown-item" href="#">View All users</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="">
-                                    <div class="table-responsive">
-                                        <table id="user_table" class="table  text-center">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Name</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">Phone</th>
-                                                    {{-- <th scope="col">Status</th> --}}
-
-                                                    @if($isAdmin) {{-- Check if admin is logged in --}}
-                                                        <th scope="col">Action</th>
-                                                    @endif
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($new_users as $key => $user)
-                                                    
-                                                <tr>
-                                                    <th scope="row">{{$key + 1}}</th>
-                                                    <td>{{$user->name}}</td>
-                                                    <td>{{$user->email}}</td>
-                                                    <td>{{$user->phone1}}</td>
-                                                    @if($isAdmin) {{-- Check if admin is logged in --}}
-                                                        <td>
-                                                            <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="POST"
-                                                                onsubmit="return confirm('Are you sure you want to delete this menu item?')"
-                                                                style="display: inline;">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-outline-secondary">
-                                                                    <i class="nav-icon i-Close-Window font-weight-bold" aria-hidden="true"></i>
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                    @endif
-                                                </tr>
-                                                @endforeach
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
+                    
 
                 </div>
-
-
                 <div class="col-lg-6 col-md-12">
 
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="card-title">Top  Products</div> 
-                            @foreach ($top_products as $item)
-                            <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
-                                <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3" src="{{ asset($item->url)}}" alt="">
-                                <div class="flex-grow-1">
-                                    <h5 class=""><a href="">{{ $item->name}}</a></h5>
-                                    <p class="m-0 text-small text-muted">{{$item->slug}}</p>
-                                    <p class="text-small text-danger m-0"> {{$item->new_sale_price}} <del class="text-muted">{{$item->new_price}}</del></p>
-                                </div>
-                                <div>
-                                    <button class="btn btn-outline-primary btn-rounded btn-sm">{{ $item->description }}</button>
+                    <div class="row">
+                        <div class="">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="card-title"> Sales by Vendor</div>
+                                    <div id="basicBar-chart"></div>
                                 </div>
                             </div>
-                            @endforeach
-                    
                         </div>
+
+                        {{-- <div class="col-lg-6 col-md-12">
+                            <div class="card card-chart-bottom o-hidden mb-4">
+                                <div class="card-body">
+                                    <div class="text-muted">Last Week Sales</div>
+                                    <p class="mb-4 text-warning text-24">$10250</p>
+                                </div>
+                                <div id="echart2" style="height: 260px;"></div>
+                            </div>
+                        </div> --}}
                     </div>
 
-                    {{-- <div class="card mb-4">
-                        <div class="card-body p-0">
-                            <div class="card-title border-bottom d-flex align-items-center m-0 p-3">
-                                <span>User activity</span>
-                                <span class="flex-grow-1"></span>
-                                <span class="badge badge-pill text-bg-warning">Updated daily</span>
-                            </div>
-                            <div class="d-flex border-bottom justify-content-between p-3">
-                                <div class="flex-grow-1">
-                                    <span class="text-small text-muted">Pages / Visit</span>
-                                    <h5 class="m-0">2065</h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <span class="text-small text-muted">New user</span>
-                                    <h5 class="m-0">465</h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <span class="text-small text-muted">Last week</span>
-                                    <h5 class="m-0">23456</h5>
-                                </div>
-                            </div>
-                            <div class="d-flex border-bottom justify-content-between p-3">
-                                <div class="flex-grow-1">
-                                    <span class="text-small text-muted">Pages / Visit</span>
-                                    <h5 class="m-0">1829</h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <span class="text-small text-muted">New user</span>
-                                    <h5 class="m-0">735</h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <span class="text-small text-muted">Last week</span>
-                                    <h5 class="m-0">92565</h5>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between p-3">
-                                <div class="flex-grow-1">
-                                    <span class="text-small text-muted">Pages / Visit</span>
-                                    <h5 class="m-0">3165</h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <span class="text-small text-muted">New user</span>
-                                    <h5 class="m-0">165</h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <span class="text-small text-muted">Last week</span>
-                                    <h5 class="m-0">32165</h5>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div> --}}
+                    
 
                 </div>
+
+
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card o-hidden mb-4">
+                            <div class="card-header d-flex align-items-center border-0">
+                                <h3 class="w-50 float-start card-title m-0">New Users</h3>
+                                <div class="dropdown dropleft text-end w-50 float-end">
+                                    <button class="btn bg-gray-100" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="nav-icon i-Gear-2"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <a class="dropdown-item" href="#">Add new user</a>
+                                        <a class="dropdown-item" href="#">View All users</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <div class="table-responsive">
+                                    <table id="user_table" class="table  text-center">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Phone</th>
+                                                {{-- <th scope="col">Status</th> --}}
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($new_users as $key => $user)
+                                                
+                                            <tr>
+                                                <th scope="row">{{$key + 1}}</th>
+                                                <td>{{$user->name}}</td>
+                                                <td>{{$user->email}}</td>
+                                                <td>{{$user->phone1}}</td>
+                                            </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="card-title">Top  Products</div> 
+                                @foreach ($top_products as $item)
+                                <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
+                                    <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3" src="{{ asset($item->url)}}" alt="">
+                                    <div class="flex-grow-1">
+                                        <h5 class=""><a href="" class="text-black">{{ $item->name}}</a></h5>
+                                        <p class="m-0 text-small text-muted">{{$item->slug}}</p>
+                                        <p class="text-small text-danger m-0"> {{$item->new_sale_price}} <del class="text-muted">{{$item->new_price}}</del></p>
+                                    </div>
+                                </div>
+                                @endforeach
+                        
+                            </div>
+                        </div>
+    
+                        {{-- <div class="card mb-4">
+                            <div class="card-body p-0">
+                                <div class="card-title border-bottom d-flex align-items-center m-0 p-3">
+                                    <span>User activity</span>
+                                    <span class="flex-grow-1"></span>
+                                    <span class="badge badge-pill text-bg-warning">Updated daily</span>
+                                </div>
+                                <div class="d-flex border-bottom justify-content-between p-3">
+                                    <div class="flex-grow-1">
+                                        <span class="text-small text-muted">Pages / Visit</span>
+                                        <h5 class="m-0">2065</h5>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <span class="text-small text-muted">New user</span>
+                                        <h5 class="m-0">465</h5>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <span class="text-small text-muted">Last week</span>
+                                        <h5 class="m-0">23456</h5>
+                                    </div>
+                                </div>
+                                <div class="d-flex border-bottom justify-content-between p-3">
+                                    <div class="flex-grow-1">
+                                        <span class="text-small text-muted">Pages / Visit</span>
+                                        <h5 class="m-0">1829</h5>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <span class="text-small text-muted">New user</span>
+                                        <h5 class="m-0">735</h5>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <span class="text-small text-muted">Last week</span>
+                                        <h5 class="m-0">92565</h5>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between p-3">
+                                    <div class="flex-grow-1">
+                                        <span class="text-small text-muted">Pages / Visit</span>
+                                        <h5 class="m-0">3165</h5>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <span class="text-small text-muted">New user</span>
+                                        <h5 class="m-0">165</h5>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <span class="text-small text-muted">Last week</span>
+                                        <h5 class="m-0">32165</h5>
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div> --}}
+    
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+    
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="card-title">Latest Coupons</div> 
+                                @foreach ($coupons as $coupon)
+                                <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
+                                    <div class="flex-grow-1">
+                                        <h4 class=""><a href="" class="text-black">{{ $coupon->coupon_title}}</a></h4>
+                                        <p class="m-0 text-small text-muted">{{$coupon->store}}</p>
+                                        <p class="text-small text-info">Coupon Status: <span class="text-small text-danger m-0">{{$coupon->status}}</span> <br> <span class="text-small text-black m-0">Minimum Purchase : </span> <span class="text-info">{{$coupon->minimum_purchase}} </span> </p>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-outline-danger btn-rounded btn-sm">{{ $coupon->start_date }} : {{$coupon->end_date}}</button>
+                                    </div>
+                                </div>
+                                @endforeach
+                        
+                            </div>
+                        </div>
+    
+    
+                    </div>
+                
+                </div>
+
+               
 
                 {{-- <div class="col-md-12">
                     <div class="card mb-4">
@@ -391,10 +434,18 @@
 
 @endsection
 
+
+
 @section('page-js')
-     <script src="{{asset('assets/js/vendor/echarts.min.js')}}"></script>
-     <script src="{{asset('assets/js/es5/echart.options.min.js')}}"></script>
-     <script src="{{asset('assets/js/es5/dashboard.v1.script.js')}}"></script>
+    <script src="{{asset('assets/js/vendor/echarts.min.js')}}"></script>
+    <script src="{{asset('assets/js/es5/echart.options.min.js')}}"></script>
+    <script src="{{asset('assets/js/es5/dashboard.v1.script.js')}}"></script>
+    <script src="{{asset('assets/js/vendor/apexcharts.min.js')}}"></script>
+    <script src="{{asset('assets/js/vendor/apexcharts.dataseries.js')}}"></script>
+    <script src="{{asset('assets/js/es5/apexChart.script.min.js')}}"></script>
+    <script src="{{asset('assets/js/es5/apexBarChart.script.min.js')}}"></script>
+
+
 
      <script>
         // Initialize ECharts instance
@@ -408,7 +459,7 @@
                     borderRadius: 0,
                     orient: 'horizontal',
                     x: 'right',
-                    data: ['Online']
+                    data: ['']
                 },
                 grid: {
                     left: '8px',
@@ -438,7 +489,7 @@
                     containLabel: true
                 },
                 series: [{
-                    name: 'Online',
+                    name: '',
                     type: 'bar',
                     barWidth: '20%', // Adjust the bar width as needed
                     label: {
@@ -448,7 +499,7 @@
                     data: data.productCounts,
                     // Change the color to blue
                     itemStyle: {
-                        color: '#7569B3'
+                        color: '#0071BF'
                     }
                 }]
             };
@@ -457,8 +508,7 @@
             productChart.setOption(options);
         });
     </script>
-    
-    
+
     
     
 @endsection
