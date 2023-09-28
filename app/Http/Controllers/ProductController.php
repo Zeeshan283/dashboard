@@ -26,6 +26,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+
 class ProductController extends Controller
 {
     public function __construct()
@@ -164,58 +167,81 @@ class ProductController extends Controller
                     $ProductConditions->condition_id = $request->condition[$i];
                     $ProductConditions->save();
                 }
-            }
 
-            if(isset($request->colors)){
-                for($i=0; $i < count($request->colors); $i++){
-                    $productColor = new ProductColors();
-                    $productColor->pro_id = $p->id;
-                    $productColor->color_id = $request->colors[$i];
-                    $productColor->save();
+                $productData = $request->all();
 
+                if ($request->hasFile('feature_image')) {
+                $productData['url'] = asset('upload/products/'.$imageName);
+                $productData['feature_image'] = $imageName;
                 }
-            }
 
-            if ($request->hasFile('images')) {
-            if (count($request->images) > 0) {
-                for ($i = 0; $i < count($request->images); $i++) {
-                    $pImages = new ProductImages();
-                    $pImages->pro_id = $p->id;
-        
-                    // Get the uploaded image file
-                    $uploadedImage = $request->images[$i];
-                    
-                    // Generate a unique filename for the image
-                    $imageName = uniqid() . '_' . $uploadedImage->getClientOriginalName();
-        
-                    // Move the uploaded image to the "upload" folder
-                    $uploadedImage->move('upload/products', $imageName);
-        
-                    // Save the image details
-                    $pImages->image = $imageName;
-                    $pImages->url =  url('upload/products/' . $imageName); // Adjust this URL as needed
-                    $pImages->save();
+                
+                $p = Product::create($productData);
+                // $p = Product::create($request->all());
+
+                $p->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
+                $p->created_by = Auth::User()->id;
+                $p->save();
+
+                if (isset($request->condition)) {
+                    for ($i = 0; $i < count($request->condition); $i++) {
+                        $ProductConditions = new ProductConditions();
+                        $ProductConditions->pro_id = $p->id;
+                        $ProductConditions->condition_id = $request->condition[$i];
+                        $ProductConditions->save();
                     }
                 }
-            }
+
+                if(isset($request->colors)){
+                    for($i=0; $i < count($request->colors); $i++){
+                        $productColor = new ProductColors();
+                        $productColor->pro_id = $p->id;
+                        $productColor->color_id = $request->colors[$i];
+                        $productColor->save();
+
+                    }
+                }
+
+                if ($request->hasFile('images')) {
+                if (count($request->images) > 0) {
+                    for ($i = 0; $i < count($request->images); $i++) {
+                        $pImages = new ProductImages();
+                        $pImages->pro_id = $p->id;
+            
+                        // Get the uploaded image file
+                        $uploadedImage = $request->images[$i];
+                        
+                        // Generate a unique filename for the image
+                        $imageName = uniqid() . '_' . $uploadedImage->getClientOriginalName();
+            
+                        // Move the uploaded image to the "upload" folder
+                        $uploadedImage->move('upload/products', $imageName);
+            
+                        // Save the image details
+                        $pImages->image = $imageName;
+                        $pImages->url =  url('upload/products/' . $imageName); // Adjust this URL as needed
+                        $pImages->save();
+                        }
+                    }
+                }
 
 
-            // if (count($request->images) > 0) {
-            //     for ($i = 0; $i < count($request->images); $i++) {
-            //         $pImages = new ProductImages();
-            //         $pImages->pro_id = $p->id;
-            //         $pImages->image = $request->images[$i];
-            //         $pImages->url =  base_path('upload/products/'.$request->images[$i]);
-            //         $pImages->save();
-            //     }
-            // }
+                // if (count($request->images) > 0) {
+                //     for ($i = 0; $i < count($request->images); $i++) {
+                //         $pImages = new ProductImages();
+                //         $pImages->pro_id = $p->id;
+                //         $pImages->image = $request->images[$i];
+                //         $pImages->url =  base_path('upload/products/'.$request->images[$i]);
+                //         $pImages->save();
+                //     }
+                // }
 
 
 
-            if ($request->hasFile('attachment')) {
-                $file = $request->file('attachment');
-                $fileName = uniqid() . $file->getClientOriginalName();
-                $file->move('upload/products/attachments', $fileName);
+                if ($request->hasFile('attachment')) {
+                    $file = $request->file('attachment');
+                    $fileName = uniqid() . $file->getClientOriginalName();
+                    $file->move('upload/products/attachments', $fileName);
 
                 $p->attachment = $fileName;
                 $p->save();

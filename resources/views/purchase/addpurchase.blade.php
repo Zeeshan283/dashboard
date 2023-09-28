@@ -161,7 +161,7 @@
                                         <div class="mc-footer">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center">
-                                                    <button type="submit" class="btn btn-primary m-1" id="savebutton" disabled>Save</button>
+                                                    <button type="submit" class="btn btn-outline-secondary m-1" id="savebutton" disabled>Save</button>
                                                     <button type="button" class="btn btn-outline-secondary m-1" id="addRecordBtn">Add Purchase</button>
 
                                                 </div>

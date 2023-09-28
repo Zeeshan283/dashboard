@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\ProductContact;
 use App\Models\Product;
+use App\Models\Coupon;
 use App\Models\Stock;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','verified']);
     }
 
     /**
@@ -50,8 +51,11 @@ class HomeController extends Controller
 
 
             $top_products = Product::take(10)->get();
-            $new_users = User::where('role','=','Customer')->latest()->take(6)->get();
+            $new_users = User::where('role','=','Customer')->latest()->take(15)->get();
 
+            $coupons = Coupon::take(15)->get();
+
+            $isAdmin = Auth::user()->role == 'Admin';
 
             return view('dashboard.dashboardv1', 
             compact('totalOrders',
@@ -68,7 +72,9 @@ class HomeController extends Controller
             'customerQueries',
             'vendorlist',
             'top_products',
-            'new_users'
+            'new_users',
+            'isAdmin',
+            'coupons'
         ));
         } else {
             $totalOrders = Order::where('o_vendor_id', Auth::User()->id)->count();
@@ -86,6 +92,14 @@ class HomeController extends Controller
         
             $customer = User::count();
             $customerQueries = ProductContact::where('vendor_id','=',Auth::user()->id )->count();
+
+            $top_products = Product::take(10)->get();
+            $new_users = User::where('role','=','Customer')->latest()->take(15)->get();
+            
+
+            $isAdmin = Auth::user();
+
+            $coupons = Coupon::where('id','=',$isAdmin->id)->latest()->take(15)->get();
             
             return view('dashboard.dashboardv1', 
             compact('totalOrders',
@@ -99,7 +113,11 @@ class HomeController extends Controller
             'canceled',
             'returned', 
             'customer',
-            'customerQueries'));
+            'customerQueries', 'top_products',
+            'new_users',
+            'isAdmin',
+            'coupons'
+        ));
         }
 
         
