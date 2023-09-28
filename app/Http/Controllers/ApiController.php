@@ -15,6 +15,8 @@ use App\Models\Settings;
 use App\Models\Coupon;
 use App\Models\Purchase;
 use App\Models\SubCategory;
+use App\Models\TermsConditions;
+use App\Models\HelpCenter;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -208,6 +210,8 @@ class ApiController extends Controller
         $settings = Settings::all();
         $homesettings = HomeSettings::all();
         $coupons = Coupon::all();
+        $terms_and_conditions = TermsConditions::all();
+        $help_center = HelpCenter::all();
 
         $data = [];
 
@@ -215,6 +219,8 @@ class ApiController extends Controller
         $data['banners'] = $banners->toArray();
         $data['Homesetting'] = $homesettings->toArray();
         $data['coupons'] = $coupons->toArray();
+        $data['terms_and_conditions'] = $terms_and_conditions->toArray();
+        $data['help_center'] = $help_center->toArray();
 
 
         foreach ($menus as $menu) {
