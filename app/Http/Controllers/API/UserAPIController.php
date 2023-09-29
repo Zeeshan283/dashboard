@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 
+
 class UserAPIController extends Controller
 {
     public $successStatus = 200;
@@ -19,20 +20,47 @@ class UserAPIController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    // public function login(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'email' => 'required|string|email|max:255',
+    //         'password' => 'required|string|min:8|max:16',
+    //     ]);
+    //     if ($validator->fails()) {
+    //         return response()->json(['error' => $validator->errors()], 401);
+    //     }
+    //     if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
+    //         $user = Auth::user();
+    //         $success['token'] =  $user->createToken('MyApp')->accessToken;
+    //         $userId = $user->id;
+    //         return response()->json(['success' => $success, 'customer_id' => $userId], $this->successStatus);
+    //     } else {
+    //         return response()->json(['error' => 'Unauthorised'], 401);
+    //     }
+    // }
+
+
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:8|max:16',
         ]);
+
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
+
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
-            $userId = $user->id;
-            return response()->json(['success' => $success, 'customer_id' => $userId], $this->successStatus);
+
+            if ($user->hasVerifiedEmail()) {
+                $success['token'] = $user->createToken('MyApp')->accessToken;
+                $userId = $user->id;
+                return response()->json(['success' => $success, 'customer_id' => $userId], $this->successStatus);
+            } else {
+                return response()->json(['error' => 'Email not verified.'], 403);
+            }
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
@@ -47,7 +75,7 @@ class UserAPIController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone_number' => 'required|number|max:255',
+            'phone_number' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users|max:255',
             'password' => 'required|string|min:8|max:16',
             'c_password' => 'required|same:password|min:8|max:16',

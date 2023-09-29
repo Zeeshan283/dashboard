@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\UserAPIController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
@@ -15,9 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::middleware(['auth:api'])->group(function () {
+    Route::get('/user', function (Request $request) {
+        return response()->json(['user' => $request->user()]);
+    });
+
+    
 });
+
+// Route::post('/send-verification-email', 'Auth\VerificationController@sendVerificationEmail')->middleware('auth:api');
+Route::post('/send-verification-email/{email}',[VerificationController::class,'sendVerificationEmail']);
 
 Route::controller(UserAPIController::class)->group(function () {
     Route::post('/register', 'register');
@@ -49,3 +61,5 @@ Route::match(['get', 'post'], '/order-submit', [ApiController::class, 'OrderSubm
 Route::get('/homeapi',[ApiController::class,'homepage']);
 
 Route::post('/checkout', [ApiController::class, 'storeOrder']);
+
+
