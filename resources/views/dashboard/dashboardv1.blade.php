@@ -247,7 +247,7 @@
                             <div class="card mb-4">
                                 <div class="card-body">
                                     <div class="card-title"> Sales by Vendor</div>
-                                    <div id="basicBar-chart"></div>
+                                    <div id="basicBar-basicBar-chart"></div>
                                 </div>
                             </div>
                         </div>

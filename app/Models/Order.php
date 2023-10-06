@@ -14,10 +14,10 @@ class Order extends Model
         'payment_method', 'status', 'shipping', 'updatedby', 'customer_id','total_price','discount'
     ];
 
-    public function order_details()
-    {
-        return $this->hasMany(OrderDetails::class, 'order_id')->with('vendor:id,name');
-    }
+    // public function order_details()
+    // {
+    //     return $this->hasMany(OrderDetail::class, 'order_id')->with('vendor:id,name');
+    // }
 
     public function customer()
     {
@@ -26,11 +26,11 @@ class Order extends Model
 
     public function customer_orders()
     {
-        return $this->hasMany(OrderDetails::class, 'order_id');
+        return $this->hasMany(OrderDetail::class, 'order_id');
     }
 
     public function orderDetails()
     {
-        return $this->hasMany(OrderDetails::class);
+        return $this->hasMany(OrderDetail::class);
     }
 }

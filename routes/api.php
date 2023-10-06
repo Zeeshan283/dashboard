@@ -63,3 +63,8 @@ Route::get('/homeapi',[ApiController::class,'homepage']);
 Route::post('/checkout', [ApiController::class, 'storeOrder']);
 
 
+Route::get('/user/{userId}/orders',[ApiController::class,'getUserOrders']);
+
+Route::get('/vprofile/{id}',[ApiController::class,'vendorprofile']);
+
+Route::get('/vcoupon/{id}',[ApiController::class,'vendorcoupon']);

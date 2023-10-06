@@ -104,6 +104,7 @@ class UserAPIController extends Controller
             'gender' => $data['gender']
         ]);
 
+        $user->sendEmailVerificationNotification();
 
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
@@ -116,7 +117,7 @@ class UserAPIController extends Controller
      */
     public function details($id)
     {
-        $user = User::select('first_name', 'last_name', 'gender', 'phone1 as phone', 'address1 as address', 'zipcode', 'city', 'country')
+        $user = User::select('first_name', 'last_name', 'gender', 'phone1 as phone', 'address1 as address', 'zipcode', 'city', 'country','')
             ->whereId($id)
             ->first();
         return response()->json(['success' => $user], $this->successStatus);

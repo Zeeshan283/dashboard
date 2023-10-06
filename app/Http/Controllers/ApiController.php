@@ -15,8 +15,10 @@ use App\Models\Settings;
 use App\Models\Coupon;
 use App\Models\Purchase;
 use App\Models\SubCategory;
+use App\Models\vendorProfile;
 use App\Models\TermsConditions;
 use App\Models\HelpCenter;
+use App\Models\User;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -341,10 +343,38 @@ class ApiController extends Controller
         }
 
         // Return a JSON response indicating success
-        return response()->json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => 200]);
+        return response()->json(['order_id' => $order->id, 'message' => 'Order created successfully'], 201);
     }
-    
 
+
+    public function getUserOrders($userId)
+    {
+
+        // $orders = Order::where('customer_id', $userId)->with('orderDetails')->get();
+
+        $orders = Order::where('customer_id', $userId)
+        ->with(['orderDetails.product:id,name,model_no,url'])
+        ->get();
+
+
+        return response()->json(['orders' => $orders]);
+    }
+
+    public function vendorprofile($id)
+    {
+        $vendors = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
+
+        return response()->json(['vendors' => $vendors]);
+
+    }
+
+    public function vendorcoupon($id)
+    {
+        $vendorcoupon = Coupon::where('vendor_id','=',$id)->get();
+
+        return response()->json(['vendorcoupon' => $vendorcoupon]);
+    }
+  
 
 
 }

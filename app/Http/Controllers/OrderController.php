@@ -23,6 +23,14 @@ class OrderController extends Controller
 
 	public function index()
 	{
+		if (Auth::User()->role == 'Admin') {
+            $data = Order::OrderBy('id', 'desc')
+                ->get();
+        } else {
+            $data = Order::where('created_by', Auth::User()->id)
+                ->OrderBy('id', 'desc')
+                ->get();
+        }
 		$data = Order::orderBy('id', 'desc')->get();
 		return view('orders.allorders', compact('data'));
 	}
