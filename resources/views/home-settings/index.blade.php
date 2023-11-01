@@ -86,8 +86,7 @@
                                         @enderror
                                     </div>
                                 </div> --}}
-                                <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-lg-8 col-md-8 col-sm-12">
                                     <div class="form-group">
                                         <label for="center_image1">Center Banner 1 (Dim: 1656 x 302)</label>
                                         <input type="file" name="center_image1" id="center_image1" class="form-control">
@@ -95,9 +94,7 @@
                                         <span class="invalid-feedback">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>
-                                </div>
-                                
+                                </div>  <br>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="category3">Category 3</label>
@@ -107,7 +104,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-6 col-md-6 col-sm-12">
+                                {{-- <div class="col-lg- col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="category3_image">Category3 Image (Dim: 295 x 672)</label>
                                         <input type="file" name="category3_image" id="category3_image" class="form-control">
@@ -134,8 +131,7 @@
                                         @enderror
                                     </div>
                                 </div> --}}
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="col-lg-4 col-md-4  col-sm-12">
                                     <div class="form-group">
                                         <label for="e_s_banner_1">End Small Banner 1 (Dim: 540 x 244)</label>
                                         <input type="file" name="e_s_banner_1" id="e_s_banner_1" class="form-control">
@@ -161,7 +157,6 @@
                                         <span class="invalid-feedback">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>
                                 </div>
                             </div>
                         </div>

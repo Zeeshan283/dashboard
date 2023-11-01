@@ -26,12 +26,7 @@
                                 <form action="{{ route('coupon.store') }}" method="POST">
                                     @csrf
                                     <div class="card-body">
-
                                         <div class="row">
-                                            
-
-                                            
-
                                             <div class="form-group col-md-4">
                                                 <label for="vendor" class="ul-form__label">Coupon Type:</label>
                                                 <select class="form-control" id="vendor" name="coupon_type" required >

@@ -329,7 +329,7 @@
                                                             @if ($decodedImages !== null)
                                                                 @foreach ($decodedImages as $key => $value)
                                                                     <img src="{{ asset($value) }}" class="img-thumbnail_1" style="width:100px;height:80px;" />
-                                                                    {{-- <span class="delete-icon" data-image-index="{{ $key }}">Delete</span> --}}
+                                                                    {{-- <span class="delete-icon"  data-image-index="{{ $key }}">Delete</span> --}}
                                                                 @endforeach
                                                             @else
                                                                 <p>Invalid JSON data in $edit->slider_images</p>

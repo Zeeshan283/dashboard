@@ -100,13 +100,13 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="">Image</label>
+                                <label for="">Image(474x393)px</label>
                                 <img src="{{ $edit->image }}" width="100%" height="200px" id="show_f_image" alt="">
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="">BG Image</label>
                                 <img src="{{ $edit->bg_image }}" width="100%" height="150px" id="show_bg_image" alt="">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

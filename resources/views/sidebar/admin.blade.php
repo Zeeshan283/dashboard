@@ -70,7 +70,7 @@
 <li class="nav-item {{ request()->is('widgets/*') ? 'active' : '' }}" data-item="widgets">
     <a class="nav-item-hold" href="#">
         <i class="nav-icon i-Windows-2"></i>
-        <span class="nav-text">Categories</span>
+        <span class="nav-text">Menu & Categories</span>
 
     </a>
     <div class="triangle"></div>

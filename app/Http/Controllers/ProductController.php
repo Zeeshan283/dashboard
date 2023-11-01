@@ -54,11 +54,8 @@ class ProductController extends Controller
                 ->OrderBy('id', 'desc')
                 ->get();
         }
-
-
         return view('products.allproducts', compact('data'));
     }
-
     public function create()
     {
         $brands = Brand::OrderBy('brand_name')->pluck('brand_name', 'id')->prepend('Select Brand', '');
@@ -259,6 +256,14 @@ class ProductController extends Controller
     }
 }
 
+public function show($id)
+{
+    $product = Product::find($id);
+    if (!$product) {
+        abort(404);
+    }
+    return view('products.show', compact('product'));
+}
 
     public function edit($id)
     {

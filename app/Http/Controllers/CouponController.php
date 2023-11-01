@@ -27,7 +27,11 @@ class CouponController extends Controller
         return view('coupon.createcoupon', compact('products','user'));
     }
 
-
+    public function isUsed()
+    {
+        return $this->coupon_used ? true : false;
+    }
+    
     public function store(Request $request)
     {
     //   dd($request->all());
@@ -35,6 +39,7 @@ class CouponController extends Controller
             'coupon_type' => $request->input('coupon_type'),
             'coupon_title' => $request->input('coupon_title'),
             'coupon_code' => $request->input('coupon_code'),
+            'coupon_used' => $request->input('coupon_used'),
             'minimum_purchase' => $request->input('minp'),
             'start_date' => $request->input('start_date'),
             'end_date' => $request->input('end_date'),

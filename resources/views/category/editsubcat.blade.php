@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>SubCategory Image:</label>
+                                        <label>SubCategory Image(130x60)px</label>
                                         <input type="file" name="img" id="img" class="form-control">
                                         @error('img')
                                         <span class="invalid-feedback">{{ $message }}</span>

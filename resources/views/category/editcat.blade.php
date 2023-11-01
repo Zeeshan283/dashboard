@@ -62,14 +62,14 @@
 
 
             <div class="form-group col-md-6">
-                <label for="inputEmail16" class="ul-form__label">Category Image:</label>
+                <label for="inputEmail16" class="ul-form__label">Category Image(190x70)px</label>
                 <div class="input-right-icon">
                     <input type="file" class="form-control" id="imageInput"  name="img">
                     <img id="imagePreviewDesktop" src="{{ asset($edit->img) }}" alt="Image Description" style="max-width: 100px; max-height: 100px;">
                 </div>
             </div>
             <div class="form-group col-md-6">
-                <label for="inputEmail16" class="ul-form__label">Category App Image:</label>
+                <label for="inputEmail16" class="ul-form__label">Category App Image(190x70)px</label>
                 <div class="input-right-icon">
                     <input type="file" class="form-control" id="inputEmail16" name="imageforapp" value="{{ asset($edit->imageforapp) }}">
                     <img id="imagePreviewMobile" src="{{ asset($edit->imageforapp) }}" alt="Image Description" style="max-width: 100px; max-height: 100px;">

@@ -1,5 +1,39 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+.star-rating {
+    font-size: 0;
+}
+
+.star {
+    display: inline-block;
+    width: 20px; /* Adjust the width as needed */
+    height: 20px; /* Adjust the height as needed */
+    background: gray; /* Default color for uncolored stars */
+    clip-path: polygon(
+        50% 0%,
+        61.8% 35.3%,
+        98.2% 35.3%,
+        68.2% 57.3%,
+        79.1% 91.2%,
+        50% 70.9%,
+        20.9% 91.2%,
+        31.8% 57.3%,
+        1.8% 35.3%,
+        38.2% 35.3%
+    );
+}
+
+.star-filled {
+    background: yellow; /* Color for filled (rated) stars */
+}
+
+.star-partial {
+    background: gray; /* Color for uncolored stars */
+}
+</style>
+
+
 
 @if (Route::currentRouteName() == 'allorders')
     <thead>
@@ -9,6 +43,7 @@
         <th>Customer Last Name</th>
         <th>Order Date</th>
         <th>Shipping Date</th>
+        <th>Image(145x66)px</th>
         <th>Status</th>
         <th>Action</th>
     </thead>
@@ -25,8 +60,23 @@
                 <td>{{ $orders->last_name }}</td>
 
                 <td>{{ $orders->date }}</td>
-
                 <td>{{ $orders->shipping }}</td>
+                <td>
+    @if ($orders->product)
+        @if ($orders->product->url)
+        <img src="{{$product->product_image->url}}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+        @else
+            @if ($orders->product->product_image)
+            <img src="{{$product->product_image->url}}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @endif
+        @endif
+    @else
+        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+        <p>No image available</p>
+    @endif
+</td>
 
                 <form method="POST" action="{{ route('order.status', ['id' => $orders->id]) }}">
 
@@ -47,18 +97,16 @@
                         </select>
                     </td>
 
-                    <td>
+                    <td class="d-flex 2">
 
                         <input type="hidden" value="{{ $orders->id }}" name="order_id" hidden>
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
 
-                        <button type="button" class="btn btn-outline-secondary">
-
-                            <i class="nav-icon i-Eye "></i>
-
-                        </button>
+                            <button type="button" class="btn btn-outline-secondary">
+    <i class="nav-icon i-Eye" title="view"></i>
+</button>
 
                         </div>
 
@@ -77,6 +125,7 @@
             <th>Customer Last Name</th>
             <th>Order Date</th>
             <th>Shipping Date</th>
+            <th>Image</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -128,7 +177,7 @@
 
                         <button type="button" class="btn btn-outline-secondary">
 
-                            <i class="nav-icon i-Eye "></i>
+                            <i class="nav-icon i-Eye" title="view"></i>
 
                         </button>
 
@@ -445,7 +494,7 @@
             <td>{{$data->phone1}}</td>
             <td>{{$data->email}}</td>
             <td>{{$data->status}}</td>
-            <td><a href="{{url('/admin/edit-service/' . $data['id'])}}" class="btn rounded-pill btn-icon btn-secondary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+            <td><a href="{{url('/admin/edit-service/' . $data['id'])}}" class="btn rounded-pill btn-icon btn-secondary"><i class="fa fa-pencil-square-o" title="edit" aria-hidden="true"></i></a></td>
         </tr>
         @endforeach --}}
 
@@ -469,19 +518,19 @@
         <th>Email</th>
         <th>Verified</th>
         <th>Trusted</th>
-        <th>Status</th>
+        <!-- <th>Status</th> -->
         <th>Action</th>
     </thead>
     <tbody>
        
         @foreach ($vendor as $value =>  $vendors )
         <tr>
-            {{-- {{-- <td>{{$value + 1}}</td> --}}
+              <!-- <td>{{$value + 1}}</td>  -->
             <td>{{ $vendors->id}}</td>
             <td>{{ $vendors->name}}</td>
             <td>{{ $vendors->phone1}}</td>
             <td>{{ $vendors->email}}</td>
-            {{-- <td>{{ $vendors->status}}</td> --}}
+            <!-- <td>{{ $vendors->status}}</td>  -->
             <td>
                 @if ( $vendors->verified_status == '1')
                     <span class="badge  badge-round-success md"><p style="font-size: revert;">✓</p></span></h3>
@@ -498,25 +547,25 @@
                 {{-- <span class="badge  badge-round-secondary md"><p style="font-size: revert;">x</p></span> --}}
                 @endif
             </td>
-            <td>
+            <!-- <td>
                 @if ( $vendors->status == '1')
                     <span class="badge text-bg-success">Active</span>
                 @elseif ($vendors->status == '0')
                     <span class="badge text-bg-danger">In_Active</span>
                 @endif
-            </td>
+            </td> -->
             <td>
                 <div class="d-flex gap-2">
                     <a href="{{ URL::to('vendor/' . $vendors->id . '/edit') }}" >
                         <button type="button"  class="btn btn-outline-secondary ">
-                        <i class=" nav-icon i-Pen-2"
+                        <i class=" nav-icon i-Pen-2" title="edit"
                         style="font-weight: bold;"></i>
                         </button>
                     </a>
                     
                     <a href="{{route('vendor.show', $vendors->id)}}" >
                         <button type="button"  class="btn btn-outline-secondary ">
-                        <i class="nav-icon i-Eye"
+                        <i class="nav-icon i-Eye"title="view"
                         style="font-weight: bold;"></i>
                         </button>
                     </a>
@@ -534,7 +583,7 @@
         <th>Email</th>
         <th>Verified</th>
         <th>Trusted</th>
-        <th>Status</th>
+        <!-- <th>Status</th> -->
         <th>Action</th>
     </tr>
     </tfoot>
@@ -630,7 +679,7 @@
         <th>Sr No</th>
         <th>ID</th>
         <th>Product</th>
-        <th>Product Image</th>
+        <th>Product Image(145x66)px</th>
         <th>Order Id</th>
         <th>User Name</th>
         <th>Email</th>
@@ -682,7 +731,7 @@
         <th>Sr No</th>
         <th>ID</th>
         <th>Product</th>
-        <th>Product Image</th>
+        <th>Product Image(145x66)px</th>
         <th>Order Id</th>
         <th>User Name</th>
         <th>Email</th>
@@ -735,7 +784,7 @@
         <th>Sr No</th>
         <th>ID</th>
         <th>Product</th>
-        <th>Product Image</th>
+        <th>Product Image(145x66)px</th>
         <th>Order Id</th>
         <th>User Name</th>
         <th>Email</th>
@@ -788,7 +837,7 @@
         <th>Sr No</th>
         <th>ID</th>
         <th>Product</th>
-        <th>Product Image</th>
+        <th>Product Image(145x66)px</th>
         <th>Order Id</th>
         <th>User Name</th>
         <th>Email</th>
@@ -830,7 +879,7 @@
             <th>Sr No</th>
             <th>ID</th>
             <th>Product</th>
-            <th>Product Image</th>
+            <th>Product Image(145x66)px</th>
             <th>Order Id</th>
             <th>User Name</th>
             <th>Email</th>
@@ -844,7 +893,7 @@
         <th>Sr No</th>
         <th>ID</th>
         <th>Product</th>
-        <th>Product Image</th>
+        <th>Product Image(145x66)px</th>
         <th>Order Id</th>
         <th>User Name</th>
         <th>Email</th>
@@ -905,6 +954,7 @@
         <th>Last Name</th>
         <th>Phone Number</th>
         <th>Email</th>
+        <th>Gender</th>
     </thead>
     <tbody>
         @foreach ($customer as $value => $customers)
@@ -915,6 +965,7 @@
                 <td>{{ $customers->last_name }}</td>
                 <td>{{ $customers->phone1 }}</td>
                 <td>{{ $customers->email }}</td>
+                <td>{{ $customers->gender }}</td>
             </tr>
         @endforeach
     </tbody>
@@ -925,6 +976,7 @@
             <th>Last Name</th>
             <th>Phone Number</th>
             <th>Email</th>
+            <th>Gender</th>
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'userlist')
@@ -955,7 +1007,7 @@
                 <td>
                     <a href="{{ route('user.edit', ['id' => $user->id]) }}"
                         class="btn rounded-pill btn-icon btn-outline-secondary">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        <i class="fa fa-pencil-square-o" title="edit" aria-hidden="true"></i>
                     </a>
                 </td>
             </tr>
@@ -985,7 +1037,7 @@
         <th>SKU</th>
         <th>Category</th>
         <th>Supplier</th>
-        <th>Image</th>
+        <th>Image(145x66)px</th>
         {{-- <th>Type</th> --}}
         <th>Action</th>
     </thead>
@@ -1020,20 +1072,22 @@
                     <div class="d-flex gap-2">
                         <a target="_blank" href="{{ URL::to('products/' . $product->id . '/edit') }}"><button
                                 type="button" class="btn btn-outline-secondary ">
-                                <i {{-- class="fa fa-clone" --}} class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
+                                <i {{-- class="fa fa-clone" --}} class=" nav-icon i-Pen-2" title="edit" style="font-weight: bold;"></i>
                             </button></a>
                         <a target="_blank" href="{{ URL::to('product/' . $product->id . '/dupe') }}"><button
                                 type="button" class="btn btn-outline-secondary ">
-                                <i class="fa fa-clone" {{-- class="nav-icon i-Duplicate-Window" --}} style="font-weight: bold;"></i>
+                                <i class="fa fa-clone" {{-- class="nav-icon i-Duplicate-Window" --}} title="dupl" style="font-weight: bold;"></i>
                             </button></a>
+                            <a href="https://www.industrymall.net/product-details/{{ $product->id }}" target="_blank" class="btn btn-outline-secondary">
+    <i class="nav-icon i-Eye" title="view"></i>
+</a>
+
 
                     </div>
 
                 </td>
             </tr>
         @endforeach
-
-
     </tbody>
     <tfoot>
         <tr>
@@ -1043,7 +1097,7 @@
             <th>SKU</th>
             <th>Category</th>
             <th>Supplier</th>
-            <th>image</th>
+            <th>image(145x66)px</th>
             {{-- <th>Type</th> --}}
             <th>Action</th>
         </tr>
@@ -1087,13 +1141,13 @@
                     <div class="d-flex gap-2">
                         <a target="_blank" href="{{ route('CustomerQueries.show', $value->id) }}">
                             <button type="button" class="btn btn btn-outline-secondary ">
-                                <i class="nav-icon i-Eye" style="font-weight: bold;"></i>
+                                <i class="nav-icon i-Eye"  title="view" style="font-weight: bold;"></i>
                             </button></a>
 
 
                         <a target="_blank" href="mailto:{{ $value->email }}">
                             <button type="button" class="btn btn btn-outline-secondary ">
-                                <i class="nav-icon i-Email" style="font-weight: bold;"></i>
+                                <i class="nav-icon i-Email" title="email" style="font-weight: bold;"></i>
                             </button></a>
                     </div>
                 </td>
@@ -1125,17 +1179,36 @@
         <th>SKU</th>
         <th>Rating</th>
         <th>Comments</th>
+        <th>Image(145x66)px</th>
+        <th>Date</th>
+        <th>Action</th>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-        </tr>
-    </tbody>
+    <tr>
+        <td>1</td>
+        <td>Tiger Nixon</td>
+        <td>System Architect</td>
+        <td>Edinburgh</td>
+        <td class="star-rating">
+            <span class="star star-filled"></span>&nbsp;&nbsp;
+            <span class="star star-filled"></span>&nbsp;&nbsp;
+            <span class="star star-filled"></span>&nbsp;&nbsp;
+            <span class="star star-filled"></span>&nbsp;&nbsp;
+            <span class="star star-partial"></span>&nbsp;&nbsp;
+        </td>
+        <td>This product is too good</td>
+       
+    <td><img src="" width="50" height="50"></td>
+        <td>2011/04/25</td>
+        <td>  <a href="" >
+                        <button type="button"  class="btn btn-outline-secondary ">
+                        <i class="nav-icon i-Eye" title="view"
+                        style="font-weight: bold;"></i>
+                        </button>
+                    </a></td>
+    </tr>
+</tbody>
+
     <tfoot>
         <tr>
             <th>Sr No</th>
@@ -1144,6 +1217,9 @@
             <th>SKU</th>
             <th>Rating</th>
             <th>Comments</th>
+            <th>Image (145x66)px</th>
+            <th>Date</th>
+            <th>Action</th>
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'creviews')
@@ -1154,6 +1230,8 @@
         <th>Customer Email</th>
         <th>Reviews</th>
         <th>Rating</th>
+        <th>Image(160x80)px</th>
+        <th>Action</th>
     </thead>
     <tbody>
         @foreach ($Reviews as $key => $review)
@@ -1163,7 +1241,6 @@
                 <td>{{ $review->customer_name }}</td>
                 <td>{{ $review->customer_email }}</td>
                 <td>{{ $review->review }}</td>
-
                 <td>
                     @php
                         $rating = $review->rating;
@@ -1171,12 +1248,16 @@
 
                     <div class="rating d-flex flex-direction-right">
                         @for ($i = 1; $i <= 5; $i++)
-                            {{-- <i class="nav-icon i-David-Star" style="color: {{ $i <= $rating ? '#f5c60b' : '#ccc' }}; font-size: 10px; margin-right: 5px;"></i> --}}
-                            <i class="nav-icon star-icon"
-                                style="color: {{ $i <= $rating ? '#f5c60b' : '#ccc' }}; font-size: 25px;"></i>
+                            <!-- <i class="nav-icon i-David-Star" style="color: {{ $i <= $rating ? '#f5c60b' : '#ccc' }}; font-size: 10px; margin-right: 5px;"></i>  -->
+                            <i class="nav-icon star-icon" style="color: {{ $i <= $rating ? '#f5c60b' : '#ccc' }}; font-size: 25px;"></i>
                         @endfor
                     </div>
                 </td>
+                <td><img src="" width="50" height="50"></td>
+                <td> <a target="_blank" href="">
+                                <button type="button" class="btn btn btn-outline-secondary ">
+                                    <i class="nav-icon i-Eye" title="view" style="font-weight: bold;"></i>
+                                </button></a></td>
             </tr>
         @endforeach
     </tbody>
@@ -1255,7 +1336,7 @@
                 <td class="col-lg-1" style="white-space: nowrap;">
                     <a href="{{ route('menu.edit', ['id' => $menu->id]) }}"
                         class="btn  btn-outline-secondary">
-                        <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
+                        <i class=" nav-icon i-Pen-2" title="edit" style="font-weight: bold;"></i>
                     </a>
 
                     <form action="{{ route('menu.destroy', ['id' => $menu->id]) }}" method="POST"
@@ -1264,7 +1345,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-secondary">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            <i class="fa fa-trash" title="delete" aria-hidden="true"></i>
                         </button>
                     </form>
                 </td>
@@ -1309,8 +1390,8 @@
         <th>Name</th>
         <th>Menu</th>
         {{-- <th>Commission</th> --}}
-        <th>Image</th>
-	<th>Images for  App </th>
+        <th>Image(160x80)px</th>
+	<th>Images for  App(160x80)px</th>
         <th>Action</th>
     </thead>
     <tbody>        
@@ -1335,7 +1416,7 @@
             <td><img src="<?php echo $allcat['imageforapp']; ?>" width="50" height="50"></td>
             <td class="col-lg-1" style="white-space: nowrap;">
                 <a href="{{ route('category.editcat', ['id' => $allcat->id]) }}" class="btn  btn-outline-secondary">
-                   <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
+                   <i class=" nav-icon i-Pen-2" title="edit" style="font-weight: bold;"></i>
                </a>
 
                
@@ -1343,7 +1424,7 @@
                    @csrf
                    @method('DELETE')
                    <button type="submit" class="btn  btn-outline-secondary">
-                       <i class="fa fa-trash" aria-hidden="true"></i>
+                       <i class="fa fa-trash" title="delete" aria-hidden="true"></i>
                    </button>
                </form>
            </td>
@@ -1356,8 +1437,8 @@
         <th>Name</th>
         <th>Menu</th>
         {{-- <th>Commission</th> --}}
-        <th>Image</th>
-        <th>Images for  App </th>
+        <th>Image(100x66)px</th>
+        <th>Images for  App(100x66)px</th>
         <th>Action</th>
 	</tfoot>
 
@@ -1367,7 +1448,7 @@
             <th>Sr</th>
             <th>Name</th>
             <th>Category</th>
-            <th>Image</th>
+            <th>Image(130x60)px</th>
             <th>Slug</th>
             <th>Commission</th>
             <th>Actions</th>
@@ -1388,13 +1469,13 @@
                 <td>{{ $donor->commission }}</td>
                 <td class="col-lg-1" style="white-space: nowrap;">
                     <a href="{{ asset('sub-category') }}/{{ $donor->id }}/edit" class="btn  btn-outline-secondary">
-                        <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
+                        <i class=" nav-icon i-Pen-2" title="edit" style="font-weight: bold;"></i>
                     </a>
                     <form action="{{ route('sub-category.destroy', ['sub_category' => $donor->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this menu item?')" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-secondary">
-                            <i class="fa fa-trash" style="font-size: 14px;" aria-hidden="true"></i>
+                            <i class="fa fa-trash" title="delete" style="font-size: 14px;" aria-hidden="true"></i>
                         </button>
                     </form>
 
@@ -1408,7 +1489,7 @@
             <th>Sr</th>
             <th>Name</th>
             <th>Category</th>
-            <th>Image</th>
+            <th>Image(100x66)px</th>
             <th>Slug</th>
             <th>Commission</th>
             <th>Actions</th>
@@ -1421,6 +1502,7 @@
         <th>Coupon Type</th>
         <th>Coupon Title</th>
         <th>Coupon Code</th>
+        <th>Used Coupon</th>
         <th>Store</th>
         <th>Product</th>
         <th>Minimum Purchase</th>
@@ -1449,6 +1531,7 @@
                 </td>
                 <td>{{ $item->coupon_title ?: 'Nill' }}</td>
                 <td>{{ $item->coupon_code ?: 'Nill' }}</td>
+                <td>{{ $item->coupon_used == 1 ? 'used' : 'null' }}</td>
                 <td>{{ $item->store ?: 'Nill' }}</td>
                 <td>{{ $item->product_id ?: 'Nill' }}</td>
                 <td>{{ $item->minimum_purchase ?: 'Nill' }}</td>
@@ -1476,7 +1559,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn rounded-pill btn-icon btn-outline-secondary">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            <i class="fa fa-trash" title="delete" aria-hidden="true"></i>
                         </button>
                     </form>
                 </td>
@@ -1490,6 +1573,7 @@
             <th>Coupon Type</th>
             <th>Coupon Title</th>
             <th>Coupon Code</th>
+            <th>Used Coupon</th>
             <th>Store</th>
             <th>Product</th>
             <th>Minimum Purchase</th>
@@ -1531,14 +1615,14 @@
                 <td class="col-lg-1" style="white-space: nowrap;">
                     <a href="{{ route('purchaseHistory') }}"><button type="button"
                             class="btn btn-outline-secondary">
-                            <i class="nav-icon i-Calendar "></i>
+                            <i class="nav-icon i-Calendar" title="calender"></i>
                         </button></a>
                     {{-- <button type="button" class="btn btn-secondary">
-                    <i class="nav-icon i-Eye "></i>
+                    <i class="nav-icon i-Eye" title="view"></i>
                 </button> --}}
                     <a href="{{ route('purchase.edit', ['purchase' => $purchase->id]) }}"
                         class="btn rounded-pill btn-icon btn-secondary">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        <i class="fa fa-pencil-square-o" title="edit" aria-hidden="true"></i>
                     </a>
                     <form action="{{ route('purchase.destroy', ['purchase' => $purchase->id]) }}" method="POST"
                         onsubmit="return confirm('Are you sure you want to delete this menu item?')"
@@ -1546,7 +1630,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn rounded-pill btn-icon btn-outline-secondary">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            <i class="fa fa-trash" title="delete" aria-hidden="true"></i>
                         </button>
                     </form>
 
@@ -1599,7 +1683,7 @@
                 <td>{{ $history->total }}</td>
                 <td>
                     {{-- <button type="button" class="btn btn-secondary">
-                    <i class="nav-icon i-Eye "></i>
+                    <i class="nav-icon i-Eye" title="view"></i>
                 </button> --}}
                     <a href="{{ route('purchase.bill', ['purchaseId' => $history->bill_number]) }}"
                         class="btn btn-outline-secondary">View Bill</a>
@@ -1664,7 +1748,7 @@
             <th>Sr No</th>
             <th>Category Id</th>
             <th>Name</th>
-            <th>Image</th>
+            <th>Image(100x66)px</th>
             <th>Slug</th>
         </thead>
         <tbody>
@@ -1704,7 +1788,7 @@
                         <div class="d-flex gap-2">
                             <a target="_blank" href="{{ route('terms.edit', ['id' => $item->id]) }}"><button
                                     type="button" class="btn btn-outline-secondary ">
-                                    <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
+                                    <i class=" nav-icon i-Pen-2" title="edit" style="font-weight: bold;"></i>
                                 </button></a>
 
                             <form action="{{ route('terms.destroy', ['id' => $item->id]) }}" method="POST"
@@ -1713,13 +1797,13 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-outline-secondary">
-                                    <i class="nav-icon i-Remove-Basket"></i>
+                                    <i class="nav-icon i-Remove-Basket" title="remove"></i>
                                 </button>
                             </form>
 
                             <a target="_blank" href="{{ route('terms.show', $item->id) }}">
                                 <button type="button" class="btn btn btn-outline-secondary ">
-                                    <i class="nav-icon i-Eye" style="font-weight: bold;"></i>
+                                    <i class="nav-icon i-Eye" title="view"style="font-weight: bold;"></i>
                                 </button></a>
 
                         </div>
@@ -1768,12 +1852,12 @@
                         <div class="d-flex gap-2">
                             <a target="_blank" href="{{ URL::to('helpcenter/' . $value->id . '/edit') }}"><button
                                     type="button" class="btn btn-outline-secondary ">
-                                    <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
+                                    <i class=" nav-icon i-Pen-2" title="edit" style="font-weight: bold;"></i>
                                 </button></a>
 
                             <a href="{{ asset('helpcenter/' . $value->id . '/destroy') }}">
                                 <button type="button" class="btn btn-outline-secondary">
-                                    <i class="nav-icon i-Remove-Basket"></i>
+                                    <i class="nav-icon i-Remove-Basket" title="remove"></i>
                                 </button></a>
                         </div>
                     </td>
@@ -1794,7 +1878,8 @@
             <tr>
                 <th>Sr No</th>
                 <th>Name</th>
-                <th>Image</th>
+                <th>Image(190x70)px</th>
+                <th>Logo</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -1810,16 +1895,22 @@
                         <td>N/A</td>
                     @endif
 
+                    @if ($value->logo)
+                        <td><img src="{{ asset($value->logo) }}" width="50" height="50"></td>
+                    @else
+                        <td>N/A</td>
+                    @endif
+
                     <td>
                         <div class="d-flex gap-2">
                             <a target="_blank" href="{{ URL::to('brands/' . $value->id . '/edit') }}"><button
                                     type="button" class="btn btn-outline-secondary ">
-                                    <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
+                                    <i class=" nav-icon i-Pen-2" title="edit" style="font-weight: bold;"></i>
                                 </button></a>
 
                             <a href="{{ asset('brands/' . $value->id . '/destroy') }}">
                                 <button type="button" class="btn btn-outline-secondary">
-                                    <i class="nav-icon i-Remove-Basket"></i>
+                                    <i class="nav-icon i-Remove-Basket" title="remove"></i>
                                 </button></a>
                         </div>
                     </td>
@@ -1832,6 +1923,7 @@
                 <th>Sr No</th>
                 <th>Name</th>
                 <th>Image</th>
+                <th>Logo</th>
                 <th>Action</th>
             </tr>
         </tfoot>
@@ -1842,8 +1934,8 @@
                 <th>Title1</th>
                 <th>Title2</th>
                 <th>Offer</th>
-                <th>Image</th>
-                <th>Bg Image</th>
+                <th>Image(190x70)px</th>
+                <!-- <th>Bg Image</th> -->
                 <th>Action</th>
             </tr>
         </thead>
@@ -1855,17 +1947,17 @@
                     <td>{{ $value->title2 }}</td>
                     <td>{{ $value->offer }}</td>
                     <td><img src="{{ $value->image }}" width="50" height="50" alt="No"></td>
-                    <td><img src="{{ $value->bg_image }}" width="50" height="50" alt="No"></td>
+                    <!-- <td><img src="{{ $value->bg_image }}" width="50" height="50" alt="No"></td> -->
                     <td>
                         <div class="d-flex gap-2">
                             <a target="_blank" href="{{ URL::to('banners/' . $value->id . '/edit') }}"><button
                                     type="button" class="btn btn-outline-secondary ">
-                                    <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
+                                    <i class=" nav-icon i-Pen-2" title="edit" style="font-weight: bold;"></i>
                                 </button></a>
 
                             <a href="{{ asset('banners/destroy/' . $value->id) }}">
                                 <button type="button" class="btn btn-outline-secondary">
-                                    <i class="nav-icon i-Remove-Basket"></i>
+                                    <i class="nav-icon i-Remove-Basket" title="remove"></i>
                                 </button></a>
                         </div>
                     </td>
@@ -1879,8 +1971,8 @@
                 <th>Title1</th>
                 <th>Title2</th>
                 <th>Offer</th>
-                <th>Image</th>
-                <th>Bg Image</th>
+                <th>Image/th>
+                <!-- <th>Bg Image</th> -->
                 <th>Action</th>
             </tr>
         </tfoot>
@@ -2079,8 +2171,63 @@
             <th>Transaction Type</th>
             <th>Amount</th>
         </tfoot>
-@endif
+@elseif (Route::currentRouteName() == 'Deals.index')
+    <thead>
+        <th>Sr No</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>SKU</th>
+        <th>Supplier</th>
+        <th>Image(145x66)px</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        @foreach ($data as $key => $product)
+            <tr>
+                <td>{{ $key + 1 }}</td>
+                <td>{{ $product->id }}</td>
+                <td>{{ $product->name }}</td>
+                <td>{{ $product->sku }}</td>
+                <td>{{ $product->make }}</td>
+                @if ($product->url)
+                    <td><img src="{{ $product->url }}" width="50" height="50"></td>
+                @elseif($product->product_image)
+                    <td><img src="{{ $product->product_image->url }}" width="50" height="50"></td>
+                @else
+                    <td>image</td>
+                @endif
+                <td>
+                    <div class="d-flex gap-2">
+                        <a target="_blank" href="{{ URL::to('Deals/' . $product->id . '/edit') }}"><button
+                                type="button" class="btn btn-outline-secondary ">
+                                <i {{-- class="fa fa-clone" --}} class=" nav-icon i-Pen-2" title="edit" style="font-weight: bold;"></i>
+                            </button></a>
+                            <form action="{{ route('Deals.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this deal?');">
+            @csrf
+            @method('DELETE')
+            <button type="submit"  class="btn btn-outline-secondary"> <i class="fa fa-trash" title="delete" aria-hidden="true"></i></button>
+        </form>
+                            <a href="https://www.industrymall.net/product-details/{{ $product->id }}" target="_blank" class="btn btn-outline-secondary">
+    <i class="nav-icon i-Eye" title="view"></i>
+</a>
+                    </div>
 
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Sr No</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>SKU</th>
+            <th>Supplier</th>
+            <th>image(145x66)px</th>
+            <th>Action</th>
+        </tr>
+    </tfoot>
+@endif
 <script>
     $(function() {
         $("#example1").DataTable();

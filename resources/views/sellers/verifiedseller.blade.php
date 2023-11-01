@@ -158,7 +158,7 @@
                         <td><div>
                             <a href="{{URL::to('bank/'. $value->id. '/delete')}}">
                                             <button type="button" class="btn btn-outline-danger">
-                                                <i class="nav-icon i-Remove-Basket"></i>
+                                                <i class="nav-icon i-Remove-Basket" title="delete"></i>
                                             </button>
                                             </a>
                         </div></td>
@@ -402,7 +402,7 @@
                         <td>
                             <a href="{{URL::to('vendor_document/'. $value->id. '/delete')}}">
                                             <button type="button" class="btn btn-outline-danger">
-                                                <i class="nav-icon i-Remove-Basket"></i>
+                                                <i class="nav-icon i-Remove-Basket" title="delete"></i>
                                             </button>
                                             </a>
                         </td>

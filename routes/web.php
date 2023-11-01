@@ -25,6 +25,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HomeSettingsController;
 use App\Http\Controllers\BannersController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\DealsController;
 use App\Http\Controllers\HelpCenterController;
 use App\Models\User;
 
@@ -201,6 +202,7 @@ Route::resource('products', ProductController::class);
 Route::get('product/{id}/dupe', [ProductController::class, 'dupe']);
 Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
 Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+Route::get('product/{id}', 'ProductController@show')->name('products.show');
 
 Route::resource('CustomerQueries', ProductContactController::class);
 
@@ -353,6 +355,6 @@ Route::get('ewallet/totalrefund',[EwalletController::class,'totalrefund'])->name
 Route::get('ewallet/totalspendondeals',[EwalletController::class,'totalspendondeals'])->name('totalspendondeals');
 Route::get('ewallet/totalwithdrawl',[EwalletController::class,'totalwithdrawl'])->name('totalwithdrawl');
 Route::get('ewallet/transcationhistory',[EwalletController::class,'transcationhistory'])->name('transcationhistory');
-
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('Deals', 'App\Http\Controllers\DealsController');
+

@@ -91,8 +91,6 @@
                                     'files' => 'true',
                                     'enctype' => 'multipart/form-data',
                                 ]) !!}
-                                
-                                
                                     <div>
                                         <div class="card-body">
                                             <div class="form-group row">

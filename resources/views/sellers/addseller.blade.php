@@ -10,7 +10,7 @@
 
 @section('main-content')
             <div class="breadcrumb">
-                <h1>Add New Vendor</h1>
+                <h1>Add New Supplier</h1>
             </div>
 
             <div class="separator-breadcrumb border-top"></div>
@@ -20,7 +20,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header bg-transparent">
-                                    <h3 class="card-title"> Add New Vendor</h3>
+                                    <h3 class="card-title"> Add New Supplier</h3>
                                 </div>
                                 <form action="{{ route('vendor.store') }}" method="POST">
                                     @csrf
@@ -67,7 +67,7 @@
                                                 <div class="input-right-icon">
                                                     <input type="password" class="form-control" id="inputEmail16"  name="password"  placeholder="Enter your address" value="{{ old ('address')}}">
                                                     <span class="span-right-input-icon" style="color: red">@error('password'){{ $message }}@enderror
-                                                        <i class="ul-form__icon i-Map-Marker"></i>
+                                                        <!-- <i class="ul-form__icon i-Map-Marker"></i> -->
                                                     </span>
                                                 </div>
 
@@ -102,10 +102,10 @@
 
                                     <div class="card-footer">
                                         <div class="mc-footer">
-                                            <div class="row">
+                                               <div class="row">
                                                 <div class="col-lg-12 text-center">
                                                     <button type="submit" class="btn  btn-outline-secondary m-1">Save</button>
-                                                    <button type="button" class="btn btn-outline-secondary m-1">Cancel</button>
+                                                    <!-- <button type="button" class="btn btn-outline-secondary m-1">Cancel</button> -->
                                                 </div>
                                             </div>
                                         </div>

@@ -27,14 +27,18 @@
                 <input type="text" name="brand_name" id="name" class="form-control" value="{{ $data->brand_name }}">
             </div>
             <div class="form-group col-md-4">
-                <label for="image">Image</label>
+                <label for="image">Image(190x70)px</label>
                 <input type="file" name="logo" id="logo" class="form-control" value="">
             </div>
             <div class="form-group col-md-4">
+                <label for="image">Logo(190x70)px</label>
+                <img src="{{ URL::asset('website-assets/images/dummy/img_410_x_186.png') }}"  class="img-fluid" id="show_brand_logo" width="200" height="70"> 
+            </div>
+            <!-- <div class="form-group col-md-4">
                 <label for="image">Logo</label>
                 <img src="{{ URL::asset('root/upload/brands/big/' . $data->logo)  }}"  class="img-fluid" id="show_brand_logo" width="200" height="70">
-            {{-- <img src="{{ asset("/root/upload/brands/small/".$data->logo) }}" width="50" height="50"> --}}
-            </div>
+            <img src="{{ asset("/root/upload/brands/small/".$data->logo) }}" width="50" height="50">  
+            </div> -->
                 </div>
             </div>
             <div style="
