@@ -27,6 +27,8 @@ use App\Http\Controllers\BannersController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DealsController;
 use App\Http\Controllers\HelpCenterController;
+use App\Http\Controllers\HomecouponsController;
+
 use App\Models\User;
 
 use Illuminate\Support\Facades\DB;
@@ -357,4 +359,6 @@ Route::get('ewallet/totalwithdrawl',[EwalletController::class,'totalwithdrawl'])
 Route::get('ewallet/transcationhistory',[EwalletController::class,'transcationhistory'])->name('transcationhistory');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('Deals', 'App\Http\Controllers\DealsController');
+// Route::resource('Homecoupons', 'App\Http\Controllers\Homecoupons');
+Route::resource('Homecoupons', HomecouponsController::class);
 

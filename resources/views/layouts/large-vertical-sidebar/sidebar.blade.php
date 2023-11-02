@@ -446,6 +446,13 @@
                     <span class="item-name">Deal's Day</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'Homecoupons.index' ? 'open' : '' }}" href="{{ route('Homecoupons.index') }}">
+                <i class="nav-icon i-File-Trash"></i>  
+                <span class="item-name">Home Page Coupon</span>
+                </a>
+            </li>
         </ul>
         
         <ul class="childNav" data-parent="profile">

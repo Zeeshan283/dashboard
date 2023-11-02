@@ -23,19 +23,16 @@ class DealsController extends Controller
     public function store(Request $request)
     {
         // Validate input data
+        // dd($request->all());
         $validatedData = $request->validate([
             'sku' => 'required|unique:deals,sku',
         ]);
     
-        // Fetch the product using the provided SKU
         $product = Product::where('sku', $request->sku)->first();
     
-        // Check if product exists
         if (!$product) {
             return redirect()->back()->withErrors(['sku' => 'Product with this SKU not found.']);
         }
-    
-        // Store the deal in the database
         $deal = new Deals;
         $deal->sku = $request->sku;
         $deal->id = $product->id;  
@@ -55,40 +52,11 @@ class DealsController extends Controller
     return view('Deals.edit', ['edit' => $deal]);
 }
 
-public function update(Request $request, $id)
-{
-    // Validate the request
-    $request->validate([
-        'sku' => [
-            'required',
-            Rule::unique('deals')->ignore($id),
-        ],
-    ]);
-
-    $product = Product::where('sku', $request->sku)->first();
-    
-    if (!$product) {
-        return redirect()->back()->withErrors(['sku' => 'Product with this SKU not found.']);
-    }
-
-    $deal = Deals::findOrFail($id);
-    $deal->id = $product->id;  
-    $deal->sku = $request->sku;
-    $deal->name = $product->name;  
-    $deal->make = $product->make; 
-    $deal->url = $product->url; 
-    $deal->feature_image = $product->feature_image; 
-    $deal->status = $request->status;
-    $deal->save();
-
-    return redirect()->route('Deals.index')->with('success', 'Deal updated successfully!');
-}
-
 public function destroy($id)
 {
-    $deal = Deals::findOrFail($id); // Find the deal by its ID
+    $deal = Deals::findOrFail($id); 
 
-    $deal->delete(); // Delete the deal
+    $deal->delete(); 
 
     return redirect()->route('Deals.index')->with('success', 'Deal deleted successfully!');
 }

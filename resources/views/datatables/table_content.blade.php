@@ -1504,7 +1504,7 @@
         <th>Coupon Code</th>
         <th>Used Coupon</th>
         <th>Store</th>
-        <th>Product</th>
+        <!-- <th>Product</th> -->
         <th>Minimum Purchase</th>
         <th>Limit for Same User</th>
         <th>Amount</th>
@@ -1533,7 +1533,7 @@
                 <td>{{ $item->coupon_code ?: 'Nill' }}</td>
                 <td>{{ $item->coupon_used == 1 ? 'used' : 'null' }}</td>
                 <td>{{ $item->store ?: 'Nill' }}</td>
-                <td>{{ $item->product_id ?: 'Nill' }}</td>
+                <!-- <td>{{ $item->product_id ?: 'Nill' }}</td> -->
                 <td>{{ $item->minimum_purchase ?: 'Nill' }}</td>
                 <td>{{ $item->limit_same_user ?: 'Nill' }}</td>
                 <td>{{ $item->amount ?: 'Nill' }}</td>
@@ -1575,7 +1575,7 @@
             <th>Coupon Code</th>
             <th>Used Coupon</th>
             <th>Store</th>
-            <th>Product</th>
+            <!-- <th>Product</th> -->
             <th>Minimum Purchase</th>
             <th>Limit for Same User</th>
             <th>Amount</th>
@@ -2227,6 +2227,89 @@
             <th>Action</th>
         </tr>
     </tfoot>
+@elseif (Route::currentRouteName() == 'Homecoupons.index')
+    <thead>
+        <th>Id</th>
+        <th>Coupon Type</th>
+        <th>Coupon Title</th>
+        <th>Coupon Code</th>
+        <th>Used Coupon</th>
+        <th>Store</th>
+        <!-- <th>Product</th> -->
+        <th>Minimum Purchase</th>
+        <th>Limit for Same User</th>
+        <th>Amount</th>
+        <th>Percentage</th>
+        <th>Duration</th>
+        <!-- <th>Status</th> -->
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        @foreach ($coupons as $key => $item)
+            <tr>
+            <td>{{ $item->id }}</td>
+<!-- <td>{{ $key + 1 }}</td> -->
+                <td>
+                    @if ($item->coupon_type == 1)
+                        <p>Discount on Purchase</p>
+                    @elseif ($item->coupon_type == 2)
+                        <p>Free Delivery</p>
+                    @elseif ($item->coupon_type == 3)
+                        <p>First Order</p>
+                    @endif
+                </td>
+                <td>{{ $item->coupon_title ?: 'Nill' }}</td>
+                <td>{{ $item->coupon_code ?: 'Nill' }}</td>
+                <td>{{ $item->coupon_used == 1 ? 'used' : 'null' }}</td>
+                <td>{{ $item->store ?: 'Nill' }}</td>
+                <!-- <td>{{ $item->product_id ?: 'Nill' }}</td> -->
+                <td>{{ $item->minimum_purchase ?: 'Nill' }}</td>
+                <td>{{ $item->limit_same_user ?: 'Nill' }}</td>
+                <td>{{ $item->amount ?: 'Nill' }}</td>
+                <td>{{ $item->percentage ?: 'Nill' }}</td>
+                <td>{{ $item->start_date }} : {{ $item->end_date }}</td>
+                <!-- <td>
+                    <form id="toggle-form" method="POST" action="/toggle-coupon-status">
+                        @csrf
+                        <input type="hidden" name="coupon_id" value="{{ $item->id }}">
+                        <input type="hidden" name="status" value="{{ $item->status }}">
+                    </form>
+                    <label class="switch">
+                        <input type="checkbox" class="coupon-status-toggle" data-coupon-id="{{ $item->id }}"
+                            {{ $item->status === 'active' ? 'checked' : '' }}>
+                        <span class="slider round"></span>
+                    </label>
+                </td> -->
+                <td>
+                <form action="{{ route('Homecoupons.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this deal?');">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-outline-secondary"> <i class="fa fa-trash" title="delete" aria-hidden="true"></i></button>
+</form>
+                </td>
+
+            </tr>
+        @endforeach
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Coupon Type</th>
+            <th>Coupon Title</th>
+            <th>Coupon Code</th>
+            <th>Used Coupon</th>
+            <th>Store</th>
+            <!-- <th>Product</th> -->
+            <th>Minimum Purchase</th>
+            <th>Limit for Same User</th>
+            <th>Amount</th>
+            <th>Percentage</th>
+            <th>Duration</th>
+            <!-- <th>Status</th> -->
+            <th>Actions</th>
+        </tr>
+    </tfoot>
+
 @endif
 <script>
     $(function() {
