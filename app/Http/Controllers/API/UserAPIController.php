@@ -120,6 +120,7 @@ class UserAPIController extends Controller
         $user = User::select('first_name', 'last_name', 'gender', 'email', 'phone1 as phone', 'address1 as address', 'zipcode', 'city', 'country')
             ->whereId($id)
             ->first();
+
         return response()->json(['success' => $user], $this->successStatus);
 
         // $user = Auth::user();
