@@ -69,8 +69,7 @@
                                            
                                             
 
-                                           
-
+                                    
                                             <div class="form-group col-md-4">
                                                 <label for="selected_product_name" class="ul-form__label">Product Name:</label>
                                                 {{-- <input type="text" class="form-control" id="selected_product_name" value=""  readonly> --}}

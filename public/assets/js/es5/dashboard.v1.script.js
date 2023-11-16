@@ -102,21 +102,34 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: "/fetch-vendor-products", // Updated Laravel route URL
+            url: "/fetch-vendor-products",
             dataType: "json",
             success: function(data) {
-                var pieChartData = data.map(function (item) {
+                var pieChartData = data.map(function(item) {
                     return {
-                        value: item.totalProducts, // Use totalProducts instead of totalSales
-                        name: 'Vendor ' + item.created_by
+                        value: item.totalProducts,
+                        name: item.name,
+                        vendorName: item.name, // Add vendor name to the pie chart data
+                        vendorFullName: item.vendor_full_name // Add vendor full name to the pie chart data
                     };
                 });
     
-                echartPie.setOption({
+                echartPie.setOption({   
                     color: ['#0071BF', '#1338BE', '#7d6cbb', '#63C5DA', '#82EEFD', '#48AAAD'],
+                    // tooltip: {
+                    //     show: true,
+                    //     backgroundColor: 'rgba(0, 0, 0, .8)'
+                    // },
                     tooltip: {
                         show: true,
-                        backgroundColor: 'rgba(0, 0, 0, .8)'
+                        backgroundColor: 'rgba(0, 0, 0, .8)',
+                        formatter: function(params) {
+                            var vendorName = params.data.vendorName;
+                            var vendorFullName = params.data.vendorFullName;
+                            return 'Vendor Name: ' + vendorName + '<br>' +
+                                   'Vendor Full Name: ' + vendorFullName + '<br>' +
+                                   'Total Products: ' + params.value;
+                        }
                     },
                     series: [{
                         name: 'Sales by Vendor',

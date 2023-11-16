@@ -49,7 +49,6 @@ class CouponController extends Controller
             'vendor_id' => Auth::user()->id,
         ]);
         
-        // Save the coupon
         $coupon->save();
 
         return redirect()->back();

@@ -19,6 +19,7 @@ use App\Models\vendorProfile;
 use App\Models\TermsConditions;
 use App\Models\HelpCenter;
 use App\Models\User;
+use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class ApiController extends Controller
 
     public function menus()
     {
-        $menus = Menu::select('id', 'name', 'icon','image', 'imageforapp')->orderBy('id')->get();
+        $menus = Menu::select('id', 'name', 'icon', 'image', 'imageforapp')->orderBy('id')->get();
         return json_encode($menus);
     }
 
@@ -65,7 +66,7 @@ class ApiController extends Controller
         $products = Product::with('product_image')->with('colors')->with('brand')->orderBy('id')->get();
         return response()->json([$products]);
     }
-    
+
     public function GetSubCategoryProduct($id)
     {
         $sub = SubCategory::where('id', $id)->first();
@@ -108,7 +109,7 @@ class ApiController extends Controller
         }
     }
 
- 
+
 
 
     public function ProductContactSendMessage(Request $request)
@@ -175,18 +176,19 @@ class ApiController extends Controller
     public function Home_setting()
     {
         $HomeSettings = HomeSettings::with([
-            'category1Info', 
-            'category2Info', 
-            'category3Info', 
-            'category4Info', 
+            'category1Info',
+            'category2Info',
+            'category3Info',
+            'category4Info',
         ])->get();
         // dd($HomeSettings);
         return Response::json(['data' => $HomeSettings]);
     }
 
-    public function Home_Banners(){
+    public function Home_Banners()
+    {
         $homeBanners =  Banners::all();
-        return Response::json(['data'=> $homeBanners]);
+        return Response::json(['data' => $homeBanners]);
     }
 
     public function Site_Profile()
@@ -197,7 +199,7 @@ class ApiController extends Controller
 
     public function Brands()
     {
-        $Brands =  Brand::where('type','=','brand')->select('id','brand_name','logo')->get();
+        $Brands =  Brand::where('type', '=', 'brand')->select('id', 'brand_name', 'logo')->get();
         return Response::json(['data' => $Brands]);
     }
 
@@ -214,6 +216,7 @@ class ApiController extends Controller
         $coupons = Coupon::all();
         $terms_and_conditions = TermsConditions::all();
         $help_center = HelpCenter::all();
+        $payment_method = PaymentMethod::all();
 
         $data = [];
 
@@ -223,71 +226,72 @@ class ApiController extends Controller
         $data['coupons'] = $coupons->toArray();
         $data['terms_and_conditions'] = $terms_and_conditions->toArray();
         $data['help_center'] = $help_center->toArray();
+        $data['payment_method'] = $payment_method->toArray();
 
 
         foreach ($menus as $menu) {
             $menuNameWords = explode(' ', $menu->name);
             $menuName = $menuNameWords[0] ?? $menu->name;
-    
-            
+
+
             $menuData = [
                 'menu_name' => $menu->name,
                 'categories' => [],
             ];
-    
-    
+
+
             foreach ($menus as $menu) {
                 $menuNameWords = explode(' ', $menu->name);
                 $menuName = $menuNameWords[0] ?? $menu->name;
-        
+
                 $menuData = [
                     'menu_name' => $menu->name,
                     'categories' => [],
                 ];
-        
+
                 foreach ($categories as $category) {
                     if ($category->menu_id == $menu->id) {
                         $categoryData = $category->toArray();
                         $categoryData['sub_categories'] = [];
-        
+
                         foreach ($sub_categories as $sub_category) {
                             if ($sub_category->category_id == $category->id) {
                                 $subCategoryData = $sub_category->toArray();
                                 $subCategoryData['products'] = [];
-        
+
                                 foreach ($products as $product) {
                                     if ($product->subcategory_id == $sub_category->id) {
                                         $productData = $product->toArray();
-        
+
                                         // Retrieve product images and add them to the product data
                                         $productImages = $product->product_images->toArray();
                                         $productData['product_images'] = $productImages;
-                                        
+
                                         // Add stock information to the product data
                                         $productData['stock'] = $product->purchases->sum('quantity');
-        
+
                                         $subCategoryData['products'][] = $productData;
                                     }
                                 }
-        
+
                                 $categoryData['sub_categories'][] = $subCategoryData;
                             }
                         }
-        
+
                         $menuData['categories'][] = $categoryData;
                     }
                 }
-        
-    
-            // Use the first word from the menu name as the key for categories
-            $data['menus'][$menuName] = $menuData;
+
+
+                // Use the first word from the menu name as the key for categories
+                $data['menus'][$menuName] = $menuData;
+            }
+
+            $data['setting'] = $settings->toArray();
+
+            return response()->json($data);
         }
-    
-        $data['setting'] = $settings->toArray();
-    
-        return response()->json($data);
     }
-}
 
     public function storeOrder(Request $request)
     {
@@ -353,8 +357,8 @@ class ApiController extends Controller
         // $orders = Order::where('customer_id', $userId)->with('orderDetails')->get();
 
         $orders = Order::where('customer_id', $userId)
-        ->with(['orderDetails.product:id,name,model_no,url'])
-        ->get();
+            ->with(['orderDetails.product:id,name,model_no,url'])
+            ->get();
 
 
         return response()->json(['orders' => $orders]);
@@ -365,16 +369,12 @@ class ApiController extends Controller
         $vendors = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
 
         return response()->json(['vendors' => $vendors]);
-
     }
 
     public function vendorcoupon($id)
     {
-        $vendorcoupon = Coupon::where('vendor_id','=',$id)->get();
+        $vendorcoupon = Coupon::where('vendor_id', '=', $id)->get();
 
         return response()->json(['vendorcoupon' => $vendorcoupon]);
     }
-  
-
-
 }
