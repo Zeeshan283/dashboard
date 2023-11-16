@@ -27,8 +27,7 @@
                                     <label for="email">Email address</label>
                                     <input id="email"
                                         class="form-control form-control-rounded @error('email') is-invalid @enderror"
-                                        name="email" value="{{ old('email') }}" required autocomplete="email"
-                                        autofocus>
+                                        name="email" value="{{ old('email') }}" required>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -39,13 +38,13 @@
                                     <label for="password">Password</label>
                                     <input id="password"
                                         class="form-control form-control-rounded @error('password') is-invalid @enderror"
-                                        name="password" required autocomplete="current-password">
+                                        name="password" required>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                               </div>
+                                </div>
                                 <div class="form-group">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember">
@@ -62,7 +61,7 @@
                                 <div class="mt-3 text-center">
 
                                     <a href="{{ route('password.request') }}" class="text-muted">
-                                        <u>Forgot  Password?</u></a><br>
+                                        <u>Forgot Password?</u></a><br>
                                     <u>Don't have a account</u>
                                     <a href="{{ route('register') }}">
                                         <i class="i-Mail-with-At-Sign"></i> Sign up

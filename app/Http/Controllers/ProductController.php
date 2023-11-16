@@ -231,7 +231,7 @@ class ProductController extends Controller
             return redirect()->to('vendor-profile/' . $user_id);
         }
     }
-}
+
 
 
     public function edit($id)

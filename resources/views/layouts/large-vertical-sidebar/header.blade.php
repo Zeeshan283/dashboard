@@ -3,6 +3,7 @@
         <a href="{{ route('admin') }}"><img src="{{ asset('root/upload/logo/dashboard-logo.jpg') }}" alt=""></a>
     </div>
 
+
     <div class="menu-toggle">
         <div></div>
         <div></div>
@@ -19,6 +20,10 @@
     <div style="margin: auto"></div>
 
     <div class="header-part-right">
+        <div id="preloader">
+            <div class="loader spinner spinner-light mr-3">
+            </div>
+        </div>
         <!-- Full screen toggle -->
         <i class="i-Full-Screen header-icon d-none d-sm-inline-block" data-fullscreen></i>
 
@@ -108,14 +113,14 @@
 
                     {{-- logout button  --}}
                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                        {{ __('Logout') }}
+                    </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>
