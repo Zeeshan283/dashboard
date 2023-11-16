@@ -11,6 +11,7 @@ use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\fontAwesomeTrait;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 class OrderController extends Controller
@@ -167,4 +168,6 @@ class OrderController extends Controller
 	{
 		//
 	}
+
+	
 }

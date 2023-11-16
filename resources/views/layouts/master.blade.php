@@ -33,10 +33,6 @@
 </head>
 
 
-
-
-
-
 <body class="text-start">
     @php
         $layout = session('layout');
@@ -54,10 +50,6 @@
 
 
 
-
-
-
-
     <!-- ============ Compact Layout start ============= -->
     @if ($layout == 'compact')
         @include('layouts.compact-vertical-sidebar.master')
@@ -67,15 +59,12 @@
 
 
 
-
-
         <!-- ============ Horizontal Layout start ============= -->
     @elseif($layout == 'horizontal')
         @include('layouts.horizontal-bar.master')
 
 
         <!-- ============ Horizontal Layout End ============= -->
-
 
 
 
@@ -152,7 +141,7 @@
     <script>
         toastr.error("{{ $errors->first() }}");
     </script>
-    @endif
+    @endif 
     {!! Toastr::message() !!}
 
     @yield('bottom-js')
