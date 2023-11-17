@@ -24,8 +24,11 @@ use App\Http\Controllers\TermsConditionsController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HomeSettingsController;
 use App\Http\Controllers\BannersController;
+use App\Http\Controllers\FaqCategoriesController;
+use App\Http\Controllers\FAQController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\HelpCenterController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
 use App\Models\User;
 use App\Models\Order;
@@ -300,6 +303,14 @@ Route::get('terms/show/{id}', [TermsConditionsController::class, 'show'])->name(
 
 Route::resource('helpcenter', HelpCenterController::class);
 Route::get('helpcenter/{id}/destroy', [HelpCenterController::class, 'destroy']);
+
+Route::resource('pages', PageController::class);
+Route::get('page/{id}/destroy', [PageController::class, 'destroy'])->name('page.destroy');
+
+Route::resource('faqs_categories', FaqCategoriesController::class);
+Route::get('faqs_category/{id}/destroy', [FaqCategoriesController::class, 'destroy'])->name('faqs_category.destroy');
+Route::resource('faqs', FAQController::class);
+Route::get('faq/{id}/destroy', [FAQController::class, 'destroy'])->name('faq.destroy');
 
 
 //terms & Conditions
