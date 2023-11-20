@@ -25,12 +25,10 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', function (Request $request) {
         return response()->json(['user' => $request->user()]);
     });
-
-    
 });
 
 // Route::post('/send-verification-email', 'Auth\VerificationController@sendVerificationEmail')->middleware('auth:api');
-Route::post('/send-verification-email/{email}',[VerificationController::class,'sendVerificationEmail']);
+Route::post('/send-verification-email/{email}', [VerificationController::class, 'sendVerificationEmail']);
 
 Route::controller(UserAPIController::class)->group(function () {
     Route::post('/register', 'register');
@@ -63,13 +61,16 @@ Route::get('/site-profile', [ApiController::class, 'Site_Profile']);
 
 Route::match(['get', 'post'], '/order-submit', [ApiController::class, 'OrderSubmit']);
 
-Route::get('/homeapi',[ApiController::class,'homepage']);
+Route::get('/homeapi', [ApiController::class, 'homepage']);
 
 Route::post('/checkout', [ApiController::class, 'storeOrder']);
 
 
-Route::get('/user/{userId}/orders',[ApiController::class,'getUserOrders']);
+Route::get('/user/{userId}/orders', [ApiController::class, 'getUserOrders']);
 
-Route::get('/vprofile/{id}',[ApiController::class,'vendorprofile']);
+Route::get('/vprofile/{id}', [ApiController::class, 'vendorprofile']);
 
-Route::get('/vcoupon/{id}',[ApiController::class,'vendorcoupon']);
+Route::get('/vcoupon/{id}', [ApiController::class, 'vendorcoupon']);
+
+Route::get('/faqs', [ApiController::class, 'FAQs']);
+Route::get('/pages', [ApiController::class, 'Pages']);

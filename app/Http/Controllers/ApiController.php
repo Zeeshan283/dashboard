@@ -7,6 +7,8 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\HomeSettings;
 use App\Models\Menu;
+use App\Models\FAQ;
+use App\Models\Page;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
@@ -376,5 +378,17 @@ class ApiController extends Controller
         $vendorcoupon = Coupon::where('vendor_id', '=', $id)->get();
 
         return response()->json(['vendorcoupon' => $vendorcoupon]);
+    }
+
+    public function FAQs()
+    {
+        $faq = FAQ::with('faq_category')->get();
+        return response()->json($faq);
+    }
+
+    public function Pages()
+    {
+        $page = Page::select('question as title', 'answer as details')->get();
+        return response()->json($page);
     }
 }
