@@ -149,6 +149,61 @@
     {!! Toastr::message() !!}
 
     @yield('bottom-js')
+    <script>
+        $(document).ready(function() {
+
+            $("#showButton").click(function() {
+                $("#showDiv").removeClass("d-none");
+            });
+
+            $('#imageshow').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image").fadeIn("fast").attr('src', filePath1);
+            });
+
+            $('#imageshow1').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image1").fadeIn("fast").attr('src', filePath1);
+            });
+
+            $('#imageshow2').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image2").fadeIn("fast").attr('src', filePath1);
+            });
+            $('#imageshow3').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image3").fadeIn("fast").attr('src', filePath1);
+            });
+            $('#imageshow4').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image4").fadeIn("fast").attr('src', filePath1);
+            });
+            $('#imageshow5').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image5").fadeIn("fast").attr('src', filePath1);
+            });
+            $('#imageshow6').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image6").fadeIn("fast").attr('src', filePath1);
+            });
+            $('#imageshow7').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image7").fadeIn("fast").attr('src', filePath1);
+            });
+            $('#imageshow8').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image8").fadeIn("fast").attr('src', filePath1);
+            });
+
+
+            $('#ashow').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#aimage").fadeIn("fast").attr('src', filePath1);
+            });
+
+        });
+    </script>
+
 </body>
 
 </html>

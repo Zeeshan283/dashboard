@@ -30,6 +30,12 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\HelpCenterController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Middleware\VendorOnly;
+use App\Http\Controllers\AdvertisementController;
+use App\Http\Controllers\AdvertisementSellerController;
+use App\Http\Controllers\AdvertisementOrder;
+use App\Http\Controllers\StripePaymentController;
+
 use App\Models\User;
 use App\Models\Order;
 
@@ -419,3 +425,19 @@ Route::get('ewallet/transcationhistory', [EwalletController::class, 'transcation
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// admin
+Route::resource('advertisements', AdvertisementController::class);
+Route::get('advertisement/{id}/destroy', [AdvertisementController::class, 'destroy'])->name('advertisement.destroy');
+
+Route::get('a_details', [AdvertisementOrder::class, 'details'])->name('advertisementSellers.details');
+Route::post('a_s_i_a/{id}', [AdvertisementOrder::class, 'advertisementOrderImageStatusUpdate'])->name('advertisementOrderImageUpdate');
+
+// VendorOnly
+Route::resource('advertisementSellers', AdvertisementSellerController::class);
+Route::post('advertisementOrder', [AdvertisementSellerController::class, 'formOrder']);
+Route::get('a_s_details', [AdvertisementOrder::class, 'SellerDetails'])->name('advertisementSellers.ASDetails');
+Route::post('a_s_image/{id}', [AdvertisementOrder::class, 'advertisementImage'])->name('advertisementImage');
+
+Route::get(' ', [StripePaymentController::class, 'stripe']);
+Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
