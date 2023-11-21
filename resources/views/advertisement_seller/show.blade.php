@@ -9,7 +9,6 @@
             box-sizing: border-box;
         }
 
-        /* Button used to open the contact form - fixed at the bottom of the page */
         .open-button {
             background-color: #555;
             color: white;
@@ -73,12 +72,10 @@
             opacity: 0.8;
         }
 
-        /* Add a red background color to the cancel button */
         .form-container .cancel {
             background-color: red;
         }
 
-        /* Add some hover effects to buttons */
         .form-container .btn:hover,
         .open-button:hover {
             opacity: 1;
@@ -177,14 +174,14 @@
                             <div id="selectSize"
                                 class="pro-group addeffect-section product-description border-product mb-0">
                                 <!--
-                                                                                                                                                                                                                                                                                                    <h6 class="product-title">quantity</h6>
-                                                                                                                                                                                                                                                                                                    <div class="qty-box">
-                                                                                                                                                                                                                                                                                                        <div class="input-group">
-                                                                                                                                                                                                                                                                                                            <button class="qty-minus"></button>
-                                                                                                                                                                                                                                                                                                            <input class="qty-adj form-control" type="number" min="1" max="10" value="1" />
-                                                                                                                                                                                                                                                                                                            <button class="qty-plus"></button>
-                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                                                                                                                        <h6 class="product-title">quantity</h6>
+                                                                                                                                                                                                                                                                                                        <div class="qty-box">
+                                                                                                                                                                                                                                                                                                            <div class="input-group">
+                                                                                                                                                                                                                                                                                                                <button class="qty-minus"></button>
+                                                                                                                                                                                                                                                                                                                <input class="qty-adj form-control" type="number" min="1" max="10" value="1" />
+                                                                                                                                                                                                                                                                                                                <button class="qty-plus"></button>
+                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                        </div> -->
                                 <div class="product-buttons">
                                     <span action="">
 
