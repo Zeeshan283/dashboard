@@ -10,7 +10,7 @@
                     <div class="col">
                         <div class="page-header-left">
                             <h3>Advertisement Management's
-                                {{-- <small>Bigdeal Admin panel</small> --}}
+                                {{-- <small></small> --}}
                             </h3>
                         </div>
                     </div>
@@ -48,25 +48,7 @@
                                         </a>
                                         <div class="product-icon icon-inline">
 
-                                            {{-- <a href="{{ route('advertisements.edit', ['advertisement' => $item->id]) }}"
-                                    title="edit">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
-                                    </a>
-                                    --}}
-                                            {{-- <button>
-                                                <i class="ti-bag"></i>
-                                            </button>
-                                            <a href="javascript:void(0)" title="Add to Wishlist">
-                                                <i class="ti-heart" aria-hidden="true"></i>
-                                            </a>
-                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#quick-view"
-                                                title="Quick View">
-                                                <i class="ti-search" aria-hidden="true"></i>
-                                            </a>
-                                            <a href="javascript:void(0)" title="Compare">
-                                                <i class="fa fa-exchange" aria-hidden="true"></i>
-                                            </a> --}}
 
                                         </div>
                                     </div>
