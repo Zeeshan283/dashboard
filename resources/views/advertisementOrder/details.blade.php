@@ -105,17 +105,7 @@
                         </ol>
                     </div>
                 </div>
-                `
-                `
-                `
-                `
-                `
-                `
-                `
-                `
-                `ontent-between align-items-center">
-                `
-                `
+
                 <div class="card-body Order-table">
                     <table class="display" id="basic-1">
                         <thead>
