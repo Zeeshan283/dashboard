@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('style')
+@section('page-css')
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -33,7 +33,7 @@
             z-index: 9;
             background-color: #fff;
             /* Form background color */
-            padding: 20px;
+            padding: 1px;
         }
 
         /* Add styles to the form container */
@@ -81,6 +81,350 @@
             opacity: 1;
         }
     </style>
+@endsection
+
+
+
+@section('main-content')
+    <div class="main-content">
+
+        <div class="breadcrumb">
+            <h1>Product Details</h1>
+            <ul>
+                <li><a href="">Apps</a></li>
+                <li>Ecommerce</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+
+        <!-- content goes here -->
+
+        <section class="ul-product-detail">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="ul-product-detail__image">
+                                        <img src="/{{ $data->image }}" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ul-product-detail__brand-name mb-4">
+                                        <h5 class="heading">{{ $data->name }}</h5>
+                                    </div>
+
+                                    <div class="ul-product-detail__price-and-rating d-flex align-items-baseline">
+                                        <h3 class="font-weight-700 text-primary mb-0 mr-2">${{ $data->sale_price }}</h3>
+                                        <span
+                                            class="text-mute font-weight-800 mr-2"><del>${{ $data->old_price }}</del></span>
+                                        @php
+                                            $percentage = (($data->old_price - $data->sale_price) / $data->old_price) * 100;
+                                        @endphp
+                                        <small class="text-success font-weight-700">{{ number_format($percentage, 2) }}%
+                                            off</small>
+                                    </div>
+
+                                    <!-- <div class="ul-product-detail__rating">
+                                                                                                                                                                                                                            <ul>
+                                                                                                                                                                                                                                <li></li>
+                                                                                                                                                                                                                            </ul>
+                                                                                                                                                                                                                        </div> -->
+                                    <div class="ul-product-detail__features mt-3">
+                                        <h6 class=" font-weight-700">Description:</h6>
+                                        <ul class="m-0 p-0">
+                                            <li>
+                                                <i class="i-Right1 text-primary text-15 align-middle font-weight-700"> </i>
+                                                <span class="align-middle">This Banner display for {{ $data->days }}
+                                                    days</span>
+                                            </li>
+                                            <li>
+                                                <i class="i-Right1 text-primary text-15 align-middle font-weight-700"> </i>
+                                                @if ($data->quantity > 0)
+                                                    <span class="align-middle"
+                                                        style="color: #099909fa;font: -webkit-control;">Available</span>
+                                                @else
+                                                    <span class="align-middle" style="color: red;font: -webkit-control;">Not
+                                                        Available</span>
+                                                @endif
+                                            </li>
+
+                                            <li>
+                                                <i class="i-Right1 text-primary text-15 align-middle font-weight-700"> </i>
+                                                <span class="align-middle">Image Dimention
+                                                    {{ $data->imageDimention }}</span>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+                                    <div class="ul-product-detail__quantity d-flex align-items-center mt-3">
+                                        @if ($data->quantity > 0)
+                                            <button type="button" class="btn btn-primary m-1" onclick="openForm()">
+                                                <i class="i-Full-Cart text-15"> </i>
+                                                Buy Now</button>
+                                        @else
+                                            <button type="button" class="btn btn-primary m-1" disabled>
+                                                <i class="i-Full-Cart text-15"> </i>
+                                                Buy Now</button>
+                                        @endif
+
+                                        {{-- @if ($data->quantity > 0)
+                                            <button id="cartEffect" onclick="openForm()"
+                                                class="btn cart-btn btn-normal tooltip-top"
+                                                data-tippy-content="Add to cart">
+                                                <i class="fa fa-shopping-cart"></i>
+                                                Buy Now
+                                            </button>
+                                        @else
+                                            <button id="cartEffect" class="btn cart-btn btn-normal tooltip-top"
+                                                data-tippy-content="Add to cart" disabled>
+                                                <i class="fa fa-shopping-cart"></i>
+                                                Buy Now
+                                            </button>
+                                        @endif --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ul-product-detail__box">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 mt-4 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="ul-product-detail__border-box">
+                                <div class="ul-product-detail--icon mb-2">
+                                    <i class="i-Car text-success text-25 font-weight-500 "></i>
+                                </div>
+                                <h5 class="heading">Quick Responce</h5>
+                                <p class="text-muted text-12">Instant purchase gratification: seamless, secure, and swift
+                                    acquisition of your desired products online.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 mt-4 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="ul-product-detail__border-box">
+                                <div class="ul-product-detail--icon mb-2">
+                                    <i class="i-Reload text-danger text-25 font-weight-500 "></i>
+                                </div>
+                                <h5 class="heading">Display Banner {{ $data->days }} Days</h5>
+                                <p class="text-muted text-12">Exclusive {{ $data->days }}-day showcase: Elevate your brand
+                                    with a limited-time, captivating display banner.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 mt-4 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="ul-product-detail__border-box">
+                                <div class="ul-product-detail--icon mb-2">
+                                    <i class="i-Headset text-info text-25 font-weight-500"></i>
+                                </div>
+                                <h5 class="heading">Support 24/7</h5>
+                                <p class="text-muted text-12">Reliable support, around the clock: 24/7 assistance for your
+                                    peace of mind.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 mt-4 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="ul-product-detail__border-box">
+                                <div class="ul-product-detail--icon mb-2">
+                                    <i class="i-Money-Bag text-warning text-25 font-weight-500"></i>
+                                </div>
+                                <h5 class="heading">High Secure Payment</h5>
+                                <p class="text-muted text-12">Fortified transactions: Experience high-security payments for
+                                    peace of mind in every purchase.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ul-product-detail__tab">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 mt-4">
+                    <div class="card mt-2 mb-4 ">
+                        <div class="card-body">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link show" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                                        role="tab" aria-controls="nav-home" aria-selected="true">Details</a>
+                                    {{-- <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                                        role="tab" aria-controls="nav-profile" aria-selected="false">Reviews</a>
+                                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact"
+                                        role="tab" aria-controls="nav-contact" aria-selected="false">Customize
+                                        Tab</a>
+                                    <a class="nav-item nav-link" id="nav-brand-tab" data-toggle="tab" href="#nav-brand"
+                                        role="tab" aria-controls="nav-contact" aria-selected="false">About Brand</a> --}}
+                                </div>
+                            </nav>
+                            <div class="tab-content ul-tab__content p-5" id="nav-tabContent">
+                                <div class="tab-pane fade active show" id="nav-home" role="tabpanel"
+                                    aria-labelledby="nav-home-tab">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-sm-12">
+                                            <img src="/{{ $data->image }}" alt="">
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-12">
+                                            <h5 class="text-uppercase font-weight-700 text-muted mt-4 mb-2">
+                                            </h5>
+                                            <p>
+                                                <?php echo $data->details; ?>
+                                            </p>
+
+                                            <div class="ul-product-detail__nested-card">
+                                                <div class="row text-center">
+                                                    <div class="col-lg-4 col-sm-12 mb-2">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <div class="ul-product-detail__border-box">
+                                                                    <div class="ul-product-detail--icon mb-2">
+                                                                        <i
+                                                                            class="i-Car text-success text-25 font-weight-500 "></i>
+                                                                    </div>
+                                                                    <h5 class="heading">Quick Responce</h5>
+                                                                    <p class="text-muted text-12">Instant purchase
+                                                                        gratification: seamless, secure, and swift
+                                                                        acquisition of your desired products online.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 mb-2">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <div class="ul-product-detail__border-box">
+                                                                    <div class="ul-product-detail--icon mb-2">
+                                                                        <i
+                                                                            class="i-Reload text-danger text-25 font-weight-500 "></i>
+                                                                    </div>
+                                                                    <h5 class="heading">Display Banner {{ $data->days }}
+                                                                        Days</h5>
+                                                                    <p class="text-muted text-12">Exclusive
+                                                                        {{ $data->days }}-day showcase: Elevate your
+                                                                        brand
+                                                                        with a limited-time, captivating display banner.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 mb-2">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <div class="ul-product-detail__border-box">
+                                                                    <div class="ul-product-detail--icon mb-2">
+                                                                        <i
+                                                                            class="i-Money-Bag text-warning text-25 font-weight-500"></i>
+                                                                    </div>
+                                                                    <h5 class="heading">High Secure Payment</h5>
+                                                                    <p class="text-muted text-12">Fortified transactions:
+                                                                        Experience high-security payments for
+                                                                        peace of mind in every purchase.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-profile" role="tabpanel"
+                                    aria-labelledby="nav-profile-tab">
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-contact" role="tabpanel"
+                                    aria-labelledby="nav-contact-tab">
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-brand" role="tabpanel"
+                                    aria-labelledby="nav-contact-tab">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+    <div class="form-popup" id="myForm">
+        <div class="card">
+            <div class="card-header">
+                <h5>Checkout</h5>
+            </div>
+            <div class="card-body">
+                <div class="digital-add needs-validation">
+                    <form action="{{ URL::to('vendor/stripe1') }}" target="__BLANK" enctype="multipart/form-data">
+                        <input type="hidden" value="{{ Auth::user()->id }}" name="customer_id">
+                        <input type="hidden" value="{{ Auth::user()->email }}" name="customer_email">
+                        <input type="hidden" value="{{ $data->id }}" name="product_id">
+                        <input type="hidden" value="{{ $data->sale_price }}" name="bill">
+                        <div class="form-group">
+                            <label for="validationCustom05" class="col-form-label pt-0"> Name</label>
+                            <input class="form-control" id="validationCustom05" name="name" type="text"
+                                required="">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label"> Phone</label>
+                            <input class="form-control" id="validationCustom05" name="phone" type="number"
+                                required="" maxlength="12" onkeypress ="return onlyNumberKey(event)">
+                        </div>
+                    </form>
+                    <br>
+                    <div class="form-group mb-0">
+                        <div class="product-buttons text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-light" onclick="closeForm()">Discard</button>
+                        </div>
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        {{-- <form action="{{ URL::to('vendor/stripe1') }}" class="form-container">
+                <input type="hidden" value="{{ Auth::user()->id }}" name="customer_id">
+                <input type="hidden" value="{{ $data->id }}" name="product_id">
+                <input type="hidden" value="{{ $data->sale_price }}" name="bill">
+                <label for=""><b>Name</b></label>
+                <input type="text" name="name">
+                <label for=""><b>Phone</b></label>
+                <input type="text" name="phone">
+
+                <button type="submit" class="btn">Submit</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form> --}}
+    </div>
+
+
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
 @endsection
 @section('content')
     <div class="page-body">
@@ -174,14 +518,14 @@
                             <div id="selectSize"
                                 class="pro-group addeffect-section product-description border-product mb-0">
                                 <!--
-                                                                                                                                                                                                                                                                                                        <h6 class="product-title">quantity</h6>
-                                                                                                                                                                                                                                                                                                        <div class="qty-box">
-                                                                                                                                                                                                                                                                                                            <div class="input-group">
-                                                                                                                                                                                                                                                                                                                <button class="qty-minus"></button>
-                                                                                                                                                                                                                                                                                                                <input class="qty-adj form-control" type="number" min="1" max="10" value="1" />
-                                                                                                                                                                                                                                                                                                                <button class="qty-plus"></button>
-                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <h6 class="product-title">quantity</h6>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="qty-box">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="input-group">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button class="qty-minus"></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <input class="qty-adj form-control" type="number" min="1" max="10" value="1" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button class="qty-plus"></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> -->
                                 <div class="product-buttons">
                                     <span action="">
 
