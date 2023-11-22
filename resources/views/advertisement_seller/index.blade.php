@@ -1,99 +1,81 @@
 @extends('layouts.master')
 
-@section('content')
-    <div class="page-body">
-
-        <!-- Container-fluid starts-->
-        <div class="container-fluid">
-            <div class="page-header">
-                <div class="row">
-                    <div class="col">
-                        <div class="page-header-left">
-                            <h3>Advertisement Management's
-                                {{-- <small></small> --}}
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <ol class="breadcrumb pull-right">
-                            <li class="breadcrumb-item"><a href="/"><i data-feather="home"></i></a></li>
-                            <li class="breadcrumb-item"> Advertisements</li>
-                            <li class="breadcrumb-item active">Advertisement Management</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Container-fluid Ends-->
+@section('main-content')
+    <div class="breadcrumb">
+        <h1>Advertisement</h1>
+        <ul>
+            <li><a href="">.</a></li>
+            <li>.</li>
+        </ul>
+    </div>
+    <div class="separator-breadcrumb border-top"></div>
 
 
-
-        <!-- Container-fluid starts-->
-        <div class="container-fluid">
-            <div class="row products-admin ratio_asos">
-                @foreach ($data as $key => $item)
-                    <div class="col-xl-3 col-sm-6">
-                        <div class="card product">
-                            <div class="card-body">
-                                <div class="product-box p-0">
-                                    <div class="product-imgbox">
-                                        <a
-                                            href="{{ route('advertisementSellers.show', ['advertisementSeller' => $item->id]) }}">
-                                            <div class="product-front">
-                                                <img src="/{{ $item->image }}" class="img-fluid " alt="product">
-                                            </div>
-                                            <div class="product-back">
-                                                <img src="/{{ $item->image }}" class="img-fluid " alt="product">
-                                            </div>
-                                        </a>
-                                        <div class="product-icon icon-inline">
-
-
-
+    <section class="product-cart">
+        <div class="row list-grid">
+            @foreach ($data as $key => $item)
+                <div class="list-item col-md-3">
+                    <a href="{{ route('advertisementSellers.show', ['advertisementSeller' => $item->id]) }}" title="show">
+                        <div class="card o-hidden mb-4 d-flex flex-column">
+                            <div class="list-thumb d-flex">
+                                <img alt="" src="/{{ $item->image }}">
+                            </div>
+                            <div class="flex-grow-1 d-bock">
+                                <div
+                                    class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center">
+                                    <a class="w-40 w-sm-100" href="">
+                                        <div class="item-title">
+                                            {{ $item->name }}
                                         </div>
-                                    </div>
-                                    <div class="product-detail detail-inline p-0">
-                                        <div class="detail-title">
-                                            <div class="detail-left">
-                                                <div class="rating-star">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <a href="">
-                                                    <h6 class="price-title">
-                                                        {{ $item->name }}
-                                                    </h6>
-                                                </a>
+                                    </a>
+                                    <p class="m-0 text-muted text-small w-15 w-sm-100">
 
-                                            </div>
-                                            <div class="detail-right">
-                                                <div class="check-price">
-                                                    $ {{ $item->old_price }}
-                                                </div>
-                                                <div class="price">
-                                                    <div class="price">
-                                                        $ {{ $item->sale_price }}
-                                                    </div>
-                                                </div>
-                                                @if ($item->quantity > 0)
-                                                    <h6 style="color: green">Available</h6>
-                                                @else
-                                                    <h6 style="color: red">Not Available</h6>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </p>
+                                    @php
+                                        $percentage = (($item->old_price - $item->sale_price) / $item->old_price) * 100;
+
+                                    @endphp
+                                    <p class="m-0 text-muted text-small w-15 w-sm-100">
+                                        $ {{ $item->sale_price }} <del class="text-secondary">$
+                                            {{ $item->old_price }}</del>
+                                    </p>
+                                    <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
+                                        <span class="badge badge-info"
+                                            style="background: green;">{{ number_format($percentage, 2) }}% off</span>
+                                    </p>
+                                    @if ($item->quantity > 0)
+                                        <h6 style="color: green">Available</h6>
+                                    @else
+                                        <h6 style="color: red">Not Available</h6>
+                                    @endif
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    </a>
+                </div>
+            @endforeach
 
-            </div>
+            {{-- <div class="col-md-12 mt-3  ">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#">Previous</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div> --}}
         </div>
-        <!-- Container-fluid Ends-->
-    </div>
+    </section>
 @endsection
