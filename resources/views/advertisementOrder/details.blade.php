@@ -144,9 +144,11 @@
                                     </td>
                                     <td>
                                         @if ($item->display_status == '1')
-                                            <span class="badge badge-success">Display </span>
+                                            <span class="badge badge-success" style="background-color: #039103 ;">Display
+                                            </span>
                                         @else
-                                            <span class="badge badge-danger">No Display</span>
+                                            <span class="badge badge-danger" style="background-color: #e51111;">No
+                                                Display</span>
                                         @endif
                                     </td>
                                     <td>
@@ -164,8 +166,13 @@
                                     </td>
                                     <td>
                                         <div>
-                                            <a href="#" onclick="openForm({{ $item->id }})">
-                                                <i class="fa fa-edit me-2 font-success"></i></a>
+                                            {{-- <a href="#" onclick="openForm({{ $item->id }})">
+                                                <i class="fa fa-edit me-2 font-success"></i></a> --}}
+                                            <a href="#" title="upload banner"
+                                                onclick="openForm({{ $item->id }})"><button type="button"
+                                                    class="btn btn-outline-secondary ">
+                                                    Upload
+                                                </button></a>
                                         </div>
                                     </td>
 
