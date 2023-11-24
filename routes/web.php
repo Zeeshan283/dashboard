@@ -28,6 +28,10 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DealsController;
 use App\Http\Controllers\HelpCenterController;
 use App\Http\Controllers\HomecouponsController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\BlogsCategoriesController;
+use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\CfeaturesController;
 
 use App\Models\User;
 
@@ -223,6 +227,7 @@ Route::get('returned', [OrderController::class, 'showOrders'])->name('returned')
 Route::get('ftod', [OrderController::class, 'showOrders'])->name('ftod');
 Route::get('canceled', [OrderController::class, 'showOrders'])->name('canceled');
 
+
 Route::patch('orderstatus',[OrderController::class,'update'])->name('order.status');
 // home controller route
 // Route::get('/',[HomeController::class, 'index'])->name('admin');
@@ -357,8 +362,20 @@ Route::get('ewallet/totalrefund',[EwalletController::class,'totalrefund'])->name
 Route::get('ewallet/totalspendondeals',[EwalletController::class,'totalspendondeals'])->name('totalspendondeals');
 Route::get('ewallet/totalwithdrawl',[EwalletController::class,'totalwithdrawl'])->name('totalwithdrawl');
 Route::get('ewallet/transcationhistory',[EwalletController::class,'transcationhistory'])->name('transcationhistory');
+Route::get('ewallet/paymentmethod',[EwalletController::class,'paymentmethod'])->name('paymentmethod');
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('Deals', 'App\Http\Controllers\DealsController');
 // Route::resource('Homecoupons', 'App\Http\Controllers\Homecoupons');
 Route::resource('Homecoupons', HomecouponsController::class);
+Route::get('/notifications', 'NotificationController@showNotifications')->name('showNotifications');
+Route::get('services/{id}/destroy', [TermsConditionsController::class, 'destroy']);
+Route::resource('blog_categories', BlogsCategoriesController::class);
+Route::get('blogs_categories/{id}/destroy', [BlogsCategoriesController::class, 'destroy']);
+Route::resource('blogs', BlogsController::class);
+Route::get('blogs/{id}/destroy', [BlogsController::class, 'destroy']);
+Route::resource('cfeatures', CfeaturesController::class);
+Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
+Route::post('/notifications', 'NotificationController@notification')->name('notifications.notification');
 

@@ -10,7 +10,6 @@
                 </div>
                 <div class="col-md-6" style="text-align: right;  margin-left: auto;">
                     <a href="{{ route('addcat')}}"><button class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Create Category</span></button></a>
-
                 </div>
 
             </div>

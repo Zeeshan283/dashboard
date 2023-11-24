@@ -1,3 +1,8 @@
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
 <div class="main-header">
     <div class="">
         <a href="{{ route('admin') }}"><img src="{{ asset('root/upload/logo/dashboard-logo.jpg') }}" alt=""></a>
@@ -23,74 +28,55 @@
         <i class="i-Full-Screen header-icon d-none d-sm-inline-block" data-fullscreen></i>
 
         <!-- Notificaiton -->
-        <div class="dropdown">
-            <div class="badge-top-container" role="button" id="dropdownNotification" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <span class="badge text-bg-primary">3</span>
-                <i class="i-Bell text-muted header-icon"></i>
-            </div>
-            <!-- Notification dropdown -->
-            <div class="dropdown-menu dropdown-menu-right notification-dropdown rtl-ps-none"
-                aria-labelledby="dropdownNotification" data-perfect-scrollbar data-suppress-scroll-x="true">
-                <div class="dropdown-item d-flex">
+        <style>
+    #buttons {
+        padding: 5px 5px;
+    border: 1px solid;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 8px;
+}
+#buttons i:hover{
+    color: white;
+}
+
+#buttons i {
+   color: black;
+}
+
+</style>
+<div class="dropdown">
+    <div class="badge-top-container" role="button" id="dropdownNotification" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <span class="badge text-bg-primary">{{ $notificationsCount ?? 0 }}</span>
+        <i class="i-Bell text-muted header-icon"></i>
+    </div>
+
+    <!-- Notification dropdown -->
+    <div class="dropdown-menu dropdown-menu-right notification-dropdown rtl-ps-none"
+        aria-labelledby="dropdownNotification" data-perfect-scrollbar data-suppress-scroll-x="true">
+
+        <!-- Display notifications here -->
+        @if(!empty($notifications))
+            @foreach($notifications as $notification)
+                <div class="dropdown-item"> 
                     <div class="notification-icon">
-                        <i class="i-Speach-Bubble-6 text-primary me-1"></i>
+                        <button type="button" class="btn btn-outline-secondary" id="buttons">
+                            <i class="fa fa-comments-o" aria-hidden="true" title="New Messages"></i>
+                        </button>
                     </div>
                     <div class="notification-details flex-grow-1">
-                        <p class="m-0 d-flex align-items-center">
-                            <span>New message</span>
-                            <span class="badge badge-pill text-bg-primary ms-1 me-1">new</span>
-                            <span class="flex-grow-1"></span>
-                            <span class="text-small text-muted ms-auto">10 sec ago</span>
-                        </p>
-                        <p class="text-small text-muted m-0">James: Hey! are you busy?</p>
+                        
                     </div>
                 </div>
-                <div class="dropdown-item d-flex">
-                    <div class="notification-icon">
-                        <i class="i-Receipt-3 text-success me-1"></i>
-                    </div>
-                    <div class="notification-details flex-grow-1">
-                        <p class="m-0 d-flex align-items-center">
-                            <span>New order received</span>
-                            <span class="badge badge-pill text-bg-success ms-1 me-1">new</span>
-                            <span class="flex-grow-1"></span>
-                            <span class="text-small text-muted ms-auto">2 hours ago</span>
-                        </p>
-                        <p class="text-small text-muted m-0">1 Headphone, 3 iPhone x</p>
-                    </div>
-                </div>
-                <div class="dropdown-item d-flex">
-                    <div class="notification-icon">
-                        <i class="i-Empty-Box text-danger me-1"></i>
-                    </div>
-                    <div class="notification-details flex-grow-1">
-                        <p class="m-0 d-flex align-items-center">
-                            <span>Product out of stock</span>
-                            <span class="badge badge-pill text-bg-danger ms-1 me-1">3</span>
-                            <span class="flex-grow-1"></span>
-                            <span class="text-small text-muted ms-auto">10 hours ago</span>
-                        </p>
-                        <p class="text-small text-muted m-0">Headphone E67, R98, XL90, Q77</p>
-                    </div>
-                </div>
-                <div class="dropdown-item d-flex">
-                    <div class="notification-icon">
-                        <i class="i-Data-Power text-success me-1"></i>
-                    </div>
-                    <div class="notification-details flex-grow-1">
-                        <p class="m-0 d-flex align-items-center">
-                            <span>Server Up!</span>
-                            <span class="badge badge-pill text-bg-success ms-1 me-1">3</span>
-                            <span class="flex-grow-1"></span>
-                            <span class="text-small text-muted ms-auto">14 hours ago</span>
-                        </p>
-                        <p class="text-small text-muted m-0">Server rebooted successfully</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Notificaiton End -->
+            @endforeach
+        @else
+            <div class="dropdown-item">No notifications</div>
+        @endif 
+
+</div>
+    </div>
 
         <!-- User avatar dropdown -->
         <div class="dropdown">
@@ -120,6 +106,6 @@
             </div>
         </div>
     </div>
-
 </div>
+
 <!-- header top menu end -->

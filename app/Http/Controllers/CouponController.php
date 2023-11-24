@@ -5,6 +5,8 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Coupon;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Models\Notification;
+use App\Events\DatabaseChange;
 
 use Illuminate\Http\Request;
 
@@ -29,10 +31,10 @@ class CouponController extends Controller
 
     public function isUsed()
     {
-        return $this->coupon_used ? true : false;
+        return $this->coupon_used? true : false;
     }
     
-    public function store(Request $request)
+    public function store(Request $request )
     {
     //   dd($request->all());
         $coupon = new Coupon([
@@ -53,15 +55,16 @@ class CouponController extends Controller
             'status' => $request->input('status'),
             'vendor_id' => Auth::user()->id,
         ]);
-        
-        // Save the coupon
         $coupon->save();
+        // Notification::create([
+        //     'id' => Auth::user()->id,
+        //     'coupon_type' => 'New coupon created with ID ' . $coupon->id,
+        //     'coupon_used' => $coupon->id . 'coupon is used now',
+        //     'type' => 'coupon',
 
+        // ]);
         return redirect()->back();
     }
-
-
-
 
     public function toggleStatus(Request $request)
     {
@@ -83,8 +86,6 @@ class CouponController extends Controller
         $coupon = Coupon::find($id);
 
         if (!$coupon) {
-            // Handle the case where the coupon with the given ID is not found.
-            // You can display an error message or take other actions as needed.
             Toastr::error('Coupon not found', 'Error');
             return redirect()->back();
         }
@@ -95,11 +96,45 @@ class CouponController extends Controller
         Toastr::success('Coupon deleted successfully', 'Success');
         
         return redirect()->back();
-
     }
 
-
-
+    // public function notification(Request $request)
+    // {
+    //     $request->validate([
+    //         'id' => 'required|string|max:255',
+    //         'coupon_id' => 'required|string',
+    //     ]);
+    
+    //     $coupon = new Coupon();
+    //     $coupon->id = Auth::user()->id;
+    //     $coupon->coupon_id = $request->coupon_id;
+    //     $coupon->timestamp = now();
+    //     $coupon->save();
+    
+    //     // Create a new notification record
+    //     $notification = new Notification();
+    //     $notification->id = Auth::user()->id;
+    //     $notification->coupon_id = $request->coupon_id;
+    //     $notification->timestamp = now();
+    //     $notification->save();
+    
+    //     $data = Coupon::where('timestamp', '>=', now()->subDay())->get();
+    
+    //     return redirect()->route('coupon.allcoupons')->with('data', $data);
+    // }
+    
+    // public function getNotifications()
+    // {
+    //     $unreadNotifications = Notification::where('id', Auth::user()->id)
+    //         ->where('read', false)
+    //         ->where('timestamp', '>=', now()->subDay())
+    //         ->get();
+    
+    //     $unreadNotificationsCount = $unreadNotifications->count();
+    
+    //     return view('layouts.header', compact('unreadNotifications', 'unreadNotificationsCount'));
+    // }
+    
 
 }
 

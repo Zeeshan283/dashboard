@@ -161,6 +161,13 @@
                     <span class="item-name">Canceled</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'paymentmethod' ? 'open' : '' }}" href="{{ route('paymentmethod') }}">
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">Payments</span>
+                </a>
+            </li>
         </ul>
 
 
@@ -471,9 +478,20 @@
             </li>
             
         </ul>
+        <ul class="childNav" data-parent="blogs">
+<li class="nav-item">
+    <a href="{{ route('blog_categories.index') }}">
+    <i class="fas fa-blog"></i>&NonBreakingSpace; &NonBreakingSpace;&NonBreakingSpace;<span class="item-name">Blog Categories</span>
+                </a>
+            </li>
+
+ <li class="nav-item">
+<a href="{{ route('blogs.index') }}"><i class="fas fa-blog"></i>&NonBreakingSpace; &NonBreakingSpace;&NonBreakingSpace;<span class="item-name">Blog list</span></a></li>
+
+    <li class="nav-item">
+<a href="{{ route('cfeatures.index') }}"><i class="fas fa-blog"></i>&NonBreakingSpace; &NonBreakingSpace;&NonBreakingSpace;<span class="item-name">Training Page</span></a></li>
+    </ul>
     </div>
-
-
     <div class="sidebar-overlay"></div>
 <!--=============== Left side End ================-->
 

@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\Coupon;
 use App\Models\Stock;
 use App\Models\User;
+use App\Models\Notification;
+
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -56,6 +58,8 @@ class HomeController extends Controller
             $coupons = Coupon::take(15)->get();
 
             $isAdmin = Auth::user()->role == 'Admin';
+
+            $notifications = auth()->user()->Notification;
 
             return view('dashboard.dashboardv1', 
             compact('totalOrders',

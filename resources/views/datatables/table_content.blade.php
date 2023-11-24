@@ -1197,7 +1197,6 @@
             <span class="star star-partial"></span>&nbsp;&nbsp;
         </td>
         <td>This product is too good</td>
-       
     <td><img src="" width="50" height="50"></td>
         <td>2011/04/25</td>
         <td>  <a href="" >
@@ -1249,7 +1248,7 @@
                     <div class="rating d-flex flex-direction-right">
                         @for ($i = 1; $i <= 5; $i++)
                             <!-- <i class="nav-icon i-David-Star" style="color: {{ $i <= $rating ? '#f5c60b' : '#ccc' }}; font-size: 10px; margin-right: 5px;"></i>  -->
-                            <i class="nav-icon star-icon" style="color: {{ $i <= $rating ? '#f5c60b' : '#ccc' }}; font-size: 25px;"></i>
+                            <i class="nav-icon star-icon" style="color: {{ $i <= $rating ? '#f5c60b' : '#ccc' }} font-size: 25px;"></i>
                         @endfor
                     </div>
                 </td>
@@ -1498,7 +1497,7 @@
     
 @elseif (Route::currentRouteName() == 'coupon.index')
     <thead>
-        <th>Sr No</th>
+        <th>Id</th>
         <th>Coupon Type</th>
         <th>Coupon Title</th>
         <th>Coupon Code</th>

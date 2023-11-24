@@ -6,6 +6,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Notifications\InvoicePaid;
 
 class UserController extends Controller
 {
@@ -88,4 +89,30 @@ public function adduser(Request $request)
 
         return redirect()->back();
     }
+
+    public function createUser(Request $request)
+    {
+        // Your user creation logic here
+    
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+        ]);
+    
+        // Send the InvoicePaid notification
+        $user->notify(new InvoicePaid());
+        // Rest of your logic...
+    
+        return response()->json(['message' => 'User created successfully']);
+    }
+
+    /**
+ * Get the notification's delivery channels.
+ *
+ * @return array<int, string>
+ */
+    public function via(object $notifiable): array
+{
+    return $notifiable->prefers_sms ? ['vonage'] : ['mail', 'database'];
+}
 }

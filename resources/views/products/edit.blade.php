@@ -14,20 +14,26 @@
             max-height: 100px;
             margin: 5px;
         }
-        .choices__inner{
-            background:#f3f4f6;
-        }
-        .choices__input{
-            background:#f3f4f6;
+        .choices__input {
+            background: #f3f4f6;
         }
 
+
         .choices__list--multiple .choices__item {
-            background-color: #6b7280;
-            color: #ffffff;
-            border:4px solid;
+            /* width: 3%; */
+            font-size: 14px;
+            font-family: initial;
+            /* background-color: #6b7280; */
+            /* background-color: #e9ecef; */
+            color: black;
+            border-radius: 42px;
+            /* height: 28px; */
+            border: transparent;
         }
-        .choices[data-type*=select-multiple] .choices__button{
+
+        .choices[data-type*=select-multiple] .choices__button {
             border-left: white;
+            display: none;
         }
 
 
@@ -1146,59 +1152,127 @@
 
 
 <!-- Multi Select Dropdown -->
-<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-    <script>
+// <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+//     <script>
 
-        function changeBackgroundColor() {
-                var colorMap = {
-                    '1': '#FF0000',
-                    '2': '#0000FF',
-                    '3': '#FFFDD0',
-                    '4': '#FFFF33',
-                    '5': '#006400',
-                    '6': '#FFFFFF',
-                    '7': '#FF6600',
-                    '8': '#964B00',
-                    '9': '#000000',
-                    '10': '#007FFF',
-                    '11': '#FFFFF0',
-                    '12': '#A020F0',
-                    '13': '#C3B091',
-                    '14': '#FFC0CB',
-                    '15': '#FFD700',
-                    '16': '#808000',
-                    '17': '#00FFFF',
-                    '18': '#673147',
-                    '19': '#808080',
-                    '20': '#C0C0C0',
-                    '21': '#000080',
-                    '22': '#FAF9F6'
-                };
+//         function changeBackgroundColor() {
+//                 var colorMap = {
+//                     '1': '#FF0000',
+//                     '2': '#0000FF',
+//                     '3': '#FFFDD0',
+//                     '4': '#FFFF33',
+//                     '5': '#006400',
+//                     '6': '#FFFFFF',
+//                     '7': '#FF6600',
+//                     '8': '#964B00',
+//                     '9': '#000000',
+//                     '10': '#007FFF',
+//                     '11': '#FFFFF0',
+//                     '12': '#A020F0',
+//                     '13': '#C3B091',
+//                     '14': '#FFC0CB',
+//                     '15': '#FFD700',
+//                     '16': '#808000',
+//                     '17': '#00FFFF',
+//                     '18': '#673147',
+//                     '19': '#808080',
+//                     '20': '#C0C0C0',
+//                     '21': '#000080',
+//                     '22': '#FAF9F6'
+//                 };
 
-                var selectedOptions = $('#choices-multiple-remove-button').val();
+//                 var selectedOptions = $('#choices-multiple-remove-button').val();
                 
-                $('.choices__list--multiple .choices__item').each(function(index, element) {
-                    var dataValue = $(element).attr('data-value');
-                    var backgroundColor = selectedOptions.includes(dataValue) ? colorMap[dataValue] : '';
-                    $(element).css('border-color', backgroundColor);
-                });
-                }
+//                 $('.choices__list--multiple .choices__item').each(function(index, element) {
+//                     var dataValue = $(element).attr('data-value');
+//                     var backgroundColor = selectedOptions.includes(dataValue) ? colorMap[dataValue] : '';
+//                     $(element).css('border-color', backgroundColor);
+//                 });
+//                 }
+
+//         $(document).ready(function() {
+//             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+//                 removeItemButton: true,
+//                 maxItemCount:5,
+
+//                 // searchResultLimit:5,
+//                 // renderChoiceLimit:5
+
+                
+//             });
+//             $('#choices-multiple-remove-button').on('change', changeBackgroundColor);
+
+//                 document.addEventListener('click', function() {
+//                 changeBackgroundColor();
+//                 });
+//         });
+//     </script>
+ <script>
+        function changeBackgroundColor() {
+            var colorMap = {
+                '1': '#FF0000',
+                '2': '#0000FF',
+                '3': '#FFFDD0',
+                '4': '#FFFF33',
+                '5': '#006400',
+                '6': '#FFFFFF',
+                '7': '#FF6600',
+                '8': '#964B00',
+                '9': '#000000',
+                '10': '#007FFF',
+                '11': '#FFFFF0',
+                '12': '#A020F0',
+                '13': '#C3B091',
+                '14': '#FFC0CB',
+                '15': '#FFD700',
+                '16': '#808000',
+                '17': '#00FFFF',
+                '18': '#673147',
+                '19': '#808080',
+                '20': '#C0C0C0',
+                '21': '#000080',
+                '22': '#FAF9F6'
+            };
+
+            var selectedOptions = $('#choices-multiple-remove-button').val();
+
+            $('.choices__list--multiple .choices__item').each(function(index, element) {
+                var dataValue = $(element).attr('data-value');
+                var backgroundColor = selectedOptions.includes(dataValue) ? colorMap[dataValue] : '';
+                $(element).css('background-color', backgroundColor);
+            });
+        }
 
         $(document).ready(function() {
             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-                removeItemButton: true,
-                maxItemCount:5,
+                removeItemButton: false,
+                maxItemCount: 5,
 
                 // searchResultLimit:5,
                 // renderChoiceLimit:5
 
-                
+                // classNames: {
+                //     button: 'choices-custom-button', // Add a custom class for the button
+                //     },
+
             });
             $('#choices-multiple-remove-button').on('change', changeBackgroundColor);
 
-                document.addEventListener('click', function() {
+            document.addEventListener('click', function() {
                 changeBackgroundColor();
-                });
+            });
+
+            $(document).ready(function() {
+                changeBackgroundColor();
+            });
+
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button1', {
+                removeItemButton: true,
+                // maxItemCount:5,
+                // searchResultLimit:5,
+                // renderChoiceLimit:5
+            });
+
         });
     </script>
 

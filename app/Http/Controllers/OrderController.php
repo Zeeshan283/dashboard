@@ -12,6 +12,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\fontAwesomeTrait;
 use Illuminate\Support\Facades\Route;
+use App\Models\Notification;
 
 class OrderController extends Controller
 {
@@ -27,10 +28,9 @@ class OrderController extends Controller
         if (Auth::user()->role == 'Admin') {
             $data = Order::orderBy('id', 'desc')->get();
         } else {
-            $data = Order::where('created_by', Auth::user()->id)->orderBy('id', 'desc')->get();
+            $data = Order::where('timestamp', Auth::user()->id)->orderBy('id', 'desc')->get();
         }
-
-        return view('orders.allorders', compact('data'));
+ return view('orders.allorders', compact('data'));
     }
 
 	public function order_details()
@@ -91,12 +91,29 @@ class OrderController extends Controller
     {
         $fromDate = $request->get('from_date');
         $toDate = $request->get('to_date');
+
         $order = Order::whereDate('created_at', '>=', $fromDate)
             ->whereDate('created_at', '<=', $toDate)
             ->get();
-
+    
+        $order = Order::whereDate('created_at', '>=', $fromDate)
+            ->whereDate('created_at', '<=', $toDate)
+            ->first();
+    
+        if ($order) {
+            Notification::create([
+                'user_id' => Auth::user()->id,
+                'Order_id' => 'New order placed with ID ' . $order->id,
+            ]);
+    
+            $order->status = $request->status;
+            $order->update();
+        }
+    
         return view('order.order_report', compact('fromDate', 'toDate', 'order'));
     }
+    
+    
 
     public function show($id)
     {
@@ -157,6 +174,44 @@ class OrderController extends Controller
         return view('order.vendor_order_report', compact('order', 'order_detail'));
     }
 
+
+    // public function notification(Request $request)
+    // {
+    //     $request->validate([
+    //         'id' => 'required|string|max:255',
+    //         'order_id' => 'required|string',
+    //     ]);
+    
+    //     $order = new Order();
+    //     $order->id = Auth::user()->id;
+    //     $order->order_id = $request->order_id;
+    //     $order->timestamp = now();
+    //     $order->save();
+    
+    //     // Create a new notification record
+    //     $notification = new Notification();
+    //     $notification->id = Auth::user()->id;
+    //     $notification->order_id = $request->order_id;
+    //     $notification->timestamp = now();
+    //     $notification->save();
+    
+    //     $data = Order::where('timestamp', '>=', now()->subDay())->get();
+    
+    //     return redirect()->route('orders.allorder')->with('data', $data);
+    // }
+    
+    // public function getNotifications()
+    // {
+    //     $unreadNotifications = Notification::where('name', Auth::user()->name)
+    //         ->where('read', false)
+    //         ->where('timestamp', '>=', now()->subDay())
+    //         ->get();
+    
+    //     $unreadNotificationsCount = $unreadNotifications->count();
+    
+    //     return view('layouts.header', compact('unreadNotifications', 'unreadNotificationsCount'));
+    // }
+    
     public function destroy($id)
     {
         // Your destroy method code here

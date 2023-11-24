@@ -92,6 +92,12 @@
     </a>
     <div class="triangle"></div>
 </li>
+
+<li class="nav-item {{ request()->is('blogs/*') ? 'active' : '' }}" data-item="blogs">
+    <a class="nav-item-hold" href="/test.html"><i class="fas fa-blog" style="font-size: 24px;"></i><span class="nav-text">Blogs</span>
+    </a>
+    <div class="triangle"></div>
+</li>
 </ul>
 
     
