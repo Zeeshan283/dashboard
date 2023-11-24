@@ -524,7 +524,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="">
+                <a href="{{ route('advertisementSellers.details') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Advertisement Order</span>
                 </a>

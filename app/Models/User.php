@@ -47,8 +47,8 @@ implements MustVerifyEmail
         return $this->belongsToMany(Role::class, 'user_roles', 'role_user', 'role_id');
     }
 
-    public function sendEmailVerificationNotification()
-    {
-        $this->notify(new CustomVerifyEmail);
-    }
+    // public function sendEmailVerificationNotification()
+    // {
+    //     $this->notify(new CustomVerifyEmail);
+    // }
 }
