@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -75,14 +76,14 @@ class UserAPIController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:255',
+            'phone_number' => 'required|numeric|digits_between:11,15',
             'email' => 'required|string|email|unique:users|max:255',
             'password' => 'required|string|min:8|max:16',
             'c_password' => 'required|same:password|min:8|max:16',
             'gender' => 'required|string',
-            'role' => 'required|string'
+            'role' => 'string'
         ], [
-            'c_password.required' => 'The confirm password field is required'
+            'c_password.required' => 'The confirm password field is required',
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
@@ -100,14 +101,16 @@ class UserAPIController extends Controller
             'phone1' => $data['phone_number'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => $data['role'],
+            'role' => 'Customer',
+            'email_verified_at' => Carbon::now(),
             'gender' => $data['gender']
         ]);
 
-        $user->sendEmailVerificationNotification();
 
         $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['name'] =  $user->name;
+        $success['id'] =  $user->id;
+        // $success['name'] =  $user->name;
+        // $success['email'] =  $user->email;
         return response()->json(['success' => $success], $this->successStatus);
     }
     /**
