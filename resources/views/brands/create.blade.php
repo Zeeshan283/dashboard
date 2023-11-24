@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('before-css')
-
 @endsection
 @section('main-content')
             <div class="separator-breadcrumb border-top"></div>
@@ -27,39 +26,40 @@
                 <input type="text" name="brand_name" id="name" class="form-control" value="">
             </div>
             <div class="form-group col-md-4">
-                <label for="image">Image(190x70)px</label>
+                <label for="image">Image</label>
                 <input type="file" name="logo" id="logo" class="form-control" value="">
             
             </div>
             <div class="form-group col-md-4">
-                <label for="image">Logo(190x70)px</label>
-                <img src="{{ URL::asset('website-assets/images/dummy/img_410_x_186.png') }}"  class="img-fluid" id="show_brand_logo" width="200" height="70"> 
-            </div>
-
-
+                <label for="image">Logo</label>
+                <img src="{{ URL::asset('website-assets/images/dummy/img_410_x_186.png') }}"  class="img-fluid" id="show_brand_logo" width="200" height="70">
             
-                </div>
             </div>
-            <div style="
+
+
+
+                            </div>
+                        </div>
+                        <div style="
     text-align: center;
 ">
-            <button type="submit" class="btn btn-outline-secondary ">Submit</button>
-</div>
-            
-        {!! Form::close() !!}
-    </div>
-@endsection
+                            <button type="submit" class="btn btn-outline-secondary ">Submit</button>
+                        </div>
 
-    @section('page-js')
-<script>
-        $(document).ready(function() {
-            $('#logo').change(function(event) {
-                var filePath1 = URL.createObjectURL(event.target.files[0]);
-                $("#show_brand_logo").fadeIn("fast").attr('src', filePath1);
-            });
-        });
-    </script>
+                        {!! Form::close() !!}
+                    </div>
+                @endsection
 
-    <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
-    {!! Toastr::message() !!}
-    @endsection
+                @section('page-js')
+                    <script>
+                        $(document).ready(function() {
+                            $('#logo').change(function(event) {
+                                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                                $("#show_brand_logo").fadeIn("fast").attr('src', filePath1);
+                            });
+                        });
+                    </script>
+
+                    <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
+                    {!! Toastr::message() !!}
+                @endsection

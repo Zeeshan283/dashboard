@@ -7,6 +7,7 @@ use App\Models\OrderDetail;
 use App\Models\ProductContact;
 use App\Models\Product;
 use App\Models\Coupon;
+use App\Models\Purchase;
 use App\Models\Stock;
 use App\Models\User;
 use App\Models\Notification;
@@ -53,9 +54,12 @@ class HomeController extends Controller
 
 
             $top_products = Product::take(10)->get();
-            $new_users = User::where('role','=','Customer')->latest()->take(15)->get();
+            $new_users = User::where('role','=','Customer')->latest()->take(20)->get();
 
             $coupons = Coupon::take(15)->get();
+
+            // out of stock pproducts
+            $outofstock = Purchase::where('quantity','=',0)->with('product')->get();
 
             $isAdmin = Auth::user()->role == 'Admin';
 
@@ -78,7 +82,8 @@ class HomeController extends Controller
             'top_products',
             'new_users',
             'isAdmin',
-            'coupons'
+            'coupons',
+            'outofstock'
         ));
         } else {
             $totalOrders = Order::where('o_vendor_id', Auth::User()->id)->count();
@@ -99,7 +104,8 @@ class HomeController extends Controller
 
             $top_products = Product::take(10)->get();
             $new_users = User::where('role','=','Customer')->latest()->take(15)->get();
-            
+
+            $outofstock = Purchase::where('quantity','=',0)->where('vendor_id','=',Auth::user()->id )->get();           
 
             $isAdmin = Auth::user();
 

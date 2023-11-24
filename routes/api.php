@@ -5,6 +5,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,6 +39,10 @@ Route::controller(UserAPIController::class)->group(function () {
     Route::get('/profile/{id}', 'details')->whereNumber('id');
     Route::match(['patch', 'put'], '/update-profile', 'UpdateProfile');
 });
+
+
+// Auth::routes(['verify' => true]);
+
 
 Route::get('/menus', [ApiController::class, 'menus']);
 Route::get('/categories/{menu_id}', [ApiController::class, 'categories']);

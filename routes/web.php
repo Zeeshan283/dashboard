@@ -27,13 +27,8 @@ use App\Http\Controllers\BannersController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DealsController;
 use App\Http\Controllers\HelpCenterController;
-use App\Http\Controllers\HomecouponsController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\BlogsCategoriesController;
-use App\Http\Controllers\BlogsController;
-use App\Http\Controllers\CfeaturesController;
-
 use App\Models\User;
+use App\Models\Order;
 
 use Illuminate\Support\Facades\DB;
 
@@ -121,13 +116,58 @@ Route::get('refunded',[RefundController::class,'refundedRefunds'])->name('refund
 
 
 // chart
+// Route::get('fetch-vendor-products', function () {
+//     $vendorProductData = DB::table('products')
+//         ->select('created_by', DB::raw('COUNT(*) as totalProducts'))
+//         ->groupBy('created_by')
+//         ->get();
+//     return response()->json($vendorProductData);
+// });
+
+
 Route::get('fetch-vendor-products', function () {
     $vendorProductData = DB::table('products')
-        ->select('created_by', DB::raw('COUNT(*) as totalProducts'))
-        ->groupBy('created_by')
+        ->join('users', 'products.created_by', '=', 'users.id')
+        ->select('users.name', 'users.name as vendor_full_name', DB::raw('COUNT(*) as totalProducts'))
+        ->groupBy('products.created_by', 'users.name', 'users.name')
         ->get();
     return response()->json($vendorProductData);
 });
+
+
+// total oders by date
+
+// routes/web.php
+Route::get('/get-chart-data',[OrderController::class,'getChartData']);
+
+Route::get('/order-data', function () {
+    $endDate = now()->format('Y-m-d');  // Current date
+    $startDate = now()->subDays(29)->format('Y-m-d'); // 29 days ago
+
+    // Retrieve the data for the date range
+    $orderData = Order::select(DB::raw('DATE(order_date) as date'))
+        ->whereBetween('order_date', [$startDate, $endDate])
+        ->get();
+
+    // Process the data to create an array for the last 30 days
+    $last30DaysData = [];
+    $currentDate = strtotime($endDate);
+
+    for ($i = 0; $i < 30; $i++) {
+        $date = date('Y-m-d', $currentDate);
+        $totalOrders = $orderData->where('date', $date)->first();
+
+        $last30DaysData[] = [
+            'date' => $date,
+            'total_orders' => $totalOrders ? $totalOrders->total_orders : 0,
+        ];
+
+        $currentDate = strtotime('-1 day', $currentDate);
+    }
+
+    return view('/', compact('last30DaysData'));
+});
+
 
 Route::get('/get-product-chart-data', [ProductController::class, 'getProductChartData']); // product chart data
 
@@ -197,7 +237,7 @@ Route::view('sessions/forgot', 'sessions.forgot')->name('forgot');
 
 
 Route::group(['middleware' => ['auth','verified']],function(){
-    Route::get('/', [HomeController::class,'index'])->name('admin');
+    Route::get('/home', 'HomeController@index')->name('home');
 });
 
 
@@ -229,6 +269,8 @@ Route::get('canceled', [OrderController::class, 'showOrders'])->name('canceled')
 
 
 Route::patch('orderstatus',[OrderController::class,'update'])->name('order.status');
+
+Route::get('orders/{id}', [OrderController::class, 'show']);
 // home controller route
 // Route::get('/',[HomeController::class, 'index'])->name('admin');
 
@@ -288,7 +330,6 @@ Route::get('creviews', [ReviewsController::class, 'index'])->name('creviews');
 
 // Route::view('refunded', 'refund.refunded')->name('refunded');
 Route::get('allrefunds', [RefundController::class, 'refundstatus'])->name('allrefunds');
-// Route::get('refunded', [RefundController::class, 'index'])->name('refunded');
 Route::get('createrefund', [RefundController::class, 'create'])->name('createrefund');
 Route::post('/store-refund', [RefundController::class, 'store'])->name('refund.store');
 Route::post('/allrefunds', [RefundController::class, 'update'])->name('refund.update');
@@ -344,6 +385,10 @@ Route::resource('supplier', SupplierController::class);
 
 Route::resource('brands', BrandController::class);
 Route::get('brands/{id}/destroy', [BrandController::class, 'destroy']);
+
+Route::resource('payment_method', PaymentController::class);
+Route::get('payment_method/{id}/destroy', [PaymentController::class, 'destroy']);
+
 
 Route::get('/home-settings', [HomeSettingsController::class, 'index'])->name('home-settings');
 Route::post('/update-home-settings', [HomeSettingsController::class, 'UpdateHomeSettings']);

@@ -55,6 +55,8 @@ class CouponController extends Controller
             'status' => $request->input('status'),
             'vendor_id' => Auth::user()->id,
         ]);
+        
+        // Save the coupon
         $coupon->save();
         // Notification::create([
         //     'id' => Auth::user()->id,

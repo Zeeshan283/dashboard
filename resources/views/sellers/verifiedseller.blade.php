@@ -28,7 +28,7 @@
 <div class="breadcrumb">
  
                 <h1>Seller Verification Management's</h1>
-                @if (count($errors) > 0)
+                {{-- @if (count($errors) > 0)
                     <div class="alert alert-danger d-flex">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -36,7 +36,7 @@
                             @endforeach
                         </ul>
                     </div>
-                @endif
+                @endif --}}
             </div>
             <div class="separator-breadcrumb border-top"></div>
             <div class="col-md-12 mb-4">
@@ -47,8 +47,8 @@
                     <div id="smartwizard" class="sw-theme-dots" >
                         <ul style="justify-content: center;">
                             <li><a href="#step-1">Step 1<br /><small>Bank Details</small></a></li>
-                            <li><a href="#step-2">Step 2<br /><small>ID Card Image</small></a></li>
-                            <li><a href="#step-3">Step 3<br /><small>Company Document</small></a></li>
+                            <li><a href="#step-2">Step 2<br /><small>ID & Comapny Details</small></a></li>
+                            {{-- <li><a href="#step-3">Step 3<br /><small>Company Document</small></a></li> --}}
                             {{-- <li><a href="#step-4">Step 4<br /><small>Tax Charges</small></a></li> --}}
                         </ul>
                             
@@ -263,9 +263,8 @@
                         </div>
                     </div>
                 </div>
-                            </div>
 
-            <div id="step-3" class="">
+                <div id="step-2" class="">
                         {!! Form::model($edit, [
                         'method' => 'POST',
                         'action' => ['App\Http\Controllers\VendorsController@SellerDocumentSave', $edit->id],
@@ -277,12 +276,13 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
-                                <div class="card-header bg-transparent">
+                                {{-- <div class="card-header bg-transparent">
                                     <h3 class="card-title">Become a Verified Supplier  
-                                        {{-- @if( !$edit->id_front == '' && !$edit->id_back == '') --}}
+                                        @if( !$edit->id_front == '' && !$edit->id_back == '')
                                         <span class="badge  badge-round-info md"><p style="font-size: revert;">✓</p></span></h3>
-                                        {{-- @endif --}}
-                                    </div>
+                                        @endif
+                                    
+                                    </div> --}}
                                     <div class="card-body">
                                         <div class="row">
                                             {!! Form::hidden('vendor_profile_id', $edit->id, ['id' => 'id', 'class' => 'form-control']) !!}
@@ -428,6 +428,11 @@
                 </div>
                             </div>
 
+
+                            </div>
+
+            
+
                     </div>
                 </div>
             </div>
@@ -457,13 +462,6 @@
 
 
 
-    <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
-     @if ($errors->any())
-    <script>
-        toastr.error("{{ $errors->first() }}");
-    </script>
-    @endif
-    {!! Toastr::message() !!}
 
 @endsection
 
