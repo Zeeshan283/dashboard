@@ -138,7 +138,8 @@
                                     </td>
                                     <td>
                                         @if ($item->display_status == '1')
-                                            <span class="badge badge-success" style="background-color: # ;">Display </span>
+                                            <span class="badge badge-success" style="background-color: #039103 ;">Display
+                                            </span>
                                         @else
                                             <span class="badge badge-danger" style="background-color: #e51111;">No
                                                 Display</span>
