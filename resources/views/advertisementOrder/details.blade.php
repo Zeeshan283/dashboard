@@ -165,8 +165,6 @@
                                         <div>
                                             <a href="#" onclick="openForm({{ $item->id }})">
                                                 <i class="fa fa-edit me-2 font-success"></i></a>
-
-
                                         </div>
                                     </td>
 

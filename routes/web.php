@@ -439,5 +439,5 @@ Route::post('advertisementOrder', [AdvertisementSellerController::class, 'formOr
 Route::get('a_s_details', [AdvertisementOrder::class, 'SellerDetails'])->name('advertisementSellers.ASDetails');
 Route::post('a_s_image/{id}', [AdvertisementOrder::class, 'advertisementImage'])->name('advertisementImage');
 
-Route::get(' ', [StripePaymentController::class, 'stripe']);
+Route::get('stripe1', [StripePaymentController::class, 'stripe']);
 Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');

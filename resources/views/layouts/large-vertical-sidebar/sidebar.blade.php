@@ -505,6 +505,51 @@
             </li>
 
         </ul>
+
+
+        <ul class="childNav" data-parent="uikits1">
+
+            <li class="nav-item">
+                <a href="{{ route('advertisements.index') }}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Advertisement</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('advertisements.create') }}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Create Advertisement</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Advertisement Order</span>
+                </a>
+            </li>
+
+        </ul>
+
+        <ul class="childNav" data-parent="uikits2">
+
+            <li class="nav-item">
+                <a href="{{ route('advertisementSellers.index') }}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Advertisement</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('advertisementSellers.ASDetails') }}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Order
+                        Details</span>
+                </a>
+            </li>
+
+        </ul>
     </div>
 
 

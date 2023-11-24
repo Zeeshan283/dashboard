@@ -1,5 +1,8 @@
 @extends('layouts.master')
-@section('style')
+
+@section('page-css')
+    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -34,7 +37,7 @@
             z-index: 9;
             background-color: #fff;
             /* Form background color */
-            padding: 20px;
+            padding: 1px;
         }
 
         /* Add styles to the form container */
@@ -85,159 +88,158 @@
         }
     </style>
 @endsection
-@section('content')
-    <div class="page-body">
-        <!-- Container-fluid starts-->
-        <div class="container-fluid">
-            <div class="page-header">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="page-header-left">
-                            <h3>Advertisement Order List
-                                {{-- <small></small> --}}
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <ol class="breadcrumb pull-right">
-                            <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-                            <li class="breadcrumb-item">Advertisment</li>
-                            <li class="breadcrumb-item active">Order Details</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Container-fluid Ends-->
 
-        <!-- Container-fluid starts-->
-        <div class="container-fluid">
-            <div class="card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5>Order Lists</h5>
-                    </div>
-                    <div class="card-body Order-table">
-                        <table class="display" id="basic-1">
-                            <thead>
+@section('main-content')
+    <div class="breadcrumb">
+        <div class="col-md-6">
+            <h1>Advertisement Order's Management</h1>
+        </div>
+
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div>
+    <div class="col-md-12 mb-4">
+        <div class="card text-start">
+
+            <div class="card-body">
+                <h4 class="card-title mb-3">All Order's</h4>
+
+
+                <div class="table-responsive">
+                    <table id="deafult_ordering_table" class="display table table-striped table-bordered"
+                        style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Order Id</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Display Time Start</th>
+                                <th>Payment</th>
+                                <th>Display Status</th>
+                                <th>Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($data as $key => $item)
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Order Id</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Display Time Start</th>
-                                    <th>Payment</th>
-                                    <th>Display Status</th>
-                                    <th>Image</th>
-                                    <th>Action</th>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $item->id ?? 'Deleted form database as per instruction' }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->phone }}</td>
+                                    <td>{{ $item->display_time_start }}</td>
+                                    <td>
+                                        @if ($item->status == 'paid')
+                                            <span class="badge badge-success" style="background-color: #039103;">Paid
+                                        </span>@else<span class="badge badge-danger"
+                                                style="background-color: red;">Payment Failed</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->display_status == '1')
+                                            <span class="badge badge-success" style="background-color: # ;">Display </span>
+                                        @else
+                                            <span class="badge badge-danger" style="background-color: #e51111;">No
+                                                Display</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="d-flex Order-list" style="width: 77px;">
+                                            @if ($item->image != '')
+                                                <a href="{{ asset($item->image) }}" target="__BLANK" class="image-popup">
+
+                                                    <img src="{{ asset($item->image) }}" alt="N/A"
+                                                        class="img-fluid img-40   lazyloaded">
+                                                @else
+                                                    N/A
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+
+                                            {{-- <a href="#" onclick="openForm({{ $item->id }})"> --}}
+                                            {{-- <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i> --}}
+                                            <a href="#" title="upload banner"
+                                                onclick="openForm({{ $item->id }})"><button type="button"
+                                                    class="btn btn-outline-secondary ">
+                                                    Upload
+                                                </button></a>
+
+
+                                        </div>
+                                    </td>
+
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($data as $key => $item)
-                                    <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td>{{ $item->id ?? 'Deleted form database as per instruction' }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->phone }}</td>
-                                        <td>{{ $item->display_time_start }}</td>
-                                        <td>
-                                            @if ($item->status == 'paid')
-                                            <span class="badge badge-success">Paid </span>@else<span
-                                                    class="badge badge-danger">Payment Failed</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($item->display_status == '1')
-                                                <span class="badge badge-success">Display </span>
-                                            @else
-                                                <span class="badge badge-danger">No Display</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <div class="d-flex Order-list">
-                                                @if ($item->image != '')
-                                                    <a href="{{ asset($item->image) }}" target="__BLANK"
-                                                        class="image-popup">
-
-                                                        <img src="{{ asset($item->image) }}" alt="N/A"
-                                                            class="img-fluid img-40   lazyloaded">
-                                                    @else
-                                                        N/A
-                                                @endif
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div>
-
-                                                <a href="#" onclick="openForm({{ $item->id }})">
-                                                    <i class="fa fa-edit me-2 font-success"></i></a>
-
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                @endforeach
+                            @endforeach
 
 
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>Order Id</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Display Time Start</th>
+                                <th>Payment</th>
+                                <th>Display Status</th>
+                                <th>Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
 
-                            </tbody>
-                        </table>
-                    </div>
+                    </table>
                 </div>
+
             </div>
-            <!-- Container-fluid Ends-->
-
         </div>
-
-        <div class="form-popup" id="myForm">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Add Advertisement ({{ $data1->advertisement->imageDimention ?? 'n/a' }})</h5>
-                </div>
-                <div class="card-body">
-                    <div class="digital-add needs-validation">
-                        @if ($item->id)
-                            <form id="editForm" action="{{ route('advertisementImage', ['id' => $item->id]) }}"
-                                method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="a_d_i" id="advertisementId">
-                                <div class="form-group">
-                                    <label for="validationCustom05" class="col-form-label pt-0">Image</label>
-                                    <input class="form-control" id="imageshow" name="image" type="file" required="">
+    </div>
+    <div class="form-popup" id="myForm">
+        <div class="card">
+            <div class="card-header">
+                <h5>Add Advertisement ({{ $data1->advertisement->imageDimention ?? 'n/a' }})</h5>
+            </div>
+            <div class="card-body">
+                <div class="digital-add needs-validation">
+                    @if ($item->id ?? null)
+                        <form id="editForm" action="{{ route('advertisementImage', ['id' => $item->id]) }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="a_d_i" id="advertisementId">
+                            <div class="form-group">
+                                <label for="validationCustom05" class="col-form-label pt-0">Image</label>
+                                <input class="form-control" id="imageshow" name="image" type="file" required="">
+                            </div>
+                            <img src="" width="100px" id="show_image">
+                            <div class="form-group mb-0">
+                                <div class="product-buttons text-center">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="button" class="btn btn-light" onclick="closeForm()">Discard</button>
                                 </div>
-                                <img src="" width="100px" id="show_image">
-                                <div class="form-group mb-0">
-                                    <div class="product-buttons text-center">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                        <button type="button" class="btn btn-light" onclick="closeForm()">Discard</button>
-                                    </div>
-                                </div>
-                            </form>
-                        @endif
-                    </div>
+                            </div>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>
+    </div>
 
-        <script>
-            function openForm(advertisementId) {
-                document.getElementById("myForm").style.display = "block";
-                document.getElementById("advertisementId").value = advertisementId;
-            }
+    <script>
+        function openForm(advertisementId) {
+            document.getElementById("myForm").style.display = "block";
+            document.getElementById("advertisementId").value = advertisementId;
+        }
 
-            function closeForm() {
-                document.getElementById("myForm").style.display = "none";
-            }
-        </script>
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+@endsection
 
-
-        {{-- <script>
-            function openForm() {
-                document.getElementById("myForm").style.display = "block";
-            }
-
-            function closeForm() {
-                document.getElementById("myForm").style.display = "none";
-            }
-        </script> --}}
-    @endsection
+@section('page-js')
+    <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
+@endsection
