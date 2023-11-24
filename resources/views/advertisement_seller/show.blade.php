@@ -127,10 +127,10 @@
                                     </div>
 
                                     <!-- <div class="ul-product-detail__rating">
-                                                                                                                                                                                                                            <ul>
-                                                                                                                                                                                                                                <li></li>
-                                                                                                                                                                                                                            </ul>
-                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                        <ul>
+                                                                                                                                                                                                                                            <li></li>
+                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                    </div> -->
                                     <div class="ul-product-detail__features mt-3">
                                         <h6 class=" font-weight-700">Description:</h6>
                                         <ul class="m-0 p-0">
@@ -373,7 +373,7 @@
             </div>
             <div class="card-body">
                 <div class="digital-add needs-validation">
-                    <form action="{{ URL::to('vendor/stripe1') }}" target="__BLANK" enctype="multipart/form-data">
+                    <form action="{{ URL::to('stripe1') }}" target="__BLANK" enctype="multipart/form-data">
                         <input type="hidden" value="{{ Auth::user()->id }}" name="customer_id">
                         <input type="hidden" value="{{ Auth::user()->email }}" name="customer_email">
                         <input type="hidden" value="{{ $data->id }}" name="product_id">
@@ -388,14 +388,14 @@
                             <input class="form-control" id="validationCustom05" name="phone" type="number"
                                 required="" maxlength="12" onkeypress ="return onlyNumberKey(event)">
                         </div>
-                    </form>
-                    <br>
-                    <div class="form-group mb-0">
-                        <div class="product-buttons text-center">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <button type="button" class="btn btn-light" onclick="closeForm()">Discard</button>
+
+                        <br>
+                        <div class="form-group mb-0">
+                            <div class="product-buttons text-center">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="button" class="btn btn-light" onclick="closeForm()">Discard</button>
+                            </div>
                         </div>
-                    </div>
                     </form>
 
                 </div>
@@ -518,14 +518,14 @@
                             <div id="selectSize"
                                 class="pro-group addeffect-section product-description border-product mb-0">
                                 <!--
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <h6 class="product-title">quantity</h6>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="qty-box">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="input-group">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button class="qty-minus"></button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <input class="qty-adj form-control" type="number" min="1" max="10" value="1" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button class="qty-plus"></button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h6 class="product-title">quantity</h6>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="qty-box">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="input-group">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="qty-minus"></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <input class="qty-adj form-control" type="number" min="1" max="10" value="1" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="qty-plus"></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div> -->
                                 <div class="product-buttons">
                                     <span action="">
 
