@@ -1,4 +1,8 @@
-@section('style')
+@extends('layouts.master')
+
+@section('page-css')
+    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -33,7 +37,7 @@
             z-index: 9;
             background-color: #fff;
             /* Form background color */
-            padding: 20px;
+            padding: 1px;
         }
 
         /* Add styles to the form container */
@@ -84,30 +88,26 @@
         }
     </style>
 @endsection
-@section('main-cotent')
-    <div class="page-body">
-        <!-- Container-fluid starts-->
-        <div class="container-fluid">
-            <div class="page-header">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="page-header-left">
-                            <h3>Advertisement Order List
-                                {{-- <small></small> --}}
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <ol class="breadcrumb pull-right">
-                            <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-                            <li class="breadcrumb-item">Orders</li>
-                            <li class="breadcrumb-item active">Order List</li>
-                        </ol>
-                    </div>
-                </div>
 
-                <div class="card-body Order-table">
-                    <table class="display" id="basic-1">
+@section('main-content')
+    <div class="breadcrumb">
+        <div class="col-md-6">
+            <h1>Advertisement Order's Management</h1>
+        </div>
+
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div>
+    <div class="col-md-12 mb-4">
+        <div class="card text-start">
+
+            <div class="card-body">
+                <h4 class="card-title mb-3">All Order's</h4>
+
+
+                <div class="table-responsive">
+                    <table id="deafult_ordering_table" class="display table table-striped table-bordered"
+                        style="width:100%">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -137,8 +137,9 @@
                                     <td>{{ $item->created_at }}</td>
                                     <td>
                                         @if ($item->status == 'paid')
-                                        <span class="badge badge-success">Paid </span>@else<span
-                                                class="badge badge-danger">Payment Failed</span>
+                                            <span class="badge badge-success" style="background-color: #039103;">Paid
+                                        </span>@else<span class="badge badge-danger"
+                                                style="background-color: #e51111;">Payment Failed</span>
                                         @endif
                                     </td>
                                     <td>
@@ -149,7 +150,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="d-flex Order-list">
+                                        <div class="d-flex Order-list " style="width: 90px;">
                                             @if ($item->image != '')
                                                 <a href="{{ asset($item->image) }}" download target="__BLANK"
                                                     class="image-popup">
@@ -174,15 +175,29 @@
 
 
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>Order Id</th>
+                                <th>Vendor Name</th>
+                                <th>Advertisement Name</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Display Time Start</th>
+                                <th>Order Time</th>
+                                <th>Payment</th>
+                                <th>Display Status</th>
+                                <th>Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+
                     </table>
                 </div>
+
             </div>
         </div>
-        <!-- Container-fluid Ends-->
-
     </div>
-
-
     <div class="form-popup" id="myForm">
         <div class="card">
             <div class="card-header">
@@ -190,7 +205,7 @@
             </div>
             <div class="card-body">
                 <div class="digital-add needs-validation">
-                    @if ($item->id)
+                    @if ($item->id ?? 'null')
                         <form id="editForm" action="{{ route('advertisementOrderImageUpdate', ['id' => $item->id]) }}"
                             method="POST" enctype="multipart/form-data">
                             @csrf
@@ -230,122 +245,6 @@
             document.getElementById("myForm").style.display = "none";
         }
     </script>
-@endsection
-
-
-
-
-
-@extends('layouts.master')
-@section('page-css')
-    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-@endsection
-
-@section('main-content')
-    <div class="breadcrumb">
-        <div class="col-md-6">
-            <h1>Advertisement Order List</h1>
-        </div>
-
-    </div>
-
-    <div class="separator-breadcrumb border-top"></div>
-    <div class="col-md-12 mb-4">
-        <div class="card text-start">
-
-            <div class="card-body">
-                <h4 class="card-title mb-3">All Advertisement Order's</h4>
-
-
-                <div class="table-responsive">
-                    <table id="deafult_ordering_table" class="display table table-striped table-bordered"
-                        style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Order Id</th>
-                                <th>Vendor Name</th>
-                                <th>Advertisement Name</th>
-                                <th>Name</th>
-                                <th>Phone</th>
-                                <th>Display Time Start</th>
-                                <th>Order Time</th>
-                                <th>Payment</th>
-                                <th>Display Status</th>
-                                <th>Image</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($data as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->id ?? 'Deleted form database as per instruction' }}</td>
-                                    <td>{{ $item->user->name ?? 'deleted from database' }}</td>
-                                    <td>{{ $item->advertisement->name ?? 'deleted from database' }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->phone }}</td>
-                                    <td>{{ $item->display_time_start }}</td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>
-                                        @if ($item->status == 'paid')
-                                        <span class="badge badge-success">Paid </span>@else<span
-                                                class="badge badge-danger">Payment Failed</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($item->display_status == '1')
-                                            <span class="badge badge-success">Display </span>
-                                        @else
-                                            <span class="badge badge-danger">No Display</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="d-flex Order-list">
-                                            @if ($item->image != '')
-                                                <a href="{{ asset($item->image) }}" download target="__BLANK"
-                                                    class="image-popup">
-                                                    <img src="{{ asset($item->image) }}" alt="N/A" width="90px"
-                                                        class=" img-fluid img-40 blur-up lazyloaded">
-                                                </a>
-                                            @else
-                                                N/A
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <a href="#" onclick="openForm({{ $item->id }})">
-                                                <i class="fa fa-edit me-2 font-success"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Id</th>
-                                <th>Order Id</th>
-                                <th>Vendor Name</th>
-                                <th>Advertisement Name</th>
-                                <th>Name</th>
-                                <th>Phone</th>
-                                <th>Display Time Start</th>
-                                <th>Order Time</th>
-                                <th>Payment</th>
-                                <th>Display Status</th>
-                                <th>Image</th>
-                                <th>Action</th>
-                            </tr>
-                        </tfoot>
-
-                    </table>
-                </div>
-
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('page-js')
