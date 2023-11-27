@@ -119,6 +119,7 @@
                                 <th>Phone</th>
                                 <th>Display Start Time</th>
                                 <th>Display End Time</th>
+                                <th>Time</th>
                                 <th>Order Time</th>
                                 <th>Payment</th>
                                 <th>Display Status</th>
@@ -138,6 +139,39 @@
                                     <td>{{ $item->phone }}</td>
                                     <td>{{ $item->display_time_start }}</td>
                                     <td>{{ $item->display_end_start }}</td>
+                                    <td>
+                                        <p id="countdown-{{ $item->id }}"></p>
+                                        <script>
+                                            // Set the date we're counting down to
+                                            var countDownDate{{ $item->id }} = new Date("{{ $item->display_end_start }}").getTime();
+
+                                            // Update the count down every 1 second
+                                            var x{{ $item->id }} = setInterval(function() {
+
+                                                // Get today's date and time
+                                                var now = new Date().getTime();
+
+                                                // Find the distance between now and the count down date
+                                                var distance = countDownDate{{ $item->id }} - now;
+
+                                                // Time calculations for days, hours, minutes, and seconds
+                                                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                                                // Output the result in an element with id="countdown-{{ $item->id }}"
+                                                document.getElementById("countdown-{{ $item->id }}").innerHTML = days + "d " + hours + "h " +
+                                                    minutes + "m " + seconds + "s ";
+
+                                                // If the count down is over, write some text 
+                                                if (distance < 0) {
+                                                    clearInterval(x{{ $item->id }});
+                                                    document.getElementById("countdown-{{ $item->id }}").innerHTML = "EXPIRED";
+                                                }
+                                            }, 1000);
+                                        </script>
+                                    </td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>
                                         @if ($item->status == 'paid')
@@ -254,6 +288,8 @@
             </div>
         </div>
     </div>
+
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
