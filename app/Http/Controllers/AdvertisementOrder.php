@@ -52,9 +52,10 @@ class AdvertisementOrder extends Controller
         // dd($request->all());
         $update =  ModelsAdvertisementOrder::findOrFail($request->a_d_i_admin);
         $update->display_status = $request->display_status;
-        $update->display_time_start = $request->display_time_start;
-        // $update->display_end_start = $request->display_end_start;
-
+        if ($request->display_time_start) {
+            $update->display_time_start = $request->display_time_start;
+            // $update->display_end_start = $request->display_end_start;
+        }
         $startDate = Carbon::parse($request->display_time_start);
         $endDate = $startDate->copy()->addDays($request->days);
 
