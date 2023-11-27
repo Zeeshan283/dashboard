@@ -114,9 +114,11 @@
                                 <th>Order Id</th>
                                 <th>Vendor Name</th>
                                 <th>Advertisement Name</th>
+                                <th>Display Day's</th>
                                 <th>Name</th>
                                 <th>Phone</th>
-                                <th>Display Time Start</th>
+                                <th>Display Start Time</th>
+                                <th>Display End Time</th>
                                 <th>Order Time</th>
                                 <th>Payment</th>
                                 <th>Display Status</th>
@@ -131,9 +133,11 @@
                                     <td>{{ $item->id ?? 'Deleted form database as per instruction' }}</td>
                                     <td>{{ $item->user->name ?? 'deleted from database' }}</td>
                                     <td>{{ $item->advertisement->name ?? 'deleted from database' }}</td>
+                                    <td>{{ $item->advertisement->days ?? 'deleted from database' }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->phone }}</td>
                                     <td>{{ $item->display_time_start }}</td>
+                                    <td>{{ $item->display_end_start }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>
                                         @if ($item->status == 'paid')
@@ -169,8 +173,8 @@
                                             {{-- <a href="#" onclick="openForm({{ $item->id }})">
                                                 <i class="fa fa-edit me-2 font-success"></i></a> --}}
                                             <a href="#" title="upload banner"
-                                                onclick="openForm({{ $item->id }})"><button type="button"
-                                                    class="btn btn-outline-secondary ">
+                                                onclick="openForm({{ $item->id }}, {{ $item->advertisement->days }})"><button
+                                                    type="button" class="btn btn-outline-secondary ">
                                                     Upload
                                                 </button></a>
                                         </div>
@@ -188,9 +192,11 @@
                                 <th>Order Id</th>
                                 <th>Vendor Name</th>
                                 <th>Advertisement Name</th>
+                                <th>Display Day's</th>
                                 <th>Name</th>
                                 <th>Phone</th>
-                                <th>Display Time Start</th>
+                                <th>Display Start Time</th>
+                                <th>Display End Time</th>
                                 <th>Order Time</th>
                                 <th>Payment</th>
                                 <th>Display Status</th>
@@ -225,16 +231,22 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="validationCustom05" class="col-form-label pt-0">Display Time Start</label>
-                                <input type="date" name="display_time_start" class="form-control ">
+                                <label for="validationCustom05" class="col-form-label pt-0">Display Start Time</label>
+                                <input type="date" name="display_time_start" value="" class="form-control ">
                             </div>
-                            <img src="" width="100px" id="show_image">
-                            <div class="form-group mb-0">
-                                <div class="product-buttons text-center">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                    <button type="button" class="btn btn-light" onclick="closeForm()">Discard</button>
+
+
+                            <div class="form-group">
+                                <label for="validationCustom05" class="col-form-label pt-0">Display Days</label>
+                                <input type="number" name="days" id="display_days" value="" class="form-control"
+                                    readonly </div>
+                                <img src="" width="100px" id="show_image">
+                                <div class="form-group mb-0">
+                                    <div class="product-buttons text-center">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="button" class="btn btn-light" onclick="closeForm()">Discard</button>
+                                    </div>
                                 </div>
-                            </div>
                         </form>
                     @endif
                 </div>
@@ -242,16 +254,47 @@
         </div>
     </div>
 
+
     <script>
-        function openForm(advertisementId) {
+        function openForm(advertisementId, display_days) {
             document.getElementById("myForm").style.display = "block";
             document.getElementById("advertisementId").value = advertisementId;
+            document.getElementById("display_days").value = display_days;
+
         }
 
         function closeForm() {
             document.getElementById("myForm").style.display = "none";
         }
     </script>
+    {{-- <script>
+        function updateEndDate() {
+            var startDate = document.getElementById('display_time_start').value;
+            var days = document.getElementById('display_days').value;
+
+            if (startDate && days) {
+                var endDate = new Date(startDate);
+                endDate.setDate(endDate.getDate() + parseInt(days));
+
+                // Format the date as 'YYYY-MM-DD' for the input field
+                var formattedEndDate = endDate.toISOString().split('T')[0];
+
+                document.getElementById('display_end_start').value = formattedEndDate;
+            }
+        }
+    </script>
+
+    <script>
+        function openForm(advertisementId, display_days) {
+            document.getElementById("myForm").style.display = "block";
+            document.getElementById("advertisementId").value = advertisementId;
+            document.getElementById("display_days").value = display_days;
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script> --}}
 @endsection
 
 @section('page-js')
