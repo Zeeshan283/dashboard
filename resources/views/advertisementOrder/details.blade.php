@@ -173,7 +173,7 @@
                                             {{-- <a href="#" onclick="openForm({{ $item->id }})">
                                                 <i class="fa fa-edit me-2 font-success"></i></a> --}}
                                             <a href="#" title="upload banner"
-                                                onclick="openForm({{ $item->id }}, {{ $item->advertisement->days }})"><button
+                                                onclick="openForm({{ $item->id }}, {{ $item->advertisement->days }}, {{ $item->display_status }}, {{ $item->display_time_start }})"><button
                                                     type="button" class="btn btn-outline-secondary ">
                                                     Upload
                                                 </button></a>
@@ -225,28 +225,29 @@
                             <input type="hidden" name="a_d_i_admin" id="advertisementId">
                             <div class="form-group">
                                 <label for="validationCustom05" class="col-form-label pt-0">Status</label>
-                                <select name="display_status" class="form-control fstdropdown-select">
+                                <select name="display_status" id="display_status" class="form-control fstdropdown-select">
                                     <option value="1">Display</option>
                                     <option value="0">Not Display</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="validationCustom05" class="col-form-label pt-0">Display Start Time</label>
-                                <input type="date" name="display_time_start" value="" class="form-control ">
+                                <input type="date" id="display_time_start" name="display_time_start" value=""
+                                    class="form-control ">
                             </div>
 
 
                             <div class="form-group">
                                 <label for="validationCustom05" class="col-form-label pt-0">Display Days</label>
-                                <input type="number" name="days" id="display_days" value="" class="form-control"
-                                    readonly </div>
-                                <img src="" width="100px" id="show_image">
-                                <div class="form-group mb-0">
-                                    <div class="product-buttons text-center">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                        <button type="button" class="btn btn-light" onclick="closeForm()">Discard</button>
-                                    </div>
+                                <input type="number" name="days" id="display_days" value="" class="form-control">
+                            </div>
+                            <img src="" width="100px" id="show_image">
+                            <div class="form-group mb-0">
+                                <div class="product-buttons text-center">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="button" class="btn btn-light" onclick="closeForm()">Discard</button>
                                 </div>
+                            </div>
                         </form>
                     @endif
                 </div>
@@ -254,13 +255,20 @@
         </div>
     </div>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
-        function openForm(advertisementId, display_days) {
+        function openForm(advertisementId, display_days, display_status, display_time_start) {
             document.getElementById("myForm").style.display = "block";
             document.getElementById("advertisementId").value = advertisementId;
             document.getElementById("display_days").value = display_days;
+            document.getElementById("display_status").value = display_status;
 
+            flatpickr("#display_time_start", {
+                enableTime: false,
+                dateFormat: "Y/m/d",
+            });
         }
 
         function closeForm() {
