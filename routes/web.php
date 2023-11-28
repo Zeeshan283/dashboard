@@ -432,6 +432,7 @@ Route::get('advertisement/{id}/destroy', [AdvertisementController::class, 'destr
 
 Route::get('a_details', [AdvertisementOrder::class, 'details'])->name('advertisementSellers.details');
 Route::post('a_s_i_a/{id}', [AdvertisementOrder::class, 'advertisementOrderImageStatusUpdate'])->name('advertisementOrderImageUpdate');
+Route::post('a_s_i_a_1/{id}', [AdvertisementOrder::class, 'advertisementOrderDisplayStatus'])->name('advertisementOrderDisplayStatus');
 
 // VendorOnly
 Route::resource('advertisementSellers', AdvertisementSellerController::class);
