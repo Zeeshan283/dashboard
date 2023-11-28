@@ -12,6 +12,12 @@ use Carbon\Carbon;
 class AdvertisementOrder extends Controller
 {
     //
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function details()
     {
         $data = ModelsAdvertisementOrder::with('user', 'advertisement')->get();
@@ -51,7 +57,7 @@ class AdvertisementOrder extends Controller
 
         // dd($request->all());
         $update =  ModelsAdvertisementOrder::findOrFail($request->a_d_i_admin);
-        $update->display_status = $request->display_status;
+        // $update->display_status = $request->display_status;
         if ($request->display_time_start) {
             $update->display_time_start = $request->display_time_start;
             // $update->display_end_start = $request->display_end_start;
@@ -65,6 +71,16 @@ class AdvertisementOrder extends Controller
         $update->update();
 
 
+        Toastr::success('Time Status Upated', 'Success');
+        return redirect()->back();
+    }
+
+    public function advertisementOrderDisplayStatus(Request $request)
+    {
+        // dd($request->all());
+        $update =  ModelsAdvertisementOrder::findOrFail($request->a_d_i_admin_1);
+        $update->display_status = $request->display_status;
+        $update->update();
         Toastr::success('Display Status Upated', 'Success');
         return redirect()->back();
     }
