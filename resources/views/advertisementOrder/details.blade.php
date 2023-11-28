@@ -86,6 +86,26 @@
         .open-button:hover {
             opacity: 1;
         }
+
+        /* Add styles to the countdown element */
+        .countdown {
+            font-family: 'Georgia', serif;
+            font-size: 18px;
+            color: #333;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        /* Style for the "EXPIRED" text */
+        .expired {
+            color: #d9534f;
+            /* Bootstrap's danger color */
+            font-weight: bold;
+        }
     </style>
 @endsection
 
@@ -119,12 +139,12 @@
                                 <th>Phone</th>
                                 <th>Display Start Time</th>
                                 <th>Display End Time</th>
-                                <th>Time</th>
+                                <th style="width: 202px;">Time</th>
                                 <th>Order Time</th>
                                 <th>Payment</th>
                                 <th>Display Status</th>
                                 <th>Image</th>
-                                <th>Action</th>
+                                <th style="width: 130px;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -140,37 +160,48 @@
                                     <td>{{ $item->display_time_start }}</td>
                                     <td>{{ $item->display_end_start }}</td>
                                     <td>
-                                        <p id="countdown-{{ $item->id }}"></p>
+                                        <p id="countdown-{{ $item->id }}" class="countdown"></p>
                                         <script>
                                             // Set the date we're counting down to
                                             var countDownDate{{ $item->id }} = new Date("{{ $item->display_end_start }}").getTime();
 
-                                            // Update the count down every 1 second
                                             var x{{ $item->id }} = setInterval(function() {
+                                                // Check if display_end_start is not null
+                                                if ({{ $item->display_end_start }} !== null) {
+                                                    // Get today's date and time
+                                                    var now = new Date().getTime();
 
-                                                // Get today's date and time
-                                                var now = new Date().getTime();
+                                                    // Find the distance between now and the count down date
+                                                    var distance = countDownDate{{ $item->id }} - now;
 
-                                                // Find the distance between now and the count down date
-                                                var distance = countDownDate{{ $item->id }} - now;
+                                                    // Time calculations for days, hours, minutes, and seconds
+                                                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                                                // Time calculations for days, hours, minutes, and seconds
-                                                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                                                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                                                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                                    // Output the result in an element with id="countdown-{{ $item->id }}"
+                                                    document.getElementById("countdown-{{ $item->id }}").innerHTML = days + "d " + hours + "h " +
+                                                        minutes + "m " + seconds + "s ";
 
-                                                // Output the result in an element with id="countdown-{{ $item->id }}"
-                                                document.getElementById("countdown-{{ $item->id }}").innerHTML = days + "d " + hours + "h " +
-                                                    minutes + "m " + seconds + "s ";
-
-                                                // If the count down is over, write some text 
-                                                if (distance < 0) {
-                                                    clearInterval(x{{ $item->id }});
-                                                    document.getElementById("countdown-{{ $item->id }}").innerHTML = "EXPIRED";
+                                                    // If the count down is over, write some text 
+                                                    if (distance < 0) {
+                                                        clearInterval(x{{ $item->id }});
+                                                        document.getElementById("countdown-{{ $item->id }}").innerHTML = "EXPIRED";
+                                                        document.getElementById("countdown-{{ $item->id }}").style.backgroundColor = "#e51111";
+                                                        document.getElementById("countdown-{{ $item->id }}").style.color = "cornsilk";
+                                                        document.getElementById("countdown-{{ $item->id }}").style.padding =
+                                                            "var(--bs-badge-padding-y) var(--bs-badge-padding-x);";
+                                                        document.getElementById("countdown-{{ $item->id }}").className = "badge badge-success";
+                                                        document.getElementById("countdown-{{ $item->id }}").style.fontSize = "small";
+                                                    }
+                                                } else {
+                                                    // If display_end_start is null, display the specified sentence
+                                                    document.getElementById("countdown-{{ $item->id }}").innerHTML = "This is a sentence.";
                                                 }
                                             }, 1000);
                                         </script>
+
                                     </td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>
@@ -202,14 +233,21 @@
                                             @endif
                                         </div>
                                     </td>
+
                                     <td>
                                         <div>
                                             {{-- <a href="#" onclick="openForm({{ $item->id }})">
                                                 <i class="fa fa-edit me-2 font-success"></i></a> --}}
-                                            <a href="#" title="upload banner"
+                                            <a href="#" title="update time"
                                                 onclick="openForm({{ $item->id }}, {{ $item->advertisement->days }}, {{ $item->display_status }}, {{ $item->display_time_start }})"><button
                                                     type="button" class="btn btn-outline-secondary ">
-                                                    Upload
+                                                    Update
+                                                </button></a>
+
+                                            <a href="#" title="update display"
+                                                onclick="openForm1({{ $item->id }}, {{ $item->display_status }})"><button
+                                                    type="button" class="btn btn-outline-secondary ">
+                                                    Display
                                                 </button></a>
                                         </div>
                                     </td>
@@ -257,13 +295,7 @@
                             method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="a_d_i_admin" id="advertisementId">
-                            <div class="form-group">
-                                <label for="validationCustom05" class="col-form-label pt-0">Status</label>
-                                <select name="display_status" id="display_status" class="form-control fstdropdown-select">
-                                    <option value="1">Display</option>
-                                    <option value="0">Not Display</option>
-                                </select>
-                            </div>
+
                             <div class="form-group">
                                 <label for="validationCustom05" class="col-form-label pt-0">Display Start Time</label>
                                 <input type="date" id="display_time_start" name="display_time_start" value=""
@@ -278,7 +310,7 @@
                             <img src="" width="100px" id="show_image">
                             <div class="form-group mb-0">
                                 <div class="product-buttons text-center">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                     <button type="button" class="btn btn-light" onclick="closeForm()">Discard</button>
                                 </div>
                             </div>
@@ -289,17 +321,48 @@
         </div>
     </div>
 
+    <div class="form-popup" id="myForm1">
+        <div class="card">
+            <div class="card-header">
+                <h5>Display Status</h5>
+            </div>
+            <div class="card-body">
+                <div class="digital-add needs-validation">
+                    @if ($item->id ?? 'null')
+                        <form id="editForm" action="{{ route('advertisementOrderDisplayStatus', ['id' => $item->id]) }}"
+                            method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="a_d_i_admin_1" id="advertisementId1">
+                            <div class="form-group">
+                                <label for="validationCustom05" class="col-form-label pt-0">Status</label>
+                                <select name="display_status" id="display_status"
+                                    class="form-control fstdropdown-select">
+                                    <option value="1">Display</option>
+                                    <option value="0">Not Display</option>
+                                </select>
+                            </div>
 
+                            <div class="form-group mb-0">
+                                <div class="product-buttons text-center">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="button" class="btn btn-light" onclick="closeForm1()">Discard</button>
+                                </div>
+                            </div>
+                        </form>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
-        function openForm(advertisementId, display_days, display_status, display_time_start) {
+        function openForm(advertisementId, display_days, display_time_start) {
             document.getElementById("myForm").style.display = "block";
             document.getElementById("advertisementId").value = advertisementId;
             document.getElementById("display_days").value = display_days;
-            document.getElementById("display_status").value = display_status;
 
             flatpickr("#display_time_start", {
                 enableTime: false,
@@ -310,7 +373,19 @@
         function closeForm() {
             document.getElementById("myForm").style.display = "none";
         }
+
+        function openForm1(advertisementId, display_status) {
+            document.getElementById("myForm1").style.display = "block";
+            document.getElementById("advertisementId1").value = advertisementId;
+            document.getElementById("display_status").value = display_status;
+
+        }
+
+        function closeForm1() {
+            document.getElementById("myForm1").style.display = "none";
+        }
     </script>
+
     {{-- <script>
         function updateEndDate() {
             var startDate = document.getElementById('display_time_start').value;
