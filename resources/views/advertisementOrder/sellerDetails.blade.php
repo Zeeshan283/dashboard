@@ -86,6 +86,25 @@
         .open-button:hover {
             opacity: 1;
         }
+
+        .countdown {
+            font-family: 'Georgia', serif;
+            font-size: 18px;
+            color: #333;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        /* Style for the "EXPIRED" text */
+        .expired {
+            color: #d9534f;
+            /* Bootstrap's danger color */
+            font-weight: bold;
+        }
     </style>
 @endsection
 
@@ -114,9 +133,13 @@
                                 <th>Order Id</th>
                                 <th>Name</th>
                                 <th>Phone</th>
-                                <th>Display Time Start</th>
+                                <th>Display Day's</th>
+                                <th>Display Start Time</th>
+                                <th>Display End Time</th>
+                                <th style="width: 202px;">Time</th>
                                 <th>Payment</th>
                                 <th>Display Status</th>
+                                <th>dimention</th>
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
@@ -128,7 +151,53 @@
                                     <td>{{ $item->id ?? 'Deleted form database as per instruction' }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->phone }}</td>
+                                    <td>{{ $item->advertisement->days ?? 'deleted from database' }}</td>
                                     <td>{{ $item->display_time_start }}</td>
+                                    <td>{{ $item->display_end_start }}</td>
+                                    <td>
+                                        <p id="countdown-{{ $item->id }}" class="countdown"></p>
+                                        <script>
+                                            // Set the date we're counting down to
+                                            var countDownDate{{ $item->id }} = new Date("{{ $item->display_end_start }}").getTime();
+
+                                            var x{{ $item->id }} = setInterval(function() {
+                                                // Check if display_end_start is not null
+                                                if ({{ $item->display_end_start }} !== null) {
+                                                    // Get today's date and time
+                                                    var now = new Date().getTime();
+
+                                                    // Find the distance between now and the count down date
+                                                    var distance = countDownDate{{ $item->id }} - now;
+
+                                                    // Time calculations for days, hours, minutes, and seconds
+                                                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                                                    // Output the result in an element with id="countdown-{{ $item->id }}"
+                                                    document.getElementById("countdown-{{ $item->id }}").innerHTML = days + "d " + hours + "h " +
+                                                        minutes + "m " + seconds + "s ";
+
+                                                    // If the count down is over, write some text 
+                                                    if (distance < 0) {
+                                                        clearInterval(x{{ $item->id }});
+                                                        document.getElementById("countdown-{{ $item->id }}").innerHTML = "EXPIRED";
+                                                        document.getElementById("countdown-{{ $item->id }}").style.backgroundColor = "#e51111";
+                                                        document.getElementById("countdown-{{ $item->id }}").style.color = "cornsilk";
+                                                        document.getElementById("countdown-{{ $item->id }}").style.padding =
+                                                            "var(--bs-badge-padding-y) var(--bs-badge-padding-x);";
+                                                        document.getElementById("countdown-{{ $item->id }}").className = "badge badge-success";
+                                                        document.getElementById("countdown-{{ $item->id }}").style.fontSize = "small";
+                                                    }
+                                                } else {
+                                                    // If display_end_start is null, display the specified sentence
+                                                    document.getElementById("countdown-{{ $item->id }}").innerHTML = "This is a sentence.";
+                                                }
+                                            }, 1000);
+                                        </script>
+
+                                    </td>
                                     <td>
                                         @if ($item->status == 'paid')
                                             <span class="badge badge-success" style="background-color: #039103;">Paid
@@ -145,6 +214,7 @@
                                                 Display</span>
                                         @endif
                                     </td>
+                                    <td>{{ $item->advertisement->imageDimention }}</td>
                                     <td>
                                         <div class="d-flex Order-list" style="width: 77px;">
                                             @if ($item->image != '')
@@ -163,8 +233,8 @@
                                             {{-- <a href="#" onclick="openForm({{ $item->id }})"> --}}
                                             {{-- <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i> --}}
                                             <a href="#" title="upload banner"
-                                                onclick="openForm({{ $item->id }})"><button type="button"
-                                                    class="btn btn-outline-secondary ">
+                                                onclick="openForm({{ $item->id }}, {{ $item->advertisement->imageDimention }})"><button
+                                                    type="button" class="btn btn-outline-secondary ">
                                                     Upload
                                                 </button></a>
 
@@ -183,9 +253,13 @@
                                 <th>Order Id</th>
                                 <th>Name</th>
                                 <th>Phone</th>
-                                <th>Display Time Start</th>
+                                <th>Display Day's</th>
+                                <th>Display Start Time</th>
+                                <th>Display End Time</th>
+                                <th style="width: 202px;">Time</th>
                                 <th>Payment</th>
                                 <th>Display Status</th>
+                                <th>dimention</th>
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
@@ -200,7 +274,7 @@
     <div class="form-popup" id="myForm">
         <div class="card">
             <div class="card-header">
-                <h5>Add Advertisement ({{ $data1->advertisement->imageDimention ?? 'n/a' }})</h5>
+                {{-- <h5>Add Advertisement ({{ $data1->advertisement->imageDimention ?? 'n/a' }})</h5> --}}
             </div>
             <div class="card-body">
                 <div class="digital-add needs-validation">
@@ -209,6 +283,7 @@
                             enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="a_d_i" id="advertisementId">
+                            {{-- <input type="text" name="advertisementDimention" id="advertisementDimention"> --}}
                             <div class="form-group">
                                 <label for="validationCustom05" class="col-form-label pt-0">Image</label>
                                 <input class="form-control" id="imageshow" name="image" type="file" required="">
@@ -228,9 +303,10 @@
     </div>
 
     <script>
-        function openForm(advertisementId) {
+        function openForm(advertisementId, advertisementDimention) {
             document.getElementById("myForm").style.display = "block";
             document.getElementById("advertisementId").value = advertisementId;
+            document.getElementById("advertisementDimention").value = advertisementDimention;
         }
 
         function closeForm() {
