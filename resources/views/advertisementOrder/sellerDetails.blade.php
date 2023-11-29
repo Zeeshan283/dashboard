@@ -131,15 +131,15 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Order Id</th>
+                                <th>Advertisement Name</th>
                                 <th>Name</th>
-                                <th>Phone</th>
                                 <th>Display Day's</th>
                                 <th>Display Start Time</th>
                                 <th>Display End Time</th>
                                 <th style="width: 202px;">Time</th>
                                 <th>Payment</th>
                                 <th>Display Status</th>
-                                <th>dimention</th>
+                                {{-- <th>dimention</th> --}}
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
@@ -149,8 +149,8 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->id ?? 'Deleted form database as per instruction' }}</td>
+                                    <td>{{ $item->advertisement->name ?? 'deleted from database' }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->phone }}</td>
                                     <td>{{ $item->advertisement->days ?? 'deleted from database' }}</td>
                                     <td>{{ $item->display_time_start }}</td>
                                     <td>{{ $item->display_end_start }}</td>
@@ -214,7 +214,7 @@
                                                 Display</span>
                                         @endif
                                     </td>
-                                    <td>{{ $item->advertisement->imageDimention }}</td>
+                                    {{-- <td>{{ $item->advertisement->imageDimention }}</td> --}}
                                     <td>
                                         <div class="d-flex Order-list" style="width: 77px;">
                                             @if ($item->image != '')
@@ -229,11 +229,13 @@
                                     </td>
                                     <td>
                                         <div>
-
+                                            <?php
+                                            $dim = $item->advertisement->imageDimention;
+                                            ?>
                                             {{-- <a href="#" onclick="openForm({{ $item->id }})"> --}}
                                             {{-- <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i> --}}
                                             <a href="#" title="upload banner"
-                                                onclick="openForm({{ $item->id }}, {{ $item->advertisement->imageDimention }})"><button
+                                                onclick="openForm({{ $item->id }},  '{{ $dim }}')"><button
                                                     type="button" class="btn btn-outline-secondary ">
                                                     Upload
                                                 </button></a>
@@ -251,15 +253,15 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Order Id</th>
+                                <th>Advertisement Name</th>
                                 <th>Name</th>
-                                <th>Phone</th>
                                 <th>Display Day's</th>
                                 <th>Display Start Time</th>
                                 <th>Display End Time</th>
                                 <th style="width: 202px;">Time</th>
                                 <th>Payment</th>
                                 <th>Display Status</th>
-                                <th>dimention</th>
+                                {{-- <th>dimention</th> --}}
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
@@ -274,7 +276,7 @@
     <div class="form-popup" id="myForm">
         <div class="card">
             <div class="card-header">
-                {{-- <h5>Add Advertisement ({{ $data1->advertisement->imageDimention ?? 'n/a' }})</h5> --}}
+                <h5>Upload Image </h5>
             </div>
             <div class="card-body">
                 <div class="digital-add needs-validation">
@@ -283,7 +285,10 @@
                             enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="a_d_i" id="advertisementId">
-                            {{-- <input type="text" name="advertisementDimention" id="advertisementDimention"> --}}
+                            <div class="form-group">
+                                <label for="validationCustom05" class="col-form-label pt-0">Image Dimention</label>
+                                <input class="form-control" type="text" id="advertisementDimention" readonly>
+                            </div>
                             <div class="form-group">
                                 <label for="validationCustom05" class="col-form-label pt-0">Image</label>
                                 <input class="form-control" id="imageshow" name="image" type="file" required="">
@@ -302,6 +307,17 @@
         </div>
     </div>
 
+    {{-- <script>
+        function openForm(advertisementId, advertisementDimention) {
+            document.getElementById("myForm").style.display = "block";
+            document.getElementById("advertisementId").value = advertisementId;
+            document.getElementById("advertisementDimention").value = advertisementDimention;
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script> --}}
     <script>
         function openForm(advertisementId, advertisementDimention) {
             document.getElementById("myForm").style.display = "block";
