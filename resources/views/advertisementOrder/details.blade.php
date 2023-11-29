@@ -12,7 +12,6 @@
             box-sizing: border-box;
         }
 
-        /* Button used to open the contact form - fixed at the bottom of the page */
         .open-button {
             background-color: #555;
             color: white;
@@ -26,7 +25,6 @@
             width: 280px;
         }
 
-        /* The popup form - hidden by default */
         .form-popup {
             display: none;
             position: fixed;
@@ -40,14 +38,12 @@
             padding: 1px;
         }
 
-        /* Add styles to the form container */
         .form-container {
             max-width: 300px;
             padding: 10px;
             background-color: white;
         }
 
-        /* Full-width input fields */
         .form-container input[type=text],
         .form-container input[type=password] {
             width: 100%;
@@ -57,14 +53,12 @@
             background: #f1f1f1;
         }
 
-        /* When the inputs get focus, do something */
         .form-container input[type=text]:focus,
         .form-container input[type=password]:focus {
             background-color: #ddd;
             outline: none;
         }
 
-        /* Set a style for the submit/login button */
         .form-container .btn {
             background-color: #04AA6D;
             color: white;
@@ -76,18 +70,15 @@
             opacity: 0.8;
         }
 
-        /* Add a red background color to the cancel button */
         .form-container .cancel {
             background-color: red;
         }
 
-        /* Add some hover effects to buttons */
         .form-container .btn:hover,
         .open-button:hover {
             opacity: 1;
         }
 
-        /* Add styles to the countdown element */
         .countdown {
             font-family: 'Georgia', serif;
             font-size: 18px;
@@ -100,10 +91,8 @@
             margin: 5px;
         }
 
-        /* Style for the "EXPIRED" text */
         .expired {
             color: #d9534f;
-            /* Bootstrap's danger color */
             font-weight: bold;
         }
     </style>
@@ -143,6 +132,7 @@
                                 <th>Order Time</th>
                                 <th>Payment</th>
                                 <th>Display Status</th>
+                                <th>Image Dim</th>
                                 <th>Image</th>
                                 <th style="width: 130px;">Action</th>
                             </tr>
@@ -220,6 +210,7 @@
                                                 Display</span>
                                         @endif
                                     </td>
+                                    <td>{{ $item->advertisement->imageDimention }}</td>
                                     <td>
                                         <div class="d-flex Order-list " style="width: 90px;">
                                             @if ($item->image != '')
@@ -272,6 +263,7 @@
                                 <th>Order Time</th>
                                 <th>Payment</th>
                                 <th>Display Status</th>
+                                <th>Image Dim</th>
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
@@ -286,7 +278,7 @@
     <div class="form-popup" id="myForm">
         <div class="card">
             <div class="card-header">
-                <h5>Display Status</h5>
+                <h5>Display Time Status</h5>
             </div>
             <div class="card-body">
                 <div class="digital-add needs-validation">
@@ -341,7 +333,7 @@
                                     <option value="0">Not Display</option>
                                 </select>
                             </div>
-
+                            <br>
                             <div class="form-group mb-0">
                                 <div class="product-buttons text-center">
                                     <button type="submit" class="btn btn-primary">Update</button>
