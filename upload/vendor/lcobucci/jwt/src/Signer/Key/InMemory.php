@@ -15,7 +15,7 @@ use function is_string;
 final class InMemory implements Key
 {
     /** @param non-empty-string $contents */
-    private function __construct(public readonly string $contents, public readonly string $passphrase)
+    private function __construct(public  string $contents, public string $passphrase)
     {
     }
 

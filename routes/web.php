@@ -18,8 +18,12 @@ use App\Http\Controllers\EwalletController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\ProductContactController;
+use App\Http\Controllers\HomecouponsController;
 use App\Http\Controllers\InsertVendorsController;
+use App\Http\Controllers\BlogsCategoriesController;
+use App\Http\Controllers\CfeaturesController;
 use App\Http\Controllers\TermsConditionsController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HomeSettingsController;
@@ -27,6 +31,7 @@ use App\Http\Controllers\BannersController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DealsController;
 use App\Http\Controllers\HelpCenterController;
+use App\Http\Controllers\PaymentController;
 use App\Models\User;
 use App\Models\Order;
 
@@ -248,7 +253,7 @@ Route::resource('products', ProductController::class);
 Route::get('product/{id}/dupe', [ProductController::class, 'dupe']);
 Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
 Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
-Route::get('product/{id}', 'ProductController@show')->name('products.show');
+// Route::get('product/{id}', 'ProductController@show')->name('products.show');
 
 Route::resource('CustomerQueries', ProductContactController::class);
 
@@ -272,7 +277,7 @@ Route::patch('orderstatus',[OrderController::class,'update'])->name('order.statu
 
 Route::get('orders/{id}', [OrderController::class, 'show']);
 // home controller route
-// Route::get('/',[HomeController::class, 'index'])->name('admin');
+Route::get('/',[HomeController::class, 'index'])->name('admin');
 
 // customer controller route
 Route::get('customerlist', [CustomerController::class, 'index'])->name('customerlist');

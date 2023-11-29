@@ -74,17 +74,24 @@
                                                 </small>
                                             </div>
 
-
-                                            
                                             <div class="form-group col-md-4">
-                                                <label for="inputtext14" class="ul-form__label">Password:</label>
-                                                <input type="text" class="form-control" id="password" placeholder="Enter your Password " name="password" >
-                                                <span style="color: red">@error('password'){{ $message }}@enderror</span>
-                                                <small id="passwordHelpBlock" class="ul-form__text form-text ">
-                                                    Please enter your Password
+    <label for="inputtext14" class="ul-form__label">Password:</label>
+        <input type="password" class="form-control" id="inputEmail16"  name="password"  placeholder="Enter your Password">
+    <span class="span-right-input-icon" style="color: red">@error('password'){{ $message }}@enderror</span>
+    <small id="passwordHelpBlock" class="ul-form__text form-text ">
+                                                    Enter Password for Security
                                                 </small>
-                                            </div>
+</div>
 
+<script>
+    const passwordInput = document.getElementById('password');
+    const togglePasswordButton = document.getElementById('togglePassword');
+
+    togglePasswordButton.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+    });
+</script>
 
                                             <div class="form-group col-md-4 ">
                                                 <label for="status" class="ul-form__label">Status:</label>

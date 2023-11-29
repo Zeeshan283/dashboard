@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
+
 class ProductController extends Controller
 {
     public function __construct()
@@ -228,16 +229,6 @@ class ProductController extends Controller
             return redirect()->to('vendor-profile/' . $user_id);
         }
     }
-}
-
-public function show($id)
-{
-    $product = Product::find($id);
-    if (!$product) {
-        abort(404);
-    }
-    return view('products.show', compact('product'));
-}
 
     public function edit($id)
     {

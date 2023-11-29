@@ -5,7 +5,6 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,17 +16,14 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
+//  Route::middleware('auth:api')->get('/user', function (Request $request) {     return $request->user();
 // });
 
 Route::middleware(['auth:api'])->group(function () {
-    Route::get('/user', function (Request $request) {
-        return response()->json(['user' => $request->user()]);
-    });
-
-    
-});
+     Route::get('/user', function (Request $request) {
+         return response()->json(['user' => $request->user()]);
+     });
+ });
 
 // Route::post('/send-verification-email', 'Auth\VerificationController@sendVerificationEmail')->middleware('auth:api');
 Route::post('/send-verification-email/{email}',[VerificationController::class,'sendVerificationEmail']);

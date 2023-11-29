@@ -65,7 +65,7 @@
                                             <div class="form-group col-md-6">
                                                 <label for="inputEmail16" class="ul-form__label">Password:</label>
                                                 <div class="input-right-icon">
-                                                    <input type="password" class="form-control" id="inputEmail16"  name="password"  placeholder="Enter your address" value="{{ old ('address')}}">
+                                                    <input type="password" class="form-control" id="inputEmail16"  name="password"  placeholder="Enter your Password" value="{{ old ('address')}}">
                                                     <span class="span-right-input-icon" style="color: red">@error('password'){{ $message }}@enderror
                                                         <!-- <i class="ul-form__icon i-Map-Marker"></i> -->
                                                     </span>

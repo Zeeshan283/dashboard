@@ -5,7 +5,7 @@
 
 <div class="main-header">
     <div class="">
-        <a href="{{ route('admin') }}"><img src="{{ asset('root/upload/logo/dashboard-logo.jpg') }}" alt=""></a>
+        <a href=""><img src="{{ asset('root/upload/logo/dashboard-logo.jpg') }}" alt=""></a>
     </div>
 
     <div class="menu-toggle">

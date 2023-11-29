@@ -1,7 +1,7 @@
 <?php
 
 namespace Laravel\Passport;
-
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Container\Container;
 
 trait HasApiTokens
@@ -20,6 +20,7 @@ trait HasApiTokens
      */
     public function clients()
     {
+
         return $this->hasMany(Passport::clientModel(), 'user_id');
     }
 
