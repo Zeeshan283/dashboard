@@ -500,4 +500,65 @@ class ApiController extends Controller
             return response()->json(['error' => 'Internal Server Error.'], 500);
         }
     }
+
+    public function FeaturesProduct()
+    {
+        try {
+            $products = Product::with('product_images', 'colors', 'brand')
+                ->orderBy('name')
+                ->take(15)
+                ->get();
+
+            $formattedProducts = $products->map(function ($product) {
+                $p_with_stock = $product->id;
+                return $this->product_with_stock($p_with_stock);
+            });
+
+            return response()->json(['FeaturesProduct' => $formattedProducts]);
+        } catch (\Exception $e) {
+            // Handle the exception
+            return response()->json(['error' => 'not found.'], 400);
+        }
+    }
+
+    public function SponserdProduct()
+    {
+        try {
+            $products = Product::with('product_images', 'colors', 'brand')
+                ->orderBy('id')
+                ->take(15)
+                ->get();
+
+            $formattedProducts = $products->map(function ($product) {
+                $p_with_stock = $product->id;
+                return $this->product_with_stock($p_with_stock);
+            });
+
+            return response()->json(['SponserdProduct' => $formattedProducts]);
+        } catch (\Exception $e) {
+            // Handle the exception
+            return response()->json(['error' => 'not found.'], 400);
+        }
+    }
+
+
+    public function HotProduct()
+    {
+        try {
+            $products = Product::with('product_images', 'colors', 'brand')
+                ->orderBy('model_no')
+                ->take(30)
+                ->get();
+
+            $formattedProducts = $products->map(function ($product) {
+                $p_with_stock = $product->id;
+                return $this->product_with_stock($p_with_stock);
+            });
+
+            return response()->json(['HotProduct' => $formattedProducts]);
+        } catch (\Exception $e) {
+            // Handle the exception
+            return response()->json(['error' => 'not found.'], 400);
+        }
+    }
 }
