@@ -60,10 +60,11 @@ Route::post('/checkout', [ApiController::class, 'storeOrder']);
 Route::get('/user/{userId}/orders', [ApiController::class, 'getUserOrders']);
 Route::get('/vprofile/{id}', [ApiController::class, 'vendorprofile']);
 Route::get('/vcoupon/{id}', [ApiController::class, 'vendorcoupon']);
-Route::get('/faqs', [ApiController::class, 'FAQs']);
-Route::get('/pages', [ApiController::class, 'Pages']);
+
 
 // new api
+Route::get('/faqs', [ApiController::class, 'FAQs']); // all faqs
+Route::get('/pages', [ApiController::class, 'Pages']); // all pages
 Route::get('/brands', [ApiController::class, 'Brands']); // all brand's api 
 Route::get('$2a$12$BcZ4pTuol5qjv910GkNmeQVt1QVhlsuZZzAtv59pse1cRg28ewsK/{identifier}', [ApiController::class, 'allProductAMenu']); //product by menu
 Route::get('$2a$12$8fVZGOF27MtlmuQ4VRZejH3UW1ArfKXtyH0VQHUIsncRqSaW/{identifier}', [ApiController::class, 'allProducts']); // product by category
