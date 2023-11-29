@@ -31,8 +31,24 @@ use Carbon\Carbon;
 
 class ApiController extends Controller
 {
-    //
+    public function stock_values($id)
+    {
+        $stock = Purchase::where('product_id', $id)->first('quantity');
+        return $stock;
+    }
 
+    private function product_with_stock($p_with_stock)
+    {
+        $p_with_stock_items = is_array($p_with_stock) ? $p_with_stock : [$p_with_stock];
+
+        foreach ($p_with_stock_items as $p_with_stock_item) {
+            $product = Product::with('product_images', 'colors', 'brand')->find($p_with_stock_item);
+            $stock = $this->stock_values($p_with_stock_item);
+            $product->stock = $stock;
+            $with_stock = $product;
+        }
+        return $with_stock;
+    }
     public function menus()
     {
         $menus = Menu::select('id', 'name', 'icon', 'image', 'imageforapp')->orderBy('id')->get();
@@ -51,7 +67,7 @@ class ApiController extends Controller
         }
     }
 
-    public function subCategories($id)
+    public function subCategories123($id)
     {
         $category = Category::findOrFail($id);
 
@@ -159,21 +175,7 @@ class ApiController extends Controller
         }
     }
 
-    public function SearchProduct($character)
-    {
-        $products = Product::where('products.name', 'like', '%' . $character . '%')
-            ->OrWhere('products.model_no', 'like', '%' . $character . '%')
-            ->orderBy('name')
-            ->get();
-        // $arr = array();
-        // foreach ($products as $product) {
-        //     $arr[] = array(
-        //         'product_id' => $product->id, 'name' => $product->name, 'model_no' => $product->model_no,
-        //     );
-        // }
 
-        return Response::json(['data' => $products]);
-    }
 
     public function Home_setting()
     {
@@ -390,5 +392,112 @@ class ApiController extends Controller
     {
         $page = Page::select('question as title', 'answer as details')->get();
         return response()->json($page);
+    }
+
+    public function allProducts($identifier)
+    {
+        try {
+            $cat = is_numeric($identifier)
+                ? Category::findOrFail($identifier)
+                : Category::where('slug', $identifier)->firstOrFail();
+
+            $products = Product::with('product_image', 'subcategories', 'colors', 'brand')
+                ->where('category_id', $cat->id)
+                ->get()
+                ->map(function ($product) {
+                    $product->stock = $this->stock_values($product->id);
+                    return $product;
+                });
+
+            return response()->json([
+                'category' => $cat,
+                'products' => $products,
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // Record not found
+            return response()->json(['error' => 'Record not found.'], 404);
+        } catch (\Exception $e) {
+            // Handle other exceptions
+            return response()->json(['error' => 'Internal Server Error.'], 500);
+        }
+    }
+
+    public function allProductAMenu($identifier)
+    {
+        try {
+            $menu = is_numeric($identifier)
+                ? Menu::findOrFail($identifier)
+                : Menu::where('slug', $identifier)->firstOrFail();
+
+            $products_without_stock = Product::with('product_image', 'subcategories', 'colors', 'brand')
+                ->where('menu_id', $menu->id)
+                ->get();
+
+            $products = [];
+            foreach ($products_without_stock as $product) {
+                $p_with_stock = $product->id;
+                $products_stock = $this->product_with_stock($p_with_stock);
+                $products[] = $products_stock;
+            }
+
+            return response()->json([
+                'menu' => $menu,
+                'products' => $products,
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // Record not found
+            return response()->json(['error' => 'Record not found.'], 404);
+        }
+    }
+
+
+    public function allProductSubcategories($id)
+    {
+        try {
+            $sub_cat = is_numeric($id) ? SubCategory::findOrFail($id) : SubCategory::where('slug', $id)->firstOrFail();
+
+            $products_without_stock = Product::with('product_image', 'subcategories', 'colors')
+                ->where('subcategory_id', $sub_cat->id)
+                ->get();
+
+            $products = $products_without_stock->map(function ($product) {
+                $p_with_stock = $product->id;
+                return $this->product_with_stock($p_with_stock);
+            });
+
+            return response()->json([
+                'sub_cat' => $sub_cat,
+                'products' => $products,
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // Record not found
+            return response()->json(['error' => 'Record not found.'], 404);
+        }
+    }
+
+
+
+    public function SearchProduct($character)
+    {
+        try {
+            $products = Product::with('product_images', 'colors', 'brand')
+                ->where(function ($query) use ($character) {
+                    $query->where('name', 'like', '%' . $character . '%')
+                        ->orWhere('model_no', 'like', '%' . $character . '%')
+                        ->orWhere('slug', 'like', '%' . $character . '%')
+                        ->orWhere('sku', 'like', '%' . $character . '%');
+                })
+                ->orderBy('name')
+                ->get()
+                ->map(function ($product) {
+                    $product->stock = $this->stock_values($product->id);
+                    return $product;
+                });
+
+            return response()->json(['product' => $products]);
+        } catch (\Exception $e) {
+            // Handle the exception
+            return response()->json(['error' => 'Internal Server Error.'], 500);
+        }
     }
 }
