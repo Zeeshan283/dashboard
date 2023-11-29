@@ -70,4 +70,7 @@ Route::get('$2a$12$BcZ4pTuol5qjv910GkNmeQVt1QVhlsuZZzAtv59pse1cRg28ewsK/{identif
 Route::get('$2a$12$8fVZGOF27MtlmuQ4VRZejH3UW1ArfKXtyH0VQHUIsncRqSaW/{identifier}', [ApiController::class, 'allProducts']); // product by category
 Route::get('MtlmuQ4Xty$2a$12$8fVZGOF27H0VQHUIsncRqSaWVRZejH3UW1ArfK/{identifier}', [ApiController::class, 'allProductSubcategories']); // product by sub-category
 Route::get('/search/product/{character}', [ApiController::class, 'SearchProduct']); // Product Search Api
-// Route::get('/subcategories/{id}', [ApiController::class, 'subcategories']);
+Route::get('/MtlmuQ4XtlmuQ4XtyyMtlmuQ4XtyMtyMtlmuQ4XtyMtyMtlmuQ4Xt', [ApiController::class, 'FeaturesProduct']); // 15 Features Product's
+Route::get('/Q4XtyMtyMtlMtyyMmuQ4XttlmtlmuQ4XtlmuQ4XuQ4XtyMtyMtlmu', [ApiController::class, 'SponserdProduct']); // 15 Sponserd Product's
+Route::get('/uQCtlmuQ4MtlmuQ4XtlmXtyyMtlmuQCC4XtyMtyMtllm4XtyMtyMt', [ApiController::class, 'HotProduct']); // 30 Hot Product's
+Route::get('/uQCtlmuQ4MtlmuQ4XtlmXtyyMtlmuQCC4XtyMtyMtllm4XtyMtyMt', [ApiController::class, 'HotProduct']); // Deals Of The Day Product's
