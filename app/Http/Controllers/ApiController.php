@@ -524,6 +524,7 @@ class ApiController extends Controller
     public function SponserdProduct()
     {
         try {
+            $coupons = Coupon::where('status', 'active')->get();
             $products = Product::with('product_images', 'colors', 'brand')
                 ->orderBy('id')
                 ->take(15)
@@ -534,10 +535,10 @@ class ApiController extends Controller
                 return $this->product_with_stock($p_with_stock);
             });
 
-            return response()->json(['SponserdProduct' => $formattedProducts]);
+            return response()->json(['SponserdProduct' => $formattedProducts, 'Coupons' => $coupons]);
         } catch (\Exception $e) {
             // Handle the exception
-            return response()->json(['error' => 'not found.'], 400);
+            return response()->json(['error' => 'internel server error.'], 500);
         }
     }
 
@@ -559,6 +560,104 @@ class ApiController extends Controller
         } catch (\Exception $e) {
             // Handle the exception
             return response()->json(['error' => 'not found.'], 400);
+        }
+    }
+
+    public function DealProduct()
+    {
+        try {
+            $coupons = Coupon::where('status', 'active')->get();
+            $products = Product::with('product_images', 'colors', 'brand')
+                ->orderBy('model_no', 'desc')
+                ->take(10)
+                ->get();
+
+            $formattedProducts = $products->map(function ($product) {
+                $p_with_stock = $product->id;
+                return $this->product_with_stock($p_with_stock);
+            });
+
+            return response()->json(['DealProduct' => $formattedProducts, 'Coupons' => $coupons]);
+        } catch (\Exception $e) {
+            // Handle the exception
+            return response()->json(['error' => 'not found.'], 400);
+        }
+    }
+
+    public function homePageAll()
+    {
+        try {
+            $menus = Menu::all();
+            $categories = Category::all();
+            $sub_categories = SubCategory::all();
+            $banners = Banners::select('id', 'title1', 'url', 'image')->orderBy('id')->get();
+            $homesettings = HomeSettings::first();
+
+            $menuData = [];
+
+            foreach ($menus as $menu) {
+                $menuNameWords = explode(' ', $menu->name);
+                $menuName = $menuNameWords[0] ?? $menu->name;
+
+                $menuData[] = [
+                    'menu_name' => $menu->name,
+                    'slug' => $menu->slug,
+                    'icon' => $menu->icon,
+                    'image' => $menu->image,
+                    'imageforapp' => $menu->imageforapp,
+                    'sliders' => $menu->sliders,
+                    'categories' => [],
+                ];
+
+                foreach ($categories as $category) {
+                    if ($category->menu_id == $menu->id) {
+                        $categoryData = $category->toArray();
+                        $categoryData['sub_categories'] = [];
+
+                        foreach ($sub_categories as $sub_category) {
+                            if ($sub_category->category_id == $category->id) {
+                                $subCategoryData = $sub_category->toArray();
+
+                                $categoryData['sub_categories'][] = $subCategoryData;
+                            }
+                        }
+
+                        $menuData[count($menuData) - 1]['categories'][] = $categoryData;
+                    }
+                }
+            }
+
+            if ($homesettings) {
+                $categories_info = [];
+
+                $categoryKeys = [
+                    'category1',
+                    'category2',
+                    'category3',
+                    'category4',
+                ];
+
+                foreach ($categoryKeys as $categoryKey) {
+                    $categoryId = $homesettings->$categoryKey;
+                    $subCategories = SubCategory::where('category_id', $categoryId)->take(4)->get();
+
+                    $categories_info[$categoryKey] = [
+                        'category' => $categoryId,
+                        'subcategories' => $subCategories,
+                    ];
+                }
+            } else {
+                throw new \Exception('Home setting is empty');
+            }
+
+            $data['menus'] = $menuData;
+            $data['banners'] = $banners->toArray();
+            $data['Homesetting'] = $homesettings->toArray();
+            $data['home_settings'] = $categories_info;
+
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 }
