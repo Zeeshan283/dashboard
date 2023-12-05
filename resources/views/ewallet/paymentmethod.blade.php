@@ -246,7 +246,6 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal"  onclick="hideAddBankAccountModal()" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
-                  <form id="addbankaccount" method="post">
                     <div class="mb-3">
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" id="personal" name="bankAccountType" checked="" required="" type="radio">
@@ -258,11 +257,35 @@
                       </div>
                     </div>
                     <div class="mb-3">
-                      <label for="inputCountry" class="form-label">Bank Country</label>
-                      <!-- <select class="form-select" id="inputCountry" disabled="" name="country_id"> -->
+                      <label for="accountName" class="form-label">Account Title</label>
+                      <input type="text" class="form-control" data-bv-field="accountName" id="accountName" required="" value="" placeholder="e.g. Saliha Kazmi"> 
+                      <label for="inputtext11" class="ul-form__label">Account Title:</label>
+                    </div>
+                    <div class="mb-3">
+                      <label for="accountNumber" class="form-label">Account No</label>
+                       <input type="text" class="form-control" data-bv-field="accountNumber" id="accountNumber" required="" value="" placeholder="e.g. 12346678900001"> 
+                      <label for="inputtext11" class="ul-form__label">Account No:</label>
+                    </div>
+                    <div class="mb-3">
+                      <label for="ifscCode" class="form-label">IBAN No</label>
+                      <input type="text" class="form-control" data-bv-field="ifscCode" id="ifscCode" required="" value="" placeholder="e.g. ABCDE12345">
+                      <label for="inputEmail12" class="ul-form__label">IBAN No</label>
+                    </div>
+                    <div class="mb-3">
+                       <label for="bankName" class="form-label">Bank Name</label>
+                      <select class="form-select" id="bankName" name="bankName">
+                        <option value=""> Please Select </option>
+                        <option value="1">United State of America</option>
+                      </select> 
+                      <label for="inputEmail12" class="ul-form__label">Bank Name:</label>
+                    </div>
+                    <div class="form-check mb-3">
+                    <div class="mb-3">
+      <label for="inputEmail12" class="ul-form__label">Bank Address:</label>
+                       <!-- <select class="form-select" id="inputCountry" disabled="" name="country_id">  -->
                       <select class="form-select" id="inputCountry" name="country_id">
                         <option value=""> --- Please Select --- </option>
-                        <option value="244">Aaland Islands</option>
+                        <!-- <option value="244">Aaland Islands</option>
                         <option value="1">Afghanistan</option>
                         <option value="2">Albania</option>
                         <option value="3">Algeria</option>
@@ -422,7 +445,7 @@
                         <option value="149">Nepal</option>
                         <option value="150">Netherlands</option>
                         <option value="151">Netherlands Antilles</option>
-                        <option value="152">New Caledonia</option>
+                         <option value="152">New Caledonia</option>
                         <option value="153">New Zealand</option>
                         <option value="154">Nicaragua</option>
                         <option value="155">Niger</option>
@@ -498,11 +521,11 @@
                         <option value="218">Tuvalu</option>
                         <option value="219">Uganda</option>
                         <option value="220">Ukraine</option>
-                        <option value="221">United Arab Emirates</option>
+                        <option value="221">United Arab Emirates</option> -->
                         <option value="222">United Kingdom</option>
                         <option value="223">United States</option>
                         <option value="224">United States Minor Outlying Islands</option>
-                        <option value="225">Uruguay</option>
+                        <!-- <option value="225">Uruguay</option>
                         <option value="226">Uzbekistan</option>
                         <option value="227">Vanuatu</option>
                         <option value="228">Vatican City State (Holy See)</option>
@@ -514,34 +537,13 @@
                         <option value="234">Western Sahara</option>
                         <option value="235">Yemen</option>
                         <option value="238">Zambia</option>
-                        <option value="239">Zimbabwe</option>
+                        <option value="239">Zimbabwe</option> -->
                       </select>
                     </div>
                     <div class="mb-3">
-                      <label for="bankName" class="form-label">Bank Name</label>
-                      <select class="form-select" id="bankName" name="bankName">
-                        <option value=""> Please Select </option>
-                        <option value="1">Bank Name 1</option>
-                        <option value="2">Bank Name 2</option>
-                        <option value="3">Bank Name 3</option>
-                        <option value="4">Bank Name 4</option>
-                        <option value="5">Bank Name 5</option>
-                        <option value="6">Bank Name 6</option>
-                        <option value="7">Bank Name 7</option>
-                        <option value="8">Bank Name 8</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="accountName" class="form-label">Account Name</label>
-                      <input type="text" class="form-control" data-bv-field="accountName" id="accountName" required="" value="" placeholder="e.g. Saliha Kazmi">
-                    </div>
-                    <div class="mb-3">
-                      <label for="accountNumber" class="form-label">Account Number</label>
-                      <input type="text" class="form-control" data-bv-field="accountNumber" id="accountNumber" required="" value="" placeholder="e.g. 12346678900001">
-                    </div>
-                    <div class="mb-3">
-                      <label for="ifscCode" class="form-label">NEFT IFSC Code</label>
-                      <input type="text" class="form-control" data-bv-field="ifscCode" id="ifscCode" required="" value="" placeholder="e.g. ABCDE12345">
+                     <label for="ifscCode" class="form-label">Branch Code</label>
+                      <input type="text" class="form-control" data-bv-field="ifscCode" id="ifscCode" required="" value="" placeholder="e.g. ABCDE12345"> 
+                      <label for="inputEmail12" class="ul-form__label">Branch Code:</label>
                     </div>
                     <div class="form-check mb-3">
                       <input class="form-check-input" id="remember-me" name="remember" type="checkbox">

@@ -14,6 +14,7 @@ class User extends Authenticatable
 implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
+    
 
     protected $fillable = [
         'name',
@@ -33,6 +34,8 @@ implements MustVerifyEmail
         'major_clients', 'annual_export', 'annual_import', 'annual_revenue', 'verified_status', 'trusted_status'
     ];
 
+
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -51,5 +54,8 @@ implements MustVerifyEmail
         $this->notify(new CustomVerifyEmail);
     }
 
-  
+    public function notifications()
+    {
+        return $this->morphMany(Notification::class, 'notifiable')->orderBy('created_at', 'desc');
+    }
 }

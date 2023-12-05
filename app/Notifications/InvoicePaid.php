@@ -5,9 +5,9 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Notification;
 
-class DatabaseNotification extends Notification
+class InvoicePaid extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -18,7 +18,7 @@ class DatabaseNotification extends Notification
      */
     public function __construct()
     {
-        //
+        $this->onConnection('redis');
     }
 
     /**
@@ -30,6 +30,7 @@ class DatabaseNotification extends Notification
     public function via($notifiable)
     {
         return ['mail'];
+        
     }
 
     /**
@@ -52,12 +53,26 @@ class DatabaseNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
+    public function toArray($notifiable)
+    {
+        return [
+            //
+        ];
+    }
 
-     public function toArray(object $notifiable): array
+    public function viaConnections(): array
 {
     return [
-        'invoice_id' => $this->invoice->id,
-        'amount' => $this->invoice->amount,
+        'mail' => 'redis',
+        'database' => 'sync',
+    ];
+}
+
+public function viaQueues(): array
+{
+    return [
+        'mail' => 'mail-queue',
+        'slack' => 'slack-queue',
     ];
 }
 }

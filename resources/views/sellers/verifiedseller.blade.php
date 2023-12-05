@@ -64,7 +64,10 @@
                         </span>
 
                         <div>
-                <div id="step-1" class="">
+                        <div class="col-12 col-md-6"> <a href="#" data-bs-target="#step-1" data-bs-toggle="modal" class="account-card-new d-flex align-items-center rounded h-100 p-3 mb-4 mb-lg-0" onclick="showAddBankAccountModal()">
+                <p class="w-100 text-center lh-base m-0"> <span class="text-3"><i class="fas fa-plus-circle"></i></span> <span class="d-block text-body text-3">Add New Bank Account</span> </p>
+                </a> </div>
+<div id="step-1" class=""  aria-hidden="true">                     
                     {!! Form::model($edit, [
                     'method' => 'POST',
                     'action' => ['App\Http\Controllers\VendorsController@trustedSellerSave', $edit->id],
@@ -78,58 +81,81 @@
                                     <div class="card">
                                         <div class="card-header bg-transparent">
                                             <h3 class="card-title">Become a Trusted Supplier 
-                                             
                                                 <span class="badge  badge-round-success md"><p style="font-size: revert;">✓</p></span></h3>
-                                             
                                         </div>
-                                        
-
-                                            <div class="card-body">
-                                                <div class="row">
+                                            <!-- <div class="card-body">
+                                                <div class="row"> -->
+              <div class="modal-content">
+                <div class="modal-header">
                                                         {!! Form::hidden('vendor_profile_id', $edit->id, ['id' => 'id', 'class' => 'form-control']) !!}
                                                         {!! Form::hidden('vendor_id', $edit->vendor_id, ['id' => 'id', 'class' => 'form-control']) !!}
 
-
-                                                    <div class="form-group col-md-4">
+                  <h5 class="modal-title fw-400">Add bank account</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"  onclick="hideAddBankAccountModal()" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="form-control mb-3">
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="personal" name="bankAccountType" checked="" required="" type="radio">
+                        <label class="form-check-label" for="personal">Personal</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="business" name="bankAccountType" required="" type="radio">
+                        <label class="form-check-label" for="business">Business</label>
+                      </div>
+                    </div>
+                    <div class=" form-group mb-3">
                                                         <label for="inputtext11" class="ul-form__label">Account Title:</label>
                                                         {!! Form::text('account_title',null, ['id' => 'account_title', 'class' => 'form-control']) !!}
-
                                                     </div>
             
-                                                    <div class="form-group col-md-4">
+                    <div class=" form-group mb-3">
                                                         <label for="inputtext11" class="ul-form__label">Account No:</label>
                                                         {!! Form::text('account_no', null, ['id' => 'account_no', 'class' => 'form-control']) !!}
                                                     </div>
             
-                                                    <div class="form-group col-md-4">
+                    <div class=" form-control mb-3">
                                                         <label for="inputEmail12" class="ul-form__label">IBAN No</label>
                                                         {!! Form::text('iban_no', null,  ['id' => 'iban_no', 'class' => 'form-control']) !!}
                                                     </div>
 
-                                                    <div class="form-group col-md-4">
+                    <div class=" form-control mb-3">
                                                         <label for="inputEmail12" class="ul-form__label">Bank Name:</label>
                                                         {!! Form::text('bank_name', null,  ['id' => 'bank_name', 'class' => 'form-control']) !!}
                                                     </div>
 
-                                                    <div class="form-group col-md-4">
+                    <div class=" form-control mb-3">
                                                         <label for="inputEmail12" class="ul-form__label">Bank Address:</label>
                                                         {!! Form::text('bank_address',null,  ['id' => 'bank_address', 'class' => 'form-control']) !!}
                                                     </div>
                     
 
-                                                    <div class="form-group col-md-4">
+                    <div class=" form-control mb-3">
                                                         <label for="inputEmail12" class="ul-form__label">Branch Code:</label>
                                                         {!! Form::text('branch_code',null,  ['id' => 'branch_code', 'class' => 'form-control']) !!}
                                                     </div>
-                                                    <div class="form-group"style="text-align: center;">
+                                                    <div class="form-control"style="text-align: center;">
                                                         <div class="">
                                                             <input class="btn btn-outline-secondary" type="submit" value="Submit">
                                                         </div>
                                                     </div>
 
                                                 </div>
-                                                {!! Form::close() !!}
+                                      
+<script>
+function showAddBankAccountModal() {
+    alert("Step 1 modal shown");
+    $('#step-1').modal('show');
+}
+function hideAddBankAccountModal() {
+    $('#step-1').modal('hide');
+}
 
+</script>
+                                                {!! Form::close() !!}
+                                        
+            </div>  
+                                    </div>     
 <div class="table-responsive">
         <table id="deafult_ordering_table" class="display table table-striped table-bordered"
                                 style="width:100%">
@@ -183,10 +209,8 @@
 
                         </div>
                     </div>
-                </div>
             </div>
-        </div>
-
+        
 
             <div id="step-2" class="">
                     {!! Form::model($edit, [
@@ -351,10 +375,7 @@
                                                     img.src = URL.createObjectURL(files[i]);
                                                     img.style.maxWidth = '100px';
                                                     thumbnails.appendChild(img);
-                                                }
-                                            
-                                                    // Show the upload button when at least one image is selected
-                                                    
+                                                }                                                                               
                                                 });
                                             </script>
     

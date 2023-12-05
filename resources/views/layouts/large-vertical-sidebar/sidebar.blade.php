@@ -464,6 +464,13 @@
             </li>
 
             <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'emails.index' ? 'open' : '' }}" href="{{ route('emails.index') }}">
+                    <i class="nav-icon i-Shopping-Bag"></i>
+                    <span class="item-name">Email Page</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'Homecoupons.index' ? 'open' : '' }}" href="{{ route('Homecoupons.index') }}">
                 <i class="nav-icon i-File-Trash"></i>  
                 <span class="item-name">Home Page Coupon</span>

@@ -34,8 +34,8 @@ use App\Http\Controllers\HelpCenterController;
 use App\Http\Controllers\PaymentController;
 use App\Models\User;
 use App\Models\Order;
-
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\EmailController;
 
 
 
@@ -428,4 +428,7 @@ Route::get('blogs/{id}/destroy', [BlogsController::class, 'destroy']);
 Route::resource('cfeatures', CfeaturesController::class);
 Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
 Route::post('/notifications', 'NotificationController@notification')->name('notifications.notification');
-
+Route::get('/user-notifications', [UserController::class, 'showNotifications']);
+Route::get('/user-unread-notifications', [UserController::class, 'showUnreadNotifications']);
+Route::get('/mark-all-notifications-as-read/{userId}', [UserController::class, 'markAllNotificationsAsRead']);
+Route::get('/emails/index', [EmailController::class, 'index'])->name('emails.index');

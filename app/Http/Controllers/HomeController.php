@@ -11,9 +11,7 @@ use App\Models\Purchase;
 use App\Models\Stock;
 use App\Models\User;
 use App\Models\Notification;
-
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -133,4 +131,6 @@ class HomeController extends Controller
         
         
     }
+
+
 }

@@ -5,8 +5,10 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Coupon;
 use Brian2694\Toastr\Facades\Toastr;
-use App\Models\Notification;
 use App\Events\DatabaseChange;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\InvoicePaid;
+
 
 use Illuminate\Http\Request;
 
@@ -125,17 +127,13 @@ class CouponController extends Controller
     //     return redirect()->route('coupon.allcoupons')->with('data', $data);
     // }
     
-    // public function getNotifications()
+    // public function getNotifications(request $request)
     // {
-    //     $unreadNotifications = Notification::where('id', Auth::user()->id)
-    //         ->where('read', false)
-    //         ->where('timestamp', '>=', now()->subDay())
-    //         ->get();
+ 
+    //     Notification::send($coupons, new InvoicePaid($coupons));
     
-    //     $unreadNotificationsCount = $unreadNotifications->count();
-    
-    //     return view('layouts.header', compact('unreadNotifications', 'unreadNotificationsCount'));
-    // }
+    //   return view('layouts.header', compact('Notifications'));
+    //  }
     
 
 }

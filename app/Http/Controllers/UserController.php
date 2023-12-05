@@ -115,4 +115,36 @@ public function adduser(Request $request)
 {
     return $notifiable->prefers_sms ? ['vonage'] : ['mail', 'database'];
 }
+
+public function showNotifications()
+    {
+        $user = User::find(1);
+
+        foreach ($user->notifications as $notification) {
+            echo $notification->type;
+        }
+    }
+
+    public function showUnreadNotifications()
+    {
+        $user = User::find(1);
+
+        foreach ($user->unreadNotifications as $notification) {
+            echo $notification->type;
+        }
+    }
+
+    public function markAllNotificationsAsRead($userId)
+    {
+        $user = User::find($userId);
+
+        foreach ($user->unreadNotifications as $notification) {
+            $notification->markAsRead();
+        }
+
+        // Alternatively, you can use the following line to mark all unread notifications as read:
+        // $user->unreadNotifications->markAsRead();
+        
+        return redirect()->back(); // Redirect back to the previous page or wherever you want
+    }
 }

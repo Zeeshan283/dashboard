@@ -58,8 +58,7 @@
         aria-labelledby="dropdownNotification" data-perfect-scrollbar data-suppress-scroll-x="true">
 
         <!-- Display notifications here -->
-        @if(!empty($notifications))
-            @foreach($notifications as $notification)
+
                 <div class="dropdown-item"> 
                     <div class="notification-icon">
                         <button type="button" class="btn btn-outline-secondary" id="buttons">
@@ -67,13 +66,8 @@
                         </button>
                     </div>
                     <div class="notification-details flex-grow-1">
-                        
                     </div>
                 </div>
-            @endforeach
-        @else
-            <div class="dropdown-item">No notifications</div>
-        @endif 
 
 </div>
     </div>

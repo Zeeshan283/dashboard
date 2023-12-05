@@ -1,13 +1,3 @@
-<!-- <h1>Email Verification Mail</h1>
-
-<p>Please verify your email with the link below:</p>
-
-<a href="{{ route('verification.verify', $token) }}">Verify Email</a>
-
-<p>After verifying your email, you will be redirected to our website:</p>
-
-<a href="http://www.zeeshan.com">Visit Our Website</a>   -->
-
 @extends('layouts.master')
 @section('page-css')
     <!-- <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}"> -->
@@ -28,9 +18,7 @@
 	display: table-cell;
     vertical-align: inherit;
 border-radius: 55px;
-}
-
-    
+}    
 .card {
     border-collapse: separate;
     text-indent: initial;
@@ -95,7 +83,7 @@ border-radius: 55px;
                     can show their company registration certificates and achievement awards and mention a lot of services.</p>
 
                 <h3 class="text-center">Please click the button below to verify your email address</h3>
-                <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"><a href="{{ route('verification.verify', $token) }}">Verify Email</a>Verify Email</a></button>
+                <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"><a href="#">Verify Email</a></button>
 
                 <p>In this way, each buyer can visit the ‘supplier’s profile’ page and get more knowledge about their vendor and see their factory, store, and
                     productions and real-time pictures as well. It increases more trust level on the buyer.

@@ -1,9 +1,6 @@
 @extends('layouts.master')
 @section('before-css')
-
-
 @endsection
-
 @section('main-content')
             <div class="breadcrumb">
                 <h1>Add New User</h1>
