@@ -9,7 +9,7 @@
     <li class="nav-item {{ request()->is('widgets/*') ? 'active' : '' }}" data-item="widgets">
         <a class="nav-item-hold" href="#">
             <i class="nav-icon i-Windows-2"></i>
-            <span class="nav-text">Categories</span>
+            <span class="nav-text">Menu's </span>
 
         </a>
         {{-- <div class="triangle"></div> --}}
@@ -95,30 +95,16 @@
             <span class="nav-text">EWallet</span>
         </a>
     </li>
-    <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="sessions">
-        <a class="nav-item-hold" href="/test.html">
-            <i class="nav-icon i-Information"></i>
-            <span class="nav-text">Coupon</span>
-        </a>
-        <div class="triangle"></div>
-    </li>
+
 
     <li class="nav-item {{ request()->is('apps/*') ? 'active' : '' }}" data-item="apps">
         <a class="nav-item-hold" href="#">
             <i class="nav-icon i-Computer-Secure"></i>
             <span class="nav-text">Customers</span>
-
         </a>
-        <div class="triangle"></div>
+        {{-- <div class="triangle"></div> --}}
     </li>
-    <li class="nav-item {{ request()->is('widgets/*') ? 'active' : '' }}" data-item="widgets">
-        <a class="nav-item-hold" href="#">
-            <i class="nav-icon i-Windows-2"></i>
-            <span class="nav-text">Menu & Categories</span>
 
-        </a>
-        <div class="triangle"></div>
-    </li>
 
 
     <li class="nav-item " data-item="uikits1">
@@ -136,20 +122,6 @@
         {{-- <div class="triangle"></div> --}}
     </li>
 
-    <li class="nav-item {{ request()->is('terms/*') ? 'active' : '' }}" data-item="terms">
-        <a class="nav-item-hold" href="/test.html">
-            <i class="nav-icon i-Windows-2"></i>
-            <span class="nav-text">Setting</span>
-        </a>
-        <div class="triangle"></div>
-    </li>
-
-    <li class="nav-item {{ request()->is('blogs/*') ? 'active' : '' }}" data-item="blogs">
-        <a class="nav-item-hold" href="/test.html"><i class="fas fa-blog" style="font-size: 24px;"></i><span
-                class="nav-text">Blogs</span>
-        </a>
-        <div class="triangle"></div>
-    </li>
     <li class="nav-item " data-item="pages">
         <a class="nav-item-hold" href="/test.html">
             <i class="nav-icon i-Double-Tap"></i>
