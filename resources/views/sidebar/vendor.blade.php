@@ -12,11 +12,10 @@
             <span class="nav-text">Products</span>
         </a>
     </li>
-
-    <li class="nav-item {{ request()->is('uikits/*') ? 'active' : '' }}" data-item="uikits">
+    <li class="nav-item {{ request()->is('purchase/*') ? 'active' : '' }}" data-item="purchase">
         <a class="nav-item-hold" href="#">
-            <i class="nav-icon i-Shopping-Cart"></i>
-            <span class="nav-text">Orders</span>
+            <i class="nav-icon i-Film-Cartridge"></i>
+            <span class="nav-text">Purchase</span>
         </a>
     </li>
     <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="sessions">
@@ -26,6 +25,13 @@
         </a>
         {{-- <div class="triangle"></div> --}}
     </li>
+    <li class="nav-item {{ request()->is('uikits/*') ? 'active' : '' }}" data-item="uikits">
+        <a class="nav-item-hold" href="#">
+            <i class="nav-icon i-Shopping-Cart"></i>
+            <span class="nav-text">Orders</span>
+        </a>
+    </li>
+
 
     <li class="nav-item {{ request()->is('ewallet/*') ? 'active' : '' }}" data-item="ewallet">
         <a class="nav-item-hold" href="#">
@@ -34,24 +40,17 @@
         </a>
     </li>
 
+    <li class="nav-item " data-item="uikits2">
+        <a class="nav-item-hold" href="/test.html">
+            <i class="nav-icon i-Library"></i>
+            <span class="nav-text">Advertisement</span>
+        </a>
+        {{-- <div class="triangle"></div> --}}
+    </li>
     <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="profile">
         <a class="nav-item-hold" href="#">
             <i class="nav-icon i-Find-User"></i>
             <span class="nav-text">Profile</span>
         </a>
         {{-- <div class="triangle"></div> --}}
-    </li>
-    <li class="nav-item {{ request()->is('purchase/*') ? 'active' : '' }}" data-item="purchase">
-        <a class="nav-item-hold" href="#">
-            <i class="nav-icon i-Film-Cartridge"></i>
-            <span class="nav-text">Purchase</span>
-        </a>
-    </li>
-
-    <li class="nav-item " data-item="uikits2">
-        <a class="nav-item-hold" href="/test.html">
-            <i class="nav-icon i-Library"></i>
-            <span class="nav-text">Advertisement</span>
-        </a>
-        <div class="triangle"></div>
     </li>
