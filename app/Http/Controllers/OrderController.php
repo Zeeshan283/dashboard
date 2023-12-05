@@ -26,18 +26,17 @@ class OrderController extends Controller
 
     public function index()
     {
-        if (Auth::user()->role == 'Admin') {
-            $data = Order::orderBy('id', 'desc')->get();
+        if (Auth::User()->role == 'Admin') {
+            $data = Order::OrderBy('id', 'desc')
+                ->get();
         } else {
-            $data = Order::where('timestamp', Auth::user()->id)->orderBy('id', 'desc')->get();
+            $data = Order::where('created_by', Auth::User()->id)
+                ->OrderBy('id', 'desc')
+                ->get();
         }
- return view('orders.allorders', compact('data'));
+        $data = Order::orderBy('id', 'desc')->get();
+        return view('orders.allorders', compact('data'));
     }
-
-	public function order_details()
-{
-    return $this->hasMany(OrderDetails::class, 'order_id');
-}
 
     public function showOrders()
     {
@@ -76,7 +75,6 @@ class OrderController extends Controller
             return view('orders.canceled', compact('data'));
         }
     }
-
     public function thanks($id)
     {
         $thanks = Order::findOrFail($id);
@@ -96,31 +94,44 @@ class OrderController extends Controller
         $order = Order::whereDate('created_at', '>=', $fromDate)
             ->whereDate('created_at', '<=', $toDate)
             ->get();
-    
+
         $order = Order::whereDate('created_at', '>=', $fromDate)
             ->whereDate('created_at', '<=', $toDate)
             ->first();
-    
+
         if ($order) {
             Notification::create([
                 'user_id' => Auth::user()->id,
                 'Order_id' => 'New order placed with ID ' . $order->id,
             ]);
-    
+
             $order->status = $request->status;
             $order->update();
         }
-    
+
         return view('order.order_report', compact('fromDate', 'toDate', 'order'));
     }
-    
-    
+
+
 
     public function show($id)
     {
-        $order = Order::findOrFail($id);
+        $order = Order::with(['order_details' => function ($query) {
+            $query->with('products')->with('product_image')->with('vendor')->with('user');
+        }])->where('id', '=', $id)->first();
 
-        return view('orders.details', compact('order'));
+        $cus = $order->order_details[0]->vendor;
+
+        // $vendor = OrderDetails::where('customer_id',$cus->id,)->get();
+
+        return view('orders.details', compact('order', 'cus'));
+
+
+        // 	$order = Order::with(['order_details' => function ($query) {
+        // 	$query->with('products')->with('product_image');
+        // }])->where('id', '=', $id)->first();
+
+        // return view('order.details', compact('order'));
     }
 
     public function edit($id)
@@ -172,11 +183,11 @@ class OrderController extends Controller
         $order_detail = OrderDetails::with('products')->find($id);
         $order = Order::findOrFail($order_detail->order_id);
 
-		return view('order.vendor_order_report', compact('order', 'order_detail'));
-	}
+        return view('order.vendor_order_report', compact('order', 'order_detail'));
+    }
 
-	public function destroy($id)
-	{
-		//
-	}
+    public function destroy($id)
+    {
+        //
+    }
 }

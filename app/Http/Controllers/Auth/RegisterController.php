@@ -70,6 +70,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role' => 'Vendor',
+
         ]);
     }
 
@@ -80,5 +82,4 @@ class RegisterController extends Controller
         // Redirect to the email verification notice page
         return redirect()->route('verification.notice');
     }
-
 }

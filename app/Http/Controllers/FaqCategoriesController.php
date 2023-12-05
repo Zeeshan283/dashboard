@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FaqCategories;
+use App\Models\FAQCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Brian2694\Toastr\Facades\Toastr;
 
 class FaqCategoriesController extends Controller
 {
@@ -15,24 +16,25 @@ class FaqCategoriesController extends Controller
 
     public function index()
     {
-        $data = FaqCategories::OrderBy('id')->get();
-        return view('faq-categories.index',compact('data'));
+        $data = FAQCategory::OrderBy('id')->get();
+        return view('faqs.category.index', compact('data'));
     }
 
     public function create()
     {
-        return view('faq-categories.create');
+        return view('faqs.category.create');
     }
 
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'title'=>'required'
+        $this->validate($request, [
+            'name' => 'required'
         ]);
-        FaqCategories::create($request->all());
+        FAQCategory::create($request->all());
 
+        Toastr::success('FAQ Category Added Successfully!');
         Session::flash('flash_message', 'FAQ Category Added Successfully!');
-        return redirect()->back();
+        return redirect()->route('faqs_categories.index');
     }
 
     public function show($id)
@@ -42,26 +44,28 @@ class FaqCategoriesController extends Controller
 
     public function edit($id)
     {
-        $edit = FaqCategories::findOrFail($id);
-        return view('faq-categories.edit',compact('edit'));
+        $data = FAQCategory::findOrFail($id);
+        return view('faqs.category.edit', compact('data'));
     }
 
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'title'=>'required'
+        $this->validate($request, [
+            'name' => 'required'
         ]);
-        $edit = FaqCategories::findOrFail($id);
+        $edit = FAQCategory::findOrFail($id);
         $edit->update($request->all());
 
+        Toastr::success('FAQ Category Updated Successfully!');
         Session::flash('flash_message', 'FAQ Category Updated Successfully!');
-        return redirect('/faq-categories');
+        return redirect()->route('faqs_categories.index');
     }
 
     public function destroy($id)
     {
-        FaqCategories::findOrFail($id)->delete();
-        
+        FAQCategory::findOrFail($id)->delete();
+
+        Toastr::success('FAQ Category Deleted Successfully!');
         Session::flash('flash_message', 'FAQ Category Deleted Successfully!');
         return redirect()->back();
     }
