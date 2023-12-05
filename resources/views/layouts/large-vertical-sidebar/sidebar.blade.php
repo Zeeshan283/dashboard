@@ -7,31 +7,23 @@
                 @include('sidebar.vendor')
             @endif
         </ul>
-        {{-- <li class="nav-item">
-                <a class="nav-item-hold" href="http://demos.ui-lib.com/gull-htms-doc/" target="_blank">
-                    <i class="nav-icon i-Safe-Box1"></i>
-                    <span class="nav-text">Doc</span>
-                </a>
 
-                <div class="triangle"></div>
-            </li> --}}
-        </ul>
     </div>
 
     <div class="sidebar-left-secondary rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
-        <!-- Submenu Dashboards -->
+
         <ul class="childNav" data-parent="users">
 
             <li class="nav-item">
-                <a href="{{ route('user.add') }}">
-                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                <a class="{{ Route::currentRouteName() == 'user.add' ? 'open' : '' }}" href="{{ route('user.add') }}">
+                    <i class="nav-icon i-Add"></i>
                     <span class="item-name">Add New User</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'userlist' ? 'open' : '' }}" href="{{ route('userlist') }}">
-                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <i class="nav-icon i-Male"></i>
                     <span class="item-name">User List</span>
                 </a>
             </li>
@@ -39,14 +31,15 @@
         <ul class="childNav" data-parent="purchase">
 
             <li class="nav-item">
-                <a href="{{ route('purchase.create') }}">
-                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                <a class="{{ Route::currentRouteName() == 'purchase.create' ? 'open' : '' }}"
+                    href="{{ route('purchase.create') }}">
+                    <i class="nav-icon i-Add"></i>
                     <span class="item-name">Add Purchase</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'users.index' ? 'open' : '' }}"
+                <a class="{{ Route::currentRouteName() == 'supplier.index' ? 'open' : '' }}"
                     href="{{ route('supplier.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Add Supplier</span>
@@ -54,7 +47,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'users.index' ? 'open' : '' }}"
+                <a class="{{ Route::currentRouteName() == 'purchase.index' ? 'open' : '' }}"
                     href="{{ route('purchase.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Stock </span>
@@ -62,7 +55,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'users.index' ? 'open' : '' }}"
+                <a class="{{ Route::currentRouteName() == 'purchaseHistory' ? 'open' : '' }}"
                     href="{{ route('purchaseHistory') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Purchase History</span>
@@ -74,8 +67,9 @@
         </ul>
         <ul class="childNav" data-parent="forms">
             <li class="nav-item">
-                <a href="{{ route('vendor.create') }}">
-                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                <a class="{{ Route::currentRouteName() == 'vendor.create' ? 'open' : '' }}"
+                    href="{{ route('vendor.create') }}">
+                    <i class="nav-icon i-Add"></i>
                     <span class="item-name">Add New Vendor</span>
                 </a>
             </li>
@@ -85,7 +79,7 @@
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'vendor.index' ? 'open' : '' }}"
                     href="{{ route('vendor.index') }}">
-                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <i class="nav-icon i-Male"></i>
                     <span class="item-name">Vendor List</span>
                 </a>
             </li>
@@ -192,7 +186,7 @@
                 {{-- <a class="{{ Route::currentRouteName() == 'allsubcat' ? 'open' : '' }}"
                     href="{{ route('allsubcat') }}"> --}}
                 <a href="{{ url('/sub-category') }}" id="list-item-color"
-                    class="nav-link menu-link {{ request()->route()->getName() == 'sub-category.index'? 'active': '' }}">
+                    class="nav-link menu-link {{ Route::currentRouteName() == 'sub-category.index' ? 'open' : '' }}">
                     <i class="nav-icon i-Folder-Open"></i>
                     <span class="item-name">All Sub Categories</span>
                 </a>
@@ -236,7 +230,7 @@
 
         <ul class="childNav" data-parent="charts">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'products' ? 'open' : '' }}"
+                <a class="{{ Route::currentRouteName() == 'products.create' ? 'open' : '' }}"
                     href="{{ route('products.create') }}">
                     <i class="nav-icon i-Add"></i>
                     <span class="item-name">Add Product</span>
@@ -276,7 +270,7 @@
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'createrefund' ? 'open' : '' }}"
                     href="{{ route('createrefund') }}">
-                    <i class="nav-icon i-Arrow-Down-in-Circle"></i>
+                    <i class="nav-icon i-Add"></i>
                     <span class="item-name">Create Refund</span>
                 </a>
             </li>
@@ -385,7 +379,7 @@
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'coupon.create' ? 'open' : '' }}"
                     href="{{ route('coupon.create') }}">
-                    <i class="nav-icon i-File-Trash"></i>
+                    <i class="nav-icon i-Add"></i>
                     <span class="item-name">Create Coupon</span>
                 </a>
             </li>
@@ -433,46 +427,19 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'brands' ? 'open' : '' }}"
+                <a class="{{ Route::currentRouteName() == 'brands.index' ? 'open' : '' }}"
                     href="{{ route('brands.index') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">Brands</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'allterm' ? 'open' : '' }}" href="{{ route('allterm') }}">
-                    <i class="nav-icon i-Blinklist"></i>
-                    <span class="item-name">Terms & Conditions</span>
-                </a>
-            </li>
 
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'faqs_categories' ? 'open' : '' }}"
-                    href="{{ route('faqs_categories.index') }}">
-                    <i class="nav-icon i-Blinklist"></i>
-                    <span class="item-name">Faq Category</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'faqs' ? 'open' : '' }}" href="{{ route('faqs.index') }}">
-                    <i class="nav-icon i-Blinklist"></i>
-                    <span class="item-name">FAQ's</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'pages' ? 'open' : '' }}"
-                    href="{{ route('pages.index') }}">
-                    <i class="nav-icon i-Blinklist"></i>
-                    <span class="item-name">Page's</span>
-                </a>
-            </li>
 
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'payment_method' ? 'open' : '' }}"
                     href="{{ route('payment_method.index') }}">
-                    <i class="nav-icon i-Blinklist"></i>
+                    <i class="nav-icon i-Billing"></i>
                     <span class="item-name">Payment Method</span>
                 </a>
             </li>
@@ -481,7 +448,7 @@
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == '' ? 'open' : '' }}"
                     href="{{ URL::to('settings/1/edit') }}">
-                    <i class="nav-icon i-Blinklist"></i>
+                    <i class="nav-icon i-Male"></i>
                     <span class="item-name">Site Profile</span>
                 </a>
             </li>
@@ -491,7 +458,7 @@
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'vendor-profile' && Auth::user()->role == 'Vendor' ? 'open' : '' }}"
                     href="{{ URL::to('vendor-profile/' . Auth::user()->id) }}">
-                    <i class="nav-icon i-File-Trash"></i>
+                    <i class="nav-icon i-Male"></i>
                     <span class="item-name">Profile</span>
                 </a>
             </li>
@@ -499,7 +466,7 @@
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'verified-seller' && Auth::user()->role == 'Vendor' ? 'open' : '' }}"
                     href="{{ URL::to('verified-seller/' . Auth::user()->id) }}">
-                    <i class="nav-icon i-File-Trash"></i>
+                    <i class="nav-icon i-Male"></i>
                     <span class="item-name">Become A Verified</span>
                 </a>
             </li>
@@ -509,22 +476,27 @@
 
         <ul class="childNav" data-parent="uikits1">
 
-            <li class="nav-item">
-                <a href="{{ route('advertisements.index') }}">
-                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                    <span class="item-name">Advertisement</span>
-                </a>
-            </li>
+
 
             <li class="nav-item">
-                <a href="{{ route('advertisements.create') }}">
-                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                <a class="{{ Route::currentRouteName() == 'advertisements.create' ? 'open' : '' }}"
+                    href="{{ route('advertisements.create') }}">
+                    <i class="nav-icon i-Add"></i>
                     <span class="item-name">Create Advertisement</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('advertisementSellers.details') }}">
+                <a class="{{ Route::currentRouteName() == 'advertisements.index' ? 'open' : '' }}"
+                    href="{{ route('advertisements.index') }}">
+                    <i class="nav-icon i-Approved-Window"></i>
+                    <span class="item-name">Advertisement</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'advertisementSellers.details' ? 'open' : '' }}"
+                    href="{{ route('advertisementSellers.details') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Advertisement Order</span>
                 </a>
@@ -535,20 +507,83 @@
         <ul class="childNav" data-parent="uikits2">
 
             <li class="nav-item">
-                <a href="{{ route('advertisementSellers.index') }}">
+                <a class="{{ Route::currentRouteName() == 'advertisementSellers.index' ? 'open' : '' }}"
+                    href="{{ route('advertisementSellers.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Advertisement</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('advertisementSellers.ASDetails') }}">
+                <a class="{{ Route::currentRouteName() == 'advertisementSellers.ASDetails' ? 'open' : '' }}"
+                    href="{{ route('advertisementSellers.ASDetails') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Order
                         Details</span>
                 </a>
             </li>
 
+        </ul>
+
+        <ul class="childNav" data-parent="blogs">
+
+
+
+            <li class="nav-item">
+                <a href="#">
+                    <i class="nav-icon i-Add"></i>
+                    <span class="item-name">Category</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#">
+                    <i class="nav-icon i-Add"></i>
+                    <span class="item-name">Sub Category</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Bloge List</span>
+                </a>
+            </li>
+
+        </ul>
+        <ul class="childNav" data-parent="pages">
+            <li class="nav-item">
+
+                <a class="{{ Route::currentRouteName() == 'pages.index' ? 'open' : '' }}"
+                    href="{{ route('pages.index') }}">
+                    <i class="nav-icon i-File-Horizontal"></i>
+                    <span class="item-name">Page's</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'faqs_categories.index' ? 'open' : '' }}"
+                    href="{{ route('faqs_categories.index') }}">
+                    <i class="nav-icon i-File-Horizontal"></i>
+                    <span class="item-name">Faq Category</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'faqs.index' ? 'open' : '' }}"
+                    href="{{ route('faqs.index') }}">
+                    <i class="nav-icon i-File-Horizontal"></i>
+                    <span class="item-name">FAQ's</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'allterm' ? 'open' : '' }}"
+                    href="{{ route('allterm') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Terms & Conditions</span>
+                </a>
+            </li>
         </ul>
     </div>
 
