@@ -230,6 +230,8 @@ class ProductController extends Controller
         }
     }
 
+
+
     public function edit($id)
     {
         $edit = Product::with('shipping_details')

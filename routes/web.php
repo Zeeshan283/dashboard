@@ -28,10 +28,19 @@ use App\Http\Controllers\TermsConditionsController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HomeSettingsController;
 use App\Http\Controllers\BannersController;
+use App\Http\Controllers\FaqCategoriesController;
+use App\Http\Controllers\FAQController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DealsController;
 use App\Http\Controllers\HelpCenterController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Middleware\VendorOnly;
+use App\Http\Controllers\AdvertisementController;
+use App\Http\Controllers\AdvertisementSellerController;
+use App\Http\Controllers\AdvertisementOrder;
+use App\Http\Controllers\StripePaymentController;
+
 use App\Models\User;
 use App\Models\Order;
 
@@ -111,10 +120,10 @@ Route::get('customerlist', [CustomerController::class, 'index'])->name('customer
 
 // Refund
 
-Route::get('pendingrefund',[RefundController::class,'pendingRefunds'])->name('pendingrefund');
-Route::get('approvedrefund',[RefundController::class,'approvedRefunds'])->name('approvedrefund');
-Route::get('refundrejected',[RefundController::class,'rejectedRefunds'])->name('refundrejected');
-Route::get('refunded',[RefundController::class,'refundedRefunds'])->name('refunded');
+Route::get('pendingrefund', [RefundController::class, 'pendingRefunds'])->name('pendingrefund');
+Route::get('approvedrefund', [RefundController::class, 'approvedRefunds'])->name('approvedrefund');
+Route::get('refundrejected', [RefundController::class, 'rejectedRefunds'])->name('refundrejected');
+Route::get('refunded', [RefundController::class, 'refundedRefunds'])->name('refunded');
 
 
 
@@ -143,7 +152,7 @@ Route::get('fetch-vendor-products', function () {
 // total oders by date
 
 // routes/web.php
-Route::get('/get-chart-data',[OrderController::class,'getChartData']);
+Route::get('/get-chart-data', [OrderController::class, 'getChartData']);
 
 Route::get('/order-data', function () {
     $endDate = now()->format('Y-m-d');  // Current date
@@ -241,8 +250,8 @@ Route::view('sessions/forgot', 'sessions.forgot')->name('forgot');
 // Auth::routes();
 
 
-Route::group(['middleware' => ['auth','verified']],function(){
-    Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::get('/', [HomeController::class, 'index'])->name('admin');
 });
 
 
@@ -272,12 +281,11 @@ Route::get('returned', [OrderController::class, 'showOrders'])->name('returned')
 Route::get('ftod', [OrderController::class, 'showOrders'])->name('ftod');
 Route::get('canceled', [OrderController::class, 'showOrders'])->name('canceled');
 
-
-Route::patch('orderstatus',[OrderController::class,'update'])->name('order.status');
+Route::patch('orderstatus', [OrderController::class, 'update'])->name('order.status');
 
 Route::get('orders/{id}', [OrderController::class, 'show']);
 // home controller route
-Route::get('/',[HomeController::class, 'index'])->name('admin');
+Route::get('/', [HomeController::class, 'index'])->name('admin');
 
 // customer controller route
 Route::get('customerlist', [CustomerController::class, 'index'])->name('customerlist');
@@ -307,6 +315,14 @@ Route::get('terms/show/{id}', [TermsConditionsController::class, 'show'])->name(
 
 Route::resource('helpcenter', HelpCenterController::class);
 Route::get('helpcenter/{id}/destroy', [HelpCenterController::class, 'destroy']);
+
+Route::resource('pages', PageController::class);
+Route::get('page/{id}/destroy', [PageController::class, 'destroy'])->name('page.destroy');
+
+Route::resource('faqs_categories', FaqCategoriesController::class);
+Route::get('faqs_category/{id}/destroy', [FaqCategoriesController::class, 'destroy'])->name('faqs_category.destroy');
+Route::resource('faqs', FAQController::class);
+Route::get('faq/{id}/destroy', [FAQController::class, 'destroy'])->name('faq.destroy');
 
 
 //terms & Conditions
@@ -405,14 +421,14 @@ Route::resource('/settings', SettingsController::class);
 
 
 // Ewallet 
-Route::get('ewallet/collectedcash',[EwalletController::class,'collectedcash'])->name('collectedcash');
-Route::get('ewallet/Totalbuying',[EwalletController::class,'Totalbuying'])->name('Totalbuying');
-Route::get('ewallet/totalpendingwithdrawls',[EwalletController::class,'totalpendingwithdrawls'])->name('totalpendingwithdrawls');
-Route::get('ewallet/totalrefund',[EwalletController::class,'totalrefund'])->name('totalrefund');
-Route::get('ewallet/totalspendondeals',[EwalletController::class,'totalspendondeals'])->name('totalspendondeals');
-Route::get('ewallet/totalwithdrawl',[EwalletController::class,'totalwithdrawl'])->name('totalwithdrawl');
-Route::get('ewallet/transcationhistory',[EwalletController::class,'transcationhistory'])->name('transcationhistory');
-Route::get('ewallet/paymentmethod',[EwalletController::class,'paymentmethod'])->name('paymentmethod');
+Route::get('ewallet/collectedcash', [EwalletController::class, 'collectedcash'])->name('collectedcash');
+Route::get('ewallet/Totalbuying', [EwalletController::class, 'Totalbuying'])->name('Totalbuying');
+Route::get('ewallet/totalpendingwithdrawls', [EwalletController::class, 'totalpendingwithdrawls'])->name('totalpendingwithdrawls');
+Route::get('ewallet/totalrefund', [EwalletController::class, 'totalrefund'])->name('totalrefund');
+Route::get('ewallet/totalspendondeals', [EwalletController::class, 'totalspendondeals'])->name('totalspendondeals');
+Route::get('ewallet/totalwithdrawl', [EwalletController::class, 'totalwithdrawl'])->name('totalwithdrawl');
+Route::get('ewallet/transcationhistory', [EwalletController::class, 'transcationhistory'])->name('transcationhistory');
+Route::get('ewallet/paymentmethod', [EwalletController::class, 'paymentmethod'])->name('paymentmethod');
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -429,3 +445,30 @@ Route::resource('cfeatures', CfeaturesController::class);
 Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
 Route::post('/notifications', 'NotificationController@notification')->name('notifications.notification');
 
+Route::get('ewallet/collectedcash', [EwalletController::class, 'collectedcash'])->name('collectedcash');
+Route::get('ewallet/Totalbuying', [EwalletController::class, 'Totalbuying'])->name('Totalbuying');
+Route::get('ewallet/totalpendingwithdrawls', [EwalletController::class, 'totalpendingwithdrawls'])->name('totalpendingwithdrawls');
+Route::get('ewallet/totalrefund', [EwalletController::class, 'totalrefund'])->name('totalrefund');
+Route::get('ewallet/totalspendondeals', [EwalletController::class, 'totalspendondeals'])->name('totalspendondeals');
+Route::get('ewallet/totalwithdrawl', [EwalletController::class, 'totalwithdrawl'])->name('totalwithdrawl');
+Route::get('ewallet/transcationhistory', [EwalletController::class, 'transcationhistory'])->name('transcationhistory');
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// admin
+Route::resource('advertisements', AdvertisementController::class);
+Route::get('advertisement/{id}/destroy', [AdvertisementController::class, 'destroy'])->name('advertisement.destroy');
+
+Route::get('a_details', [AdvertisementOrder::class, 'details'])->name('advertisementSellers.details');
+Route::post('a_s_i_a/{id}', [AdvertisementOrder::class, 'advertisementOrderImageStatusUpdate'])->name('advertisementOrderImageUpdate');
+Route::post('a_s_i_a_1/{id}', [AdvertisementOrder::class, 'advertisementOrderDisplayStatus'])->name('advertisementOrderDisplayStatus');
+
+// VendorOnly
+Route::resource('advertisementSellers', AdvertisementSellerController::class);
+Route::post('advertisementOrder', [AdvertisementSellerController::class, 'formOrder']);
+Route::get('a_s_details', [AdvertisementOrder::class, 'SellerDetails'])->name('advertisementSellers.ASDetails');
+Route::post('a_s_image/{id}', [AdvertisementOrder::class, 'advertisementImage'])->name('advertisementImage');
+
+Route::get('stripe1', [StripePaymentController::class, 'stripe']);
+Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
