@@ -64,30 +64,6 @@ class HomeController extends Controller
 
             $isAdmin = Auth::user()->role == 'Admin';
 
-<<<<<<< HEAD
-            $notifications = auth()->user()->Notification;
-
-            return view('dashboard.dashboardv1', 
-            compact('totalOrders',
-            'currenOrders', 
-            'products',
-            'pending',
-            'confirmed',
-            'packaging',
-            'ftod', 
-            'delivered',
-            'canceled',
-            'returned', 
-            'customer',
-            'customerQueries',
-            'vendorlist',
-            'top_products',
-            'new_users',
-            'isAdmin',
-            'coupons',
-            'outofstock'
-        ));
-=======
             return view(
                 'dashboard.dashboardv1',
                 compact(
@@ -111,7 +87,6 @@ class HomeController extends Controller
                     'outofstock'
                 )
             );
->>>>>>> 332bd9ad6fde313e7aec0a968028f75a9c7224a9
         } else {
             $totalOrders = Order::where('o_vendor_id', Auth::User()->id)->count();
             // $currenOrders = Order::where('status', '!=', 'confirmed')->count();

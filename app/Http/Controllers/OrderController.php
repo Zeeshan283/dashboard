@@ -19,62 +19,24 @@ class OrderController extends Controller
 {
     use fontAwesomeTrait;
 
-	public function index()
-	{
-		if (Auth::User()->role == 'Admin') {
-			$data = Order::OrderBy('id', 'desc')
-				->get();
-		} else {
-			$data = Order::where('o_vendor_id', Auth::User()->id)
-				->OrderBy('id', 'desc')
-				->get();
-		}
-		$data = Order::orderBy('id', 'desc')->get();
-		return view('orders.allorders', compact('data'));
-	}
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-	public function showOrders()
-	{
-		$routeName = Route::currentRouteName();
-
-		if ($routeName === 'pendingorders') {
-			$data = Order::where('status', '=', 'pending')->orderBy('id', 'desc')->get();
-			return view('orders.pendingorders', compact('data'));
-		}
-		if ($routeName === 'confirmedorders') {
-			$data = Order::where('status', '=', 'confirmed')->orderBy('id', 'desc')->get();
-			return view('orders.confirmedorders', compact('data'));
-		}
-		if ($routeName === 'packagingorders') {
-			$data = Order::where('status', '=', 'packaging')->orderBy('id', 'desc')->get();
-			return view('orders.packagingorders', compact('data'));
-		}
-		if ($routeName === 'outofdelivery') {
-			$data = Order::where('status', '=', 'out of delivery')->orderBy('id', 'desc')->get();
-			return view('orders.outofdelivery', compact('data'));
-		}
-		if ($routeName === 'delivered') {
-			$data = Order::where('status', '=', 'delivered')->orderBy('id', 'desc')->get();
-			return view('orders.delivered', compact('data'));
-		}
-		if ($routeName === 'returned') {
-			$data = Order::where('status', '=', 'returned')->orderBy('id', 'desc')->get();
-			return view('orders.returned', compact('data'));
-		}
-		if ($routeName === 'ftod') {
-			$data = Order::where('status', '=', 'Field to Deliver')->orderBy('id', 'desc')->get();
-			return view('orders.ftod', compact('data'));
-		}
-		if ($routeName === 'canceled') {
-			$data = Order::where('status', '=', 'canceled')->orderBy('id', 'desc')->get();
-			return view('orders.canceled', compact('data'));
-		}
-	}
-	public function thanks($id)
-	{
-		$thanks = Order::findOrFail($id);
-		return view('thankyou', compact('thanks'));
-	}
+    public function index()
+    {
+        if (Auth::User()->role == 'Admin') {
+            $data = Order::OrderBy('id', 'desc')
+                ->get();
+        } else {
+            $data = Order::where('created_by', Auth::User()->id)
+                ->OrderBy('id', 'desc')
+                ->get();
+        }
+        $data = Order::orderBy('id', 'desc')->get();
+        return view('orders.allorders', compact('data'));
+    }
 
     public function showOrders()
     {
@@ -113,58 +75,63 @@ class OrderController extends Controller
             return view('orders.canceled', compact('data'));
         }
     }
-
     public function thanks($id)
     {
         $thanks = Order::findOrFail($id);
         return view('thankyou', compact('thanks'));
     }
 
-	public function show($id)
-	{
-		$order = Order::with(['order_details' => function ($query) {
-			$query->with('products')->with('product_image')->with('vendor')->with('user');
-		}])->where('id', '=', $id)->first();
+    public function create()
+    {
+        return view('order.fetch_date');
+    }
 
-		$cus = $order->order_details[0]->vendor;
-
-		// $vendor = OrderDetails::where('customer_id',$cus->id,)->get();
-
-		return view('orders.details', compact('order', 'cus'));
-
-
-		// 	$order = Order::with(['order_details' => function ($query) {
-		// 	$query->with('products')->with('product_image');
-		// }])->where('id', '=', $id)->first();
+    public function store(Request $request)
+    {
+        $fromDate = $request->get('from_date');
+        $toDate = $request->get('to_date');
 
         $order = Order::whereDate('created_at', '>=', $fromDate)
             ->whereDate('created_at', '<=', $toDate)
             ->get();
-    
+
         $order = Order::whereDate('created_at', '>=', $fromDate)
             ->whereDate('created_at', '<=', $toDate)
             ->first();
-    
+
         if ($order) {
             Notification::create([
                 'user_id' => Auth::user()->id,
                 'Order_id' => 'New order placed with ID ' . $order->id,
             ]);
-    
+
             $order->status = $request->status;
             $order->update();
         }
-    
+
         return view('order.order_report', compact('fromDate', 'toDate', 'order'));
     }
-    
-    
+
+
 
     public function show($id)
     {
-        $order = Order::findOrFail($id);
+        $order = Order::with(['order_details' => function ($query) {
+            $query->with('products')->with('product_image')->with('vendor')->with('user');
+        }])->where('id', '=', $id)->first();
 
-        return view('orders.details', compact('order'));
+        $cus = $order->order_details[0]->vendor;
+
+        // $vendor = OrderDetails::where('customer_id',$cus->id,)->get();
+
+        return view('orders.details', compact('order', 'cus'));
+
+
+        // 	$order = Order::with(['order_details' => function ($query) {
+        // 	$query->with('products')->with('product_image');
+        // }])->where('id', '=', $id)->first();
+
+        // return view('order.details', compact('order'));
     }
 
     public function edit($id)
@@ -183,7 +150,6 @@ class OrderController extends Controller
         );
         $locations = Locations::pluck('name', 'name');
 
-<<<<<<< HEAD
         $orderTrackerDetails = OrderTracker::where('order_id', $id)->get();
         $data = $this->fontIndex();
         return view('order.edit_status', compact('edit', 'status', 'locations', 'orderTrackerDetails', 'data'));
@@ -202,14 +168,6 @@ class OrderController extends Controller
         $order_status = Order::where('id', $request->id)->first();
         $order_status->status = $request->status;
         $order_status->update();
-=======
-		$order_status = Order::where('id', $request->id)->first();
-		$order_status->status = $request->status;
-		$order_status->update();
-
-		return redirect()->back();
-	}
->>>>>>> 332bd9ad6fde313e7aec0a968028f75a9c7224a9
 
         return redirect()->back();
     }
@@ -225,11 +183,11 @@ class OrderController extends Controller
         $order_detail = OrderDetails::with('products')->find($id);
         $order = Order::findOrFail($order_detail->order_id);
 
-		return view('order.vendor_order_report', compact('order', 'order_detail'));
-	}
+        return view('order.vendor_order_report', compact('order', 'order_detail'));
+    }
 
-	public function destroy($id)
-	{
-		//
-	}
+    public function destroy($id)
+    {
+        //
+    }
 }

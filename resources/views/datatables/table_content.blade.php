@@ -522,19 +522,19 @@
         <th>Email</th>
         <th>Verified</th>
         <th>Trusted</th>
-        <!-- <th>Status</th> -->
+        <th>Status</th>
         <th>Action</th>
     </thead>
     <tbody>
 
         @foreach ($vendor as $value => $vendors)
             <tr>
-                <!-- <td>{{ $value + 1 }}</td>  -->
+                {{-- {{-- <td>{{$value + 1}}</td> --}}
                 <td>{{ $vendors->id }}</td>
                 <td>{{ $vendors->name }}</td>
                 <td>{{ $vendors->phone1 }}</td>
                 <td>{{ $vendors->email }}</td>
-                <!-- <td>{{ $vendors->status }}</td>  -->
+                {{-- <td>{{ $vendors->status}}</td> --}}
                 <td>
                     @if ($vendors->verified_status == '1')
                         <span class="badge  badge-round-success md">
@@ -555,82 +555,30 @@
                         {{-- <span class="badge  badge-round-secondary md"><p style="font-size: revert;">x</p></span> --}}
                     @endif
                 </td>
-                <!-- <td>
-                @if ($vendors->status == '1')
-<span class="badge text-bg-success">Active</span>
-@elseif ($vendors->status == '0')
-<span class="badge text-bg-danger">In_Active</span>
-@endif
-            </td> -->
+                <td>
+                    @if ($vendors->status == '1')
+                        <span class="badge text-bg-success">Active</span>
+                    @elseif ($vendors->status == '0')
+                        <span class="badge text-bg-danger">In_Active</span>
+                    @endif
+                </td>
                 <td>
                     <div class="d-flex gap-2">
                         <a href="{{ URL::to('vendor/' . $vendors->id . '/edit') }}">
                             <button type="button" class="btn btn-outline-secondary ">
-                                <i class=" nav-icon i-Pen-2" title="edit" style="font-weight: bold;"></i>
+                                <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
                             </button>
                         </a>
 
                         <a href="{{ route('vendor.show', $vendors->id) }}">
                             <button type="button" class="btn btn-outline-secondary ">
-                                <i class="nav-icon i-Eye"title="view" style="font-weight: bold;"></i>
+                                <i class="nav-icon i-Eye" style="font-weight: bold;"></i>
                             </button>
                         </a>
                     </div>
                 </td>
             </tr>
-
-            @foreach ($vendor as $value => $vendors)
-                <tr>
-                    {{-- {{-- <td>{{$value + 1}}</td> --}}
-                    <td>{{ $vendors->id }}</td>
-                    <td>{{ $vendors->name }}</td>
-                    <td>{{ $vendors->phone1 }}</td>
-                    <td>{{ $vendors->email }}</td>
-                    {{-- <td>{{ $vendors->status}}</td> --}}
-                    <td>
-                        @if ($vendors->verified_status == '1')
-                            <span class="badge  badge-round-success md">
-                                <p style="font-size: revert;">✓</p>
-                            </span></h3>
-                        @elseif ($vendors->verified_status == '0')
-                            {{-- <span class="badge  badge-round-danger md"><p style="font-size: revert;">X</p></span></h3> --}}
-                            <h6>x</h6>
-                        @endif
-                    </td>
-                    <td>
-                        @if ($vendors->trusted_status == '1')
-                            <span class="badge  badge-round-info md">
-                                <p style="font-size: revert;">✓</p>
-                            </span>
-                        @elseif ($vendors->trusted_status == '0')
-                            <h6>x</h6>
-                            {{-- <span class="badge  badge-round-secondary md"><p style="font-size: revert;">x</p></span> --}}
-                        @endif
-                    </td>
-                    <td>
-                        @if ($vendors->status == '1')
-                            <span class="badge text-bg-success">Active</span>
-                        @elseif ($vendors->status == '0')
-                            <span class="badge text-bg-danger">In_Active</span>
-                        @endif
-                    </td>
-                    <td>
-                        <div class="d-flex gap-2">
-                            <a href="{{ URL::to('vendor/' . $vendors->id . '/edit') }}">
-                                <button type="button" class="btn btn-outline-secondary ">
-                                    <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
-                                </button>
-                            </a>
-
-                            <a href="{{ route('vendor.show', $vendors->id) }}">
-                                <button type="button" class="btn btn-outline-secondary ">
-                                    <i class="nav-icon i-Eye" style="font-weight: bold;"></i>
-                                </button>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
+        @endforeach
 
     </tbody>
     <tfoot>
@@ -1448,9 +1396,9 @@
         <th>Name</th>
         <th>Menu</th>
         {{-- <th>Commission</th> --}}
-        <<<<<<< HEAD <th>Image(160x80)px</th>
-            <th>Images for App(160x80)px</th>
-            <th>Action</th>
+        <th>Image(160x80)px</th>
+        <th>Images for App(160x80)px</th>
+        <th>Action</th>
     </thead>
     <tbody>
 
@@ -1477,63 +1425,25 @@
                         class="btn  btn-outline-secondary">
                         <i class=" nav-icon i-Pen-2" title="edit" style="font-weight: bold;"></i>
                     </a>
-                    =======
-                <th>Image</th>
-                <th>Images for App </th>
-                <th>Action</th>
-                </thead>
-    <tbody>
-        >>>>>>> 332bd9ad6fde313e7aec0a968028f75a9c7224a9
-
-        @foreach ($data as $key => $allcat)
-            <tr>
-                <td>{{ $key + 1 }}</td>
-                <td>{{ $allcat->id }}</td>
-                <td>{{ $allcat->name }}</td>
-                <td>
-                    @php
-                        $menu = $menus->where('id', $allcat->menu_id)->first();
-                    @endphp
-                    @if ($menu)
-                        {{ $menu->name }}
-                    @else
-                        No menu found
-                    @endif
-                </td>
-                {{-- <td>{{ $allcat->commission }}</td> --}}
-                <td><img src="<?php echo $allcat['img']; ?>" width="50" height="50"></td>
-                <td><img src="<?php echo $allcat['imageforapp']; ?>" width="50" height="50"></td>
-                <td class="col-lg-1" style="white-space: nowrap;">
-                    <a href="{{ route('category.editcat', ['id' => $allcat->id]) }}"
-                        class="btn  btn-outline-secondary">
-                        <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
-                    </a>
-
-
-                    {{-- <form action="{{ route('category.destroy', ['id' => $allcat->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category item?')" style="display: inline;">
-                   @csrf
-                   @method('DELETE')
-                   <button type="submit" class="btn  btn-outline-secondary">
-                       <i class="fa fa-trash" title="delete" aria-hidden="true"></i>
-                   </button>
-               </form> --}}
                 </td>
             </tr>
         @endforeach
+
     </tbody>
+
     <tfoot>
         <th>Sr No</th>
         <th>Id#</th>
         <th>Name</th>
         <th>Menu</th>
         {{-- <th>Commission</th> --}}
-        <<<<<<< HEAD <th>Image(100x66)px</th>
-            <th>Images for App(100x66)px</th>
-            =======
-            <th>Image</th>
-            <th>Images for App </th>
-            >>>>>>> 332bd9ad6fde313e7aec0a968028f75a9c7224a9
-            <th>Action</th>
+        <th>Image(100x66)px</th>
+        <th>Images for App(100x66)px</th>
+
+        <th>Image</th>
+        <th>Images for App </th>
+
+        <th>Action</th>
     </tfoot>
 @elseif (Route::currentRouteName() == 'sub-category.index')
     <thead>

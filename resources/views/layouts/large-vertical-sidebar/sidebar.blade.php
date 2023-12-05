@@ -163,7 +163,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'paymentmethod' ? 'open' : '' }}" href="{{ route('paymentmethod') }}">
+                <a class="{{ Route::currentRouteName() == 'paymentmethod' ? 'open' : '' }}"
+                    href="{{ route('paymentmethod') }}">
                     <i class="nav-icon i-File-Trash"></i>
                     <span class="item-name">Payments</span>
                 </a>
@@ -441,7 +442,6 @@
                 </a>
             </li>
 
-<<<<<<< HEAD
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'helpcenter' ? 'open' : '' }}"
                     href="{{ route('helpcenter.index') }}">
@@ -449,10 +449,8 @@
                     <span class="item-name">Help Center</span>
                 </a>
             </li>
-=======
 
 
->>>>>>> 332bd9ad6fde313e7aec0a968028f75a9c7224a9
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'payment_method' ? 'open' : '' }}"
                     href="{{ route('payment_method.index') }}">
@@ -470,16 +468,18 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'Deals.index' ? 'open' : '' }}" href="{{ route('Deals.index') }}">
+                <a class="{{ Route::currentRouteName() == 'Deals.index' ? 'open' : '' }}"
+                    href="{{ route('Deals.index') }}">
                     <i class="nav-icon i-Shopping-Bag"></i>
                     <span class="item-name">Deal's Day</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'Homecoupons.index' ? 'open' : '' }}" href="{{ route('Homecoupons.index') }}">
-                <i class="nav-icon i-File-Trash"></i>  
-                <span class="item-name">Home Page Coupon</span>
+                <a class="{{ Route::currentRouteName() == 'Homecoupons.index' ? 'open' : '' }}"
+                    href="{{ route('Homecoupons.index') }}">
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">Home Page Coupon</span>
                 </a>
             </li>
         </ul>
@@ -616,18 +616,23 @@
             </li>
         </ul>
         <ul class="childNav" data-parent="blogs">
-<li class="nav-item">
-    <a href="{{ route('blog_categories.index') }}">
-    <i class="fas fa-blog"></i>&NonBreakingSpace; &NonBreakingSpace;&NonBreakingSpace;<span class="item-name">Blog Categories</span>
+            <li class="nav-item">
+                <a href="{{ route('blog_categories.index') }}">
+                    <i class="fas fa-blog"></i>&NonBreakingSpace; &NonBreakingSpace;&NonBreakingSpace;<span
+                        class="item-name">Blog Categories</span>
                 </a>
             </li>
 
- <li class="nav-item">
-<a href="{{ route('blogs.index') }}"><i class="fas fa-blog"></i>&NonBreakingSpace; &NonBreakingSpace;&NonBreakingSpace;<span class="item-name">Blog list</span></a></li>
+            <li class="nav-item">
+                <a href="{{ route('blogs.index') }}"><i class="fas fa-blog"></i>&NonBreakingSpace;
+                    &NonBreakingSpace;&NonBreakingSpace;<span class="item-name">Blog list</span></a>
+            </li>
 
-    <li class="nav-item">
-<a href="{{ route('cfeatures.index') }}"><i class="fas fa-blog"></i>&NonBreakingSpace; &NonBreakingSpace;&NonBreakingSpace;<span class="item-name">Training Page</span></a></li>
-    </ul>
+            <li class="nav-item">
+                <a href="{{ route('cfeatures.index') }}"><i class="fas fa-blog"></i>&NonBreakingSpace;
+                    &NonBreakingSpace;&NonBreakingSpace;<span class="item-name">Training Page</span></a>
+            </li>
+        </ul>
     </div>
     <div class="sidebar-overlay"></div>
     <!--=============== Left side End ================-->
