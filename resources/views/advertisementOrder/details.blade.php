@@ -282,7 +282,7 @@
             </div>
             <div class="card-body">
                 <div class="digital-add needs-validation">
-                    @if ($item->id ?? 'null')
+                    @if ($item->id ?? null)
                         <form id="editForm" action="{{ route('advertisementOrderImageUpdate', ['id' => $item->id]) }}"
                             method="POST" enctype="multipart/form-data">
                             @csrf
@@ -320,7 +320,7 @@
             </div>
             <div class="card-body">
                 <div class="digital-add needs-validation">
-                    @if ($item->id ?? 'null')
+                    @if ($item->id ?? null)
                         <form id="editForm" action="{{ route('advertisementOrderDisplayStatus', ['id' => $item->id]) }}"
                             method="POST" enctype="multipart/form-data">
                             @csrf
