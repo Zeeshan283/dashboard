@@ -59,7 +59,7 @@
     {{-- medium icons and values  --}}
     <div class="row">
         <!-- ICON BG -->
-        @if (Auddth::Usdder()->role == 'Admin')
+        @if (Auth::User()->role == 'Admin')
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <a href="{{ route('vendor.index') }}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
