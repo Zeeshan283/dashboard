@@ -1,4 +1,3 @@
-
 @extends('layouts.master')
 @section('before-css')
 {{-- css link sheet  --}}
@@ -18,13 +17,19 @@
     display: block;
     margin-bottom: 10px; /* Add some spacing between images */
 }
-
 </style>
 @endsection
 @endsection
-
 @section('main-content')
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+    .custom-container{
+        width: 60%;
+        height: 60%;
+        margin-left: 19%;
+    }
+</style>
 <div class="breadcrumb">
  
                 <h1>Seller Verification Management's</h1>
@@ -62,100 +67,90 @@
                             </div>
                             </div>
                         </span>
-
                         <div>
-                        <div class="col-12 col-md-6"> <a href="#" data-bs-target="#step-1" data-bs-toggle="modal" class="account-card-new d-flex align-items-center rounded h-100 p-3 mb-4 mb-lg-0" onclick="showAddBankAccountModal()">
-                <p class="w-100 text-center lh-base m-0"> <span class="text-3"><i class="fas fa-plus-circle"></i></span> <span class="d-block text-body text-3">Add New Bank Account</span> </p>
-                </a> </div>
-<div id="step-1" class=""  aria-hidden="true">                     
-                    {!! Form::model($edit, [
-                    'method' => 'POST',
-                    'action' => ['App\Http\Controllers\VendorsController@trustedSellerSave', $edit->id],
-                    'class' => 'form-horizontal',
-                    'files' => 'true',
-                    'enctype' => 'multipart/form-data',
-                ]) !!}
-                        <div class="">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="card">
-                                        <div class="card-header bg-transparent">
-                                            <h3 class="card-title">Become a Trusted Supplier 
-                                                <span class="badge  badge-round-success md"><p style="font-size: revert;">✓</p></span></h3>
-                                        </div>
-                                            <!-- <div class="card-body">
-                                                <div class="row"> -->
-              <div class="modal-content">
-                <div class="modal-header">
-                                                        {!! Form::hidden('vendor_profile_id', $edit->id, ['id' => 'id', 'class' => 'form-control']) !!}
-                                                        {!! Form::hidden('vendor_id', $edit->vendor_id, ['id' => 'id', 'class' => 'form-control']) !!}
-
-                  <h5 class="modal-title fw-400">Add bank account</h5>
+                        <h4>Become a Payment Verified Supplier 
+    <span class="badge  badge-round-info md"><p style="font-size: revert;">✓</p></span></h4>
+    
+<div id="add-new-bank-account" class="modal fade" aria-hidden="true">
+    {!! Form::model($edit, [
+        'method' => 'POST',
+        'action' => ['App\Http\Controllers\VendorsController@trustedSellerSave', $edit->id],
+        'class' => 'form-horizontal',
+        'files' => 'true',
+        'enctype' => 'multipart/form-data',
+    ]) !!}
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                {!! Form::hidden('vendor_profile_id', $edit->id, ['id' => 'id', 'class' => 'form-control']) !!}
+                {!! Form::hidden('vendor_id', $edit->vendor_id, ['id' => 'id', 'class' => 'form-control']) !!}
+                <h5 class="modal-title fw-400">Add bank account</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal"  onclick="hideAddBankAccountModal()" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
-                    <div class="form-control mb-3">
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" id="personal" name="bankAccountType" checked="" required="" type="radio">
-                        <label class="form-check-label" for="personal">Personal</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" id="business" name="bankAccountType" required="" type="radio">
-                        <label class="form-check-label" for="business">Business</label>
-                      </div>
-                    </div>
-                    <div class=" form-group mb-3">
-                                                        <label for="inputtext11" class="ul-form__label">Account Title:</label>
-                                                        {!! Form::text('account_title',null, ['id' => 'account_title', 'class' => 'form-control']) !!}
+                    <div class="mb-3">
+            <label for="inputtext11" class="ul-form__label">Account Title:</label>
+                {!! Form::text('account_title',null, ['id' => 'account_title', 'class' => 'form-control']) !!}
                                                     </div>
             
-                    <div class=" form-group mb-3">
-                                                        <label for="inputtext11" class="ul-form__label">Account No:</label>
-                                                        {!! Form::text('account_no', null, ['id' => 'account_no', 'class' => 'form-control']) !!}
-                                                    </div>
-            
-                    <div class=" form-control mb-3">
-                                                        <label for="inputEmail12" class="ul-form__label">IBAN No</label>
-                                                        {!! Form::text('iban_no', null,  ['id' => 'iban_no', 'class' => 'form-control']) !!}
-                                                    </div>
-
-                    <div class=" form-control mb-3">
-                                                        <label for="inputEmail12" class="ul-form__label">Bank Name:</label>
-                                                        {!! Form::text('bank_name', null,  ['id' => 'bank_name', 'class' => 'form-control']) !!}
-                                                    </div>
-
-                    <div class=" form-control mb-3">
-                                                        <label for="inputEmail12" class="ul-form__label">Bank Address:</label>
-                                                        {!! Form::text('bank_address',null,  ['id' => 'bank_address', 'class' => 'form-control']) !!}
+                    <div class="mb-3">
+            <label for="inputtext11" class="ul-form__label">Account No:</label>
+        {!! Form::text('account_no', null, ['id' => 'account_no', 'class' => 'form-control']) !!}
+            </div>
+                    <div class="mb-3">
+    <label for="inputEmail12" class="ul-form__label">IBAN No</label>
+{!! Form::text('iban_no', null,  ['id' => 'iban_no', 'class' => 'form-control']) !!}
+    </div>
+                    <div class="mb-3">
+    <label for="inputEmail12" class="ul-form__label">Bank Name:</label>
+    {!! Form::text('bank_name', null,  ['id' => 'bank_name', 'class' => 'form-control']) !!}
+            </div>
+                    <div class="mb-3">
+        <label for="inputEmail12" class="ul-form__label">Bank Address:</label>
+        {!! Form::text('bank_address',null,  ['id' => 'bank_address', 'class' => 'form-control']) !!}
                                                     </div>
                     
 
-                    <div class=" form-control mb-3">
+                    <div class="mb-3">
                                                         <label for="inputEmail12" class="ul-form__label">Branch Code:</label>
                                                         {!! Form::text('branch_code',null,  ['id' => 'branch_code', 'class' => 'form-control']) !!}
                                                     </div>
-                                                    <div class="form-control"style="text-align: center;">
-                                                        <div class="">
-                                                            <input class="btn btn-outline-secondary" type="submit" value="Submit">
-                                                        </div>
-                                                    </div>
+                                                    <div class="form-check mb-3">
+                      <input class="form-check-input" id="remember-me" name="remember" type="checkbox">
+                      <label class="form-check-label" for="remember-me">I confirm the bank account details above</label>
+                    </div>
+                    <div class="d-grid"><button class="btn btn-primary" type="submit"  onclick="hideAddBankAccountModal()">Add Bank Account</button></div>   
+                </div>
+        </div>
+    </div>
+    {!! Form::close() !!} 
+</div>
+    <script>
+     function showAddBankAccountModal() {
+        var modal = document.getElementById('add-new-bank-account');
+        modal.classList.add('show');
+        modal.style.display = 'block';
+        document.body.classList.add('modal-open');
+    }
 
-                                                </div>
-                                      
-<script>
-function showAddBankAccountModal() {
-    alert("Step 1 modal shown");
-    $('#step-1').modal('show');
-}
-function hideAddBankAccountModal() {
-    $('#step-1').modal('hide');
-}
-
-</script>
-                                                {!! Form::close() !!}
-                                        
-            </div>  
-                                    </div>     
+    function hideAddBankAccountModal() {
+        var modal = document.getElementById('add-new-bank-account');
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+    }
+</script>  
+        
+    <div class="col-12 col-md-12" id="step-1"> 
+<div class="custom-container justify-content-center">
+    <a href="#" data-bs-target="#add-new-bank-account" data-bs-toggle="modal" class="account-card-new d-flex align-items-center rounded h-100 p-3 mb-4 mb-lg-0" onclick="showAddBankAccountModal()">
+        <p class="w-100 text-center lh-base m-0">
+            <span class="text-3"><i class="fas fa-plus-circle"></i></span>
+            <span class="d-block text-body text-3">Add New Bank Account</span>
+        </p>
+    </a>
+</div>
+<br><br>
 <div class="table-responsive">
         <table id="deafult_ordering_table" class="display table table-striped table-bordered"
                                 style="width:100%">
@@ -205,13 +200,8 @@ function hideAddBankAccountModal() {
                 </tfoot>
             </table>
 </div>
-                            </div>
-
                         </div>
-                    </div>
-            </div>
-        
-
+                    
             <div id="step-2" class="">
                     {!! Form::model($edit, [
                         'method' => 'PATCH',
@@ -225,7 +215,7 @@ function hideAddBankAccountModal() {
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header bg-transparent">
-                                    <h3 class="card-title">Become a Verified Supplier  
+                                    <h3 class="card-title">Become a Trusted Supplier  
                                         
                                         <span class="badge  badge-round-info md"><p style="font-size: revert;">✓</p></span></h3>
                                         
@@ -257,7 +247,6 @@ function hideAddBankAccountModal() {
                                             <h6>No Image</h6>
                                             @endif
                                             </div>
-
                                             <div class="form-group col-md-3">
                                                 <label for="inputtext11" class="ul-form__label">Trade License:</label>
                                                 <input type="file" name="trade_license" class="form-control">
@@ -301,7 +290,7 @@ function hideAddBankAccountModal() {
                         <div class="col-lg-12">
                             <div class="card">
                                 {{-- <div class="card-header bg-transparent">
-                                    <h3 class="card-title">Become a Verified Supplier  
+                                    <h3 class="card-title">Become a Trusted Supplier  
                                         @if( !$edit->id_front == '' && !$edit->id_back == '')
                                         <span class="badge  badge-round-info md"><p style="font-size: revert;">✓</p></span></h3>
                                         @endif
@@ -458,12 +447,8 @@ function hideAddBankAccountModal() {
                 </div>
             </div>
         </div>
-        </div>
-
-@endsection
-
-
-
+            </div>
+@endsection 
 @section('page-js')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{asset('assets/js/vendor/jquery.smartWizard.min.js')}}"></script>
