@@ -15,10 +15,10 @@
 <body>
     <div class="not-found-wrap text-center">
         <h1 class="text-60">
-            500
+            404
         </h1>
-        <p class="text-36 subheading mb-3">Internel Server Error!</p>
-        <p class="mb-5  text-muted text-18">Sorry! This page have some issue.</p>
+        <p class="text-36 subheading mb-3">Not Found!</p>
+        <p class="mb-5  text-muted text-18">Sorry! The page you were looking for doesn't exist.</p>
         <button class=" btn-lg btn btn-outline-secondary  btn-rounded ladda-button example-button m-1 btn-rounded"
             onclick="goBack()">Go back</button>
 

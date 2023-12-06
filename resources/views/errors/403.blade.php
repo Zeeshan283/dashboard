@@ -15,10 +15,10 @@
 <body>
     <div class="not-found-wrap text-center">
         <h1 class="text-60">
-            500
+            403
         </h1>
-        <p class="text-36 subheading mb-3">Internel Server Error!</p>
-        <p class="mb-5  text-muted text-18">Sorry! This page have some issue.</p>
+        <p class="text-36 subheading mb-3">UNAUTHORIZED</p>
+        <p class="mb-5  text-muted text-18">Hamary haa asa hi hota hai.</p>
         <button class=" btn-lg btn btn-outline-secondary  btn-rounded ladda-button example-button m-1 btn-rounded"
             onclick="goBack()">Go back</button>
 

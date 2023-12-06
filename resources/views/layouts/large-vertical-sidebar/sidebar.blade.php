@@ -442,13 +442,7 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'helpcenter' ? 'open' : '' }}"
-                    href="{{ route('helpcenter.index') }}">
-                    <i class="nav-icon i-Blinklist"></i>
-                    <span class="item-name">Help Center</span>
-                </a>
-            </li>
+
 
 
             <li class="nav-item">
@@ -476,16 +470,18 @@
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'emails.index' ? 'open' : '' }}" href="{{ route('emails.index') }}">
+                <a class="{{ Route::currentRouteName() == 'emails.index' ? 'open' : '' }}"
+                    href="{{ route('emails.index') }}">
                     <i class="nav-icon i-Shopping-Bag"></i>
                     <span class="item-name">Email Page</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'Homecoupons.index' ? 'open' : '' }}" href="{{ route('Homecoupons.index') }}">
-                <i class="nav-icon i-File-Trash"></i>  
-                <span class="item-name">Home Page Coupon</span>
+                <a class="{{ Route::currentRouteName() == 'Homecoupons.index' ? 'open' : '' }}"
+                    href="{{ route('Homecoupons.index') }}">
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">Home Page Coupon</span>
                 </a>
             </li>
         </ul>
@@ -561,32 +557,7 @@
 
         </ul>
 
-        <ul class="childNav" data-parent="blogs">
 
-
-
-            <li class="nav-item">
-                <a href="#">
-                    <i class="nav-icon i-Add"></i>
-                    <span class="item-name">Category</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#">
-                    <i class="nav-icon i-Add"></i>
-                    <span class="item-name">Sub Category</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#">
-                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                    <span class="item-name">Bloge List</span>
-                </a>
-            </li>
-
-        </ul>
         <ul class="childNav" data-parent="pages">
             <li class="nav-item">
 
@@ -622,23 +593,30 @@
             </li>
         </ul>
         <ul class="childNav" data-parent="blogs">
+
+
+
             <li class="nav-item">
                 <a href="{{ route('blog_categories.index') }}">
-                    <i class="fas fa-blog"></i>&NonBreakingSpace; &NonBreakingSpace;&NonBreakingSpace;<span
-                        class="item-name">Blog Categories</span>
+                    <i class="nav-icon i-Add"></i>
+                    <span class="item-name">Blog Category</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('blogs.index') }}"><i class="fas fa-blog"></i>&NonBreakingSpace;
-                    &NonBreakingSpace;&NonBreakingSpace;<span class="item-name">Blog list</span></a>
+                <a href="{{ route('blogs.index') }}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Bloge List</span>
+                </a>
             </li>
-
             <li class="nav-item">
-                <a href="{{ route('cfeatures.index') }}"><i class="fas fa-blog"></i>&NonBreakingSpace;
-                    &NonBreakingSpace;&NonBreakingSpace;<span class="item-name">Training Page</span></a>
+                <a href="{{ route('cfeatures.index') }}">
+                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                    <span class="item-name">Training Page</span>
+                </a>
             </li>
         </ul>
+
     </div>
     <div class="sidebar-overlay"></div>
     <!--=============== Left side End ================-->
