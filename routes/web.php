@@ -35,7 +35,10 @@ use App\Http\Controllers\DealsController;
 use App\Http\Controllers\HelpCenterController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Middleware\VendorOnly;
+// use App\Http\Middleware\VendorOnly;
+// use App\Http\Middleware\AdminMiddleware;
+// use App\Http\Middleware\VendorMiddleware;
+// use App\Http\Middleware\BothMiddleware;
 use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\AdvertisementSellerController;
 use App\Http\Controllers\AdvertisementOrder;
@@ -95,170 +98,175 @@ Auth::routes(['verify' => true]);
 
 
 // ADMIN ACCESS
+Route::middleware(['admin'])->group(function () {
 
-Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
-Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
-Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
-Route::get('menu/edit/{id}', [MenuController::class, 'edit'])->name('menu.edit');
-Route::put('menu/update/{id}', [MenuController::class, 'update'])->name('menu.update');
-Route::delete('menu/delete/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
-Route::resource('cat', CategoryController::class);
-Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
-Route::get('addcat', [CategoryController::class, 'create'])->name('addcat');
-Route::post('addcat', [CategoryController::class, 'store'])->name('addcat.store');
-Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
-Route::get('category/editcat/{id}', [CategoryController::class, 'edit'])->name('category.editcat');
-Route::put('category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
-Route::delete('category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
-Route::resource('sub-category', SubCategoryController::class);
-
-
-Route::get('users/userlist', [UserController::class, 'index'])->name('userlist');
-Route::get('users/add', [UserController::class, 'add'])->name('user.add');
-Route::post('users/adduser', [UserController::class, 'adduser'])->name('user.adduser');
-Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
-Route::post('users/update/{id}', [UserController::class, 'update'])->name('user.update');
-Route::delete('users/delete/{id}', [UserController::class, 'delete_user'])->name('user.delete');
-Route::get('customerlist', [CustomerController::class, 'index'])->name('customerlist');
-Route::resource('users', RoleController::class);
+    Route::get('allmenu', [MenuController::class, 'index'])->name('allmenu');
+    Route::get('addmenu', [MenuController::class, 'create'])->name('addmenu');
+    Route::post('addmenu', [MenuController::class, 'store'])->name('addmenu.store');
+    Route::get('menu/edit/{id}', [MenuController::class, 'edit'])->name('menu.edit');
+    Route::put('menu/update/{id}', [MenuController::class, 'update'])->name('menu.update');
+    Route::delete('menu/delete/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
+    Route::resource('cat', CategoryController::class);
+    Route::get('allcat', [CategoryController::class, 'index'])->name('allcat');
+    Route::get('addcat', [CategoryController::class, 'create'])->name('addcat');
+    Route::post('addcat', [CategoryController::class, 'store'])->name('addcat.store');
+    Route::get('allsubcat', [SubCategoryController::class, 'index'])->name('allsubcat');
+    Route::get('category/editcat/{id}', [CategoryController::class, 'edit'])->name('category.editcat');
+    Route::put('category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::resource('sub-category', SubCategoryController::class);
 
 
-Route::resource('vendor', VendorsController::class);
-Route::post('vendor', [VendorsController::class, 'store'])->name('vendor.store');
-Route::resource('supplier', SupplierController::class);
+    Route::get('users/userlist', [UserController::class, 'index'])->name('userlist');
+    Route::get('users/add', [UserController::class, 'add'])->name('user.add');
+    Route::post('users/adduser', [UserController::class, 'adduser'])->name('user.adduser');
+    Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+    Route::post('users/update/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('users/delete/{id}', [UserController::class, 'delete_user'])->name('user.delete');
+    Route::get('customerlist', [CustomerController::class, 'index'])->name('customerlist');
+    Route::resource('users', RoleController::class);
 
-Route::resource('faqs_categories', FaqCategoriesController::class);
-Route::get('faqs_category/{id}/destroy', [FaqCategoriesController::class, 'destroy'])->name('faqs_category.destroy');
-Route::resource('faqs', FAQController::class);
-Route::get('faq/{id}/destroy', [FAQController::class, 'destroy'])->name('faq.destroy');
-Route::resource('pages', PageController::class);
-Route::get('page/{id}/destroy', [PageController::class, 'destroy'])->name('page.destroy');
-Route::resource('helpcenter', HelpCenterController::class);
-Route::get('helpcenter/{id}/destroy', [HelpCenterController::class, 'destroy']);
-Route::get('allterm', [TermsConditionsController::class, 'index'])->name('allterm');
-Route::get('addterm', [TermsConditionsController::class, 'create'])->name('addterm');
-Route::post('addterm', [TermsConditionsController::class, 'store'])->name('addterm.store');
-Route::get('terms/edit/{id}', [TermsConditionsController::class, 'edit'])->name('terms.edit');
-Route::put('terms/update/{id}', [TermsConditionsController::class, 'update'])->name('terms.update');
-Route::delete('terms/delete/{id}', [TermsConditionsController::class, 'destroy'])->name('terms.destroy');
-Route::get('terms/show/{id}', [TermsConditionsController::class, 'show'])->name('terms.show');
-Route::resource('brands', BrandController::class);
-Route::get('brands/{id}/destroy', [BrandController::class, 'destroy']);
-Route::resource('payment_method', PaymentController::class);
-Route::get('payment_method/{id}/destroy', [PaymentController::class, 'destroy']);
-Route::get('/home-settings', [HomeSettingsController::class, 'index'])->name('home-settings');
-Route::post('/update-home-settings', [HomeSettingsController::class, 'UpdateHomeSettings']);
-Route::resource('/banners', BannersController::class);
-Route::get('/banners/destroy/{id}', [BannersController::class, 'destroy'])->whereNumber('id');
-Route::resource('/settings', SettingsController::class);
-Route::resource('Deals', 'App\Http\Controllers\DealsController');
-Route::resource('Homecoupons', HomecouponsController::class);
-Route::get('/notifications', 'NotificationController@showNotifications')->name('showNotifications');
-Route::get('services/{id}/destroy', [TermsConditionsController::class, 'destroy']);
-Route::resource('blog_categories', BlogsCategoriesController::class);
-Route::get('blogs_categories/{id}/destroy', [BlogsCategoriesController::class, 'destroy']);
-Route::resource('blogs', BlogsController::class);
-Route::get('blogs/{id}/destroy', [BlogsController::class, 'destroy']);
-Route::resource('cfeatures', CfeaturesController::class);
-Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
-Route::post('/notifications', 'NotificationController@notification')->name('notifications.notification');
-Route::get('/user-notifications', [UserController::class, 'showNotifications']);
-Route::get('/user-unread-notifications', [UserController::class, 'showUnreadNotifications']);
-Route::get('/mark-all-notifications-as-read/{userId}', [UserController::class, 'markAllNotificationsAsRead']);
-Route::get('/emails/index', [EmailController::class, 'index'])->name('emails.index');
 
-Route::resource('advertisements', AdvertisementController::class);
-Route::get('advertisement/{id}/destroy', [AdvertisementController::class, 'destroy'])->name('advertisement.destroy');
+    Route::resource('vendor', VendorsController::class);
+    Route::post('vendor', [VendorsController::class, 'store'])->name('vendor.store');
 
-Route::get('a_details', [AdvertisementOrder::class, 'details'])->name('advertisementSellers.details');
-Route::post('a_s_i_a/{id}', [AdvertisementOrder::class, 'advertisementOrderImageStatusUpdate'])->name('advertisementOrderImageUpdate');
-Route::post('a_s_i_a_1/{id}', [AdvertisementOrder::class, 'advertisementOrderDisplayStatus'])->name('advertisementOrderDisplayStatus');
+    Route::resource('faqs_categories', FaqCategoriesController::class);
+    Route::get('faqs_category/{id}/destroy', [FaqCategoriesController::class, 'destroy'])->name('faqs_category.destroy');
+    Route::resource('faqs', FAQController::class);
+    Route::get('faq/{id}/destroy', [FAQController::class, 'destroy'])->name('faq.destroy');
+    Route::resource('pages', PageController::class);
+    Route::get('page/{id}/destroy', [PageController::class, 'destroy'])->name('page.destroy');
+    Route::resource('helpcenter', HelpCenterController::class);
+    Route::get('helpcenter/{id}/destroy', [HelpCenterController::class, 'destroy']);
+    Route::get('allterm', [TermsConditionsController::class, 'index'])->name('allterm');
+    Route::get('addterm', [TermsConditionsController::class, 'create'])->name('addterm');
+    Route::post('addterm', [TermsConditionsController::class, 'store'])->name('addterm.store');
+    Route::get('terms/edit/{id}', [TermsConditionsController::class, 'edit'])->name('terms.edit');
+    Route::put('terms/update/{id}', [TermsConditionsController::class, 'update'])->name('terms.update');
+    Route::delete('terms/delete/{id}', [TermsConditionsController::class, 'destroy'])->name('terms.destroy');
+    Route::get('terms/show/{id}', [TermsConditionsController::class, 'show'])->name('terms.show');
+    Route::resource('brands', BrandController::class);
+    Route::get('brands/{id}/destroy', [BrandController::class, 'destroy']);
+    Route::resource('payment_method', PaymentController::class);
+    Route::get('payment_method/{id}/destroy', [PaymentController::class, 'destroy']);
+    Route::get('/home-settings', [HomeSettingsController::class, 'index'])->name('home-settings');
+    Route::post('/update-home-settings', [HomeSettingsController::class, 'UpdateHomeSettings']);
+    Route::resource('/banners', BannersController::class);
+    Route::get('/banners/destroy/{id}', [BannersController::class, 'destroy'])->whereNumber('id');
+    Route::resource('/settings', SettingsController::class);
+    Route::resource('Deals', 'App\Http\Controllers\DealsController');
+    Route::resource('Homecoupons', HomecouponsController::class);
+    Route::get('/notifications', 'NotificationController@showNotifications')->name('showNotifications');
+    Route::get('services/{id}/destroy', [TermsConditionsController::class, 'destroy']);
+    Route::resource('blog_categories', BlogsCategoriesController::class);
+    Route::get('blogs_categories/{id}/destroy', [BlogsCategoriesController::class, 'destroy']);
+    Route::resource('blogs', BlogsController::class);
+    Route::get('blogs/{id}/destroy', [BlogsController::class, 'destroy']);
+    Route::resource('cfeatures', CfeaturesController::class);
+    Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
+    Route::post('/notifications', 'NotificationController@notification')->name('notifications.notification');
+    Route::get('/user-notifications', [UserController::class, 'showNotifications']);
+    Route::get('/user-unread-notifications', [UserController::class, 'showUnreadNotifications']);
+    Route::get('/mark-all-notifications-as-read/{userId}', [UserController::class, 'markAllNotificationsAsRead']);
+    Route::get('/emails/index', [EmailController::class, 'index'])->name('emails.index');
 
+    Route::resource('advertisements', AdvertisementController::class);
+    Route::get('advertisement/{id}/destroy', [AdvertisementController::class, 'destroy'])->name('advertisement.destroy');
+
+    Route::get('a_details', [AdvertisementOrder::class, 'details'])->name('advertisementSellers.details');
+    Route::post('a_s_i_a/{id}', [AdvertisementOrder::class, 'advertisementOrderImageStatusUpdate'])->name('advertisementOrderImageUpdate');
+    Route::post('a_s_i_a_1/{id}', [AdvertisementOrder::class, 'advertisementOrderDisplayStatus'])->name('advertisementOrderDisplayStatus');
+});
 //  ============================================================================================================================ 
 
 // VENDOR ACCESS
+Route::middleware(['vendor'])->group(function () {
 
-Route::resource('coupon', CouponController::class);
-Route::post('/toggle-coupon-status', [CouponController::class, 'toggleStatus']);
-Route::get('coupon/{id}/destroy', [PurchaseController::class, 'destroy']);
+    Route::resource('coupon', CouponController::class);
+    Route::post('/toggle-coupon-status', [CouponController::class, 'toggleStatus']);
+    Route::get('coupon/{id}/destroy', [PurchaseController::class, 'destroy']);
 
-Route::get('vendor-profile/{id}', [VendorsController::class, 'vendorProfile'])->name('vendorProfile');
-Route::patch('vendorProfileSave/{id}', [VendorsController::class, 'vendorProfileSave']);
-Route::get('verified-seller/{id}', [VendorsController::class, 'verifiedSeller']);
-Route::post('trustedSellerSave/{id}', [VendorsController::class, 'trustedSellerSave']);
-Route::patch('verifiedSellerSave/{id}', [VendorsController::class, 'verifiedSellerSave']);
-Route::post('SellerDocumentSave/{id}', [VendorsController::class, 'SellerDocumentSave']);
-Route::get('vendor_document/{id}/delete', [VendorsController::class, 'delete_document']);
-Route::get('bank/{id}/delete', [VendorsController::class, 'delete_bank_details']);
-Route::delete('delete-image/{image}', [VendorsController::class, 'deleteImage'])->name('delete.image');
-Route::post('/delete-image', 'VendorsController@deleteImage');
+    Route::get('vendor-profile/{id}', [VendorsController::class, 'vendorProfile'])->name('vendorProfile');
+    Route::patch('vendorProfileSave/{id}', [VendorsController::class, 'vendorProfileSave']);
+    Route::get('verified-seller/{id}', [VendorsController::class, 'verifiedSeller']);
+    Route::post('trustedSellerSave/{id}', [VendorsController::class, 'trustedSellerSave']);
+    Route::patch('verifiedSellerSave/{id}', [VendorsController::class, 'verifiedSellerSave']);
+    Route::post('SellerDocumentSave/{id}', [VendorsController::class, 'SellerDocumentSave']);
+    Route::get('vendor_document/{id}/delete', [VendorsController::class, 'delete_document']);
+    Route::get('bank/{id}/delete', [VendorsController::class, 'delete_bank_details']);
+    Route::delete('delete-image/{image}', [VendorsController::class, 'deleteImage'])->name('delete.image');
+    Route::post('/delete-image', 'VendorsController@deleteImage');
 
 
-Route::resource('purchase', PurchaseController::class);
-Route::get('purchase/{id}/destroy', [PurchaseController::class, 'destroy']);
-Route::get('purchase/history', [PurchaseController::class, 'history'])->name('purchaseHistory');
-Route::get('purchase/{id}/edit', [PurchaseController::class, 'edit']);
-Route::get('/purchase/create', [PurchaseController::class, 'create'])->name('purchase.create');
-Route::get('/get-product-name/{sku}', [PurchaseController::class, 'getProductName']);
-Route::get('/purchase/invoice/{purchaseId}', [PurchaseController::class, 'invoice'])->name('purchase.invoice');
-Route::get('/purchase/bill/{purchaseId}', [PurchaseController::class, 'bill'])->name('purchase.bill');
+    Route::resource('purchase', PurchaseController::class);
+    Route::get('purchase/{id}/destroy', [PurchaseController::class, 'destroy']);
+    Route::get('purchase/history', [PurchaseController::class, 'history'])->name('purchaseHistory');
+    Route::get('purchase/{id}/edit', [PurchaseController::class, 'edit']);
+    Route::get('/purchase/create', [PurchaseController::class, 'create'])->name('purchase.create');
+    Route::get('/get-product-name/{sku}', [PurchaseController::class, 'getProductName']);
+    Route::get('/purchase/invoice/{purchaseId}', [PurchaseController::class, 'invoice'])->name('purchase.invoice');
+    Route::get('/purchase/bill/{purchaseId}', [PurchaseController::class, 'bill'])->name('purchase.bill');
+    Route::resource('supplier', SupplierController::class);
 
-Route::resource('advertisementSellers', AdvertisementSellerController::class);
-Route::post('advertisementOrder', [AdvertisementSellerController::class, 'formOrder']);
-Route::get('a_s_details', [AdvertisementOrder::class, 'SellerDetails'])->name('advertisementSellers.ASDetails');
-Route::post('a_s_image/{id}', [AdvertisementOrder::class, 'advertisementImage'])->name('advertisementImage');
-Route::get('stripe1', [StripePaymentController::class, 'stripe']);
-Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
+    Route::resource('advertisementSellers', AdvertisementSellerController::class);
+    Route::post('advertisementOrder', [AdvertisementSellerController::class, 'formOrder']);
+    Route::get('a_s_details', [AdvertisementOrder::class, 'SellerDetails'])->name('advertisementSellers.ASDetails');
+    Route::post('a_s_image/{id}', [AdvertisementOrder::class, 'advertisementImage'])->name('advertisementImage');
+    Route::get('stripe1', [StripePaymentController::class, 'stripe']);
+    Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
+});
 //  ============================================================================================================================ 
 
 
 
 // BOTH ACCESS
-Route::resource('products', ProductController::class);
-Route::get('product/{id}/dupe', [ProductController::class, 'dupe']);
-Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
-Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
-Route::get('/get-categories', [ProductController::class, 'GetCategories']);
-Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
-Route::resource('CustomerQueries', ProductContactController::class);
-Route::get('creviews', [ReviewsController::class, 'index'])->name('creviews');
-Route::view('productreviews', 'products.productreviews')->name('productreviews');
-Route::view('productinfo', 'products.productinfo')->name('productinfo');
+Route::middleware(['bothAccess'])->group(function () {
+
+    Route::resource('products', ProductController::class);
+    Route::get('product/{id}/dupe', [ProductController::class, 'dupe']);
+    Route::post('products/{id}/duplicate', [ProductController::class, 'duplicate']);
+    Route::get('products/{id}/destroy', [ProductController::class, 'destroy']);
+    Route::get('/get-categories', [ProductController::class, 'GetCategories']);
+    Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
+    Route::resource('CustomerQueries', ProductContactController::class);
+    Route::get('creviews', [ReviewsController::class, 'index'])->name('creviews');
+    Route::view('productreviews', 'products.productreviews')->name('productreviews');
+    Route::view('productinfo', 'products.productinfo')->name('productinfo');
 
 
-Route::get('allorders', [OrderController::class, 'index'])->name('allorders');
-Route::get('orders/{id}', [OrderController::class, 'show']);
-Route::get('order-invoice/{id}', [OrderController::class, 'show'])->name('orderInvoice');
-Route::get('pendingorders', [OrderController::class, 'showOrders'])->name('pendingorders');
-Route::get('confirmedorders', [OrderController::class, 'showOrders'])->name('confirmedorders');
-Route::get('packagingorders', [OrderController::class, 'showOrders'])->name('packagingorders');
-Route::get('outofdelivery', [OrderController::class, 'showOrders'])->name('outofdelivery');
-Route::get('delivered', [OrderController::class, 'showOrders'])->name('delivered');
-Route::get('returned', [OrderController::class, 'showOrders'])->name('returned');
-Route::get('ftod', [OrderController::class, 'showOrders'])->name('ftod');
-Route::get('canceled', [OrderController::class, 'showOrders'])->name('canceled');
-Route::patch('orderstatus', [OrderController::class, 'update'])->name('order.status');
+    Route::get('allorders', [OrderController::class, 'index'])->name('allorders');
+    Route::get('orders/{id}', [OrderController::class, 'show']);
+    Route::get('order-invoice/{id}', [OrderController::class, 'show'])->name('orderInvoice');
+    Route::get('pendingorders', [OrderController::class, 'showOrders'])->name('pendingorders');
+    Route::get('confirmedorders', [OrderController::class, 'showOrders'])->name('confirmedorders');
+    Route::get('packagingorders', [OrderController::class, 'showOrders'])->name('packagingorders');
+    Route::get('outofdelivery', [OrderController::class, 'showOrders'])->name('outofdelivery');
+    Route::get('delivered', [OrderController::class, 'showOrders'])->name('delivered');
+    Route::get('returned', [OrderController::class, 'showOrders'])->name('returned');
+    Route::get('ftod', [OrderController::class, 'showOrders'])->name('ftod');
+    Route::get('canceled', [OrderController::class, 'showOrders'])->name('canceled');
+    Route::patch('orderstatus', [OrderController::class, 'update'])->name('order.status');
 
-Route::get('pendingrefund', [RefundController::class, 'pendingRefunds'])->name('pendingrefund');
-Route::get('approvedrefund', [RefundController::class, 'approvedRefunds'])->name('approvedrefund');
-Route::get('refundrejected', [RefundController::class, 'rejectedRefunds'])->name('refundrejected');
-Route::get('refunded', [RefundController::class, 'refundedRefunds'])->name('refunded');
-Route::get('allrefunds', [RefundController::class, 'refundstatus'])->name('allrefunds');
-Route::get('createrefund', [RefundController::class, 'create'])->name('createrefund');
-Route::post('/store-refund', [RefundController::class, 'store'])->name('refund.store');
-Route::post('/allrefunds', [RefundController::class, 'update'])->name('refund.update');
+    Route::get('pendingrefund', [RefundController::class, 'pendingRefunds'])->name('pendingrefund');
+    Route::get('approvedrefund', [RefundController::class, 'approvedRefunds'])->name('approvedrefund');
+    Route::get('refundrejected', [RefundController::class, 'rejectedRefunds'])->name('refundrejected');
+    Route::get('refunded', [RefundController::class, 'refundedRefunds'])->name('refunded');
+    Route::get('allrefunds', [RefundController::class, 'refundstatus'])->name('allrefunds');
+    Route::get('createrefund', [RefundController::class, 'create'])->name('createrefund');
+    Route::post('/store-refund', [RefundController::class, 'store'])->name('refund.store');
+    Route::post('/allrefunds', [RefundController::class, 'update'])->name('refund.update');
 
-Route::get('ewallet/collectedcash', [EwalletController::class, 'collectedcash'])->name('collectedcash');
-Route::get('ewallet/Totalbuying', [EwalletController::class, 'Totalbuying'])->name('Totalbuying');
-Route::get('ewallet/totalpendingwithdrawls', [EwalletController::class, 'totalpendingwithdrawls'])->name('totalpendingwithdrawls');
-Route::get('ewallet/totalrefund', [EwalletController::class, 'totalrefund'])->name('totalrefund');
-Route::get('ewallet/totalspendondeals', [EwalletController::class, 'totalspendondeals'])->name('totalspendondeals');
-Route::get('ewallet/totalwithdrawl', [EwalletController::class, 'totalwithdrawl'])->name('totalwithdrawl');
-Route::get('ewallet/transcationhistory', [EwalletController::class, 'transcationhistory'])->name('transcationhistory');
-Route::get('ewallet/paymentmethod', [EwalletController::class, 'paymentmethod'])->name('paymentmethod');
-Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
-Route::get('cwallet', [CustomerController::class, 'cwallet'])->name('cwallet');
-
+    Route::get('ewallet/collectedcash', [EwalletController::class, 'collectedcash'])->name('collectedcash');
+    Route::get('ewallet/Totalbuying', [EwalletController::class, 'Totalbuying'])->name('Totalbuying');
+    Route::get('ewallet/totalpendingwithdrawls', [EwalletController::class, 'totalpendingwithdrawls'])->name('totalpendingwithdrawls');
+    Route::get('ewallet/totalrefund', [EwalletController::class, 'totalrefund'])->name('totalrefund');
+    Route::get('ewallet/totalspendondeals', [EwalletController::class, 'totalspendondeals'])->name('totalspendondeals');
+    Route::get('ewallet/totalwithdrawl', [EwalletController::class, 'totalwithdrawl'])->name('totalwithdrawl');
+    Route::get('ewallet/transcationhistory', [EwalletController::class, 'transcationhistory'])->name('transcationhistory');
+    Route::get('ewallet/paymentmethod', [EwalletController::class, 'paymentmethod'])->name('paymentmethod');
+    Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
+    Route::get('cwallet', [CustomerController::class, 'cwallet'])->name('cwallet');
+});
 //  ============================================================================================================================ 
 
 

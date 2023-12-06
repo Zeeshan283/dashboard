@@ -642,7 +642,7 @@
             <tr>
                 <td>{{ $value->id }}</td>
                 <td>{{ $value->Vendor }}</td>
-                <td>{{ $value->product->sku }}</td>
+                <td>{{ $value->product->sku ?? null }}</td>
                 <td>{{ $value->customer_id }}</td>
                 <td>{{ $value->order_id }}</td>
                 <td>{{ $value->reason }}</td>
@@ -699,18 +699,18 @@
                 <td>{{ $key + 1 }}</td>
                 <td>{{ $refund->id }}</td>
                 <td>
-                    {{ $refund->product->name }}
+                    {{ $refund->product->name ?? null }}
                 </td>
                 <td>
-                    <img src="{{ $refund->product->url }}" alt="Surprise" width="50" height="50">
+                    <img src="{{ $refund->product->url ?? null }}" alt="Surprise" width="50" height="50">
 
                 </td>
                 <td>
                     {{ $refund->order_id }}
                 </td>
-                <td>{{ $refund->user->name }}</td>
+                <td>{{ $refund->user->name ?? null }}</td>
 
-                <td>{{ $refund->user->email }}</td>
+                <td>{{ $refund->user->email ?? null }}</td>
                 <td>{{ $refund->amount }}</td>
                 <td>{{ $refund->reason }}</td>
                 <td>{{ $refund->status }}</td>
@@ -751,7 +751,7 @@
                 <td>{{ $key + 1 }}</td>
                 <td>{{ $refund->id }}</td>
                 <td>
-                    {{ $refund->product->name }}
+                    {{ $refund->product->name ?? null }}
                 </td>
                 <td>
                     <img src="{{ $refund->product->url }}" alt="Surprise" width="50" height="50">
@@ -760,9 +760,9 @@
                 <td>
                     {{ $refund->order_id }}
                 </td>
-                <td>{{ $refund->user->name }}</td>
+                <td>{{ $refund->user->name ?? null }}</td>
 
-                <td>{{ $refund->user->email }}</td>
+                <td>{{ $refund->user->email ?? null }}</td>
                 <td>{{ $refund->amount }}</td>
                 <td>{{ $refund->reason }}</td>
                 <td>{{ $refund->status }}</td>
@@ -804,18 +804,18 @@
                 <td>{{ $key + 1 }}</td>
                 <td>{{ $refund->id }}</td>
                 <td>
-                    {{ $refund->product->name }}
+                    {{ $refund->product->name ?? null }}
                 </td>
                 <td>
-                    <img src="{{ $refund->product->url }}" alt="Surprise" width="50" height="50">
+                    <img src="{{ $refund->product->url ?? null }}" alt="Surprise" width="50" height="50">
 
                 </td>
                 <td>
                     {{ $refund->order_id }}
                 </td>
-                <td>{{ $refund->user->name }}</td>
+                <td>{{ $refund->user->name ?? null }}</td>
 
-                <td>{{ $refund->user->email }}</td>
+                <td>{{ $refund->user->email ?? null }}</td>
                 <td>{{ $refund->amount }}</td>
                 <td>{{ $refund->reason }}</td>
                 <td>{{ $refund->status }}</td>
@@ -857,19 +857,19 @@
                 <td>{{ $key + 1 }}</td>
                 <td>{{ $refund->id }}</td>
                 <td>
-                    {{ $refund->product->name }}
+                    {{ $refund->product->name ?? null }}
                 </td>
                 <td>
-                    <img src="{{ $refund->product->url }}" alt="Surprise" width="50" height="50">
+                    <img src="{{ $refund->product->url ?? null }}" alt="Surprise" width="50" height="50">
 
                 </td>
                 <td>
                     {{ $refund->order_id }}
                 </td>
-                <td>{{ $refund->user->name }}</td>
+                <td>{{ $refund->user->name ?? null }}</td>
 
                 {{-- <td>{{ $refund->product->url }}</td> --}}
-                <td>{{ $refund->user->email }}</td>
+                <td>{{ $refund->user->email ?? null }}</td>
                 <td>{{ $refund->amount }}</td>
                 <td>{{ $refund->reason }}</td>
                 <td>{{ $refund->status }}</td>
@@ -913,19 +913,19 @@
                 <td>{{ $key + 1 }}</td>
                 <td>{{ $refund->id }}</td>
                 <td>
-                    {{ $refund->product->name }}
+                    {{ $refund->product->name ?? null }}
                 </td>
                 <td>
-                    <img src="{{ $refund->product->url }}" alt="Surprise" width="50" height="50">
+                    <img src="{{ $refund->product->url ?? null }}" alt="Surprise" width="50" height="50">
 
                 </td>
                 <td>
                     {{ $refund->order_id }}
                 </td>
-                <td>{{ $refund->user->name }}</td>
+                <td>{{ $refund->user->name ?? null }}</td>
 
                 {{-- <td>{{ $refund->product->url }}</td> --}}
-                <td>{{ $refund->user->email }}</td>
+                <td>{{ $refund->user->email ?? null }}</td>
                 <td>{{ $refund->amount }}</td>
                 <td>{{ $refund->reason }}</td>
                 <td>{{ $refund->status }}</td>
@@ -1056,11 +1056,11 @@
                 <td>{{ $product->sku }}</td>
                 <td>
                     @if ($product->categories)
-                        {{ $product->categories->name }}
+                        {{ $product->categories->name ?? null }}
                     @endif
                     ,
                     @if ($product->subcategories)
-                        {{ $product->subcategories->name }}
+                        {{ $product->subcategories->name ?? null }}
                     @endif
                 </td>
                 <td>{{ $product->make }}</td>
@@ -1068,7 +1068,7 @@
                 @if ($product->url)
                     <td><img src="{{ $product->url }}" width="50" height="50"></td>
                 @elseif($product->product_image)
-                    <td><img src="{{ $product->product_image->url }}" width="50" height="50"></td>
+                    <td><img src="{{ $product->product_image->url ?? null }}" width="50" height="50"></td>
                 @else
                     <td>image</td>
                 @endif
@@ -1135,7 +1135,7 @@
                 <td>{{ $value->email }}</td>
                 <td>{{ $value->website }}</td>
                 <td>{{ $value->phoneno }}</td>
-                <td>{{ $value->vendor->name }}</td>
+                <td>{{ $value->vendor->name ?? null }}</td>
                 <td>{{ $value->address }}</td>
                 {{-- <td>{{ Str::limit($value["message"], 30) }}</td> --}}
                 {{-- <td>{{ $value->message }}</td> --}}
@@ -1464,7 +1464,7 @@
                 <td>{{ $donor->name }}</td>
                 <td>
                     @if ($donor->categories)
-                        {{ $donor->categories->name }}
+                        {{ $donor->categories->name ?? null }}
                     @endif
                 </td>
                 <td><img src="{{ asset($donor->img) }}" alt="Subcategory Image" width="80px" height="60px">
@@ -1614,9 +1614,9 @@
                 {{-- <td>{{ $purchase->date}}</td> --}}
                 <td>{{ $purchase->id }}</td>
                 {{-- <td>{{ $purchase->bill_number}}</td> --}}
-                <td>{{ $purchase->product->name }}</td>
-                <td>{{ $purchase->product->model_no }}</td>
-                <td>{{ $purchase->product->sku }}</td>
+                <td>{{ $purchase->product->name ?? null }}</td>
+                <td>{{ $purchase->product->model_no ?? null }}</td>
+                <td>{{ $purchase->product->sku ?? null }}</td>
                 <td>{{ $purchase->quantity }}</td>
                 <td class="col-lg-1" style="white-space: nowrap;">
                     <a href="{{ route('purchaseHistory') }}"><button type="button"
@@ -1682,8 +1682,8 @@
                 <td>{{ $history->purchase_id }}</td>
                 <td>{{ $history->bill_number }}</td>
                 {{-- <td>{{ $history->user->name}}</td> --}}
-                <td>{{ $history->product->name }}</td>
-                <td>{{ $history->product->sku }}</td>
+                <td>{{ $history->product->name ?? null }}</td>
+                <td>{{ $history->product->sku ?? null }}</td>
                 <td>{{ $history->quantity }}</td>
                 <td>{{ $history->cost }}</td>
                 <td>{{ $history->total }}</td>
@@ -1931,7 +1931,7 @@
             @foreach ($data as $key => $value)
                 <tr>
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ $value->faq_category->name ?? 'Deleted from database' }}</td>
+                    <td>{{ $value->faq_category->name ?? null }}</td>
                     <td>
                         @if (Route::currentRouteName() == 'faqs.index')
                             {{ Str::limit($value['question'], 40) }}
@@ -2333,7 +2333,8 @@
                     @if ($product->url)
                         <td><img src="{{ $product->url }}" width="50" height="50"></td>
                     @elseif($product->product_image)
-                        <td><img src="{{ $product->product_image->url }}" width="50" height="50"></td>
+                        <td><img src="{{ $product->product_image->url ?? null }}" width="50" height="50">
+                        </td>
                     @else
                         <td>image</td>
                     @endif

@@ -23,6 +23,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
+
     /**
      * The application's route middleware groups.
      *
@@ -53,6 +54,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -64,5 +66,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'vendorOnly' => \App\Http\Middleware\VendorOnly::class,
         'check.vendor.access' => \App\Http\Middleware\CheckVendorAccess::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'vendor' => \App\Http\Middleware\VendorMiddleware::class,
+        'bothAccess' => \App\Http\Middleware\BothMiddleware::class,
     ];
 }
