@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 //  Route::middleware('auth:api')->get('/user', function (Request $request) {     return $request->user();
 // });
 
+
 Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', function (Request $request) {
         return response()->json(['user' => $request->user()]);
@@ -41,6 +42,7 @@ Route::controller(UserAPIController::class)->group(function () {
 
 // Auth::routes(['verify' => true]);
 
+
 // Old Api
 Route::get('/menus', [ApiController::class, 'menus']);
 Route::get('/categories/{menu_id}', [ApiController::class, 'categories']);
@@ -58,6 +60,7 @@ Route::post('/checkout', [ApiController::class, 'storeOrder']);
 Route::get('/user/{userId}/orders', [ApiController::class, 'getUserOrders']);
 Route::get('/vprofile/{id}', [ApiController::class, 'vendorprofile']);
 Route::get('/vcoupon/{id}', [ApiController::class, 'vendorcoupon']);
+
 
 
 // new api
