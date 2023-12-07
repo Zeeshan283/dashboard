@@ -62,14 +62,12 @@
             <span class="nav-text">Customers</span>
 
         </a>
-        {{-- <div class="triangle"></div> --}}
     </li>
     <li class="nav-item {{ request()->is('users/*') ? 'active' : '' }}" data-item="users">
         <a class="nav-item-hold" href="#">
             <i class="nav-icon i-Find-User"></i>
             <span class="nav-text">Users</span>
         </a>
-        {{-- <div class="triangle"></div> --}}
     </li>
     <li class="nav-item {{ request()->is('extrakits/*') ? 'active' : '' }}" data-item="extrakits">
         <a class="nav-item-hold" href="#">
@@ -77,7 +75,6 @@
             <span class="nav-text">Refund Request</span>
 
         </a>
-        {{-- <div class="triangle"></div> --}}
     </li>
 
     {{-- <li class="nav-item {{ request()->is('charts/*') ? 'active' : '' }}" data-item="charts">
