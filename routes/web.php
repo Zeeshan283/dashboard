@@ -235,6 +235,7 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::view('productinfo', 'products.productinfo')->name('productinfo');
 
 
+
     Route::get('allorders', [OrderController::class, 'index'])->name('allorders');
     Route::get('orders/{id}', [OrderController::class, 'show']);
     Route::get('order-invoice/{id}', [OrderController::class, 'show'])->name('orderInvoice');
