@@ -593,9 +593,6 @@
             </li>
         </ul>
         <ul class="childNav" data-parent="blogs">
-
-
-
             <li class="nav-item">
                 <a href="{{ route('blog_categories.index') }}">
                     <i class="nav-icon i-Add"></i>
@@ -604,9 +601,16 @@
             </li>
 
             <li class="nav-item">
+                <a href="{{ route('blog_subcategories.index') }}">
+                    <i class="nav-icon i-Add"></i>
+                    <span class="item-name">Blog SubCategory</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="{{ route('blogs.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                    <span class="item-name">Bloge List</span>
+                    <span class="item-name">Blog List</span>
                 </a>
             </li>
             <li class="nav-item">

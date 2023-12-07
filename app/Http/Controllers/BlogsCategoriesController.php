@@ -17,7 +17,7 @@ class BlogsCategoriesController extends Controller
 
     public function index()
     {
-        $data = BlogsCategories::orderBy('id')->get(['id', 'category']);
+        $data = BlogsCategories::orderBy('id')->get(['id', 'blog_category_id']);
         return view('blogs.blog_categories.index', compact('data'));
     }
 
@@ -30,11 +30,11 @@ class BlogsCategoriesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category' => 'required',
+            'blog_category_id' => 'required',
         ]);
     
         $data = new BlogsCategories;
-        $data->category = $request->category;
+        $data->blog_category_id = $request->blog_category_id;
     
         $data->save(); 
     
@@ -44,7 +44,7 @@ class BlogsCategoriesController extends Controller
 
     public function show(BlogsCategories $blogsCategories)
     {
-       $data = BlogsCategories::orderBy('id')->get(['id','category']);
+       $data = BlogsCategories::orderBy('id')->get(['id','blog_category_id']);
        return view('', compact('data'));
     }
 
@@ -62,11 +62,11 @@ class BlogsCategoriesController extends Controller
     public function update($id, Request $request)
 {
     $this->validate($request, [
-        'category' => 'required',
+        'blog_category_id' => 'required',
     ]);
 
     $edit = BlogsCategories::findOrFail($id);
-    $edit->category = $request->category;
+    $edit->blog_category_id = $request->blog_category_id;
 
     $edit->update();
 

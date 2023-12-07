@@ -23,6 +23,7 @@ use App\Http\Controllers\ProductContactController;
 use App\Http\Controllers\HomecouponsController;
 use App\Http\Controllers\InsertVendorsController;
 use App\Http\Controllers\BlogsCategoriesController;
+use App\Http\Controllers\BlogsSubCategoriesController;
 use App\Http\Controllers\CfeaturesController;
 use App\Http\Controllers\TermsConditionsController;
 use App\Http\Controllers\BrandController;
@@ -162,6 +163,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('blogs_categories/{id}/destroy', [BlogsCategoriesController::class, 'destroy']);
     Route::resource('blogs', BlogsController::class);
     Route::get('blogs/{id}/destroy', [BlogsController::class, 'destroy']);
+    
     Route::resource('cfeatures', CfeaturesController::class);
     Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
     Route::post('/notifications', 'NotificationController@notification')->name('notifications.notification');
@@ -267,6 +269,9 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::get('ewallet/paymentmethod', [EwalletController::class, 'paymentmethod'])->name('paymentmethod');
     Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
     Route::get('cwallet', [CustomerController::class, 'cwallet'])->name('cwallet');
+
+    Route::resource('blog_subcategories', BlogsSubCategoriesController::class);
+    Route::get('blogs.blog_subcategories/{id}/destroy', [BlogsSubCategoriesController::class, 'destroy']);
 });
 //  ============================================================================================================================ 
 

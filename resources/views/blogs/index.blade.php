@@ -31,7 +31,6 @@
                                 <th>Category</th>
                                 <th>SubCategory</th>
                                 <th>Image</th>
-                                <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -40,10 +39,10 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{$value->title}}</td>
-                                <td>{{$value->category}}</td>
-                                <td>{{$value->subcategory}}</td>
+                                <td>{{$value->blog_category_id}}</td>
+                                <td>{{$value->blog_sub_category_id}}</td>
                                 <td>{{$value->feature_image}}</td>
-                                 <td>{{ Illuminate\Support\Str::limit($value->description, 80) }}</td>
+                                 <!-- <td>{{ Illuminate\Support\Str::limit($value->description, 80) }}</td> -->
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a target="_blank" href="{{ URL::to('blogs/' . $value->id . '/edit') }}" >

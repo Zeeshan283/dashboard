@@ -15,7 +15,10 @@
                             <h5>Edit Blogs</h5>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('blogs.update',['blog'=> $edit->id]) }}" enctype="multipart/form-data">
+                            <!-- <form method="post" action="{{ route('blogs.update',['blog'=> $edit->id]) }}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PATCH') -->
+                                <form method="post" action="{{ route('blogs.update',['blog'=> $edit->id]) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
                                 <div class="card mb-4">
@@ -23,24 +26,45 @@
                                     <hr class="my-0"/>
                                     <div class="card-body">
                                         <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group" ml-10>
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" placeholder="Title" name="title" value="{{ $edit->title }}" required>
+                                        <div class="row col-lg-12">
+                                            <div class="col-sm-6">
+                                                <div class="form-group ml-6">
+                                                    <label for="title" class="form-label">Title</label>
+                                                    <input type="text" class="form-control" id="title" placeholder="Title" name="title" value="{{$edit->title}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group ml-6">
+                                                    <label for="inputtext11" class="form-label">Category:</label>
+                                                    <select class="form-control" id="blog_category" name="blog_category_id">
+                                                        @foreach ($categories as $data)
+                                                            <option value="{{ $data->blog_category_id }}">{{ $data->blog_category_id }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+            <div class="form-group ml-6">
+                <label for="inputtext11" class="form-label">Sub Category</label>
+                <input type="text" class="form-control" id="blog_sub_category_id" placeholder="Sub Category" name="blog_sub_category_id" required>
             </div>
         </div>
-        <!-- <div class="col-sm-6">
-            <div class="form-group">
-                <label for="category" class="form-label">Category</label>
-                <input type="text" class="form-control" id="category" placeholder="Category" name="category" value="{{ $edit->category }}"required>
-            </div>
-        </div> -->
-        <div class="col-lg-12">
-            <div class="form-group">
-                <label for="description" class="form-label" value="{{ $edit->title }}">Description</label>
-                <textarea name="description" id="description" class="form-control ckeditor" value="{{ $edit->title }}"></textarea>
-            </div>
-        </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group ml-6">
+                                                    <label for="inputtext11" class="form-label">Feature Image:</label>
+                                                    <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
+                                                    @if ($errors->has('feature_image'))
+                                                        <span style="color: red;" class="invalid-feedback1 font-weight-bold">{{ $errors->first('feature_image') }}</span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="description" class="form-label">Description</label>
+                                                <textarea name="description" id="description" class="form-control ckeditor"  value="{{$edit->description}}"></textarea>
+                                            </div>
+                                        </div>
                                             </div>
                                         </div>
                             
