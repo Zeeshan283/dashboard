@@ -13,4 +13,10 @@ class EmailController extends Controller
 
         return view('emails.index', compact('data'));
     }
+
+    public function edit($emailId)
+    {    
+        return view('emails.edit', compact('emailId'));
+    }
+    
 }

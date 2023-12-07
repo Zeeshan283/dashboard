@@ -1,4 +1,4 @@
- @extends('layouts.master')
+@extends('layouts.master')
 @section('page-css')
     <!-- <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}"> -->
     <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
@@ -68,33 +68,21 @@ border-radius: 55px;
                         <p>Hi! Saliha</p>
                     </div>
                     <div class="text-right">
-                   <span>INDUSTRY MALL</span>
+                        <span>INDUSTRY MALL</span>
                     </div>
                 </div>
                     <p class="text-center" style="font-size: 40px;">Welcome to <br><img src="{{ asset('upload/logo/3a.jpg') }}" alt="logo" width="300px"></p>
                     <p class="text-center">Leading E-Commerce Marketplace for Industrial Needs</p>
-
-                <td class="fluid-img" style="font-size:0pt; line-height:0pt; text-align: center">
-                    <img src="{{ asset('upload/logo/11.jpg') }}" border="0" width="826" height="auto" alt="">
-                </td>
-
+                <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"><a href="#">Verify Your Email</a></button>
+    <p class="text-center">We have sent an email to ‘your-email@example.com’. Please follow link to verify your email.
+“Didn’t get an email? click on <a href="#" style="color: #007bff; text-decoration: underline;">RESEND</a></p>
                 <p justify-content-justify>Industry Mall is an E-Commerce Marketplace where suppliers can create their own online store & company profile too. In this way, they can
                     describe more information about their company and create their own portfolio, tell customers about their success story. Moreover, suppliers
-                    can show their company registration certificates and achievement awards and mention a lot of services.</p>
-
-                <h3 class="text-center">Please click the button below to verify your email address</h3>
-                <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"><a href="#">Verify Email</a></button>
-
-                <p>In this way, each buyer can visit the ‘supplier’s profile’ page and get more knowledge about their vendor and see their factory, store, and
+                    can show their company registration certificates and achievement awards and mention a lot of services.
+               In this way, each buyer can visit the ‘supplier’s profile’ page and get more knowledge about their vendor and see their factory, store, and
                     productions and real-time pictures as well. It increases more trust level on the buyer.
                 </p>
-				<img src="{{ asset('upload/logo/9.jpg') }}" border="0" width="826" height="auto" alt="">
-<br><br>
-				<div class="d-flex">
-<img src="{{ asset('upload/logo/8.jpg') }}" border="0" width="512" height="auto" alt="">&nbsp; &nbsp;
-<img src="{{ asset('upload/logo/10.jpeg') }}" border="0" width="300" height="auto" alt="">
-</div>
-<br><br>
+<br><br>       
 <div class="d-flex justify-content-center align-items-center">
     <img src="{{ asset('upload/logo/13.png')}}" border="0" width="100px" height="50px" alt="" class="mx-2">
     <img src="{{ asset('upload/logo/15.png') }}" border="0" width="100px" height="50px" alt="" class="mx-2">
@@ -130,4 +118,4 @@ Industry Mall<br>Email: Industrymall.net@gmail.com<br>
 @section('page-js')
 <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
 <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
-@endsection 
+@endsection

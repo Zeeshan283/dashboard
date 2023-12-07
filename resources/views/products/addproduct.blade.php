@@ -698,7 +698,6 @@
                                                     class="invalid-feedback1 font-weight-bold">{{ $errors->first('menu_id') }}</span   style="color: red;">
                                             @endif
                                         <br>
-                                        
                                     </div>
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Category:<span style="color: red;">*</span></label>
                                     <div class="form-group col-lg-5">

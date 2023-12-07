@@ -27,9 +27,9 @@
                         <thead>
                             <tr>
                                 <th>Sr No</th>
-                                <th>Title</th>
+                                <!-- <th>Title</th> -->
                                 <th>Category</th>
-                                <th>Description</th>
+                                <!-- <th>Description</th> -->
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -37,9 +37,9 @@
                             @foreach ($data as $key => $value)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{$value->title}}</td>
+                                <!-- <td>{{$value->title}}</td> -->
                                  <td> {{$value->category}}</td> 
-                                 <td>{{ Illuminate\Support\Str::limit($value->description, 100) }}</td>
+                                 <!-- <td>{{ Illuminate\Support\Str::limit($value->description, 100) }}</td> -->
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a target="_blank" href="{{ URL::to('blog_categories/' . $value->id . '/edit') }}" >

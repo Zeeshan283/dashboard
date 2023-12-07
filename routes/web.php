@@ -168,7 +168,8 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/user-notifications', [UserController::class, 'showNotifications']);
     Route::get('/user-unread-notifications', [UserController::class, 'showUnreadNotifications']);
     Route::get('/mark-all-notifications-as-read/{userId}', [UserController::class, 'markAllNotificationsAsRead']);
-    Route::get('/emails/index', [EmailController::class, 'index'])->name('emails.index');
+    Route::resource('emails', EmailController::class);
+
 
     Route::resource('advertisements', AdvertisementController::class);
     Route::get('advertisement/{id}/destroy', [AdvertisementController::class, 'destroy'])->name('advertisement.destroy');

@@ -22,24 +22,24 @@
                                     <hr class="my-0"/>
                                     <div class="card-body">
                                         <div class="row">
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <div class="form-group" ml-10>
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" id="title" placeholder="Title" name="title"  required>
             </div>
-        </div>
+        </div> -->
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="category" class="form-label">Category</label>
                 <input type="text" class="form-control" id="category" placeholder="Category" name="category" required>
             </div>
         </div>
-        <div class="col-lg-12">
+        <!-- <div class="col-lg-12">
             <div class="form-group">
                 <label for="description" class="form-label">Description</label>
                 <textarea name="description" id="description" class="form-control ckeditor"></textarea>
             </div>
-        </div>
+        </div> -->
                                             </div>
                                         </div>
                             

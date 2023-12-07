@@ -19,29 +19,41 @@ class BlogsController extends Controller
 
     public function index()
     {
-        $blogs = Blogs::orderBy('id')->get(['id', 'title', 'description']);
+        $cat = BlogsCategories::all();
         $blogs = Blogs::all(); 
-        return view('blogs.index', compact('blogs'));
+        return view('blogs.index', compact('cat','blogs'));
     }
 
     public function create()
     {
-        $blogs = ($id = request()->get('id'));
-        $blogs = Blogs::all(); 
-        return view('blogs.create' , compact('blogs'));
-    }   
+        $cat = BlogsCategories::orderBy('id')->get(); 
+        $blogssubCategories = BlogSubCategory::orderBy('id')->pluck('title', 'id');
+        return view('blogs.create', compact('cat', 'blogssubCategories'));
+    }
+    
 
     public function store(Request $request)
-    {
+    {   
         $request->validate([
             'title' => 'required',
+            'blog_category_id' => 'required',
+            'subcategory' => '',
+            'feature_image' => 'required|image|mimes:jpeg,jpg,png', 
             'description' => 'required',
-        ]);
+        ]);        
     
         $blog = new Blogs;
         $blog->title = $request->title;
+        $blog->blog_category = $request->category;
+        $blog->subcategory = $request->subcategory;
         $blog->description = $request->description;
-        $blog->save();
+    
+        if ($request->hasFile('feature_image')) {
+            $file = $request->file('feature_image');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();    
+            $blog->feature_image = $fileName;   
+            $blog->save();
+        }
     
         return redirect()->back()->with(Toastr::success('Blog Created Successfully'));
     }
@@ -60,30 +72,38 @@ class BlogsController extends Controller
     public function edit($id)
     {
         $edit = Blogs::findOrFail($id);
-        $cat = BlogsCategories::where('id',$edit->blog_category_id)->first();
-        $categories = BlogsCategories::all();
-
-
-        return view('blogs.edit',compact('edit','cat','categories'));
-
+        $categories = BlogsCategories::all();  // Change this line
+    
+        return view('blogs.edit', compact('edit', 'categories'));
     }
+    
 
     public function update($id,Request $request)
     {
         // dd($request->all());
         $this->validate($request, [
-            'title' => 'required',
-            'description'=>'required',
-        ]);
+                'title' => 'required',
+                'category' => 'required',
+                'subcategory' => '',
+                'feature_image' => 'required|image', 
+                'description' => 'required',
+            ]);
 
         $edit = Blogs::findOrFail($id);
         $edit->title = $request->title;
+        $edit->category = $request->category;
+        $edit->subcategory = $request->subcategory;
+        $edit->feature_image = $request->feature_image;
         $edit->description = $request->description;
-        
+
+        if ($request->hasFile('feature_image')) {
+            $file = $request->file('feature_image');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();    
+            $edit->feature_image = $fileName;   
+            $edit->save();   
+        }
         $edit->update($request->all());
-
         return redirect()->back()->with(Toastr::success('Blog  Updated Successfully'));
-
     }
 
     public function destroy($id)
