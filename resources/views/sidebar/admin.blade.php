@@ -90,14 +90,12 @@
             <i class="nav-icon i-Library"></i>
             <span class="nav-text">Advertisement</span>
         </a>
-        {{-- <div class="triangle"></div> --}}
     </li>
     <li class="nav-item {{ request()->is('blogs/*') ? 'active' : '' }}" data-item="blogs">
         <a class="nav-item-hold" href="#">
             <i class="nav-icon i-Safe-Box1"></i>
             <span class="nav-text">Blogs</span>
         </a>
-        {{-- <div class="triangle"></div> --}}
     </li>
 
     <li class="nav-item {{ request()->is('pages/*') ? 'active' : '' }}" data-item="pages">
