@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-md-6" style="text-align: right;  margin-left: auto;">
                         <a href="{{ route('blog_categories.create') }}">
-                        <button class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Blog Categories</span></button></a>
+                        <button class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add</span></button></a>
                 </div>
 </a>
     </div>

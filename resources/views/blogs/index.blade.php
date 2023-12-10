@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-md-6" style="text-align: right;  margin-left: auto;">
                         <a href="{{ route('blogs.create') }}">
-                        <button class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Blogs</span></button></a>
+                        <button class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add</span></button></a>
                 </div>
 </a>
     </div>
@@ -40,9 +40,8 @@
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{$value->title}}</td>
                                 <td>{{$value->blog_category_id}}</td>
-                                <td>{{$value->blog_sub_category_id}}</td>
-                                <td>{{$value->feature_image}}</td>
-                                 <!-- <td>{{ Illuminate\Support\Str::limit($value->description, 80) }}</td> -->
+                            <td>{{ $value->blogSubCategory->blog_sub_category_id }}</td>
+                                <td><img src="{{ asset($value->feature_image) }}" alt="Image" width="40%" height="40%"></td> 
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a target="_blank" href="{{ URL::to('blogs/' . $value->id . '/edit') }}" >

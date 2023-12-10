@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cfeatures;
+use App\Models\Blogs;
+use App\Models\BlogCategories;
+use App\Models\BlogsSubCategories;
+
 use Brian2694\Toastr\Facades\Toastr;
 
 class CfeaturesController extends Controller
@@ -15,6 +19,7 @@ class CfeaturesController extends Controller
 
     public function index()
     {
+        // $categories = \App\Models\BlogsCategories::all();  
         $cfeatures = Cfeatures::orderBy('id')->get(['id', 'instructor', 'rating', 'lectures', 'duration', 'skilllevel', 'language', 'coursefee']);
        $cfeatures = Cfeatures::all(); 
         return view('cfeatures.index', compact('cfeatures'));

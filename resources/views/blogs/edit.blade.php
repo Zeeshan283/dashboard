@@ -44,11 +44,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
-            <div class="form-group ml-6">
-                <label for="inputtext11" class="form-label">Sub Category</label>
-                <input type="text" class="form-control" id="blog_sub_category_id" placeholder="Sub Category" name="blog_sub_category_id" required>
-            </div>
-        </div>
+    <div class="form-group ml-6">
+        <label for="inputtext11" class="form-label">Subcategory:</label>
+        <select class="form-control" id="blog_sub_category_id" name="blog_sub_category_id">
+            @foreach ($BlogsSubCategories as $blogSubCategory)
+                <option value="{{ $blogSubCategory->id }}">{{ $blogSubCategory->blog_sub_category_id }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
                                             <div class="col-sm-6">
                                                 <div class="form-group ml-6">
                                                     <label for="inputtext11" class="form-label">Feature Image:</label>

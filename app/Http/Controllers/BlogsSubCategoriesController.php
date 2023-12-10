@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\BlogsCategories;
 use App\Models\BlogsSubCategories;
 use Brian2694\Toastr\Facades\Toastr;
@@ -37,10 +36,10 @@ class BlogsSubCategoriesController extends Controller
             'blog_category_id' => $request->blog_category_id,
             'blog_sub_category_id' => $request->blog_sub_category_id,
         ]);
-        return redirect()->route('blog_subcategories.index')->with(Toastr::success('Blog SubCategory Updated Successfully'));
+        return redirect()->back()->with(Toastr::success('Blog Sub Category Added Successfully'));
     }
 
-    public function show(BlogsSubCategories $blogsSubCategories)
+    public function show(BlogsSubCategories $BlogsSubCategories)
 {
     return redirect()->route('blog_subcategories.index');
 }

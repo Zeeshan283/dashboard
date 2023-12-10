@@ -32,7 +32,7 @@
                                         </div>
                             
                                         <div class="mt-2 " style="text-align: right">
-                                            <button type="submit" class="btn btn-outline-secondary  me-2">Add Blogs</button>
+                                            <button type="submit" class="btn btn-outline-secondary  me-2">Create</button>
                                         </div>
                                     </div>
                                     <!-- /Account -->

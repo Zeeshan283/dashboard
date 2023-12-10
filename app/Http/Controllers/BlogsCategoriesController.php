@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image as Image;
 class BlogsCategoriesController extends Controller
 {
-    public function __construct()
+    public function __construct() 
     {
         $this->middleware('auth');
     }
@@ -44,9 +44,10 @@ class BlogsCategoriesController extends Controller
 
     public function show(BlogsCategories $blogsCategories)
     {
-       $data = BlogsCategories::orderBy('id')->get(['id','blog_category_id']);
-       return view('', compact('data'));
+        $data = BlogsCategories::orderBy('id')->get(['id', 'blog_category_id']);
+        return view('blogs_categories.show', compact('data'));
     }
+    
 
     public function edit($id)
     {
