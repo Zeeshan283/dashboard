@@ -7,6 +7,38 @@
     <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.bubble.css')}}">
     <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.snow.css')}}">
     <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/choices.min.css') }}">
+    <style>
+        .thumbnail {
+            max-width: auto;
+            max-height: 100px;
+            margin: 5px;
+        }
+    
+        .choices__input {
+            background: #f3f4f6;
+        }
+
+
+        .choices_list--multiple .choices_item {
+            /* width: 3%; */
+            font-size: 14px;
+            font-family: initial;
+            /* background-color: #6b7280; */
+            /* background-color: #e9ecef; */
+            color: black;
+            border-radius: 42px;
+            /* height: 28px; */
+            border: transparent;
+        }
+
+        .choices[data-type*=select-multiple] .choices__button {
+            border-left: white;
+            display: none;
+        }
+    </style>
+@endsection
+
 @endsection
 
 
@@ -177,7 +209,63 @@
                                     </div>
                                     <!-- /Account -->
                                 </div>
-                            </form>
+                        </div>
+                        <div id="step-1" class="">
+                            <div class="card-body">
+                                    <div class="card mb-4">
+                                        <h5 class="card-header text-left">Create Blogs</h5>
+                                        <hr class="my-0" />
+                                        <div class="card-body">
+                                            <div class="row col-lg-12">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group ml-6">
+                                                        <label for="title" class="form-label">Title</label>
+                                                        <input type="text" class="form-control" id="title" placeholder="Title" name="title" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group ml-6">
+                                                        <label for="inputtext11" class="form-label">Category:</label>
+                                                        <select class="form-control" id="blog_category" name="blog_category_id">
+                                                            @foreach ($categories as $data)
+                                                            <option value="{{ $data->blog_category_id }}">{{ $data->blog_category_id }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+            <div class="form-group ml-6">
+                <label for="inputtext11" class="form-label">Subcategory:</label>
+                <select class="form-control" id="blog_sub_category_id" name="blog_sub_category_id">
+                    @foreach ($BlogsSubCategories as $blogSubCategory)
+                        <option value="{{ $blogSubCategory->id }}">{{ $blogSubCategory->blog_sub_category_id }}</option>
+                    @endforeach
+                </select>  
+            </div>
+        </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group ml-6">
+                                                        <label>Image (1100x450)px</label>
+                            <input type="file" name="image" id="image" class="form-control" required>
+                            @error('image')
+                                <span class="invalid-feedback1 font-weight-bold">{{ $message }}</span>
+                            @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="description" class="form-label">Description</label>
+                                                    <textarea name="description" id="description" class="form-control ckeditor"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2" style="text-align: right">
+                                            <button type="submit" class="btn btn-outline-secondary me-2">Create</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
