@@ -30,16 +30,12 @@
                                 <th>Sr No</th>
                                 <th>Instructor</th>
                                 <th>Rating</th>
-                                <th>Lectures</th>
-                                <th>Duration</th>
+                                <th>lectures</th>
+                                <th>duration</th>
                                 <th>Skill Level</th>
                                 <th>Language</th>
-                                <th>Course Type</th>
+                                <th>Course type</th>
                                 <th>Address</th>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>SubCategory</th>
-                                <th>Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -70,12 +66,8 @@
                                 <td>{{$value->duration}}hrs</td>
                                 <td>{{$value->skilllevel}}</td>
                                 <td>{{$value->language}}</td>
-                                <td>{{$value->coursetype}}</td>
-                                <td>{{$value->address}}</td>
-                                <td>{{$value->title}}</td>
-                                <td>{{$value->blog_category_id}}</td>
-                            <td>{{ $value->blog_sub_category_id }}</td>
-                                <td><img src="{{ asset($value->feature_image) }}" alt="Image" width="40%" height="40%"></td> 
+                                <td>${{$value->coursetype}}</td>
+                                <td>${{$value->address}}</td>
                                 <td>
                                     <div class="d-flex gap-2">
                                     <a target="_blank" href="{{ route('cfeatures.edit', $value->id) }}">
@@ -92,6 +84,9 @@
     </button>
 </form>
 
+                                        <!-- <a href="{{ asset('blog_categories/' . $value->id . '/destroy') }}">
+                                                <i class="fa fa-trash font-danger"></i></a>
+                                           </a> -->
                                     </div>
                                 </td>
                             </tr>
@@ -103,7 +98,6 @@
         </div>
         <!-- Container-fluid Ends-->
     </div>
-
     @endsection
 @section('page-js')
 <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>

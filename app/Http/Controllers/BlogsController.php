@@ -20,16 +20,9 @@ class BlogsController extends Controller
     public function index()
     {
         $categories = BlogsCategories::all();
-        $blogs = Blogs::with('blogSubCategory')->get(); // Eager load the 'blogSubCategory' relationship
+        $blogs = Blogs::with('blogSubCategory')->get();
         return view('blogs.index', compact('categories', 'blogs'));
     }
-
-//      public function create()
-//  {
-//   $categories = BlogsCategories::orderBy('id')->get(); 
-//      $BlogsSubCategories = BlogsSubCategories::orderBy('id')->pluck( 'id', 'blog_category_id');
-//    return view('blogs.create', compact('categories', 'BlogsSubCategories'));
-//  }
 
 public function create()
 {
@@ -78,13 +71,6 @@ public function create()
         return response()->json($blogssubCategories);
     }
     
-    // public function edit($id)
-    // {
-    //     $edit = Blogs::findOrFail($id);
-    //     $categories = BlogsCategories::all(); 
-    
-    //     return view('blogs.edit', compact('edit', 'categories'));
-    // }
     public function edit($id)
 {
     $edit = Blogs::findOrFail($id);
@@ -127,7 +113,6 @@ public function create()
     public function destroy($id)
     {
         $blog = Blogs::findOrFail($id);
-        // Delete the blog record
         $blog->delete();
         return redirect()->back()->with(Toastr::success('Blogs Deleted Successfully'));
         }

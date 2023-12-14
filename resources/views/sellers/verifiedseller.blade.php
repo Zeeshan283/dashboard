@@ -258,9 +258,7 @@
                                             <h6>No Image</h6>
                                             @endif
                                             </div>
-    
-                                            <div class="form-group " style="margin-top: 20px;text-align:right;">
-                                                
+                                            <div class="form-group " style="margin-top: 20px;text-align:right;"> 
                                                     <input class="btn btn-outline-secondary" type="submit" value="Update">
                                                 
                                             </div>
