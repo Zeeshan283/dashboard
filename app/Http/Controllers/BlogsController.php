@@ -6,9 +6,7 @@ use App\Models\BlogsCategories;
 use App\Models\BlogsSubCategories;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image as Image;
+
 
 class BlogsController extends Controller
 {
@@ -78,13 +76,6 @@ public function create()
         return response()->json($blogssubCategories);
     }
     
-    // public function edit($id)
-    // {
-    //     $edit = Blogs::findOrFail($id);
-    //     $categories = BlogsCategories::all(); 
-    
-    //     return view('blogs.edit', compact('edit', 'categories'));
-    // }
     public function edit($id)
 {
     $edit = Blogs::findOrFail($id);
@@ -127,7 +118,6 @@ public function create()
     public function destroy($id)
     {
         $blog = Blogs::findOrFail($id);
-        // Delete the blog record
         $blog->delete();
         return redirect()->back()->with(Toastr::success('Blogs Deleted Successfully'));
         }

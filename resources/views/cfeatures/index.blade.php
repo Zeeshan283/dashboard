@@ -34,7 +34,12 @@
                                 <th>duration</th>
                                 <th>Skill Level</th>
                                 <th>Language</th>
-                                <th>Course Fee</th>
+                                <th>Course Type</th>
+                                <th>Address</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>SubCategory</th>
+                                <th>Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -65,7 +70,12 @@
                                 <td>{{$value->duration}}hrs</td>
                                 <td>{{$value->skilllevel}}</td>
                                 <td>{{$value->language}}</td>
-                                <td>${{$value->coursefee}}</td>
+                                <td>${{$value->coursetype}}</td>
+                                <td>${{$value->address}}</td>
+                                <td>{{$value->title}}</td>
+                                <td>{{$value->blog_category_id}}</td>
+                                <td>{{ $value->blogSubCategory->blog_sub_category_id }}</td>
+                                <td><img src="{{ $value->image }}" width="50" height="50" alt="No"></td>
                                 <td>
                                     <div class="d-flex gap-2">
                                     <a target="_blank" href="{{ route('cfeatures.edit', $value->id) }}">
@@ -81,10 +91,6 @@
         <i class="fa fa-trash" title="delete" aria-hidden="true"></i>
     </button>
 </form>
-
-                                        <!-- <a href="{{ asset('blog_categories/' . $value->id . '/destroy') }}">
-                                                <i class="fa fa-trash font-danger"></i></a>
-                                           </a> -->
                                     </div>
                                 </td>
                             </tr>

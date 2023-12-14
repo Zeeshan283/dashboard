@@ -1,19 +1,88 @@
 @extends('layouts.master')
+@section('before-css')
+{{-- css link sheet  --}}
+<link rel="stylesheet" href="{{asset('assets/styles/vendor/smart.wizard/smart_wizard_theme_dots.min.css')}}">
+<link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
 @section('page-css')
-    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.bubble.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.snow.css')}}">
     <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/choices.min.css') }}">
+    <style>
+        .thumbnail {
+            max-width: auto;
+            max-height: 100px;
+            margin: 5px;
+        }
+    
+        .choices__input {
+            background: #f3f4f6;
+        }
+
+
+        .choices_list--multiple .choices_item {
+            /* width: 3%; */
+            font-size: 14px;
+            font-family: initial;
+            /* background-color: #6b7280; */
+            /* background-color: #e9ecef; */
+            color: black;
+            border-radius: 42px;
+            /* height: 28px; */
+            border: transparent;
+        }
+
+        .choices[data-type*=select-multiple] .choices__button {
+            border-left: white;
+            display: none;
+        }
+    </style>
 @endsection
 
-@section('main-content') 
-    <div class="page-body">
-        <!-- Container-fluid starts-->
-        <div class="container-fluid " id="">
+@endsection
+
+
+@section('main-content')
+<div class="breadcrumb">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+                <h1>Edit All Details</h1>
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger d-flex">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+            <div class="separator-breadcrumb border-top"></div>
+            <div class="col-md-12 mb-4">
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Training Detail</h5>
-                        </div>
+                <div class="col-md-12" style="padding: 20px;">
+                    <!-- SmartWizard html -->
+                    
+                    <div id="smartwizard" class="sw-theme-dots" >
+                        <ul style="justify-content: center;">
+                            <li><a href="#step-1">Step 1<br /><small>Post Details</small></a></li>
+                            <li><a href="#step-2">Step 2<br /><small>Training Details</small></a></li>
+                        </ul>
+                            
+                        <span>
+                            <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end">
+                            <div class="btn-group me-2 sw-btn-group" role="group">
+                                <button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button>
+                                <button class="btn btn-secondary sw-btn-next" type="button">Next</button>
+                            </div>
+                            <div class="btn-group me-2 sw-btn-group-extra" role="group">
+                            </div>
+                            </div>
+                        </span>
+                        <div>
+                            <div id="step-2" class="">
                         <div class="card-body">
                         <form method="post" action="{{ route('cfeatures.update',[$edit->id]) }}" enctype="multipart/form-data">
                                 @csrf
@@ -26,25 +95,39 @@
         <div class="col-sm-6">
             <div class="form-group" ml-10>
                 <label for="instructor" class="form-label">Instructor</label>
-                <input type="text" class="form-control" id="instructor" placeholder="Instructor Name" name="instructor" value="{{$edit->instructor}}" required>
+                <input type="text" class="form-control" id="instructor" placeholder="Instructor Name" name="instructor"  required>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="rating" class="form-label">Rating</label>
-                <input type="text" class="form-control" id="rating" placeholder="Total rating" name="rating" value="{{$edit->rating}}" required>
+                <input type="text" class="form-control" id="rating" placeholder="Total rating" name="rating" required>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="lectures" class="form-label">Lectures</label>
-                <input type="text" class="form-control" id="lectures" placeholder="Total lectures" name="lectures" value="{{$edit->lectures}}"required>
+                <input type="text" class="form-control" id="lectures" placeholder="Total lectures" name="lectures" required>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="duration" class="form-label">Duration</label>
-                <input type="text" class="form-control" id="duration" placeholder="duration" name="duration" value="{{$edit->duration}}"required>
+                <!-- <input type="text" class="form-control" id="duration" placeholder="duration" name="duration" required> -->
+                <select class="form-select" id="duration" name="duration">
+                <option value=""> --- Please Select --- </option>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+<option>10</option>
+                </select>
+
             </div>
         </div>
         <div class="col-lg-6">
@@ -58,206 +141,16 @@
                       </select>
             </div>
         </div>
-
         <div class="col-lg-6">
             <div class="form-group">
             <label for="language" class="form-label">Languages</label>
                       <select class="form-select" id="language" name="language">
                         <option value=""> --- Please Select --- </option>
-                        <option>Aaland Islands</option>
-                        <option>Afghanistan</option>
-                        <option>Albania</option>
-                        <option>Algeria</option>
-                        <option>American Samoa</option>
-                        <option>Andorra</option>
-                        <option>Angola</option>
-                        <option>Anguilla</option>
-                        <option>Antarctica</option>
-                        <option>Antigua and Barbuda</option>
-                        <option>Argentina</option>
-                        <option>Armenia</option>
-                        <option>Aruba</option>
-                        <option>Ascension Island (British)</option>
-                        <option>Australia</option>
-                        <option>Austria</option>
-                        <option>Azerbaijan</option>
-                        <option>Bahamas</option>
-                        <option>Bahrain</option>
-                        <option>Bangladesh</option>
-                        <option>Barbados</option>
-                        <option>Belarus</option>
-                        <option>Belgium</option>
-                        <option>Belize</option>
-                        <option>Benin</option>
-                        <option>Bermuda</option>
-                        <option>Bhutan</option>
-                        <option>Bolivia</option>
-                        <option>Bonaire, Sint Eustatius and Saba</option>
-                        <option>Bosnia and Herzegovina</option>
-                        <option>Botswana</option>
-                        <option>Bouvet Island</option>
-                        <option>Brazil</option>
-                        <option>British Indian Ocean Territory</option>
-                        <option>Brunei Darussalam</option>
-                        <option>Bulgaria</option>
-                        <option>Burkina Faso</option>
-                        <option>Burundi</option>
-                        <option>Cambodia</option>
-                        <option>Cameroon</option>
-                        <option>Canada</option>
-                        <option>Canary Islands</option>
-                        <option>Cape Verde</option>
-                        <option>Cayman Islands</option>
-                        <option>Central African Republic</option>
-                        <option>Chad</option>
-                        <option>Chile</option>
-                        <option>China</option>
-                        <option>Christmas Island</option>
-                        <option>Cocos (Keeling) Islands</option>
-                        <option>Colombia</option>
-                        <option>Comoros</option>
-                        <option>Congo</option>
-                        <option>Cook Islands</option>
-                        <option>Costa Rica</option>
-                        <option>Cote D'Ivoire</option>
-                        <option>Croatia</option>
-                        <option>Cuba</option>
-                        <option>Curacao</option>
-                        <option>Cyprus</option>
-                        <option>Czech Republic</option>
-                        <option>Democratic Republic of Congo</option>
-                        <option>Denmark</option>
-                        <option>Djibouti</option>
-                        <option>Dominica</option>
-                        <option>Dominican Republic</option>
-                        <option>East Timor</option>
-                        <option>Ecuador</option>
-                        <option>Egypt</option>
-                        <option>El Salvador</option>
-                        <option>Equatorial Guinea</option>
-                        <option>Eritrea</option>
-                        <option>Estonia</option>
-                        <option>Ethiopia</option>
-                        <option>Falkland Islands (Malvinas)</option>
-                        <option>Faroe Islands</option>
-                        <option>Fiji</option>
-                        <option>Finland</option>
-                        <option>France, Metropolitan</option>
-                        <option>French Guiana</option>
-                        <option>French Polynesia</option>
-                        <option>French Southern Territories</option>
-                        <option>FYROM</option>
-                        <option>Gabon</option>
-                        <option>Gambia</option>
-                        <option>Georgia</option>
-                        <option>Germany</option>
-                        <option>Ghana</option>
-                        <option>Gibraltar</option>
-                        <option>Greece</option>
-                        <option>Greenland</option>
-                        <option>Grenada</option>
-                        <option>Guadeloupe</option>
-                        <option>Guam</option>
-                        <option>Guatemala</option>
-                        <option>Guernsey</option>
-                        <option>Guinea</option>
-                        <option>Guinea-Bissau</option>
-                        <option>Guyana</option>
-                        <option>Haiti</option>
-                        <option>Heard and Mc Donald Islands</option>
-                        <option>Honduras</option>
-                        <option>Hong Kong</option>
-                        <option>Hungary</option>
-                        <option>Iceland</option>
-                        <option>India</option>
-                        <option>Indonesia</option>
-                        <option>Iran (Islamic Republic of)</option>
-                        <option>Iraq</option>
-                        <option>Ireland</option>
-                        <option>Isle of Man</option>
-                        <option>Israel</option>
-                        <option>Italy</option>
-                        <option>Jamaica</option>
-                        <option>Japan</option>
-                        <option>Jersey</option>
-                        <option>Jordan</option>
-                        <option>Kazakhstan</option>
-                        <option>Kenya</option>
-                        <option>Kiribati</option>
-                        <option>Korea, Republic of</option>
-                        <option>Kosovo, Republic of</option>
-                        <option>Kuwait</option>
-                        <option>Kyrgyzstan</option>
-                        <option>Lao People's Democratic Republic</option>
-                        <option>Latvia</option>
-                        <option>Lebanon</option>
-                        <option>Lesotho</option>
-                        <option>Liberia</option>
-                        <option>Libyan Arab Jamahiriya</option>
-                        <option>Liechtenstein</option>
-                        <option>Lithuania</option>
-                        <option>Luxembourg</option>
-                        <option>Macau</option>
-                        <option>Madagascar</option>
-                        <option>Malawi</option>
-                        <option>Malaysia</option>
-                        <option>Maldives</option>
-                        <option>Mali</option>
-                        <option>Malta</option>
-                        <option>Marshall Islands</option>
-                        <option>Martinique</option>
-                        <option>Mauritania</option>
-                        <option>Mauritius</option>
-                        <option>Mayotte</option>
                         <option>Mexico</option>
-                        <option>Micronesia, Federated States of</option>
-                        <option>Moldova, Republic of</option>
-                        <option>Monaco</option>
-                        <option>Mongolia</option>
-                        <option>Montenegro</option>
-                        <option>Montserrat</option>
-                        <option>Morocco</option>
-                        <option>Mozambique</option>
-                        <option>Myanmar</option>
-                        <option>Namibia</option>
-                        <option>Nauru</option>
-                        <option>Nepal</option>
-                        <option>Netherlands</option>
-                        <option>Netherlands Antilles</option>
-                        <option>New Caledonia</option>
-                        <option>New Zealand</option>
-                        <option>Nicaragua</option>
-                        <option>Niger</option>
-                        <option>Nigeria</option>
-                        <option>Niue</option>
-                        <option>Norfolk Island</option>
-                        <option>North Korea</option>
-                        <option>Northern Mariana Islands</option>
                         <option>Norway</option>
                         <option>Oman</option>
                         <option selected="selected">Pakistan</option>
                         <option>Palau</option>
-                        <option>Palestinian Territory, Occupied</option>
-                        <option>Panama</option>
-                        <option>Papua New Guinea</option>
-                        <option>Paraguay</option>
-                        <option>Peru</option>
-                        <option>Philippines</option>
-                        <option>Pitcairn</option>
-                        <option>Poland</option>
-                        <option>Portugal</option>
-                        <option>Puerto Rico</option>
-                        <option>Qatar</option>
-                        <option>Reunion</option>
-                        <option>Romania</option>
-                        <option>Russian Federation</option>
-                        <option>Rwanda</option>
-                        <option>Saint Kitts and Nevis</option>
-                        <option>Saint Lucia</option>
-                        <option>Saint Vincent and the Grenadines</option>
-                        <option>Samoa</option>
-                        <option>San Marino</option>
-                        <option>Sao Tome and Principe</option>
                         <option>Saudi Arabia</option>
                         <option>Senegal</option>
                         <option>Serbia</option>
@@ -279,73 +172,229 @@
                         <option>St. Pierre and Miquelon</option>
                         <option>Sudan</option>
                         <option>Suriname</option>
-                        <option>Svalbard and Jan Mayen Islands</option>
-                        <option>Swaziland</option>
-                        <option>Sweden</option>
-                        <option>Switzerland</option>
-                        <option>Syrian Arab Republic</option>
-                        <option>Taiwan</option>
-                        <option>Tajikistan</option>
-                        <option>Tanzania, United Republic of</option>
-                        <option>Thailand</option>
-                        <option>Togo</option>
-                        <option>Tokelau</option>
-                        <option>Tonga</option>
-                        <option>Trinidad and Tobago</option>
-                        <option>Tristan da Cunha</option>
-                        <option>Tunisia</option>
                         <option>Turkey</option>
-                        <option>Turkmenistan</option>
-                        <option>Turks and Caicos Islands</option>
-                        <option>Tuvalu</option>
                         <option>Uganda</option>
                         <option>Ukraine</option>
                         <option>United Arab Emirates</option>
                         <option>United Kingdom</option>
                         <option>United States</option>
                         <option>United States Minor Outlying Islands</option>
-                        <option>Uruguay</option>
                         <option>Uzbekistan</option>
-                        <option>Vanuatu</option>
-                        <option>Vatican City State (Holy See)</option>
-                        <option>Venezuela</option>
-                        <option>Viet Nam</option>
-                        <option>Virgin Islands (British)</option>
-                        <option>Virgin Islands (U.S.)</option>
-                        <option>Wallis and Futuna Islands</option>
-                        <option>Western Sahara</option>
-                        <option>Yemen</option>
                         <option>Zambia</option>
                         <option>Zimbabwe</option>
                       </select>
             </div>
         </div>
-<div class="col-sm-6">
+        <div class="col-sm-6">
             <div class="form-group">
-                <label for="coursefee" class="form-label">Course Fee</label>
-                <input type="number" class="form-control" id="coursefee" placeholder="Course fee (Price)" name="coursefee" value="{{$edit->coursefee}}" required>
+                <label for="coursetype" class="form-label">Course Type</label>
+                <!-- <input type="text" class="form-control" id="duration" placeholder="duration" name="duration" required> -->
+                <select class="form-select" id="coursetype" name="coursetype">
+                <option value="coursetype"> --- Please Select --- </option>
+<option>Online</option>
+<option>Onsite</option>
+                </select>
             </div>
         </div>
-                                            </div> 
+        <div class="col-sm-6" id="addressField" style="display: none;">
+            <div class="form-group" ml-10>
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" placeholder="Enter Address here" name="address">
+            </div>
+        </div>  
+    </div> 
                                         </div>
                                         <div class="mt-2 " style="text-align: right">
-                                            <button type="submit" class="btn btn-outline-secondary  me-2">Add Blogs</button>
+                                            <button type="submit" class="btn btn-outline-secondary  me-2">Add</button>
                                         </div>
                                     </div>
                                     <!-- /Account -->
                                 </div>
-                            </form>
+                        </div>
+                        <div id="step-1" class="">
+                            <div class="card-body">
+                                    <div class="card mb-4">
+                                        <h5 class="card-header text-left">Post Details</h5>
+                                        <hr class="my-0" />
+                                        <div class="card-body">
+                                            <div class="row col-lg-12">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group ml-6">
+                                                        <label for="title" class="form-label">Title</label>
+                                                        <input type="text" class="form-control" id="title" placeholder="Title" name="title" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group ml-6">
+                                                        <label for="inputtext11" class="form-label">Category:</label>
+                                                        <select class="form-control" id="blog_category" name="blog_category_id">
+                                                            @foreach ($categories as $data)
+                                                            <option value="{{ $data->blog_category_id }}">{{ $data->blog_category_id }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+            <div class="form-group ml-6">
+                <label for="inputtext11" class="form-label">Subcategory:</label>
+                {{-- <select class="form-control" id="blog_sub_category_id" name="blog_sub_category_id">
+                    @foreach ($BlogsSubCategories as $blogSubCategory)
+                        <option value="{{ $blogSubCategory->id }}">{{ $blogSubCategory->blog_sub_category_id }}</option>
+                    @endforeach
+                </select>  --}}
+                 <input type="text" class="form-control" id="subcategory" placeholder="subcategory" name="subcategory" required>      
+            </div>
+        </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group ml-6">
+                                                        <label for="inputtext11" class="form-label">Feature Image:</label>
+                                                        <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
+                                                @if ($errors->has('feature_image.*'))
+    <span>{{ $errors->first('feature_image.*') }}</span>
+@endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="description" class="form-label">Description</label>
+                                                    <textarea name="description" id="description" class="form-control ckeditor"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2" style="text-align: right">
+                                            <button type="submit" class="btn btn-outline-secondary me-2">Create</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-    @endsection
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Add an event listener to the type select element
+            $('#coursetype').change(function () {
+                // Show or hide the address field based on the selected course type
+                if ($(this).val() === 'Onsite') {
+                    $('#addressField').show();
+                } else {
 
-@section('page-js')
-<script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
-<script src="{{ asset('assets/js/datatables.script.js') }}"></script>
+                    $('#addressField').hide();
+                }
+            });
+        });
+    </script>
+   @stop
+   @section('page-js')
+   
+   <script>
+       $(document).ready(function () {
+           $('#smartwizard').smartWizard({
+               selected: 0,  // Initial step
+               keyNavigation: false, // Enable keyboard navigation
+   
+           });
+       });
+   </script>
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+<script src="{{asset('assets/js/vendor/jquery.smartWizard.min.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="{{asset('assets/js/vendor/quill.min.js')}}"></script>
+<script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+    selector: "textarea#details",
+    height: 650, 
+    relative_urls: false,
+    paste_data_images: true,
+    image_title: true,
+    automatic_uploads: true,
+    // images_upload_url: '/post/image/upload',
+    // images_upload_url: '{{asset('upload')}}',
+    images_upload_url: '{{URL::to("/uploads3")}}',
+    file_picker_types: "image",
+    plugins: [
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "emoticons template paste textcolor colorpicker textpattern"
+    ],
+    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    // override default upload handler to simulate successful upload
+    file_picker_callback: function(cb, value, meta) {
+        var input = document.createElement("input");
+        input.setAttribute("type", "file1");
+        input.setAttribute("accept", "image/*");
+        input.onchange = function() {
+        var file = this.files[0];
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function() {
+                var id = "blobid" + new Date().getTime();
+                var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                var base64 = reader.result.split(",")[1];
+                var blobInfo = blobCache.create(id, file1, base64);
+                blobCache.add(blobInfo);
+                cb(blobInfo.blobUri(), { title: file1.name });
+            };
+        };
+        input.click();
+    }
+});
+</script>
+<script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+tinymce.init({
+    selector: "textarea#description",
+    relative_urls: false,
+    paste_data_images: true,
+    image_title: true,
+    automatic_uploads: true,
+    // images_upload_url: '/post/image/upload',
+    // images_upload_url: '{{asset('upload')}}',
+    images_upload_url: '{{URL::to("/uploads3")}}',
+    file_picker_types: "image",
+    plugins: [
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "emoticons template paste textcolor colorpicker textpattern"
+    ],
+    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    // override default upload handler to simulate successful upload
+    file_picker_callback: function(cb, value, meta) {
+        var input = document.createElement("input");
+        input.setAttribute("type", "file");
+        input.setAttribute("accept", "image/*");
+        input.onchange = function() {
+        var file = this.files[0];
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function() {
+                var id = "blobid" + new Date().getTime();
+                var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                var base64 = reader.result.split(",")[1];
+                var blobInfo = blobCache.create(id, file, base64);
+                blobCache.add(blobInfo);
+                cb(blobInfo.blobUri(), { title: file.name });
+            };
+        };
+        input.click();
+    }
+});
+</script>
 @endsection
-
-
+@section('bottom-js')
+<script src="{{asset('assets/js/smart.wizard.script.js')}}"></script>
+<script src="{{asset('assets/js/quill.script.js')}}"></script>
+@endsection
+                        <form method="post" action="{{ route('cfeatures.update',[$edit->id]) }}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PATCH')
+                               
