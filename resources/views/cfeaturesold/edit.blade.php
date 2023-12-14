@@ -1,88 +1,19 @@
 @extends('layouts.master')
-@section('before-css')
-{{-- css link sheet  --}}
-<link rel="stylesheet" href="{{asset('assets/styles/vendor/smart.wizard/smart_wizard_theme_dots.min.css')}}">
-<link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
 @section('page-css')
-    <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.bubble.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.snow.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/choices.min.css') }}">
-    <style>
-        .thumbnail {
-            max-width: auto;
-            max-height: 100px;
-            margin: 5px;
-        }
-    
-        .choices__input {
-            background: #f3f4f6;
-        }
-
-
-        .choices_list--multiple .choices_item {
-            /* width: 3%; */
-            font-size: 14px;
-            font-family: initial;
-            /* background-color: #6b7280; */
-            /* background-color: #e9ecef; */
-            color: black;
-            border-radius: 42px;
-            /* height: 28px; */
-            border: transparent;
-        }
-
-        .choices[data-type*=select-multiple] .choices__button {
-            border-left: white;
-            display: none;
-        }
-    </style>
 @endsection
 
-@endsection
-
-
-@section('main-content')
-<div class="breadcrumb">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-                <h1>Edit All Details</h1>
-                @if (count($errors) > 0)
-                    <div class="alert alert-danger d-flex">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-            </div>
-            <div class="separator-breadcrumb border-top"></div>
-            <div class="col-md-12 mb-4">
+@section('main-content') 
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="container-fluid " id="">
             <div class="row">
-                <div class="col-md-12" style="padding: 20px;">
-                    <!-- SmartWizard html -->
-                    
-                    <div id="smartwizard" class="sw-theme-dots" >
-                        <ul style="justify-content: center;">
-                            <li><a href="#step-1">Step 1<br /><small>Post Details</small></a></li>
-                            <li><a href="#step-2">Step 2<br /><small>Training Details</small></a></li>
-                        </ul>
-                            
-                        <span>
-                            <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end">
-                            <div class="btn-group me-2 sw-btn-group" role="group">
-                                <button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button>
-                                <button class="btn btn-secondary sw-btn-next" type="button">Next</button>
-                            </div>
-                            <div class="btn-group me-2 sw-btn-group-extra" role="group">
-                            </div>
-                            </div>
-                        </span>
-                        <div>
-                            <div id="step-2" class="">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Training Detail</h5>
+                        </div>
                         <div class="card-body">
                         <form method="post" action="{{ route('cfeatures.update',[$edit->id]) }}" enctype="multipart/form-data">
                                 @csrf
@@ -95,19 +26,19 @@
         <div class="col-sm-6">
             <div class="form-group" ml-10>
                 <label for="instructor" class="form-label">Instructor</label>
-                <input type="text" class="form-control" id="instructor" placeholder="Instructor Name" name="instructor"  required>
+                <input type="text" class="form-control" id="instructor" placeholder="Instructor Name" name="instructor" value="{{$edit->instructor}}" required>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="rating" class="form-label">Rating</label>
-                <input type="text" class="form-control" id="rating" placeholder="Total rating" name="rating" required>
+                <input type="text" class="form-control" id="rating" placeholder="Total rating" name="rating" value="{{$edit->rating}}" required>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="lectures" class="form-label">Lectures</label>
-                <input type="text" class="form-control" id="lectures" placeholder="Total lectures" name="lectures" required>
+                <input type="text" class="form-control" id="lectures" placeholder="Total lectures" name="lectures" value="{{$edit->lectures}}"required>
             </div>
         </div>
         <div class="col-sm-6">
@@ -127,6 +58,7 @@
                       </select>
             </div>
         </div>
+
         <div class="col-lg-6">
             <div class="form-group">
             <label for="language" class="form-label">Languages</label>
@@ -363,12 +295,16 @@
                         <option>Tristan da Cunha</option>
                         <option>Tunisia</option>
                         <option>Turkey</option>
+                        <option>Turkmenistan</option>
+                        <option>Turks and Caicos Islands</option>
+                        <option>Tuvalu</option>
                         <option>Uganda</option>
                         <option>Ukraine</option>
                         <option>United Arab Emirates</option>
                         <option>United Kingdom</option>
                         <option>United States</option>
                         <option>United States Minor Outlying Islands</option>
+                        <option>Uruguay</option>
                         <option>Uzbekistan</option>
                         <option>Vanuatu</option>
                         <option>Vatican City State (Holy See)</option>
@@ -381,11 +317,10 @@
                         <option>Yemen</option>
                         <option>Zambia</option>
                         <option>Zimbabwe</option>
-                        <option>Spain</option>
                       </select>
             </div>
         </div>
-        <div class="col-sm-6">
+<div class="col-sm-6">
             <div class="form-group">
                 <label for="coursefee" class="form-label">Course Fee</label>
                 <input type="number" class="form-control" id="coursefee" placeholder="Course fee (Price)" name="coursefee" value="{{$edit->coursefee}}" required>
@@ -394,75 +329,17 @@
                                             </div> 
                                         </div>
                                         <div class="mt-2 " style="text-align: right">
-                                            <button type="submit" class="btn btn-outline-secondary  me-2">Add</button>
+                                            <button type="submit" class="btn btn-outline-secondary  me-2">Add Blogs</button>
                                         </div>
                                     </div>
                                     <!-- /Account -->
                                 </div>
-                        </div>
-                        <div id="step-1" class="">
-                            <div class="card-body">
-                                    <div class="card mb-4">
-                                        <h5 class="card-header text-left">Post Details</h5>
-                                        <hr class="my-0" />
-                                        <div class="card-body">
-                                            <div class="row col-lg-12">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group ml-6">
-                                                        <label for="title" class="form-label">Title</label>
-                                                        <input type="text" class="form-control" id="title" placeholder="Title" name="title" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group ml-6">
-                                                        <label for="inputtext11" class="form-label">Category:</label>
-                                                        <select class="form-control" id="blog_category" name="blog_category_id">
-                                                            @foreach ($categories as $data)
-                                                            <option value="{{ $data->blog_category_id }}">{{ $data->blog_category_id }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-            <div class="form-group ml-6">
-                <label for="inputtext11" class="form-label">Subcategory:</label>
-                {{-- <select class="form-control" id="blog_sub_category_id" name="blog_sub_category_id">
-                    @foreach ($BlogsSubCategories as $blogSubCategory)
-                        <option value="{{ $blogSubCategory->id }}">{{ $blogSubCategory->blog_sub_category_id }}</option>
-                    @endforeach
-                </select>  --}}
-                 <input type="text" class="form-control" id="subcategory" placeholder="subcategory" name="subcategory" required>      
-            </div>
-        </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group ml-6">
-                                                        <label for="inputtext11" class="form-label">Feature Image:</label>
-                                                        <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
-                                                @if ($errors->has('feature_image.*'))
-    <span>{{ $errors->first('feature_image.*') }}</span>
-@endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <label for="description" class="form-label">Description</label>
-                                                    <textarea name="description" id="description" class="form-control ckeditor"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-2" style="text-align: right">
-                                            <button type="submit" class="btn btn-outline-secondary me-2">Create</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
     @endsection
 
@@ -470,7 +347,5 @@
 <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
 <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 @endsection
-                        <form method="post" action="{{ route('cfeatures.update',[$edit->id]) }}" enctype="multipart/form-data">
-                                @csrf
-                                @method('PATCH')
-                               
+
+

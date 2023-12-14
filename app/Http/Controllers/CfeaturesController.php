@@ -27,10 +27,10 @@ class CfeaturesController extends Controller
 
     public function create()
     {
-        $categories = BlogsCategories::orderBy('id')->get();
-        $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
-        return view('cfeatures.create', compact('categories', 'BlogsSubCategories'));
-    }
+       $cfeatures = ($id = request()->get('id'));
+       $cfeatures = Cfeatures::all(); 
+        return view('cfeatures.create' , compact('cfeatures'));
+    }   
 
     public function store(Request $request)
     {
@@ -41,51 +41,23 @@ class CfeaturesController extends Controller
             'duration' => 'required',
             'skilllevel' => 'required',
             'language' => 'required',
-            'coursetype' => 'required',
-            'address' => $request->coursetype == 'Onsite' ? 'required' : '', 
-            'title' => 'required',
-            'blog_category_id' => 'required',
-            'blog_sub_category_id' => 'required',
-            // 'feature_image' => 'required|image|mimes: jpeg, jpg, png', 
-            'image' => 'mimes:png,jpg,jpeg',
-            'description' => 'required', 
+            'coursefee' => 'required',
         ]);
     
-        $cfeature = new Cfeatures(); 
-    
-        // if ($request->hasFile('feature_image')) {
-        //     $file = $request->file('feature_image');
-        //     $fileName = uniqid() . '.' . $file->getClientOriginalExtension();    
-        //     $file->move(public_path('upload/blogs/'), $fileName);
-        //     $cfeature->feature_image = $fileName;
-        // }
-        if ($request->hasFile('image')) {
-            // Process and save the updated image for the main menu
-        }
-    
-        // Set other attributes and save the model
-        $cfeature->instructor = $request->instructor;
-        $cfeature->rating = $request->rating;
-        $cfeature->lectures = $request->lectures; 
-        $cfeature->duration = $request->duration;
-        $cfeature->skilllevel = $request->skilllevel; 
-        $cfeature->language = $request->language;
-        $cfeature->coursetype = $request->coursetype;
-        $cfeature->address = $request->address;
-        $cfeature->title = $request->title;
-        $cfeature->blog_category_id = $request->blog_category_id;
-        $cfeature->blog_sub_category_id = $request->blog_sub_category_id;
-        $cfeature->description = $request->description;
-    
-        $cfeature->save();
-    
-        return redirect()->back()->with('success', 'Course Features Added Successfully');
+        $cfeatures = new Cfeatures;
+        $cfeatures->instructor = $request->instructor;
+        $cfeatures->rating = $request->rating;
+        $cfeatures->lectures = $request->lectures;
+        $cfeatures->duration = $request->duration;
+        $cfeatures->skilllevel = $request->skilllevel;
+        $cfeatures->language = $request->language;
+        $cfeatures->coursefee = $request->coursefee;
+        $cfeatures->save();
+        Toastr::success('Course features Updated Successfully!');
+        return redirect()->route('cfeatures.index');
     }
-    public function getSubCategories(Request $request)
-    {
-        $blogssubCategories = BlogsSubCategories::where('blog_category_id', $request->cat_id)->get(['id', 'blog_sub_category_id']);
-        return response()->json($blogssubCategories);
-    }
+    
+
     public function show()
     {
         //
@@ -95,9 +67,8 @@ class CfeaturesController extends Controller
     public function edit($id)
     {
         $edit = Cfeatures::findOrFail($id);
-        $categories = BlogsCategories::all();
-    $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
-        return view('cfeatures.edit', compact('edit','categories', 'BlogsSubCategories'));
+        $cfeatures = Cfeatures::all();
+        return view('cfeatures.edit', compact('edit'));
     }
 
     public function update($id, Request $request)
@@ -109,14 +80,7 @@ class CfeaturesController extends Controller
             'duration' => 'required',
             'skilllevel' => 'required',
             'language' => 'required',
-            'coursetype' => 'required',
-            'address' => $request->coursetype == 'Onsite' ? 'required' : '', 
-            'title' => 'required',
-            'blog_category_id' => 'required',
-            'blog_sub_category_id' => 'required',
-            // 'feature_image' => 'nullable|image|mimes:jpeg,jpg,png', 
-            'image' => 'mimes:png,jpg,jpeg',
-            'description' => 'required',
+            'coursefee' => 'required',
         ]);
     
         $edit = Cfeatures::findOrFail($id);
@@ -138,17 +102,14 @@ class CfeaturesController extends Controller
         $edit->duration = $request->duration;
         $edit->skilllevel = $request->skilllevel; 
         $edit->language = $request->language;
-        $edit->coursetype = $request->coursetype;
-        $edit->address = $request->address;
-        $edit->title = $request->title;
-        $edit->blog_category_id = $request->blog_category_id;
-        $edit->blog_sub_category_id = $request->blog_sub_category_id;
-        $edit->description = $request->description;
+        $edit->coursefee = $request->coursefee;
     
-        $edit->save();
+        $edit->update($request->all());
     
-        return redirect()->back()->with(Toastr::success('Details Updated Successfully'));
+        Toastr::success('Course detail Updated Successfully!');
+        return redirect()->route('cfeatures.index')->with(compact('edit')); 
     }
+    
 
     public function destroy($id)
     {

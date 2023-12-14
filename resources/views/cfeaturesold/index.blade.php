@@ -30,16 +30,12 @@
                                 <th>Sr No</th>
                                 <th>Instructor</th>
                                 <th>Rating</th>
-                                <th>Lectures</th>
-                                <th>Duration</th>
+                                <th>lectures</th>
+                                <th>duration</th>
                                 <th>Skill Level</th>
                                 <th>Language</th>
-                                <th>Course Type</th>
+                                <th>Course type</th>
                                 <th>Address</th>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>SubCategory</th>
-                                <th>Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -70,7 +66,8 @@
                                 <td>{{$value->duration}}hrs</td>
                                 <td>{{$value->skilllevel}}</td>
                                 <td>{{$value->language}}</td>
-                                <td>${{$value->coursefee}}</td>
+                                <td>${{$value->coursetype}}</td>
+                                <td>${{$value->address}}</td>
                                 <td>
                                     <div class="d-flex gap-2">
                                     <a target="_blank" href="{{ route('cfeatures.edit', $value->id) }}">
@@ -101,7 +98,6 @@
         </div>
         <!-- Container-fluid Ends-->
     </div>
-
     @endsection
 @section('page-js')
 <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>

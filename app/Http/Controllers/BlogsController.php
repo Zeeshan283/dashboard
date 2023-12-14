@@ -18,16 +18,9 @@ class BlogsController extends Controller
     public function index()
     {
         $categories = BlogsCategories::all();
-        $blogs = Blogs::with('blogSubCategory')->get(); // Eager load the 'blogSubCategory' relationship
+        $blogs = Blogs::with('blogSubCategory')->get();
         return view('blogs.index', compact('categories', 'blogs'));
     }
-
-//      public function create()
-//  {
-//   $categories = BlogsCategories::orderBy('id')->get(); 
-//      $BlogsSubCategories = BlogsSubCategories::orderBy('id')->pluck( 'id', 'blog_category_id');
-//    return view('blogs.create', compact('categories', 'BlogsSubCategories'));
-//  }
 
 public function create()
 {

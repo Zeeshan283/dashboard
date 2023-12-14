@@ -16,12 +16,6 @@ class Cfeatures extends Model
         'duration',
         'skilllevel',
         'language',
-        'coursetype',
-        'address',        
-        'title',
-        'blog_category_id',
-        'blog_sub_category_id',
-        'feature_image',
-        'description',
+        'coursefee',
     ];
 }
