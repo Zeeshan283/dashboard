@@ -16,8 +16,6 @@ class CfeaturesController extends Controller
         $this->middleware('auth');
     }
 
-
-
     public function index()
     {
         $blogs = Blogs::with('blogSubCategory')->get();
@@ -60,7 +58,6 @@ class CfeaturesController extends Controller
         //     $cfeature->feature_image = $fileName;
         // }
         if ($request->hasFile('image')) {
-            // Process and save the updated image for the main menu
         }
     
         // Set other attributes and save the model
@@ -75,13 +72,14 @@ class CfeaturesController extends Controller
         $cfeature->title = $request->title;
         $cfeature->blog_category_id = $request->blog_category_id;
         $cfeature->blog_sub_category_id = $request->blog_sub_category_id;
+        $cfeature->image = $request->image;
         $cfeature->description = $request->description;
     
         $cfeature->save();
     
         return redirect()->back()->with('success', 'Course Features Added Successfully');
     }
-    public function getSubCategories(Request $request)
+      public function getSubCategories(Request $request)
     {
         $blogssubCategories = BlogsSubCategories::where('blog_category_id', $request->cat_id)->get(['id', 'blog_sub_category_id']);
         return response()->json($blogssubCategories);
@@ -143,6 +141,7 @@ class CfeaturesController extends Controller
         $edit->title = $request->title;
         $edit->blog_category_id = $request->blog_category_id;
         $edit->blog_sub_category_id = $request->blog_sub_category_id;
+        $edit->image = $request->image;
         $edit->description = $request->description;
     
         $edit->save();

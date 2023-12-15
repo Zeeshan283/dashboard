@@ -213,7 +213,7 @@
                         <div id="step-1" class="">
                             <div class="card-body">
                                     <div class="card mb-4">
-                                        <h5 class="card-header text-left">Create Blogs</h5>
+                                        <h5 class="card-header text-left">Post Details</h5>
                                         <hr class="my-0" />
                                         <div class="card-body">
                                             <div class="row col-lg-12">

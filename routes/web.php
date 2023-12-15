@@ -270,7 +270,7 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::get('ewallet/paymentmethod', [EwalletController::class, 'paymentmethod'])->name('paymentmethod');
     Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
     Route::get('cwallet', [CustomerController::class, 'cwallet'])->name('cwallet');
-
+    Route::get('sellers/show/{id}', [VendorsController::class, 'show1'])->name('sellers.show');
     Route::resource('blog_subcategories', BlogsSubCategoriesController::class);
     Route::get('blogs.blog_subcategories/{id}/destroy', [BlogsSubCategoriesController::class, 'destroy']);
 });

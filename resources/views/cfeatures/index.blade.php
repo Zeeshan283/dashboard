@@ -70,7 +70,12 @@
                                 <td>{{$value->duration}}hrs</td>
                                 <td>{{$value->skilllevel}}</td>
                                 <td>{{$value->language}}</td>
-                                <td>${{$value->coursefee}}</td>
+                                <td>{{$value->coursetype}}</td>
+                                <td>{{$value->address}}</td>
+                                <td>{{$value->title}}</td>
+                                <td>{{$value->blog_category_id}}</td>
+                                <td>{{ $value->blog_sub_category_id}}</td>
+                                <td><img src="{{($value->img) }}" width="50" height="50"></td>
                                 <td>
                                     <div class="d-flex gap-2">
                                     <a target="_blank" href="{{ route('cfeatures.edit', $value->id) }}">
@@ -78,7 +83,10 @@
         <i class="fa fa-edit me-2 font-success" title="Edit" aria-hidden="true"></i>
     </button>
 </a>
-
+<a href="https://www.industrymall.net/blog/blogs/ {{ $value->id }}" target="_blank"
+    class="btn btn-outline-secondary">
+    <i class="nav-icon i-Eye" title="view"></i>
+</a>
 <form action="{{ route('cfeatures.destroy', $value->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this blog?')">
     @csrf
     @method('DELETE')

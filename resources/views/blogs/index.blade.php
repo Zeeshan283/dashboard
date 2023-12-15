@@ -55,7 +55,7 @@
         <i class="fa fa-trash" title="delete" aria-hidden="true"></i>
     </button>
 </form>
-<a href="https://www.industrymall.net/product-details/{{ $product->id }}" target="_blank"
+<a href="https://www.industrymall.net/blog/blogs/ {{ $value->id }}" target="_blank"
                             class="btn btn-outline-secondary">
                             <i class="nav-icon i-Eye" title="view"></i>
                         </a>

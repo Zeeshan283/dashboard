@@ -29,19 +29,14 @@
         height: 60%;
         margin-left: 19%;
     }
+    .modal {
+    background: transparent !important;
+}
+
 </style>
 <div class="breadcrumb">
  
                 <h1>Seller Verification Management's</h1>
-                {{-- @if (count($errors) > 0)
-                    <div class="alert alert-danger d-flex">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif --}}
             </div>
             <div class="separator-breadcrumb border-top"></div>
             <div class="col-md-12 mb-4">
@@ -53,8 +48,6 @@
                         <ul style="justify-content: center;">
                             <li><a href="#step-1">Step 1<br /><small>Bank Details</small></a></li>
                             <li><a href="#step-2">Step 2<br /><small>ID & Comapny Details</small></a></li>
-                            {{-- <li><a href="#step-3">Step 3<br /><small>Company Document</small></a></li> --}}
-                            {{-- <li><a href="#step-4">Step 4<br /><small>Tax Charges</small></a></li> --}}
                         </ul>
                             
                         <span>
@@ -176,13 +169,16 @@
                         <td>{{$value->bank_name}}</td>
                         <td>{{$value->bank_address}}</td>
                         <td>{{$value->branch_code}}</td>
-                        <td><div>
+                        <td class="d-flex-2">
                             <a href="{{URL::to('bank/'. $value->id. '/delete')}}">
                                             <button type="button" class="btn btn-outline-danger">
                                                 <i class="nav-icon i-Remove-Basket" title="delete"></i>
                                             </button>
                                             </a>
-                        </div></td>
+                                            <a href="{{ route('sellers.show', $value->id) }}" target="_blank" class="btn btn-outline-secondary">
+                                                <i class="nav-icon i-Eye" title="view"></i>
+                                            </a>
+                                            </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -313,9 +309,7 @@
                                                     <button type="button" class="d-none form-control" style="width: auto;"id="chooseImages">Choose Images</button>
                                                         
                                                 </div>
-                                                   
-
-                                                <div class="form-group col-md-4"style="margin-top: auto;">
+                                                   <div class="form-group col-md-4"style="margin-top: auto;">
                                                     
                                                 <div class="">
                                                     <input class="btn btn-outline-secondary" type="submit" value="Add Document">

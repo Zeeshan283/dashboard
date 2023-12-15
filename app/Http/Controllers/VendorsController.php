@@ -70,14 +70,21 @@ class VendorsController extends Controller
     }
     public function show($id)
     {
-
         $edit = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
         $bankDetail = VendorBankDetail::with('vendor_profile')->where('vendor_id', '=', $id)->get();
         $vendordocument = VendorDocument::with('vendor_profile')->where('vendor_id', '=', $id)->get();
-
         return view('sellers.vendorview', compact('edit', 'bankDetail', 'vendordocument'));
     }
 
+    public function show1($id)
+    {
+        // dd($id);
+        $value = VendorBankdetail::find($id);
+        if (!$value) {
+            return redirect()->back()->with('error', 'detail not found.');
+        }
+        return view('sellers.show', compact('id'));
+    }
     public function edit($id)
     {
         $vendors = user::find($id);
@@ -485,6 +492,8 @@ class VendorsController extends Controller
         Toastr::success('Bank Details Added Successfully!', 'Success');
         return redirect()->back();
     }
+
+
 
     public function verifiedSellerSave(Request $request, $id)
     {
