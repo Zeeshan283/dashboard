@@ -15,6 +15,7 @@ use App\Models\Product;
 use App\Models\ProductContact;
 use App\Models\Settings;
 use App\Models\Coupon;
+use App\Models\FAQCategory;
 use App\Models\Purchase;
 use App\Models\SubCategory;
 use App\Models\vendorProfile;
@@ -102,30 +103,7 @@ class ApiController extends Controller
         }
     }
 
-    public function GetSingleProduct($id)
-    {
-        $product = Product::whereId($id)->first();
-        if ($product) {
-            $brand = Brand::select('id', 'brand_name', 'logo')->whereid($product->brand_id)->first();
 
-            $singleProduct = Product::with('colors')
-                ->with('product_images')
-                ->with('stock')
-                ->where('id', $id)->get();
-
-            $disclaimer = Settings::select('disclaimer')->first();
-
-
-            return response()->json([
-                'data' => $singleProduct,
-                'brand' => $brand,
-                'disclaimer' => $disclaimer,
-                'status' => '200'
-            ]);
-        } else {
-            return response()->json(['data' => 'Product Not Found', 'status' => '200']);
-        }
-    }
 
 
 
@@ -384,7 +362,7 @@ class ApiController extends Controller
 
     public function FAQs()
     {
-        $faq = FAQ::with('faq_category')->get();
+        $faq = FAQCategory::with('faqs')->get();
         return response()->json($faq);
     }
 
@@ -600,6 +578,7 @@ class ApiController extends Controller
                 $menuName = $menuNameWords[0] ?? $menu->name;
 
                 $menuData[] = [
+                    'id' => $menu->id,
                     'menu_name' => $menu->name,
                     'slug' => $menu->slug,
                     'icon' => $menu->icon,
@@ -658,6 +637,21 @@ class ApiController extends Controller
             return response()->json($data);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function GetSingleProduct($id)
+    {
+        try {
+            $products_without_stock  = Product::where('id', $id)->with('product_image', 'brand', 'colors')->first();
+            $p_with_stock = $products_without_stock->id;
+            $products_stock = $this->product_with_stock($p_with_stock);
+            $product[] = $products_stock;
+
+
+            return response()->json($product);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'product not found'], 404);
         }
     }
 }
