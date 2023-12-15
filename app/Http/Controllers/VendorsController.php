@@ -79,11 +79,9 @@ class VendorsController extends Controller
     public function show1($id)
     {
         // dd($id);
-        $value = VendorBankdetail::find($id);
-        if (!$value) {
-            return redirect()->back()->with('error', 'detail not found.');
-        }
-        return view('sellers.show', compact('id'));
+        $bankDetail = VendorBankDetail::with('vendor_profile')->where('vendor_id', '=', $id)->get();
+        $vendordocument = VendorDocument::with('vendor_profile')->where('vendor_id', '=', $id)->get();
+        return view('sellers.show', compact('id', 'bankDetail', 'vendordocument'));
     }
     public function edit($id)
     {
