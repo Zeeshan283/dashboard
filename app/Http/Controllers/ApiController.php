@@ -347,17 +347,28 @@ class ApiController extends Controller
     }
 
     public function vendorprofile($id)
+
     {
+        try {
+
         $vendors = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
 
         return response()->json(['vendors' => $vendors]);
+        }catch (\Exception $e) {
+            return response()->json(['error' => ' not found '], 404);
+        }
     }
 
     public function vendorcoupon($id)
     {
+        try {
+
         $vendorcoupon = Coupon::where('vendor_id', '=', $id)->get();
 
         return response()->json(['vendorcoupon' => $vendorcoupon]);
+    }catch (\Exception $e) {
+        return response()->json(['error' => ' not found '], 404);
+    }
     }
 
     public function FAQs()
@@ -646,7 +657,7 @@ class ApiController extends Controller
             $products_without_stock  = Product::where('id', $id)->with('product_image', 'brand', 'colors')->first();
             $p_with_stock = $products_without_stock->id;
             $products_stock = $this->product_with_stock($p_with_stock);
-            $product[] = $products_stock;
+            $product = $products_stock;
 
 
             return response()->json($product);
