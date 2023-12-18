@@ -1,4 +1,4 @@
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -14,7 +14,6 @@
         <div></div>
         <div></div>
     </div>
-
     {{-- <div class="d-flex align-items-center">
         <div class="search-bar">
             <input type="text" placeholder="Search">
@@ -34,37 +33,37 @@
 
         <!-- Notificaiton -->
         <style>
-    #buttons {
-        padding: 5px 5px;
-    border: 1px solid;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 8px;
-}
-#buttons i:hover{
-    color: white;
-}
+            #buttons {
+                padding: 5px 5px;
+                border: 1px solid;
+                border-radius: 5px;
+                cursor: pointer;
+                text-align: center;
+                font-size: 8px;
+            }
 
-#buttons i {
-   color: black;
-}
+            #buttons i:hover {
+                color: white;
+            }
 
-</style>
-<div class="dropdown">
-    <div class="badge-top-container" role="button" id="dropdownNotification" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <span class="badge text-bg-primary">{{ $notificationsCount ?? 0 }}</span>
-        <i class="i-Bell text-muted header-icon"></i>
-    </div>
+            #buttons i {
+                color: black;
+            }
+        </style>
+        <div class="dropdown">
+            <div class="badge-top-container" role="button" id="dropdownNotification" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="badge text-bg-primary">{{ $notificationsCount ?? 0 }}</span>
+                <i class="i-Bell text-muted header-icon"></i>
+            </div>
 
-    <!-- Notification dropdown -->
-    <div class="dropdown-menu dropdown-menu-right notification-dropdown rtl-ps-none"
-        aria-labelledby="dropdownNotification" data-perfect-scrollbar data-suppress-scroll-x="true">
+            <!-- Notification dropdown -->
+            <div class="dropdown-menu dropdown-menu-right notification-dropdown rtl-ps-none"
+                aria-labelledby="dropdownNotification" data-perfect-scrollbar data-suppress-scroll-x="true">
 
-        <!-- Display notifications here -->
+                <!-- Display notifications here -->
 
-                <div class="dropdown-item"> 
+                <div class="dropdown-item">
                     <div class="notification-icon">
                         <button type="button" class="btn btn-outline-secondary" id="buttons">
                             <i class="fa fa-comments-o" aria-hidden="true" title="New Messages"></i>
@@ -74,8 +73,8 @@
                     </div>
                 </div>
 
-</div>
-    </div>
+            </div>
+        </div>
 
         <!-- User avatar dropdown -->
         <div class="dropdown">
