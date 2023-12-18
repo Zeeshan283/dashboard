@@ -6,7 +6,24 @@
 
 @section('main-content')
     <div class="breadcrumb">
-        <h1><a href="{{ route('admin') }}">Admin Dashboard</a></h1>
+        {{-- <h1><a href="{{ route('admin') }}">Admin Dashboard </a></h1> --}}
+        <h3>
+            @if (Auth::user()->role == 'Admin')
+                Admin Dashboard
+            @else
+                Vendor Dashboard
+            @endif
+
+            {{-- <small>Bigdeal Admin panel</small> --}}
+        </h3>
+        @if (Auth::user()->role == 'Vendor')
+            @if (Auth::user()->status == '1')
+                <span class="btn btn-primary">Status: Active</span>
+            @else
+                <span class="btn btn-secondary">Status: In Active </span> ( Your profile is pending for
+                approval)
+            @endif
+        @endif
     </div>
 
     <div class="separator-breadcrumb border-top"></div>

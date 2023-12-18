@@ -163,7 +163,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('blogs_categories/{id}/destroy', [BlogsCategoriesController::class, 'destroy']);
     Route::resource('blogs', BlogsController::class);
     Route::get('blogs/{id}/destroy', [BlogsController::class, 'destroy']);
-    
+
     Route::resource('cfeatures', CfeaturesController::class);
     Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
     Route::post('/notifications', 'NotificationController@notification')->name('notifications.notification');
