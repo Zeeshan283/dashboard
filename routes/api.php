@@ -62,6 +62,10 @@ Route::get('/vcoupon/{id}', [ApiController::class, 'vendorcoupon']);
 
 // new api
 Route::get('/faqs', [ApiController::class, 'FAQs']); // all faqs
+// Route::get('/blogs', [ApiController::class, 'blogs']); //all blogs
+Route::get('/blogs', [ApiController::class, 'getBlogs']);
+Route::get('/blogs/{id}', [ApiController::class, 'getBlog']);
+Route::get('/cfeatures', [ApiController::class, 'cfeatures']);
 Route::get('/pages', [ApiController::class, 'Pages']); // all pages
 Route::get('/brands', [ApiController::class, 'Brands']); // all brand's api
 Route::get('/p_b_menu/{identifier}', [ApiController::class, 'allProductAMenu']); //product by menu

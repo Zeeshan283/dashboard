@@ -22,7 +22,7 @@ class Cfeatures extends Model
         'blog_category_id',
         'blog_sub_category_id',
         'image',
-       'description',
+        'description',
     ];
 
     public function blogSubCategory()

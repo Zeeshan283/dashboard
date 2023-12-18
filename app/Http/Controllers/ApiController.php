@@ -21,6 +21,11 @@ use App\Models\vendorProfile;
 use App\Models\TermsConditions;
 use App\Models\HelpCenter;
 use App\Models\User;
+use App\Models\Blogs;
+use App\Models\Cfeatures;
+use App\Models\BlogsCategories;
+use App\Models\BlogsSubCategories;
+
 use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -659,5 +664,28 @@ class ApiController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    public function getBlogs()
+    {
+        $blogs = Blogs::with('blogCategory', 'blogSubCategory')->get();
+        return response()->json($blogs);
+    }
+
+    public function getBlog($id)
+    {
+        $blog = Blogs::with('blogCategory', 'blogSubCategory')->find($id);
+
+        if (!$blog) {
+            return response()->json(['error' => 'Blog not found'], 404);
+        }
+
+        return response()->json($blog);
+    }
+
+    public function cfeatures()
+    {
+        $cfeatures = Cfeatures::all();
+        return response()->json($cfeatures, 200);
     }
 }
