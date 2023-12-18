@@ -20,7 +20,7 @@
 <div class="col-md-12 mb-4">
     <div class="card text-start">
         <div class="card-body">
-        <h4 class="card-title mb-3">All Blogs</h4>
+        <h4 class="card-title mb-2">All Blogs</h4>
         <div class="table-responsive">
         <table id="deafult_ordering_table" class="display table table-striped table-bordered"
                                 style="width:100%">
@@ -41,7 +41,7 @@
                                 <td>{{$value->title}}</td>
                                 <td>{{$value->blog_category_id}}</td>
                             <td>{{ $value->blogSubCategory->blog_sub_category_id }}</td>
-                                <td><img src="{{ asset($value->feature_image) }}" alt="Image" width="40%" height="40%"></td> 
+                                <td><img src="{{ url('upload/blogs/' . $value->feature_image) }}" width="20%" height="20%"></td>
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a target="_blank" href="{{ URL::to('blogs/' . $value->id . '/edit') }}" >

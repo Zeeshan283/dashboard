@@ -51,7 +51,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group ml-6">
                                                 <label for="inputtext11" class="form-label">Feature Image:</label>
-                                                <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
+                                                <input type="file" name="feature_image" class="form-control" style="height: fit-content;" accept="image/png, image/jpeg" />
                                                 @if ($errors->has('feature_image.*'))
     <span>{{ $errors->first('feature_image.*') }}</span>
 @endif

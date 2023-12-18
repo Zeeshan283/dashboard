@@ -76,13 +76,7 @@ class VendorsController extends Controller
         return view('sellers.vendorview', compact('edit', 'bankDetail', 'vendordocument'));
     }
 
-    public function show1($id)
-    {
-        // dd($id);
-        $bankDetail = VendorBankDetail::with('vendor_profile')->where('vendor_id', '=', $id)->get();
-        $vendordocument = VendorDocument::with('vendor_profile')->where('vendor_id', '=', $id)->get();
-        return view('sellers.show', compact('id', 'bankDetail', 'vendordocument'));
-    }
+   
     public function edit($id)
     {
         $vendors = user::find($id);
@@ -211,6 +205,63 @@ class VendorsController extends Controller
     }
 
 
+    public function verifiedSeller($id)
+    {
+
+        $edit = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
+        $bankDetail = VendorBankDetail::with('vendor_profile')->where('vendor_id', '=', $id)->get();
+        $vendordocument = VendorDocument::with('vendor_profile')->where('vendor_id', '=', $id)->get();
+        // dd($edit);
+        if (!$edit) {
+            $edit = new VendorProfile();
+            $edit->vendor_id = $id;
+            $edit->save();
+        }
+        return view('sellers.verifiedseller', compact('edit', 'bankDetail', 'vendordocument'));
+    }
+
+    public function trustedSellerSave(Request $request, $id)
+    {
+
+        // dd($request->all());
+        $this->validate($request, [
+            'vendor_profile_id' => 'required',
+            'vendor_id' => 'required',
+            'account_title' => 'required',
+            'account_no' => 'required',
+            'iban_no' => 'required',
+            'bank_name' => 'required',
+            'bank_address' => 'required',
+            'branch_code' => 'required',
+        ], []);
+        $data = new VendorBankDetail;
+
+        $data->vendor_profile_id = $request->vendor_profile_id;
+        $data->vendor_id = $request->vendor_id;
+        $data->account_title = $request->account_title;
+        $data->account_no = $request->account_no;
+        $data->iban_no = $request->iban_no;
+        $data->bank_name = $request->bank_name;
+        $data->bank_address = $request->bank_address;
+        $data->branch_code = $request->branch_code;
+
+        $data->save();
+        Toastr::success('Bank Details Added Successfully!', 'Success');
+        return redirect()->back();
+    }
+    public function show1($id)
+    {
+        $bankDetail = VendorBankDetail::with('vendor_profile')->find($id);
+    
+        if (!$bankDetail) {
+            // Handle case where bank detail with the given ID is not found
+            abort(404);
+        }
+    
+        return view('sellers.show', compact('bankDetail'));
+    }
+    
+    
     public function vendorProfileSave(Request $request, $id)
     {
 
@@ -445,54 +496,7 @@ class VendorsController extends Controller
         Toastr::success('Data Added Successfully!', 'Success');
         return redirect()->back();
     }
-
-    public function verifiedSeller($id)
-    {
-
-        $edit = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
-        $bankDetail = VendorBankDetail::with('vendor_profile')->where('vendor_id', '=', $id)->get();
-        $vendordocument = VendorDocument::with('vendor_profile')->where('vendor_id', '=', $id)->get();
-        // dd($edit);
-        if (!$edit) {
-            $edit = new VendorProfile();
-            $edit->vendor_id = $id;
-            $edit->save();
-        }
-        return view('sellers.verifiedseller', compact('edit', 'bankDetail', 'vendordocument'));
-    }
-
-    public function trustedSellerSave(Request $request, $id)
-    {
-
-        // dd($request->all());
-        $this->validate($request, [
-            'vendor_profile_id' => 'required',
-            'vendor_id' => 'required',
-            'account_title' => 'required',
-            'account_no' => 'required',
-            'iban_no' => 'required',
-            'bank_name' => 'required',
-            'bank_address' => 'required',
-            'branch_code' => 'required',
-        ], []);
-        $data = new VendorBankDetail;
-
-        $data->vendor_profile_id = $request->vendor_profile_id;
-        $data->vendor_id = $request->vendor_id;
-        $data->account_title = $request->account_title;
-        $data->account_no = $request->account_no;
-        $data->iban_no = $request->iban_no;
-        $data->bank_name = $request->bank_name;
-        $data->bank_address = $request->bank_address;
-        $data->branch_code = $request->branch_code;
-
-        $data->save();
-        Toastr::success('Bank Details Added Successfully!', 'Success');
-        return redirect()->back();
-    }
-
-
-
+    
     public function verifiedSellerSave(Request $request, $id)
     {
 

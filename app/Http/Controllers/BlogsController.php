@@ -28,35 +28,34 @@ public function create()
     $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
     return view('blogs.create', compact('categories', 'BlogsSubCategories'));
 }
-
-
-    public function store(Request $request)
-    {   
-        $request->validate([
-            'title' => 'required',
-            'blog_category_id' => 'required',
-            'blog_sub_category_id' => 'required',
-            'feature_image' => 'required|image|mimes:jpeg,jpg,png', 
-            'description' => 'required',
-        ]);        
     
-        $blog = new Blogs;
-        $blog->title = $request->title;
-        $blog->blog_category_id = $request->blog_category_id;
-        $blog->blog_sub_category_id = $request->blog_sub_category_id;
-        $blog->description = $request->description;
-    
-        if ($request->hasFile('feature_image')) {
-            $file = $request->file('feature_image');
-            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();    
-            $file->move(public_path('upload/blogs/'), $fileName);
-            $blog->feature_image = $fileName;   
-            $blog->save();
-        }
-        
-        return redirect()->back()->with('success', 'Blog Created Successfully');
+public function store(Request $request)
+{   
+    $request->validate([
+        'title' => 'required',
+        'blog_category_id' => 'required',
+        'blog_sub_category_id' => 'required',
+        'feature_image' => 'required|image|mimes:jpeg,jpg,png', 
+        'description' => 'required',
+    ]);        
+
+    $blog = new Blogs;
+    $blog->title = $request->title;
+    $blog->blog_category_id = $request->blog_category_id;
+    $blog->blog_sub_category_id = $request->blog_sub_category_id;
+    $blog->description = $request->description;
+
+    if ($request->hasFile('feature_image')) {
+        $file = $request->file('feature_image');
+        $fileName = uniqid() . '.' . $file->getClientOriginalExtension();    
+        $file->move(public_path('upload/blogs/'), $fileName);
+        $blog->feature_image = $fileName;   
     }
-    
+
+    $blog->save();
+
+    return redirect()->back()->with('success', 'Blog Created Successfully');
+}
 
     public function show(BlogsCategories $blogsCategories)
     {
@@ -105,6 +104,7 @@ public function create()
             $edit->save();
         }
         
+        $edit->save();
         return redirect()->back()->with(Toastr::success('Blog  Updated Successfully'));
     }
 

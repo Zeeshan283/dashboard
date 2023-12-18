@@ -74,8 +74,8 @@
                                 <td>{{$value->address}}</td>
                                 <td>{{$value->title}}</td>
                                 <td>{{$value->blog_category_id}}</td>
-                                <td>{{ $value->blog_sub_category_id}}</td>
-                                <td><img src="{{($value->img) }}" width="50" height="50"></td>
+                                <td>{{ $value->blogSubCategory->blog_sub_category_id}}</td>
+                                <td><img src="{{ url('upload/blogs/' . $value->image)}}" width="100%" height="100%"></td>
                                 <td>
                                     <div class="d-flex gap-2">
                                     <a target="_blank" href="{{ route('cfeatures.edit', $value->id) }}">

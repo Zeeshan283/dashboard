@@ -16,4 +16,6 @@ class VendorBankDetail extends Model
     {
         return $this->belongsTo(vendorProfile::class, 'vendor_profile_id');
     }
+
+
 }

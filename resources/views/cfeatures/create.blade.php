@@ -84,7 +84,7 @@
                         <div>
                             <div id="step-2" class="">
                         <div class="card-body">
-                        <form method="post" action="{{ route('cfeatures.store') }}">
+                        <form method="post" action="{{ route('cfeatures.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card mb-4">
                                     <h5 class="card-header text-left">Course Features</h5>
@@ -243,15 +243,15 @@
                 </select>  
             </div>
         </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group ml-6">
-                                                        <label>Image (1100x450)px</label>
-                            <input type="file" name="image" id="image" class="form-control" required>
-                            @error('image')
-                                <span class="invalid-feedback1 font-weight-bold">{{ $message }}</span>
-                            @enderror
-                                                    </div>
+        <div class="col-sm-6">
+                                                <div class="form-group ml-6">
+                                                    <label for="inputtext11" class="form-label">Image</label>
+                                                    <input type="file" name="image" class="form-control" style="height: fit-content;">
+                                                    @if ($errors->has('image'))
+                                                        <span style="color: red;" class="invalid-feedback1 font-weight-bold">{{ $errors->first('image') }}</span>
+                                                    @endif
                                                 </div>
+                                            </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-group">
