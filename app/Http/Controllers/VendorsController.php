@@ -76,7 +76,7 @@ class VendorsController extends Controller
         return view('sellers.vendorview', compact('edit', 'bankDetail', 'vendordocument'));
     }
 
-   
+
     public function edit($id)
     {
         $vendors = user::find($id);
@@ -177,7 +177,7 @@ class VendorsController extends Controller
 
         $edit = vendorProfile::with('paymethod')->with('user')->where('vendor_id', '=', $id)->first();
 
-        
+
         $accepted_payment_type = PaymentMethod::all();
         $accepted_payment_type1 = VendorProfilePayMethod::where('vendor_id', '=', $id)->first();
         // dd($edit);
@@ -189,18 +189,17 @@ class VendorsController extends Controller
         }
         if (!$accepted_payment_type1) {
             for ($i = 0; $i < count($accepted_payment_type); $i++) {
-            $accepted_payment_type1 = new VendorProfilePayMethod();
-            $accepted_payment_type1->vendor_id = $id; 
-            $accepted_payment_type1->save();
+                $accepted_payment_type1 = new VendorProfilePayMethod();
+                $accepted_payment_type1->vendor_id = $id;
+                $accepted_payment_type1->save();
             }
         }
         // dd($edit);
         if ($edit) {
 
             $pay = PaymentMethod::orderBy('id')->get(['name', 'id']);
-        
-        return view('sellers.vendorprofile', compact('edit', 'accepted_payment_type','pay'));
-    
+
+            return view('sellers.vendorprofile', compact('edit', 'accepted_payment_type', 'pay'));
         }
     }
 
@@ -252,16 +251,16 @@ class VendorsController extends Controller
     public function show1($id)
     {
         $bankDetail = VendorBankDetail::with('vendor_profile')->find($id);
-    
+
         if (!$bankDetail) {
             // Handle case where bank detail with the given ID is not found
             abort(404);
         }
-    
+
         return view('sellers.show', compact('bankDetail'));
     }
-    
-    
+
+
     public function vendorProfileSave(Request $request, $id)
     {
 
@@ -321,6 +320,7 @@ class VendorsController extends Controller
         $update->p_category5 = $request->p_category5;
         $update->about = $request->about;
         $update->disclaimer = $request->disclaimer;
+        // new data added here
         $update->update();
         $images = [];
 
@@ -342,19 +342,19 @@ class VendorsController extends Controller
         //     }
         // }
 
-        if(isset($request->accepted_payment_type)){
-            if(count($request->accepted_payment_type) > 0){
+        if (isset($request->accepted_payment_type)) {
+            if (count($request->accepted_payment_type) > 0) {
                 VendorProfilePayMethod::where('vendor_id', $request->user_id)->delete();
 
-                for($i=0; $i < count($request->accepted_payment_type); $i++){
+                for ($i = 0; $i < count($request->accepted_payment_type); $i++) {
                     $data = new VendorProfilePayMethod();
                     $data->vendor_id = $request->user_id;
                     $data->profile_id = $update->id;
                     $data->pay_id = $request->accepted_payment_type[$i];
                     $data->save();
                 }
-                }
             }
+        }
 
         if ($request->hasFile('slider_images')) {
             foreach ($request->file('slider_images') as $image) {
@@ -496,7 +496,7 @@ class VendorsController extends Controller
         Toastr::success('Data Added Successfully!', 'Success');
         return redirect()->back();
     }
-    
+
     public function verifiedSellerSave(Request $request, $id)
     {
 

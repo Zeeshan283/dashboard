@@ -484,6 +484,13 @@
                     <span class="item-name">Home Page Coupon</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'Cprofile.index' ? 'open' : '' }}"
+                    href="{{ route('Cprofile.index') }}">
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">Profile Category</span>
+                </a>
+            </li>
         </ul>
 
         <ul class="childNav" data-parent="profile">

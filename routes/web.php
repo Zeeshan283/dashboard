@@ -44,7 +44,7 @@ use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\AdvertisementSellerController;
 use App\Http\Controllers\AdvertisementOrder;
 use App\Http\Controllers\StripePaymentController;
-
+use App\Http\Controllers\CprofileController;
 use App\Models\User;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
@@ -338,7 +338,7 @@ Route::get('/order-data', function () {
 
 Route::get('/get-product-chart-data', [ProductController::class, 'getProductChartData']); // product chart data
 Route::get('/fetch-notifications', 'NotificationController@fetchNotifications')->name('fetch.notifications');
-
+Route::resource('Cprofile', CprofileController::class);
 
 // views 
 // Route::get('/views-over-last-20-days', function () {
