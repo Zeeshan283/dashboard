@@ -222,6 +222,7 @@ Route::middleware(['vendor'])->group(function () {
 
 
 
+
 // BOTH ACCESS
 Route::middleware(['bothAccess'])->group(function () {
 
