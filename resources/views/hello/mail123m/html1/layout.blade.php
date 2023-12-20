@@ -1,32 +1,67 @@
-{{-- @extends('layouts.app')
+{{-- <!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-@section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+<head>
+    <title>{{ config('app.name') }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="color-scheme" content="light">
+    <meta name="supported-color-schemes" content="light">
+    <style>
+        @media only screen and (max-width: 600px) {
+            .inner-body {
+                width: 100% !important;
+            }
 
-                    <div class="card-body">
-                        @if (session('resent'))
-                            <div class="alert alert-success" role="alert">
-                                {{ __('A fresh verification link has been sent to your email address.') }}
-                            </div>
-                        @endif
+            .footer {
+                width: 100% !important;
+            }
+        }
 
-                        {{ __('Before proceeding, please check your email for a verification link.') }}
-                        {{ __('If you did not receive the email') }},
-                        <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                            @csrf
-                            <button type="submit"
-                                class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection --}}
+        @media only screen and (max-width: 500px) {
+            .button {
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <table class="wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+        <tr>
+            <td align="center">
+                <table class="content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                    {{ $header ?? '' }}
+
+                    <!-- Email Body -->
+                    <tr>
+                        <td class="body" width="100%" cellpadding="0" cellspacing="0"
+                            style="border: hidden !important;">
+                            <table class="inner-body" align="center" width="570" cellpadding="0" cellspacing="0"
+                                role="presentation">
+                                <!-- Body content -->
+                                <tr>
+                                    <td class="content-cell">
+                                        {{ Illuminate\Mail\Markdown::parse($slot) }}
+
+                                        {{ $subcopy ?? '' }}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    {{ $footer ?? '' }}
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html> --}}
+
 
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -126,43 +161,44 @@
                 <!-- <p flex-2><img src="{{ asset('upload/logo/3.png') }}" alt="logo" width="80px"> Hi! Saliha <span>INDUSTRY MALL</span></p> -->
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <img src="{{ asset('upload/logo/3.png') }}" alt="logo" width="80px">
+                        {{-- <img src="{{ asset('upload/logo/3.png') }}" alt="logo" width="80px"> --}}
                     </div>
                     <div class="text-center">
                         <p>
-                            @if (session('resent'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ __('A fresh verification link has been sent to your email address.') }}
-                                </div>
-                            @endif
+
                         </p>
                     </div>
                     <div class="text-right">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            {{-- <button type="submit" class="btn btn-outline-secondary">Logout</button> --}}
-                            <button type="submit" style="color:blue;" class="btn btn-link p-0 m-0 align-baseline">
-                                {{ __('Logout') }}</button>.
-                        </form>
+
                     </div>
                 </div>
-                <p class="text-center" style="font-size: 40px;">Welcome to <br><img
-                        src="{{ asset('upload/logo/16.jpg') }}" alt="logo" width="300px"></p>
+                <p
+                    style="position: relative;
+                    line-height: 1.5em; margin-top: 20px; text-align: center; font-size: 40px;">
+                    Welcome to <br><img src="{{ asset('upload/logo/16.jpg') }}" alt="logo" width="300px"></p>
                 <p class="text-center">Leading E-Commerce Marketplace for Industrial Needs</p>
-                {{-- <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"><a
-                        href="#">Verify Your Email</a></button> --}}
-                <form method="POST" action="{{ route('verification.resend') }}">
-                    @csrf
-                    <p class="text-center">We have sent an email to ‘<span
-                            style="color:blue;">{{ Auth::user()->email }}</span>’. Please follow link to
-                        verify
-                        your email.
-                        “Didn’t get an email? click on
 
-                        <button type="submit" style="color:blue;" class="btn btn-link p-0 m-0 align-baseline">
-                            {{ __('resend') }}</button>.
-                    </p>
-                </form>
+
+                <p>
+                    {{-- style="position: relative;
+                    line-height: 1.5em; margin-top: 20px; text-align: center; font-size: 40px;">
+                    <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1">
+                        Verify Your Email</button> --}}
+
+                </p>
+
+
+
+                <table class="" align="center" width="570" cellpadding="0" cellspacing="0" role="">
+                    <!-- Body content -->
+                    <tr>
+                        <td class="">
+                            {{ Illuminate\Mail\Markdown::parse($slot) }}
+
+                            {{-- {{ $subcopy ?? '' }} --}}
+                        </td>
+                    </tr>
+                </table>
 
                 {{-- <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                     @csrf
@@ -192,23 +228,7 @@
                         alt="" class="mx-2">&nbsp; &nbsp;
                     <img src="{{ asset('upload/logo/14.png') }}" border="0" width="100px" height="auto"
                         alt="" class="mx-2">
-                    <h6 class="text-gray">Follow us </h6>
-                    <div class="social-icons-container">
-                        <div class="icon-button" style="font-size: 20px;">
-                            <i class="fab fa-linkedin"></i>
-                        </div>
-                        <div class="icon-button" style="font-size: 20px;">
-                            <i class="fab fa-facebook"></i>
-                        </div>
 
-                        <div class="icon-button" style="font-size: 20px;">
-                            <i class="fab fa-twitter"></i>
-                        </div>
-                        <div class="icon-button" style="font-size: 20px;">
-                            <i class="fab fa-instagram"></i>
-                        </div>
-
-                    </div>
                 </div>
                 <h6 class="text-center text-gray">Contact Us<br>
                     Industry Mall<br>Email: Industrymall.net@gmail.com<br>

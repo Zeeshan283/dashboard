@@ -16,4 +16,8 @@ class FAQ extends Model
     {
         return $this->belongsTo(FAQCategory::class, 'faq_category_id');
     }
+    public function faq_category1()
+    {
+        return $this->hasMany(FAQCategory::class, 'faq_category_id');
+    }
 }

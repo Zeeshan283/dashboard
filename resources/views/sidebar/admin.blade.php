@@ -62,14 +62,12 @@
             <span class="nav-text">Customers</span>
 
         </a>
-        {{-- <div class="triangle"></div> --}}
     </li>
     <li class="nav-item {{ request()->is('users/*') ? 'active' : '' }}" data-item="users">
         <a class="nav-item-hold" href="#">
             <i class="nav-icon i-Find-User"></i>
             <span class="nav-text">Users</span>
         </a>
-        {{-- <div class="triangle"></div> --}}
     </li>
     <li class="nav-item {{ request()->is('extrakits/*') ? 'active' : '' }}" data-item="extrakits">
         <a class="nav-item-hold" href="#">
@@ -77,7 +75,6 @@
             <span class="nav-text">Refund Request</span>
 
         </a>
-        {{-- <div class="triangle"></div> --}}
     </li>
 
     {{-- <li class="nav-item {{ request()->is('charts/*') ? 'active' : '' }}" data-item="charts">
@@ -88,19 +85,18 @@
 </li> --}}
 
 
+
     <li class="nav-item {{ request()->is('uikits1/*') ? 'active' : '' }}" data-item="uikits1">
         <a class="nav-item-hold" href="#">
             <i class="nav-icon i-Library"></i>
             <span class="nav-text">Advertisement</span>
         </a>
-        {{-- <div class="triangle"></div> --}}
     </li>
     <li class="nav-item {{ request()->is('blogs/*') ? 'active' : '' }}" data-item="blogs">
         <a class="nav-item-hold" href="#">
             <i class="nav-icon i-Safe-Box1"></i>
             <span class="nav-text">Blogs</span>
         </a>
-        {{-- <div class="triangle"></div> --}}
     </li>
 
     <li class="nav-item {{ request()->is('pages/*') ? 'active' : '' }}" data-item="pages">
@@ -115,6 +111,5 @@
             <i class="nav-icon i-Windows-2"></i>
             <span class="nav-text">Setting</span>
         </a>
-        {{-- <div class="triangle"></div> --}}
     </li>
 </ul>
