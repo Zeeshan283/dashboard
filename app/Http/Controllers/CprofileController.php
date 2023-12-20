@@ -15,7 +15,7 @@ class CprofileController extends Controller
 
     public function create()
     {
-        return view('cprofile.create', compact('data'));
+        return view('cprofile.create');
     }
 
     public function store(Request $request)
