@@ -49,6 +49,7 @@ use App\Models\User;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\CategoryServices;
 
 
 
@@ -340,6 +341,7 @@ Route::get('/order-data', function () {
 Route::get('/get-product-chart-data', [ProductController::class, 'getProductChartData']); // product chart data
 Route::get('/fetch-notifications', 'NotificationController@fetchNotifications')->name('fetch.notifications');
 Route::resource('cprofile', CprofileController::class);
+Route::resource('service', CategoryServicesController::class);
 
 // views 
 // Route::get('/views-over-last-20-days', function () {

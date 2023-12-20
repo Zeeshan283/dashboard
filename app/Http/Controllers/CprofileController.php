@@ -9,7 +9,7 @@ class CprofileController extends Controller
 {
     public function index()
     {
-        $data = cprofile::all();
+        $data = Cprofile::all();
         return view('cprofile.index', compact('data'));
     }
 

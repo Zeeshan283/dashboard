@@ -59,7 +59,6 @@
                     <li><a href="#step-2">Step 2<br /><small>Sliders</small></a></li>
                     <li><a href="#step-3">Step 3<br /><small>Portfolio</small></a></li>
                     <li><a href="#step-4">Step 4<br /><small>About</small></a></li>
-                    <li><a href="#step-5">Step 5<br /><small>Services</small></a></li>
                 </ul>
 
                 <span>
@@ -482,80 +481,6 @@
                         </div>
                     </div>
 
-                    <div id="step-5" class="">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header bg-transparent">
-                                        <h3 class="card-title">Services</h3>
-                                    </div>
-                                    <div class="card-body">
-
-                                        <div class="">
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    <label for="inputtext11" class="ul-form__label">Title<span
-                                                            style="color: red;">*</span></label>
-                                                    {!! Form::text('title', null, ['id' => 'title', 'class' => 'form-control']) !!}
-                                                    @if ($errors->has('title'))
-                                                        <span style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('title') }}</span
-                                                            style="color: red;">
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <label for="inputEmail12" class="ul-form__label">Category<span
-                                                            style="color: red;">*</span></label>
-                                                    <select id="choices-multiple-remove-button" name="pcategory"
-                                                        class="form-control" placeholder="Select Profile Category"
-                                                        multiple>
-                                                        @foreach ($data as $key => $value)
-                                                            <option value="{{ $value->id }}"
-                                                                @if ($edit->user && $edit->user->pcategory == $value->id) selected @endif>
-                                                                {{ $value->pcategory }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group col-md-4">
-                                                    <label for="inputtext11" class="ul-form__label">Images<span
-                                                            style="color: red;">*</span></label>
-                                                    <input type="file" name="slider_images[]" id="imageInput"
-                                                        class="form-control" multiple>
-                                                    <button type="button" class="d-none form-control"
-                                                        style="width: auto;"id="chooseImages">Choose Images</button>
-
-                                                    @if ($errors->has('slider_images'))
-                                                        <span style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('slider_images') }}</span
-                                                            style="color: red;">
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <label for="inputtext11" class="ul-form__label">Description<span
-                                                            style="color: red;">*</span></label>
-                                                    {!! Form::textarea('description', null, ['id' => 'description', 'class' => 'form-control']) !!}
-                                                    @if ($errors->has('description'))
-                                                        <span style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('description') }}</span
-                                                            style="color: red;">
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="form-group"style="text-align: right;">
-                                                <div class="">
-                                                    <input class="btn btn-outline-secondary" type="submit"
-                                                        value="Update Profile">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div id="step-3" class="">
                         <div class="row">
                             <div class="col-lg-12">
@@ -623,8 +548,6 @@
 
                                                             $.ajax({
                                                                 type: 'DELETE',
-                                                                {{-- url: '{{ route('delete.image') }}/' + image, --}}
-
                                                                 success: function(response) {
                                                                     // Handle success, e.g., remove the deleted image container
                                                                     $('.image-container:has(img[src="' + image + '"])').remove();
@@ -926,7 +849,7 @@
         automatic_uploads: true,
         // images_upload_url: '/post/image/upload',
         // images_upload_url: '{{ asset('upload') }}',
-        images_upload_url: '{{ URL::to('/uploads3') }}',
+        images_upload_url: '{{ URL::to('/uploads3')}}',
         file_picker_types: "image",
         plugins: [
             "advlist autolink lists link image charmap print preview hr anchor pagebreak",
