@@ -9,7 +9,7 @@
             <h5>Profile Category List</h5>
         </div>
         <div class="col-md-6" style="text-align: right;  margin-left: auto;">
-            <a href="{{ route('Cprofile.create') }}">
+            <a href="{{ route('cprofile.create') }}">
                 <button class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left"><span
                         class="ladda-label">Add</span></button></a>
         </div>
@@ -36,11 +36,11 @@
                             @foreach ($data as $key => $value)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td> {{ $value->category }}</td>
+                                    <td> {{ $value->pcategory }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
 
-                                            <form action="{{ route('Cprofile.destroy', $value->id) }}" method="POST"
+                                            <form action="{{ route('cprofile.destroy', $value->id) }}" method="POST"
                                                 onsubmit="return confirm('Are you sure you want to delete this Category?, Remember that they also delete with your profile')">
                                                 @csrf
                                                 @method('DELETE')
@@ -49,9 +49,9 @@
                                                 </button>
                                             </form>
 
-                                            <!-- <a href="{{ asset('Cprofile/' . $value->id . '/destroy') }}">
-                                                                                            <i class="fa fa-trash font-danger"></i></a>
-                                                                                       </a> -->
+                                            <!-- <a href="{{ asset('cprofile/' . $value->id . '/destroy') }}">
+                                                                                                                    <i class="fa fa-trash font-danger"></i></a>
+                                                                                                               </a> -->
                                         </div>
                                     </td>
                                 </tr>

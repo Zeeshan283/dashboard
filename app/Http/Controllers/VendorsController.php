@@ -18,6 +18,7 @@ use App\Models\VendorBankDetail;
 use App\Models\VendorDocument;
 use App\Models\PaymentMethod;
 use App\Models\VendorProfilePayMethod;
+use App\Models\Cprofile;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\File;
@@ -174,17 +175,13 @@ class VendorsController extends Controller
 
     public function vendorProfile($id)
     {
-
-        $edit = vendorProfile::with('paymethod')->with('user')->where('vendor_id', '=', $id)->first();
-
-
+        $edit = vendorProfile::with('paymethod', 'user')->where('vendor_id', '=', $id)->first();
         $accepted_payment_type = PaymentMethod::all();
         $accepted_payment_type1 = VendorProfilePayMethod::where('vendor_id', '=', $id)->first();
         // dd($edit);
         if (!$edit) {
             $edit = new VendorProfile();
             $edit->vendor_id = $id; // Set the vendor_id
-            // You may need to set other properties here based on your requirements
             $edit->save(); // Save the new record to the databas
         }
         if (!$accepted_payment_type1) {
@@ -195,11 +192,12 @@ class VendorsController extends Controller
             }
         }
         // dd($edit);
+        $data = Cprofile::all();
         if ($edit) {
 
             $pay = PaymentMethod::orderBy('id')->get(['name', 'id']);
 
-            return view('sellers.vendorprofile', compact('edit', 'accepted_payment_type', 'pay'));
+            return view('sellers.vendorprofile', compact('edit', 'accepted_payment_type', 'pay', 'data'));
         }
     }
 
@@ -221,7 +219,6 @@ class VendorsController extends Controller
 
     public function trustedSellerSave(Request $request, $id)
     {
-
         // dd($request->all());
         $this->validate($request, [
             'vendor_profile_id' => 'required',
@@ -253,7 +250,6 @@ class VendorsController extends Controller
         $bankDetail = VendorBankDetail::with('vendor_profile')->find($id);
 
         if (!$bankDetail) {
-            // Handle case where bank detail with the given ID is not found
             abort(404);
         }
 
@@ -263,7 +259,6 @@ class VendorsController extends Controller
 
     public function vendorProfileSave(Request $request, $id)
     {
-
         // dd($request->all());
         // dd($request->accepted_payment_type);
         $this->validate($request, [
@@ -276,6 +271,11 @@ class VendorsController extends Controller
             'address1' => 'required',
             'tax_reg_title' => 'required',
             'tax_reg_number' => 'required',
+            'tag_line' => 'required',
+            'rating' => 'required',
+            'title' => 'required',
+            'pcategory' => 'required',
+            'description' => 'required',
             // 'slider_images' => 'required',
             // 'about' => 'required',
             // Add other fields here as needed
@@ -290,6 +290,7 @@ class VendorsController extends Controller
         $user->city = $request->city;
         $user->address1 = $request->address1;
         $user->address2 = $request->address2;
+        $user->tag_line = $request->tag_line;
         $user->tax_reg_title = $request->tax_reg_title;
         $user->tax_reg_number = $request->tax_reg_number;
         $user->total_employees = $request->total_employees;
@@ -304,6 +305,7 @@ class VendorsController extends Controller
         $user->annual_export = $request->annual_export;
         $user->annual_import = $request->annual_import;
         $user->annual_revenue = $request->annual_revenue;
+        $user->rating = $request->rating;
 
         $user->update();
 
@@ -320,27 +322,13 @@ class VendorsController extends Controller
         $update->p_category5 = $request->p_category5;
         $update->about = $request->about;
         $update->disclaimer = $request->disclaimer;
-        // new data added here
+        $user->title = $request->title;
+        $user->pcategory = $request->pcategory;
+        $user->description = $request->description;
+
         $update->update();
         $images = [];
 
-
-
-        // if (isset($request->colors)) {
-        //     if (count($request->colors) > 0) {
-        //         ProductColors::where('pro_id', $id)->delete();
-
-        //         for ($i = 0;
-        //             $i < count($request->colors);
-        //             $i++
-        //         ) {
-        //             $ProductColors = new ProductColors();
-        //             $ProductColors->pro_id = $edit->id;
-        //             $ProductColors->color_id = $request->colors[$i];
-        //             $ProductColors->save();
-        //         }
-        //     }
-        // }
 
         if (isset($request->accepted_payment_type)) {
             if (count($request->accepted_payment_type) > 0) {
@@ -355,6 +343,19 @@ class VendorsController extends Controller
                 }
             }
         }
+
+        // if (isset($request->pcategory)) {
+        //     if (count($request->pcategory) > 0) {
+        //         pcategory::where('id', $request->user_id)->delete();
+        //         for ($i = 0; $i < count($request->pcategory); $i++) {
+        //             $data = new pcategory();
+        //             $data->id = $request->user_id;
+        //             $data->id = $update->id;
+        //             $data->id = $request->pcategory[$id];
+        //             $data->save();
+        //         }
+        //     }
+        // }
 
         if ($request->hasFile('slider_images')) {
             foreach ($request->file('slider_images') as $image) {
@@ -403,8 +404,6 @@ class VendorsController extends Controller
                     $images[] = $path->getPathname();
                 }
             }
-
-            // Merge the new images with the existing ones
             $existingImages = json_decode($update->p_c2_images, true);
 
             if (is_array($existingImages)) {

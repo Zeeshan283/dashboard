@@ -9,23 +9,22 @@ class CprofileController extends Controller
 {
     public function index()
     {
-        $data = Cprofile::all();
+        $data = cprofile::all();
         return view('cprofile.index', compact('data'));
     }
 
     public function create()
     {
-        return view('cprofile.create');
+        return view('cprofile.create', compact('data'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'category' => 'required|string|max:255',
+            'pcategory' => 'required|string|max:255',
         ]);
-
         Cprofile::create([
-            'category' => $request->input('category'),
+            'pcategory' => $request->input('pcategory'),
         ]);
 
         return redirect()->route('cprofile.index')->with('success', 'Category created successfully');

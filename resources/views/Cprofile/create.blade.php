@@ -15,7 +15,7 @@
                             <h5>Profile Service Management</h5>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('Cprofile.store') }}">
+                            <form method="post" action="{{ route('cprofile.store') }}">
                                 @csrf
                                 <div class="card mb-4">
                                     <h5 class="card-header text-left">Create Category</h5>
@@ -24,9 +24,9 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="category" class="form-label">Category</label>
-                                                    <input type="text" class="form-control" id="category"
-                                                        placeholder="Category" name="category" required>
+                                                    <label for="pcategory" class="form-label">Category</label>
+                                                    <input type="text" class="form-control" id="pcategory"
+                                                        placeholder="Category" name="pcategory" required>
                                                 </div>
                                             </div>
                                         </div>

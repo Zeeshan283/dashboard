@@ -338,7 +338,7 @@ Route::get('/order-data', function () {
 
 Route::get('/get-product-chart-data', [ProductController::class, 'getProductChartData']); // product chart data
 Route::get('/fetch-notifications', 'NotificationController@fetchNotifications')->name('fetch.notifications');
-Route::resource('Cprofile', CprofileController::class);
+Route::resource('cprofile', CprofileController::class);
 
 // views 
 // Route::get('/views-over-last-20-days', function () {

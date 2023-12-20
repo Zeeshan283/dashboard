@@ -506,25 +506,26 @@
                                                 <div class="form-group col-md-4">
                                                     <label for="inputEmail12" class="ul-form__label">Category<span
                                                             style="color: red;">*</span></label>
-                                                    {{-- {!! Form::text('accepted_payment_type', $edit->user->accepted_payment_type,  ['id' => 'accept_payment_type', 'class' => 'form-control']) !!} --}}
-                                                    <select id="choices-multiple-remove-button"
-                                                        name="accepted_payment_type[]" class="form-control"
-                                                        placeholder="Select Payment Type" multiple>
-                                                        @foreach ($accepted_payment_type as $value)
+                                                    <select id="choices-multiple-remove-button" name="pcategory"
+                                                        class="form-control" placeholder="Select Profile Category"
+                                                        multiple>
+                                                        @foreach ($data as $key => $value)
                                                             <option value="{{ $value->id }}"
-                                                                @if ($edit->paymethod->contains('pay_id', $value->id)) selected @endif>
-                                                                {{ $value->name }}</option>
+                                                                @if ($edit->user && $edit->user->pcategory == $value->id) selected @endif>
+                                                                {{ $value->pcategory }}
+                                                            </option>
                                                         @endforeach
-
                                                     </select>
                                                 </div>
+
                                                 <div class="form-group col-md-4">
                                                     <label for="inputtext11" class="ul-form__label">Images<span
                                                             style="color: red;">*</span></label>
                                                     <input type="file" name="slider_images[]" id="imageInput"
                                                         class="form-control" multiple>
                                                     <button type="button" class="d-none form-control"
-                                                        style="width: auto;"id="chooseImages">Images</button>
+                                                        style="width: auto;"id="chooseImages">Choose Images</button>
+
                                                     @if ($errors->has('slider_images'))
                                                         <span style="color: red;"
                                                             class="invalid-feedback1 font-weight-bold">{{ $errors->first('slider_images') }}</span
@@ -825,8 +826,6 @@
                                                     </div>
 
                                                 </div>
-
-
                                                 <div class="form-group"style="text-align: right;">
                                                     <div class="">
                                                         <input class="btn btn-outline-secondary" type="submit"
