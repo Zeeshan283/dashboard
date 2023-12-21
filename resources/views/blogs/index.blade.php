@@ -40,7 +40,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $value->title }}</td>
-                                    <td>{{ $value->blog_category->blog_category_id ?? null }}</td>
+                                    <td>{{ $value->blogCategory->blog_category_id ?? null }}</td>
                                     <td>{{ $value->blogSubCategory->blog_sub_category_id ?? null }}</td>
                                     <td><img src="{{ url('upload/blogs/' . $value->feature_image) }}" width="20%"
                                             height="20%"></td>
@@ -65,8 +65,8 @@
                                             </a>
 
                                             <!-- <a href="{{ asset('blog_categories/' . $value->id . '/destroy') }}">
-                                                                                        <i class="fa fa-trash font-danger"></i></a>
-                                                                                   </a> -->
+                                                                                                <i class="fa fa-trash font-danger"></i></a>
+                                                                                           </a> -->
                                         </div>
                                     </td>
                                 </tr>

@@ -21,14 +21,18 @@
     <div class="col-md-12 mb-4">
         <div class="card text-start">
             <div class="card-body">
-                <h4 class="card-title mb-3"> profile Category</h4>
+                <h4 class="card-title mb-3">Portfolio Services</h4>
                 <div class="table-responsive">
                     <table id="deafult_ordering_table" class="display table table-striped table-bordered"
                         style="width:100%">
                         <thead>
                             <tr>
                                 <th>Sr No</th>
+                                <th>vendor id</th>
+                                <th>title</th>
                                 <th>Category</th>
+                                <th>Image</th>
+                                <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -36,13 +40,22 @@
                             @foreach ($data as $key => $value)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td> {{ $value->title}}</td>
-                                    <td> {{ $value->category}}</td>
-                                    <td> {{ $value->image}}</td>
-                                    <td> {{ $value->description}}</td>
+                                    <td>{{ Auth::user()->role == 'Vendor' ? $value->vendor_id : 'N/A' }}</td>
+                                    <td> {{ $value->title }}</td>
+                                    <td>{{ $value->Category->pcategory ?? 'N/A' }}</td>
+                                    <td><img src="{{ url('upload/blogs/' . $value->image) }}" width="10%" height="10%">
+                                    </td>
+                                    </td>
+                                    </td>
+                                    <td>{{ \Illuminate\Support\Str::limit($value->description, 60, $end = '...') }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
-
+                                            <a target="_blank"
+                                                href="{{ URL::to('service/' . $value->id . '/edit') }}"><button
+                                                    type="button" class="btn btn-outline-secondary ">
+                                                    <i class=" nav-icon i-Pen-2" title="edit"
+                                                        style="font-weight: bold;"></i>
+                                                </button></a>
                                             <form action="{{ route('service.destroy', $value->id) }}" method="POST"
                                                 onsubmit="return confirm('Are you sure you want to delete this Category?, Remember that they also delete with your profile')">
                                                 @csrf
@@ -53,7 +66,7 @@
                                             </form>
 
                                             <!-- <a href="{{ asset('cprofile/' . $value->id . '/destroy') }}">
-                                                                                                                        <i class="fa fa-trash font-danger"></i></a>                                                                     </a> -->
+                                                                                                                                                                                                                                                                                                        <i class="fa fa-trash font-danger"></i></a>                                                                     </a> -->
                                         </div>
                                     </td>
                                 </tr>

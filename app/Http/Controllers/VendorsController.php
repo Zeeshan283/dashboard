@@ -286,7 +286,7 @@ class VendorsController extends Controller
         $user->city = $request->city;
         $user->address1 = $request->address1;
         $user->address2 = $request->address2;
-        $user->tag_line = $request->tag_line;
+        $user->tagline = $request->tagline;
         $user->tax_reg_title = $request->tax_reg_title;
         $user->tax_reg_number = $request->tax_reg_number;
         $user->total_employees = $request->total_employees;

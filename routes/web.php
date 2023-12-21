@@ -49,7 +49,7 @@ use App\Models\User;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\EmailController;
-use App\Http\Controllers\CategoryServices;
+use App\Http\Controllers\CategoryServicesController;
 
 
 
