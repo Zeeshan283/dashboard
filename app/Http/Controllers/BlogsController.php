@@ -20,7 +20,7 @@ class BlogsController extends Controller
     public function index()
     {
         $categories = BlogsCategories::all();
-        $blogs = Blogs::with('blogSubCategory')->get();
+        $blogs = Blogs::with('blogSubCategory', 'blogCategory')->get();
         return view('blogs.index', compact('categories', 'blogs'));
     }
 

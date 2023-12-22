@@ -192,12 +192,11 @@ class VendorsController extends Controller
             }
         }
         // dd($edit);
-        $data = Cprofile::all();
         if ($edit) {
 
             $pay = PaymentMethod::orderBy('id')->get(['name', 'id']);
 
-            return view('sellers.vendorprofile', compact('edit', 'accepted_payment_type', 'pay', 'data'));
+            return view('sellers.vendorprofile', compact('edit', 'accepted_payment_type', 'pay'));
         }
     }
 
@@ -273,9 +272,6 @@ class VendorsController extends Controller
             'tax_reg_number' => 'required',
             'tag_line' => 'required',
             'rating' => 'required',
-            'title' => 'required',
-            'pcategory' => 'required',
-            'description' => 'required',
             // 'slider_images' => 'required',
             // 'about' => 'required',
             // Add other fields here as needed
@@ -290,7 +286,7 @@ class VendorsController extends Controller
         $user->city = $request->city;
         $user->address1 = $request->address1;
         $user->address2 = $request->address2;
-        $user->tag_line = $request->tag_line;
+        $user->tagline = $request->tagline;
         $user->tax_reg_title = $request->tax_reg_title;
         $user->tax_reg_number = $request->tax_reg_number;
         $user->total_employees = $request->total_employees;
@@ -322,9 +318,6 @@ class VendorsController extends Controller
         $update->p_category5 = $request->p_category5;
         $update->about = $request->about;
         $update->disclaimer = $request->disclaimer;
-        $user->title = $request->title;
-        $user->pcategory = $request->pcategory;
-        $user->description = $request->description;
 
         $update->update();
         $images = [];
@@ -344,18 +337,6 @@ class VendorsController extends Controller
             }
         }
 
-        // if (isset($request->pcategory)) {
-        //     if (count($request->pcategory) > 0) {
-        //         pcategory::where('id', $request->user_id)->delete();
-        //         for ($i = 0; $i < count($request->pcategory); $i++) {
-        //             $data = new pcategory();
-        //             $data->id = $request->user_id;
-        //             $data->id = $update->id;
-        //             $data->id = $request->pcategory[$id];
-        //             $data->save();
-        //         }
-        //     }
-        // }
 
         if ($request->hasFile('slider_images')) {
             foreach ($request->file('slider_images') as $image) {

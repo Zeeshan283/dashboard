@@ -84,7 +84,6 @@
     $('#add-new-card-details').modal('show');
   }
 
-  // Function to hide the Add Card modal
   function hideAddCardModal() {
     $('#add-new-card-details').modal('hide');
   }

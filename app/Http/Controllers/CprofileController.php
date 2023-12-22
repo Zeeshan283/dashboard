@@ -9,13 +9,13 @@ class CprofileController extends Controller
 {
     public function index()
     {
-        $data = cprofile::all();
+        $data = Cprofile::all();
         return view('cprofile.index', compact('data'));
     }
 
     public function create()
     {
-        return view('cprofile.create', compact('data'));
+        return view('cprofile.create');
     }
 
     public function store(Request $request)
