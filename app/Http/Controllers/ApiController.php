@@ -21,15 +21,12 @@ use App\Models\SubCategory;
 use App\Models\vendorProfile;
 use App\Models\TermsConditions;
 use App\Models\HelpCenter;
-<<<<<<< HEAD
-=======
 use App\Models\User;
 use App\Models\Blogs;
 use App\Models\Cfeatures;
 use App\Models\BlogsCategories;
 use App\Models\BlogsSubCategories;
 
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
 use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -359,10 +356,10 @@ class ApiController extends Controller
     {
         try {
 
-        $vendors = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
+            $vendors = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
 
-        return response()->json(['vendors' => $vendors]);
-        }catch (\Exception $e) {
+            return response()->json(['vendors' => $vendors]);
+        } catch (\Exception $e) {
             return response()->json(['error' => ' not found '], 404);
         }
     }
@@ -371,12 +368,12 @@ class ApiController extends Controller
     {
         try {
 
-        $vendorcoupon = Coupon::where('vendor_id', '=', $id)->get();
+            $vendorcoupon = Coupon::where('vendor_id', '=', $id)->get();
 
-        return response()->json(['vendorcoupon' => $vendorcoupon]);
-    }catch (\Exception $e) {
-        return response()->json(['error' => ' not found '], 404);
-    }
+            return response()->json(['vendorcoupon' => $vendorcoupon]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => ' not found '], 404);
+        }
     }
 
     public function FAQs()

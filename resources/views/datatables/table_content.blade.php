@@ -127,76 +127,8 @@
         <th>Image</th>
         <th>Status</th>
         <th>Action</th>
-<<<<<<< HEAD
-    </thead>
-    <tbody>
-        @foreach ($data as $value => $orders)
-            <tr>
-
-                <td>{{ $value + 1 }}</td>
-
-                <td>{{ $orders->id }}</td>
-
-                <td>{{ $orders->first_name }}</td>
-
-                <td>{{ $orders->last_name }}</td>
-
-                <td>{{ $orders->date }}</td>
-
-                <td>{{ $orders->shipping }}</td>
-
-                <form method="POST" action="{{ route('order.status', ['id' => $orders->id]) }}">
-
-                    @csrf
-
-                    @method('PATCH')
-
-                    <td>
-                        <select class="form-control" name="status" id="status{{ $orders->id }}">
-                            <option value="" selected disabled>{{ $orders->status }}</option>
-                            <option value="canceled">Canceled</option>
-                            <option value="Field to Deliver">Field to Deliver</option>
-                            <option value="out of delivery">Out of Delivery</option>
-                            <option value="packaging">Packaging</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="returned">Returned</option>
-                            <option value="In Process">In Process</option>
-                        </select>
-                    </td>
-
-                    <td>
-
-                        <input type="hidden" value="{{ $orders->id }}" name="order_id" hidden>
-
-                        <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
-                            data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        <a href="{{ asset('orders/'.$orders->id) }}" class="btn btn-outline-secondary" target="_blank"><i class="nav-icon i-Eye "></i></a>
-                        
-                    </div>
-
-                    </td>
-
-                </form>
-
-            </tr>
-        @endforeach
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>Sr No</th>
-            <th>Order #</th>
-            <th>Customer First Name</th>
-            <th>Customer Last Name</th>
-            <th>Order Date</th>
-            <th>Shipping Date</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-    </tfoot>
-=======
     </tr>
 </tfoot>
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
 @elseif (Route::currentRouteName() == 'pendingorders')
 <thead>
     <th>Sr No</th>
@@ -1417,49 +1349,8 @@
         <th>Id#</th>
         <th>Name</th>
         <th>Icon</th>
-<<<<<<< HEAD
-        <th>Action</th>
-    </thead>
-    <tbody>
-        @foreach ($data as $key => $menu)
-            <tr class="col-lg-11">
-                <td>{{ $key + 1 }}</td>
-                <td>{{ $menu->id }}</td>
-                <td>{{ $menu->name }}</td>
-                <td><i class="{{ $menu->icon }}" style='color:#5233ff; font-size: 30px; margin-right: 10px;'></i>
-                </td>
-                <td class="col-lg-1" style="white-space: nowrap;">
-                    <a href="{{ route('menu.edit', ['id' => $menu->id]) }}"
-                        class="btn  btn-outline-secondary">
-                        <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
-                    </a>
-
-                    {{--<form action="{{ route('menu.destroy', ['id' => $menu->id]) }}" method="POST"
-                        onsubmit="return confirm('Are you sure you want to delete this menu item?')"
-                        style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-outline-secondary">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </button>
-                    </form>--}}
-                </td>
-
-            </tr>
-        @endforeach
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>Sr No</th>
-            <th>Id#</th>
-            <th>Name</th>
-            <th>Icon</th>
-        </tr>
-    </tfoot>
-=======
     </tr>
 </tfoot>
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
 @elseif (Route::currentRouteName() == 'addmenu')
 <thead>
     <th>Sr No</th>
@@ -1574,23 +1465,6 @@
                 </button>
             </form>
 
-<<<<<<< HEAD
-               
-               {{--<form action="{{ route('category.destroy', ['id' => $allcat->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category item?')" style="display: inline;">
-                   @csrf
-                   @method('DELETE')
-                   <button type="submit" class="btn  btn-outline-secondary">
-                       <i class="fa fa-trash" aria-hidden="true"></i>
-                   </button>
-               </form>--}}
-           </td>
-        </tr>
-        @endforeach
-    </tbody>
-	<tfoot>
-	<th>Sr No</th>
-        <th>Id#</th>
-=======
 
         </td>
     </tr>
@@ -1599,7 +1473,6 @@
 <tfoot>
     <tr>
         <th>Sr</th>
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
         <th>Name</th>
         <th>Category</th>
         <th>Image(100x66)px</th>
@@ -2147,114 +2020,6 @@
         </tr>
         @endforeach
 
-<<<<<<< HEAD
-                            <a href="{{ asset('helpcenter/' . $value->id . '/destroy') }}">
-                                <button type="button" class="btn btn-outline-secondary">
-                                    <i class="nav-icon i-Remove-Basket"></i>
-                                </button></a>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
-
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>Sr No</th>
-                <th>Question</th>
-                <th>Answer</th>
-                <th>Action</th>
-            </tr>
-        </tfoot>
-    @elseif (Route::currentRouteName() == 'brands.index')
-        <thead>
-            <tr>
-                <th>Sr No</th>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($data as $key => $value)
-                <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $value->brand_name }}</td>
-
-                    @if ($value->logo)
-                        <td><img src="{{ asset($value->logo) }}" width="50" height="50"></td>
-                    @else
-                        <td>N/A</td>
-                    @endif
-
-                    <td>
-                        <div class="d-flex gap-2">
-                            <a target="_blank" href="{{ URL::to('brands/' . $value->id . '/edit') }}"><button
-                                    type="button" class="btn btn-outline-secondary ">
-                                    <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
-                                </button></a>
-
-                            <a href="{{ asset('brands/' . $value->id . '/destroy') }}">
-                                <button type="button" class="btn btn-outline-secondary">
-                                    <i class="nav-icon i-Remove-Basket"></i>
-                                </button></a>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
-
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>Sr No</th>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Action</th>
-            </tr>
-        </tfoot>
-
-    @elseif (Route::currentRouteName() == 'payment_method.index')
-        <thead>
-            <tr>
-                <th>Sr No</th>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($data as $key => $value)
-                <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $value->name }}</td>
-
-                    
-
-                    <td>
-                        <div class="d-flex gap-2">
-                            <a target="_blank" href="{{ URL::to('payment_method/' . $value->id . '/edit') }}"><button
-                                    type="button" class="btn btn-outline-secondary ">
-                                    <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
-                                </button></a>
-
-                            <a href="{{ asset('payment_method/' . $value->id . '/destroy') }}">
-                                <button type="button" class="btn btn-outline-secondary">
-                                    <i class="nav-icon i-Remove-Basket"></i>
-                                </button></a>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
-
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>Sr No</th>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-        </tfoot>
-
-=======
     </tbody>
     <tfoot>
         <tr>
@@ -2263,7 +2028,6 @@
             <th>Action</th>
         </tr>
     </tfoot>
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
     @elseif (Route::currentRouteName() == 'banners.index')
     <thead>
         <tr>

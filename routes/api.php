@@ -45,11 +45,6 @@ Route::controller(UserAPIController::class)->group(function () {
 
 // Auth::routes(['verify' => true]);
 
-
-<<<<<<< HEAD
-=======
-// Old Api
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
 Route::get('/menus', [ApiController::class, 'menus']);
 Route::get('/categories/{menu_id}', [ApiController::class, 'categories']);
 Route::get('/sub_categories/{category_id}', [ApiController::class, 'subCategories123']);
