@@ -469,13 +469,13 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'emails.index' ? 'open' : '' }}"
                     href="{{ route('emails.index') }}">
                     <i class="nav-icon i-Shopping-Bag"></i>
                     <span class="item-name">Email Page</span>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'Homecoupons.index' ? 'open' : '' }}"
@@ -484,7 +484,13 @@
                     <span class="item-name">Home Page Coupon</span>
                 </a>
             </li>
-
+            {{-- <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'cprofile.index' ? 'open' : '' }}"
+                    href="{{ route('cprofile.index') }}">
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">Profile Category</span>
+                </a>
+            </li> --}}
         </ul>
 
         <ul class="childNav" data-parent="profile">
