@@ -484,6 +484,13 @@
                     <span class="item-name">Home Page Coupon</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'cprofile.index' ? 'open' : '' }}"
+                    href="{{ route('cprofile.index') }}">
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">Profile Category</span>
+                </a>
+            </li>
         </ul>
 
         <ul class="childNav" data-parent="profile">
@@ -593,9 +600,6 @@
             </li>
         </ul>
         <ul class="childNav" data-parent="blogs">
-
-
-
             <li class="nav-item">
                 <a href="{{ route('blog_categories.index') }}">
                     <i class="nav-icon i-Add"></i>
@@ -604,9 +608,16 @@
             </li>
 
             <li class="nav-item">
+                <a href="{{ route('blog_subcategories.index') }}">
+                    <i class="nav-icon i-Add"></i>
+                    <span class="item-name">Blog SubCategory</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="{{ route('blogs.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                    <span class="item-name">Bloge List</span>
+                    <span class="item-name">Blog List</span>
                 </a>
             </li>
             <li class="nav-item">

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e78a228335f863aa5dffa60058cb5908",
+    "content-hash": "bb3c0171cd069c53ddc4d4002b06797e",
     "packages": [
         {
             "name": "beyondcode/laravel-websockets",
@@ -2511,16 +2511,16 @@
         },
         {
             "name": "laravel/ui",
-            "version": "v4.2.3",
+            "version": "v4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/ui.git",
-                "reference": "eb532ea096ca1c0298c87c19233daf011fda743a"
+                "reference": "d166e09cdcb2e23836f694774cba77a32edb6007"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/ui/zipball/eb532ea096ca1c0298c87c19233daf011fda743a",
-                "reference": "eb532ea096ca1c0298c87c19233daf011fda743a",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/d166e09cdcb2e23836f694774cba77a32edb6007",
+                "reference": "d166e09cdcb2e23836f694774cba77a32edb6007",
                 "shasum": ""
             },
             "require": {
@@ -2567,9 +2567,9 @@
                 "ui"
             ],
             "support": {
-                "source": "https://github.com/laravel/ui/tree/v4.2.3"
+                "source": "https://github.com/laravel/ui/tree/v4.3.0"
             },
-            "time": "2023-11-23T14:44:22+00:00"
+            "time": "2023-12-19T14:46:09+00:00"
         },
         {
             "name": "laravelcollective/html",
@@ -3490,6 +3490,76 @@
                 }
             ],
             "time": "2023-11-24T15:40:42+00:00"
+        },
+        {
+            "name": "mckenziearts/laravel-notify",
+            "version": "v2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mckenziearts/laravel-notify.git",
+                "reference": "fddde15ae2407792f2884e6f9107d49e9e608cbe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mckenziearts/laravel-notify/zipball/fddde15ae2407792f2884e6f9107d49e9e608cbe",
+                "reference": "fddde15ae2407792f2884e6f9107d49e9e608cbe",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^8.0|^9.0|^10.0",
+                "php": "~8.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.6",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mckenziearts\\Notify\\LaravelNotifyServiceProvider"
+                    ],
+                    "aliases": {
+                        "Notify": "Mckenziearts\\Notify\\Facades\\LaravelNotify"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Mckenziearts\\Notify\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arthur Monney",
+                    "email": "monneylobe@gmail.com"
+                }
+            ],
+            "description": "Flexible flash notifications for Laravel",
+            "keywords": [
+                "laravel",
+                "laravel-notify",
+                "notification"
+            ],
+            "support": {
+                "issues": "https://github.com/mckenziearts/laravel-notify/issues",
+                "source": "https://github.com/mckenziearts/laravel-notify"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/jvquilichini?locale.x=fr_FR",
+                    "type": "custom"
+                }
+            ],
+            "time": "2023-03-28T05:01:47+00:00"
         },
         {
             "name": "monolog/monolog",

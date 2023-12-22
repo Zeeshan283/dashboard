@@ -1,14 +1,14 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Blogs;
 use App\Models\BlogsCategories;
-use App\Models\BlogSubCategory ;
+use App\Models\BlogsSubCategories;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image as Image;
+use App\Notifications\TestingNotification;
+use App\Models\User;
 
 class BlogsController extends Controller
 {
@@ -19,45 +19,50 @@ class BlogsController extends Controller
 
     public function index()
     {
-        $cat = BlogsCategories::all();
-        $blogs = Blogs::all(); 
-        return view('blogs.index', compact('cat','blogs'));
+        $categories = BlogsCategories::all();
+        $blogs = Blogs::with('blogSubCategory', 'blog_category')->get();
+        return view('blogs.index', compact('categories', 'blogs'));
     }
 
     public function create()
     {
-        $cat = BlogsCategories::orderBy('id')->get(); 
-        $blogssubCategories = BlogSubCategory::orderBy('id')->pluck('title', 'id');
-        return view('blogs.create', compact('cat', 'blogssubCategories'));
+        $categories = BlogsCategories::orderBy('id')->get();
+        $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
+        return view('blogs.create', compact('categories', 'BlogsSubCategories'));
     }
-    
 
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'title' => 'required',
             'blog_category_id' => 'required',
-            'subcategory' => '',
-            'feature_image' => 'required|image|mimes:jpeg,jpg,png', 
+            'blog_sub_category_id' => 'required',
+            'feature_image' => 'required|image|mimes:jpeg,jpg,png',
             'description' => 'required',
-        ]);        
-    
+        ]);
+
         $blog = new Blogs;
         $blog->title = $request->title;
-        $blog->blog_category = $request->category;
-        $blog->subcategory = $request->subcategory;
+        $blog->blog_category_id = $request->blog_category_id;
+        $blog->blog_sub_category_id = $request->blog_sub_category_id;
         $blog->description = $request->description;
-    
+
         if ($request->hasFile('feature_image')) {
             $file = $request->file('feature_image');
-            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();    
-            $blog->feature_image = $fileName;   
-            $blog->save();
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload/blogs/'), $fileName);
+            $blog->feature_image = $fileName;
         }
-    
-        return redirect()->back()->with(Toastr::success('Blog Created Successfully'));
+
+        $blog->save();
+        $blog->notify(new TestingNotification(900));
+        // dd($blog->notifications);
+        return redirect()->back()->with('success', 'Blog Created Successfully');
+
+        // $testNotification = Blogs::first();
+        // $testNotification->notify(new TestingNotification(900));
+        // dd($testNotification->notifications);
     }
-    
 
     public function show(BlogsCategories $blogsCategories)
     {
@@ -65,61 +70,55 @@ class BlogsController extends Controller
     }
 
     public function getSubCategories(Request $request)
-    { 
-         $blogssubCategories = BlogSubCategory::where('blog_category_id', $request->cat_id)->get(['id','title']);
-         return json_encode($blogssubCategories);
+    {
+        $blogssubCategories = BlogsSubCategories::where('blog_category_id', $request->cat_id)->get(['id', 'blog_sub_category_id']);
+        return response()->json($blogssubCategories);
     }
+
     public function edit($id)
     {
         $edit = Blogs::findOrFail($id);
-        $categories = BlogsCategories::all();  // Change this line
-    
-        return view('blogs.edit', compact('edit', 'categories'));
-    }
-    
+        $categories = BlogsCategories::all();
+        $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
 
-    public function update($id,Request $request)
+        return view('blogs.edit', compact('edit', 'categories', 'BlogsSubCategories'));
+    }
+
+
+    public function update($id, Request $request)
     {
         // dd($request->all());
         $this->validate($request, [
-                'title' => 'required',
-                'category' => 'required',
-                'subcategory' => '',
-                'feature_image' => 'required|image', 
-                'description' => 'required',
-            ]);
+            'title' => 'required',
+            'blog_category_id' => 'required',
+            'blog_sub_category_id' => 'required',
+            'feature_image' => 'required|image|mimes:jpeg,jpg,png',
+            'description' => 'required',
+        ]);
 
         $edit = Blogs::findOrFail($id);
         $edit->title = $request->title;
-        $edit->category = $request->category;
-        $edit->subcategory = $request->subcategory;
+        $edit->blog_category_id = $request->blog_category_id;
+        $edit->blog_sub_category_id = $request->blog_sub_category_id;
         $edit->feature_image = $request->feature_image;
         $edit->description = $request->description;
 
         if ($request->hasFile('feature_image')) {
             $file = $request->file('feature_image');
-            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();    
-            $edit->feature_image = $fileName;   
-            $edit->save();   
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload/blogs/'), $fileName);
+            $edit->feature_image = $fileName;
+            $edit->save();
         }
-        $edit->update($request->all());
+
+        $edit->save();
         return redirect()->back()->with(Toastr::success('Blog  Updated Successfully'));
     }
 
     public function destroy($id)
     {
-        $data = Blogs::findOrFail($id);
-        if($data)
-        {
-            File::delete('root/upload/blogs/big/'.$data->image);
-            File::delete('root/upload/blogs/medium/'.$data->image);
-            File::delete('root/upload/blogs/small/'.$data->image);
-            $data->delete();
-            return redirect()->back()->with('flash_message', 'Blog Deleted Successfully');;
-        }else{
-            abort(404);
-        }
+        $blog = Blogs::findOrFail($id);
+        $blog->delete();
+        return redirect()->back()->with(Toastr::success('Blogs Deleted Successfully'));
     }
-    
-        
 }

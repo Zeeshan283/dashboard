@@ -23,6 +23,7 @@ use App\Http\Controllers\ProductContactController;
 use App\Http\Controllers\HomecouponsController;
 use App\Http\Controllers\InsertVendorsController;
 use App\Http\Controllers\BlogsCategoriesController;
+use App\Http\Controllers\BlogsSubCategoriesController;
 use App\Http\Controllers\CfeaturesController;
 use App\Http\Controllers\TermsConditionsController;
 use App\Http\Controllers\BrandController;
@@ -43,7 +44,7 @@ use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\AdvertisementSellerController;
 use App\Http\Controllers\AdvertisementOrder;
 use App\Http\Controllers\StripePaymentController;
-
+use App\Http\Controllers\CprofileController;
 use App\Models\User;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
@@ -162,6 +163,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('blogs_categories/{id}/destroy', [BlogsCategoriesController::class, 'destroy']);
     Route::resource('blogs', BlogsController::class);
     Route::get('blogs/{id}/destroy', [BlogsController::class, 'destroy']);
+
     Route::resource('cfeatures', CfeaturesController::class);
     Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
     Route::post('/notifications', 'NotificationController@notification')->name('notifications.notification');
@@ -236,6 +238,7 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::view('productinfo', 'products.productinfo')->name('productinfo');
 
 
+
     Route::get('allorders', [OrderController::class, 'index'])->name('allorders');
     Route::get('orders/{id}', [OrderController::class, 'show']);
     Route::get('order-invoice/{id}', [OrderController::class, 'show'])->name('orderInvoice');
@@ -268,6 +271,9 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::get('ewallet/paymentmethod', [EwalletController::class, 'paymentmethod'])->name('paymentmethod');
     Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
     Route::get('cwallet', [CustomerController::class, 'cwallet'])->name('cwallet');
+    Route::get('sellers/show/{id}', [VendorsController::class, 'show1'])->name('sellers.show');
+    Route::resource('blog_subcategories', BlogsSubCategoriesController::class);
+    Route::get('blogs.blog_subcategories/{id}/destroy', [BlogsSubCategoriesController::class, 'destroy']);
 });
 //  ============================================================================================================================ 
 
@@ -332,6 +338,8 @@ Route::get('/order-data', function () {
 
 
 Route::get('/get-product-chart-data', [ProductController::class, 'getProductChartData']); // product chart data
+Route::get('/fetch-notifications', 'NotificationController@fetchNotifications')->name('fetch.notifications');
+Route::resource('cprofile', CprofileController::class);
 
 // views 
 // Route::get('/views-over-last-20-days', function () {

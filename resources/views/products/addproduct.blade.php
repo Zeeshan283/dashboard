@@ -771,10 +771,6 @@
                                                     class="invalid-feedback1 font-weight-bold">{{ $errors->first('feature_image') }}</span>
                                                 @endif   
                                         </div>
-
-                                        
-                                        
-
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Images (mul) (250x170)px:</label>
                                         <div class="col-lg-5">
                                         {{-- <div class="form-group"> --}}
