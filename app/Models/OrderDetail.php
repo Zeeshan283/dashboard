@@ -38,6 +38,12 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(ProductVendor::class, 'p_vendor_id');
     }
+
+    public function products()
+    {
+        return $this->belongsTo(Product::class)->select('name','model_no','url');
+    }
     
+
     
 }

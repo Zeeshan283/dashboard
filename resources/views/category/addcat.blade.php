@@ -58,14 +58,14 @@
 
 
                                             <div class="form-group col-md-6">
-                                                <label for="inputEmail16" class="ul-form__label">Category Image:</label>
+                                                <label for="inputEmail16" class="ul-form__label">Category Image(160x80)px</label>
                                                 <div class="input-right-icon">
                                                     <input type="file" class="form-control" id="inputEmail16"  name="img" >
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="inputEmail16" class="ul-form__label">Category App Image:</label>
+                                                <label for="inputEmail16" class="ul-form__label">Category App Image(160x80)px</label>
                                                 <div class="input-right-icon">
                                                     <input type="file" class="form-control" id="inputEmail16"  name="imageforapp" >
                                                     </span>

@@ -93,7 +93,6 @@
                                                     @endif
                                                 </div>
 
-
                                                 <div class="form-group col-md-4">
                                                     <label for="inputtext11" class="ul-form__label">First Name:</label>
                                                     @if ($edit && $edit->user)
@@ -167,23 +166,24 @@
                                                     @endif
                                                 </div>
 
-                                                <div class="form-group col-md-4">
+                                                <!-- <div class="form-group col-md-4">
                                                     <label for="inputEmail12" class="ul-form__label">NTN:</label>
                                                     @if ($edit && $edit->user)
                                                         {!! Form::text('ntn', $edit->user->ntn, ['id' => 'ntn', 'class' => 'form-control']) !!}
                                                     @else
                                                         {!! Form::text('ntn', null, ['id' => 'ntn', 'class' => 'form-control']) !!}
                                                     @endif
-                                                </div>
+                                                </div> -->
 
                                                 <div class="form-group col-md-4">
-                                                    <label for="inputEmail12" class="ul-form__label">STRN:</label>
-                                                    @if ($edit && $edit->user)
-                                                        {!! Form::text('strn', $edit->user->strn, ['id' => 'strn', 'class' => 'form-control']) !!}
-                                                    @else
-                                                        {!! Form::text('strn', null, ['id' => 'strn', 'class' => 'form-control']) !!}
-                                                    @endif
-                                                </div>
+    <label for="inputEmail12" class="ul-form__label">Trade License Number</label>
+    @if ($edit && $edit->user)
+        {!! Form::text('trade_license_number', $edit->user->strn, ['id' => 'strn', 'class' => 'form-control', 'type' => 'number']) !!}
+    @else
+        {!! Form::text('trade_license_number', null, ['id' => 'strn', 'class' => 'form-control', 'type' => 'number']) !!}
+    @endif
+</div>
+
 
                                                 <div class="form-group col-md-4">
                                                     <label for="inputEmail12" class="ul-form__label">Total
@@ -254,7 +254,7 @@
                                                     @endif
                                                 </div>
 
-                                                <div class="form-group col-md-4">
+                                                <!-- <div class="form-group col-md-4">
                                                     <label for="inputEmail12" class="ul-form__label">Accept Payment
                                                         Type:</label>
                                                     @if ($edit && $edit->user)
@@ -265,7 +265,23 @@
                                                     @else
                                                         {!! Form::text('accepted_payment_type', null, ['id' => 'accept_payment_type', 'class' => 'form-control']) !!}
                                                     @endif
-                                                </div>
+                                                </div> -->
+
+                                                <div class="form-group col-md-4">
+    <label for="accept_payment_type" class="ul-form__label">Accept Payment Type:</label>
+    @php
+        $selectedOption = $edit && $edit->user ? $edit->user->accepted_payment_type : null;
+    @endphp
+    {!! Form::select('accepted_payment_type', [
+        'VISA CARD' => 'VISA CARD',
+        'MASTER CARD' => 'MASTER CARD',
+        'CASH ON DELIVERY' => 'CASH ON DELIVERY',
+    ], $selectedOption, [
+        'id' => 'accept_payment_type',
+        'class' => 'form-control'
+    ]) !!}
+</div>
+
 
                                                 <div class="form-group col-md-4">
                                                     <label for="inputEmail12" class="ul-form__label">Major
@@ -597,8 +613,8 @@
                                     <div class="card">
                                         <div class="card-header bg-transparent">
                                             <h3 class="card-title">Slider Image's
-                                                <span class="badge  badge-round-info md">
-                                                    <p style="font-size: revert;">✓</p>
+                                                <!-- <span class="badge  badge-round-info md"> -->
+                                                    <!-- <p style="font-size: revert;">✓</p> -->
                                                 </span>
                                             </h3>
                                         </div>

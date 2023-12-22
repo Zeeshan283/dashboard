@@ -1099,3 +1099,86 @@ table.dataTable tbody th.selected a,
 table.dataTable tbody td.selected a {
     color: #a2d4ed
 }
+.header{
+    margin-top: 20px;
+}
+
+.row{
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+   .span{
+    color: rgb(146, 143, 143);
+   }
+  /* Styling for the footer */
+  .separator-breadcrumb {
+    border-top: 2px solid #026eca; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+/* .col-9{
+    width: 30%;
+    height: 40%;
+    border-radius: 0.15rem;
+} */
+#account{
+    border-radius: 0.15rem;
+    width: 600px;
+}
+
+.rounded{
+    border-radius: 0.15rem;
+}
+
+.payment-info {
+    color: rgb(147, 146, 146);
+    font-size: 80%;
+    margin-left: 5px;
+  }
+  
+  .account-card{
+ position: relative;
+ background-color: #026eca;
+  }
+
+  .account-card-new {
+    background-color: rgb(242, 237, 237);
+  }
+
+.ms-auto{
+    width: 15%;
+    height: 15%;
+}
+
+.ms-auto1{
+    width: 15%;
+    height: 20%;
+}
+  .text-13{
+    font-size: 40px;
+  }
+
+  /* Define styles for the card */
+.hover-card {
+    transition: background-color 0.3s;
+    /* position: relative; */
+}
+
+/* Style the card on hover */
+.hover-card:hover {
+    background-color: black;
+}
+
+.hover-card .account-card-overlay a {
+    color: white;
+    display: none; 
+    background-color: black; 
+    text-decoration: none;
+}
+
+/* Show the options on hover */
+.hover-card:hover .account-card-overlay a {
+    display: inline-block;
+}

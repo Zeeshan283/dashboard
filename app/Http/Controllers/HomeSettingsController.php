@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image as Image;
+use App\Events\DatabaseChanged;
+
 
 class HomeSettingsController extends Controller
 {
@@ -15,6 +17,8 @@ class HomeSettingsController extends Controller
     {
         $this->middleware('auth');
     }
+
+   
 
     public function index()
     {

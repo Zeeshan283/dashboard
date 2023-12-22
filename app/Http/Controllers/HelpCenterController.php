@@ -10,7 +10,7 @@ use Brian2694\Toastr\Facades\Toastr;
 
 class HelpCenterController extends Controller
 {
-    //
+
     public function index()
     {
         $data = HelpCenter::get(['id', 'question', 'answer']);
@@ -33,7 +33,7 @@ class HelpCenterController extends Controller
 
         $b = helpcenter::create($request->all());
 
-        
+
         Toastr::success('FAQ Added Successfully!');
         return redirect('helpcenter');
     }
@@ -52,7 +52,7 @@ class HelpCenterController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-        'question' => 'required| max:255',
+            'question' => 'required| max:255',
             'answer' => 'required'
         ], [
             'helpcenter_question' => 'The Question field is required'

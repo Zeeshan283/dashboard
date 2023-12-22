@@ -29,7 +29,11 @@
 <div class="breadcrumb">
     {{-- {{$edit->pay}} --}}
 
+<<<<<<< HEAD
     <h1>Seller Verification Management's</h1>
+=======
+    <h1>Seller Profile Management's</h1>
+>>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
     {{-- @if (count($errors) > 0)
                     <div class="alert alert-danger d-flex">
                         <ul>
@@ -210,6 +214,20 @@
                                                 </div>
 
                                                 <div class="form-group col-md-4">
+<<<<<<< HEAD
+=======
+                                                    <label for="inputtext11" class="ul-form__label">Tagline<span
+                                                            style="color: red;">*</span></label>
+                                                    {!! Form::text('tag_line', null, ['id' => 'tag_line', 'class' => 'form-control']) !!}
+                                                    @if ($errors->has('tag_line'))
+                                                        <span style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('tag_line') }}</span
+                                                            style="color: red;">
+                                                    @endif
+                                                </div>
+
+                                                <div class="form-group col-md-4">
+>>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
                                                     <label for="inputEmail12" class="ul-form__label">Tax Registration
                                                         Title:<span style="color: red;">*</span></label>
                                                     {!! Form::text('tax_reg_title', $edit->user->tax_reg_title, [
@@ -335,8 +353,22 @@
                                                         'class' => 'form-control',
                                                     ]) !!}
                                                 </div>
+<<<<<<< HEAD
                                             </div>
 
+=======
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputtext11" class="ul-form__label">Profile
+                                                        Reviews<span style="color: red;">*</span></label>
+                                                    {!! Form::text('rating', null, ['id' => 'rating', 'class' => 'form-control']) !!}
+                                                    @if ($errors->has('rating'))
+                                                        <span style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('rating') }}</span
+                                                            style="color: red;">
+                                                    @endif
+                                                </div>
+                                            </div>
+>>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
                                             <div class="form-group"style="text-align: right;">
                                                 <div class="">
                                                     <input class="btn btn-outline-secondary" type="submit"
@@ -400,7 +432,11 @@
                                                                     <img src="{{ asset($value) }}"
                                                                         class="img-thumbnail_1"
                                                                         style="width:100px;height:80px;" />
+<<<<<<< HEAD
                                                                     {{-- <span class="delete-icon" data-image-index="{{ $key }}">Delete</span> --}}
+=======
+                                                                    {{-- <span class="delete-icon"  data-image-index="{{ $key }}">Delete</span> --}}
+>>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
                                                                 @endforeach
                                                             @else
                                                                 <p>Invalid JSON data in $edit->slider_images</p>
@@ -437,7 +473,11 @@
 
                                         <div class="">
                                             <div class="row">
+<<<<<<< HEAD
                                                 <div class="form-group col-md-6">
+=======
+                                                <div class="form-group col-md-12">
+>>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
                                                     <label for="inputtext11" class="ul-form__label">About:<span
                                                             style="color: red;">*</span></label>
                                                     {!! Form::textarea('about', null, ['id' => 'description', 'class' => 'form-control']) !!}
@@ -447,7 +487,10 @@
                                                             style="color: red;">
                                                     @endif
                                                 </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
                                             </div>
                                             <div class="form-group"style="text-align: right;">
                                                 <div class="">
@@ -529,8 +572,11 @@
 
                                                             $.ajax({
                                                                 type: 'DELETE',
+<<<<<<< HEAD
                                                                 {{-- url: '{{ route('delete.image') }}/' + image, --}}
 
+=======
+>>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
                                                                 success: function(response) {
                                                                     // Handle success, e.g., remove the deleted image container
                                                                     $('.image-container:has(img[src="' + image + '"])').remove();
@@ -731,6 +777,7 @@
 
                                                     </div>
 
+<<<<<<< HEAD
                                                 </div>
 
 
@@ -744,6 +791,17 @@
 
 
 
+=======
+                                                </div>
+                                                <div class="form-group"style="text-align: right;">
+                                                    <div class="">
+                                                        <input class="btn btn-outline-secondary" type="submit"
+                                                            value="Update Profile">
+                                                    </div>
+                                                </div>
+
+
+>>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
                                                 <script>
                                                     document.getElementById('chooseImages').addEventListener('click', function() {
                                                         document.getElementById('imageInput').click();
@@ -828,6 +886,54 @@
         });
     });
 </script>
+<<<<<<< HEAD
+=======
+
+<script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/5/tinymce.min.js"
+    referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: "textarea#description",
+        relative_urls: false,
+        paste_data_images: true,
+        image_title: true,
+        automatic_uploads: true,
+        // images_upload_url: '/post/image/upload',
+        // images_upload_url: '{{ asset('upload') }}',
+        images_upload_url: '{{ URL::to('/uploads3')}}',
+        file_picker_types: "image",
+        plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor colorpicker textpattern"
+        ],
+        toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        // override default upload handler to simulate successful upload
+        file_picker_callback: function(cb, value, meta) {
+            var input = document.createElement("input");
+            input.setAttribute("type", "file");
+            input.setAttribute("accept", "image/*");
+            input.onchange = function() {
+                var file = this.files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function() {
+                    var id = "blobid" + new Date().getTime();
+                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(",")[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
+                    cb(blobInfo.blobUri(), {
+                        title: file.name
+                    });
+                };
+            };
+            input.click();
+        }
+    });
+</script>
+>>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
 @endsection
 
 @section('page-js')

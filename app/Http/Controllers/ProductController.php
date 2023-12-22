@@ -25,6 +25,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Notification;
 
 class ProductController extends Controller
 {
@@ -51,11 +52,8 @@ class ProductController extends Controller
                 ->OrderBy('id', 'desc')
                 ->get();
         }
-
-
         return view('products.allproducts', compact('data'));
     }
-
     public function create()
     {
         $brands = Brand::OrderBy('brand_name')->pluck('brand_name', 'id')->prepend('Select Brand', '');
@@ -232,10 +230,7 @@ class ProductController extends Controller
         }
     }
 
-    public function show($id)
-    {
-        //
-    }
+
 
     public function edit($id)
     {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -47,14 +48,14 @@ class UserAPIController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone_number' => 'required|number|max:255',
+            'phone_number' => 'required|numeric|digits_between:11,15',
             'email' => 'required|string|email|unique:users|max:255',
             'password' => 'required|string|min:8|max:16',
             'c_password' => 'required|same:password|min:8|max:16',
             'gender' => 'required|string',
-            'role' => 'required|string'
+            'role' => 'string'
         ], [
-            'c_password.required' => 'The confirm password field is required'
+            'c_password.required' => 'The confirm password field is required',
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
@@ -72,13 +73,16 @@ class UserAPIController extends Controller
             'phone1' => $data['phone_number'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => $data['role'],
+            'role' => 'Customer',
+            'email_verified_at' => Carbon::now(),
             'gender' => $data['gender']
         ]);
 
 
         $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['name'] =  $user->name;
+        $success['id'] =  $user->id;
+        // $success['name'] =  $user->name;
+        // $success['email'] =  $user->email;
         return response()->json(['success' => $success], $this->successStatus);
     }
     /**
@@ -86,16 +90,72 @@ class UserAPIController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function details($id)
+    // {
+    //     try {
+
+    //         $user = User::select(
+
+    //             'first_name',
+    //             'last_name',
+    //             'email',
+    //             'gender',
+    //             'phone1 as phone',
+    //             'address1 as address',
+    //             'zipcode',
+    //             'city',
+    //             'country',
+    //             'company',
+    //             'image',
+    //             'website_link'
+    //         )->where('role', 'Customer')
+    //             ->whereId($id)
+    //             ->first();
+
+    //         return response()->json($user);
+    //     } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+    //         // Record not found
+    //         return response()->json(['error' => 'Record not found.'], 404);
+    //     } catch (\Exception $e) {
+    //         // Handle other exceptions
+    //         return response()->json(['error' => 'Internal Server Error.'], 500);
+    //     }
+    //     // $user = Auth::user();
+    //     // return response()->json(['success' => $user], $this->successStatus);
+    // }
     public function details($id)
     {
-        $user = User::select('first_name', 'last_name', 'gender', 'phone1 as phone', 'address1 as address', 'zipcode', 'city', 'country')
-            ->whereId($id)
-            ->first();
-        return response()->json(['success' => $user], $this->successStatus);
+        try {
+            // Attempt to retrieve user details from the database
+            $user = User::select(
+                'first_name',
+                'last_name',
+                'email',
+                'gender',
+                'phone1 as phone',
+                'address1 as address',
+                'zipcode',
+                'city',
+                'country',
+                'company',
+                'image',
+                'website_link'
+            )->where('role', 'Customer')
+                ->whereId($id)
+                ->first();
 
-        // $user = Auth::user();
-        // return response()->json(['success' => $user], $this->successStatus);
+            // If the user is found, return a JSON response with user details
+            return response()->json($user);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // Catch the specific exception when the user is not found
+            return response()->json(['error' => 'Record not found.'], 404);
+        } catch (\Exception $e) {
+            // Catch general exceptions (e.g., database connection issues)
+            return response()->json(['error' => 'Internal Server Error.'], 500);
+        }
+        // Code beyond this point will not be executed
     }
+
 
     public function UpdateProfile(Request $request)
     {

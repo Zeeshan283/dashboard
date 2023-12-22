@@ -59,7 +59,7 @@
                     </div>
                     {{-- <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label>Image (1100 x 450)</label>
+                            <label>Image (1100x450)px</label>
                             <input type="file" name="image" id="image" class="form-control" required>
                             @error('image')
                                 <span class="invalid-feedback1 font-weight-bold">{{ $message }}</span>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label>Image For App (100 x 100)</label>
+                            <label>Image For App (100x100)px</label>
                             <input type="file" name="imageforapp" id="imageforapp" class="form-control" required>
                             @error('imageforapp')
                                 <span class="invalid-feedback1 font-weight-bold">{{ $message }}</span>

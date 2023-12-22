@@ -69,8 +69,7 @@
                                            
                                             
 
-                                           
-
+                                    
                                             <div class="form-group col-md-4">
                                                 <label for="selected_product_name" class="ul-form__label">Product Name:</label>
                                                 {{-- <input type="text" class="form-control" id="selected_product_name" value=""  readonly> --}}
@@ -161,7 +160,7 @@
                                         <div class="mc-footer">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center">
-                                                    <button type="submit" class="btn btn-outline-secondary m-1" id="savebutton" disabled>Save</button>
+                                                    <button type="submit" class="btn btn-outline-secondary m-1" id="savebutton">Save</button>
                                                     <button type="button" class="btn btn-outline-secondary m-1" id="addRecordBtn">Add Purchase</button>
 
                                                 </div>

@@ -7,83 +7,95 @@ use App\Models\BlogsCategories;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\File;
-
+use Intervention\Image\Facades\Image as Image;
 class BlogsCategoriesController extends Controller
 {
-    public function __construct()
+    public function __construct() 
     {
         $this->middleware('auth');
     }
 
     public function index()
     {
-        $data = BlogsCategories::orderBy('id')->get(['id', 'title']);
-        return view('blogs-categories.index', compact('data'));
+        $data = BlogsCategories::orderBy('id')->get(['id', 'blog_category_id']);
+        return view('blogs.blog_categories.index', compact('data'));
     }
 
     public function create()
     {
-        return view('blogs-categories.create');
-    }
+        $data = ($id = request()->get('id'));
+        return view('blogs.blog_categories.create' , compact('data'));
+    }    
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required'
+        $request->validate([
+            'blog_category_id' => 'required',
         ]);
-        BlogsCategories::create($request->all());
+    
+        $data = new BlogsCategories;
+        $data->blog_category_id = $request->blog_category_id;
+    
+        $data->save(); 
+    
         return redirect()->back()->with(Toastr::success('Blog Category Added Successfully'));
     }
+    
 
     public function show(BlogsCategories $blogsCategories)
     {
-        //
+        $data = BlogsCategories::orderBy('id')->get(['id', 'blog_category_id']);
+        return view('blogs_categories.show', compact('data'));
     }
+    
 
     public function edit($id)
     {
         $edit = BlogsCategories::findOrFail($id);
         if($edit)
         {
-            return view('blogs-categories.edit',compact('edit'));
+            return view('blogs.blog_categories.edit',compact('edit'));
         }else{
             abort(404);
         }
     }
 
-    public function update($id,Request $request)
-    {
-        $this->validate($request, [
-            'title' => 'required'
-        ]);
+    public function update($id, Request $request)
+{
+    $this->validate($request, [
+        'blog_category_id' => 'required',
+    ]);
 
-        $edit = BlogsCategories::findOrFail($id);
-        if($edit)
-        {
-            $edit->update($request->all());
-            return redirect('/blogs-categories')->with('flash_message', 'Blog Category Updated Successfully');
-        }else{
-            abort(404);
-        }
-    }
+    $edit = BlogsCategories::findOrFail($id);
+    $edit->blog_category_id = $request->blog_category_id;
+
+    $edit->update();
+
+    return redirect()->back()->with(Toastr::success('Blog Category Updated Successfully'));
+}
 
     public function destroy($id)
     {
         $data = BlogsCategories::findOrFail($id);
-        if($data)
-        {
-            $data->delete();
-            $events = Blogs::where('blog_category_id',$id)->get();
-            foreach($events as $value)
-            {
-                File::delete('root/upload/blogs/big/'.$value->image);
-                File::delete('root/upload/blogs/medium/'.$value->image);
-                File::delete('root/upload/blogs/small/'.$value->image);
-            }
-            Blogs::where('blog_category_id',$id)->delete();
-            return redirect()->back()->with('flash_message', 'Blog Category Deleted Successfully');;
-        }else{
-            abort(404);
-        }
-    }
+        $data->delete();
+        Toastr::success('Blog Deleted Successfully!');
+        return redirect()->back();
+}
+    //     $data = BlogsCategories::findOrFail($id);
+    //     if($data)
+    //     {
+    //         $data->delete();
+    //         $events = Blogs::where('blog_category_id',$id)->get();
+    //         foreach($events as $value)
+    //         {
+    //             File::delete('root/upload/blogs/big/'.$value->image);
+    //             File::delete('root/upload/blogs/medium/'.$value->image);
+    //             File::delete('root/upload/blogs/small/'.$value->image);
+    //         }
+    //         Blogs::where('blog_category_id',$id)->delete();
+    //         return redirect()->back()->with('flash_message', 'Blog Category Deleted Successfully');;
+    //     }else{
+    //         abort(404);
+    //     }
+    //}
 }

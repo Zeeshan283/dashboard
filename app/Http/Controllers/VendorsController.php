@@ -18,6 +18,7 @@ use App\Models\VendorBankDetail;
 use App\Models\VendorDocument;
 use App\Models\PaymentMethod;
 use App\Models\VendorProfilePayMethod;
+use App\Models\Cprofile;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\File;
@@ -70,13 +71,12 @@ class VendorsController extends Controller
     }
     public function show($id)
     {
-
         $edit = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
         $bankDetail = VendorBankDetail::with('vendor_profile')->where('vendor_id', '=', $id)->get();
         $vendordocument = VendorDocument::with('vendor_profile')->where('vendor_id', '=', $id)->get();
-
         return view('sellers.vendorview', compact('edit', 'bankDetail', 'vendordocument'));
     }
+
 
     public function edit($id)
     {
@@ -175,40 +175,89 @@ class VendorsController extends Controller
 
     public function vendorProfile($id)
     {
-
-        $edit = vendorProfile::with('paymethod')->with('user')->where('vendor_id', '=', $id)->first();
-
-        
+        $edit = vendorProfile::with('paymethod', 'user')->where('vendor_id', '=', $id)->first();
         $accepted_payment_type = PaymentMethod::all();
         $accepted_payment_type1 = VendorProfilePayMethod::where('vendor_id', '=', $id)->first();
         // dd($edit);
         if (!$edit) {
             $edit = new VendorProfile();
             $edit->vendor_id = $id; // Set the vendor_id
-            // You may need to set other properties here based on your requirements
             $edit->save(); // Save the new record to the databas
         }
         if (!$accepted_payment_type1) {
             for ($i = 0; $i < count($accepted_payment_type); $i++) {
-            $accepted_payment_type1 = new VendorProfilePayMethod();
-            $accepted_payment_type1->vendor_id = $id; 
-            $accepted_payment_type1->save();
+                $accepted_payment_type1 = new VendorProfilePayMethod();
+                $accepted_payment_type1->vendor_id = $id;
+                $accepted_payment_type1->save();
             }
         }
         // dd($edit);
         if ($edit) {
 
             $pay = PaymentMethod::orderBy('id')->get(['name', 'id']);
-        
-        return view('sellers.vendorprofile', compact('edit', 'accepted_payment_type','pay'));
-    
+
+            return view('sellers.vendorprofile', compact('edit', 'accepted_payment_type', 'pay'));
         }
+    }
+
+
+    public function verifiedSeller($id)
+    {
+
+        $edit = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
+        $bankDetail = VendorBankDetail::with('vendor_profile')->where('vendor_id', '=', $id)->get();
+        $vendordocument = VendorDocument::with('vendor_profile')->where('vendor_id', '=', $id)->get();
+        // dd($edit);
+        if (!$edit) {
+            $edit = new VendorProfile();
+            $edit->vendor_id = $id;
+            $edit->save();
+        }
+        return view('sellers.verifiedseller', compact('edit', 'bankDetail', 'vendordocument'));
+    }
+
+    public function trustedSellerSave(Request $request, $id)
+    {
+        // dd($request->all());
+        $this->validate($request, [
+            'vendor_profile_id' => 'required',
+            'vendor_id' => 'required',
+            'account_title' => 'required',
+            'account_no' => 'required',
+            'iban_no' => 'required',
+            'bank_name' => 'required',
+            'bank_address' => 'required',
+            'branch_code' => 'required',
+        ], []);
+        $data = new VendorBankDetail;
+
+        $data->vendor_profile_id = $request->vendor_profile_id;
+        $data->vendor_id = $request->vendor_id;
+        $data->account_title = $request->account_title;
+        $data->account_no = $request->account_no;
+        $data->iban_no = $request->iban_no;
+        $data->bank_name = $request->bank_name;
+        $data->bank_address = $request->bank_address;
+        $data->branch_code = $request->branch_code;
+
+        $data->save();
+        Toastr::success('Bank Details Added Successfully!', 'Success');
+        return redirect()->back();
+    }
+    public function show1($id)
+    {
+        $bankDetail = VendorBankDetail::with('vendor_profile')->find($id);
+
+        if (!$bankDetail) {
+            abort(404);
+        }
+
+        return view('sellers.show', compact('bankDetail'));
     }
 
 
     public function vendorProfileSave(Request $request, $id)
     {
-
         // dd($request->all());
         // dd($request->accepted_payment_type);
         $this->validate($request, [
@@ -221,6 +270,8 @@ class VendorsController extends Controller
             'address1' => 'required',
             'tax_reg_title' => 'required',
             'tax_reg_number' => 'required',
+            'tag_line' => 'required',
+            'rating' => 'required',
             // 'slider_images' => 'required',
             // 'about' => 'required',
             // Add other fields here as needed
@@ -235,6 +286,7 @@ class VendorsController extends Controller
         $user->city = $request->city;
         $user->address1 = $request->address1;
         $user->address2 = $request->address2;
+        $user->tagline = $request->tagline;
         $user->tax_reg_title = $request->tax_reg_title;
         $user->tax_reg_number = $request->tax_reg_number;
         $user->total_employees = $request->total_employees;
@@ -249,6 +301,7 @@ class VendorsController extends Controller
         $user->annual_export = $request->annual_export;
         $user->annual_import = $request->annual_import;
         $user->annual_revenue = $request->annual_revenue;
+        $user->rating = $request->rating;
 
         $user->update();
 
@@ -265,40 +318,25 @@ class VendorsController extends Controller
         $update->p_category5 = $request->p_category5;
         $update->about = $request->about;
         $update->disclaimer = $request->disclaimer;
+
         $update->update();
         $images = [];
 
 
-
-        // if (isset($request->colors)) {
-        //     if (count($request->colors) > 0) {
-        //         ProductColors::where('pro_id', $id)->delete();
-
-        //         for ($i = 0;
-        //             $i < count($request->colors);
-        //             $i++
-        //         ) {
-        //             $ProductColors = new ProductColors();
-        //             $ProductColors->pro_id = $edit->id;
-        //             $ProductColors->color_id = $request->colors[$i];
-        //             $ProductColors->save();
-        //         }
-        //     }
-        // }
-
-        if(isset($request->accepted_payment_type)){
-            if(count($request->accepted_payment_type) > 0){
+        if (isset($request->accepted_payment_type)) {
+            if (count($request->accepted_payment_type) > 0) {
                 VendorProfilePayMethod::where('vendor_id', $request->user_id)->delete();
 
-                for($i=0; $i < count($request->accepted_payment_type); $i++){
+                for ($i = 0; $i < count($request->accepted_payment_type); $i++) {
                     $data = new VendorProfilePayMethod();
                     $data->vendor_id = $request->user_id;
                     $data->profile_id = $update->id;
                     $data->pay_id = $request->accepted_payment_type[$i];
                     $data->save();
                 }
-                }
             }
+        }
+
 
         if ($request->hasFile('slider_images')) {
             foreach ($request->file('slider_images') as $image) {
@@ -347,8 +385,6 @@ class VendorsController extends Controller
                     $images[] = $path->getPathname();
                 }
             }
-
-            // Merge the new images with the existing ones
             $existingImages = json_decode($update->p_c2_images, true);
 
             if (is_array($existingImages)) {
@@ -438,51 +474,6 @@ class VendorsController extends Controller
         }
 
         Toastr::success('Data Added Successfully!', 'Success');
-        return redirect()->back();
-    }
-
-    public function verifiedSeller($id)
-    {
-
-        $edit = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
-        $bankDetail = VendorBankDetail::with('vendor_profile')->where('vendor_id', '=', $id)->get();
-        $vendordocument = VendorDocument::with('vendor_profile')->where('vendor_id', '=', $id)->get();
-        // dd($edit);
-        if (!$edit) {
-            $edit = new VendorProfile();
-            $edit->vendor_id = $id;
-            $edit->save();
-        }
-        return view('sellers.verifiedseller', compact('edit', 'bankDetail', 'vendordocument'));
-    }
-
-    public function trustedSellerSave(Request $request, $id)
-    {
-
-        // dd($request->all());
-        $this->validate($request, [
-            'vendor_profile_id' => 'required',
-            'vendor_id' => 'required',
-            'account_title' => 'required',
-            'account_no' => 'required',
-            'iban_no' => 'required',
-            'bank_name' => 'required',
-            'bank_address' => 'required',
-            'branch_code' => 'required',
-        ], []);
-        $data = new VendorBankDetail;
-
-        $data->vendor_profile_id = $request->vendor_profile_id;
-        $data->vendor_id = $request->vendor_id;
-        $data->account_title = $request->account_title;
-        $data->account_no = $request->account_no;
-        $data->iban_no = $request->iban_no;
-        $data->bank_name = $request->bank_name;
-        $data->bank_address = $request->bank_address;
-        $data->branch_code = $request->branch_code;
-
-        $data->save();
-        Toastr::success('Bank Details Added Successfully!', 'Success');
         return redirect()->back();
     }
 

@@ -161,7 +161,7 @@
                                                 {!! Form::text('country', null, ['id' => 'country', 'class' => 'form-control']) !!}
                                             </div>
 
-                                            <div class="form-group col-md-4">
+                                            <!-- <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">NTN:</label>
                                                 {!! Form::text('ntn', null, ['id' => 'ntn', 'class' => 'form-control']) !!}
                                             </div>
@@ -169,7 +169,7 @@
                                             <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">STRN:</label>
                                                 {!! Form::text('strn', null, ['id' => 'strn', 'class' => 'form-control']) !!}
-                                            </div>
+                                            </div> -->
 
 
                                             
@@ -178,7 +178,7 @@
                                                 {!! Form::text('website', null, ['id' => 'website', 'class' => 'form-control']) !!}
                                             </div>
 
-                                            <div class="form-group col-md-4">
+                                            <!-- <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">CEO:</label>
                                             {!! Form::text('ceo', null, ['id' => 'ceo', 'class' => 'form-control']) !!}
                                             </div>
@@ -186,7 +186,7 @@
                                             <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">Designation:</label>
                                                 {!! Form::text('designation', null, ['id' => 'designation', 'class' => 'form-control']) !!}
-                                            </div>
+                                            </div> -->
 
                                             <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">Cell:</label>

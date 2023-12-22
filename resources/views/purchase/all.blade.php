@@ -8,7 +8,7 @@
                 <h1>Stock</h1>
         </div>
             <div class="col-md-6" style="text-align: right;  margin-left: auto;">
-                <a href="{{ route('purchase.create')}}"><button class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Purchase</span></button></a>
+                <a href="{{ route('purchase.create')}}"><button class="btn btn-outline-secondary m-1"  data-style="expand-left"><span class="ladda-label">Add Purchase</span></button></a>
 
             </div>
             </div>

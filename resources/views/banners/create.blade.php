@@ -75,14 +75,14 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label for="bg_image">Background Image (Dim: 1903 x 520)</label>
                                         <input type="file" name="bg_image" id="bg_image"
                                             class="form-control @error('bg_image') is-invalid @enderror" required>
                                         @error('bg_image')
                                             <span class="invalid-feedback">{{ $message }}</span>
                                         @enderror
-                                    </div>
+                                    </div>  -->
                                 </div>
                             </div>
                         </div>
@@ -99,13 +99,13 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="">Image</label>
+                                <label for="">Image(474x397)px</label>
                                 <img src="{{ URL::asset('website-assets/images/474x397.png') }}" width="100%" height="200px" id="show_f_image" alt="">
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="">BG Image</label>
                                 <img src="{{ URL::asset('website-assets/images/1903x520.png') }}" width="100%" height="150px" id="show_bg_image" alt="">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

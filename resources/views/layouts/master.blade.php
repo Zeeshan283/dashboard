@@ -20,8 +20,7 @@
     @if (Session::get('layout') == 'vertical')
         <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome-free-5.10.1-web/css/all.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/styles/vendor/metisMenu.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
-
+        <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
     @endif
     <link id="gull-theme" rel="stylesheet" href="{{ asset('assets\fonts\iconsmind\iconsmind.css') }}">
     <link id="gull-theme" rel="stylesheet" href="{{ asset('assets/styles/css/themes/lite-purple.min.css') }}">
@@ -39,13 +38,16 @@
     @endphp
 
     <!-- Pre Loader Strat  -->
-    <div   @if (request()->routeIs('products.index')) class=""@else class='loadscreen' @endif  id="preloader">
+    {{-- <div @if (request()->routeIs('products.index')) class=""@else class='
+    loadscreen
+    ' @endif id="preloader">
 
-        <div @if (request()->routeIs('products.index')) class=""@else  class="loader spinner-bubble spinner-bubble-primary" @endif >
+        <div
+            @if (request()->routeIs('products.index')) class=""@else  class="loader spinner-bubble spinner-bubble-primary" @endif>
 
 
         </div>
-    </div>
+    </div> --}}
     <!-- Pre Loader end  -->
 
 
@@ -109,14 +111,16 @@
     {{-- theme javascript --}}
     {{-- <script src="{{ mix('assets/js/es5/script.js') }}"></script>
         --}}
-        
+
     <script src="{{ asset('assets/js/script.js') }}"></script>
 
 
     @if ($layout == 'compact')
-        <script src="{{ asset('assets/js/sidebar.compact.script.js') }}"></s>
-    @elseif($layout == 'normal')
-        <script src="{{ asset('assets/js/sidebar.large.script.js') }}"></script>
+        <script src="{{ asset('assets/js/sidebar.compact.script.js') }}">
+            < /s>
+            @elseif($layout == 'normal') <
+                script src = "{{ asset('assets/js/sidebar.large.script.js') }}" >
+        </script>
     @elseif($layout == 'horizontal')
         <script src="{{ asset('assets/js/sidebar-horizontal.script.js') }}"></script>
     @elseif($layout == 'vertical')
@@ -136,15 +140,80 @@
     {{-- laravel js --}}
     {{-- <script src="{{ mix('assets/js/laravel/app.js') }}"></script>
         --}}
+<<<<<<< HEAD
         <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
      @if ($errors->any())
     <script>
         toastr.error("{{ $errors->first() }}");
     </script>
     @endif 
+=======
+    <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
+    @if ($errors->any())
+        <script>
+            toastr.error("{{ $errors->first() }}");
+        </script>
+    @endif
+>>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
     {!! Toastr::message() !!}
 
     @yield('bottom-js')
+    <script>
+        $(document).ready(function() {
+
+            $("#showButton").click(function() {
+                $("#showDiv").removeClass("d-none");
+            });
+
+            $('#imageshow').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image").fadeIn("fast").attr('src', filePath1);
+            });
+
+            $('#imageshow1').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image1").fadeIn("fast").attr('src', filePath1);
+            });
+
+            $('#imageshow2').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image2").fadeIn("fast").attr('src', filePath1);
+            });
+            $('#imageshow3').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image3").fadeIn("fast").attr('src', filePath1);
+            });
+            $('#imageshow4').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image4").fadeIn("fast").attr('src', filePath1);
+            });
+            $('#imageshow5').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image5").fadeIn("fast").attr('src', filePath1);
+            });
+            $('#imageshow6').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image6").fadeIn("fast").attr('src', filePath1);
+            });
+            $('#imageshow7').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image7").fadeIn("fast").attr('src', filePath1);
+            });
+            $('#imageshow8').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#show_image8").fadeIn("fast").attr('src', filePath1);
+            });
+
+
+            $('#ashow').change(function(event) {
+                var filePath1 = URL.createObjectURL(event.target.files[0]);
+                $("#aimage").fadeIn("fast").attr('src', filePath1);
+            });
+
+        });
+    </script>
+
+
 </body>
 
 </html>

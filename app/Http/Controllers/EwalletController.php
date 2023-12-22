@@ -34,4 +34,9 @@ class EwalletController extends Controller
     {
         return view('ewallet.transcationhistory');
     }
+
+    public function paymentmethod()
+    {
+        return view('ewallet.paymentmethod');
+    }
 }

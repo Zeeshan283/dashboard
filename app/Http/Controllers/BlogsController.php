@@ -1,14 +1,14 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Blogs;
 use App\Models\BlogsCategories;
-use App\Models\BlogSubCategory ;
+use App\Models\BlogsSubCategories;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image as Image;
-use Intervention\Image\Facades\Image as Image1;
+use App\Notifications\TestingNotification;
+use App\Models\User;
 
 class BlogsController extends Controller
 {
@@ -19,60 +19,49 @@ class BlogsController extends Controller
 
     public function index()
     {
-        $data = Blogs::with('blog_category:id,title')->with('blog_sub_category:id,title')->orderBy('id')->get();
-        return view('blogs.index', compact('data'));
+        $categories = BlogsCategories::all();
+        $blogs = Blogs::with('blogSubCategory', 'blogCategory')->get();
+        return view('blogs.index', compact('categories', 'blogs'));
     }
 
     public function create()
     {
-        $blogsCategories = BlogsCategories::orderBy('id')->pluck('title','id');
-        $blogssubCategories = BlogSubCategory ::orderBy('id')->pluck('title','id');
-        return view('blogs.create',compact('blogsCategories','blogssubCategories'));
+        $categories = BlogsCategories::orderBy('id')->get();
+        $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
+        return view('blogs.create', compact('categories', 'BlogsSubCategories'));
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'title' => 'required',
-            'blog_category_id'=>'required',
-            'image'=>'required|mimes:png,jpg,jpeg',
-            'description'=>'required'
-        ],
-        [
-            'blog_category_id.required'=>'The category field is required'
+            'blog_category_id' => 'required',
+            'blog_sub_category_id' => 'required',
+            'feature_image' => 'required|image|mimes:jpeg,jpg,png',
+            'description' => 'required',
         ]);
-        $b = Blogs::create($request->all());
-        $b->slug = Str::slug($request->title);
-        $b->save();
 
-        if($request->hasFile('image'))
-        {
-            $file = $request->file('image');
-            $fileName = uniqid().$file->getClientOriginalName();
+        $blog = new Blogs;
+        $blog->title = $request->title;
+        $blog->blog_category_id = $request->blog_category_id;
+        $blog->blog_sub_category_id = $request->blog_sub_category_id;
+        $blog->description = $request->description;
 
-            //prorgam image save in 930 x 500
-            $imagePath =  base_path('upload/blogs/big/' . $fileName);
-            $img = Image::make($file);
-            $img->resize(930, 500);
-            $img->save($imagePath);
-
-            //prorgam image save in 600 x 420
-            $imagePath =  base_path('upload/blogs/medium/' . $fileName);
-            $img = Image::make($file);
-            $img->resize(600, 420);
-            $img->save($imagePath);
-
-            //prorgam image save in 600 x 420
-            $imagePath =  base_path('upload/blogs/small/' . $fileName);
-            $img = Image::make($file);
-            $img->resize(100, 70);
-            $img->save($imagePath);
-
-            $b->image = $fileName;
-            $b->save();
+        if ($request->hasFile('feature_image')) {
+            $file = $request->file('feature_image');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload/blogs/'), $fileName);
+            $blog->feature_image = $fileName;
         }
 
-        return redirect()->back()->with('flash_message', 'Blog Added Successfully');
+        $blog->save();
+        $blog->notify(new TestingNotification(900));
+        // dd($blog->notifications);
+        return redirect()->back()->with('success', 'Blog Created Successfully');
+
+        // $testNotification = Blogs::first();
+        // $testNotification->notify(new TestingNotification(900));
+        // dd($testNotification->notifications);
     }
 
     public function show(BlogsCategories $blogsCategories)
@@ -81,120 +70,55 @@ class BlogsController extends Controller
     }
 
     public function getSubCategories(Request $request)
-    { 
-         $blogssubCategories = BlogSubCategory::where('blog_category_id', $request->cat_id)->get(['id','title']);
-         return json_encode($blogssubCategories);
+    {
+        $blogssubCategories = BlogsSubCategories::where('blog_category_id', $request->cat_id)->get(['id', 'blog_sub_category_id']);
+        return response()->json($blogssubCategories);
     }
+
     public function edit($id)
     {
         $edit = Blogs::findOrFail($id);
-        $blogsCategories = BlogsCategories::orderBy('id')->pluck('title','id');
-        $blogssubCategories = BlogSubCategory ::orderBy('id')->pluck('title','id');
-        if($edit)
-        {
-            return view('blogs.edit',compact('edit','blogsCategories','blogssubCategories'));
-        }else{
-            abort(404);
-        }
+        $categories = BlogsCategories::all();
+        $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
+
+        return view('blogs.edit', compact('edit', 'categories', 'BlogsSubCategories'));
     }
 
-    public function update($id,Request $request)
+
+    public function update($id, Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'title' => 'required',
-            'blog_category_id'=>'required',
-            'image'=>'mimes:png,jpg,jpeg',
-            'description'=>'required'
-        ],
-        [
-            'blog_category_id.required'=>'The category field is required'
+            'blog_category_id' => 'required',
+            'blog_sub_category_id' => 'required',
+            'feature_image' => 'required|image|mimes:jpeg,jpg,png',
+            'description' => 'required',
         ]);
 
-        $edit1 = Blogs::findOrFail($id);
         $edit = Blogs::findOrFail($id);
-        if($edit)
-        {
-            $edit->update($request->all());
+        $edit->title = $request->title;
+        $edit->blog_category_id = $request->blog_category_id;
+        $edit->blog_sub_category_id = $request->blog_sub_category_id;
+        $edit->feature_image = $request->feature_image;
+        $edit->description = $request->description;
 
-            $edit->slug = Str::slug($request->title);
+        if ($request->hasFile('feature_image')) {
+            $file = $request->file('feature_image');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload/blogs/'), $fileName);
+            $edit->feature_image = $fileName;
             $edit->save();
-
-
-            if($request->hasFile('image'))
-            {
-                File::delete('root/upload/blogs/big/'.$edit1->image);
-                File::delete('root/upload/blogs/medium/'.$edit1->image);
-                File::delete('root/upload/blogs/small/'.$edit1->image);
-
-                $file = $request->file('image');
-                $fileName = uniqid().$file->getClientOriginalName();
-
-                //prorgam image save in 930 x 500
-                $imagePath =  base_path('upload/blogs/big/' . $fileName);
-                $img = Image::make($file);
-                $img->resize(930, 500);
-                $img->save($imagePath);
-
-                //prorgam image save in 600 x 420
-                $imagePath =  base_path('upload/blogs/medium/' . $fileName);
-                $img = Image::make($file);
-                $img->resize(600, 420);
-                $img->save($imagePath);
-
-                //prorgam image save in 600 x 420
-                $imagePath =  base_path('upload/blogs/small/' . $fileName);
-                $img = Image::make($file);
-                $img->resize(100, 70);
-                $img->save($imagePath);
-
-                $edit->image = $fileName;
-                $edit->save();
-            }
-
-
-            return redirect('/our-blogs')->with('flash_message', 'Blog Updated Successfully');
-        }else{
-            abort(404);
         }
+
+        $edit->save();
+        return redirect()->back()->with(Toastr::success('Blog  Updated Successfully'));
     }
 
     public function destroy($id)
     {
-        $data = Blogs::findOrFail($id);
-        if($data)
-        {
-            File::delete('root/upload/blogs/big/'.$data->image);
-            File::delete('root/upload/blogs/medium/'.$data->image);
-            File::delete('root/upload/blogs/small/'.$data->image);
-            $data->delete();
-            return redirect()->back()->with('flash_message', 'Blog Deleted Successfully');;
-        }else{
-            abort(404);
-        }
-    }
-    
-        public function uploadImage(Request $request)
-    {
-        //  $imgpath = $request->file('file')->store('upload', 'public');
-        // return response()->json(['location' => "/storage/$imgpath"]);
-
-        $filename = $request->file('file')->getClientOriginalName();
-
-        //return $filename;
-         $path = $request->file('file')->move('root/upload/tinymce', $filename);
-        return response()->json(['location' => '../root/upload/tinymce/'.$filename]);
-
-            $fileName = 'tiny'.uniqid(). $file->getClientOriginalName();
-           return $request->file('file')->move(base_path() .'/upload/tinymce/' , $fileName);
-            // $path = base_path() . '/upload/tinymce/' . $fileName;
-
-            
-            return $path;
-            // Image::make($file)->resize(285, 305)->save($path);
-            // $t->image = $fileName;
-            // $t->save();
-        
-        // return response()->json(['location' => "/storage/$imgpath"]);
-        // return response()->json(['location' => "/storage/$imgpath"]);
+        $blog = Blogs::findOrFail($id);
+        $blog->delete();
+        return redirect()->back()->with(Toastr::success('Blogs Deleted Successfully'));
     }
 }

@@ -9,7 +9,7 @@
                 <h1>Supplier List</h1>
             </div>
             <div class="col-md-6" style="text-align: right;  margin-left: auto;">
-                <a href="{{ route('supplier.create')}}"><button class="btn btn-primary ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Supplier</span></button></a>
+                <a href="{{ route('supplier.create')}}"><button class="btn btn-outline-secondary m-1"  data-style="expand-left"><span class="ladda-label">Add Supplier</span></button></a>
 
             </div>
 
