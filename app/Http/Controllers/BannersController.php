@@ -30,13 +30,13 @@ class BannersController extends Controller
     {
         $this->validate($request, [
             'title1' => 'required',
-            'title2' => 'required',
+            'title2' => '',
             'offer' => 'required',
             'image' => 'required|mimes:jpg,png,jpeg',
-            'bg_image' => 'required|mimes:jpg,png,jpeg',
-            'url' => 'required'
+            'bg_image' => 'mimes:jpg,png,jpeg',
+
         ]);
-        
+
         $banner = Banners::create($request->all());
 
         if ($request->hasFile('image')) {
@@ -84,8 +84,8 @@ class BannersController extends Controller
     {
         $this->validate($request, [
             'title1' => 'required',
-            'title2' => 'required',
-            'offer' => 'required',
+            'title2' => '',
+            'offer' => '',
             'image' => 'mimes:jpg,png,jpeg',
             'bg_image' => 'mimes:jpg,png,jpeg',
             'url' => 'required'
