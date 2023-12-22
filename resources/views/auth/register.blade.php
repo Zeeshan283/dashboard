@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div class="auth-layout-wrap" style="background-image: url({{ asset('assets/images/photo-wide-4.jpg') }})">
+    <div class="auth-layout-wrap" style="background-image: url({{ asset('upload/logo/7.png') }})">
         <div class="auth-content">
             <div class="card o-hidden">
                 <div class="row">
@@ -19,7 +19,7 @@
                         style="background-size: cover;background-image: url({{ asset('assets/images/photo-long-3.jpg') }})">
                         <div class="ps-3 auth-right">
                             <div class="auth-logo text-center mt-4">
-                                <img src="{{ asset('assets/images/logo.png') }}" alt="">
+                                <img src="{{ asset('upload/logo/3.png') }}" alt="">
                             </div>
                             <div class="flex-grow-1"></div>
                             <div class="w-100 mb-4">
@@ -88,7 +88,7 @@
                                         class="form-control-rounded form-control" name="password_confirmation" required
                                         autocomplete="new-password">
                                 </div>
-                                <div class="form-group col-md-6 ">
+                                {{-- <div class="form-group col-md-6 ">
                                     <label for="inputEmail18" class="ul-form__label">Select Your Type:</label>
                                     <div class="ul-form__radio-inline">
                                         <label class=" ul-radio__position radio radio-primary form-check-inline">
@@ -103,15 +103,14 @@
                                         </label>
                                     </div>
                                     
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100 btn-rounded mt-3">Sign
+                                </div> --}}
+                                <button type="submit" class="btn btn-outline-secondary w-100 btn-rounded mt-3 mb-3">Sign
                                     Up</button> <br>
                                 <u>Already Have a Account </u>
                                 <a href="{{ route('login') }}" class="">
                                     <i class="i-Mail-with-At-Sign"></i> Login Here
                                 </a>
                                 
-
                                 <div class="mt-3">
                                     <p>After signing up, please check your email for a verification link to confirm your email address.</p>
                                 </div>

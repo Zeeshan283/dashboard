@@ -794,7 +794,7 @@
                                                     <br>
                                                     <p id="fileLimitMessage" style="color: red;"></p>
 
-                                            <div id="thumbnails"></div>
+                                                    <div id="thumbnails"></div>
 
                                             </div>
                                             {{-- <div class="container">

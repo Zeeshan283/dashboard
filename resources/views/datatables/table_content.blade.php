@@ -53,14 +53,9 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-
-                        <button type="button" class="btn btn-outline-secondary">
-
-                            <i class="nav-icon i-Eye "></i>
-
-                        </button>
-
-                        </div>
+                        <a href="{{ asset('orders/'.$orders->id) }}" class="btn btn-outline-secondary" target="_blank"><i class="nav-icon i-Eye "></i></a>
+                        
+                    </div>
 
                     </td>
 
@@ -1258,7 +1253,7 @@
                         <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
                     </a>
 
-                    <form action="{{ route('menu.destroy', ['id' => $menu->id]) }}" method="POST"
+                    {{--<form action="{{ route('menu.destroy', ['id' => $menu->id]) }}" method="POST"
                         onsubmit="return confirm('Are you sure you want to delete this menu item?')"
                         style="display: inline;">
                         @csrf
@@ -1266,7 +1261,7 @@
                         <button type="submit" class="btn btn-outline-secondary">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
-                    </form>
+                    </form>--}}
                 </td>
 
             </tr>
@@ -1339,13 +1334,13 @@
                </a>
 
                
-               <form action="{{ route('category.destroy', ['id' => $allcat->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category item?')" style="display: inline;">
+               {{--<form action="{{ route('category.destroy', ['id' => $allcat->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category item?')" style="display: inline;">
                    @csrf
                    @method('DELETE')
                    <button type="submit" class="btn  btn-outline-secondary">
                        <i class="fa fa-trash" aria-hidden="true"></i>
                    </button>
-               </form>
+               </form>--}}
            </td>
         </tr>
         @endforeach
@@ -1835,6 +1830,48 @@
                 <th>Action</th>
             </tr>
         </tfoot>
+
+    @elseif (Route::currentRouteName() == 'payment_method.index')
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($data as $key => $value)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $value->name }}</td>
+
+                    
+
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a target="_blank" href="{{ URL::to('payment_method/' . $value->id . '/edit') }}"><button
+                                    type="button" class="btn btn-outline-secondary ">
+                                    <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
+                                </button></a>
+
+                            <a href="{{ asset('payment_method/' . $value->id . '/destroy') }}">
+                                <button type="button" class="btn btn-outline-secondary">
+                                    <i class="nav-icon i-Remove-Basket"></i>
+                                </button></a>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Sr No</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </tfoot>
+
     @elseif (Route::currentRouteName() == 'banners.index')
         <thead>
             <tr>

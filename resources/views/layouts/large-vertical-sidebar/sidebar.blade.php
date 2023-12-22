@@ -436,6 +436,15 @@
 
 
             <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'payment_method' ? 'open' : '' }}"
+                    href="{{ route('payment_method.index') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Payment Method</span>
+                </a>
+            </li>
+
+
+            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == '' ? 'open' : '' }}"
                     href="{{  URL::to('settings/1/edit') }}">
                     <i class="nav-icon i-Blinklist"></i>

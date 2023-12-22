@@ -26,6 +26,7 @@ use App\Http\Controllers\HomeSettingsController;
 use App\Http\Controllers\BannersController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\HelpCenterController;
+use App\Http\Controllers\PaymentController;
 use App\Models\User;
 
 use Illuminate\Support\Facades\DB;
@@ -190,7 +191,7 @@ Route::view('sessions/forgot', 'sessions.forgot')->name('forgot');
 
 
 Route::group(['middleware' => ['auth','verified']],function(){
-    Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('admin');
 });
 
 
@@ -220,6 +221,8 @@ Route::get('ftod', [OrderController::class, 'showOrders'])->name('ftod');
 Route::get('canceled', [OrderController::class, 'showOrders'])->name('canceled');
 
 Route::patch('orderstatus',[OrderController::class,'update'])->name('order.status');
+
+Route::get('orders/{id}', [OrderController::class, 'show']);
 // home controller route
 // Route::get('/',[HomeController::class, 'index'])->name('admin');
 
@@ -335,6 +338,10 @@ Route::resource('supplier', SupplierController::class);
 
 Route::resource('brands', BrandController::class);
 Route::get('brands/{id}/destroy', [BrandController::class, 'destroy']);
+
+Route::resource('payment_method', PaymentController::class);
+Route::get('payment_method/{id}/destroy', [PaymentController::class, 'destroy']);
+
 
 Route::get('/home-settings', [HomeSettingsController::class, 'index'])->name('home-settings');
 Route::post('/update-home-settings', [HomeSettingsController::class, 'UpdateHomeSettings']);

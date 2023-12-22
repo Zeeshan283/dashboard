@@ -11,14 +11,14 @@
 </head>
 
 <body>
-    <div class="auth-layout-wrap" style="background-image: url({{ asset('assets/images/photo-wide-4.jpg') }})">
+    <div class="auth-layout-wrap" style="background-image: url({{ asset('upload/logo/7.png') }})">
         <div class="auth-content">
             <div class="card o-hidden">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="p-4">
                             <div class="auth-logo text-center mb-4">
-                                <img src="{{ asset('assets/images/logo.png') }}" alt="">
+                                <img src="{{ asset('upload/logo/3.png') }}" alt="">
                             </div>
                             <h1 class="mb-3 text-18">Sign In</h1>
                             <form method="POST" action="{{ route('login') }}">
@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
 
-                                <button class="btn btn-rounded btn-primary w-100 mt-2">Sign In</button>
+                                <button class="btn btn-rounded btn-outline-secondary w-100 mt-2">Sign In</button>
 
                             </form>
                             @if (Route::has('password.request'))

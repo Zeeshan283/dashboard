@@ -101,24 +101,32 @@ $system = SystemLogo::first();
         <div class="row flex-lg-nowrap">
             {{-- <div class="col"> --}}
                 <div class="row">
+                    
                     <div class="col mb-3">
                         <div class="card">
                             <div class="card-body" >
+
                                 <button class="btn btn-primary" onclick="this.style.display='none';window.print()">Print <i
                                     class="fa fa-print"></i></button>
                                 <div class="e-profile">
                                     <br />
                                     {{-- <div class="row" style="border-bottom: 2px solid black;margin-top:-20px;"> --}}
                                     <div class="row" style="margin-top:-20px;">
-                                        <div class="col-7 ">
+                                        <div class="col-6">
                                             <div style="width: 140px;">
                                                 <img src="{{ asset('/root/upload/users') }}/{{  $order->order_details[0]->vendor->image}}" style="height: 100px; width: 200px;">
                                                 {{--<img src="{{ asset('/root/upload/logo') }}/{{ $system->image }}" style="height: 100px; width: 200px;">--}}
                                             </div>
                                         </div>
-                                        <div class="col-5 " style="margin-left:0px;margin-top:30px;font-size:20px;">
+                                        <div class="col-4 " style="margin-left:0px;margin-top:30px;font-size:20px;">
                                         <em><h4>Industrial Automation Supplier</h4></em>
+                                            
                                         </div>
+                                        <div class="col-2" style="margin-left:0px;margin-top:30px;font-size:20px;">
+                                        <img src="{{ asset('/root/upload/logo') }}/{{ $system->image }}" style="height: 50px; width: 100px;">
+                                            
+                                        </div>
+                                        
                                     </div>
                                     <br><br><br>
                                     <div class="row gx-0 justify-content-between" style="padding:10px;">
@@ -138,30 +146,7 @@ $system = SystemLogo::first();
                                     <div class="container">
                                         <div class="row gx-0 justify-content-between" style="margin-top:50px;">
 
-                                        <div class="col-4" style="color:rgb(95, 95, 95);">
-                                            <div style="padding:5px;">
-                                                    <div style="padding:5px;border: 2px solid rgb(202, 202, 202)">
-                                                        {{--<p><b class="anton" style="font-weight: 100">INVOICE TO:&emsp;</b>{{  $order->order_details[0]->vendor->name }}</p>--}}
-                                                        <p><b class="anton" style="font-weight: 100">INVOICE TO:&emsp;</b>{{  $order->order_details[0]->vendor->company }}</p>
-                                                        <p><b class="anton" style="font-weight: 100">Attend.&emsp;</b>{{  $order->order_details[0]->vendor->name }}</p> 
-                                                        <hr class="line"></hr>
-                                                    
-                                                        <div class="row" style="margin-top:15px;">
-                                                            <div class="col-4" style="font-size:11px;">
-                                                                {{  $order->order_details[0]->vendor->addres }}
-                                                            </div>
-                                                            <div class="col-8" style="padding:1px;" >
-                                                                <p style="font-weight:500;color:black;font-size:13px;"><i class="fa fa-phone" style="padding:2px;font-size:15px!important;"> </i> {{  $order->order_details[0]->vendor->phone }}</p>
-                                                                <p style="font-weight:500;color:black;font-size:13px;"><i class="fa fa-mobile" style="padding:2px;font-size:20px!important;"> </i> {{  $order->order_details[0]->vendor->phone }}</p>
-                                                                <p style="font-weight:500;color:black;font-size:12px;"><i class="fa fa-envelope" style="padding:2px;font-size:12px!important;"> </i> {{  $order->order_details[0]->vendor->email }}</p>
-                                                                <p style="font-weight:500;color:black;font-size:13px;"><i class="fa fa-globe" style="padding:2px;"> </i>{{$order->order_details[0]->vendor->website_link}} </p>
-                                                                <p style="font-weight:500;color:black;font-size:13px;"><i class="fa fa-thumb-tack" style="padding:2px;"> </i> {{  $order->city }}</p>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-4" style="color:rgb(95, 95, 95);">
                                             <div style="padding:5px;">
                                                     <div style="padding:5px;border: 2px solid rgb(202, 202, 202)">
@@ -208,7 +193,9 @@ $system = SystemLogo::first();
                                                 </div>
                                             </div>
                                         </div>
-                                    </div><br>
+                                    </div>
+                                    
+                                    <br>
                                     <div class="line"></div>
                                     <br>
                                 <table class="table">
@@ -364,23 +351,24 @@ $system = SystemLogo::first();
                                 <div class="row gx-0 justify-content-between" style="padding: 10px; ">
                                     <div class="col-2">
                                         <h6 class="anton" style="text-align:center;font-weight:100;color:rgb(0, 0, 0)">Contact #</h6>
-                                        <p style="text-align:center;color:rgb(63, 63, 63);font-weight:500;">{{ $settings[0]->phone }}</p>
+                                        <p style="text-align:center;color:rgb(63, 63, 63);font-weight:500;">{{  $order->order_details[0]->vendor->phone }}</p>
                                     </div><p style="font-weight:700;">|</p>
                                     <div class="col-2">
                                         <h6 class="anton" style="text-align:center;font-weight:100;color:rgb(0, 0, 0)">Address:</h6>
-                                        <p style="text-align:center;color:rgb(63, 63, 63);font-weight:500;">{{ $settings[0]->address }}</p>
+                                        <p style="text-align:center;color:rgb(63, 63, 63);font-weight:500;">{{  $order->order_details[0]->vendor->address1 }}</p>
                                     </div><p style="font-weight:700;">|</p>
                                     <div class="col-2">
                                         <h6 class="anton" style="text-align:center;font-weight:100;color:rgb(0, 0, 0)">Email:</h6>
-                                        <p style="text-align:center;color:rgb(63, 63, 63);font-weight:500;">{{ $settings[0]->email }}</p>
+                                        <p style="text-align:center;color:rgb(63, 63, 63);font-weight:500;">{{  $order->order_details[0]->vendor->email }}</p>
                                     </div><p style="font-weight:700;">|</p>
                                     <div class="col-2">
-                                        <h6 class="anton" style="text-align:center;font-weight:100;color:rgb(0, 0, 0)">Website:</h6>
-                                        <p style="text-align:center;color:rgb(63, 63, 63);font-weight:500;">{{ $settings[0]->website }}</p>
+                                        <h6 class="anton" style="text-align:center;font-weight:100;color:rgb(0, 0, 0)">Company:</h6>
+                                        <p style="text-align:center;color:rgb(63, 63, 63);font-weight:500;">{{  $order->order_details[0]->vendor->company }}</p>
                                     </div><p style="font-weight:700;">|</p>
                                     <div class="col-2 ">
-                                            <img src="{{ asset('/root/upload/logo') }}/{{ $system->image }}" style="height: 50px; width: 100px;">
-                                    </div>
+                                            <img src="{{ asset('/root/upload/users') }}/{{  $order->order_details[0]->vendor->image}}" style="height: 50px; width: 100px;">
+                                    
+                                        </div>
                                 </div>
                                 </div>
                                 <br>

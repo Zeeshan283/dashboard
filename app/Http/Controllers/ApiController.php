@@ -17,6 +17,7 @@ use App\Models\Purchase;
 use App\Models\SubCategory;
 use App\Models\TermsConditions;
 use App\Models\HelpCenter;
+use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -212,6 +213,7 @@ class ApiController extends Controller
         $coupons = Coupon::all();
         $terms_and_conditions = TermsConditions::all();
         $help_center = HelpCenter::all();
+        $payment_method = PaymentMethod::all();
 
         $data = [];
 
@@ -221,6 +223,7 @@ class ApiController extends Controller
         $data['coupons'] = $coupons->toArray();
         $data['terms_and_conditions'] = $terms_and_conditions->toArray();
         $data['help_center'] = $help_center->toArray();
+        $data['payment_method'] = $payment_method->toArray();
 
 
         foreach ($menus as $menu) {
