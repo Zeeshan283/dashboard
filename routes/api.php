@@ -32,7 +32,7 @@ Route::middleware(['auth:api'])->group(function () {
 Route::post('/send-verification-email/{email}', [VerificationController::class, 'sendVerificationEmail']);
 
 
-// User Api 
+// User Api
 Route::controller(UserAPIController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
@@ -68,7 +68,7 @@ Route::get('/vcoupon/{id}', [ApiController::class, 'vendorcoupon']);
 Route::get('/faqs', [ApiController::class, 'FAQs']); // all faqs
 Route::get('/pages', [ApiController::class, 'Pages']); // all pages
 Route::get('/brands', [ApiController::class, 'Brands']); // all brand's api
-Route::get('/single-product/{id}', [ApiController::class, 'GetSingleProduct'])->whereNumber('id'); // Get Single Product by id 
+Route::get('/single-product/{id}', [ApiController::class, 'GetSingleProduct'])->whereNumber('id'); // Get Single Product by id
 Route::get('/p_b_menu/{identifier}', [ApiController::class, 'allProductAMenu']); //product by menu
 Route::get('/p_b_cat/{identifier}', [ApiController::class, 'allProducts']); // product by category
 Route::get('/p_b_sub/{identifier}', [ApiController::class, 'allProductSubcategories']); // product by sub-category
