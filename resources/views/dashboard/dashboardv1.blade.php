@@ -268,18 +268,20 @@
             <div class="card-body">
                 <div class="card-title">Total Out Of Stock</div>
                 {{-- {{ $outofstock}} --}}
-                @foreach ($outofstock as $item)
-                    <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
-                        <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3" src="{{ asset($item->product->url) }}"
-                            alt="">
-                        <div class="flex-grow-1">
-                            <h6 class=""><span class="text-black">{{ Str::limit($item->product->name, 20) }}</span>
-                            </h6>
-                            <p class="m-0 text-small text-muted">{{ Str::limit($item->product->model_no, 20) }}</p>
-                            <p class="text-small text-danger m-0"> {{ $item->product->new_sale_price }} </p>
+                @if ($outofstock)
+                    @foreach ($outofstock ?? [] as $item)
+                        <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
+                            <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3"
+                                src="{{ asset($item->product->url ?? null) }}" alt="">
+                            <div class="flex-grow-1">
+                                <h6 class=""><span {{-- class="text-black">{{ Str::limit($item->product->name, 20 ?? null) }}</span> --}} </h6>
+                                        {{-- <p class="m-0 text-small text-muted">{{ Str::limit($item->product->model_no, 20) }}</p> --}}
+                                        <p class="text-small text-danger m-0">
+                                            {{ $item->product->new_sale_price ?? null }} </p>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @endif
 
             </div>
         </div>

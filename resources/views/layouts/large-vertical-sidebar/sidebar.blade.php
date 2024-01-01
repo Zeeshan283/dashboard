@@ -627,22 +627,11 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-<<<<<<< HEAD
-                <a class="{{ Route::currentRouteName() == 'payment_method' ? 'open' : '' }}"
-                    href="{{ route('payment_method.index') }}">
-                    <i class="nav-icon i-Blinklist"></i>
-                    <span class="item-name">Payment Method</span>
-                </a>
-            </li>
+
 
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == '' ? 'open' : '' }}"
-                    href="{{  URL::to('settings/1/edit') }}">
-                    <i class="nav-icon i-Blinklist"></i>
-                    <span class="item-name">Site Profile</span>
-=======
+
                 <a href="{{ route('blogs.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Blog List</span>
@@ -652,7 +641,6 @@
                 <a href="{{ route('cfeatures.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Training Page</span>
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
                 </a>
             </li>
         </ul>
