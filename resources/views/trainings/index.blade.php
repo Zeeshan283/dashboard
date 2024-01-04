@@ -40,7 +40,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <!-- <td>{{ $value->instructor }}</td> -->
-                                    <td>{{ $value->trainingCategory->training_category_id}}</td>
+                                    <td>{{ $value->trainingCategory->training_category_id ?? null}}</td>
                         <td>
                                         <div class="d-flex gap-2">
                                             <a href="https://www.industrymall.net/blog/blogs/ {{ $value->id }}"
