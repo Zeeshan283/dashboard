@@ -35,7 +35,7 @@
                         @foreach ($data as $key => $value)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td> {{$value->blog_category_id}}</td>
+                            <td>{{ $value->blogCategory->blog_category_id ?? null }}</td>
                             <td> {{$value->blog_sub_category_id}}</td>
                             <td>
                                 <div class="d-flex gap-2">

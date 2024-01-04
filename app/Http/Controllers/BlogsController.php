@@ -51,7 +51,7 @@ class BlogsController extends Controller
             $file = $request->file('feature_image');
             $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('upload/blogs/'), $fileName);
-            $blog->feature_image = $fileName;
+            $blog->feature_image = 'upload/blogs/' . $fileName;
         }
 
         $blog->save();
@@ -107,11 +107,12 @@ class BlogsController extends Controller
             $file = $request->file('feature_image');
             $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('upload/blogs/'), $fileName);
-            $edit->feature_image = $fileName;
+            $edit->feature_image = 'upload/blogs/' . $fileName;
             $edit->save();
         }
 
         $edit->save();
+        $edit->notify(new TestingNotification(900));
         return redirect()->back()->with(Toastr::success('Blog  Updated Successfully'));
     }
 

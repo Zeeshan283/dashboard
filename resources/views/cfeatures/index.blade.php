@@ -32,7 +32,7 @@
                             <tr>
                                 <th>Sr No</th>
                                 <th>Instructor</th>
-                                <th>Rating</th>
+                                <!-- <th>Rating</th> -->
                                 <th>Lectures</th>
                                 <th>Duration</th>
                                 <th>Skill Level</th>
@@ -51,7 +51,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $value->instructor }}</td>
-                                    <td>
+                                    <!-- <td>
                                         @php
                                             $rating = $value->rating;
                                             $maxRating = 100;
@@ -68,7 +68,7 @@
                                                 <i class="far fa-star text-warning"></i>
                                             @endfor
                                         </div>
-                                    </td>
+                                    </td> -->
                                     <td>{{ $value->lectures }}</td>
                                     <td>{{ $value->duration }}hrs</td>
                                     <td>{{ $value->skilllevel }}</td>

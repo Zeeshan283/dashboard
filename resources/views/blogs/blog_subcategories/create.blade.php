@@ -23,17 +23,16 @@
                                     <div class="card-body">
                                         <div class="row col-lg-12">
                                         <div class="col-sm-6">
-    <div class="form-group ml-6">
-        <label for="inputtext11" class="form-label">Category:</label>
-        <select class="form-control" id="blog_category_id" name="blog_category_id">
-            @foreach ($categories as $data)
-                <option value="{{ $data->blog_category_id}}">{{ $data->blog_category_id }}</option>
-            @endforeach
-        </select>
-    </div>    
-</div>
-
-              
+                                                <div class="form-group ml-6">
+                                                    <label for="inputtext11" class="form-label">Category:</label>
+                                                    <select class="form-control" id="blog_category" name="blog_category_id">
+                                                        @foreach ($categories as $data)
+                                                            <option value="{{ $data->id }}">
+                                                                {{ $data->blog_category_id }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="inputtext11" class="form-label">Sub Category</label>

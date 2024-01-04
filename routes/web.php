@@ -50,6 +50,9 @@ use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\CategoryServicesController;
+use App\Http\Controllers\TrainingsController;
+use App\Http\Controllers\InstructorController;
+
 
 
 
@@ -164,8 +167,10 @@ Route::middleware(['admin'])->group(function () {
     Route::get('blogs_categories/{id}/destroy', [BlogsCategoriesController::class, 'destroy']);
     Route::resource('blogs', BlogsController::class);
     Route::get('blogs/{id}/destroy', [BlogsController::class, 'destroy']);
-
     Route::resource('cfeatures', CfeaturesController::class);
+    Route::resource('trainings', TrainingsController::class);
+    Route::resource('instructor', InstructorController::class);
+
     Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
     Route::post('/notifications', 'NotificationController@notification')->name('notifications.notification');
     Route::get('/user-notifications', [UserController::class, 'showNotifications']);

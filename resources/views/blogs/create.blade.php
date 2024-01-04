@@ -5,6 +5,7 @@
 @endsection
 
 @section('main-content')
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <div class="page-body">
         <!-- Container-fluid starts-->
         <div class="container-fluid" id="">
@@ -91,7 +92,7 @@
             paste_data_images: true,
             image_title: true,
             automatic_uploads: true,
-            images_upload_url: '{{ URL::to('/uploads3') }}',
+            images_upload_url: '{{ URL::to('/uploads3')}}',
             file_picker_types: "image",
             plugins: [
                 "advlist autolink lists link image charmap print preview hr anchor pagebreak",
@@ -123,6 +124,30 @@
             }
         });
     </script>
+    <script>
+    $(document).ready(function () {
+        $('#blog_category').change(function () {
+            var categoryId = $(this).val();
+
+            $.ajax({
+                url: '{{ route("getSubCategorie") }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    cat_id: categoryId
+                },
+                success: function (data) {
+                    var options = '<option value="">Select Subcategory</option>';
+                    $.each(data, function (key, value) {
+                        options += '<option value="' + value.id + '">' + value.blog_sub_category_id + '</option>';
+                    });
+                    $('#blog_sub_category_id').html(options);
+                }
+            });
+        });
+    });
+</script>
+
 @endsection
 
 @section('page-js')

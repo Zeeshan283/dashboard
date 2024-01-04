@@ -1,8 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-
 <div class="main-header">
     <div class="">
         <a href=""><img src="{{ asset('root/upload/logo/dashboard-logo.jpg') }}" alt=""></a>
@@ -56,12 +53,34 @@
                 <span class="badge text-bg-primary">{{ $notificationsCount ?? 0 }}</span>
                 <i class="i-Bell text-muted header-icon"></i>
             </div>
+            <div class="dropdown-menu dropdown-menu-right notification-dropdown rtl-ps-none"
+    aria-labelledby="dropdownNotification" data-perfect-scrollbar data-suppress-scroll-x="true">
+
+    <!-- Display notifications here -->
+    @forelse(auth()->user()->unreadNotifications as $notification)
+    <div class="dropdown-item">
+    <div class="notification-icon">
+        <button type="button" class="btn btn-outline-secondary" id="buttons">
+            <i class="far fa-comments" aria-hidden="true" title="New Messages"></i>
+        </button>
+    </div>
+    <div class="notification-details flex-grow-1">
+        {{ $notification->data['testing'] }}
+    </div>
+</div>
+
+    @empty
+        <div class="dropdown-item">
+            <p>No new notifications</p>
+        </div>
+    @endforelse
+</div>
 
             <!-- Notification dropdown -->
-            <div class="dropdown-menu dropdown-menu-right notification-dropdown rtl-ps-none"
+            <!-- <div class="dropdown-menu dropdown-menu-right notification-dropdown rtl-ps-none"
                 aria-labelledby="dropdownNotification" data-perfect-scrollbar data-suppress-scroll-x="true">
 
-                <!-- Display notifications here -->
+                Display notifications here 
 
                 <div class="dropdown-item">
                     <div class="notification-icon">
@@ -73,7 +92,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
         </div>
 
         <!-- User avatar dropdown -->

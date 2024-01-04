@@ -98,6 +98,12 @@
             <span class="nav-text">Blogs</span>
         </a>
     </li>
+    <li class="nav-item {{ request()->is('blogs/*') ? 'active' : '' }}" data-item="training">
+        <a class="nav-item-hold" href="#">
+        <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+            <span class="nav-text">Training Page</span>
+        </a>
+    </li>
 
     <li class="nav-item {{ request()->is('pages/*') ? 'active' : '' }}" data-item="pages">
         <a class="nav-item-hold" href="/test.html">

@@ -99,19 +99,13 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="rating" class="form-label">Rating</label>
-                <input type="text" class="form-control" id="rating" placeholder="Total rating" name="rating" required>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
                 <label for="lectures" class="form-label">Lectures</label>
                 <input type="text" class="form-control" id="lectures" placeholder="Total lectures" name="lectures" required>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="duration" class="form-label">Duration</label>
+                <label for="duration" class="form-label">Duration(hrs)</label>
                 <!-- <input type="text" class="form-control" id="duration" placeholder="duration" name="duration" required> -->
                 <select class="form-select" id="duration" name="duration">
                 <option value=""> --- Please Select --- </option>
@@ -145,42 +139,8 @@
             <label for="language" class="form-label">Languages</label>
                       <select class="form-select" id="language" name="language">
                         <option value=""> --- Please Select --- </option>
-                        <option>Mexico</option>
-                        <option>Norway</option>
-                        <option>Oman</option>
-                        <option selected="selected">Pakistan</option>
-                        <option>Palau</option>
-                        <option>Saudi Arabia</option>
-                        <option>Senegal</option>
-                        <option>Serbia</option>
-                        <option>Seychelles</option>
-                        <option>Sierra Leone</option>
-                        <option>Singapore</option>
-                        <option>Slovak Republic</option>
-                        <option>Slovenia</option>
-                        <option>Solomon Islands</option>
-                        <option>Somalia</option>
-                        <option>South Africa</option>
-                        <option>South Georgia &amp; South Sandwich Islands</option>
-                        <option>South Sudan</option>
-                        <option>Spain</option>
-                        <option>Sri Lanka</option>
-                        <option>St. Barthelemy</option>
-                        <option>St. Helena</option>
-                        <option>St. Martin (French part)</option>
-                        <option>St. Pierre and Miquelon</option>
-                        <option>Sudan</option>
-                        <option>Suriname</option>
-                        <option>Turkey</option>
-                        <option>Uganda</option>
-                        <option>Ukraine</option>
-                        <option>United Arab Emirates</option>
-                        <option>United Kingdom</option>
-                        <option>United States</option>
-                        <option>United States Minor Outlying Islands</option>
-                        <option>Uzbekistan</option>
-                        <option>Zambia</option>
-                        <option>Zimbabwe</option>
+                        <option>English</option>
+                        <option>Urdu</option>
                       </select>
             </div>
         </div>
@@ -233,7 +193,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <!-- <div class="col-sm-6">
             <div class="form-group ml-6">
                 <label for="inputtext11" class="form-label">Subcategory:</label>
                 <select class="form-control" id="blog_sub_category_id" name="blog_sub_category_id">
@@ -242,7 +202,7 @@
                     @endforeach
                 </select>  
             </div>
-        </div>
+        </div> -->
         <div class="col-sm-6">
                                                 <div class="form-group ml-6">
                                                     <label for="inputtext11" class="form-label">Image</label>

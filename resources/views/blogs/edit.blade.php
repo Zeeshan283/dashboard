@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header">  
                             <h5>Edit Blogs</h5>
                         </div>
                         <div class="card-body">
@@ -38,7 +38,8 @@
                                                     <label for="inputtext11" class="form-label">Category:</label>
                                                     <select class="form-control" id="blog_category" name="blog_category_id">
                                                         @foreach ($categories as $data)
-                                                            <option value="{{ $data->blog_category_id }}">{{ $data->blog_category_id }}</option>
+                                                            <option value="{{ $data->id }}">
+                                                                {{ $data->blog_category_id }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

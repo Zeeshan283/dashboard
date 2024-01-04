@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Notifications\NewUser;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\TestingNotification;
 
 class UserController extends Controller
 {
@@ -45,7 +46,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->input('password'));
         $user->gender = $request->input('gender');
         $user->save();
-
+        $user->notify(new TestingNotification(900));
         Toastr::success('User added successfully', 'Success');
 
         return redirect()->route('userlist');
@@ -77,6 +78,7 @@ class UserController extends Controller
         $user->address = $request->input('address'); // Corrected spelling of 'address'
         $user->gender = $request->input('gender');
         $user->save();
+        $user->notify(new TestingNotification(900));
 
         return redirect()->route('userlist'); // Make sure you have defined the 'userlist' route
     }

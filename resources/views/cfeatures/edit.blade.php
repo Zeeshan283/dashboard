@@ -98,12 +98,12 @@
                 <input type="text" class="form-control" id="instructor" placeholder="Instructor Name" name="instructor" value="{{$edit->instructor}}" required >
             </div>
         </div>
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <div class="form-group">
                 <label for="rating" class="form-label">Rating</label>
                 <input type="text" class="form-control" id="rating" placeholder="Total rating" name="rating" value="{{$edit->rating}}" required>
             </div>
-        </div>
+        </div> -->
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="lectures" class="form-label">Lectures</label>
