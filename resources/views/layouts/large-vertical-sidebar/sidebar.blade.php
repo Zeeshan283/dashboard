@@ -627,7 +627,11 @@
                 </a>
             </li>
 
+
+
+
             <li class="nav-item">
+
                 <a href="{{ route('blogs.index') }}">
                 <i class="nav-icon i-Add"></i>
                     <span class="item-name">Blog List</span>
@@ -640,18 +644,6 @@
                 <a href="{{ route('cfeatures.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Training Page</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('trainings.index') }}">
-                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                    <span class="item-name">Category</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('instructor.index') }}">
-                    <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                    <span class="item-name">Instructor</span>
                 </a>
             </li>
         </ul>
