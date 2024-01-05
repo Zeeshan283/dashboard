@@ -48,7 +48,7 @@
                                                 <i class="nav-icon i-Eye" title="view"></i>
                                             </a>
                                             <form action="{{ route('instructor.destroy', $value->id) }}" method="POST"
-                                                onsubmit="return confirm('Are you sure you want to delete this blog?')">
+                                                onsubmit="return confirm('Are you sure you want to delete this instructor?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn rounded-pill btn-outline-secondary">

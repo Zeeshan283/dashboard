@@ -19,19 +19,16 @@ class Cfeatures extends Model
         'coursetype',
         'address',
         'title',
-        'blog_category_id',
-        'blog_sub_category_id',
+        'training_category_id',
         'image',
         'description',
     ];
 
-    public function blogSubCategory()
-    {
-        return $this->belongsTo(BlogsSubCategories::class, 'blog_sub_category_id');
-    }
+   
+    public function trainingCategory()
+{
+    return $this->belongsTo(TrainingCategories::class, 'training_category_id');
+}
 
-    public function blog_sub_category()
-    {
-        return $this->belongsTo(BlogSubCategory::class, 'blog_sub_category_id');
-    }
+
 }

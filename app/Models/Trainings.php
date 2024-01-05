@@ -16,11 +16,6 @@ class Trainings extends Model
     return $this->belongsTo(TrainingCategories::class, 'training_category_id');
 }
 
-    // public function instructor()
-    // {
-    //     return $this->belongsTo(Instructor::class, 'intructor_id');
-    // }
-
     public function created_by_user()
     {
         return $this->belongsTo(User::class, 'created_by');

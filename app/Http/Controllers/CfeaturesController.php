@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cfeatures;
-use App\Models\Blogs;
-use App\Models\BlogsCategories;
-use App\Models\BlogsSubCategories;
+use App\Models\Trainings;
+
 use Brian2694\Toastr\Facades\Toastr;
 
 class CfeaturesController extends Controller
@@ -18,23 +17,22 @@ class CfeaturesController extends Controller
 
     public function index()
     {
-        $blogs = Blogs::with('blogSubCategory')->get();
+        $data = TrainingCategories::with('trainingCategory')->get();
         $cfeatures = Cfeatures::all(); 
-        return view('cfeatures.index', compact('cfeatures', 'blogs'));
+        return view('cfeatures.index', compact('cfeatures', 'trainingCategories'));
     }
 
     public function create()
     {
-        $categories = BlogsCategories::orderBy('id')->get();
-        $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
-        return view('cfeatures.create', compact('categories', 'BlogsSubCategories'));
+        $trainingcategories = TrainingCategories::orderBy('id')->get();
+        return view('cfeatures.create', compact('data', 'trainingCategories'));
     }
 
-      public function getSubCategories(Request $request)
-    {
-        $blogssubCategories = BlogsSubCategories::where('blog_category_id', $request->cat_id)->get(['id', 'blog_sub_category_id']);
-        return response()->json($blogssubCategories);
-    }
+    //   public function getTrainingCategories(Request $request)
+    // {
+    //     $blogssubCategories = BlogsSubCategories::where('blog_category_id', $request->cat_id)->get(['id', 'blog_sub_category_id']);
+    //     return response()->json($blogssubCategories);
+    // }
     public function show()
     {
         //
@@ -44,8 +42,8 @@ class CfeaturesController extends Controller
     public function edit($id)
     {
         $edit = Cfeatures::findOrFail($id);
-        $categories = BlogsCategories::all();
-    $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
+        $categories = BlogsCategories::all(); 
+    // $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
         return view('cfeatures.edit', compact('edit','categories', 'BlogsSubCategories'));
     }
     public function store(Request $request)
@@ -60,8 +58,7 @@ class CfeaturesController extends Controller
             'coursetype' => 'required',
             'address' => $request->coursetype == 'Onsite' ? 'required' : '', 
             'title' => 'required',
-            'blog_category_id' => 'required',
-            'blog_sub_category_id' => 'required',
+            'training_category_id' => 'required',
             'image' => 'mimes:png,jpg,jpeg',
             'description' => 'required', 
         ]);
@@ -80,8 +77,7 @@ class CfeaturesController extends Controller
         $cfeature->coursetype = $request->coursetype;
         $cfeature->address = $request->address;
         $cfeature->title = $request->title;
-        $cfeature->blog_category_id = $request->blog_category_id;
-        $cfeature->blog_sub_category_id = $request->blog_sub_category_id;
+        $cfeature->training_category_id = $request->training_category_id;
         $cfeature->image = $request->image;
         $cfeature->description = $request->description;
 

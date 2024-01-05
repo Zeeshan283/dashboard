@@ -37,10 +37,9 @@
                         </thead>
                         <tbody>
                             @foreach ($data as $key => $value)
-                                <tr>
+                                <tr> 
                                     <td>{{ $key + 1 }}</td>
-                                    <!-- <td>{{ $value->instructor }}</td> -->
-                                    <td>{{ $value->trainingCategory->training_category_id ?? null}}</td>
+                                    <td>{{ $value->TrainingCategories->training_category_id ?? null }}</td>
                         <td>
                                         <div class="d-flex gap-2">
                                             <a href="https://www.industrymall.net/blog/blogs/ {{ $value->id }}"
@@ -48,7 +47,7 @@
                                                 <i class="nav-icon i-Eye" title="view"></i>
                                             </a>
                                             <form action="{{ route('trainings.destroy', $value->id) }}" method="POST"
-                                                onsubmit="return confirm('Are you sure you want to delete this blog?')">
+                                                onsubmit="return confirm('Are you sure you want to delete this Category?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn rounded-pill btn-outline-secondary">

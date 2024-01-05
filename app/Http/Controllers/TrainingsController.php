@@ -16,34 +16,38 @@ class TrainingsController extends Controller
 
     public function index()
     {
-        $data = Trainings::with('trainingCategory:id')->orderBy('id')->get();
+        $data = trainingCategories::all();
+        $data = Trainings::with('trainingCategory')->get();
         return view('trainings.index', compact('data'));
     }
-    
 
     public function create()
     {
-        $trainingCategories = TrainingCategories::orderBy('id')->pluck('title', 'id');
+        $trainingCategories = TrainingCategories::orderBy('id')->pluck('id');
         return view('trainings.create', compact('trainingCategories'));
     }
+    
 
     public function store(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'training_category_id' => 'required',
-            ],
-            [
-                'training_category_id.required' => 'The training category field is required',
-            ]
-        );
+{
+    $this->validate(
+        $request,
+        [
+            'training_category_id' => 'required',
+        ],
+        [
+            'training_category_id.required' => 'The training category field is required',
+        ]
+    );
 
-        $training = Trainings::create($request->all());
+    $training = Trainings::create([
+        'training_category_id' => (int) $request->input('training_category_id'),
+    ]);
 
-        Toastr::success('Training Added Successfully!');
-        return redirect()->back();
-    }
+    Toastr::success('Training Added Successfully!');
+    return redirect()->back();
+}
+
 
     public function edit($id)
     {
