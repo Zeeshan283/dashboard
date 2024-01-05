@@ -49,6 +49,11 @@ implements MustVerifyEmail
         return $this->belongsToMany(Role::class, 'user_roles', 'role_user', 'role_id');
     }
 
+    public function shipping()
+    {
+        return $this->belongsTo(UserShippingAddress::class);
+    }
+
     // public function sendEmailVerificationNotification()
     // {
     //     $this->notify(new CustomVerifyEmail);

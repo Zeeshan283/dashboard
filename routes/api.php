@@ -40,6 +40,7 @@ Route::controller(UserAPIController::class)->group(function () {
     Route::post('/logout', 'logout');
     Route::get('/profile/{id}', 'details')->whereNumber('id');
     Route::match(['patch', 'put'], '/update-profile', 'UpdateProfile');
+    Route::match(['patch', 'put'], '/update-shipping-address', 'UpdateShippingAddress');
 });
 
 
@@ -70,14 +71,14 @@ Route::get('/blogs', [ApiController::class, 'getBlogs']);
 Route::get('/blogs/{id}', [ApiController::class, 'getBlog']);
 Route::get('/cfeatures', [ApiController::class, 'cfeatures']);
 Route::get('/pages', [ApiController::class, 'Pages']);
-Route::get('/brands', [ApiController::class, 'Brands']); 
-Route::get('/single-product/{id}', [ApiController::class, 'GetSingleProduct'])->whereNumber('id'); 
-Route::get('/p_b_menu/{identifier}', [ApiController::class, 'allProductAMenu']); 
-Route::get('/p_b_cat/{identifier}', [ApiController::class, 'allProducts']); 
-Route::get('/p_b_sub/{identifier}', [ApiController::class, 'allProductSubcategories']); 
-Route::get('/search/product/{character}', [ApiController::class, 'SearchProduct']); 
-Route::get('/f_product', [ApiController::class, 'FeaturesProduct']); 
-Route::get('/s_product', [ApiController::class, 'SponserdProduct']); 
-Route::get('/h_product', [ApiController::class, 'HotProduct']); 
-Route::get('/d_product', [ApiController::class, 'DealProduct']); 
+Route::get('/brands', [ApiController::class, 'Brands']);
+Route::get('/single-product/{id}', [ApiController::class, 'GetSingleProduct'])->whereNumber('id');
+Route::get('/p_b_menu/{identifier}', [ApiController::class, 'allProductAMenu']);
+Route::get('/p_b_cat/{identifier}', [ApiController::class, 'allProducts']);
+Route::get('/p_b_sub/{identifier}', [ApiController::class, 'allProductSubcategories']);
+Route::get('/search/product/{character}', [ApiController::class, 'SearchProduct']);
+Route::get('/f_product', [ApiController::class, 'FeaturesProduct']);
+Route::get('/s_product', [ApiController::class, 'SponserdProduct']);
+Route::get('/h_product', [ApiController::class, 'HotProduct']);
+Route::get('/d_product', [ApiController::class, 'DealProduct']);
 Route::get('/home_page_all', [ApiController::class, 'homePageAll']);

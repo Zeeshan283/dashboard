@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Trainings extends Model
 {
     use HasFactory;
-    protected $table="trainings";
+    protected $table = "trainings";
     protected $fillable = array('training_category_id',  'created_by', 'updated_by');
 
     public function trainingCategory()
-{
-    return $this->belongsTo(TrainingCategories::class, 'training_category_id');
-}
+    {
+        return $this->belongsTo(TrainingCategories::class, 'training_category_id');
+    }
 
     public function created_by_user()
     {

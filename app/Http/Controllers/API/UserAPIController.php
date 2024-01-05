@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserShippingAddress;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -79,6 +80,11 @@ class UserAPIController extends Controller
         ]);
 
 
+        $s = new UserShippingAddress;
+        $s->customer_id = $user->id;
+        $s->first_name = $user->first_name;
+        $s->save();
+
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['id'] =  $user->id;
         // $success['name'] =  $user->name;
@@ -128,6 +134,7 @@ class UserAPIController extends Controller
         try {
             // Attempt to retrieve user details from the database
             $user = User::select(
+                'id',
                 'first_name',
                 'last_name',
                 'email',
@@ -144,8 +151,9 @@ class UserAPIController extends Controller
                 ->whereId($id)
                 ->first();
 
+            $shipping = UserShippingAddress::where('customer_id', '=', $id)->first();
             // If the user is found, return a JSON response with user details
-            return response()->json($user);
+            return response()->json([$user, $shipping]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             // Catch the specific exception when the user is not found
             return response()->json(['error' => 'Record not found.'], 404);
@@ -188,6 +196,25 @@ class UserAPIController extends Controller
                 }
 
                 return Response::json(['data' => 'Profile Updated Successfully', 'status' => '200']);
+            } else {
+                return Response::json(['data' => 'Something went wrong', 'status' => '200']);
+            }
+        } else {
+            return Response::json(['data' => 'Bad Method Call', 'status' => '200']);
+        }
+    }
+
+    public function UpdateShippingAddress(Request $request)
+    {
+        if ($request->isMethod('PATCH')) {
+            $user = UserShippingAddress::where('customer_id', '=', $request->customer_id)->first();
+            // dd($user);
+            if ($user) {
+                $user->update($request->all());
+
+                // $user->first_name = $request->first_name;
+                // $user->save();
+                return Response::json(['data' => 'Shipping Address Updated Successfully', 'status' => '200']);
             } else {
                 return Response::json(['data' => 'Something went wrong', 'status' => '200']);
             }
