@@ -41,7 +41,7 @@
                                 <th>Address</th>
                                 <th>Title</th>
                                 <th>Category</th>
-                                <th>SubCategory</th>
+                                <!-- <th>SubCategory</th> -->
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
@@ -76,8 +76,7 @@
                                     <td>{{ $value->coursetype }}</td>
                                     <td>{{ $value->address }}</td>
                                     <td>{{ $value->title }}</td>
-                                    <td>{{ $value->blog_category_id }}</td>
-                                    <td>{{ $value->blogSubCategory->blog_sub_category_id ?? null }}</td>
+                                    <td>{{ $value->trainingCategory->training_category_id ?? null}}</td>
                                     <td><img src="{{ url('upload/blogs/' . $value->image) }}" width="100%"
                                             height="100%"></td>
                                     <td>
