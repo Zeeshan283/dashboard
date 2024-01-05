@@ -20,19 +20,15 @@ class TrainingsController extends Controller
         $data = Trainings::all();
         $data = Trainings::with('trainingCategory')->get();
         return view('trainings.index', compact('data'));
-    }
-
+    }    
     public function create()
     {
-        $data = Trainings::orderBy('id')->pluck('id', 'training_category_id');
-        return view('trainings.create', compact('data'));
+        $data = TrainingCategories::orderBy('id')->pluck('training_category_id', 'id');
+        return view('cfeatures.create', compact('data'));
     }
     
-
     public function store(Request $request)
 {
-    
-
     $data = new Trainings;
     $data->training_category_id = $request->training_category_id;
     $data->save();

@@ -84,7 +84,7 @@
                         <div>
                             <div id="step-2" class="">
                         <div class="card-body">
-                            <form method="post" action="{{ route('cfeatures.update',[$edit->id]) }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('cfeatures.update',[$edit->id]) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
                                 <div class="card mb-4">
@@ -95,7 +95,7 @@
         <div class="col-sm-6">
             <div class="form-group" ml-10>
                 <label for="instructor" class="form-label">Instructor</label>
-                <input type="text" class="form-control" id="instructor" placeholder="Instructor Name" name="instructor" value="{{$edit->instructor}}" required >
+                <input type="text" class="form-control" id="instructor" placeholder="Instructor Name" name="instructor" value="{{ old('instructor', $edit->instructor) }}" required >
             </div>
         </div>
         <!-- <div class="col-sm-6">
@@ -131,77 +131,43 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="form-group">
-            <label for="skilllevel" class="form-label"  value="{{$edit->skilllevel}}">Skill Level</label>
-                      <select class="form-select" id="skilllevel" name="skilllevel" value="{{$edit->skilllevel}}">
-                        <option value=""> Please Select </option>
-                        <option>Basic Level</option>
-                        <option>Intermediate</option>
-                        <option>Expert Level</option>
-                      </select>
-            </div>
+        <div class="form-group">
+            <label for="skilllevel" class="form-label">Skill Level</label>
+            <select class="form-select" id="skilllevel" name="skilllevel">
+                <option value="" @if(old('skilllevel', $edit->skilllevel) == "") selected @endif>Please Select</option>
+                <option value="Basic Level" @if(old('skilllevel', $edit->skilllevel) == "Basic Level") selected @endif>Basic Level</option>
+                <option value="Intermediate" @if(old('skilllevel', $edit->skilllevel) == "Intermediate") selected @endif>Intermediate</option>
+                <option value="Expert Level" @if(old('skilllevel', $edit->skilllevel) == "Expert Level") selected @endif>Expert Level</option>
+            </select>
         </div>
-        <div class="col-lg-6">
-            <div class="form-group">
-            <label for="language" class="form-label" value="{{$edit->language}}">Languages</label>
-                      <select class="form-select" id="language" name="language" value="{{$edit->language}}">
-                        <option value=""> --- Please Select --- </option>
-                        <option>Mexico</option>
-                        <option>Norway</option>
-                        <option>Oman</option>
-                        <option selected="selected">Pakistan</option>
-                        <option>Palau</option>
-                        <option>Saudi Arabia</option>
-                        <option>Senegal</option>
-                        <option>Serbia</option>
-                        <option>Seychelles</option>
-                        <option>Sierra Leone</option>
-                        <option>Singapore</option>
-                        <option>Slovak Republic</option>
-                        <option>Slovenia</option>
-                        <option>Solomon Islands</option>
-                        <option>Somalia</option>
-                        <option>South Africa</option>
-                        <option>South Georgia &amp; South Sandwich Islands</option>
-                        <option>South Sudan</option>
-                        <option>Spain</option>
-                        <option>Sri Lanka</option>
-                        <option>St. Barthelemy</option>
-                        <option>St. Helena</option>
-                        <option>St. Martin (French part)</option>
-                        <option>St. Pierre and Miquelon</option>
-                        <option>Sudan</option>
-                        <option>Suriname</option>
-                        <option>Turkey</option>
-                        <option>Uganda</option>
-                        <option>Ukraine</option>
-                        <option>United Arab Emirates</option>
-                        <option>United Kingdom</option>
-                        <option>United States</option>
-                        <option>United States Minor Outlying Islands</option>
-                        <option>Uzbekistan</option>
-                        <option>Zambia</option>
-                        <option>Zimbabwe</option>
-                      </select>
-            </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label for="language" class="form-label">Languages</label>
+            <select class="form-select" id="language" name="language">
+                <!-- ... (options) ... -->
+                <option value="English" @if(old('language', $edit->language) == "English") selected @endif>English</option>
+                <option value="Urdu" @if(old('language', $edit->language) == "Urdu") selected @endif>Urdu</option>
+
+            </select>
         </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="coursetype" class="form-label" value="{{$edit->coursetype}}">Course Type</label>
-                <!-- <input type="text" class="form-control" id="duration" placeholder="duration" name="duration" required> -->
-                <select class="form-select" id="coursetype" name="coursetype" value="{{$edit->coursetype}}">
-                <option value="coursetype"> --- Please Select --- </option>
-<option>Online</option>
-<option>Onsite</option>
-                </select>
-            </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="coursetype" class="form-label">Course Type</label>
+            <select class="form-select" id="coursetype" name="coursetype">
+                <option value="Onsite" @if(old('coursetype', $edit->coursetype) == "Onsite") selected @endif>Onsite</option>
+                <option value="Online" @if(old('coursetype', $edit->coursetype) == "Online") selected @endif>Online</option>
+
+            </select>
         </div>
-        <div class="col-sm-6" id="addressField" style="display: none;">
-            <div class="form-group" ml-10>
-                <label for="address" class="form-label" value="{{$edit->address}}">Address</label>
-                <input type="text" class="form-control" id="address" placeholder="Enter Address here" name="address" value="{{$edit->address}}">
-            </div>
-        </div>  
+    </div>
+    <div class="col-sm-6" id="addressField" style="display: none;">
+        <div class="form-group">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" id="address" placeholder="Enter Address here" name="address" value="{{ old('address', $edit->address) }}">
+        </div>
+    </div>
     </div> 
                                         </div>
                                         <div class="mt-2 " style="text-align: right">
@@ -225,41 +191,36 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div class="form-group ml-6">
-                                                        <label for="inputtext11" class="form-label" value="{{$edit->blog_category_id}}">Category:</label>
-                                                        <select class="form-control" id="blog_category" name="blog_category_id" value="{{$edit->blog_category_id}}">
-                                                            @foreach ($categories as $data)
-                                                            <option value="{{ $data->blog_category_id }}">{{ $data->blog_category_id }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group ml-6">
-                                                        <label for="inputtext11" class="form-label" value="{{$edit->blog_sub_category_id}}">Subcategory:</label>
-                                                        <select class="form-control" id="blog_sub_category_id" name="blog_sub_category_id" value="{{$edit->blog_sub_category_id}}">
-                                                            @foreach ($BlogsSubCategories as $blogSubCategory)
-                                                                <option value="{{ $blogSubCategory->id }}">{{ $blogSubCategory->blog_sub_category_id }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                <div class="form-group ml-6">
-                                                    <label for="inputtext11" class="form-label">Image</label>
-                                                    <input type="file" name="feature_image" class="form-control" style="height: fit-content;">
-                                                    @if ($errors->has('image'))
-                                                        <span style="color: red;" class="invalid-feedback1 font-weight-bold">{{ $errors->first('image') }}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
+    <div class="form-group ml-6">
+        <label for="inputtext11" class="form-label">Category:</label>
+        <select class="form-control" id="training_category_id" name="training_category_id">
+            @foreach ($data as $trainings)
+                <option>{{ $trainings->training_category_id }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+                                            <div class="col-sm-6">
+    <div class="form-group ml-6">
+        <label for="inputtext11" class="form-label">Image</label>
+        @if($edit->image)
+            <img src="{{ asset('upload/trainings/' . $edit->image)}}" class="thumbnail" alt="Thumbnail">
+        @endif
+        <input type="file" name="image" class="form-control" style="height: fit-content;">
+        @if ($errors->has('image'))
+            <span style="color: red;" class="invalid-feedback1 font-weight-bold">{{ $errors->first('image') }}</span>
+        @endif
+    </div>
+</div>
+
                                             </div>
                                             <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <label for="description" class="form-label" value="{{$edit->description}}">Description</label>
-                                                    <textarea name="description" id="description" class="form-control ckeditor" value="{{$edit->description}}"></textarea>
-                                                </div>
-                                            </div>
+    <div class="form-group">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="description" id="description" class="form-control ckeditor" required>{{ old('description', $edit->description) }}</textarea>
+    </div>
+</div>
+
                                         </div>
                                         <div class="mt-2" style="text-align: right">
                                             <button type="submit" class="btn btn-outline-secondary me-2">Create</button>

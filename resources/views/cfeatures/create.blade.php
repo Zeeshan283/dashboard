@@ -193,6 +193,7 @@
         </select>
     </div>
 </div>
+
         <div class="col-sm-6">
                                                 <div class="form-group ml-6">
                                                     <label for="inputtext11" class="form-label">Image</label>

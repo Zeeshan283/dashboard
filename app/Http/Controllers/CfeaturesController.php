@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cfeatures;
 use App\Models\Trainings;
-use App\Models\TrainingCategories;
 
 use Brian2694\Toastr\Facades\Toastr;
 
@@ -18,14 +17,14 @@ class CfeaturesController extends Controller
 
     public function index()
     {
-        $data = TrainingCategories::with('trainingCategory')->get();
+        $data = Trainings::with('trainingCategory')->get();
         $cfeatures = Cfeatures::all(); 
         return view('cfeatures.index', compact('cfeatures', 'data'));
     }
 
     public function create()
     {
-        $data = TrainingCategories::with('trainingCategory')->get();
+        $data = Trainings::with('trainingCategory')->get();
         return view('cfeatures.create', compact('data'));
     }
 
@@ -43,15 +42,14 @@ class CfeaturesController extends Controller
     public function edit($id)
     {
         $edit = Cfeatures::findOrFail($id);
-        $data = TrainingCategories::all(); 
+        $data = Trainings::all(); 
     // $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
-        return view('cfeatures.edit', compact('edit', 'TrainingCategories'));
+        return view('cfeatures.edit', compact('edit', 'data'));
     }
     public function store(Request $request)
     {
         $request->validate([
             'instructor' => 'required',
-            'rating' => 'required',
             'lectures' => 'required',
             'duration' => 'required',
             'skilllevel' => 'required',
@@ -70,7 +68,6 @@ class CfeaturesController extends Controller
     
         // Set other attributes and save the model
         $cfeature->instructor = $request->instructor;
-        $cfeature->rating = $request->rating;
         $cfeature->lectures = $request->lectures; 
         $cfeature->duration = $request->duration;
         $cfeature->skilllevel = $request->skilllevel; 
@@ -104,7 +101,6 @@ if ($request->hasFile('image')) {
     {
         $this->validate($request, [
             'instructor' => 'required',
-            'rating' => 'required',
             'lectures' => 'required',
             'duration' => 'required',
             'skilllevel' => 'required',
@@ -122,7 +118,6 @@ if ($request->hasFile('image')) {
         $edit = Cfeatures::findOrFail($id);
     
         $edit->instructor = $request->instructor;
-        $edit->rating = $request->rating;
         $edit->lectures = $request->lectures;
         $edit->duration = $request->duration;
         $edit->skilllevel = $request->skilllevel; 
