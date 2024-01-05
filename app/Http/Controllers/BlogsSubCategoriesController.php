@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\BlogsCategories;
 use App\Models\BlogsSubCategories;
 use Brian2694\Toastr\Facades\Toastr;
@@ -15,7 +16,7 @@ class BlogsSubCategoriesController extends Controller
 
     public function index()
     {
-        $data = BlogsSubCategories::orderBy('id')->get(['id', 'blog_category_id', 'blog_sub_category_id']);
+        $data = BlogsSubCategories::orderBy('id')->get(['id', 'blog_category_id', 'name']);
         return view('blogs.blog_subcategories.index', compact('data'));
     }
 
@@ -29,40 +30,40 @@ class BlogsSubCategoriesController extends Controller
     {
         $request->validate([
             'blog_category_id' => 'required',
-            'blog_sub_category_id' => 'required',
+            'name' => 'required',
         ]);
 
         BlogsSubCategories::create([
             'blog_category_id' => $request->blog_category_id,
-            'blog_sub_category_id' => $request->blog_sub_category_id,
+            'name' => $request->name,
         ]);
-        return redirect()->back()->with(Toastr::success('Blog Sub Category Added Successfully'));
+        return redirect()->route('blog_subcategories.index')->with(Toastr::success('Blog Sub Category Added Successfully'));
     }
 
     public function show(BlogsSubCategories $BlogsSubCategories)
-{
-    return redirect()->route('blog_subcategories.index');
-}
+    {
+        return redirect()->route('blog_subcategories.index');
+    }
 
 
-public function edit($id)
-{
-    $edit = BlogsSubCategories::findOrFail($id);
-    $categories = BlogsCategories::all();  
+    public function edit($id)
+    {
+        $edit = BlogsSubCategories::findOrFail($id);
+        $categories = BlogsCategories::all();
 
-    return view('blogs.blog_subcategories.edit', compact('edit', 'categories'));
-}
+        return view('blogs.blog_subcategories.edit', compact('edit', 'categories'));
+    }
     public function update($id, Request $request)
     {
         $this->validate($request, [
             'blog_category_id' => 'required',
-            'blog_sub_category_id' => 'required',
-        ]);        
+            'name' => 'required',
+        ]);
 
         $edit = BlogsSubCategories::findOrFail($id);
         $edit->update([
             'blog_category_id' => $request->blog_category_id,
-            'blog_sub_category_id' => $request->blog_sub_category_id,
+            'name' => $request->name,
         ]);
         return redirect()->route('blog_subcategories.index')->with(Toastr::success('Blog SubCategory Updated Successfully'));
     }
@@ -71,9 +72,8 @@ public function edit($id)
     {
         $data = BlogsSubCategories::findOrFail($id);
         $data->delete();
-    
+
         Toastr::success('SubCategory Deleted Successfully!');
         return redirect()->route('blog_subcategories.index');
     }
-    
 }

@@ -9,6 +9,8 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use App\Notifications\TestingNotification;
 use App\Models\User;
+use Illuminate\Support\Facades\File;
+
 
 class BlogsController extends Controller
 {
@@ -57,7 +59,7 @@ class BlogsController extends Controller
         $blog->save();
         $blog->notify(new TestingNotification(900));
         // dd($blog->notifications);
-        return redirect()->back()->with('success', 'Blog Created Successfully');
+        return redirect('blogs')->with('success', 'Blog Created Successfully');
 
         // $testNotification = Blogs::first();
         // $testNotification->notify(new TestingNotification(900));
@@ -69,11 +71,7 @@ class BlogsController extends Controller
         //
     }
 
-    public function getSubCategories(Request $request)
-    {
-        $blogssubCategories = BlogsSubCategories::where('blog_category_id', $request->cat_id)->get(['id', 'blog_sub_category_id']);
-        return response()->json($blogssubCategories);
-    }
+
 
     public function edit($id)
     {
@@ -92,7 +90,7 @@ class BlogsController extends Controller
             'title' => 'required',
             'blog_category_id' => 'required',
             'blog_sub_category_id' => 'required',
-            'feature_image' => 'required|image|mimes:jpeg,jpg,png',
+            'feature_image' => 'image|mimes:jpeg,jpg,png',
             'description' => 'required',
         ]);
 
@@ -100,10 +98,10 @@ class BlogsController extends Controller
         $edit->title = $request->title;
         $edit->blog_category_id = $request->blog_category_id;
         $edit->blog_sub_category_id = $request->blog_sub_category_id;
-        $edit->feature_image = $request->feature_image;
         $edit->description = $request->description;
 
         if ($request->hasFile('feature_image')) {
+            File::delete($edit->feature_image);
             $file = $request->file('feature_image');
             $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('upload/blogs/'), $fileName);
@@ -113,13 +111,23 @@ class BlogsController extends Controller
 
         $edit->save();
         $edit->notify(new TestingNotification(900));
-        return redirect()->back()->with(Toastr::success('Blog  Updated Successfully'));
+        return redirect('blogs')->with(Toastr::success('Blog  Updated Successfully'));
     }
 
     public function destroy($id)
     {
+
         $blog = Blogs::findOrFail($id);
+        File::delete($blog->feature_image);
+
         $blog->delete();
         return redirect()->back()->with(Toastr::success('Blogs Deleted Successfully'));
+    }
+
+
+    public function getSubCategories(Request $request)
+    {
+        $blogssubCategories = BlogsSubCategories::where('blog_category_id', $request->cat_id)->get(['id', 'name']);
+        return response()->json($blogssubCategories);
     }
 }

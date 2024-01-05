@@ -5,7 +5,7 @@
 @endsection
 
 @section('main-content')
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <div class="page-body">
         <!-- Container-fluid starts-->
         <div class="container-fluid" id="">
@@ -18,8 +18,8 @@
                         <div class="card-body">
                             <form method="post" action="{{ route('blogs.store') }}" enctype="multipart/form-data">
                                 @csrf
-                                <div class="card mb-4">
-                                    <h5 class="card-header text-left">Create Blogs</h5>
+                                <div class=" mb-4">
+                                    <h5 class=" text-left">Create Blogs</h5>
                                     <hr class="my-0" />
                                     <div class="card-body">
                                         <div class="row col-lg-12">
@@ -27,30 +27,44 @@
                                                 <div class="form-group ml-6">
                                                     <label for="title" class="form-label">Title</label>
                                                     <input type="text" class="form-control" id="title"
-                                                        placeholder="Title" name="title" required>
+                                                        placeholder="Title" name="title">
+                                                    @if ($errors->has('title'))
+                                                        <span style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('title') }}</span>
+                                                    @endif
                                                 </div>
+
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group ml-6">
                                                     <label for="inputtext11" class="form-label">Category:</label>
-                                                    <select class="form-control" id="blog_category" name="blog_category_id">
+                                                    <select class="form-control" id="category_id" name="blog_category_id">
                                                         @foreach ($categories as $data)
                                                             <option value="{{ $data->id }}">
                                                                 {{ $data->blog_category_id }}</option>
                                                         @endforeach
                                                     </select>
+                                                    @if ($errors->has('blog_category_id'))
+                                                        <span style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('blog_category_id') }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group ml-6">
                                                     <label for="inputtext11" class="form-label">Subcategory:</label>
-                                                    <select class="form-control" id="blog_sub_category_id"
+                                                    <select class="form-control" id="subcategory_id"
                                                         name="blog_sub_category_id">
                                                         @foreach ($BlogsSubCategories as $blogSubCategory)
                                                             <option value="{{ $blogSubCategory->id }}">
-                                                                {{ $blogSubCategory->blog_sub_category_id }}</option>
+                                                                {{ $blogSubCategory->name }}</option>
                                                         @endforeach
                                                     </select>
+                                                    @if ($errors->has('blog_sub_category_id'))
+                                                        <span style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('blog_sub_category_id') }}</span>
+                                                    @endif
+
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
@@ -61,6 +75,10 @@
                                                     @if ($errors->has('feature_image.*'))
                                                         <span>{{ $errors->first('feature_image.*') }}</span>
                                                     @endif
+                                                    @if ($errors->has('feature_image'))
+                                                        <span style="color: red;"
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('feature_image') }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -69,6 +87,10 @@
                                                 <label for="description" class="form-label">Description</label>
                                                 <textarea name="description" id="description" class="form-control ckeditor"></textarea>
                                             </div>
+                                            @if ($errors->has('description'))
+                                                <span style="color: red;"
+                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('description') }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="mt-2" style="text-align: right">
@@ -92,7 +114,7 @@
             paste_data_images: true,
             image_title: true,
             automatic_uploads: true,
-            images_upload_url: '{{ URL::to('/uploads3')}}',
+            images_upload_url: '{{ URL::to('/uploads3') }}',
             file_picker_types: "image",
             plugins: [
                 "advlist autolink lists link image charmap print preview hr anchor pagebreak",
@@ -124,30 +146,35 @@
             }
         });
     </script>
-    <script>
-    $(document).ready(function () {
-        $('#blog_category').change(function () {
-            var categoryId = $(this).val();
 
+    <script>
+        // Change Categories 
+
+        $('#category_id').change(function() {
+            var cat_id = $(this).val();
             $.ajax({
-                url: '{{ route("getSubCategorie") }}',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    cat_id: categoryId
-                },
-                success: function (data) {
-                    var options = '<option value="">Select Subcategory</option>';
-                    $.each(data, function (key, value) {
-                        options += '<option value="' + value.id + '">' + value.blog_sub_category_id + '</option>';
-                    });
-                    $('#blog_sub_category_id').html(options);
+                url: "{{ asset('get-subcategories-blog') }}?cat_id=" + cat_id,
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.length > 0) {
+                        var option = '<option value="" selected>Select Sub Category</option>';
+                        $.each(response, function(i, v) {
+                            option +=
+                                `<option value="${v.id}">${v.name }</option>`;
+                        });
+                        $('#subcategory_id').html(option);
+                    } else {
+                        var option = '<option value="" selected>Sub Category Not Found</option>';
+                        $('#subcategory_id').html(option);
+                    }
                 }
             });
         });
-    });
-</script>
 
+
+        // End Here
+    </script>
 @endsection
 
 @section('page-js')

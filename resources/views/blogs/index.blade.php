@@ -41,9 +41,8 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $value->title }}</td>
                                     <td>{{ $value->blogCategory->blog_category_id ?? null }}</td>
-                                    <td>{{ $value->blogSubCategory->blog_sub_category_id ?? null }}</td>
-                                    <td><img src="{{ url('upload/blogs/' . $value->feature_image) }}" width="20%"
-                                            height="20%"></td>
+                                    <td>{{ $value->blogSubCategory->name ?? null }}</td>
+                                    <td><img src="{{ $value->feature_image }}" width="80px"></td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <a target="_blank" href="{{ URL::to('blogs/' . $value->id . '/edit') }}">
@@ -65,8 +64,8 @@
                                             </a>
 
                                             <!-- <a href="{{ asset('blog_categories/' . $value->id . '/destroy') }}">
-                                                                                                <i class="fa fa-trash font-danger"></i></a>
-                                                                                           </a> -->
+                                                                                                                            <i class="fa fa-trash font-danger"></i></a>
+                                                                                                                       </a> -->
                                         </div>
                                     </td>
                                 </tr>

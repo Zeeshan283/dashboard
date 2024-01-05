@@ -167,6 +167,9 @@ Route::middleware(['admin'])->group(function () {
     Route::get('blogs_categories/{id}/destroy', [BlogsCategoriesController::class, 'destroy']);
     Route::resource('blogs', BlogsController::class);
     Route::get('blogs/{id}/destroy', [BlogsController::class, 'destroy']);
+    Route::resource('blog_subcategories', BlogsSubCategoriesController::class);
+    Route::get('blogs.blog_subcategories/{id}/destroy', [BlogsSubCategoriesController::class, 'destroy']);
+    Route::get('/get-subcategories-blog', [BlogsController::class, 'GetSubCategories'])->name('GetSubCategoriesForBlog');
     Route::resource('cfeatures', CfeaturesController::class);
     Route::resource('trainings', TrainingsController::class);
     Route::resource('instructor', InstructorController::class);
@@ -278,8 +281,6 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
     Route::get('cwallet', [CustomerController::class, 'cwallet'])->name('cwallet');
     Route::get('sellers/show/{id}', [VendorsController::class, 'show1'])->name('sellers.show');
-    Route::resource('blog_subcategories', BlogsSubCategoriesController::class);
-    Route::get('blogs.blog_subcategories/{id}/destroy', [BlogsSubCategoriesController::class, 'destroy']);
 });
 //  ============================================================================================================================ 
 
