@@ -16,8 +16,8 @@
                         </div>
                         <div class="card-body">
                             <!-- <form method="post" action="{{ route('blogs.update', ['blog' => $edit->id]) }}" enctype="multipart/form-data">
-                                                                                                    @csrf
-                                                                                                    @method('PATCH') -->
+                                @csrf                                                                        
+                                @method('PATCH') -->
                             <form method="post" action="{{ route('blogs.update', ['blog' => $edit->id]) }}"
                                 enctype="multipart/form-data">
                                 @csrf
