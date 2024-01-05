@@ -153,7 +153,10 @@ class UserAPIController extends Controller
 
             $shipping = UserShippingAddress::where('customer_id', '=', $id)->first();
             // If the user is found, return a JSON response with user details
-            return response()->json([$user, $shipping]);
+            return response()->json([
+                "user_profile" => $user,
+                "shipping_address" => $shipping
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             // Catch the specific exception when the user is not found
             return response()->json(['error' => 'Record not found.'], 404);
