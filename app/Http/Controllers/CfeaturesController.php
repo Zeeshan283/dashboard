@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cfeatures;
 use App\Models\Trainings;
+use App\Models\TrainingCategories;
 
 use Brian2694\Toastr\Facades\Toastr;
 
@@ -19,13 +20,13 @@ class CfeaturesController extends Controller
     {
         $data = TrainingCategories::with('trainingCategory')->get();
         $cfeatures = Cfeatures::all(); 
-        return view('cfeatures.index', compact('cfeatures', 'trainingCategories'));
+        return view('cfeatures.index', compact('cfeatures', 'data'));
     }
 
     public function create()
     {
-        $trainingcategories = TrainingCategories::orderBy('id')->get();
-        return view('cfeatures.create', compact('data', 'trainingCategories'));
+        $data = TrainingCategories::with('trainingCategory')->get();
+        return view('cfeatures.create', compact('data'));
     }
 
     //   public function getTrainingCategories(Request $request)
@@ -42,9 +43,9 @@ class CfeaturesController extends Controller
     public function edit($id)
     {
         $edit = Cfeatures::findOrFail($id);
-        $categories = BlogsCategories::all(); 
+        $data = TrainingCategories::all(); 
     // $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
-        return view('cfeatures.edit', compact('edit','categories', 'BlogsSubCategories'));
+        return view('cfeatures.edit', compact('edit', 'TrainingCategories'));
     }
     public function store(Request $request)
     {
@@ -111,8 +112,9 @@ if ($request->hasFile('image')) {
             'coursetype' => 'required',
             'address' => $request->coursetype == 'Onsite' ? 'required' : '', 
             'title' => 'required',
-            'blog_category_id' => 'required',
-            'blog_sub_category_id' => 'required',
+            'training_category_id' => 'required',
+            // 'blog_category_id' => 'required',
+            // 'blog_sub_category_id' => 'required',
             'image' => 'mimes:png,jpg,jpeg',
             'description' => 'required',
         ]);
@@ -128,8 +130,9 @@ if ($request->hasFile('image')) {
         $edit->coursetype = $request->coursetype;
         $edit->address = $request->address;
         $edit->title = $request->title;
-        $edit->blog_category_id = $request->blog_category_id;
-        $edit->blog_sub_category_id = $request->blog_sub_category_id;
+       $edit->training_category_id = $request->training_category_id;
+        // $edit->blog_category_id = $request->blog_category_id;
+        // $edit->blog_sub_category_id = $request->blog_sub_category_id;
         $edit->image = $request->image;
         $edit->description = $request->description;
 

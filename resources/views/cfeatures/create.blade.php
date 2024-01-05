@@ -187,23 +187,12 @@
     <div class="form-group ml-6">
         <label for="inputtext11" class="form-label">Category:</label>
         <select class="form-control" id="training_category_id" name="training_category_id">
-            @foreach ($trainingCategories as $data)
-                <option value="{{ $data->id }}">{{ $data->training_category_id}}</option>
+            @foreach ($data as $trainings)
+                <option>{{ $trainings->training_category_id }}</option>
             @endforeach
         </select>
     </div>
 </div>
-
-                                                <!-- <div class="col-sm-6">
-            <div class="form-group ml-6">
-                <label for="inputtext11" class="form-label">Subcategory:</label>
-                <select class="form-control" id="blog_sub_category_id" name="blog_sub_category_id">
-                    @foreach ($BlogsSubCategories as $blogSubCategory)
-                        <option value="{{ $blogSubCategory->id }}">{{ $blogSubCategory->blog_sub_category_id }}</option>
-                    @endforeach
-                </select>  
-            </div>
-        </div> -->
         <div class="col-sm-6">
                                                 <div class="form-group ml-6">
                                                     <label for="inputtext11" class="form-label">Image</label>

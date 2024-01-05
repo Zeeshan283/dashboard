@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Training;
 use App\Models\TrainingCategories;
 use App\Models\Trainings;
 use Illuminate\Http\Request;
@@ -16,36 +17,28 @@ class TrainingsController extends Controller
 
     public function index()
     {
-        $data = trainingCategories::all();
+        $data = Trainings::all();
         $data = Trainings::with('trainingCategory')->get();
         return view('trainings.index', compact('data'));
     }
 
     public function create()
     {
-        $trainingCategories = TrainingCategories::orderBy('id')->pluck('id');
-        return view('trainings.create', compact('trainingCategories'));
+        $data = Trainings::orderBy('id')->pluck('id', 'training_category_id');
+        return view('trainings.create', compact('data'));
     }
     
 
     public function store(Request $request)
 {
-    $this->validate(
-        $request,
-        [
-            'training_category_id' => 'required',
-        ],
-        [
-            'training_category_id.required' => 'The training category field is required',
-        ]
-    );
+    
 
-    $training = Trainings::create([
-        'training_category_id' => (int) $request->input('training_category_id'),
-    ]);
+    $data = new Trainings;
+    $data->training_category_id = $request->training_category_id;
+    $data->save();
 
     Toastr::success('Training Added Successfully!');
-    return redirect()->back();
+    return redirect('trainings');
 }
 
 

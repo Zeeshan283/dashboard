@@ -124,29 +124,7 @@
             }
         });
     </script>
-    <script>
-    $(document).ready(function () {
-        $('#blog_category').change(function () {
-            var categoryId = $(this).val();
-
-            $.ajax({
-                url: '{{ route("getSubCategorie") }}',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    cat_id: categoryId
-                },
-                success: function (data) {
-                    var options = '<option value="">Select Subcategory</option>';
-                    $.each(data, function (key, value) {
-                        options += '<option value="' + value.id + '">' + value.blog_sub_category_id + '</option>';
-                    });
-                    $('#blog_sub_category_id').html(options);
-                }
-            });
-        });
-    });
-</script>
+   
 
 @endsection
 

@@ -39,7 +39,7 @@
                             @foreach ($data as $key => $value)
                                 <tr> 
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $value->TrainingCategories->training_category_id ?? null }}</td>
+                                    <td>{{ $value->training_category_id}}</td>
                         <td>
                                         <div class="d-flex gap-2">
                                             <a href="https://www.industrymall.net/blog/blogs/ {{ $value->id }}"

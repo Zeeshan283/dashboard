@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class TrainingCategories extends Model
 {
     use HasFactory;
-    protected $fillable = array('title');
+    protected $fillable = array('training_category_id');
+    public function trainingCategory()
+{
+    return $this->belongsTo(TrainingCategories::class, 'training_category_id');
+}
 }

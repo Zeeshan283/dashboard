@@ -280,6 +280,7 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::get('sellers/show/{id}', [VendorsController::class, 'show1'])->name('sellers.show');
     Route::resource('blog_subcategories', BlogsSubCategoriesController::class);
     Route::get('blogs.blog_subcategories/{id}/destroy', [BlogsSubCategoriesController::class, 'destroy']);
+    Route::post('/getSubCategorie', 'BlogsController@getSubCategories')->name('getSubCategorie');
 });
 //  ============================================================================================================================ 
 
