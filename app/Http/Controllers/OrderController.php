@@ -14,6 +14,7 @@ use App\Traits\fontAwesomeTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Models\Notification;
+use App\Models\OrderDetail;
 
 class OrderController extends Controller
 {
@@ -30,13 +31,65 @@ class OrderController extends Controller
             $data = Order::OrderBy('id', 'desc')
                 ->get();
         } else {
-            $data = Order::where('created_by', Auth::User()->id)
+            // $data = Order::where('created_by', Auth::User()->id)
+            //     ->OrderBy('id', 'desc')
+            //     ->get();
+            // $data = Order::with('orderDetails')->whereHas('orderDetails', function ($query) {
+            //     $query->where('p_vendor_id', Auth::User()->id);
+            // })
+            //     // ->where('p_vendor_id', Auth::User()->id)
+            //     ->OrderBy('id', 'desc')
+            //     ->get();
+
+            // DB::enableQueryLog();
+
+            $data = Order::with(['orderDetails' => function ($query) {
+                $query->where('p_vendor_id', auth()->user()->id);
+            }])
+                ->whereHas('orderDetails', function ($query) {
+                    $query->where('p_vendor_id', auth()->user()->id);
+                })
+                ->orderBy('id', 'desc')
+                ->get();
+
+            // dd(DB::getQueryLog());
+        }
+        // $data = Order::orderBy('id', 'desc')->get();
+        return view('orders.allorders', compact('data'));
+    }
+
+    public function OrderDetailIndex()
+    {
+        if (Auth::User()->role == 'Admin') {
+            $data = OrderDetail::with('order', 'product', 'vendor')->OrderBy('id', 'desc')
+                ->get();
+        } else {
+            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
                 ->OrderBy('id', 'desc')
                 ->get();
         }
-        $data = Order::orderBy('id', 'desc')->get();
-        return view('orders.allorders', compact('data'));
+        // $data = Order::orderBy('id', 'desc')->get();
+        return view('orders.order_details', compact('data'));
     }
+
+    public function order_details_status(Request $request)
+    {
+        // dd($request->all());
+        $this->validate($request, [
+            // 'order_id' => 'required',
+            'status' => 'required',
+            // 'id' => 'required',
+        ], [
+            'status.required' => 'The status field is required',
+        ]);
+
+        $order_status = OrderDetail::where('id', $request->id)->first();
+        $order_status->status = $request->status;
+        $order_status->update();
+
+        return redirect()->back();
+    }
+
 
     public function showOrders()
     {

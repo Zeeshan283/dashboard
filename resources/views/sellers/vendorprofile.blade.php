@@ -29,11 +29,8 @@
 <div class="breadcrumb">
     {{-- {{$edit->pay}} --}}
 
-<<<<<<< HEAD
     <h1>Seller Verification Management's</h1>
-=======
-    <h1>Seller Profile Management's</h1>
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
+
     {{-- @if (count($errors) > 0)
                     <div class="alert alert-danger d-flex">
                         <ul>
@@ -214,8 +211,7 @@
                                                 </div>
 
                                                 <div class="form-group col-md-4">
-<<<<<<< HEAD
-=======
+
                                                     <label for="inputtext11" class="ul-form__label">Tagline<span
                                                             style="color: red;">*</span></label>
                                                     {!! Form::text('tag_line', null, ['id' => 'tag_line', 'class' => 'form-control']) !!}
@@ -227,7 +223,7 @@
                                                 </div>
 
                                                 <div class="form-group col-md-4">
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
+
                                                     <label for="inputEmail12" class="ul-form__label">Tax Registration
                                                         Title:<span style="color: red;">*</span></label>
                                                     {!! Form::text('tax_reg_title', $edit->user->tax_reg_title, [
@@ -353,10 +349,7 @@
                                                         'class' => 'form-control',
                                                     ]) !!}
                                                 </div>
-<<<<<<< HEAD
-                                            </div>
 
-=======
                                                 <div class="form-group col-md-4">
                                                     <label for="inputtext11" class="ul-form__label">Profile
                                                         Reviews<span style="color: red;">*</span></label>
@@ -368,7 +361,7 @@
                                                     @endif
                                                 </div>
                                             </div>
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
+
                                             <div class="form-group"style="text-align: right;">
                                                 <div class="">
                                                     <input class="btn btn-outline-secondary" type="submit"
@@ -432,11 +425,8 @@
                                                                     <img src="{{ asset($value) }}"
                                                                         class="img-thumbnail_1"
                                                                         style="width:100px;height:80px;" />
-<<<<<<< HEAD
-                                                                    {{-- <span class="delete-icon" data-image-index="{{ $key }}">Delete</span> --}}
-=======
-                                                                    {{-- <span class="delete-icon"  data-image-index="{{ $key }}">Delete</span> --}}
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
+
+                                                                    {{-- <span class="delete-icon" data-image-index="{{ $key }}">Delete</span> --}}======={{-- <span class="delete-icon"  data-image-index="{{ $key }}">Delete</span> --}}>
                                                                 @endforeach
                                                             @else
                                                                 <p>Invalid JSON data in $edit->slider_images</p>
@@ -473,11 +463,9 @@
 
                                         <div class="">
                                             <div class="row">
-<<<<<<< HEAD
-                                                <div class="form-group col-md-6">
-=======
+
                                                 <div class="form-group col-md-12">
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
+
                                                     <label for="inputtext11" class="ul-form__label">About:<span
                                                             style="color: red;">*</span></label>
                                                     {!! Form::textarea('about', null, ['id' => 'description', 'class' => 'form-control']) !!}
@@ -487,10 +475,7 @@
                                                             style="color: red;">
                                                     @endif
                                                 </div>
-<<<<<<< HEAD
 
-=======
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
                                             </div>
                                             <div class="form-group"style="text-align: right;">
                                                 <div class="">
@@ -572,11 +557,10 @@
 
                                                             $.ajax({
                                                                 type: 'DELETE',
-<<<<<<< HEAD
+
                                                                 {{-- url: '{{ route('delete.image') }}/' + image, --}}
 
-=======
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
+
                                                                 success: function(response) {
                                                                     // Handle success, e.g., remove the deleted image container
                                                                     $('.image-container:has(img[src="' + image + '"])').remove();
@@ -777,7 +761,6 @@
 
                                                     </div>
 
-<<<<<<< HEAD
                                                 </div>
 
 
@@ -787,82 +770,80 @@
                                                             value="Update Profile">
                                                     </div>
                                                 </div>
-
-
-
-
-=======
-                                                </div>
-                                                <div class="form-group"style="text-align: right;">
-                                                    <div class="">
-                                                        <input class="btn btn-outline-secondary" type="submit"
-                                                            value="Update Profile">
-                                                    </div>
-                                                </div>
-
-
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
-                                                <script>
-                                                    document.getElementById('chooseImages').addEventListener('click', function() {
-                                                        document.getElementById('imageInput').click();
-
-                                                    });
-
-                                                    document.getElementById('imageInput').addEventListener('change', function() {
-
-                                                        var RemoveImg = document.getElementById('loopImg');
-                                                        if (RemoveImg) {
-                                                            RemoveImg.style.display = 'none';
-                                                        }
-
-                                                        var files = this.files;
-                                                        var maxImages = 6; // Set your maximum image limit here
-                                                        var fileLimitMessage = document.getElementById('fileLimitMessage');
-                                                        if (files.length > maxImages) {
-                                                            fileLimitMessage.textContent = 'Please select a maximum of ' + maxImages + ' images.';
-                                                            this.value = ''; // Clear selected files
-                                                        } else {
-                                                            fileLimitMessage.textContent = ''; // Clear the message if within the limit
-                                                        }
-                                                    });
-                                                    document.getElementById('imageInput').addEventListener('change', function() {
-
-                                                        var thumbnails = document.getElementById('thumbnails');
-                                                        thumbnails.innerHTML = ''; // Clear previous thumbnails
-
-                                                        var files = this.files;
-                                                        var maxImages = 6; // Set your maximum image limit here
-                                                        for (var i = 0; i < Math.min(files.length, maxImages); i++) {
-                                                            var img = document.createElement('img');
-                                                            img.src = URL.createObjectURL(files[i]);
-                                                            img.style.maxWidth = '100px';
-                                                            thumbnails.appendChild(img);
-                                                        }
-
-                                                        // Show the upload button when at least one image is selected
-
-                                                    });
-                                                </script>
 
 
 
                                             </div>
+                                            <div class="form-group"style="text-align: right;">
+                                                <div class="">
+                                                    <input class="btn btn-outline-secondary" type="submit"
+                                                        value="Update Profile">
+                                                </div>
+                                            </div>
+
+
+                                            >>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
+                                            <script>
+                                                document.getElementById('chooseImages').addEventListener('click', function() {
+                                                    document.getElementById('imageInput').click();
+
+                                                });
+
+                                                document.getElementById('imageInput').addEventListener('change', function() {
+
+                                                    var RemoveImg = document.getElementById('loopImg');
+                                                    if (RemoveImg) {
+                                                        RemoveImg.style.display = 'none';
+                                                    }
+
+                                                    var files = this.files;
+                                                    var maxImages = 6; // Set your maximum image limit here
+                                                    var fileLimitMessage = document.getElementById('fileLimitMessage');
+                                                    if (files.length > maxImages) {
+                                                        fileLimitMessage.textContent = 'Please select a maximum of ' + maxImages + ' images.';
+                                                        this.value = ''; // Clear selected files
+                                                    } else {
+                                                        fileLimitMessage.textContent = ''; // Clear the message if within the limit
+                                                    }
+                                                });
+                                                document.getElementById('imageInput').addEventListener('change', function() {
+
+                                                    var thumbnails = document.getElementById('thumbnails');
+                                                    thumbnails.innerHTML = ''; // Clear previous thumbnails
+
+                                                    var files = this.files;
+                                                    var maxImages = 6; // Set your maximum image limit here
+                                                    for (var i = 0; i < Math.min(files.length, maxImages); i++) {
+                                                        var img = document.createElement('img');
+                                                        img.src = URL.createObjectURL(files[i]);
+                                                        img.style.maxWidth = '100px';
+                                                        thumbnails.appendChild(img);
+                                                    }
+
+                                                    // Show the upload button when at least one image is selected
+
+                                                });
+                                            </script>
+
+
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
-
-
                     </div>
+
+
+
 
                 </div>
 
             </div>
+
         </div>
     </div>
+</div>
 </div>
 </div>
 
@@ -886,9 +867,6 @@
         });
     });
 </script>
-<<<<<<< HEAD
-=======
-
 <script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 <script>
@@ -900,7 +878,7 @@
         automatic_uploads: true,
         // images_upload_url: '/post/image/upload',
         // images_upload_url: '{{ asset('upload') }}',
-        images_upload_url: '{{ URL::to('/uploads3')}}',
+        images_upload_url: '{{ URL::to('/uploads3') }}',
         file_picker_types: "image",
         plugins: [
             "advlist autolink lists link image charmap print preview hr anchor pagebreak",
@@ -933,7 +911,6 @@
         }
     });
 </script>
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
 @endsection
 
 @section('page-js')

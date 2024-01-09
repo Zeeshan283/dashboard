@@ -11,7 +11,10 @@ class vendorProfile extends Model
 {
     use HasFactory;
     protected $table = "vendor_profile";
-    protected $fillable = array('vendor_id', 'logo', 'country', 'slider_title', 'slider_title2', 'slider_images', 'about', 'portfolio', 'disclaimer', 'company_name', 'p_category1', 'p_c1_images', 'p_category2', 'p_c2_images', 'p_category3', 'p_c3_images', 'p_category4', 'p_c4_images', 'p_category5', 'p_c5_images', 'id_front', 'id_back', 'trade_license', 'created_by', 'updated_by');
+    protected $fillable = array(
+        'vendor_id', 'logo', 'country', 'slider_title', 'slider_title2', 'slider_images', 'about', 'portfolio', 'disclaimer', 'company_name', 'p_category1', 'p_c1_images', 'p_category2', 'p_c2_images', 'p_category3', 'p_c3_images', 'p_category4', 'p_c4_images', 'p_category5', 'p_c5_images', 'id_front', 'id_back',
+        'trade_license', 'tagline', 'rating', 'created_by', 'updated_by'
+    );
 
     public function user()
     {

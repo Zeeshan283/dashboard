@@ -12,7 +12,7 @@ class OrderDetails extends Model
       'order_id', 'customer_id', 'product_id', 'product_name', 'slug',
       'quantity', 'price', 'total', 'image', 'color', 'amount_old', 'amount_new',
       'conditionType', 'ship_charges', 'locatedin', 'imp_charges', 't_charges', 'oth_charges',
-      'ship_days', 'brand_id', 'brand_logo','vendor_id'
+      'ship_days', 'brand_id', 'brand_logo', 'vendor_id', 'status',
    );
 
    public function order()

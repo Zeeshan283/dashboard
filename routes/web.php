@@ -247,6 +247,9 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::view('productinfo', 'products.productinfo')->name('productinfo');
 
 
+    Route::get('order_details', [OrderController::class, 'OrderDetailIndex'])->name('order_details');
+    Route::patch('order_details_status', [OrderController::class, 'order_details_status'])->name('order_details_status');
+
 
     Route::get('allorders', [OrderController::class, 'index'])->name('allorders');
     Route::get('orders/{id}', [OrderController::class, 'show']);

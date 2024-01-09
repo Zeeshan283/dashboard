@@ -317,20 +317,38 @@ class ApiController extends Controller
 
         // Loop through the products and create order details
         foreach ($products as $product) {
-            $orderDetail = new OrderDetail([
-                'product_id' => $product['product_id'],
-                'quantity' => $product['quantity'],
-                'p_vendor_id' => $product['p_vendor_id'],
-                'p_price' => $product['p_price'],
-            ]);
-            // Save the order detail and associate it with the order
-            $order->orderDetails()->save($orderDetail);
+            $stockExist = Purchase::where('product_id', $product['product_id'])->first();
+            if ($stockExist->quantity == !0) {
 
-            // Handle stock related to the product
-            $p_id = $orderDetail->product_id;
-            $p_stock = Purchase::where('product_id', $p_id)->first();
-            $p_stock->quantity -= $orderDetail->quantity;
-            $p_stock->save();
+                $productExist =  Product::where('id', '=', $product['product_id'])
+                    ->where('created_by', '=', $product['p_vendor_id'])->first();
+                if ($productExist) {
+                    $orderDetail = new OrderDetail([
+                        'product_id' => $product['product_id'],
+                        'quantity' => $product['quantity'],
+                        'p_vendor_id' => $product['p_vendor_id'],
+                        'p_price' => $product['p_price'],
+                        'status' => 'In Process',
+                    ]);
+
+                    // Save the order detail and associate it with the order
+                    $order->orderDetails()->save($orderDetail);
+
+                    // Handle stock related to the product
+                    $p_id = $orderDetail->product_id;
+                    $p_stock = Purchase::where('product_id', $p_id)->first();
+                    if ($p_stock->quantity >= $orderDetail->quantity) {
+                        $p_stock->quantity -= $orderDetail->quantity;
+                        $p_stock->save();
+                    } else {
+                        echo "Error: Product Stock is empty {{ $p_id }}";
+                    }
+                } else {
+                    echo "Error: Product with ID {$product['product_id']} not found. Or Against Vendor";
+                }
+            } else {
+                echo "This Product Stock is 0 {$product['product_id']} ";
+            }
         }
 
         // Return a JSON response indicating success

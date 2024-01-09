@@ -328,6 +328,13 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'order_details' ? 'open' : '' }}"
+                    href="{{ route('order_details') }}">
+                    <i class="nav-icon i-Folder-Archive"></i>
+                    <span class="item-name">ALL Orders Details</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'pendingorders' ? 'open' : '' }}"
                     href="{{ route('pendingorders') }}">
                     <i class="nav-icon i-Clock"></i>
@@ -633,14 +640,14 @@
             <li class="nav-item">
 
                 <a href="{{ route('blogs.index') }}">
-                <i class="nav-icon i-Add"></i>
+                    <i class="nav-icon i-Add"></i>
                     <span class="item-name">Blog List</span>
-                </a> 
+                </a>
             </li>
-           
+
         </ul>
         <ul class="childNav" data-parent="training">
-        <li class="nav-item">
+            <li class="nav-item">
                 <a href="{{ route('cfeatures.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Training Page</span>

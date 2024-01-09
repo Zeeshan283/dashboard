@@ -17,12 +17,18 @@ class OrderDetail extends Model
         'quantity',
         'p_price',
         'p_vendor_id',
+        'status',
     ];
 
     // Define relationships if applicable
     public function order()
     {
         return $this->belongsTo(Order::class, 'order_id');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(User::class, 'p_vendor_id');
     }
 
     // public function order()
@@ -34,16 +40,13 @@ class OrderDetail extends Model
         return $this->belongsTo(Product::class, 'product_id');
     }
 
-    public function user()
-    {
-        return $this->belongsTo(ProductVendor::class, 'p_vendor_id');
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(ProductVendor::class, 'p_vendor_id');
+    // }
 
     public function products()
     {
-        return $this->belongsTo(Product::class)->select('name','model_no','url');
+        return $this->belongsTo(Product::class)->select('name', 'model_no', 'url');
     }
-    
-
-    
 }

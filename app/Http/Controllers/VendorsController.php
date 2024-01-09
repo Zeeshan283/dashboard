@@ -286,7 +286,7 @@ class VendorsController extends Controller
         $user->city = $request->city;
         $user->address1 = $request->address1;
         $user->address2 = $request->address2;
-        $user->tagline = $request->tagline;
+        // $user->tagline = $request->tagline;
         $user->tax_reg_title = $request->tax_reg_title;
         $user->tax_reg_number = $request->tax_reg_number;
         $user->total_employees = $request->total_employees;
@@ -301,7 +301,7 @@ class VendorsController extends Controller
         $user->annual_export = $request->annual_export;
         $user->annual_import = $request->annual_import;
         $user->annual_revenue = $request->annual_revenue;
-        $user->rating = $request->rating;
+        // $user->rating = $request->rating;
 
         $user->update();
 
