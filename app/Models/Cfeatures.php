@@ -10,7 +10,7 @@ class Cfeatures extends Model
     use HasFactory;
 
     protected $fillable = [
-        'instructor',
+        'name',
         'rating',
         'lectures',
         'duration',
@@ -24,11 +24,13 @@ class Cfeatures extends Model
         'description',
     ];
 
-   
+
     public function trainingCategory()
-{
-    return $this->belongsTo(TrainingCategories::class, 'training_category_id');
-}
-
-
+    {
+        return $this->belongsTo(Trainings::class, 'training_category_id');
+    }
+    public function InstructorName()
+    {
+        return $this->belongsTo(Instructor::class, 'name');
+    }
 }

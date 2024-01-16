@@ -50,25 +50,25 @@
                             @foreach ($cfeatures as $key => $value)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $value->instructor }}</td>
+                                    <td>{{ $value->name }}</td>
                                     <!-- <td>
-                                        @php
-                                            $rating = $value->rating;
-                                            $maxRating = 100;
-                                            $numStars = 5;
-                                            $percentage = ($rating / $maxRating) * 100;
-                                            $fullStars = floor($percentage / (100 / $numStars));
-                                            $emptyStars = $numStars - $fullStars;
-                                        @endphp
-                                        <div class="star-rating">
-                                            @for ($i = 0; $i < $fullStars; $i++)
-                                                <i class="fas fa-star text-warning"></i>
-                                            @endfor
-                                            @for ($i = 0; $i < $emptyStars; $i++)
-                                                <i class="far fa-star text-warning"></i>
-                                            @endfor
-                                        </div>
-                                    </td> -->
+                                                @php
+                                                    $rating = $value->rating;
+                                                    $maxRating = 100;
+                                                    $numStars = 5;
+                                                    $percentage = ($rating / $maxRating) * 100;
+                                                    $fullStars = floor($percentage / (100 / $numStars));
+                                                    $emptyStars = $numStars - $fullStars;
+                                                @endphp
+                                                <div class="star-rating">
+                                                    @for ($i = 0; $i < $fullStars; $i++)
+    <i class="fas fa-star text-warning"></i>
+    @endfor
+                                                    @for ($i = 0; $i < $emptyStars; $i++)
+    <i class="far fa-star text-warning"></i>
+    @endfor
+                                                </div>
+                                            </td> -->
                                     <td>{{ $value->lectures }}</td>
                                     <td>{{ $value->duration }}hrs</td>
                                     <td>{{ $value->skilllevel }}</td>
@@ -76,7 +76,7 @@
                                     <td>{{ $value->coursetype }}</td>
                                     <td>{{ $value->address }}</td>
                                     <td>{{ $value->title }}</td>
-                                    <td>{{ $value->training_category_id ?? null}}</td>
+                                    <td>{{ $value->training_category_id }}</td>
                                     <td><img src="{{ url('upload/trainings/' . $value->image) }}" width="100%"
                                             height="100%"></td>
                                     <td>
@@ -101,8 +101,8 @@
                                             </form>
 
                                             <!-- <a href="{{ asset('blog_categories/' . $value->id . '/destroy') }}">
-                                                            <i class="fa fa-trash font-danger"></i></a>
-                                                       </a> -->
+                                                                    <i class="fa fa-trash font-danger"></i></a>
+                                                               </a> -->
                                         </div>
                                     </td>
                                 </tr>
