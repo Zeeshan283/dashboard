@@ -56,6 +56,9 @@ class ProductController extends Controller
     }
     public function create()
     {
+        $user = Auth::user();
+       
+        if (!$user->first_name == '' && !$user->phone1 == '' && !$user->address1 == '' && !$user->city == '') {
         $brands = Brand::OrderBy('brand_name')->pluck('brand_name', 'id')->prepend('Select Brand', '');
         $menus = Menu::orderBy('name')->pluck('name', 'id')->prepend('Select Menu', '');
         $categories = Category::orderBy('name')->pluck('name', 'id')->prepend('Select Category', '');
@@ -76,6 +79,12 @@ class ProductController extends Controller
             ->prepend($ActiveAdmin->name, $ActiveAdmin->id . '_' . $ActiveAdmin->name);
 
         return view('products.addproduct', compact('brands', 'menus', 'categories', 'sub_categories', 'locations', 'conditions', 'type', 'productsList', 'vendors', 'colors'));
+    
+    } else {
+        Toastr::success('Please Fill Your Profile First', 'Success');
+        $user_id = Auth::user()->id;
+        return redirect()->to('vendor-profile/' . $user_id);
+    }
     }
 
     public function test()

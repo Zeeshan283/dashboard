@@ -249,6 +249,7 @@ Route::middleware(['bothAccess'])->group(function () {
 
     Route::get('order_details', [OrderController::class, 'OrderDetailIndex'])->name('order_details');
     Route::patch('order_details_status', [OrderController::class, 'order_details_status'])->name('order_details_status');
+    Route::get('get_order_details/{id}', [OrderController::class, 'GetOrderDetail'])->name('get_order_details');
 
 
     Route::get('allorders', [OrderController::class, 'index'])->name('allorders');

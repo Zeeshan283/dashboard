@@ -93,40 +93,104 @@ class OrderController extends Controller
 
     public function showOrders()
     {
-        $routeName = Route::currentRouteName();
-
+if (Auth::user()->role == 'Vendor') {
+    $routeName = Route::currentRouteName();
+       
         if ($routeName === 'pendingorders') {
-            $data = Order::where('status', '=', 'pending')->orderBy('id', 'desc')->get();
+            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'In Process')->orderBy('id', 'desc')->get();
             return view('orders.pendingorders', compact('data'));
         }
         if ($routeName === 'confirmedorders') {
-            $data = Order::where('status', '=', 'confirmed')->orderBy('id', 'desc')->get();
+            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Confirmed')->orderBy('id', 'desc')->get();
             return view('orders.confirmedorders', compact('data'));
         }
         if ($routeName === 'packagingorders') {
-            $data = Order::where('status', '=', 'packaging')->orderBy('id', 'desc')->get();
+            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Packaging')->orderBy('id', 'desc')->get();
             return view('orders.packagingorders', compact('data'));
         }
         if ($routeName === 'outofdelivery') {
-            $data = Order::where('status', '=', 'out of delivery')->orderBy('id', 'desc')->get();
+            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Out of delivery')->orderBy('id', 'desc')->get();
             return view('orders.outofdelivery', compact('data'));
         }
         if ($routeName === 'delivered') {
-            $data = Order::where('status', '=', 'delivered')->orderBy('id', 'desc')->get();
+            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Delivered')->orderBy('id', 'desc')->get();
             return view('orders.delivered', compact('data'));
         }
         if ($routeName === 'returned') {
-            $data = Order::where('status', '=', 'returned')->orderBy('id', 'desc')->get();
+            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Returned')->orderBy('id', 'desc')->get();
             return view('orders.returned', compact('data'));
         }
         if ($routeName === 'ftod') {
-            $data = Order::where('status', '=', 'Field to Deliver')->orderBy('id', 'desc')->get();
+            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Failed to Deliver')->orderBy('id', 'desc')->get();
             return view('orders.ftod', compact('data'));
         }
         if ($routeName === 'canceled') {
-            $data = Order::where('status', '=', 'canceled')->orderBy('id', 'desc')->get();
+            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Canceled')->orderBy('id', 'desc')->get();
             return view('orders.canceled', compact('data'));
         }
+    } elseif (Auth::user()->role == 'Admin') {
+        $routeName = Route::currentRouteName();
+        if ($routeName === 'pendingorders') {
+            $data = OrderDetail::with('order', 'product', 'vendor')
+                ->where('status', '=', 'In Process')->orderBy('id', 'desc')->get();
+            return view('orders.pendingorders', compact('data'));
+        }
+        if ($routeName === 'confirmedorders') {
+            $data = OrderDetail::with('order', 'product', 'vendor')
+                ->where('status', '=', 'Confirmed')->orderBy('id', 'desc')->get();
+            return view('orders.confirmedorders', compact('data'));
+        }
+        if ($routeName === 'packagingorders') {
+            $data = OrderDetail::with('order', 'product', 'vendor')
+                ->where('status', '=', 'Packaging')->orderBy('id', 'desc')->get();
+            return view('orders.packagingorders', compact('data'));
+        }
+        if ($routeName === 'outofdelivery') {
+            $data = OrderDetail::with('order', 'product', 'vendor')
+                ->where('status', '=', 'Out of delivery')->orderBy('id', 'desc')->get();
+            return view('orders.outofdelivery', compact('data'));
+        }
+        if ($routeName === 'delivered') {
+            $data = OrderDetail::with('order', 'product', 'vendor')
+                ->where('status', '=', 'Delivered')->orderBy('id', 'desc')->get();
+            return view('orders.delivered', compact('data'));
+        }
+        if ($routeName === 'returned') {
+            $data = OrderDetail::with('order', 'product', 'vendor')
+                ->where('status', '=', 'Returned')->orderBy('id', 'desc')->get();
+            return view('orders.returned', compact('data'));
+        }
+        if ($routeName === 'ftod') {
+            $data = OrderDetail::with('order', 'product', 'vendor')
+                ->where('status', '=', 'Failed to Deliver')->orderBy('id', 'desc')->get();
+            return view('orders.ftod', compact('data'));
+        }
+        if ($routeName === 'canceled') {
+            $data = OrderDetail::with('order', 'product', 'vendor')
+                ->where('status', '=', 'Canceled')->orderBy('id', 'desc')->get();
+            return view('orders.canceled', compact('data'));
+        }
+    }
+
+    }
+
+    public function GetOrderDetail($id){
+        // dd($id);
+        if(Auth::user()->role == 'Vendor')
+        $GetOrderDetails = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id' , Auth::user()->id)->where('order_id' ,'=', $id)->get();
+        else{
+        $GetOrderDetails = OrderDetail::with('order', 'product', 'vendor')->where('order_id' ,'=', $id) ->get();
+
+        }
+        return view('orders.getOrderDetails',compact('GetOrderDetails'));
     }
     public function thanks($id)
     {

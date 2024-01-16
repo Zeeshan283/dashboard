@@ -8,6 +8,37 @@
     <title>Dashboard | Register</title>
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/styles/css/themes/lite-purple.min.css') }}">
+    <style>
+    .password-input-container {
+        position: relative;
+    }
+
+    .eye-icon {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 1.2em;
+    }
+
+
+    .eye-icon::before {
+        content: '\1F441';
+        /* Unicode for eye icon */
+        color: #aaa;
+    }
+
+    #password[type="password"]+.eye-icon::before {
+        content: '\1F441';
+        /* Unicode for closed eye icon */
+    }
+
+    #password[type="text"]+.eye-icon::before {
+        content: '\1F440';
+        /* Unicode for open eye icon */
+    }
+    </style>
 </head>
 
 <body>
@@ -49,13 +80,12 @@
                                     <label for="username">Your name</label>
                                     <input id="name" type="text"
                                         class="form-control-rounded form-control @error('name') is-invalid @enderror"
-                                        name="name" value="{{ old('name') }}" required autocomplete="name"
-                                        autofocus>
+                                        name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                     @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
@@ -65,12 +95,40 @@
                                         name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                     @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
+
+                                <!-- Password Input -->
                                 <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <div class="password-input-container">
+                                        <input id="password" type="password"
+                                            class="form-control form-control-rounded @error('password') is-invalid @enderror"
+                                            name="password" required autocomplete="new-password" />
+                                        <span toggle="#password" class="eye-icon"></span>
+                                    </div>
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <!-- Retype Password Input -->
+                                <div class="form-group">
+                                    <label for="password-confirm">Retype password</label>
+                                    <div class="password-input-container">
+                                        <input id="password-confirm" type="password"
+                                            class="form-control form-control-rounded" name="password_confirmation"
+                                            required autocomplete="new-password" />
+                                        <!-- <span toggle="#password-confirm" class="eye-icon"></span> -->
+                                    </div>
+                                </div>
+
+                                <!-- <div class="form-group">
                                     <label for="password">Password</label>
                                     <input id="password" type="password"
                                         class="form-control-rounded form-control @error('password') is-invalid @enderror"
@@ -87,7 +145,7 @@
                                     <input id="password-confirm" type="password"
                                         class="form-control-rounded form-control" name="password_confirmation" required
                                         autocomplete="new-password">
-                                </div>
+                                </div> -->
                                 {{-- <div class="form-group col-md-6 ">
                                     <label for="inputEmail18" class="ul-form__label">Select Your Type:</label>
                                     <div class="ul-form__radio-inline">
@@ -95,36 +153,62 @@
                                             <input type="radio" name="role" value="Vendor">
                                             <span class="ul-form__radio-font">Vendor</span>
                                             <span class="checkmark" style="color: red" > @error('postcode'){{ $message }}@enderror</span>
-                                        </label>
-                                        <label class="ul-radio__position radio radio-primary">
-                                            <input type="radio" name="role" value="Customer">
-                                            <span class="ul-form__radio-font">Customer</span>
-                                            <span class="checkmark" style="color: red">@error('postcode'){{ $message }}@enderror</span>
-                                        </label>
-                                    </div>
-                                    
-                                </div> --}}
-                                <button type="submit" class="btn btn-outline-secondary w-100 btn-rounded mt-3 mb-3">Sign
-                                    Up</button> <br>
-                                <u>Already Have a Account </u>
-                                <a href="{{ route('login') }}" class="">
-                                    <i class="i-Mail-with-At-Sign"></i> Login Here
-                                </a>
-                                
-                                <div class="mt-3">
-                                    <p>After signing up, please check your email for a verification link to confirm your email address.</p>
-                                </div>
-                            </form>
+                                </label>
+                                <label class="ul-radio__position radio radio-primary">
+                                    <input type="radio" name="role" value="Customer">
+                                    <span class="ul-form__radio-font">Customer</span>
+                                    <span class="checkmark"
+                                        style="color: red">@error('postcode'){{ $message }}@enderror</span>
+                                </label>
                         </div>
+
+                    </div> --}}
+                    <button type="submit" class="btn btn-outline-secondary w-100 btn-rounded mt-3 mb-3">Sign
+                        Up</button> <br>
+                    <u>Already Have a Account </u>
+                    <a href="{{ route('login') }}" class="">
+                        <i class="i-Mail-with-At-Sign"></i> Login Here
+                    </a>
+
+                    <div class="mt-3">
+                        <p>After signing up, please check your email for a verification link to confirm your email
+                            address.</p>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 
     <script src="{{ asset('assets/js/common-bundle-script.js') }}"></script>
 
     <script src="{{ asset('assets/js/script.js') }}"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.getElementById('password');
+        // const passwordInput = document.getElementById('password-confirm');
+        const eyeIcon = document.querySelector('.eye-icon');
+
+        eyeIcon.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+        });
+    });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.getElementById('password-confirm');
+        // const passwordInput = document.getElementById('password-confirm');
+        const eyeIcon = document.querySelector('.eye-icon');
+
+        eyeIcon.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+        });
+    });
+    </script>
 </body>
 
 </html>

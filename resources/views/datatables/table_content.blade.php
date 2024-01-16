@@ -40,37 +40,30 @@
 
 @if (Route::currentRouteName() == 'allorders')
     <thead>
-        <th>Sr No</th>
         <th>Order #</th>
         <th>Customer First Name</th>
         <th>Customer Last Name</th>
         <th>Order Date</th>
-        <th>Shipping Date</th>
-        <th>Image</th>
+        {{-- <th>Shipping Date</th> --}}
+       
         {{-- <th>Status</th> --}}
-        {{-- <th>Action</th> --}}
+        <th>Action</th> 
     </thead>
     <tbody>
         @foreach ($data as $value => $orders)
             <tr>
 
-                <td>{{ $value + 1 }}</td>
 
                 <td>{{ $orders->id }}</td>
 
-                <td>{{ $orders->first_name }}</td>
+                <td>{{ $orders->first_name  ?? null}}</td>
 
-                <td>{{ $orders->last_name }}</td>
+                <td>{{ $orders->last_name ?? null}}</td>
 
-                <td>{{ $orders->date }}</td>
-                <td>{{ $orders->shipping }}</td>
+                <td>{{ $orders->date ?? null }}</td>
+                {{--<td>{{ $orders->shipping  ?? null}}</td>--}}
 
-                <td>
-                    {{-- @if ($orders->product->url) --}}
-                    <img src="{{ $orders->orderDetails->product->url ?? null }}  " width="50" height="50"
-                        alt="Placeholder Image">
-                    {{-- @else --}}
-                </td>
+                
                 {{-- <form method="POST" action="{{ route('order.status', ['id' => $orders->id]) }}">
 
                     @csrf
@@ -80,13 +73,14 @@
                     <td>
                         <select class="form-control" name="status" id="status{{ $orders->id }}">
                             <option value="" selected disabled>{{ $orders->status }}</option>
-                            <option value="canceled">Canceled</option>
-                            <option value="Field to Deliver">Field to Deliver</option>
-                            <option value="out of delivery">Out of Delivery</option>
-                            <option value="packaging">Packaging</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="returned">Returned</option>
                             <option value="In Process">In Process</option>
+                            <option value="Packaging">Packaging</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Out of delivery">Out of Delivery</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Failed to Deliver">Failed to Deliver</option>
+                            <option value="Returned">Returned</option>
+                            <option value="Canceled">Canceled</option>
                         </select>
                     </td>
 
@@ -96,8 +90,7 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        <a href="{{ asset('orders/' . $orders->id) }}" class="btn btn-outline-secondary"
-                            target="_blank"><i class="nav-icon i-Eye "></i></a>
+                        
 
                         </div>
 
@@ -105,22 +98,145 @@
 
                 </form> --}}
 
+                <td>
+                <a href="{{ url('get_order_details/' . $orders->id) }}" class="btn btn-outline-secondary"
+                            ><i class="nav-icon i-Eye "></i></a>
+                </td>
             </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <th>Sr No</th>
             <th>Order #</th>
             <th>Customer First Name</th>
             <th>Customer Last Name</th>
             <th>Order Date</th>
-            <th>Shipping Date</th>
-            <th>Image</th>
+            {{-- <th>Shipping Date</th> --}}
+            
             {{-- <th>Status</th> --}}
-            {{-- <th>Action</th> --}}
+            <th>Action</th> 
         </tr>
     </tfoot>
+
+    @elseif (Route::currentRouteName() == 'get_order_details')
+    <thead>
+        {{-- <th>Sr No</th> --}}
+        <th>Order Id#</th>
+        <th>Sub Order Id #</th>
+        <th>Vendor Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Product Name</th>
+        <th>Product Sku</th>
+        <th>Product Price</th>
+        <th>Order Date</th>
+        {{-- <th>Shipping Date</th> --}}
+        <th>Image</th>
+        <th>Status</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        @foreach ($GetOrderDetails as $value => $orders)
+            <tr>
+
+                {{-- <td>{{ $value + 1 }}</td> --}}
+
+                <td>{{ $orders->order_id }}</td>
+                <td>{{ $orders->id }}</td>
+                <td>{{ $orders->vendor->name ?? null }}</td>
+                <td>{{ $orders->order->first_name ?? null }} </td>
+                <td>{{ $orders->order->last_name ?? null }} </td>
+                <td>{{ $orders->product->name ?? null }} </td>
+                <td>{{ $orders->product->sku ?? null }} </td>
+                <td>{{ $orders->product->new_sale_price ?? null }} </td>
+                {{-- <td>{{ $orders->first_name }}</td> --}}
+
+                {{-- <td>{{ $orders->last_name }}</td> --}}
+
+                <td>{{ $orders->created_at }}</td>
+                <td>
+                    {{-- @if ($orders->product->url) --}}
+                    <img src="{{ $orders->product->url ?? null }}  " width="50" height="50"
+                        alt="Placeholder Image">
+                    {{-- @else --}}
+                </td>
+                {{-- <td>{{ $orders->shipping }}</td> --}}
+                {{-- <td>
+            @if ($orders->product)
+            @if ($orders->product->url)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @else
+            @if ($orders->product->product_image)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @endif
+            @endif
+            @else
+            <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+            <p>No image available</p>
+            @endif
+        </td> --}}
+
+                <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
+
+                    @csrf
+
+                    @method('PATCH')
+                    {{-- <input type="text" name="id" value="{{ $orders->order_id }}" /> --}}
+                    <td>
+                        <select class="form-control" name="status" id="status{{ $orders->id }}">
+                            <option value="{{ $orders->status }}" selected disabled>{{ $orders->status }}</option>
+                            <option value="In Process">In Process</option>
+                            <option value="Packaging">Packaging</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Out of delivery">Out of Delivery</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Failed to Deliver">Failed to Deliver</option>
+                            <option value="Returned">Returned</option>
+                            <option value="Canceled">Canceled</option>
+
+
+                        </select>
+                    </td>
+
+                    <td class="d-flex 2">
+
+                        {{-- <input type="hidden" value="{{ $orders->id }}" name="order_id" hidden> --}}
+
+                        <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
+                            data-style="expand-left"><span class="ladda-label">Update</span></button>
+                        
+
+                        </div>
+
+                    </td>
+
+                </form>
+
+            </tr>
+        @endforeach
+    </tbody>
+    <tfoot>
+        <tr>
+            {{-- <th>Sr No</th> --}}
+            <th>Order Id#</th>
+            <th>Sub Order Id #</th>
+            <th>Vendor Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Product Name</th>
+            <th>Product Sku</th>
+            <th>Product Price</th>
+            <th>Order Date</th>
+            {{-- <th>Shipping Date</th> --}}
+            <th>Image</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </tfoot>
+
+
 @elseif (Route::currentRouteName() == 'order_details')
     <thead>
         {{-- <th>Sr No</th> --}}
@@ -190,13 +306,16 @@
                     <td>
                         <select class="form-control" name="status" id="status{{ $orders->id }}">
                             <option value="{{ $orders->status }}" selected disabled>{{ $orders->status }}</option>
-                            <option value="canceled">Canceled</option>
-                            <option value="Field to Deliver">Field to Deliver</option>
-                            <option value="out of delivery">Out of Delivery</option>
-                            <option value="packaging">Packaging</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="returned">Returned</option>
                             <option value="In Process">In Process</option>
+                            <option value="Packaging">Packaging</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Out of delivery">Out of Delivery</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Failed to Deliver">Failed to Deliver</option>
+                            <option value="Returned">Returned</option>
+                            <option value="Canceled">Canceled</option>
+
+
                         </select>
                     </td>
 
@@ -206,10 +325,7 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        <a href="
-                        {{-- {{ asset('orders/' . $orders->id) }} --}}
-                            "
-                            class="btn btn-outline-secondary" target="_blank"><i class="nav-icon i-Eye "></i></a>
+                        
 
                         </div>
 
@@ -239,351 +355,941 @@
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'pendingorders')
-    <thead>
-        <th>Sr No</th>
-        <th>Order #</th>
-        <th>Customer Name</th>
-        <th>Order Date & Time</th>
-        <th>Shipping Date</th>
+<thead>
+        {{-- <th>Sr No</th> --}}
+        <th>Order Id#</th>
+        <th>Sub Order Id #</th>
+        <th>Vendor Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Product Name</th>
+        <th>Product Sku</th>
+        <th>Product Price</th>
+        <th>Order Date</th>
+        {{-- <th>Shipping Date</th> --}}
+        <th>Image</th>
         <th>Status</th>
         <th>Action</th>
     </thead>
     <tbody>
-
-        @foreach ($data as $value => $order)
+        @foreach ($data as $value => $orders)
             <tr>
-                <td>{{ $value + 1 }}</td>
-                <td>{{ $order->id }}</td>
-                <td>{{ $order->first_name }}</td>
-                <td>{{ $order->created_at }}</td>
-                <td>{{ $order->shipping }}</td>
-                <form method="POST" action="{{ route('order.status', ['id' => $order->id]) }}">
+
+                {{-- <td>{{ $value + 1 }}</td> --}}
+
+                <td>{{ $orders->order_id }}</td>
+                <td>{{ $orders->id }}</td>
+                <td>{{ $orders->vendor->name ?? null }}</td>
+                <td>{{ $orders->order->first_name ?? null }} </td>
+                <td>{{ $orders->order->last_name ?? null }} </td>
+                <td>{{ $orders->product->name ?? null }} </td>
+                <td>{{ $orders->product->sku ?? null }} </td>
+                <td>{{ $orders->product->new_sale_price ?? null }} </td>
+                {{-- <td>{{ $orders->first_name }}</td> --}}
+
+                {{-- <td>{{ $orders->last_name }}</td> --}}
+
+                <td>{{ $orders->created_at }}</td>
+                <td>
+                    {{-- @if ($orders->product->url) --}}
+                    <img src="{{ $orders->product->url ?? null }}  " width="50" height="50"
+                        alt="Placeholder Image">
+                    {{-- @else --}}
+                </td>
+                {{-- <td>{{ $orders->shipping }}</td> --}}
+                {{-- <td>
+            @if ($orders->product)
+            @if ($orders->product->url)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @else
+            @if ($orders->product->product_image)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @endif
+            @endif
+            @else
+            <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+            <p>No image available</p>
+            @endif
+        </td> --}}
+
+                <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
                     @csrf
 
                     @method('PATCH')
-
+                    {{-- <input type="text" name="id" value="{{ $orders->order_id }}" /> --}}
                     <td>
-                        <select class="form-control" name="status" id="status{{ $order->id }}">
-                            <option value="" selected disabled>{{ $order->status }}</option>
-                            <option value="canceled">Canceled</option>
-                            <option value="Field to Deliver">Field to Deliver</option>
-                            <option value="out of delivery">Out of Delivery</option>
-                            <option value="packaging">Packaging</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="returned">Returned</option>
+                        <select class="form-control" name="status" id="status{{ $orders->id }}">
+                            <option value="{{ $orders->status }}" selected disabled>{{ $orders->status }}</option>
                             <option value="In Process">In Process</option>
+                            <option value="Packaging">Packaging</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Out of delivery">Out of Delivery</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Failed to Deliver">Failed to Deliver</option>
+                            <option value="Returned">Returned</option>
+                            <option value="Canceled">Canceled</option>
+
+
                         </select>
                     </td>
 
-                    <td>
+                    <td class="d-flex 2">
 
-                        <input type="hidden" value="{{ $order->id }}" name="order_id" hidden>
+                        {{-- <input type="hidden" value="{{ $orders->id }}" name="order_id" hidden> --}}
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-
-                        <button type="button" class="btn btn-outline-secondary">
-
-                            <i class="nav-icon i-Eye" title="view"></i>
-
-                        </button>
+                        
 
                         </div>
 
                     </td>
 
                 </form>
+
             </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <th>Sr No</th>
-            <th>Order #</th>
-            <th>Customer Name</th>
+            {{-- <th>Sr No</th> --}}
+            <th>Order Id#</th>
+            <th>Sub Order Id #</th>
+            <th>Vendor Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Product Name</th>
+            <th>Product Sku</th>
+            <th>Product Price</th>
             <th>Order Date</th>
-            <th>Shipping Date</th>
+            {{-- <th>Shipping Date</th> --}}
+            <th>Image</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'confirmedorders')
-    <thead>
-        <th>Sr No</th>
-        <th>Order #</th>
-        <th>Customer Name</th>
-        <th>Order Date & Time</th>
-        <th>Shipping Date</th>
-        <th>Status</th>
-        <th>View Invoice</th>
-    </thead>
-    <tbody>
-
-        @foreach ($data as $value => $order)
-            <tr>
-                <td>{{ $value + 1 }}</td>
-                <td>{{ $order->id }}</td>
-                <td>{{ $order->first_name }}</td>
-                <td>{{ $order->created_at }}</td>
-                <td>{{ $order->shipping }}</td>
-                <td>{{ $order->status }}</td>
-                <td>
-
-
-                    <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
-                        data-style="expand-left"><span class="ladda-label">Invoice</span></button>
-                </td>
-            </tr>
-        @endforeach
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>Sr No</th>
-            <th>Order #</th>
-            <th>Customer Name</th>
-            <th>Order Date</th>
-            <th>Shipping Date</th>
-            <th>Status</th>
-            <th>View Invoice</th>
-        </tr>
-    </tfoot>
-@elseif (Route::currentRouteName() == 'packagingorders')
-    <thead>
-        <th>Sr No</th>
-        <th>Order #</th>
-        <th>Customer Name</th>
+<thead>
+        {{-- <th>Sr No</th> --}}
+        <th>Order Id#</th>
+        <th>Sub Order Id #</th>
+        <th>Vendor Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Product Name</th>
+        <th>Product Sku</th>
+        <th>Product Price</th>
         <th>Order Date</th>
-        <th>Shipping Date</th>
+        {{-- <th>Shipping Date</th> --}}
+        <th>Image</th>
         <th>Status</th>
-        <th>Actions</th>
+        <th>Action</th>
     </thead>
     <tbody>
-        @foreach ($data as $value => $order)
+        @foreach ($data as $value => $orders)
             <tr>
-                <td>{{ $value + 1 }}</td>
-                <td>{{ $order->id }}</td>
-                <td>{{ $order->first_name }}</td>
-                <td>{{ $order->created_at }}</td>
-                <td>{{ $order->shipping }}</td>
-                <form method="POST" action="{{ route('order.status', ['id' => $order->id]) }}">
+
+                {{-- <td>{{ $value + 1 }}</td> --}}
+
+                <td>{{ $orders->order_id }}</td>
+                <td>{{ $orders->id }}</td>
+                <td>{{ $orders->vendor->name ?? null }}</td>
+                <td>{{ $orders->order->first_name ?? null }} </td>
+                <td>{{ $orders->order->last_name ?? null }} </td>
+                <td>{{ $orders->product->name ?? null }} </td>
+                <td>{{ $orders->product->sku ?? null }} </td>
+                <td>{{ $orders->product->new_sale_price ?? null }} </td>
+                {{-- <td>{{ $orders->first_name }}</td> --}}
+
+                {{-- <td>{{ $orders->last_name }}</td> --}}
+
+                <td>{{ $orders->created_at }}</td>
+                <td>
+                    {{-- @if ($orders->product->url) --}}
+                    <img src="{{ $orders->product->url ?? null }}  " width="50" height="50"
+                        alt="Placeholder Image">
+                    {{-- @else --}}
+                </td>
+                {{-- <td>{{ $orders->shipping }}</td> --}}
+                {{-- <td>
+            @if ($orders->product)
+            @if ($orders->product->url)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @else
+            @if ($orders->product->product_image)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @endif
+            @endif
+            @else
+            <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+            <p>No image available</p>
+            @endif
+        </td> --}}
+
+                <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
                     @csrf
 
                     @method('PATCH')
-
+                    {{-- <input type="text" name="id" value="{{ $orders->order_id }}" /> --}}
                     <td>
-                        <select class="form-control" name="status" id="status{{ $order->id }}">
-                            <option value="" selected disabled>{{ $order->status }}</option>
-                            <option value="canceled">Canceled</option>
-                            <option value="Field to Deliver">Field to Deliver</option>
-                            <option value="out of delivery">Out of Delivery</option>
-                            <option value="packaging">Packaging</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="returned">Returned</option>
+                        <select class="form-control" name="status" id="status{{ $orders->id }}">
+                            <option value="{{ $orders->status }}" selected disabled>{{ $orders->status }}</option>
                             <option value="In Process">In Process</option>
+                            <option value="Packaging">Packaging</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Out of delivery">Out of Delivery</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Failed to Deliver">Failed to Deliver</option>
+                            <option value="Returned">Returned</option>
+                            <option value="Canceled">Canceled</option>
+
+
                         </select>
                     </td>
 
-                    <td>
+                    <td class="d-flex 2">
 
-                        <input type="hidden" value="{{ $order->id }}" name="order_id" hidden>
+                        {{-- <input type="hidden" value="{{ $orders->id }}" name="order_id" hidden> --}}
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        </button>
+                        
 
                         </div>
 
                     </td>
 
                 </form>
+
             </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <th>Sr No</th>
-            <th>Order #</th>
-            <th>Customer Name</th>
+            {{-- <th>Sr No</th> --}}
+            <th>Order Id#</th>
+            <th>Sub Order Id #</th>
+            <th>Vendor Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Product Name</th>
+            <th>Product Sku</th>
+            <th>Product Price</th>
             <th>Order Date</th>
-            <th>Shipping Date</th>
+            {{-- <th>Shipping Date</th> --}}
+            <th>Image</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th>Action</th>
+        </tr>
+    </tfoot>
+@elseif (Route::currentRouteName() == 'packagingorders')
+<thead>
+        {{-- <th>Sr No</th> --}}
+        <th>Order Id#</th>
+        <th>Sub Order Id #</th>
+        <th>Vendor Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Product Name</th>
+        <th>Product Sku</th>
+        <th>Product Price</th>
+        <th>Order Date</th>
+        {{-- <th>Shipping Date</th> --}}
+        <th>Image</th>
+        <th>Status</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        @foreach ($data as $value => $orders)
+            <tr>
+
+                {{-- <td>{{ $value + 1 }}</td> --}}
+
+                <td>{{ $orders->order_id }}</td>
+                <td>{{ $orders->id }}</td>
+                <td>{{ $orders->vendor->name ?? null }}</td>
+                <td>{{ $orders->order->first_name ?? null }} </td>
+                <td>{{ $orders->order->last_name ?? null }} </td>
+                <td>{{ $orders->product->name ?? null }} </td>
+                <td>{{ $orders->product->sku ?? null }} </td>
+                <td>{{ $orders->product->new_sale_price ?? null }} </td>
+                {{-- <td>{{ $orders->first_name }}</td> --}}
+
+                {{-- <td>{{ $orders->last_name }}</td> --}}
+
+                <td>{{ $orders->created_at }}</td>
+                <td>
+                    {{-- @if ($orders->product->url) --}}
+                    <img src="{{ $orders->product->url ?? null }}  " width="50" height="50"
+                        alt="Placeholder Image">
+                    {{-- @else --}}
+                </td>
+                {{-- <td>{{ $orders->shipping }}</td> --}}
+                {{-- <td>
+            @if ($orders->product)
+            @if ($orders->product->url)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @else
+            @if ($orders->product->product_image)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @endif
+            @endif
+            @else
+            <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+            <p>No image available</p>
+            @endif
+        </td> --}}
+
+                <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
+
+                    @csrf
+
+                    @method('PATCH')
+                    {{-- <input type="text" name="id" value="{{ $orders->order_id }}" /> --}}
+                    <td>
+                        <select class="form-control" name="status" id="status{{ $orders->id }}">
+                            <option value="{{ $orders->status }}" selected disabled>{{ $orders->status }}</option>
+                            <option value="In Process">In Process</option>
+                            <option value="Packaging">Packaging</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Out of delivery">Out of Delivery</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Failed to Deliver">Failed to Deliver</option>
+                            <option value="Returned">Returned</option>
+                            <option value="Canceled">Canceled</option>
+
+
+                        </select>
+                    </td>
+
+                    <td class="d-flex 2">
+
+                        {{-- <input type="hidden" value="{{ $orders->id }}" name="order_id" hidden> --}}
+
+                        <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
+                            data-style="expand-left"><span class="ladda-label">Update</span></button>
+                        
+
+                        </div>
+
+                    </td>
+
+                </form>
+
+            </tr>
+        @endforeach
+    </tbody>
+    <tfoot>
+        <tr>
+            {{-- <th>Sr No</th> --}}
+            <th>Order Id#</th>
+            <th>Sub Order Id #</th>
+            <th>Vendor Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Product Name</th>
+            <th>Product Sku</th>
+            <th>Product Price</th>
+            <th>Order Date</th>
+            {{-- <th>Shipping Date</th> --}}
+            <th>Image</th>
+            <th>Status</th>
+            <th>Action</th>
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'outofdelivery')
-    <thead>
-        <th>Sr No</th>
-        <th>Order #</th>
-        <th>Customer Name</th>
+<thead>
+        {{-- <th>Sr No</th> --}}
+        <th>Order Id#</th>
+        <th>Sub Order Id #</th>
+        <th>Vendor Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Product Name</th>
+        <th>Product Sku</th>
+        <th>Product Price</th>
         <th>Order Date</th>
-        <th>Shipping Date</th>
-        <th>Vendor</th>
+        {{-- <th>Shipping Date</th> --}}
+        <th>Image</th>
         <th>Status</th>
+        <th>Action</th>
     </thead>
     <tbody>
-        @foreach ($data as $value => $order)
+        @foreach ($data as $value => $orders)
             <tr>
-                <td>{{ $value + 1 }}</td>
-                <td>{{ $order->id }}</td>
-                <td>{{ $order->first_name }}</td>
-                <td>{{ $order->created_at }}</td>
-                <td>{{ $order->shipping }}</td>
-                <td>{{ $order->company }}</td>
-                <td>{{ $order->status }}</td>
+
+                {{-- <td>{{ $value + 1 }}</td> --}}
+
+                <td>{{ $orders->order_id }}</td>
+                <td>{{ $orders->id }}</td>
+                <td>{{ $orders->vendor->name ?? null }}</td>
+                <td>{{ $orders->order->first_name ?? null }} </td>
+                <td>{{ $orders->order->last_name ?? null }} </td>
+                <td>{{ $orders->product->name ?? null }} </td>
+                <td>{{ $orders->product->sku ?? null }} </td>
+                <td>{{ $orders->product->new_sale_price ?? null }} </td>
+                {{-- <td>{{ $orders->first_name }}</td> --}}
+
+                {{-- <td>{{ $orders->last_name }}</td> --}}
+
+                <td>{{ $orders->created_at }}</td>
+                <td>
+                    {{-- @if ($orders->product->url) --}}
+                    <img src="{{ $orders->product->url ?? null }}  " width="50" height="50"
+                        alt="Placeholder Image">
+                    {{-- @else --}}
+                </td>
+                {{-- <td>{{ $orders->shipping }}</td> --}}
+                {{-- <td>
+            @if ($orders->product)
+            @if ($orders->product->url)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @else
+            @if ($orders->product->product_image)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @endif
+            @endif
+            @else
+            <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+            <p>No image available</p>
+            @endif
+        </td> --}}
+
+                <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
+
+                    @csrf
+
+                    @method('PATCH')
+                    {{-- <input type="text" name="id" value="{{ $orders->order_id }}" /> --}}
+                    <td>
+                        <select class="form-control" name="status" id="status{{ $orders->id }}">
+                            <option value="{{ $orders->status }}" selected disabled>{{ $orders->status }}</option>
+                            <option value="In Process">In Process</option>
+                            <option value="Packaging">Packaging</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Out of delivery">Out of Delivery</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Failed to Deliver">Failed to Deliver</option>
+                            <option value="Returned">Returned</option>
+                            <option value="Canceled">Canceled</option>
+
+
+                        </select>
+                    </td>
+
+                    <td class="d-flex 2">
+
+                        {{-- <input type="hidden" value="{{ $orders->id }}" name="order_id" hidden> --}}
+
+                        <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
+                            data-style="expand-left"><span class="ladda-label">Update</span></button>
+                        
+
+                        </div>
+
+                    </td>
+
+                </form>
+
             </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <th>Sr No</th>
-            <th>Order #</th>
-            <th>Customer Name</th>
+            {{-- <th>Sr No</th> --}}
+            <th>Order Id#</th>
+            <th>Sub Order Id #</th>
+            <th>Vendor Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Product Name</th>
+            <th>Product Sku</th>
+            <th>Product Price</th>
             <th>Order Date</th>
-            <th>Shipping Date</th>
-            <th>Vendor</th>
+            {{-- <th>Shipping Date</th> --}}
+            <th>Image</th>
             <th>Status</th>
+            <th>Action</th>
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'delivered')
-    <thead>
-        <th>Sr No</th>
-        <th>Order #</th>
-        <th>Customer Name</th>
+<thead>
+        {{-- <th>Sr No</th> --}}
+        <th>Order Id#</th>
+        <th>Sub Order Id #</th>
+        <th>Vendor Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Product Name</th>
+        <th>Product Sku</th>
+        <th>Product Price</th>
         <th>Order Date</th>
-        <th>Shipping Date</th>
-        <th>Vendor</th>
+        {{-- <th>Shipping Date</th> --}}
+        <th>Image</th>
         <th>Status</th>
+        <th>Action</th>
     </thead>
     <tbody>
-        @foreach ($data as $value => $order)
+        @foreach ($data as $value => $orders)
             <tr>
-                <td>{{ $value + 1 }}</td>
-                <td>{{ $order->id }}</td>
-                <td>{{ $order->first_name }}</td>
-                <td>{{ $order->created_at }}</td>
-                <td>{{ $order->shipping }}</td>
-                <td>{{ $order->company }}</td>
-                <td>{{ $order->status }}</td>
+
+                {{-- <td>{{ $value + 1 }}</td> --}}
+
+                <td>{{ $orders->order_id }}</td>
+                <td>{{ $orders->id }}</td>
+                <td>{{ $orders->vendor->name ?? null }}</td>
+                <td>{{ $orders->order->first_name ?? null }} </td>
+                <td>{{ $orders->order->last_name ?? null }} </td>
+                <td>{{ $orders->product->name ?? null }} </td>
+                <td>{{ $orders->product->sku ?? null }} </td>
+                <td>{{ $orders->product->new_sale_price ?? null }} </td>
+                {{-- <td>{{ $orders->first_name }}</td> --}}
+
+                {{-- <td>{{ $orders->last_name }}</td> --}}
+
+                <td>{{ $orders->created_at }}</td>
+                <td>
+                    {{-- @if ($orders->product->url) --}}
+                    <img src="{{ $orders->product->url ?? null }}  " width="50" height="50"
+                        alt="Placeholder Image">
+                    {{-- @else --}}
+                </td>
+                {{-- <td>{{ $orders->shipping }}</td> --}}
+                {{-- <td>
+            @if ($orders->product)
+            @if ($orders->product->url)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @else
+            @if ($orders->product->product_image)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @endif
+            @endif
+            @else
+            <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+            <p>No image available</p>
+            @endif
+        </td> --}}
+
+                <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
+
+                    @csrf
+
+                    @method('PATCH')
+                    {{-- <input type="text" name="id" value="{{ $orders->order_id }}" /> --}}
+                    <td>
+                        <select class="form-control" name="status" id="status{{ $orders->id }}">
+                            <option value="{{ $orders->status }}" selected disabled>{{ $orders->status }}</option>
+                            <option value="In Process">In Process</option>
+                            <option value="Packaging">Packaging</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Out of delivery">Out of Delivery</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Failed to Deliver">Failed to Deliver</option>
+                            <option value="Returned">Returned</option>
+                            <option value="Canceled">Canceled</option>
+
+
+                        </select>
+                    </td>
+
+                    <td class="d-flex 2">
+
+                        {{-- <input type="hidden" value="{{ $orders->id }}" name="order_id" hidden> --}}
+
+                        <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
+                            data-style="expand-left"><span class="ladda-label">Update</span></button>
+                        
+
+                        </div>
+
+                    </td>
+
+                </form>
+
             </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <th>Sr No</th>
-            <th>Order #</th>
-            <th>Customer Name</th>
+            {{-- <th>Sr No</th> --}}
+            <th>Order Id#</th>
+            <th>Sub Order Id #</th>
+            <th>Vendor Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Product Name</th>
+            <th>Product Sku</th>
+            <th>Product Price</th>
             <th>Order Date</th>
-            <th>Shipping Date</th>
-            <th>Vendor</th>
+            {{-- <th>Shipping Date</th> --}}
+            <th>Image</th>
             <th>Status</th>
+            <th>Action</th>
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'returned')
-    <thead>
-        <th>Sr No</th>
-        <th>Order #</th>
-        <th>Customer Name</th>
+<thead>
+        {{-- <th>Sr No</th> --}}
+        <th>Order Id#</th>
+        <th>Sub Order Id #</th>
+        <th>Vendor Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Product Name</th>
+        <th>Product Sku</th>
+        <th>Product Price</th>
         <th>Order Date</th>
-        <th>Shipping Date</th>
-        <th>Vendor</th>
+        {{-- <th>Shipping Date</th> --}}
+        <th>Image</th>
         <th>Status</th>
+        <th>Action</th>
     </thead>
     <tbody>
-        @foreach ($data as $value => $order)
+        @foreach ($data as $value => $orders)
             <tr>
-                <td>{{ $value + 1 }}</td>
-                <td>{{ $order->id }}</td>
-                <td>{{ $order->first_name }}</td>
-                <td>{{ $order->created_at }}</td>
-                <td>{{ $order->shipping }}</td>
-                <td>{{ $order->company }}</td>
-                <td>{{ $order->status }}</td>
+
+                {{-- <td>{{ $value + 1 }}</td> --}}
+
+                <td>{{ $orders->order_id }}</td>
+                <td>{{ $orders->id }}</td>
+                <td>{{ $orders->vendor->name ?? null }}</td>
+                <td>{{ $orders->order->first_name ?? null }} </td>
+                <td>{{ $orders->order->last_name ?? null }} </td>
+                <td>{{ $orders->product->name ?? null }} </td>
+                <td>{{ $orders->product->sku ?? null }} </td>
+                <td>{{ $orders->product->new_sale_price ?? null }} </td>
+                {{-- <td>{{ $orders->first_name }}</td> --}}
+
+                {{-- <td>{{ $orders->last_name }}</td> --}}
+
+                <td>{{ $orders->created_at }}</td>
+                <td>
+                    {{-- @if ($orders->product->url) --}}
+                    <img src="{{ $orders->product->url ?? null }}  " width="50" height="50"
+                        alt="Placeholder Image">
+                    {{-- @else --}}
+                </td>
+                {{-- <td>{{ $orders->shipping }}</td> --}}
+                {{-- <td>
+            @if ($orders->product)
+            @if ($orders->product->url)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @else
+            @if ($orders->product->product_image)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @endif
+            @endif
+            @else
+            <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+            <p>No image available</p>
+            @endif
+        </td> --}}
+
+                <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
+
+                    @csrf
+
+                    @method('PATCH')
+                    {{-- <input type="text" name="id" value="{{ $orders->order_id }}" /> --}}
+                    <td>
+                        <select class="form-control" name="status" id="status{{ $orders->id }}">
+                            <option value="{{ $orders->status }}" selected disabled>{{ $orders->status }}</option>
+                            <option value="In Process">In Process</option>
+                            <option value="Packaging">Packaging</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Out of delivery">Out of Delivery</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Failed to Deliver">Failed to Deliver</option>
+                            <option value="Returned">Returned</option>
+                            <option value="Canceled">Canceled</option>
+
+
+                        </select>
+                    </td>
+
+                    <td class="d-flex 2">
+
+                        {{-- <input type="hidden" value="{{ $orders->id }}" name="order_id" hidden> --}}
+
+                        <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
+                            data-style="expand-left"><span class="ladda-label">Update</span></button>
+                        
+
+                        </div>
+
+                    </td>
+
+                </form>
+
             </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <th>Sr No</th>
-            <th>Order #</th>
-            <th>Customer Name</th>
+            {{-- <th>Sr No</th> --}}
+            <th>Order Id#</th>
+            <th>Sub Order Id #</th>
+            <th>Vendor Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Product Name</th>
+            <th>Product Sku</th>
+            <th>Product Price</th>
             <th>Order Date</th>
-            <th>Shipping Date</th>
-            <th>Vendor</th>
+            {{-- <th>Shipping Date</th> --}}
+            <th>Image</th>
             <th>Status</th>
+            <th>Action</th>
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'ftod')
-    <thead>
-        <th>Sr No</th>
-        <th>Order #</th>
-        <th>Customer Name</th>
+<thead>
+        {{-- <th>Sr No</th> --}}
+        <th>Order Id#</th>
+        <th>Sub Order Id #</th>
+        <th>Vendor Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Product Name</th>
+        <th>Product Sku</th>
+        <th>Product Price</th>
         <th>Order Date</th>
-        <th>Shipping Date</th>
-        <th>Vendor</th>
+        {{-- <th>Shipping Date</th> --}}
+        <th>Image</th>
         <th>Status</th>
+        <th>Action</th>
     </thead>
     <tbody>
-        @foreach ($data as $value => $order)
+        @foreach ($data as $value => $orders)
             <tr>
-                <td>{{ $value + 1 }}</td>
-                <td>{{ $order->id }}</td>
-                <td>{{ $order->first_name }}</td>
-                <td>{{ $order->created_at }}</td>
-                <td>{{ $order->shipping }}</td>
-                <td>{{ $order->company }}</td>
-                <td>{{ $order->status }}</td>
+
+                {{-- <td>{{ $value + 1 }}</td> --}}
+
+                <td>{{ $orders->order_id }}</td>
+                <td>{{ $orders->id }}</td>
+                <td>{{ $orders->vendor->name ?? null }}</td>
+                <td>{{ $orders->order->first_name ?? null }} </td>
+                <td>{{ $orders->order->last_name ?? null }} </td>
+                <td>{{ $orders->product->name ?? null }} </td>
+                <td>{{ $orders->product->sku ?? null }} </td>
+                <td>{{ $orders->product->new_sale_price ?? null }} </td>
+                {{-- <td>{{ $orders->first_name }}</td> --}}
+
+                {{-- <td>{{ $orders->last_name }}</td> --}}
+
+                <td>{{ $orders->created_at }}</td>
+                <td>
+                    {{-- @if ($orders->product->url) --}}
+                    <img src="{{ $orders->product->url ?? null }}  " width="50" height="50"
+                        alt="Placeholder Image">
+                    {{-- @else --}}
+                </td>
+                {{-- <td>{{ $orders->shipping }}</td> --}}
+                {{-- <td>
+            @if ($orders->product)
+            @if ($orders->product->url)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @else
+            @if ($orders->product->product_image)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @endif
+            @endif
+            @else
+            <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+            <p>No image available</p>
+            @endif
+        </td> --}}
+
+                <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
+
+                    @csrf
+
+                    @method('PATCH')
+                    {{-- <input type="text" name="id" value="{{ $orders->order_id }}" /> --}}
+                    <td>
+                        <select class="form-control" name="status" id="status{{ $orders->id }}">
+                            <option value="{{ $orders->status }}" selected disabled>{{ $orders->status }}</option>
+                            <option value="In Process">In Process</option>
+                            <option value="Packaging">Packaging</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Out of delivery">Out of Delivery</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Failed to Deliver">Failed to Deliver</option>
+                            <option value="Returned">Returned</option>
+                            <option value="Canceled">Canceled</option>
+
+
+                        </select>
+                    </td>
+
+                    <td class="d-flex 2">
+
+                        {{-- <input type="hidden" value="{{ $orders->id }}" name="order_id" hidden> --}}
+
+                        <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
+                            data-style="expand-left"><span class="ladda-label">Update</span></button>
+                        
+
+                        </div>
+
+                    </td>
+
+                </form>
+
             </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <th>Sr No</th>
-            <th>Order #</th>
-            <th>Customer Name</th>
+            {{-- <th>Sr No</th> --}}
+            <th>Order Id#</th>
+            <th>Sub Order Id #</th>
+            <th>Vendor Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Product Name</th>
+            <th>Product Sku</th>
+            <th>Product Price</th>
             <th>Order Date</th>
-            <th>Shipping Date</th>
-            <th>Vendor</th>
+            {{-- <th>Shipping Date</th> --}}
+            <th>Image</th>
             <th>Status</th>
+            <th>Action</th>
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'canceled')
-    <thead>
-        <th>Sr No</th>
-        <th>Order #</th>
-        <th>Customer Name</th>
+<thead>
+        {{-- <th>Sr No</th> --}}
+        <th>Order Id#</th>
+        <th>Sub Order Id #</th>
+        <th>Vendor Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Product Name</th>
+        <th>Product Sku</th>
+        <th>Product Price</th>
         <th>Order Date</th>
-        <th>Shipping Date</th>
-        <th>Vendor</th>
+        {{-- <th>Shipping Date</th> --}}
+        <th>Image</th>
         <th>Status</th>
-
+        <th>Action</th>
     </thead>
     <tbody>
-        @foreach ($data as $value => $order)
+        @foreach ($data as $value => $orders)
             <tr>
-                <td>{{ $value + 1 }}</td>
-                <td>{{ $order->id }}</td>
-                <td>{{ $order->first_name }}</td>
-                <td>{{ $order->created_at }}</td>
-                <td>{{ $order->shipping }}</td>
-                <td>{{ $order->company }}</td>
-                <td>{{ $order->status }}</td>
+
+                {{-- <td>{{ $value + 1 }}</td> --}}
+
+                <td>{{ $orders->order_id }}</td>
+                <td>{{ $orders->id }}</td>
+                <td>{{ $orders->vendor->name ?? null }}</td>
+                <td>{{ $orders->order->first_name ?? null }} </td>
+                <td>{{ $orders->order->last_name ?? null }} </td>
+                <td>{{ $orders->product->name ?? null }} </td>
+                <td>{{ $orders->product->sku ?? null }} </td>
+                <td>{{ $orders->product->new_sale_price ?? null }} </td>
+                {{-- <td>{{ $orders->first_name }}</td> --}}
+
+                {{-- <td>{{ $orders->last_name }}</td> --}}
+
+                <td>{{ $orders->created_at }}</td>
+                <td>
+                    {{-- @if ($orders->product->url) --}}
+                    <img src="{{ $orders->product->url ?? null }}  " width="50" height="50"
+                        alt="Placeholder Image">
+                    {{-- @else --}}
+                </td>
+                {{-- <td>{{ $orders->shipping }}</td> --}}
+                {{-- <td>
+            @if ($orders->product)
+            @if ($orders->product->url)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @else
+            @if ($orders->product->product_image)
+            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID: {{ $orders->id }}">
+            <p>Order ID: {{ $orders->id }}</p>
+            @endif
+            @endif
+            @else
+            <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+            <p>No image available</p>
+            @endif
+        </td> --}}
+
+                <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
+
+                    @csrf
+
+                    @method('PATCH')
+                    {{-- <input type="text" name="id" value="{{ $orders->order_id }}" /> --}}
+                    <td>
+                        <select class="form-control" name="status" id="status{{ $orders->id }}">
+                            <option value="{{ $orders->status }}" selected disabled>{{ $orders->status }}</option>
+                            <option value="In Process">In Process</option>
+                            <option value="Packaging">Packaging</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Out of delivery">Out of Delivery</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Failed to Deliver">Failed to Deliver</option>
+                            <option value="Returned">Returned</option>
+                            <option value="Canceled">Canceled</option>
+
+
+                        </select>
+                    </td>
+
+                    <td class="d-flex 2">
+
+                        {{-- <input type="hidden" value="{{ $orders->id }}" name="order_id" hidden> --}}
+
+                        <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
+                            data-style="expand-left"><span class="ladda-label">Update</span></button>
+                        
+
+                        </div>
+
+                    </td>
+
+                </form>
+
             </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <th>Sr No</th>
-            <th>Order #</th>
-            <th>Customer Name</th>
+            {{-- <th>Sr No</th> --}}
+            <th>Order Id#</th>
+            <th>Sub Order Id #</th>
+            <th>Vendor Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Product Name</th>
+            <th>Product Sku</th>
+            <th>Product Price</th>
             <th>Order Date</th>
-            <th>Shipping Date</th>
-            <th>Vendor</th>
+            {{-- <th>Shipping Date</th> --}}
+            <th>Image</th>
             <th>Status</th>
+            <th>Action</th>
         </tr>
     </tfoot>
-
     {{-- vendor list  --}}
 @elseif (Route::currentRouteName() == '1234')
     <thead>
