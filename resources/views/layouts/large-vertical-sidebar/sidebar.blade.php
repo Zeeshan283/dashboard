@@ -1,3 +1,45 @@
+
+<?php 
+
+use App\Models\OrderDetail;
+
+if (Auth::user()->role == 'Vendor') {
+             $In_Process = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                 ->where('status', '=', 'In Process')->count();
+            $Packaging = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Packaging')->count();
+                $Confirmed = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Confirmed')->count();
+                $ftd = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Failed to Deliver')->count();
+                $Out_of_Delivery = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Out of delivery')->count();
+                $Delivered = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Delivered')->count();
+                $Returned = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Returned')->count();
+                $Canceled = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', '=', 'Canceled')->count();
+            } elseif (Auth::user()->role == 'Admin') {
+                $In_Process = OrderDetail::with('order', 'product', 'vendor')
+                ->where('status', '=', 'In Process')->count();
+           $Packaging = OrderDetail::with('order', 'product', 'vendor')
+               ->where('status', '=', 'Packaging')->count();
+               $Confirmed = OrderDetail::with('order', 'product', 'vendor')
+               ->where('status', '=', 'Confirmed')->count();
+               $ftd = OrderDetail::with('order', 'product', 'vendor')
+               ->where('status', '=', 'Failed to Deliver')->count();
+               $Out_of_Delivery = OrderDetail::with('order', 'product', 'vendor')
+               ->where('status', '=', 'Out of delivery')->count();
+               $Delivered = OrderDetail::with('order', 'product', 'vendor')
+               ->where('status', '=', 'Delivered')->count();
+               $Returned = OrderDetail::with('order', 'product', 'vendor')
+               ->where('status', '=', 'Returned')->count();
+               $Canceled = OrderDetail::with('order', 'product', 'vendor')
+               ->where('status', '=', 'Canceled')->count();
+            }
+        ?>
+
 <div class="side-content-wrap">
     <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
         <ul class="navigation-left">
@@ -319,6 +361,7 @@
                 </a>
             </li>
         </ul>
+       
         <ul class="childNav" data-parent="uikits">
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}"
@@ -338,55 +381,57 @@
                 <a class="{{ Route::currentRouteName() == 'pendingorders' ? 'open' : '' }}"
                     href="{{ route('pendingorders') }}">
                     <i class="nav-icon i-Clock"></i>
-                    <span class="item-name">Pending</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'confirmedorders' ? 'open' : '' }}"
-                    href="{{ route('confirmedorders') }}">
-                    <i class="nav-icon i-Checkout"></i>
-                    <span class="item-name">Confirmed</span>
+                    <span class="item-name">In Process {{ $In_Process}}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'packagingorders' ? 'open' : '' }}"
                     href="{{ route('packagingorders') }}">
                     <i class="nav-icon i-Safe-Box"></i>
-                    <span class="item-name">Packaging</span>
+                    <span class="item-name">Packaging {{ $Packaging}}</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'confirmedorders' ? 'open' : '' }}"
+                    href="{{ route('confirmedorders') }}">
+                    <i class="nav-icon i-Checkout"></i>
+                    <span class="item-name">Confirmed {{ $Confirmed }}</span>
+                </a>
+            </li>
+            
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'outofdelivery' ? 'open' : '' }}"
                     href="{{ route('outofdelivery') }}">
                     <i class="nav-icon i-Arrow-Circle"></i>
-                    <span class="item-name">Out of Delivery</span>
+                    <span class="item-name">Out of Delivery {{ $Out_of_Delivery}}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'delivered' ? 'open' : '' }}"
                     href="{{ route('delivered') }}">
                     <i class="nav-icon i-Check"></i>
-                    <span class="item-name">Delivered</span>
+                    <span class="item-name">Delivered {{ $Delivered}}</span>
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'ftod' ? 'open' : '' }}" href="{{ route('ftod') }}">
+                    <i class="nav-icon i-Over-Time-2"></i>
+                    <span class="item-name">Failed to Deliver {{ $ftd}}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'returned' ? 'open' : '' }}"
                     href="{{ route('returned') }}">
                     <i class="nav-icon i-Redo"></i>
-                    <span class="item-name">Returned</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'ftod' ? 'open' : '' }}" href="{{ route('ftod') }}">
-                    <i class="nav-icon i-Over-Time-2"></i>
-                    <span class="item-name">Failed to Deliver</span>
+                    <span class="item-name">Returned {{ $Returned}}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'canceled' ? 'open' : '' }}"
                     href="{{ route('canceled') }}">
                     <i class="nav-icon i-File-Trash"></i>
-                    <span class="item-name">Canceled</span>
+                    <span class="item-name">Canceled {{ $Canceled}}</span>
                 </a>
             </li>
         </ul>
