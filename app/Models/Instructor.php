@@ -10,8 +10,8 @@ class Instructor extends Model
     use HasFactory;
     protected $table = 'instructors';
     protected $fillable = ['name'];
-    public function InstructorName()
-    {
-        return $this->belongsTo(Instructor::class, 'name');
-    }
+    // public function InstructorName()
+    // {
+    //     return $this->belongsTo(Instructor::class, 'name');
+    // }
 }

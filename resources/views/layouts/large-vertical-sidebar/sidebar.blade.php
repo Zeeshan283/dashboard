@@ -693,7 +693,7 @@ if (Auth::user()->role == 'Vendor') {
         </ul>
         <ul class="childNav" data-parent="training">
             <li class="nav-item">
-                <a href="{{ route('cfeatures.index') }}">
+                <a href="{{ route('trainings.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Training Page</span>
                 </a>
@@ -705,7 +705,7 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('trainings.index') }}">
+                <a href="{{ route('trainingCategories.index') }}">
                     <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                     <span class="item-name">Category</span>
                 </a>

@@ -51,6 +51,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\CategoryServicesController;
 use App\Http\Controllers\TrainingsController;
+use App\Http\Controllers\TrainingCategoriesController;
 use App\Http\Controllers\InstructorController;
 
 
@@ -170,7 +171,8 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('blog_subcategories', BlogsSubCategoriesController::class);
     Route::get('blogs.blog_subcategories/{id}/destroy', [BlogsSubCategoriesController::class, 'destroy']);
     Route::get('/get-subcategories-blog', [BlogsController::class, 'GetSubCategories'])->name('GetSubCategoriesForBlog');
-    Route::resource('cfeatures', CfeaturesController::class);
+    // Route::resource('cfeatures', CfeaturesController::class);
+    Route::resource('trainingCategories', TrainingCategoriesController::class);
     Route::resource('trainings', TrainingsController::class);
     Route::resource('instructor', InstructorController::class);
 

@@ -18,13 +18,13 @@ class TrainingCategoriesController extends Controller
     public function index()
     {
        
-        $trainingCategories = TrainingCategories::select('id', 'title')->OrderBy('id')->get();
-        return view('training-categories.index', compact('trainingCategories'));
+        $data = TrainingCategories::select('id', 'title')->OrderBy('id')->get();
+        return view('trainings.category.index', compact('data'));
     }
 
     public function create()
     {
-        return view('training-categories.create');
+        return view('trainings.category.create');
     }
 
     public function store(Request $request)
@@ -33,7 +33,7 @@ class TrainingCategoriesController extends Controller
             'title' => 'required'
         ]);
         TrainingCategories::create($request->all());
-        return redirect()->back()->with(Toastr::success('Training Category Added Successfully!'));
+        return redirect('/trainingCategories')->with(Toastr::success('Training Category Added Successfully!'));
     }
 
     public function show($id)
@@ -44,7 +44,7 @@ class TrainingCategoriesController extends Controller
     public function edit($id)
     {
         $edit = TrainingCategories::findOrFail($id);
-        return view('training-categories.edit', compact('edit'));
+        return view('trainings.category.edit', compact('edit'));
     }
 
     public function update(Request $request, $id)
@@ -56,7 +56,7 @@ class TrainingCategoriesController extends Controller
         $edit = TrainingCategories::findOrFail($id);
         $edit->update($request->all());
 
-        return redirect('training-categories')->with(Toastr::success('Training Category Updated Successfully!'));
+        return redirect('trainingCategories')->with(Toastr::success('Training Category Updated Successfully!'));
     }
 
     public function destroy($id)
