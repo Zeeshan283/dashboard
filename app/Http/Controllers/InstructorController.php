@@ -18,6 +18,7 @@ class InstructorController extends Controller
     public function index()
     {
         $data = Instructor::orderBy('id')->get();
+        $data = Instructor::with('InstructorName')->get();
         return view('instructor.index', compact('data'));
     }
 
@@ -32,7 +33,7 @@ class InstructorController extends Controller
             $request,
             [
                 'name' => 'required',
-              
+
             ]
         );
 

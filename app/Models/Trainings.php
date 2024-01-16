@@ -13,9 +13,8 @@ class Trainings extends Model
 
     public function trainingCategory()
     {
-        return $this->belongsTo(TrainingCategories::class, 'training_category_id');
+        return $this->belongsTo(Trainings::class, 'training_category_id');
     }
-
     public function created_by_user()
     {
         return $this->belongsTo(User::class, 'created_by');

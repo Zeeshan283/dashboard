@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Instructor extends Model
 {
     use HasFactory;
-    protected $table='instructors';
-    protected $fillable=['name'];
+    protected $table = 'instructors';
+    protected $fillable = ['name'];
+    public function InstructorName()
+    {
+        return $this->belongsTo(Instructor::class, 'name');
+    }
 }

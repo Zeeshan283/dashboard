@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Training;
-use App\Models\TrainingCategories;
 use App\Models\Trainings;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
@@ -18,33 +16,31 @@ class TrainingsController extends Controller
     public function index()
     {
         $data = Trainings::all();
-        $data = Trainings::with('trainingCategory')->get();
-        return view('trainings.index', compact('data'));
-    }    
+        $trainings = Trainings::with('trainingCategory')->get();
+        return view('trainings.index', compact('data', 'trainings'));
+    }
     public function create()
     {
-        $data = TrainingCategories::orderBy('id')->pluck('training_category_id', 'id');
-        return view('cfeatures.create', compact('data'));
+        $data = Trainings::pluck('training_category_id', 'id');
+        return view('trainings.create', compact('data'));
     }
-    
     public function store(Request $request)
-{
-    $data = new Trainings;
-    $data->training_category_id = $request->training_category_id;
-    $data->save();
+    {
+        $data = new Trainings;
+        $data->training_category_id = $request->training_category_id;
+        $data->save();
 
-    Toastr::success('Training Added Successfully!');
-    return redirect('trainings');
-}
-
+        Toastr::success('Training Added Successfully!');
+        return redirect('trainings');
+    }
 
     public function edit($id)
     {
         $edit = Trainings::findOrFail($id);
-        $trainingCategories = TrainingCategories::orderBy('id')->pluck('title', 'id');
+        $trainings = Trainings::orderBy('id')->pluck('training_category_id', 'id');
 
         if ($edit) {
-            return view('trainings.edit', compact('edit', 'trainingCategories'));
+            return view('trainings.edit', compact('edit', 'trainings'));
         } else {
             abort(404);
         }

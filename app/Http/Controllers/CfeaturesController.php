@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cfeatures;
 use App\Models\Trainings;
-
+use App\Models\Instructor;
 use Brian2694\Toastr\Facades\Toastr;
 
 class CfeaturesController extends Controller
@@ -18,13 +18,15 @@ class CfeaturesController extends Controller
     public function index()
     {
         $data = Trainings::with('trainingCategory')->get();
-        $cfeatures = Cfeatures::all(); 
+        $data = Instructor::with('InstructorName')->get();
+        $cfeatures = Cfeatures::all();
         return view('cfeatures.index', compact('cfeatures', 'data'));
     }
 
     public function create()
     {
         $data = Trainings::with('trainingCategory')->get();
+        $data = Instructor::with('InstructorName')->get();
         return view('cfeatures.create', compact('data'));
     }
 
@@ -38,39 +40,39 @@ class CfeaturesController extends Controller
         //
     }
 
-  
+
     public function edit($id)
     {
         $edit = Cfeatures::findOrFail($id);
-        $data = Trainings::all(); 
-    // $BlogsSubCategories = BlogsSubCategories::orderBy('id')->get();
+        $data = Trainings::all();
+        $data = Instructor::all();
         return view('cfeatures.edit', compact('edit', 'data'));
     }
     public function store(Request $request)
     {
         $request->validate([
-            'instructor' => 'required',
+            'name' => 'required',
             'lectures' => 'required',
             'duration' => 'required',
             'skilllevel' => 'required',
             'language' => 'required',
             'coursetype' => 'required',
-            'address' => $request->coursetype == 'Onsite' ? 'required' : '', 
+            'address' => $request->coursetype == 'Onsite' ? 'required' : '',
             'title' => 'required',
             'training_category_id' => 'required',
             'image' => 'mimes:png,jpg,jpeg',
-            'description' => 'required', 
+            'description' => 'required',
         ]);
-    
-        $cfeature = new Cfeatures(); 
-    
-       
-    
+
+        $cfeature = new Cfeatures();
+
+
+
         // Set other attributes and save the model
-        $cfeature->instructor = $request->instructor;
-        $cfeature->lectures = $request->lectures; 
+        $cfeature->name = $request->name;
+        $cfeature->lectures = $request->lectures;
         $cfeature->duration = $request->duration;
-        $cfeature->skilllevel = $request->skilllevel; 
+        $cfeature->skilllevel = $request->skilllevel;
         $cfeature->language = $request->language;
         $cfeature->coursetype = $request->coursetype;
         $cfeature->address = $request->address;
@@ -79,34 +81,34 @@ class CfeaturesController extends Controller
         $cfeature->image = $request->image;
         $cfeature->description = $request->description;
 
-// ...
+        // ...
 
-$cfeature->image = $request->image; // Store the image name without moving it yet
+        $cfeature->image = $request->image; // Store the image name without moving it yet
 
-if ($request->hasFile('image')) {
-    $file = $request->file('image');
-    $fileName = uniqid() . '.' . $file->getClientOriginalExtension();    
-    $file->move(public_path('upload/blogs/'), $fileName);
-    $cfeature->image = $fileName; // Update the image field with the generated file name
-}
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload/blogs/'), $fileName);
+            $cfeature->image = $fileName; // Update the image field with the generated file name
+        }
 
-// ...
-    
+        // ...
+
         $cfeature->save();
-    
+
         return redirect()->back()->with('success', 'Course Features Added Successfully');
     }
-    
+
     public function update($id, Request $request)
     {
         $this->validate($request, [
-            'instructor' => 'required',
+            'name' => 'required',
             'lectures' => 'required',
             'duration' => 'required',
             'skilllevel' => 'required',
             'language' => 'required',
             'coursetype' => 'required',
-            'address' => $request->coursetype == 'Onsite' ? 'required' : '', 
+            'address' => $request->coursetype == 'Onsite' ? 'required' : '',
             'title' => 'required',
             'training_category_id' => 'required',
             // 'blog_category_id' => 'required',
@@ -114,18 +116,18 @@ if ($request->hasFile('image')) {
             'image' => 'mimes:png,jpg,jpeg',
             'description' => 'required',
         ]);
-    
+
         $edit = Cfeatures::findOrFail($id);
-    
-        $edit->instructor = $request->instructor;
+
+        $edit->name = $request->name;
         $edit->lectures = $request->lectures;
         $edit->duration = $request->duration;
-        $edit->skilllevel = $request->skilllevel; 
+        $edit->skilllevel = $request->skilllevel;
         $edit->language = $request->language;
         $edit->coursetype = $request->coursetype;
         $edit->address = $request->address;
         $edit->title = $request->title;
-       $edit->training_category_id = $request->training_category_id;
+        $edit->training_category_id = $request->training_category_id;
         // $edit->blog_category_id = $request->blog_category_id;
         // $edit->blog_sub_category_id = $request->blog_sub_category_id;
         $edit->image = $request->image;
@@ -133,30 +135,29 @@ if ($request->hasFile('image')) {
 
         // ...
 
-if ($request->hasFile('image')) {
-    $file = $request->file('image');
-    $fileName = uniqid() . '.' . $file->getClientOriginalExtension();    
-    $file->move(public_path('upload/blogs/'), $fileName);
-    $edit->image = $fileName; // Update the image field with the generated file name
-}
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload/blogs/'), $fileName);
+            $edit->image = $fileName; // Update the image field with the generated file name
+        }
 
-// ...
+        // ...
 
-    
+
         $edit->save();
-    
+
         return redirect()->back()->with(Toastr::success('Details Updated Successfully'));
     }
-    
+
 
     public function destroy($id)
     {
         $data = Cfeatures::findOrFail($id);
-        if($data)
-        {
+        if ($data) {
             $data->delete();
             return redirect()->back()->with(Toastr::success('Blogs Deleted Successfully'));
-        }else{
+        } else {
             abort(404);
         }
     }
