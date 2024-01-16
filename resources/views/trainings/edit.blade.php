@@ -1,42 +1,42 @@
 @extends('layouts.master')
 @section('before-css')
-    {{-- css link sheet  --}}
-    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/smart.wizard/smart_wizard_theme_dots.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+{{-- css link sheet  --}}
+<link rel="stylesheet" href="{{ asset('assets/styles/vendor/smart.wizard/smart_wizard_theme_dots.min.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
 @section('page-css')
-    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/quill.bubble.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/quill.snow.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/choices.min.css') }}">
-    <style>
-        .thumbnail {
-            max-width: auto;
-            max-height: 100px;
-            margin: 5px;
-        }
+<link rel="stylesheet" href="{{ asset('assets/styles/vendor/quill.bubble.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/styles/vendor/quill.snow.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('css/choices.min.css') }}">
+<style>
+.thumbnail {
+    max-width: auto;
+    max-height: 100px;
+    margin: 5px;
+}
 
-        .choices__input {
-            background: #f3f4f6;
-        }
+.choices__input {
+    background: #f3f4f6;
+}
 
 
-        .choices_list--multiple .choices_item {
-            /* width: 3%; */
-            font-size: 14px;
-            font-family: initial;
-            /* background-color: #6b7280; */
-            /* background-color: #e9ecef; */
-            color: black;
-            border-radius: 42px;
-            /* height: 28px; */
-            border: transparent;
-        }
+.choices_list--multiple .choices_item {
+    /* width: 3%; */
+    font-size: 14px;
+    font-family: initial;
+    /* background-color: #6b7280; */
+    /* background-color: #e9ecef; */
+    color: black;
+    border-radius: 42px;
+    /* height: 28px; */
+    border: transparent;
+}
 
-        .choices[data-type*=select-multiple] .choices__button {
-            border-left: white;
-            display: none;
-        }
-    </style>
+.choices[data-type*=select-multiple] .choices__button {
+    border-left: white;
+    display: none;
+}
+</style>
 @endsection
 
 @endsection
@@ -48,15 +48,15 @@
     <span></span>
     <span></span>
     <span></span>
-    <h1>Training Page</h1>
+    <h1>Update Training Page </h1>
     @if (count($errors) > 0)
-        <div class="alert alert-danger d-flex">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="alert alert-danger d-flex">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 </div>
 <div class="separator-breadcrumb border-top"></div>
@@ -84,8 +84,10 @@
                 <div>
                     <div id="step-2" class="">
                         <div class="card-body">
-                            <form method="post" action="{{ route('cfeatures.store') }}" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('trainings.update', ['training' => $edit->id]) }}"
+                                enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="card mb-4">
                                     <h5 class="card-header text-left">Course Features</h5>
                                     <hr class="my-0" />
@@ -94,11 +96,14 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group ml-6">
                                                     <label for="inputtext11" class="form-label">Instructor:</label>
-                                                    <select class="form-control" id="name" name="name">
-                                                        @foreach ($data as $instructor)
-                                                            <option>
-                                                                {{ $instructor->name ?? null }}
-                                                            </option>
+                                                    <select class="form-control" id="intructor_id" name="intructor_id">
+                                                        <option value="{{ $edit->instructor->id ?? null }}" selected>
+                                                            {{ $edit->instructor->name ?? null }}
+                                                        </option>
+                                                        @foreach ($instructor as $value)
+                                                        <option value="{{ $value->id ?? null }}">
+                                                            {{ $value->name ?? null }}
+                                                        </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -107,7 +112,8 @@
                                                 <div class="form-group">
                                                     <label for="lectures" class="form-label">Lectures</label>
                                                     <input type="text" class="form-control" id="lectures"
-                                                        placeholder="Total lectures" name="lectures" required>
+                                                        placeholder="Total lectures" value="{{ $edit->lectures }}"
+                                                        name="lectures" required>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
@@ -115,7 +121,7 @@
                                                     <label for="duration" class="form-label">Duration(hrs)</label>
                                                     <!-- <input type="text" class="form-control" id="duration" placeholder="duration" name="duration" required> -->
                                                     <select class="form-select" id="duration" name="duration">
-                                                        <option value=""> --- Please Select --- </option>
+                                                        <option value="{{ $edit->duration }}" selected>{{ $edit->duration }} </option>
                                                         <option>1</option>
                                                         <option>2</option>
                                                         <option>3</option>
@@ -134,7 +140,7 @@
                                                 <div class="form-group">
                                                     <label for="skilllevel" class="form-label">Skill Level</label>
                                                     <select class="form-select" id="skilllevel" name="skilllevel">
-                                                        <option value=""> Please Select </option>
+                                                        <option value="{{ $edit->skilllevel ?? null }}" selected>{{ $edit->skilllevel ?? null }}</option>
                                                         <option>Basic Level</option>
                                                         <option>Intermediate</option>
                                                         <option>Expert Level</option>
@@ -145,7 +151,7 @@
                                                 <div class="form-group">
                                                     <label for="language" class="form-label">Languages</label>
                                                     <select class="form-select" id="language" name="language">
-                                                        <option value=""> --- Please Select --- </option>
+                                                        <option value="{{ $edit->language ?? null }}" selected>{{ $edit->language ?? null }}</option>
                                                         <option>English</option>
                                                         <option>Urdu</option>
                                                     </select>
@@ -156,23 +162,34 @@
                                                     <label for="coursetype" class="form-label">Course Type</label>
                                                     <!-- <input type="text" class="form-control" id="duration" placeholder="duration" name="duration" required> -->
                                                     <select class="form-select" id="coursetype" name="coursetype">
-                                                        <option value="coursetype"> --- Please Select --- </option>
+                                                        <option value="{{ $edit->coursetype ?? null }}" selected>{{ $edit->coursetype ?? null }}</option>
                                                         <option>Online</option>
                                                         <option>Onsite</option>
                                                     </select>
                                                 </div>
                                             </div>
+                                            @if($edit->address == '')
                                             <div class="col-sm-6" id="addressField" style="display: none;">
                                                 <div class="form-group" ml-10>
                                                     <label for="address" class="form-label">Address</label>
                                                     <input type="text" class="form-control" id="address"
-                                                        placeholder="Enter Address here" name="address">
+                                                        placeholder="Enter Address here" value="{{ $edit->address ?? null }}" name="address">
                                                 </div>
                                             </div>
+                                            @else
+                                            <div class="col-sm-6" id="addressField"  >
+                                                <div class="form-group" ml-10>
+                                                    <label for="address" class="form-label">Address</label>
+                                                    <input type="text" class="form-control" id="address"
+                                                        placeholder="Enter Address here" value="{{ $edit->address ?? null }}" name="address">
+                                                </div>
+                                            </div>
+                                            @endif
+                                            
                                         </div>
                                     </div>
                                     <div class="mt-2 " style="text-align: right">
-                                        <button type="submit" class="btn btn-outline-secondary  me-2">Add</button>
+                                        <button type="submit" class="btn btn-outline-secondary  me-2">Create</button>
                                     </div>
                                 </div>
                                 <!-- /Account -->
@@ -188,8 +205,8 @@
                                         <div class="col-sm-6">
                                             <div class="form-group ml-6">
                                                 <label for="title" class="form-label">Title</label>
-                                                <input type="text" class="form-control" id="title"
-                                                    placeholder="Title" name="title" required>
+                                                <input type="text" class="form-control" id="title" placeholder="Title"
+                                                    name="title" value="{{ $edit->title ?? null }}" required>
                                             </div>
                                         </div>
 
@@ -198,11 +215,15 @@
                                                 <label for="training_category_id" class="form-label">Category:</label>
                                                 <select class="form-control" id="training_category_id"
                                                     name="training_category_id">
-                                                    @foreach ($data as $trainings)
-                                                        <option>
-                                                            {{ $trainings->training_category_id }}
-                                                        </option>
+                                                    <option value="{{ $edit->training_category->id ?? null }}" selected>
+                                                        {{ $edit->training_category->title ?? null }}
+                                                    </option>
+                                                    @foreach ($trainingCategories as $value)
+                                                    <option value="{{ $value->id ?? null }}">
+                                                        {{ $value->title }}
+                                                    </option>
                                                     @endforeach
+
                                                 </select>
                                             </div>
                                         </div>
@@ -213,22 +234,30 @@
                                                 <input type="file" name="image" class="form-control"
                                                     style="height: fit-content;">
                                                 @if ($errors->has('image'))
-                                                    <span style="color: red;"
-                                                        class="invalid-feedback1 font-weight-bold">{{ $errors->first('image') }}</span>
+                                                <span style="color: red;"
+                                                    class="invalid-feedback1 font-weight-bold">{{ $errors->first('image') }}</span>
                                                 @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group ml-6">
+                                                
+                                                <img src="/{{ $edit->image }}" width="80px" height="70px" alt="image">
+                                                 
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="description" class="form-label">Description</label>
-                                            <textarea name="description" id="description" class="form-control ckeditor"></textarea>
+                                            <textarea name="description" id="description"
+                                                class="form-control ckeditor"> {{ $edit->description ?? null }} </textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-2" style="text-align: right">
+                                <!-- <div class="mt-2" style="text-align: right">
                                     <button type="submit" class="btn btn-outline-secondary me-2">Create</button>
-                                </div>
+                                </div> -->
                             </div>
                             </form>
                         </div>
@@ -241,30 +270,30 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    $(document).ready(function() {
-        // Add an event listener to the type select element
-        $('#coursetype').change(function() {
-            // Show or hide the address field based on the selected course type
-            if ($(this).val() === 'Onsite') {
-                $('#addressField').show();
-            } else {
+$(document).ready(function() {
+    // Add an event listener to the type select element
+    $('#coursetype').change(function() {
+        // Show or hide the address field based on the selected course type
+        if ($(this).val() === 'Onsite') {
+            $('#addressField').show();
+        } else {
 
-                $('#addressField').hide();
-            }
-        });
+            $('#addressField').hide();
+        }
     });
+});
 </script>
 @stop
 @section('page-js')
 
 <script>
-    $(document).ready(function() {
-        $('#smartwizard').smartWizard({
-            selected: 0, // Initial step
-            keyNavigation: false, // Enable keyboard navigation
+$(document).ready(function() {
+    $('#smartwizard').smartWizard({
+        selected: 0, // Initial step
+        keyNavigation: false, // Enable keyboard navigation
 
-        });
     });
+});
 </script>
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 <script src="{{ asset('assets/js/vendor/jquery.smartWizard.min.js') }}"></script>
@@ -273,91 +302,91 @@
 <script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 <script>
-    tinymce.init({
-        selector: "textarea#details",
-        height: 650,
-        relative_urls: false,
-        paste_data_images: true,
-        image_title: true,
-        automatic_uploads: true,
-        // images_upload_url: '/post/image/upload',
-        // images_upload_url: '{{ asset('upload') }}',
-        images_upload_url: '{{ URL::to('/uploads3') }}',
-        file_picker_types: "image",
-        plugins: [
-            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-            "searchreplace wordcount visualblocks visualchars code fullscreen",
-            "insertdatetime media nonbreaking save table contextmenu directionality",
-            "emoticons template paste textcolor colorpicker textpattern"
-        ],
-        toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-        // override default upload handler to simulate successful upload
-        file_picker_callback: function(cb, value, meta) {
-            var input = document.createElement("input");
-            input.setAttribute("type", "file1");
-            input.setAttribute("accept", "image/*");
-            input.onchange = function() {
-                var file = this.files[0];
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function() {
-                    var id = "blobid" + new Date().getTime();
-                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                    var base64 = reader.result.split(",")[1];
-                    var blobInfo = blobCache.create(id, file1, base64);
-                    blobCache.add(blobInfo);
-                    cb(blobInfo.blobUri(), {
-                        title: file1.name
-                    });
-                };
+tinymce.init({
+    selector: "textarea#details",
+    height: 650,
+    relative_urls: false,
+    paste_data_images: true,
+    image_title: true,
+    automatic_uploads: true,
+    // images_upload_url: '/post/image/upload',
+    // images_upload_url: '{{ asset('upload') }}',
+    images_upload_url: '{{ URL::to(' / uploads3 ') }}',
+    file_picker_types: "image",
+    plugins: [
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "emoticons template paste textcolor colorpicker textpattern"
+    ],
+    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    // override default upload handler to simulate successful upload
+    file_picker_callback: function(cb, value, meta) {
+        var input = document.createElement("input");
+        input.setAttribute("type", "file1");
+        input.setAttribute("accept", "image/*");
+        input.onchange = function() {
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function() {
+                var id = "blobid" + new Date().getTime();
+                var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                var base64 = reader.result.split(",")[1];
+                var blobInfo = blobCache.create(id, file1, base64);
+                blobCache.add(blobInfo);
+                cb(blobInfo.blobUri(), {
+                    title: file1.name
+                });
             };
-            input.click();
-        }
-    });
+        };
+        input.click();
+    }
+});
 </script>
 <script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 <script>
-    tinymce.init({
-        selector: "textarea#description",
-        relative_urls: false,
-        paste_data_images: true,
-        image_title: true,
-        automatic_uploads: true,
-        // images_upload_url: '/post/image/upload',
-        // images_upload_url: '{{ asset('upload') }}',
-        images_upload_url: '{{ URL::to('/uploads3') }}',
-        file_picker_types: "image",
-        plugins: [
-            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-            "searchreplace wordcount visualblocks visualchars code fullscreen",
-            "insertdatetime media nonbreaking save table contextmenu directionality",
-            "emoticons template paste textcolor colorpicker textpattern"
-        ],
-        toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-        // override default upload handler to simulate successful upload
-        file_picker_callback: function(cb, value, meta) {
-            var input = document.createElement("input");
-            input.setAttribute("type", "file");
-            input.setAttribute("accept", "image/*");
-            input.onchange = function() {
-                var file = this.files[0];
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function() {
-                    var id = "blobid" + new Date().getTime();
-                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                    var base64 = reader.result.split(",")[1];
-                    var blobInfo = blobCache.create(id, file, base64);
-                    blobCache.add(blobInfo);
-                    cb(blobInfo.blobUri(), {
-                        title: file.name
-                    });
-                };
+tinymce.init({
+    selector: "textarea#description",
+    relative_urls: false,
+    paste_data_images: true,
+    image_title: true,
+    automatic_uploads: true,
+    // images_upload_url: '/post/image/upload',
+    // images_upload_url: '{{ asset('upload') }}',
+    images_upload_url: '{{ URL::to(' / uploads3 ') }}',
+    file_picker_types: "image",
+    plugins: [
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "emoticons template paste textcolor colorpicker textpattern"
+    ],
+    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    // override default upload handler to simulate successful upload
+    file_picker_callback: function(cb, value, meta) {
+        var input = document.createElement("input");
+        input.setAttribute("type", "file");
+        input.setAttribute("accept", "image/*");
+        input.onchange = function() {
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function() {
+                var id = "blobid" + new Date().getTime();
+                var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                var base64 = reader.result.split(",")[1];
+                var blobInfo = blobCache.create(id, file, base64);
+                blobCache.add(blobInfo);
+                cb(blobInfo.blobUri(), {
+                    title: file.name
+                });
             };
-            input.click();
-        }
-    });
+        };
+        input.click();
+    }
+});
 </script>
 @endsection
 @section('bottom-js')

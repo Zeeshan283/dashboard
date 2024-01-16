@@ -18,13 +18,13 @@ class InstructorController extends Controller
     public function index()
     {
         $data = Instructor::orderBy('id')->get();
-        $data = Instructor::with('InstructorName')->get();
-        return view('instructor.index', compact('data'));
+        // $data = Instructor::with('InstructorName')->get();
+        return view('trainings.instructor.index', compact('data'));
     }
 
     public function create()
     {
-        return view('instructor.create');
+        return view('trainings.instructor.create');
     }
 
     public function store(Request $request)
@@ -40,14 +40,14 @@ class InstructorController extends Controller
         $t = Instructor::create($request->all());
 
         Toastr::success('Instructor Added Successfully!');
-        return redirect()->back();
+        return redirect('/instructor');
     }
 
     public function edit($id)
     {
         $edit = Instructor::findOrFail($id);
         if ($edit) {
-            return view('instructor.edit', compact('edit'));
+            return view('trainings.instructor.edit', compact('edit'));
         } else {
             abort(404);
         }
