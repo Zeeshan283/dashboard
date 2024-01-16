@@ -214,10 +214,10 @@
 
                                                     <label for="inputtext11" class="ul-form__label">Tagline<span
                                                             style="color: red;">*</span></label>
-                                                    {!! Form::text('tag_line', null, ['id' => 'tag_line', 'class' => 'form-control']) !!}
-                                                    @if ($errors->has('tag_line'))
+                                                    {!! Form::text('tagline', null, ['id' => 'tagline', 'class' => 'form-control']) !!}
+                                                    @if ($errors->has('tagline'))
                                                         <span style="color: red;"
-                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('tag_line') }}</span
+                                                            class="invalid-feedback1 font-weight-bold">{{ $errors->first('tagline') }}</span
                                                             style="color: red;">
                                                     @endif
                                                 </div>
@@ -426,7 +426,7 @@
                                                                         class="img-thumbnail_1"
                                                                         style="width:100px;height:80px;" />
 
-                                                                    {{-- <span class="delete-icon" data-image-index="{{ $key }}">Delete</span> --}}======={{-- <span class="delete-icon"  data-image-index="{{ $key }}">Delete</span> --}}>
+                                                                    {{-- <span class="delete-icon" data-image-index="{{ $key }}">Delete</span> --}}{{-- <span class="delete-icon"  data-image-index="{{ $key }}">Delete</span> --}}
                                                                 @endforeach
                                                             @else
                                                                 <p>Invalid JSON data in $edit->slider_images</p>
@@ -670,6 +670,8 @@
 
                                                 </div>
 
+                                                {{-- category 4 and 5 add here --}}
+                                                <!-- Portfolio Category 4 -->
                                                 <div class="row">
                                                     <div class="form-group col-md-4">
                                                         <label for="inputtext11" class="ul-form__label">Portfolio
@@ -679,44 +681,20 @@
                                                     <div class="form-group col-md-4">
                                                         <label for="inputtext11" class="ul-form__label">Portfolio
                                                             Category 4 images:</label>
-
-                                                        <input type="file" name="p_c4_images[]" id=""
-                                                            class="form-control" multiple>
+                                                        <input type="file" name="p_c4_images[]"
+                                                            class="form-control file-input" multiple>
                                                         <button type="button" class="d-none form-control"
-                                                            style="width: auto;"id="">Choose Images</button>
-
+                                                            style="width: auto;">Choose Images</button>
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="inputtext11" class="ul-form__label">Images</label>
-
-                                                        <div id="loopImg_p" class="image-container_1"
-                                                            style="display: flex;">
-                                                            @if (!empty($edit->p_c4_images))
-                                                                @php
-                                                                    $decodedImages = json_decode($edit->p_c4_images);
-                                                                @endphp
-
-                                                                @if ($decodedImages !== null)
-                                                                    @foreach ($decodedImages as $key => $value)
-                                                                        <img src="{{ asset($value) }}"
-                                                                            class="img-thumbnail"
-                                                                            style="width:100px;height:80px;" />
-                                                                        {{-- <span class="delete-icon" data-image-index="{{ $key }}">Delete</span> --}}
-                                                                    @endforeach
-                                                                @else
-                                                                    <p>Invalid JSON data in $edit->p_c4_images</p>
-                                                                @endif
-                                                            @else
-                                                                <p>images is empty or null</p>
-                                                            @endif
-                                                        </div>
-                                                        <div id="fileLimitMessage_p" style="color: red;"></div>
-
+                                                        <div id="loopImg_p_c4" class="image-container_1"
+                                                            style="display: flex;"></div>
+                                                        <div id="fileLimitMessage_p_c4" style="color: red;"></div>
                                                     </div>
-
                                                 </div>
 
-
+                                                <!-- Portfolio Category 5 -->
                                                 <div class="row">
                                                     <div class="form-group col-md-4">
                                                         <label for="inputtext11" class="ul-form__label">Portfolio
@@ -726,52 +704,46 @@
                                                     <div class="form-group col-md-4">
                                                         <label for="inputtext11" class="ul-form__label">Portfolio
                                                             Category 5 images:</label>
-
-                                                        <input type="file" name="p_c5_images[]" id=""
-                                                            class="form-control" multiple>
+                                                        <input type="file" name="p_c5_images[]"
+                                                            class="form-control file-input" multiple>
                                                         <button type="button" class="d-none form-control"
-                                                            style="width: auto;"id="">Choose Images</button>
-
+                                                            style="width: auto;">Choose Images</button>
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="inputtext11" class="ul-form__label">Images</label>
-
-                                                        <div id="loopImg_p" class="image-container_1"
-                                                            style="display: flex;">
-                                                            @if (!empty($edit->p_c5_images))
-                                                                @php
-                                                                    $decodedImages = json_decode($edit->p_c5_images);
-                                                                @endphp
-
-                                                                @if ($decodedImages !== null)
-                                                                    @foreach ($decodedImages as $key => $value)
-                                                                        <img src="{{ asset($value) }}"
-                                                                            class="img-thumbnail"
-                                                                            style="width:100px;height:80px;" />
-                                                                        {{-- <span class="delete-icon" data-image-index="{{ $key }}">Delete</span> --}}
-                                                                    @endforeach
-                                                                @else
-                                                                    <p>Invalid JSON data in $edit->p_c5_images</p>
-                                                                @endif
-                                                            @else
-                                                                <p>images is empty or null</p>
-                                                            @endif
-                                                        </div>
-                                                        <div id="fileLimitMessage_p" style="color: red;"></div>
-
-                                                    </div>
-
-                                                </div>
-
-
-                                                <div class="form-group"style="text-align: right;">
-                                                    <div class="">
-                                                        <input class="btn btn-outline-secondary" type="submit"
-                                                            value="Update Profile">
+                                                        <div id="loopImg_p_c5" class="image-container_1"
+                                                            style="display: flex;"></div>
+                                                        <div id="fileLimitMessage_p_c5" style="color: red;"></div>
                                                     </div>
                                                 </div>
 
+                                                <script>
+                                                    // Assuming you have jQuery available
+                                                    $(document).ready(function() {
+                                                        // Handle file input change event
+                                                        $('.file-input').on('change', function() {
+                                                            var files = $(this)[0].files;
+                                                            var imageContainerId = $(this).closest('.row').find('.image-container_1').attr('id');
+                                                            var imageContainer = $('#' + imageContainerId);
 
+                                                            // Clear existing images
+                                                            imageContainer.empty();
+
+                                                            // Display selected images
+                                                            for (var i = 0; i < files.length; i++) {
+                                                                var imageUrl = URL.createObjectURL(files[i]);
+                                                                var imgElement = $('<img>').attr('src', imageUrl).addClass('img-thumbnail').css({
+                                                                    'width': '100px',
+                                                                    'height': '80px',
+                                                                    'margin-right': '5px' // Adjust margin as needed
+                                                                });
+                                                                imageContainer.append(imgElement);
+                                                            }
+
+                                                            // You may want to add additional logic for handling file limits, etc.
+                                                        });
+                                                    });
+                                                </script>
 
                                             </div>
                                             <div class="form-group"style="text-align: right;">
@@ -782,7 +754,6 @@
                                             </div>
 
 
-                                            >>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
                                             <script>
                                                 document.getElementById('chooseImages').addEventListener('click', function() {
                                                     document.getElementById('imageInput').click();

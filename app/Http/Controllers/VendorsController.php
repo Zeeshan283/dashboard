@@ -270,7 +270,7 @@ class VendorsController extends Controller
             'address1' => 'required',
             'tax_reg_title' => 'required',
             'tax_reg_number' => 'required',
-            'tag_line' => 'required',
+            'tagline' => 'required',
             'rating' => 'required',
             // 'slider_images' => 'required',
             // 'about' => 'required',
@@ -286,7 +286,7 @@ class VendorsController extends Controller
         $user->city = $request->city;
         $user->address1 = $request->address1;
         $user->address2 = $request->address2;
-        // $user->tagline = $request->tagline;
+        $user->tagline = $request->tagline;
         $user->tax_reg_title = $request->tax_reg_title;
         $user->tax_reg_number = $request->tax_reg_number;
         $user->total_employees = $request->total_employees;
@@ -301,7 +301,7 @@ class VendorsController extends Controller
         $user->annual_export = $request->annual_export;
         $user->annual_import = $request->annual_import;
         $user->annual_revenue = $request->annual_revenue;
-        // $user->rating = $request->rating;
+        $user->rating = $request->rating;
 
         $user->update();
 
@@ -309,6 +309,8 @@ class VendorsController extends Controller
 
         $update->company_name = $request->company_name;
         $update->country = $request->country;
+        $update->tagline = $request->tagline;
+        $update->rating = $request->rating;
         $update->slider_title = $request->slider_title;
         $update->slider_title2 = $request->slider_title2;
         $update->p_category1 = $request->p_category1;
