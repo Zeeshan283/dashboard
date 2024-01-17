@@ -30,7 +30,7 @@
 
     <div class="row">
         <!-- ICON BG -->
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-2">
             <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                 <div class="card-body text-center">
                     <i class="i-Shopping-Bag"></i>
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-2">
             <a href="{{ route('products.index') }}">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
@@ -56,7 +56,7 @@
             </a>
         </div>
 
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-2">
             <a href="{{ route('allorders') }}">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
@@ -69,7 +69,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-3">
             <a href="{{ route('pendingorders') }}">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
@@ -83,9 +83,7 @@
             </a>
         </div>
 
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-3">
             <a href="{{ route('returned') }}">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
@@ -98,7 +96,10 @@
                 </div>
             </a>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2">
             <a href="{{ route('canceled') }}">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
@@ -111,66 +112,95 @@
                 </div>
             </a>
         </div>
+
+        <div class="col-lg-2">
+            <a href="{{ route('customerlist') }}">
+                <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                    <div class="card-body text-center">
+                        <i class="i-Add-User" style="height: 30px"></i>
+                        <div class="content">
+                            <p class="text-muted mt-2 mb-0">TotalCustomers</p>
+                            <p class="text-primary text-15 line-height-1 mb-2">{{ $customer }}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-2">
+            <a href="{{ route('CustomerQueries.index') }}">
+                <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                    <div class="card-body text-center">
+                        <i class="i-Timer1" style="height: 30px"></i>
+                        <div class="content">
+                            <p class="text-muted mt-2 mb-0">TotalCustomerQueries</p>
+                            <p class="text-primary text-15 line-height-1 mb-2">{{ $customerQueries }}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3">
+            <a href="{{ route('sub-category.index') }}">
+                <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                    <div class="card-body text-center">
+                        <i class="i-Timer1" style="height: 30px"></i>
+                        <div class="content">
+                            <p class="text-muted mt-2 mb-0">TotalComissionCharged</p>
+                            <p class="text-primary text-15 line-height-1 mb-2"></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3">
+            <a href="{{ route('sub-category.index') }}">
+                <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                    <div class="card-body text-center">
+                        <i class="i-Timer1" style="height: 30px"></i>
+                        <div class="content">
+                            <p class="text-muted mt-2 mb-0">TotalTaxChargedbySuppliers </p>
+                            <p class="text-primary text-15 line-height-1 mb-2"></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+    @if (Auth::User()->role == 'Admin')
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <a href="{{ route('customerlist') }}">
+            <div class="col-lg-2">
+                <a href="{{ route('delivered') }}">
+                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                        <div class="card-body text-center">
+                            <i class="i-Check" style="height: 30px"></i>
+                            <div class="content">
+                                <p class="text-muted mt-2 mb-0">TotalCompletedOrders</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $delivered }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- ICON BG -->
+            <div class="col-lg-2">
+                <a href="{{ route('vendor.index') }}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <i class="i-Add-User" style="height: 30px"></i>
                             <div class="content">
-                                <p class="text-muted mt-2 mb-0">TotalCustomers</p>
-                                <p class="text-primary text-15 line-height-1 mb-2">{{ $customer }}</p>
+                                <p class="text-muted mt-2 mb-0">TotalSuppliers</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $vendorlist }}</p>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <a href="{{ route('CustomerQueries.index') }}">
-                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                        <div class="card-body text-center">
-                            <i class="i-Timer1" style="height: 30px"></i>
-                            <div class="content">
-                                <p class="text-muted mt-2 mb-0">TotalCustomerQueries</p>
-                                <p class="text-primary text-15 line-height-1 mb-2">{{ $customerQueries }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            @if (Auth::User()->role == 'Admin')
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <a href="{{ route('delivered') }}">
-                        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                            <div class="card-body text-center">
-                                <i class="i-Check" style="height: 30px"></i>
-                                <div class="content">
-                                    <p class="text-muted mt-2 mb-0">TotalCompletedOrders</p>
-                                    <p class="text-primary text-15 line-height-1 mb-2">{{ $delivered }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- ICON BG -->
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <a href="{{ route('vendor.index') }}">
-                        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                            <div class="card-body text-center">
-                                <i class="i-Add-User" style="height: 30px"></i>
-                                <div class="content">
-                                    <p class="text-muted mt-2 mb-0">TotalSuppliers</p>
-                                    <p class="text-primary text-15 line-height-1 mb-2">{{ $vendorlist }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-        </div>
-        @endif
 
-        @if (Auth::User()->role == 'Admin')
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-2">
                 <a href="{{ route('CustomerQueries.index') }}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
@@ -183,35 +213,39 @@
                     </div>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+
+            <div class="col-lg-3">
                 <a href="{{ route('allcat') }}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <i class="i-Timer1" style="height: 30px"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">TotalCategories</p>
-                                <p class="text-primary text-15 line-height-1 mb-2"></p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $cat }}</p>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <a href="{{ route('sub-category.index') }}">
-                <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                    <div class="card-body text-center">
-                        <i class="i-Timer1" style="height: 30px"></i>
-                        <div class="content">
-                            <p class="text-muted mt-2 mb-0">TotalSub-Categories</p>
-                            <p class="text-primary text-15 line-height-1 mb-2"></p>
+
+
+            <div class="col-lg-3">
+                <a href="{{ route('sub-category.index') }}">
+                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                        <div class="card-body text-center">
+                            <i class="i-Timer1" style="height: 30px"></i>
+                            <div class="content">
+                                <p class="text-muted mt-2 mb-0">TotalSub-Categories</p>
+                                <p class="text-primary text-15 line-height-1 mb-2">{{ $s }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
+
         </div>
-        {{-- <div class="col-lg-3 col-md-6 col-sm-6">
+    @endif
+    {{-- <div class="col-lg-3">
             <a href="{{ route('confirmedorders') }}">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
@@ -224,7 +258,7 @@
                 </div>
             </a>
         </div> --}}
-        {{-- <div class="col-lg-3 col-md-6 col-sm-6">
+    {{-- <div class="col-lg-3">
             <a href="{{ route('packagingorders') }}">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
@@ -238,7 +272,7 @@
             </a>
         </div> --}}
 
-        {{-- <div class="col-lg-3 col-md-6 col-sm-6">
+    {{-- <div class="col-lg-3">
             <a href="{{ route('ftod') }}">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
@@ -252,50 +286,25 @@
             </a>
         </div> --}}
 
-    </div>
-    @endif
+
+
 
     <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <a href="{{ route('sub-category.index') }}">
-                <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                    <div class="card-body text-center">
-                        <i class="i-Timer1" style="height: 30px"></i>
-                        <div class="content">
-                            <p class="text-muted mt-2 mb-0">TotalComissionCharged</p>
-                            <p class="text-primary text-15 line-height-1 mb-2"></p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <a href="{{ route('sub-category.index') }}">
-                <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                    <div class="card-body text-center">
-                        <i class="i-Timer1" style="height: 30px"></i>
-                        <div class="content">
-                            <p class="text-muted mt-2 mb-0">TotalTaxChargedbySuppliers </p>
-                            <p class="text-primary text-15 line-height-1 mb-2"></p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <a href="{{ route('refunded') }}">
+        <div class="col-lg-2">
+            <a href="{{ route('allrefunds') }}">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
                         <i class="i-Timer1" style="height: 30px"></i>
                         <div class="content">
                             <p class="text-muted mt-2 mb-0">TotalRefund</p>
-                            <p class="text-primary text-15 line-height-1 mb-2"></p>
+                            <p class="text-primary text-15 line-height-1 mb-2">{{ $refund }}</p>
                         </div>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
+
+        <div class="col-lg-2">
             <a href="{{ route('productreviews') }}">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
@@ -308,35 +317,8 @@
                 </div>
             </a>
         </div>
-        @if (Auth::User()->role == 'Admin')
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <a href="{{ route('allorders') }}">
-                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                        <div class="card-body text-center">
-                            <i class="i-Add-Cart"></i>
-                            <div class="content">
-                                <p class="text-muted mt-2 mb-0">TotalUsedProducts</p>
-                                <p class="text-primary text-24 line-height-1 mb-2">{{ $currenOrders }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <a href="{{ route('products.index') }}">
-                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                        <div class="card-body text-center">
-                            <i class="i-Add-Cart"></i>
-                            <div class="content">
-                                <p class="text-muted mt-2 mb-0">TotalAvailableStocks</p>
-                                <p class="text-primary text-24 line-height-1 mb-2">{{ $products }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        @endif
-        <div class="col-lg-3 col-md-6 col-sm-6">
+
+        <div class="col-lg-3">
             <a href="{{ route('products.index') }}">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
@@ -349,8 +331,39 @@
                 </div>
             </a>
         </div>
+        @if (Auth::User()->role == 'Admin')
+            <div class="col-lg-3">
+                <a href="{{ route('allorders') }}">
+                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                        <div class="card-body text-center">
+                            <i class="i-Add-Cart"></i>
+                            <div class="content">
+                                <p class="text-muted mt-2 mb-0">TotalUsedProducts</p>
+                                <p class="text-primary text-24 line-height-1 mb-2">{{ $currenOrders }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-2">
+                <a href="{{ route('products.index') }}">
+                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                        <div class="card-body text-center">
+                            <i class="i-Add-Cart"></i>
+                            <div class="content">
+                                <p class="text-muted mt-2 mb-0">TotalAvailableStocks</p>
+                                <p class="text-primary text-24 line-height-1 mb-2">{{ $products }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
 
     </div>
+    @endif
+
+
+
     <div class="row">
         <div class="col-lg-8 col-md-12">
             <div class="card mb-4">

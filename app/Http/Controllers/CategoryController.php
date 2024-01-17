@@ -29,10 +29,9 @@ class CategoryController extends Controller
   public function index()
   {
     $data = Category::orderby('id', 'asc')->get();
-    $Categories = count($data);
     $menus = Menu::all();
 
-    return view('category.allcat', compact('data', 'Categories', 'menus'));
+    return view('category.allcat', compact('data', 'menus'));
   }
 
   public function create()
