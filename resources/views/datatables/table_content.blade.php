@@ -45,9 +45,9 @@
         <th>Customer Last Name</th>
         <th>Order Date</th>
         {{-- <th>Shipping Date</th> --}}
-       
+
         {{-- <th>Status</th> --}}
-        <th>Action</th> 
+        <th>Action</th>
     </thead>
     <tbody>
         @foreach ($data as $value => $orders)
@@ -56,14 +56,14 @@
 
                 <td>{{ $orders->id }}</td>
 
-                <td>{{ $orders->first_name  ?? null}}</td>
+                <td>{{ $orders->first_name ?? null }}</td>
 
-                <td>{{ $orders->last_name ?? null}}</td>
+                <td>{{ $orders->last_name ?? null }}</td>
 
                 <td>{{ $orders->date ?? null }}</td>
-                {{--<td>{{ $orders->shipping  ?? null}}</td>--}}
+                {{-- <td>{{ $orders->shipping  ?? null}}</td> --}}
 
-                
+
                 {{-- <form method="POST" action="{{ route('order.status', ['id' => $orders->id]) }}">
 
                     @csrf
@@ -99,8 +99,8 @@
                 </form> --}}
 
                 <td>
-                <a href="{{ url('get_order_details/' . $orders->id) }}" class="btn btn-outline-secondary"
-                            ><i class="nav-icon i-Eye "></i></a>
+                    <a href="{{ url('get_order_details/' . $orders->id) }}" class="btn btn-outline-secondary"><i
+                            class="nav-icon i-Eye "></i></a>
                 </td>
             </tr>
         @endforeach
@@ -112,13 +112,12 @@
             <th>Customer Last Name</th>
             <th>Order Date</th>
             {{-- <th>Shipping Date</th> --}}
-            
+
             {{-- <th>Status</th> --}}
-            <th>Action</th> 
+            <th>Action</th>
         </tr>
     </tfoot>
-
-    @elseif (Route::currentRouteName() == 'get_order_details')
+@elseif (Route::currentRouteName() == 'get_order_details')
     <thead>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
@@ -206,7 +205,7 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        
+
 
                         </div>
 
@@ -235,8 +234,6 @@
             <th>Action</th>
         </tr>
     </tfoot>
-
-
 @elseif (Route::currentRouteName() == 'order_details')
     <thead>
         {{-- <th>Sr No</th> --}}
@@ -325,7 +322,7 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        
+
 
                         </div>
 
@@ -355,7 +352,7 @@
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'pendingorders')
-<thead>
+    <thead>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
         <th>Sub Order Id #</th>
@@ -442,7 +439,7 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        
+
 
                         </div>
 
@@ -472,7 +469,7 @@
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'confirmedorders')
-<thead>
+    <thead>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
         <th>Sub Order Id #</th>
@@ -559,7 +556,7 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        
+
 
                         </div>
 
@@ -589,7 +586,7 @@
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'packagingorders')
-<thead>
+    <thead>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
         <th>Sub Order Id #</th>
@@ -676,7 +673,7 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        
+
 
                         </div>
 
@@ -706,7 +703,7 @@
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'outofdelivery')
-<thead>
+    <thead>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
         <th>Sub Order Id #</th>
@@ -793,7 +790,7 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        
+
 
                         </div>
 
@@ -823,7 +820,7 @@
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'delivered')
-<thead>
+    <thead>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
         <th>Sub Order Id #</th>
@@ -910,7 +907,7 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        
+
 
                         </div>
 
@@ -940,7 +937,7 @@
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'returned')
-<thead>
+    <thead>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
         <th>Sub Order Id #</th>
@@ -1027,7 +1024,7 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        
+
 
                         </div>
 
@@ -1057,7 +1054,7 @@
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'ftod')
-<thead>
+    <thead>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
         <th>Sub Order Id #</th>
@@ -1144,7 +1141,7 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        
+
 
                         </div>
 
@@ -1174,7 +1171,7 @@
         </tr>
     </tfoot>
 @elseif (Route::currentRouteName() == 'canceled')
-<thead>
+    <thead>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
         <th>Sub Order Id #</th>
@@ -1261,7 +1258,7 @@
 
                         <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                             data-style="expand-left"><span class="ladda-label">Update</span></button>
-                        
+
 
                         </div>
 
@@ -1906,9 +1903,14 @@
                     </div>
 
                 </td>
+                <td class="d-none">{{ $product->created_at }}</td>
+                <td class="d-none">{{ $product->new_price }}</td>
+                <td class="d-none">{{ $product->new_warranty_days }}</td>
+
             </tr>
         @endforeach
     </tbody>
+
     <tfoot>
         <tr>
             <th>Sr No</th>
