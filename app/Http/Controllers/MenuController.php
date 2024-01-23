@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
-use Intervention\Image\Facades\Image;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Traits\fontAwesomeTrait;
-use Illuminate\Support\Facades\File;
 
 class MenuController extends Controller
 {
@@ -84,7 +82,6 @@ class MenuController extends Controller
 
         Toastr::success('Menu Updated Successfully!');
         return redirect()->route('allmenu');
-
     }
 
     public function destroy($id)
@@ -94,6 +91,5 @@ class MenuController extends Controller
         $menu->delete();
         Toastr::success('Menu Deleted Successfully!');
         return redirect()->route('allmenu');
-
-}
+    }
 }
