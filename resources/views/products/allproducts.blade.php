@@ -9,10 +9,31 @@
         <div class="col-md-6">
                 <h1>Product's Management</h1>
         </div>
+        <!-- Add this above your table -->
+<div>
+    <label for="nameFilter">Name:</label>
+    <!-- <input type="text"> -->
+    <select  id="nameFilter">
+        <option value="mottor">mottor</option>
+        <option value="plc">plc</option>
+    </select>
+
+    
+    <label for="modelFilter">Model#:</label>
+    <input type="text" id="modelFilter">
+    <label for="startDateFilter">Start Date:</label>
+    <input type="date" id="startDateFilter">
+
+    <label for="endDateFilter">End Date:</label>
+    <input type="date" id="endDateFilter">
+    <!-- Add more filter inputs for other columns if needed -->
+</div>
+
         <div class="col-md-6" style="text-align: right;  margin-left: auto;">
             <a href="{{ route('products.create')}}"><button class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Product</span></button></a>
 
         </div>
+
     </div>
             <div class="separator-breadcrumb border-top"></div>
             <div class="col-md-12 mb-4">
@@ -32,7 +53,10 @@
                 </div>
             </div>
 
-          
+          <!-- Add this script at the end of your body or in a separate JS file -->
+<!-- Update this script at the end of your body or in a separate JS file -->
+
+
 @endsection
 
 @section('page-js')

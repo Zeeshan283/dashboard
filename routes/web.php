@@ -50,9 +50,12 @@ use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\CategoryServicesController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\TrainingsController;
 use App\Http\Controllers\TrainingCategoriesController;
 use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\Auth\LoginController;
 
 
 
@@ -102,6 +105,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 Auth::routes(['verify' => true]);
 
+Route::get('login/google',[LoginController::class,'redirectToGoogle'])->name('login.google');
+Route::get('login/google/callback', [LoginController::class,'handleGoogleCallback']);
 
 // ADMIN ACCESS
 Route::middleware(['admin'])->group(function () {
@@ -163,7 +168,7 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('Deals', 'App\Http\Controllers\DealsController');
     Route::resource('Homecoupons', HomecouponsController::class);
     Route::get('/notifications', 'NotificationController@showNotifications')->name('showNotifications');
-    Route::get('services/{id}/destroy', [TermsConditionsController::class, 'destroy']);
+    // Route::get('services/{id}/destroy', [TermsConditionsController::class, 'destroy']);
     Route::resource('blog_categories', BlogsCategoriesController::class);
     Route::get('blogs_categories/{id}/destroy', [BlogsCategoriesController::class, 'destroy']);
     Route::resource('blogs', BlogsController::class);
@@ -228,6 +233,10 @@ Route::middleware(['vendor'])->group(function () {
     Route::post('a_s_image/{id}', [AdvertisementOrder::class, 'advertisementImage'])->name('advertisementImage');
     Route::get('stripe1', [StripePaymentController::class, 'stripe']);
     Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
+
+    Route::resource('services', ServicesController::class);
+    Route::resource('portfolios', PortfolioController::class);
+
 });
 //  ============================================================================================================================ 
 
@@ -251,6 +260,7 @@ Route::middleware(['bothAccess'])->group(function () {
 
     Route::get('order_details', [OrderController::class, 'OrderDetailIndex'])->name('order_details');
     Route::patch('order_details_status', [OrderController::class, 'order_details_status'])->name('order_details_status');
+    Route::get('get_order_detail_status/{id}', [OrderController::class, 'GetOrderDetailStatus'])->name('get_order_detail_status');
     Route::get('get_order_details/{id}', [OrderController::class, 'GetOrderDetail'])->name('get_order_details');
 
 
@@ -353,7 +363,7 @@ Route::get('/order-data', function () {
 Route::get('/get-product-chart-data', [ProductController::class, 'getProductChartData']); // product chart data
 Route::get('/fetch-notifications', 'NotificationController@fetchNotifications')->name('fetch.notifications');
 Route::resource('cprofile', CprofileController::class);
-Route::resource('service', CategoryServicesController::class);
+Route::resource('v_service', CategoryServicesController::class);
 
 // views 
 // Route::get('/views-over-last-20-days', function () {

@@ -23,6 +23,27 @@ class VerificationController extends Controller
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
+
+    public function verifyEmail(Request $request)
+    {
+        $userId = $request->route('id');
+
+        $user = User::find($userId);
+
+        if (!$user || $user->hasVerifiedEmail()) {
+            throw new AuthorizationException;
+        }
+
+        $user->markEmailAsVerified();
+
+        event(new Verified($user));
+
+        // Optionally, log the user in after verification
+        // auth()->login($user);
+
+        return redirect($this->redirectPath())->with('verified', true);
+    }
+    
     // Customize the response for email verification success
     protected function verified(Request $request)
     {

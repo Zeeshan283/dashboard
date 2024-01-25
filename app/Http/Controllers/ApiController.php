@@ -23,10 +23,11 @@ use App\Models\TermsConditions;
 use App\Models\HelpCenter;
 use App\Models\User;
 use App\Models\Blogs;
+use App\Models\Trainings;
 use App\Models\Cfeatures;
 use App\Models\BlogsCategories;
 use App\Models\BlogsSubCategories;
-
+use App\Models\OrderTracker;
 use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -87,7 +88,20 @@ class ApiController extends Controller
 
     public function Products()
     {
-        $products = Product::with('product_image')->with('colors')->with('brand')->orderBy('id')->get();
+        // $products = Product::with('product_image','colors' ,'brand')->whereHas('user',function($query){
+        // $query->where('status','1');
+        // })->get();
+        $products = Product::with('product_image', 'colors', 'brand')
+            ->whereHas('user', function ($query) {
+                $query->where('status', '=','1');
+            })
+    ->get();
+        // ->map(function ($product) {
+        //     $product->stock = $this->stock_values($product->id);
+        //     return $product;
+        // })
+        
+         
         return response()->json([$products]);
     }
 
@@ -95,7 +109,9 @@ class ApiController extends Controller
     {
         $sub = SubCategory::where('id', $id)->first();
         if ($sub) {
-            $products = Product::with('product_image')->with('subcategories')->with('colors')
+            $products = Product::with('product_image','subcategories','colors')->whereHas('user', function ($query) {
+                $query->where('status', '=','1');
+            })
                 ->where('subcategory_id', $id)
                 ->get();
 
@@ -195,7 +211,9 @@ class ApiController extends Controller
         $menus = Menu::all();
         $categories = Category::all();
         $sub_categories = SubCategory::all();
-        $products = Product::with('product_images')->with('colors')->with('brand')->get();
+        $products = Product::with('product_images','colors','brand')->whereHas('user', function ($query) {
+            $query->where('status', '=','1');
+        })->get();
         $banners = Banners::all();
         $brands = Brand::all();
         $settings = Settings::all();
@@ -299,11 +317,20 @@ class ApiController extends Controller
             'phone2' => $customerInfo['phone2'] ?? null,
             'email' => $customerInfo['email'] ?? null,
             'comments' => $customerInfo['comments'] ?? null,
+            'shipping_full_name' => $customerInfo['shipping_full_name'] ?? null,
+            'shipping_company_name' => $customerInfo['shipping_company_name'] ?? null,
+            'shipping_contact_number' => $customerInfo['shipping_contact_number'] ?? null,
+            'shipping_mobile_number' => $customerInfo['shipping_mobile_number'] ?? null,
+            'shipping_address' => $customerInfo['shipping_address'] ?? null,
+            'shipping_city' => $customerInfo['shipping_city'] ?? null,
+            'shipping_state' => $customerInfo['shipping_state'] ?? null,
+            'shipping_country' => $customerInfo['shipping_country'] ?? null,
+            'shipping_zipcode' => $customerInfo['shipping_zipcode'] ?? null, 
             'payment_method' => $customerInfo['payment_method'] ?? null,
-            'status' => $customerInfo['status'] ?? null,
+            // 'status' => $customerInfo['status'] ?? null,
             'shipping' => $customerInfo['shipping'] ?? null,
             'customer_id' => $customerInfo['customer_id'] ?? null,
-            'o_vendor_id' => $customerInfo['o_vendor_id'] ?? null,
+            // 'o_vendor_id' => $customerInfo['o_vendor_id'] ?? null,
             'discount' => $customerInfo['discount'] ?? null,
             'total_price' => $customerInfo['total_price'] ?? null,
             'date' => Carbon::now(), // Set the current date and time
@@ -331,8 +358,16 @@ class ApiController extends Controller
                         'status' => 'In Process',
                     ]);
 
+                 
                     // Save the order detail and associate it with the order
                     $order->orderDetails()->save($orderDetail);
+
+                    $orderTracker = new OrderTracker();
+                    $orderTracker->order_id = $orderDetail->id;
+                    $orderTracker->status = 'In Process';
+                    $orderTracker->datetime = Carbon::now();
+
+                    $orderTracker->save();
 
                     // Handle stock related to the product
                     $p_id = $orderDetail->product_id;
@@ -361,12 +396,19 @@ class ApiController extends Controller
 
         // $orders = Order::where('customer_id', $userId)->with('orderDetails')->get();
 
-        $orders = Order::where('customer_id', $userId)
-            ->with(['orderDetails.product:id,name,model_no,url'])
-            ->get();
+        $orders = Order::with('product_orders_details')->where('customer_id', '=', $userId)->get();
+ 
+        $ordertracker = [];
+        foreach ($orders as $order) {
+            $orderDetails = OrderDetail::where('order_id', $order->id)->with(['order_tracker' => function ($query) {
+                $query->select('order_id', 'status', 'datetime')->orderBy('datetime', 'asc');
+            }])->get();
+
+            $ordertracker[] = $orderDetails;
+            }
 
 
-        return response()->json(['orders' => $orders]);
+        return response()->json(['orders' => $orders, "orderTrackerByProduct" => $ordertracker]);
     }
 
     public function vendorprofile($id)
@@ -374,9 +416,9 @@ class ApiController extends Controller
     {
         try {
 
-            $vendors = vendorProfile::with('user')->where('vendor_id', '=', $id)->first();
+            $vendors = vendorProfile::with('user','vendorServices','vendorportfolio')->where('vendor_id', '=', $id)->first();
 
-            return response()->json(['vendors' => $vendors]);
+            return response()->json($vendors);
         } catch (\Exception $e) {
             return response()->json(['error' => ' not found '], 404);
         }
@@ -413,7 +455,9 @@ class ApiController extends Controller
                 ? Category::findOrFail($identifier)
                 : Category::where('slug', $identifier)->firstOrFail();
 
-            $products = Product::with('product_image', 'subcategories', 'colors', 'brand')
+            $products = Product::with('product_image', 'subcategories', 'colors', 'brand')->whereHas('user', function ($query) {
+                $query->where('status', '=','1');
+            })
                 ->where('category_id', $cat->id)
                 ->get()
                 ->map(function ($product) {
@@ -441,7 +485,9 @@ class ApiController extends Controller
                 ? Menu::findOrFail($identifier)
                 : Menu::where('slug', $identifier)->firstOrFail();
 
-            $products_without_stock = Product::with('product_image', 'subcategories', 'colors', 'brand')
+            $products_without_stock = Product::with('product_image', 'subcategories', 'colors', 'brand')->whereHas('user', function ($query) {
+                $query->where('status', '=','1');
+            })
                 ->where('menu_id', $menu->id)
                 ->get();
 
@@ -468,7 +514,9 @@ class ApiController extends Controller
         try {
             $sub_cat = is_numeric($id) ? SubCategory::findOrFail($id) : SubCategory::where('slug', $id)->firstOrFail();
 
-            $products_without_stock = Product::with('product_image', 'subcategories', 'colors')
+            $products_without_stock = Product::with('product_image', 'subcategories', 'colors')->whereHas('user', function ($query) {
+                $query->where('status', '=','1');
+            })
                 ->where('subcategory_id', $sub_cat->id)
                 ->get();
 
@@ -492,7 +540,9 @@ class ApiController extends Controller
     public function SearchProduct($character)
     {
         try {
-            $products = Product::with('product_images', 'colors', 'brand')
+            $products = Product::with('product_images', 'colors', 'brand')->whereHas('user', function ($query) {
+                $query->where('status', '=','1');
+            })
                 ->where(function ($query) use ($character) {
                     $query->where('name', 'like', '%' . $character . '%')
                         ->orWhere('model_no', 'like', '%' . $character . '%')
@@ -516,7 +566,9 @@ class ApiController extends Controller
     public function FeaturesProduct()
     {
         try {
-            $products = Product::with('product_images', 'colors', 'brand')
+            $products = Product::with('product_images', 'colors', 'brand')->whereHas('user', function ($query) {
+                $query->where('status', '=','1');
+            })
                 ->orderBy('name')
                 ->take(15)
                 ->get();
@@ -537,7 +589,9 @@ class ApiController extends Controller
     {
         try {
             $coupons = Coupon::where('status', 'active')->get();
-            $products = Product::with('product_images', 'colors', 'brand')
+            $products = Product::with('product_images', 'colors', 'brand')->whereHas('user', function ($query) {
+                $query->where('status', '=','1');
+            })
                 ->orderBy('id')
                 ->take(15)
                 ->get();
@@ -558,7 +612,9 @@ class ApiController extends Controller
     public function HotProduct()
     {
         try {
-            $products = Product::with('product_images', 'colors', 'brand')
+            $products = Product::with('product_images', 'colors', 'brand')->whereHas('user', function ($query) {
+                $query->where('status', '=','1');
+            })
                 ->orderBy('model_no')
                 ->take(30)
                 ->get();
@@ -579,7 +635,9 @@ class ApiController extends Controller
     {
         try {
             $coupons = Coupon::where('status', 'active')->get();
-            $products = Product::with('product_images', 'colors', 'brand')
+            $products = Product::with('product_images', 'colors', 'brand')->whereHas('user', function ($query) {
+                $query->where('status', '=','1');
+            })
                 ->orderBy('model_no', 'desc')
                 ->take(10)
                 ->get();
@@ -680,10 +738,12 @@ class ApiController extends Controller
         return response()->json($blogs);
     }
 
-    public function getBlog($id)
+    public function getBlog($identifier)
     {
-        $blog = Blogs::with('blogCategory', 'blogSubCategory')->find($id);
-
+        // $blog = Blogs::with('blogCategory', 'blogSubCategory')->find($id);
+        $blog = is_numeric($identifier) 
+        ? Blogs::with('blogCategory', 'blogSubCategory')->findOrFail($identifier) 
+        :Blogs::with('blogCategory', 'blogSubCategory')->where('slug', $identifier)->firstOrFail();
         if (!$blog) {
             return response()->json(['error' => 'Blog not found'], 404);
         }
@@ -691,15 +751,43 @@ class ApiController extends Controller
         return response()->json($blog);
     }
 
+    public function getTrainings()
+    {
+        $tranings = Trainings::with('training_category', 'instructor')->get();
+        return response()->json($tranings);
+    }
+
+    public function getTraining($identifier)
+    {
+        $traning = is_numeric($identifier) 
+        ? Trainings::with('training_category', 'instructor')->findOrFail($identifier) 
+        :Trainings::with('training_category', 'instructor')->where('slug', $identifier)->firstOrFail();
+        // $traning = Trainings::with('training_category', 'instructor')->find($id);
+
+        if (!$traning) {
+            return response()->json(['error' => 'Blog not found'], 404);
+        }
+
+        return response()->json($traning);
+    }
+
     public function cfeatures()
     {
         $cfeatures = Cfeatures::all();
         return response()->json($cfeatures, 200);
     }
-    public function GetSingleProduct($id)
+    public function GetSingleProduct($identifier)
     {
+
         try {
-            $products_without_stock  = Product::where('id', $id)->with('product_image', 'brand', 'colors')->first();
+            $products_without_stock = is_numeric($identifier) 
+            ? Product::with('product_image', 'brand', 'colors')->whereHas('user', function ($query) {
+                $query->where('status', '=','1');
+            })->findOrFail($identifier) 
+            : Product::with('product_image', 'brand', 'colors')->whereHas('user', function ($query) {
+                $query->where('status', '=','1');
+            })->where('slug', $identifier)->firstOrFail();
+            // $products_without_stock  = Product::where('id', $id)->with('product_image', 'brand', 'colors')->first();
             $p_with_stock = $products_without_stock->id;
             $products_stock = $this->product_with_stock($p_with_stock);
             $product = $products_stock;

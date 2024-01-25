@@ -46,6 +46,11 @@ class Product extends Model
         return $this->hasMany(ProductSizes::class, 'pro_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class,'created_by');
+    }
+
     public function product_image()
     {
         return $this->hasOne(ProductImages::class, 'pro_id');

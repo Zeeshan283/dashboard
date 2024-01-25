@@ -38,45 +38,6 @@
     }
 </style>
 <div class="breadcrumb">
-<<<<<<< HEAD
- 
-                <h1>Seller Verification Management's</h1>
-                {{-- @if (count($errors) > 0)
-                    <div class="alert alert-danger d-flex">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif --}}
-            </div>
-            <div class="separator-breadcrumb border-top"></div>
-            <div class="col-md-12 mb-4">
-            <div class="row">
-                <div class="col-md-12" style="padding: 20px;">
-                    <!-- SmartWizard html -->
-                    
-                    <div id="smartwizard" class="sw-theme-dots" >
-                        <ul style="justify-content: center;">
-                            <li><a href="#step-1">Step 1<br /><small>Bank Details</small></a></li>
-                            <li><a href="#step-2">Step 2<br /><small>ID & Comapny Details</small></a></li>
-                            {{-- <li><a href="#step-3">Step 3<br /><small>Company Document</small></a></li> --}}
-                            {{-- <li><a href="#step-4">Step 4<br /><small>Tax Charges</small></a></li> --}}
-                        </ul>
-                            
-                        <span>
-                            <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end">
-                            <div class="btn-group me-2 sw-btn-group" role="group">
-                                <button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button>
-                                <button class="btn btn-secondary sw-btn-next" type="button">Next</button>
-                            </div>
-                            <div class="btn-group me-2 sw-btn-group-extra" role="group">
-                            </div>
-                            </div>
-                        </span>
-=======
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
 
     <h1>Seller Verification Management's</h1>
 </div>
@@ -311,132 +272,6 @@
                                 </div>
                             </div>
                         </div>
-<<<<<<< HEAD
-                    </div>
-                </div>
-
-                <div id="step-2" class="">
-                        {!! Form::model($edit, [
-                        'method' => 'POST',
-                        'action' => ['App\Http\Controllers\VendorsController@SellerDocumentSave', $edit->id],
-                        'class' => 'form-horizontal',
-                        'files' => 'true',
-                        'enctype' => 'multipart/form-data',
-                    ]) !!}
-                <div class="">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                {{-- <div class="card-header bg-transparent">
-                                    <h3 class="card-title">Become a Verified Supplier  
-                                        @if( !$edit->id_front == '' && !$edit->id_back == '')
-                                        <span class="badge  badge-round-info md"><p style="font-size: revert;">✓</p></span></h3>
-                                        @endif
-                                    
-                                    </div> --}}
-                                    <div class="card-body">
-                                        <div class="row">
-                                            {!! Form::hidden('vendor_profile_id', $edit->id, ['id' => 'id', 'class' => 'form-control']) !!}
-                                            {!! Form::hidden('vendor_id', $edit->vendor_id, ['id' => 'id', 'class' => 'form-control']) !!}
-
-                                            <div class="form-group col-md-4">
-                                                <label for="inputtext11" class="ul-form__label">Document Name:</label>
-                                                <input type="text" name="document_name" class="form-control">
-                                            
-                                            </div>
-                                            
-
-                                            <div class="form-group col-md-4">
-                                                    <label for="inputtext11" class="ul-form__label">Registration Document:</label>
-                                                    
-                                                    <input type="file" name="document_file[]" id="imageInput"  class="form-control" multiple >
-                                                    <button type="button" class="d-none form-control" style="width: auto;"id="chooseImages">Choose Images</button>
-                                                        
-                                                </div>
-                                                   
-
-                                                <div class="form-group col-md-4"style="margin-top: auto;">
-                                                    
-                                                <div class="">
-                                                    <input class="btn btn-outline-secondary" type="submit" value="Add Document">
-                                                </div>
-                                                </div>
-                                                <div class="form-group col-md-8">
-                                                    
-                                                    <div id="thumbnails"></div>
-                                                    <div id="fileLimitMessage" style="color: red;"></div>
-                                                </div>
-
-                                                <script>
-                                                document.getElementById('chooseImages').addEventListener('click', function () {
-                                                    document.getElementById('imageInput').click();
-                                                    
-                                                });
-                                            
-                                                document.getElementById('imageInput').addEventListener('change', function () {
-                                                    
-                                                    var RemoveImg = document.getElementById('loopImg');
-                                                    if (RemoveImg) {
-                                                        RemoveImg.style.display = 'none';
-                                                    }
-
-                                                    var files = this.files;
-                                                    var maxImages = 6; // Set your maximum image limit here
-                                                    var fileLimitMessage = document.getElementById('fileLimitMessage');
-                                                    if (files.length > maxImages) {
-                                                        fileLimitMessage.textContent = 'Please select a maximum of ' + maxImages + ' files.';
-                                                        this.value = ''; // Clear selected files
-                                                    } else {
-                                                        fileLimitMessage.textContent = ''; // Clear the message if within the limit
-                                                    }
-                                                });
-                                                document.getElementById('imageInput').addEventListener('change', function () {
-                                                    
-                                                    var thumbnails = document.getElementById('thumbnails');
-                                                    thumbnails.innerHTML = ''; // Clear previous thumbnails
-                                            
-                                                    var files = this.files;
-                                                var maxImages = 6; // Set your maximum image limit here
-                                                for (var i = 0; i < Math.min(files.length, maxImages); i++) {
-                                                    var img = document.createElement('img');
-                                                    img.src = URL.createObjectURL(files[i]);
-                                                    img.style.maxWidth = '100px';
-                                                    thumbnails.appendChild(img);
-                                                }
-                                            
-                                                    // Show the upload button when at least one image is selected
-                                                    
-                                                });
-                                            </script>
-    
-                                            
-                                        </div>
-                                                                {!! Form::close() !!}
-<br>
-<br>
-<div class="table-responsive">
-        <table id="deafult_ordering_table1" class="display table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Id#</th>
-                        <th>Document Name</th>
-                        <th>Document File</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($vendordocument as $key => $value)
-                    <tr>
-                        <td>{{$key + 1}}</td>
-                        <td>{{$value->document_name}}</td>
-                        <td>
-                        <div id="" style="display: flex;">
-                            @if ($value->document_file)
-                        @foreach (json_decode($value->document_file) as $file)
-                            @if (Str::endsWith($file, '.pdf'))
-                                {{-- Display PDF if it's a PDF file --}}
-                                <embed src="{{ asset($file) }}" type="application/pdf" class="img-thumbnail"  style="width:100px;height:80px;" >
-=======
 
                         <div id="step-2" class="">
                             {!! Form::model($edit, [
@@ -455,7 +290,6 @@
                                         @if( !$edit->id_front == '' && !$edit->id_back == '')
                                         <span class="badge  badge-round-info md"><p style="font-size: revert;">✓</p></span></h3>
                                         @endif
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
                                     
                                     </div> --}}
                                             <div class="card-body">

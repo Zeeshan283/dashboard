@@ -48,7 +48,9 @@ class BlogsController extends Controller
         $blog->blog_category_id = $request->blog_category_id;
         $blog->blog_sub_category_id = $request->blog_sub_category_id;
         $blog->description = $request->description;
-
+        $blog->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
+         
+         
         if ($request->hasFile('feature_image')) {
             $file = $request->file('feature_image');
             $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
@@ -99,7 +101,7 @@ class BlogsController extends Controller
         $edit->blog_category_id = $request->blog_category_id;
         $edit->blog_sub_category_id = $request->blog_sub_category_id;
         $edit->description = $request->description;
-
+        $edit->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
         if ($request->hasFile('feature_image')) {
             File::delete($edit->feature_image);
             $file = $request->file('feature_image');

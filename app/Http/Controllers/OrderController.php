@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Models\Notification;
 use App\Models\OrderDetail;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -72,6 +73,7 @@ class OrderController extends Controller
         return view('orders.order_details', compact('data'));
     }
 
+
     public function order_details_status(Request $request)
     {
         // dd($request->all());
@@ -87,7 +89,17 @@ class OrderController extends Controller
         $order_status->status = $request->status;
         $order_status->update();
 
-        return redirect()->back();
+        $order_tracker = new OrderTracker;
+        $order_tracker->order_id = $request->id;
+        $order_tracker->status = $request->status;
+        $order_tracker->datetime = Carbon::now();
+        $order_tracker->save();
+
+        return redirect()->back()->with(Toastr::success('Status Updated Successfully!'));
+    }
+    public function GetOrderDetailStatus($id){
+        $status = OrderTracker::where('order_id',$id)->orderBy('datetime', 'asc')->get();
+        return view('orders.getOrderDetailStatus', compact('status'));
     }
 
 

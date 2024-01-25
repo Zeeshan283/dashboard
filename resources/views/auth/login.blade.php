@@ -128,7 +128,7 @@
                                 <i class="i-Mail-with-At-Sign"></i> Sign up with Email
                             </a>
                             @endif
-                            <a class="btn btn-rounded btn-outline-primary btn-outline-google w-100 btn-icon-text">
+                            <a href="{{ route('login.google') }}" class="btn btn-rounded btn-outline-primary btn-outline-google w-100 btn-icon-text">
                                 <i class="i-Google-Plus"></i> Sign up with Google
                             </a>
                             <a class="btn btn-rounded btn-outline-primary w-100 btn-icon-text btn-outline-facebook">

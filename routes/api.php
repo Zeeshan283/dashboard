@@ -23,23 +23,28 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-Route::middleware(['auth:api'])->group(function () {
-    Route::get('/user', function (Request $request) {
-        return response()->json(['user' => $request->user()]);
-    });
-});
+// Route::middleware(['auth:api'])->group(function () {
+//     Route::get('/user', function (Request $request) {
+//         return response()->json(['user' => $request->user()]);
+//     });
+// });
 
 // Route::post('/send-verification-email', 'Auth\VerificationController@sendVerificationEmail')->middleware('auth:api');
 Route::post('/send-verification-email/{email}', [VerificationController::class, 'sendVerificationEmail']);
-
+// Route::get('email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
+// Route::get('email/verify/{id}', [VerificationController::class, 'verifyEmail'])
+//     ->middleware(['signed', 'throttle:6,1'])
+//     ->name('verification.custom_verify');
 
 // User Api
 Route::controller(UserAPIController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
     Route::post('/logout', 'logout');
+    Route::post('/image', 'upload123');
+    Route::post('/update-profile', 'UpdateProfile');
     Route::get('/profile/{id}', 'details')->whereNumber('id');
-    Route::match(['patch', 'put'], '/update-profile', 'UpdateProfile');
+    // Route::match(['patch', 'put'], '/update-profile', 'UpdateProfile');
     Route::match(['patch', 'put'], '/update-shipping-address', 'UpdateShippingAddress');
 });
 
@@ -63,16 +68,21 @@ Route::get('/vprofile/{id}', [ApiController::class, 'vendorprofile']);
 Route::get('/vcoupon/{id}', [ApiController::class, 'vendorcoupon']);
 
 
-
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Your routes here
+});
 // new api
 Route::get('/faqs', [ApiController::class, 'FAQs']); // all faqs
 // Route::get('/blogs', [ApiController::class, 'blogs']); //all blogs
 Route::get('/blogs', [ApiController::class, 'getBlogs']);
 Route::get('/blogs/{id}', [ApiController::class, 'getBlog']);
 Route::get('/cfeatures', [ApiController::class, 'cfeatures']);
+Route::get('/trainings', [ApiController::class, 'getTrainings']);
+Route::get('/training/{id}', [ApiController::class, 'getTraining']);
+
 Route::get('/pages', [ApiController::class, 'Pages']);
 Route::get('/brands', [ApiController::class, 'Brands']);
-Route::get('/single-product/{id}', [ApiController::class, 'GetSingleProduct'])->whereNumber('id');
+Route::get('/single-product/{id}', [ApiController::class, 'GetSingleProduct']);
 Route::get('/p_b_menu/{identifier}', [ApiController::class, 'allProductAMenu']);
 Route::get('/p_b_cat/{identifier}', [ApiController::class, 'allProducts']);
 Route::get('/p_b_sub/{identifier}', [ApiController::class, 'allProductSubcategories']);

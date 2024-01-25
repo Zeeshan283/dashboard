@@ -30,4 +30,14 @@ class vendorProfile extends Model
     {
         return $this->hasMany(VendorBankDetail::class, 'vendor_profile_id');
     }
+
+    public function vendorServices()
+    {
+        return $this->hasMany(Services::class, 'vendor_id','vendor_id');
+    }
+
+    public function vendorPortfolio()
+    {
+        return $this->hasMany(VendorPortfolio::class, 'vendor_id','vendor_id');
+    }
 }

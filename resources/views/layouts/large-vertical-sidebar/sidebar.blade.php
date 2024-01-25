@@ -562,20 +562,26 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'cprofile.index' ? 'open' : '' }}"
-                    href="{{ route('cprofile.index') }}">
+                <a class="{{ Route::currentRouteName() == 'services.index' ? 'open' : '' }}"
+                    href="{{ route('services.index') }}">
                     <i class="nav-icon i-File-Trash"></i>
                     <span class="item-name">Services</span>
                 </a>
             </li>
-
             <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'portfolios.index' ? 'open' : '' }}"
+                    href="{{ route('portfolios.index') }}">
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">Portfolio</span>
+                </a>
+            </li>
+            {{--<li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'service.index' ? 'open' : '' }}"
                     href="{{ route('service.index') }}">
                     <i class="nav-icon i-File-Trash"></i>
                     <span class="item-name">Service Category</span>
                 </a>
-            </li>
+            </li>--}}
         </ul>
 
         <ul class="childNav" data-parent="uikits1">

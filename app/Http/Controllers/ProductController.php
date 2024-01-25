@@ -39,9 +39,7 @@ class ProductController extends Controller
 
         $data = "";
         if (Auth::User()->role == 'Admin') {
-            $data = Product::with('product_image')
-                ->with('categories:id,name')
-                ->with('subcategories:id,name')
+            $data = Product::with('product_image','categories:id,name','subcategories:id,name')
                 ->OrderBy('id', 'desc')
                 ->get();
         } else {

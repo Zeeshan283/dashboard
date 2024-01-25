@@ -49,4 +49,9 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(Product::class)->select('name', 'model_no', 'url');
     }
+
+    public function order_tracker()
+    {
+        return $this->hasMany(OrderTracker::class, 'order_id','id');
+    }
 }

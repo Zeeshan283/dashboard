@@ -140,21 +140,12 @@
     {{-- laravel js --}}
     {{-- <script src="{{ mix('assets/js/laravel/app.js') }}"></script>
         --}}
-<<<<<<< HEAD
-        <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
-     @if ($errors->any())
-    <script>
-        toastr.error("{{ $errors->first() }}");
-    </script>
-    @endif 
-=======
     <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
     @if ($errors->any())
         <script>
             toastr.error("{{ $errors->first() }}");
         </script>
     @endif
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
     {!! Toastr::message() !!}
 
     @yield('bottom-js')

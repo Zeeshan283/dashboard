@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Industry Mall') }}</title>
+    <title>Industry Mall</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -26,15 +26,9 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{-- {{ config('app.name', 'Industry Mall') }} --}}
-<<<<<<< HEAD
-                    
-                                <img src="{{ asset('upload/logo/3.png') }}" width="80px" alt="">
- 
-=======
 
                     <img src="{{ asset('upload/logo/3.png') }}" width="80px" alt="">
 
->>>>>>> ae7c23fecaded107c788db4a5a5f50a4de3b8bcb
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
