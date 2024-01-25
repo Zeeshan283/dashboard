@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\OrderDetail;
 use App\Models\ProductContact;
+use App\Models\Refund;
 use App\Models\Product;
 use App\Models\Coupon;
 use App\Models\Purchase;
@@ -47,6 +50,13 @@ class HomeController extends Controller
             $delivered = Order::where('status', '=', 'delivered')->count();
             $canceled = Order::where('status', '=', 'canceled')->count();
             $returned = Order::where('status', '=', 'returned')->count();
+            $refund = Refund::count();
+            $cat = Category::count();
+            $s = SubCategory::count();
+
+            // $refund = Refund::where('status', '=', 'refund')->count();
+
+
             $customer = User::where('role', '=', 'Customer')->count();
             $customerQueries = ProductContact::count();
             $vendorlist = User::where('role', '=', 'Vendor')->count();
@@ -82,7 +92,10 @@ class HomeController extends Controller
                     'new_users',
                     'isAdmin',
                     'coupons',
-                    'outofstock'
+                    'outofstock',
+                    'refund',
+                    'cat',
+                    's'
                 )
             );
         } else {
@@ -97,7 +110,9 @@ class HomeController extends Controller
             $delivered = Order::where('o_vendor_id', Auth::user()->id)->where('status', 'delivered')->count();
             $canceled = Order::where('o_vendor_id', Auth::user()->id)->where('status', 'canceled')->count();
             $returned = Order::where('o_vendor_id', Auth::user()->id)->where('status', 'returned')->count();
-            // $returned = Order::where('status', '=', 'returned')->count();
+            $refund = Refund::where('created_at', Auth::User()->id)->count();
+            // $cat = Category::where('o_vendor_id', Auth::User()->id)->count();
+
 
             $customer = User::count();
             $customerQueries = ProductContact::where('vendor_id', '=', Auth::user()->id)->count();
@@ -130,11 +145,10 @@ class HomeController extends Controller
                     'new_users',
                     'isAdmin',
                     'coupons',
-                    'outofstock'
+                    'outofstock',
+                    'refund'
                 )
             );
         }
     }
-
-
 }

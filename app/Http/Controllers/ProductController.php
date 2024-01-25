@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Menu;
 use App\Models\SubCategory;
 use App\Models\Product;
-use App\Models\Menu;
 use App\Models\Brand;
 use App\Models\Conditions;
 use App\Models\Locations;
@@ -42,6 +42,10 @@ class ProductController extends Controller
             $data = Product::with('product_image','categories:id,name','subcategories:id,name')
                 ->OrderBy('id', 'desc')
                 ->get();
+            $brand = Brand::all();
+            $categories = Category::all();
+            $subcategories = SubCategory::all();
+            $product = Product::all();
         } else {
             $data = Product::with('product_image')
                 ->with('categories:id,name')
@@ -49,40 +53,42 @@ class ProductController extends Controller
                 ->where('created_by', Auth::User()->id)
                 ->OrderBy('id', 'desc')
                 ->get();
+            $brand = Brand::all();
+            $categories = Category::all();
+            $subcategories = SubCategory::all();
         }
-        return view('products.allproducts', compact('data'));
+        return view('products.allproducts', compact('data', 'brand', 'categories', 'subcategories'));
     }
     public function create()
     {
         $user = Auth::user();
-       
+
         if (!$user->first_name == '' && !$user->phone1 == '' && !$user->address1 == '' && !$user->city == '') {
-        $brands = Brand::OrderBy('brand_name')->pluck('brand_name', 'id')->prepend('Select Brand', '');
-        $menus = Menu::orderBy('name')->pluck('name', 'id')->prepend('Select Menu', '');
-        $categories = Category::orderBy('name')->pluck('name', 'id')->prepend('Select Category', '');
-        $sub_categories = SubCategory::orderBy('name')->pluck('name', 'id')->prepend('Select Sub Category', '');
-        $locations = Locations::select('id', 'name')->orderBy('id')->get();
-        $conditions = Conditions::select('id', 'name')->orderBy('id')->get();
-        $type = array('Parent' => 'Parent', 'Child' => 'Child');
-        $productsList = Product::whereType('parent')->orderBy('name')->pluck('sku', 'id');
-        // $productsList = Product::whereType('parent')->orderBy('name')->pluck('model_no', 'id');
-        $colors = Color::select('id', 'name')->orderBy('id')->get();
+            $brands = Brand::OrderBy('brand_name')->pluck('brand_name', 'id')->prepend('Select Brand', '');
+            $menus = Menu::orderBy('name')->pluck('name', 'id')->prepend('Select Menu', '');
+            $categories = Category::orderBy('name')->pluck('name', 'id')->prepend('Select Category', '');
+            $sub_categories = SubCategory::orderBy('name')->pluck('name', 'id')->prepend('Select Sub Category', '');
+            $locations = Locations::select('id', 'name')->orderBy('id')->get();
+            $conditions = Conditions::select('id', 'name')->orderBy('id')->get();
+            $type = array('Parent' => 'Parent', 'Child' => 'Child');
+            $productsList = Product::whereType('parent')->orderBy('name')->pluck('sku', 'id');
+            // $productsList = Product::whereType('parent')->orderBy('name')->pluck('model_no', 'id');
+            $colors = Color::select('id', 'name')->orderBy('id')->get();
 
 
-        $ActiveAdmin = User::whereId(Auth::User()->id)->first();
+            $ActiveAdmin = User::whereId(Auth::User()->id)->first();
 
-        $vendors = User::select(DB::raw('CONCAT(`id`, "_", `name`) AS `id`, `name`'))
-            ->whereRole('Vendor')
-            ->pluck('name', 'id')
-            ->prepend($ActiveAdmin->name, $ActiveAdmin->id . '_' . $ActiveAdmin->name);
+            $vendors = User::select(DB::raw('CONCAT(`id`, "_", `name`) AS `id`, `name`'))
+                ->whereRole('Vendor')
+                ->pluck('name', 'id')
+                ->prepend($ActiveAdmin->name, $ActiveAdmin->id . '_' . $ActiveAdmin->name);
 
-        return view('products.addproduct', compact('brands', 'menus', 'categories', 'sub_categories', 'locations', 'conditions', 'type', 'productsList', 'vendors', 'colors'));
-    
-    } else {
-        Toastr::success('Please Fill Your Profile First', 'Success');
-        $user_id = Auth::user()->id;
-        return redirect()->to('vendor-profile/' . $user_id);
-    }
+            return view('products.addproduct', compact('brands', 'menus', 'categories', 'sub_categories', 'locations', 'conditions', 'type', 'productsList', 'vendors', 'colors'));
+        } else {
+            Toastr::success('Please Fill Your Profile First', 'Success');
+            $user_id = Auth::user()->id;
+            return redirect()->to('vendor-profile/' . $user_id);
+        }
     }
 
     public function test()
@@ -123,7 +129,7 @@ class ProductController extends Controller
                     'category_id' => 'required',
                     'subcategory_id' => 'required',
                     'brand_id' => 'required',
-
+                    'brand_name' => 'required',
                 ],
                 [
 
@@ -289,6 +295,7 @@ class ProductController extends Controller
                 'category_id' => 'required',
                 'subcategory_id' => 'required',
                 'brand_id' => 'required',
+                'brand_name' => 'required'
 
             ],
             [
@@ -463,6 +470,8 @@ class ProductController extends Controller
                 'category_id' => 'required',
                 'subcategory_id' => 'required',
                 'brand_id' => 'required',
+                'brand_name' => 'required',
+
 
             ],
             [

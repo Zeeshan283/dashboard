@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Menu;
-use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image as Image;
@@ -19,11 +18,19 @@ class CategoryController extends Controller
     $this->middleware('auth');
   }
 
+  // public function index()
+  // {
+  //   $data = Category::orderby('id','asc')->get();
+  //   $menus = Menu::all();
+  //   return view('category.allcat', compact('data','menus'));
+  // }
+
   public function index()
   {
-    $data = Category::orderby('id','asc')->get();
+    $data = Category::orderby('id', 'asc')->get();
     $menus = Menu::all();
-    return view('category.allcat', compact('data','menus'));
+
+    return view('category.allcat', compact('data', 'menus'));
   }
 
   public function create()
@@ -35,15 +42,15 @@ class CategoryController extends Controller
 
   public function store(Request $request)
   {
- //dd($request->all());
+    //dd($request->all());
     //return $request;
     $this->validate($request, [
       'name' => 'required',
       'menu_id' => 'required',
       'commission' => '',
-      'img'=>'mimes:png,jpg,jpeg',
-      'imageforapp'=>'mimes:png,jpg,jpeg',
-    //   'menu' => 'required',
+      'img' => 'mimes:png,jpg,jpeg',
+      'imageforapp' => 'mimes:png,jpg,jpeg',
+      //   'menu' => 'required',
     ], [
       'menu_id.required' => 'The menu field is required'
     ]);
@@ -58,7 +65,7 @@ class CategoryController extends Controller
       // $img->resize(1920, 500);
       $img->save($imagePath);
 
-      $cat->img = 'upload/category/'.$fileName;
+      $cat->img = 'upload/category/' . $fileName;
       $cat->save();
     }
     if ($request->hasFile('imageforapp')) {
@@ -70,7 +77,7 @@ class CategoryController extends Controller
       // $img->resize(100, 100);
       $img->save($appimagePath);
 
-      $cat->imageforapp ='upload/category/'.$fileName;
+      $cat->imageforapp = 'upload/category/' . $fileName;
       $cat->save();
     }
 
@@ -113,7 +120,7 @@ class CategoryController extends Controller
   {
     $data = Category::with('menus')->orderBy('id', 'asc')->get();
 
-    $edit = Category::where('id',$id)->first();
+    $edit = Category::where('id', $id)->first();
 
     $cat_name = Menu::where('id', $edit->menu_id)->first();
 
@@ -121,11 +128,11 @@ class CategoryController extends Controller
     $menuNames = [];
 
     foreach ($data as $category) {
-        $cat_menu = Menu::find($category->menu_id);
-        $menuNames[$category->id] = $cat_menu ? $cat_menu->name : 'Menu Not Found';
+      $cat_menu = Menu::find($category->menu_id);
+      $menuNames[$category->id] = $cat_menu ? $cat_menu->name : 'Menu Not Found';
     }
 
-    return view('category.editcat', compact('edit','menus','cat_name','data', 'menuNames'));
+    return view('category.editcat', compact('edit', 'menus', 'cat_name', 'data', 'menuNames'));
   }
   public function update(Request $request, $id)
   {
@@ -133,9 +140,9 @@ class CategoryController extends Controller
       'name' => 'required',
       'menu_id' => 'required',
       'commission' => '',
-      'img'=>'mimes:png,jpg,jpeg',
-      'imageforapp'=>'mimes:png,jpg,jpeg',
-    //   'menu' => 'required',
+      'img' => 'mimes:png,jpg,jpeg',
+      'imageforapp' => 'mimes:png,jpg,jpeg',
+      //   'menu' => 'required',
     ], [
       'menu_id.required' => 'The menu field is required'
     ]);
@@ -146,17 +153,17 @@ class CategoryController extends Controller
 
 
     if ($request->hasFile('img')) {
-        File::delete($update1->img);
-        $file = $request->file('img');
-        $fileName = uniqid() . $file->getClientOriginalName();
-        $imagePath = 'upload/category/' . $fileName;
+      File::delete($update1->img);
+      $file = $request->file('img');
+      $fileName = uniqid() . $file->getClientOriginalName();
+      $imagePath = 'upload/category/' . $fileName;
 
-        $img = Image::make($file);
-        // $img->resize(100, 100);
-        $img->save($imagePath);
+      $img = Image::make($file);
+      // $img->resize(100, 100);
+      $img->save($imagePath);
 
-        $update->img = 'upload/category/'.$fileName;
-        $update->save();
+      $update->img = 'upload/category/' . $fileName;
+      $update->save();
     }
 
     if ($request->hasFile('imageforapp')) {
@@ -169,9 +176,9 @@ class CategoryController extends Controller
       // $img->resize(100, 100);
       $img->save($imagePath);
 
-      $update->imageforapp ='upload/category/'.$fileName;
+      $update->imageforapp = 'upload/category/' . $fileName;
       $update->save();
-  }
+    }
 
     if ($request->hasFile('side_sliders')) {
       foreach ($request->file('side_sliders') as $image) {
