@@ -40,7 +40,6 @@
         display: none;
     }
 </style>
-<div class="separator-breadcrumb border-top"></div>
 <div class="card col-md-12">
     <button class="popup-button col-md-2" style="background-color: antiquewhite; color: black;" onclick="toggleFilters()">Product Filters</button><br><br>
     <div class="filter-card" id="filterCard">
@@ -287,7 +286,6 @@
 </script>
 
 
-<div class="separator-breadcrumb border-top"></div>
 <div class="breadcrumb">
     <div class="col-md-6">
         <h1>Product's Management</h1>
