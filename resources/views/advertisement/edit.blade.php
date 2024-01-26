@@ -31,7 +31,7 @@
                                         <div class="add-product">
                                             <div class="row">
                                                 <div class="">
-                                                    <img src="/{{ $edit->image }}" id="show_image" alt=""
+                                                    <img src="/{{ $edit->image }}"  loading="lazy" id="show_image" alt=""
                                                         width="80%" class="img-fluid image_zoom_1 blur-up lazyloaded"
                                                         onclick="document.getElementById('imageshow').click()">
                                                     <input class="upload d-none" type="file" name="image"

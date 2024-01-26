@@ -418,7 +418,7 @@
                 @if ($outofstock)
                     @foreach ($outofstock ?? [] as $item)
                         <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
-                            <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3"
+                            <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3" loading="lazy" loading="lazy"
                                 src="{{ asset($item->product->url ?? null) }}" alt="">
                             <div class="flex-grow-1">
                                 <h6 class=""><span {{-- class="text-black">{{ Str::limit($item->product->name, 20 ?? null) }}</span> --}} </h6>
@@ -554,7 +554,7 @@
                         <div class="card-title">Top Selling Products</div>
                         @foreach ($top_products as $item)
                             <div class="d-flex flex-column flex-sm-row align-items-center mb-3" style="">
-                                <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3" src="{{ asset($item->url) }}"
+                                <img class="avatar-lg mb-3 mb-sm-0 rounded me-sm-3" loading="lazy" src="{{ asset($item->url) }}"
                                     alt="">
                                 <div class="flex-grow-1">
                                     <h5 class=""><a href="" class="text-black">{{ $item->name }}</a></h5>

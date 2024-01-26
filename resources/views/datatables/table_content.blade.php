@@ -153,25 +153,25 @@
         <td>{{ $orders->created_at }}</td>
         <td>
             {{-- @if ($orders->product->url) --}}
-            <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image">
+            <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image" loading="lazy">
             {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
         {{-- <td>
             @if ($orders->product)
             @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
+            <img src="{{ $product->product_image->url }}" loading="lazy" width="50" height="50" alt="Placeholder Image" - Order ID:
         {{ $orders->id }}">
         <p>Order ID: {{ $orders->id }}</p>
         @else
         @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
+        <img src="{{ $product->product_image->url }}" loading="lazy" width="50" height="50" alt="Placeholder Image" - Order ID:
             {{ $orders->id }}">
         <p>Order ID: {{ $orders->id }}</p>
         @endif
         @endif
         @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" loading="lazy" width="50" height="50" alt="Placeholder Image">
         <p>No image available</p>
         @endif
         </td> --}}
@@ -301,25 +301,25 @@
         <td>{{ $orders->created_at }}</td>
         <td>
             {{-- @if ($orders->product->url) --}}
-            <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image">
+            <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" loading="lazy" alt="Placeholder Image">
             {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
         {{-- <td>
             @if ($orders->product)
             @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
+            <img src="{{ $product->product_image->url }}" width="50" height="50" loading="lazy" alt="Placeholder Image" - Order ID:
         {{ $orders->id }}">
         <p>Order ID: {{ $orders->id }}</p>
         @else
         @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
+        <img src="{{ $product->product_image->url }}" width="50" height="50" loading="lazy" alt="Placeholder Image" - Order ID:
             {{ $orders->id }}">
         <p>Order ID: {{ $orders->id }}</p>
         @endif
         @endif
         @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" loading="lazy" width="50" height="50" alt="Placeholder Image">
         <p>No image available</p>
         @endif
         </td> --}}
@@ -423,25 +423,25 @@
         <td>{{ $orders->created_at }}</td>
         <td>
             {{-- @if ($orders->product->url) --}}
-            <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image">
+            <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
         {{-- <td>
             @if ($orders->product)
             @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
+            <img src="{{ $product->product_image->url }}" loading="lazy" width="50" height="50" alt="Placeholder Image" - Order ID:
         {{ $orders->id }}">
         <p>Order ID: {{ $orders->id }}</p>
         @else
         @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
+        <img src="{{ $product->product_image->url }}" loading="lazy" width="50" height="50" alt="Placeholder Image" - Order ID:
             {{ $orders->id }}">
         <p>Order ID: {{ $orders->id }}</p>
         @endif
         @endif
         @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" loading="lazy" width="50" height="50" alt="Placeholder Image">
         <p>No image available</p>
         @endif
         </td> --}}
@@ -544,25 +544,25 @@
         <td>{{ $orders->created_at }}</td>
         <td>
             {{-- @if ($orders->product->url) --}}
-            <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image">
+            <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
         {{-- <td>
             @if ($orders->product)
             @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
+            <img src="{{ $product->product_image->url }}" loading="lazy" width="50" height="50" alt="Placeholder Image" - Order ID:
         {{ $orders->id }}">
         <p>Order ID: {{ $orders->id }}</p>
         @else
         @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
+        <img src="{{ $product->product_image->url }}" width="50" loading="lazy" height="50" alt="Placeholder Image" - Order ID:
             {{ $orders->id }}">
         <p>Order ID: {{ $orders->id }}</p>
         @endif
         @endif
         @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
+        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" loading="lazy" width="50" height="50" alt="Placeholder Image">
         <p>No image available</p>
         @endif
         </td> --}}
@@ -665,7 +665,7 @@
         <td>{{ $orders->created_at }}</td>
         <td>
             {{-- @if ($orders->product->url) --}}
-            <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image">
+            <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
@@ -787,14 +787,14 @@
         <td>{{ $orders->created_at }}</td>
         <td>
             {{-- @if ($orders->product->url) --}}
-            <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image">
+            <img src="{{ $orders->product->url ?? null }}  "  loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
         {{-- <td>
             @if ($orders->product)
             @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
+            <img src="{{ $product->product_image->url }}" loading="lazy" width="50" height="50" alt="Placeholder Image" - Order ID:
         {{ $orders->id }}">
         <p>Order ID: {{ $orders->id }}</p>
         @else
@@ -911,7 +911,7 @@
         <td>{{ $orders->created_at }}</td>
         <td>
             {{-- @if ($orders->product->url) --}}
-            <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image">
+            <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
@@ -1035,14 +1035,14 @@
         <td>{{ $orders->created_at }}</td>
         <td>
             {{-- @if ($orders->product->url) --}}
-            <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image">
+            <img src="{{ $orders->product->url ?? null }}  "  loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
         {{-- <td>
             @if ($orders->product)
             @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
+            <img src="{{ $product->product_image->url }}"  width="50" height="50" alt="Placeholder Image" - Order ID:
         {{ $orders->id }}">
         <p>Order ID: {{ $orders->id }}</p>
         @else
@@ -1156,7 +1156,7 @@
         <td>{{ $orders->created_at }}</td>
         <td>
             {{-- @if ($orders->product->url) --}}
-            <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image">
+            <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
@@ -1276,7 +1276,7 @@
         <td>{{ $orders->created_at }}</td>
         <td>
             {{-- @if ($orders->product->url) --}}
-            <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image">
+            <img src="{{ $orders->product->url ?? null }} " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
@@ -1579,7 +1579,7 @@
             {{ $refund->product->name ?? null }}
         </td>
         <td>
-            <img src="{{ $refund->product->url ?? null }}" alt="Surprise" width="50" height="50">
+            <img src="{{ $refund->product->url ?? null }}" loading="lazy" alt="Surprise" width="50" height="50">
 
         </td>
         <td>
@@ -1631,7 +1631,7 @@
             {{ $refund->product->name ?? null }}
         </td>
         <td>
-            <img src="{{ $refund->product->url }}" alt="Surprise" width="50" height="50">
+            <img src="{{ $refund->product->url }}"  loading="lazy" alt="Surprise" width="50" height="50">
 
         </td>
         <td>
@@ -1684,7 +1684,7 @@
             {{ $refund->product->name ?? null }}
         </td>
         <td>
-            <img src="{{ $refund->product->url ?? null }}" alt="Surprise" width="50" height="50">
+            <img src="{{ $refund->product->url ?? null }}"  loading="lazy" alt="Surprise" width="50" height="50">
 
         </td>
         <td>
@@ -2298,8 +2298,8 @@
             @endif
         </td>
         {{-- <td>{{ $allcat->commission }}</td> --}}
-        <td><img src="<?php echo $allcat['img']; ?>" width="50" height="50"></td>
-        <td><img src="<?php echo $allcat['imageforapp']; ?>" width="50" height="50"></td>
+        <td><img src="<?php echo $allcat['img']; ?>" width="50" height="50" loading="lazy"></td>
+        <td><img src="<?php echo $allcat['imageforapp']; ?>" width="50" height="50" loading="lazy"></td>
         <td class="col-lg-1" style="white-space: nowrap;">
             <a href="{{ route('category.editcat', ['id' => $allcat->id]) }}" class="btn  btn-outline-secondary">
                 <i class=" nav-icon i-Pen-2" title="edit" style="font-weight: bold;"></i>
@@ -2319,8 +2319,7 @@
     <th>Image(100x66)px</th>
     <th>Images for App(100x66)px</th>
 
-    <th>Image</th>
-    <th>Images for App </th>
+   
 
     <th>Action</th>
 </tfoot>
@@ -2346,7 +2345,7 @@
             {{ $donor->categories->name ?? null }}
             @endif
         </td>
-        <td><img src="{{ asset($donor->img) }}" alt="Subcategory Image" width="80px" height="60px">
+        <td><img src="{{ asset($donor->img) }}" alt="Subcategory Image" width="80px" height="60px" loading="lazy">
         </td>
         <td>{{ $donor->slug }}</td>
         <td>{{ $donor->commission }}</td>
@@ -2637,7 +2636,7 @@
             <td>{{ $key + 1 }}</td>
             <td>{{ $subcat->category_id }}</td>
             <td>{{ $subcat->name }}</td>
-            <td><img src="{{ asset($subcat->img) }}" width="50" height="50"></td>
+            <td><img src="{{ asset($subcat->img) }}" width="50" height="50" loading="lazy"></td>
             <td>{{ $subcat->slug }}</td>
         </tr>
         @endforeach
@@ -2864,13 +2863,13 @@
             <td>{{ $value->brand_name }}</td>
 
             @if ($value->logo)
-            <td><img src="{{ asset($value->logo) }}" width="50" height="50"></td>
+            <td><img src="{{ asset($value->logo) }}" width="50" height="50" loading="lazy"></td>
             @else
             <td>N/A</td>
             @endif
 
             @if ($value->logo)
-            <td><img src="{{ asset($value->logo) }}" width="50" height="50"></td>
+            <td><img src="{{ asset($value->logo) }}" width="50" height="50"loading="lazy"></td>
             @else
             <td>N/A</td>
             @endif
@@ -2960,7 +2959,7 @@
             <td>{{ $value->title1 }}</td>
             <td>{{ $value->title2 }}</td>
             <td>{{ $value->offer }}</td>
-            <td><img src="{{ $value->image }}" width="50" height="50" alt="No"></td>
+            <td><img src="{{ $value->image }}" width="50" height="50" alt="No" loading="lazy"></td>
             <!-- <td><img src="{{ $value->bg_image }}" width="50" height="50" alt="No"></td> -->
             <td>
                 <div class="d-flex gap-2">
@@ -3204,9 +3203,9 @@
             <td>{{ $product->sku }}</td>
             <td>{{ $product->make }}</td>
             @if ($product->url)
-            <td><img src="{{ $product->url }}" width="50" height="50"></td>
+            <td><img src="{{ $product->url }}" width="50" height="50" loading="lazy"></td>
             @elseif($product->product_image)
-            <td><img src="{{ $product->product_image->url ?? null }}" width="50" height="50">
+            <td><img src="{{ $product->product_image->url ?? null }}" width="50" height="50" loading="lazy">
             </td>
             @else
             <td>image</td>

@@ -29,7 +29,7 @@
                                         <div class="add-product">
                                             <div class="row">
                                                 <div class="">
-                                                    <img src="{{ asset('assets/images/products/weather-2.jpg') }}"
+                                                    <img src="{{ asset('assets/images/products/weather-2.jpg') }}" loading="lazy"
                                                         id="show_image" alt="" width="80%"
                                                         class="img-fluid image_zoom_1 blur-up lazyloaded"
                                                         onclick="document.getElementById('imageshow').click()">

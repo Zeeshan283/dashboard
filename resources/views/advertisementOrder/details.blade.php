@@ -216,7 +216,7 @@
                                             @if ($item->image != '')
                                                 <a href="{{ asset($item->image) }}" download target="__BLANK"
                                                     class="image-popup">
-                                                    <img src="{{ asset($item->image) }}" alt="N/A"
+                                                    <img src="{{ asset($item->image) }}" loading="lazy" alt="N/A"
                                                         class=" img-fluid img-40 blur-up lazyloaded">
                                                 </a>
                                             @else
@@ -299,7 +299,7 @@
                                 <label for="validationCustom05" class="col-form-label pt-0">Display Days</label>
                                 <input type="number" name="days" id="display_days" value="" class="form-control">
                             </div>
-                            <img src="" width="100px" id="show_image">
+                            <img src="" width="100px" loading="lazy" id="show_image">
                             <div class="form-group mb-0">
                                 <div class="product-buttons text-center">
                                     <button type="submit" class="btn btn-primary">Update</button>

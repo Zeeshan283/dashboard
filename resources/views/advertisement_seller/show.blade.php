@@ -107,7 +107,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="ul-product-detail__image">
-                                        <img src="/{{ $data->image }}" alt="">
+                                        <img src="/{{ $data->image }}" loading="lazy" alt="">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -279,7 +279,7 @@
                                     aria-labelledby="nav-home-tab">
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4 col-sm-12">
-                                            <img src="/{{ $data->image }}" alt="">
+                                            <img src="/{{ $data->image }}" loading="lazy" alt="">
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-12">
                                             <h5 class="text-uppercase font-weight-700 text-muted mt-4 mb-2">
@@ -464,7 +464,7 @@
                                 <h4>Image Dim:({{ $data->imageDimention }})</h4>
                                 <br>
 
-                                <img src="/{{ $data->image }}" alt="na" class="blur-up lazyloaded"
+                                <img src="/{{ $data->image }}" loading="lazy" alt="na" class="blur-up lazyloaded"
                                     style="width: -webkit-fill-available;">
                             </div>
 
@@ -597,7 +597,7 @@
                                 <label class="col-form-label"> Image</label>
                                 <input class="form-control" id="imageshow" name="image" type="file"
                                     required="">
-                                <img src="" width="100px" id="show_image" />
+                                <img src="" width="100px" loading="lazy" id="show_image" />
                             </div> --}}
                             <div class="form-group">
                                 <label class="col-form-label"> Online Payment:</label>

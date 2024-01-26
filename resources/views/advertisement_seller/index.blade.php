@@ -18,7 +18,7 @@
                     <a href="{{ route('advertisementSellers.show', ['advertisementSeller' => $item->id]) }}" title="show">
                         <div class="card o-hidden mb-4 d-flex flex-column">
                             <div class="list-thumb d-flex">
-                                <img alt="" src="/{{ $item->image }}">
+                                <img alt="" src="/{{ $item->image }}" loading="lazy">
                             </div>
                             <div class="flex-grow-1 d-bock">
                                 <div

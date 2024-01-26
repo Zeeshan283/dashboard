@@ -220,7 +220,7 @@
                                             @if ($item->image != '')
                                                 <a href="{{ asset($item->image) }}" target="__BLANK" class="image-popup">
 
-                                                    <img src="{{ asset($item->image) }}" alt="N/A"
+                                                    <img src="{{ asset($item->image) }}" loading="lazy" alt="N/A"
                                                         class="img-fluid img-40   lazyloaded">
                                                 @else
                                                     N/A
@@ -292,8 +292,8 @@
                             <div class="form-group">
                                 <label for="validationCustom05" class="col-form-label pt-0">Image</label>
                                 <input class="form-control" id="imageshow" name="image" type="file" required="">
-                            </div>
-                            <img src="" width="100px" id="show_image">
+                            </div> 
+                            <img src="" width="100px" loading="lazy" id="show_image">
                             <div class="form-group mb-0">
                                 <div class="product-buttons text-center">
                                     <button type="submit" class="btn btn-primary">Submit</button>

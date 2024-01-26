@@ -18,7 +18,7 @@
                     <a href="{{ route('advertisements.edit', ['advertisement' => $item->id]) }}" title="edit">
                         <div class="card o-hidden mb-4 d-flex flex-column">
                             <div class="list-thumb d-flex">
-                                <img alt="" src="/{{ $item->image }}">
+                                <img alt="" loading="lazy" src="/{{ $item->image }}">
                             </div>
                             <div class="flex-grow-1 d-bock">
                                 <div
