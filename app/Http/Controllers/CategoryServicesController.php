@@ -49,7 +49,7 @@ class CategoryServicesController extends Controller
         }
         $service->description = $request->description;
         $service->save();
-
+        notify()->success('Service created successfully', 'Success');
         return redirect()->route('service.index')->with('success', 'Service created successfully');
     }
     public function edit($id)
@@ -88,7 +88,7 @@ class CategoryServicesController extends Controller
         $service->description = $request->description;
         $data = Cprofile::all();
         $service->save();
-
+        notify()->success('Service updated successfully', 'Success');
         return redirect()->route('service.index')->with('success', 'Service updated successfully');
     }
 

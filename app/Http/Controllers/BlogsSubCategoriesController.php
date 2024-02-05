@@ -37,6 +37,7 @@ class BlogsSubCategoriesController extends Controller
             'blog_category_id' => $request->blog_category_id,
             'name' => $request->name,
         ]);
+        notify()->success('Blog Sub Category created successfully', 'Success');
         return redirect()->route('blog_subcategories.index')->with(Toastr::success('Blog Sub Category Added Successfully'));
     }
 
@@ -65,6 +66,7 @@ class BlogsSubCategoriesController extends Controller
             'blog_category_id' => $request->blog_category_id,
             'name' => $request->name,
         ]);
+        notify()->success('Blog Sub Category update successfully', 'Success');
         return redirect()->route('blog_subcategories.index')->with(Toastr::success('Blog SubCategory Updated Successfully'));
     }
 

@@ -43,13 +43,13 @@ class BrandController extends Controller
             $file = $request->file('logo');
             $fileName = uniqid() . $file->getClientOriginalName();
 
-            //prorgam image save in 410 x 186 
+            //prorgam image save in 410 x 186
             $imagePath =  'upload/brands/big/' . $fileName;
             $img = Image::make($file);
             $img->resize(410, 186);
             $img->save($imagePath);
 
-            //prorgam image save in 136 x 62 
+            //prorgam image save in 136 x 62
             $imagePath = 'upload/brands/small/' . $fileName;
             $img = Image::make($file);
             $img->resize(136, 62);
@@ -58,6 +58,7 @@ class BrandController extends Controller
             $b->logo = $imagePath;
             $b->save();
         }
+        notify()->success('Brand added successfully', 'Success');
         Toastr::success('Brand Added Successfully!');
         return redirect('brands');
     }
@@ -94,13 +95,13 @@ class BrandController extends Controller
             $file = $request->file('logo');
             $fileName = uniqid() . $file->getClientOriginalName();
 
-            //prorgam image save in 410 x 186 
+            //prorgam image save in 410 x 186
             $imagePath =  'upload/brands/big/' . $fileName;
             $img = Image::make($file);
             $img->resize(410, 186);
             $img->save($imagePath);
 
-            //prorgam image save in 136 x 62 
+            //prorgam image save in 136 x 62
             $imagePath =  'upload/brands/small/' . $fileName;
             $img = Image::make($file);
             $img->resize(136, 62);
@@ -109,7 +110,7 @@ class BrandController extends Controller
             $update->logo = $imagePath;
             $update->save();
         }
-
+        notify()->success('Brand update successfully', 'Success');
         Toastr::success('Brand Updated Successfully!');
         return redirect('brands');
     }
@@ -120,7 +121,7 @@ class BrandController extends Controller
         File::delete('upload/brands/big/' . $delete->logo);
         File::delete('upload/brands/small/' . $delete->logo);
         $delete->delete();
-
+        notify()->success('Brand deleted successfully', 'Success');
         return redirect()->back()->with(Toastr::success('Brand Deleted Successfully!'));
     }
 }

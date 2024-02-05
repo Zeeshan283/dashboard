@@ -79,8 +79,7 @@ class AppointmentController extends Controller
             $data->image_b = $imageb;
             $data->save();
         }
-
-
+        notify()->success('Record added successfully', 'Success');
         Session::flash('flash_message', 'Record added Successfully!');
         return redirect('appointment');
     }
@@ -151,7 +150,7 @@ class AppointmentController extends Controller
             $update->save();
         }
         $update->save();
-
+        notify()->success('Record update successfully', 'Success');
         Session::flash('flash_message', 'Record Updated Successfully!');
         return redirect('appointment');
     }
@@ -168,6 +167,7 @@ class AppointmentController extends Controller
         File::delete($cash2);
 
         $delete->delete();
+        notify()->success('Record deleted successfully', 'Success');
         Session::flash('flash_message', 'Record Deleted Successfully!');
         return redirect('appointment');
     }

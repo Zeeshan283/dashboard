@@ -18,7 +18,7 @@ class BlogSubCategoryController extends Controller
     {
         // $data = BlogSubCategory::orderBy('id')->get(['id', 'title']);
         $data = BlogSubCategory::with('subCategories')->orderBy('id')->get();
-        
+
         return view('blogs-sub-categories.index', compact('data'));
     }
 
@@ -30,11 +30,12 @@ class BlogSubCategoryController extends Controller
 
     public function store(Request $request)
     {
-       
+
         $this->validate($request, [
             'title' => 'required'
         ]);
         BlogSubCategory::create($request->all());
+        notify()->success('Blog Sub Category update successfully', 'Success');
         return redirect()->back()->with(Toastr::success('Blog Sub Category Added Successfully'));
     }
 
@@ -69,6 +70,7 @@ class BlogSubCategoryController extends Controller
         }else{
             abort(404);
         }
+        notify()->success('Blog SubCategory update successfully', 'Success');
     }
 
     public function destroy($id)
@@ -85,6 +87,7 @@ class BlogSubCategoryController extends Controller
                 File::delete('root/upload/blogs/small/'.$value->image);
             }
             Blogs::where('blog_sub_category_id',$id)->delete();
+            notify()->success('Blog SubCategory deleted successfully', 'Success');
             return redirect()->back()->with('flash_message', 'Blog Sub Category Deleted Successfully');;
         }else{
             abort(404);

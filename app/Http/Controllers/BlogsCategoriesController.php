@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image as Image;
 class BlogsCategoriesController extends Controller
 {
-    public function __construct() 
+    public function __construct()
     {
         $this->middleware('auth');
     }
@@ -25,29 +25,29 @@ class BlogsCategoriesController extends Controller
     {
         $data = ($id = request()->get('id'));
         return view('blogs.blog_categories.create' , compact('data'));
-    }    
+    }
 
     public function store(Request $request)
     {
         $request->validate([
             'blog_category_id' => 'required',
         ]);
-    
+
         $data = new BlogsCategories;
         $data->blog_category_id = $request->blog_category_id;
-    
-        $data->save(); 
-    
+
+        $data->save();
+        notify()->success('Blog Category created successfully', 'Success');
         return redirect()->back()->with(Toastr::success('Blog Category Added Successfully'));
     }
-    
+
 
     public function show(BlogsCategories $blogsCategories)
     {
         $data = BlogsCategories::orderBy('id')->get(['id', 'blog_category_id']);
         return view('blogs_categories.show', compact('data'));
     }
-    
+
 
     public function edit($id)
     {
@@ -70,7 +70,7 @@ class BlogsCategoriesController extends Controller
     $edit->blog_category_id = $request->blog_category_id;
 
     $edit->update();
-
+    notify()->success('Blog Category update successfully', 'Success');
     return redirect()->back()->with(Toastr::success('Blog Category Updated Successfully'));
 }
 
@@ -78,6 +78,7 @@ class BlogsCategoriesController extends Controller
     {
         $data = BlogsCategories::findOrFail($id);
         $data->delete();
+        notify()->success('Blog Category deleted successfully', 'Success');
         Toastr::success('Blog Deleted Successfully!');
         return redirect()->back();
 }

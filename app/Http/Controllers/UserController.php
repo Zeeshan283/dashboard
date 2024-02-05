@@ -42,11 +42,11 @@ class UserController extends Controller
         $user->phone = $request->input('phone');
         $user->country = $request->input('country');
         $user->city = $request->input('city');
-        $user->address = $request->input('address'); // Corrected spelling of 'address'
+        $user->address = $request->input('address');
         $user->password = Hash::make($request->input('password'));
         $user->gender = $request->input('gender');
         $user->save();
-        $user->notify(new TestingNotification(900));
+        notify()->success('User created successfully', 'Success');
         Toastr::success('User added successfully', 'Success');
 
         return redirect()->route('userlist');
@@ -78,7 +78,7 @@ class UserController extends Controller
         $user->address = $request->input('address'); // Corrected spelling of 'address'
         $user->gender = $request->input('gender');
         $user->save();
-        $user->notify(new TestingNotification(900));
+        notify()->success('User update successfully', 'Success');
 
         return redirect()->route('userlist'); // Make sure you have defined the 'userlist' route
     }
@@ -87,7 +87,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-
+        notify()->success('User deleted successfully', 'Success');
         return redirect()->back();
     }
 

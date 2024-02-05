@@ -103,7 +103,7 @@ class CategoryController extends Controller
       $cat->side_sliders = json_encode($images);
       $cat->save();
     }
-
+    notify()->success('Category created successfully', 'Success');
     // return redirect()->back()->with(Toastr::success('Category Added Successfully!'));
     Toastr::success('Category created successfully', 'Success');
     return redirect()->route('allcat');
@@ -203,7 +203,7 @@ class CategoryController extends Controller
       $update->save();
     }
 
-
+    notify()->success('Category update successfully', 'Success');
     Toastr::success('Category Updated successfully', 'Success');
     return redirect()->route('allcat');
   }
@@ -215,6 +215,7 @@ class CategoryController extends Controller
     File::delete($delete->imageforapp);
     File::delete($delete->side_sliders);
     $delete->delete();
+    notify()->success('Category deleted successfully', 'Success');
     Toastr::success('Category deleted successfully', 'Success');
     return redirect()->route('allcat');
   }

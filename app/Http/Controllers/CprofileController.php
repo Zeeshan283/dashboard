@@ -26,7 +26,7 @@ class CprofileController extends Controller
         Cprofile::create([
             'pcategory' => $request->input('pcategory'),
         ]);
-
+        notify()->success('profile category created successfully', 'Success');
         return redirect()->route('cprofile.index')->with('success', 'Category created successfully');
     }
 
@@ -34,7 +34,7 @@ class CprofileController extends Controller
     {
         $profile = Cprofile::findOrFail($id);
         $profile->delete();
-
+        notify()->success('profile category deleted successfully', 'Success');
         return redirect()->route('cprofile.index')->with('success', 'Category deleted successfully');
     }
 }

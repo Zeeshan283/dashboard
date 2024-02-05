@@ -17,7 +17,7 @@ class AccountGroupController extends Controller
     public function index()
     {
         $data = Accountgroup::OrderBy('group_name', 'asc')->get();
-       
+
         return view('account-group.index', compact('data'));
     }
 
@@ -40,7 +40,7 @@ class AccountGroupController extends Controller
      */
     public function store(Request $request)
      {
-        
+
         $this->validate($request, [
         'group_name' => 'required'
 ]);
@@ -48,6 +48,7 @@ class AccountGroupController extends Controller
          $brand = new Accountgroup();
          $brand->group_name = $request->get('group_name');
          $brand->save();
+         notify()->success('Account group successfully', 'Success');
          Session::flash('flash_message', 'Record added Successfully!');
         return redirect('account-group/create');
     }
