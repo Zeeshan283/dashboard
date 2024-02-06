@@ -65,9 +65,6 @@ class CfeaturesController extends Controller
         ]);
 
         $cfeature = new Cfeatures();
-
-
-
         // Set other attributes and save the model
         $cfeature->name = $request->name;
         $cfeature->lectures = $request->lectures;
@@ -95,7 +92,7 @@ class CfeaturesController extends Controller
         // ...
 
         $cfeature->save();
-
+        notify()->success('Cfeatures created successfully', 'Success');
         return redirect()->back()->with('success', 'Course Features Added Successfully');
     }
 
@@ -146,7 +143,7 @@ class CfeaturesController extends Controller
 
 
         $edit->save();
-
+        notify()->success('Details updated successfully', 'Success');
         return redirect()->back()->with(Toastr::success('Details Updated Successfully'));
     }
 
@@ -160,5 +157,6 @@ class CfeaturesController extends Controller
         } else {
             abort(404);
         }
+        notify()->success('cfeatures deleted successfully', 'Success');
     }
 }

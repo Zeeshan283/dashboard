@@ -49,7 +49,7 @@ class AccountSettingController extends Controller
                 $update->image = $request->file('image')->getClientOriginalName();
                 $update->save();
             }
-
+            notify()->success('Account Settings update successfully', 'Success');
             Session::flash('flash_message', 'Profile Updated Successfully!');
             return redirect('home');
         }

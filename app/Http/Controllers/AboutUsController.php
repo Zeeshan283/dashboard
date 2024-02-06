@@ -30,7 +30,7 @@ class AboutUsController extends Controller
 
         $edit = AboutUs::findOrFail($id);
         $edit->update($request->all());
-
+        notify()->success('About update successfully', 'Success');
         Session::flash('flash_message', 'About updated Successfully!');
         return redirect()->back();
     }

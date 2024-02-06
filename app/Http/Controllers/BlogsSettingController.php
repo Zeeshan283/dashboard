@@ -20,12 +20,13 @@ class BlogsSettingController extends Controller
         $BlogsSetting = BlogsSetting::find(1);
         return view('blogs-settings.index', compact('categories','BlogsSetting'));
     }
-    
+
     public function UpdateBlogsSettings(Request $request)
     {
         $blogssetting = BlogsSetting::find(1);
         $blogssetting->update($request->all());
         $blogssetting->save();
+        notify()->success('Blogs Settings updated successfully', 'Success');
         return redirect()->back()->with(Toastr::success('Blogs Settings Update Successfully'));
     }
 

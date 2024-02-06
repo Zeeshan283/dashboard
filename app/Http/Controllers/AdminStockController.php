@@ -38,7 +38,7 @@ class AdminStockController extends Controller
      */
     public function create()
     {
-        
+
         $code = Purchase::latest()->first();
      //  return  $code;
         if(isset($code) > 0){
@@ -53,7 +53,7 @@ class AdminStockController extends Controller
        $p = Product::OrderBy('id', 'asc')->pluck('name', 'id')->prepend('All Products', '0')->toArray();
 //return $c;
       //  $p = Product::OrderBy('name')->pluck('name','id');
-      
+
        // $uom = UOM::OrderBy('uom')->pluck('uom','id');
         return view('admin-stock.create', compact('p'));
 
@@ -83,6 +83,7 @@ class AdminStockController extends Controller
         ->whereDate('created_at', '>=', $fromDate)
     ->whereDate('created_at', '<=', $toDate)
     ->get();
+    notify()->success('Admin Stock added successfully', 'Success');
 
     return view('admin-stock.report', compact('fromDate', 'toDate', 'purchase'));
         }

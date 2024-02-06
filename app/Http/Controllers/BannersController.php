@@ -65,6 +65,7 @@ class BannersController extends Controller
             $banner->bg_image =   '/upload/banners/' . $fileName;
             $banner->save();
         }
+        notify()->success('Banners added successfully', 'Success');
         Toastr::success('Banner Added Successfully!', 'Success');
         return redirect()->back();
     }

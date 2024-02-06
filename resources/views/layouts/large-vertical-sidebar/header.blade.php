@@ -47,6 +47,8 @@
                 color: black;
             }
         </style>
+                @notifyCss
+
         <div class="dropdown">
             <div class="badge-top-container" role="button" id="dropdownNotification" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -57,7 +59,7 @@
     aria-labelledby="dropdownNotification" data-perfect-scrollbar data-suppress-scroll-x="true">
 
     <!-- Display notifications here -->
-    @forelse(auth()->user()->unreadNotifications as $notification)
+
     <div class="dropdown-item">
     <div class="notification-icon">
         <button type="button" class="btn btn-outline-secondary" id="buttons">
@@ -65,22 +67,20 @@
         </button>
     </div>
     <div class="notification-details flex-grow-1">
-        {{ $notification->data['testing'] }}
+            <x-notify::notify />
+            @notifyJs
+
     </div>
 </div>
 
-    @empty
-        <div class="dropdown-item">
-            <p>No new notifications</p>
-        </div>
-    @endforelse
+
 </div>
 
             <!-- Notification dropdown -->
             <!-- <div class="dropdown-menu dropdown-menu-right notification-dropdown rtl-ps-none"
                 aria-labelledby="dropdownNotification" data-perfect-scrollbar data-suppress-scroll-x="true">
 
-                Display notifications here 
+                Display notifications here
 
                 <div class="dropdown-item">
                     <div class="notification-icon">

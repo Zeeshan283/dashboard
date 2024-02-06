@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use function Termwind\render;
 
 class CouponController extends Controller
-{ 
+{
     public function index(){
 
         $coupons = Coupon::all();
@@ -27,15 +27,16 @@ class CouponController extends Controller
         $products = Product::all();
 
         $user = User::where('id', Auth::user()->id)->first();
-        
+
         return view('coupon.createcoupon', compact('products','user'));
     }
 
     public function isUsed()
     {
+        notify()->success('this coupon is used', 'Success');
         return $this->coupon_used? true : false;
     }
-    
+
     public function store(Request $request )
     {
     //   dd($request->all());
@@ -57,7 +58,7 @@ class CouponController extends Controller
             'status' => $request->input('status'),
             'vendor_id' => Auth::user()->id,
         ]);
-        
+
         // Save the coupon
         $coupon->save();
         // Notification::create([
@@ -67,23 +68,28 @@ class CouponController extends Controller
         //     'type' => 'coupon',
 
         // ]);
+        notify()->success('Coupon created successfully', 'Success');
         return redirect()->back();
     }
 
     public function toggleStatus(Request $request)
-    {
-        $requestData = $request->all();
-        $couponModel = Coupon::find($requestData['coupon_id']);
+{
+    $requestData = $request->all();
+    \Log::info('Received request data:', $requestData);
 
-        if ($couponModel) {
-            $couponModel->status = $requestData['status'];
-            $couponModel->save();
+    $couponModel = Coupon::find($requestData['coupon_id']);
 
-            return response()->json(['message' => 'Coupon status toggled successfully']);
-        }
+    if ($couponModel) {
+        // Toggle status based on the current status
+        $couponModel->status = ($couponModel->status === 'active') ? 'inactive' : 'active';
+        $couponModel->save();
 
-        return response()->json(['message' => 'Coupon not found'], 404);
+        return response()->json(['message' => 'Coupon status toggled successfully']);
     }
+    notify()->success('coupon status updated', 'Success');
+    return response()->json(['message' => 'Coupon not found'], 404);
+}
+
 
     public function destroy($id)
     {
@@ -95,10 +101,9 @@ class CouponController extends Controller
         }
 
         $coupon->delete();
-
-        // Assuming you are using the Toastr library for notifications.
+        notify()->success('Coupon deleted successfully', 'Success');
         Toastr::success('Coupon deleted successfully', 'Success');
-        
+
         return redirect()->back();
     }
 
@@ -108,33 +113,33 @@ class CouponController extends Controller
     //         'id' => 'required|string|max:255',
     //         'coupon_id' => 'required|string',
     //     ]);
-    
+
     //     $coupon = new Coupon();
     //     $coupon->id = Auth::user()->id;
     //     $coupon->coupon_id = $request->coupon_id;
     //     $coupon->timestamp = now();
     //     $coupon->save();
-    
+
     //     // Create a new notification record
     //     $notification = new Notification();
     //     $notification->id = Auth::user()->id;
     //     $notification->coupon_id = $request->coupon_id;
     //     $notification->timestamp = now();
     //     $notification->save();
-    
+
     //     $data = Coupon::where('timestamp', '>=', now()->subDay())->get();
-    
+
     //     return redirect()->route('coupon.allcoupons')->with('data', $data);
     // }
-    
+
     // public function getNotifications(request $request)
     // {
- 
+
     //     Notification::send($coupons, new InvoicePaid($coupons));
-    
+
     //   return view('layouts.header', compact('Notifications'));
     //  }
-    
+
 
 }
 

@@ -37,7 +37,7 @@ class AccountController extends Controller
         else{
             $codes = 1;
         }
-   
+
     return view('accounts.create', Compact('codes'));
     }
 
@@ -60,6 +60,7 @@ class AccountController extends Controller
          $milk->type = $request->get('type');
          $milk->biller = Auth::User()->name;
          $milk->save();
+         notify()->success('Account store successfully', 'Success');
          Session::flash('flash_message', 'Record added Successfully!');
         return redirect('accounts/create');
     }

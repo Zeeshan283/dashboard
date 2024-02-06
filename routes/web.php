@@ -62,8 +62,9 @@ use App\Http\Controllers\Auth\LoginController;
 
 
 Route::get('large-compact-sidebar/dashboard/dashboard1', function () {
-    // set layout sesion(key)
+
     session(['layout' => 'compact']);
+    notify()->success('new user added');
     return view('dashboard.dashboardv1');
 })->name('compact');
 
@@ -196,7 +197,7 @@ Route::middleware(['admin'])->group(function () {
     Route::post('a_s_i_a/{id}', [AdvertisementOrder::class, 'advertisementOrderImageStatusUpdate'])->name('advertisementOrderImageUpdate');
     Route::post('a_s_i_a_1/{id}', [AdvertisementOrder::class, 'advertisementOrderDisplayStatus'])->name('advertisementOrderDisplayStatus');
 });
-//  ============================================================================================================================ 
+//  ============================================================================================================================
 
 // VENDOR ACCESS
 Route::middleware(['vendor'])->group(function () {
@@ -238,7 +239,7 @@ Route::middleware(['vendor'])->group(function () {
     Route::resource('portfolios', PortfolioController::class);
 
 });
-//  ============================================================================================================================ 
+//  ============================================================================================================================
 
 
 
@@ -304,14 +305,14 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::get('cwallet', [CustomerController::class, 'cwallet'])->name('cwallet');
     Route::get('sellers/show/{id}', [VendorsController::class, 'show1'])->name('sellers.show');
 });
-//  ============================================================================================================================ 
+//  ============================================================================================================================
 
 
 // HOME PAGE CHART
 
 
 
-// CHART 
+// CHART
 
 // Route::get('fetch-vendor-products', function () {
 //     $vendorProductData = DB::table('products')
@@ -373,7 +374,7 @@ Route::get('/fetch-notifications', 'NotificationController@fetchNotifications')-
 Route::resource('cprofile', CprofileController::class);
 Route::resource('v_service', CategoryServicesController::class);
 
-// views 
+// views
 // Route::get('/views-over-last-20-days', function () {
 //     $twentyDaysAgo = now()->subDays(20);
 

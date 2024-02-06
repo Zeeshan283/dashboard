@@ -1344,7 +1344,7 @@
             <td>{{$data->id}}</td>
     <td>{{$data->name}}</td>
     <td>{{$data->phone1}}</td>
-    <td>{{$data->email}}</td>   
+    <td>{{$data->email}}</td>
     <td>{{$data->status}}</td>
     <td><a href="{{url('/admin/edit-service/' . $data['id'])}}" class="btn rounded-pill btn-icon btn-secondary"><i
                 class="fa fa-pencil-square-o" title="edit" aria-hidden="true"></i></a></td>
@@ -2291,7 +2291,7 @@
     <th>Image(100x66)px</th>
     <th>Images for App(100x66)px</th>
 
-   
+
 
     <th>Action</th>
 </tfoot>
@@ -2393,8 +2393,10 @@
         <td>{{ $item->amount ?: 'Nill' }}</td>
         <td>{{ $item->percentage ?: 'Nill' }}</td>
         <td>{{ $item->start_date }} : {{ $item->end_date }}</td>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
         <td>
-            <form id="toggle-form" method="POST" action="/toggle-coupon-status">
+            <form class="toggle-form" method="POST" action="/toggle-coupon-status">
                 @csrf
                 <input type="hidden" name="coupon_id" value="{{ $item->id }}">
                 <input type="hidden" name="status" value="{{ $item->status }}">
@@ -2406,6 +2408,7 @@
                 <span class="slider round"></span>
             </label>
         </td>
+
         <td>
             <form action="{{ route('coupon.destroy', ['coupon' => $item->id]) }}" method="POST"
                 onsubmit="return confirm('Are you sure you want to delete this menu item?')" style="display: inline;">
@@ -3342,13 +3345,13 @@
     });
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
     $(document).ready(function() {
         $('.coupon-status-toggle').change(function() {
             var isChecked = $(this).is(':checked');
-            var statusInput = $('#toggle-form input[name="status"]');
-            var couponId = $('#toggle-form input[name="coupon_id"]').val();
+            var form = $(this).closest('td').find('.toggle-form');
+            var statusInput = form.find('input[name="status"]');
 
             if (isChecked) {
                 statusInput.val('active');
@@ -3356,17 +3359,25 @@
                 statusInput.val('inactive');
             }
 
+            // Include CSRF token in the AJAX headers
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             $.ajax({
                 type: 'POST',
                 url: '/toggle-coupon-status',
-                data: $('#toggle-form').serialize(), // Serialize the form data
-                secondary: function(response) {
-                    alert(response.message); // Show a secondary message
+                data: form.serialize(),
+                success: function(response) {
+                    alert(response.message);
                 },
                 error: function(xhr, status, error) {
-                    console.error(xhr.responseText); // Handle errors
+                    console.error(xhr.responseText);
                 }
             });
         });
     });
-    </script>
+</script>
+

@@ -25,4 +25,5 @@ class Coupon extends Model
         'product_id',
         'stauts',
     ];
+
 }

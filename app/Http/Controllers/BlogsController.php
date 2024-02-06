@@ -49,25 +49,19 @@ class BlogsController extends Controller
         $blog->blog_sub_category_id = $request->blog_sub_category_id;
         $blog->description = $request->description;
         $blog->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
-         
-         
+
+
         if ($request->hasFile('feature_image')) {
             $file = $request->file('feature_image');
             $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('upload/blogs/'), $fileName);
             $blog->feature_image = 'upload/blogs/' . $fileName;
         }
-
         $blog->save();
-        $blog->notify(new TestingNotification(900));
-        // dd($blog->notifications);
+        notify()->success('Blog added successfully', 'Success');
+
         return redirect('blogs')->with('success', 'Blog Created Successfully');
-
-        // $testNotification = Blogs::first();
-        // $testNotification->notify(new TestingNotification(900));
-        // dd($testNotification->notifications);
     }
-
     public function show(BlogsCategories $blogsCategories)
     {
         //
@@ -112,7 +106,7 @@ class BlogsController extends Controller
         }
 
         $edit->save();
-        $edit->notify(new TestingNotification(900));
+        notify()->success('Blogs update successfully', 'Success');
         return redirect('blogs')->with(Toastr::success('Blog  Updated Successfully'));
     }
 
@@ -123,6 +117,7 @@ class BlogsController extends Controller
         File::delete($blog->feature_image);
 
         $blog->delete();
+        notify()->success('Blogs deleted successfully', 'Success');
         return redirect()->back()->with(Toastr::success('Blogs Deleted Successfully'));
     }
 

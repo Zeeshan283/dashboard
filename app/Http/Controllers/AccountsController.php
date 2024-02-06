@@ -53,6 +53,7 @@ class AccountsController extends Controller
          $account->city = $request->get('city');
          $account->address = $request->get('address');
          $account->save();
+         notify()->success('Accounts added successfully', 'Success');
          Session::flash('flash_message', 'Record added Successfully!');
         return redirect('accounts/create');
     }
@@ -99,6 +100,7 @@ class AccountsController extends Controller
          $update->city = $request->get('city');
          $update->address = $request->get('address');
          $update->update($request->all());
+         notify()->success('Accounts updated successfully', 'Success');
         Session::flash('flash_message', 'Record Updated Successfully!');
         return redirect('accounts');
     }
@@ -113,6 +115,7 @@ class AccountsController extends Controller
     {
          $delete = Account::findOrFail($id);
         $delete->delete();
+        notify()->success('Account deleted successfully', 'Success');
         Session::flash('flash_message', 'Record Deleted Successfully!');
         return redirect('accounts');
     }

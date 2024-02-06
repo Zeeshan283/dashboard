@@ -73,8 +73,7 @@ class AdvertisementController extends Controller
         }
 
         $data->save();
-
-
+        notify()->success('Advertisement added successfully', 'Success');
         Toastr::success('Advertisement Added successfully', 'Success');
         return redirect()->back();
     }
