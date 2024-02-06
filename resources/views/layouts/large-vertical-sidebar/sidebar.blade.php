@@ -1,4 +1,3 @@
-
 <?php 
 
 use App\Models\OrderDetail;
@@ -44,9 +43,9 @@ if (Auth::user()->role == 'Vendor') {
     <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
         <ul class="navigation-left">
             @if (Auth::User()->role == 'Admin')
-                @include('sidebar.admin')
+            @include('sidebar.admin')
             @elseif (Auth::User()->role == 'Vendor')
-                @include('sidebar.vendor')
+            @include('sidebar.vendor')
             @endif
         </ul>
 
@@ -127,14 +126,13 @@ if (Auth::user()->role == 'Vendor') {
             </li>
             {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'withdrawl' ? 'open' : '' }}"
-                    href="{{ route('withdrawl') }}">
-                    <i class="nav-icon i-Split-Vertical"></i>
-                    <span class="item-name">Vendor Withdrawls</span>
-                </a>
+            href="{{ route('withdrawl') }}">
+            <i class="nav-icon i-Split-Vertical"></i>
+            <span class="item-name">Vendor Withdrawls</span>
+            </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'withdrawl' ? 'open' : '' }}"
-                    href="{{ route('withdrawl') }}">
+                <a class="{{ Route::currentRouteName() == 'withdrawl' ? 'open' : '' }}" href="{{ route('withdrawl') }}">
                     <i class="nav-icon i-Split-Vertical"></i>
                     <span class="item-name">Withdrawal Methods</span>
                 </a>
@@ -234,7 +232,7 @@ if (Auth::user()->role == 'Vendor') {
             <li class="nav-item">
 
                 {{-- <a class="{{ Route::currentRouteName() == 'allsubcat' ? 'open' : '' }}"
-                    href="{{ route('allsubcat') }}"> --}}
+                href="{{ route('allsubcat') }}"> --}}
                 <a href="{{ url('/sub-category') }}" id="list-item-color"
                     class="nav-link menu-link {{ Route::currentRouteName() == 'sub-category.index' ? 'open' : '' }}">
                     <i class="nav-icon i-Folder-Open"></i>
@@ -246,12 +244,12 @@ if (Auth::user()->role == 'Vendor') {
 
             {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'widget-weather-app' ? 'open' : '' }}"
-                    href="{{ route('widget-weather-app') }}">
-                    <i class="nav-icon i-Receipt-4"></i>
-                    <span class="item-name"> Weather App <span class="ms-2 badge badge-pill text-bg-danger">
-                            New</span>
-                    </span>
-                </a>
+            href="{{ route('widget-weather-app') }}">
+            <i class="nav-icon i-Receipt-4"></i>
+            <span class="item-name"> Weather App <span class="ms-2 badge badge-pill text-bg-danger">
+                    New</span>
+            </span>
+            </a>
             </li> --}}
 
         </ul>
@@ -264,21 +262,21 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'creviews' ? 'open' : '' }}"
-                    href="{{ route('creviews') }}">
+                <a class="{{ Route::currentRouteName() == 'creviews' ? 'open' : '' }}" href="{{ route('creviews') }}">
                     <i class="nav-icon i-Add"></i>
                     <span class="item-name">Customer Reviews</span>
                 </a>
             </li>
             {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'cwallet' ? 'open' : '' }}" href="{{ route('cwallet') }}">
-                    <i class="nav-icon i-Shopping-Bag"></i>
-                    <span class="item-name">Wallet</span>
-                </a>
+            <i class="nav-icon i-Shopping-Bag"></i>
+            <span class="item-name">Wallet</span>
+            </a>
             </li> --}}
         </ul>
 
         <ul class="childNav" data-parent="charts">
+            
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'products.create' ? 'open' : '' }}"
                     href="{{ route('products.create') }}">
@@ -286,31 +284,40 @@ if (Auth::user()->role == 'Vendor') {
                     <span class="item-name">Add Product</span>
                 </a>
             </li>
+
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'products.index' ? 'open' : '' }}"
                     href="{{ route('products.index') }}">
                     <i class="nav-icon i-Shopping-Bag"></i>
-                    <span class="item-name">All Product</span>
+                    <span class="item-name">Products List</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'productsView' ? 'open' : '' }}"
+                    href="{{ route('productsView') }}">
+                    <i class="nav-icon i-Shopping-Bag"></i>
+                    <span class="item-name">Products View</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'CustomerQueries.index' ? 'open' : '' }}"
                     href="{{ route('CustomerQueries.index') }}">
                     <i class="nav-icon i-Pen-2"></i>
-                    <span class="item-name">Customer Queries</span>
+                    <span class="item-name">Customers Queries</span>
                 </a>
             </li>
             {{-- <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'productinfo' ? 'open' : '' }}" href="{{ route('productinfo') }}">
-                    <i class="nav-icon i-Arrow-Circle"></i>
-                    <span class="item-name">Product Info</span>
-                </a>
+                <a class="{{ Route::currentRouteName() == 'productinfo' ? 'open' : '' }}"
+            href="{{ route('productinfo') }}">
+            <i class="nav-icon i-Arrow-Circle"></i>
+            <span class="item-name">Products Info</span>
+            </a>
             </li> --}}
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'productreviews' ? 'open' : '' }}"
                     href="{{ route('productreviews') }}">
                     <i class="nav-icon i-David-Star"></i>
-                    <span class="item-name">Product Reviews</span>
+                    <span class="item-name">Products Reviews</span>
                 </a>
             </li>
 
@@ -347,8 +354,7 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'refunded' ? 'open' : '' }}"
-                    href="{{ route('refunded') }}">
+                <a class="{{ Route::currentRouteName() == 'refunded' ? 'open' : '' }}" href="{{ route('refunded') }}">
                     <i class="nav-icon i-Loading-3"></i>
                     <span class="item-name">Refunded</span>
                 </a>
@@ -361,20 +367,19 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
         </ul>
-       
+
         <ul class="childNav" data-parent="uikits">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}"
-                    href="{{ route('allorders') }}">
+                <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}" href="{{ route('allorders') }}">
                     <i class="nav-icon i-Folder-Archive"></i>
-                    <span class="item-name">ALL Orders</span>
+                    <span class="item-name">Orders</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'order_details' ? 'open' : '' }}"
                     href="{{ route('order_details') }}">
                     <i class="nav-icon i-Folder-Archive"></i>
-                    <span class="item-name">ALL Orders Details</span>
+                    <span class="item-name">ALL Parcels</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -398,7 +403,7 @@ if (Auth::user()->role == 'Vendor') {
                     <span class="item-name">Confirmed {{ $Confirmed }}</span>
                 </a>
             </li>
-            
+
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'outofdelivery' ? 'open' : '' }}"
                     href="{{ route('outofdelivery') }}">
@@ -407,13 +412,12 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'delivered' ? 'open' : '' }}"
-                    href="{{ route('delivered') }}">
+                <a class="{{ Route::currentRouteName() == 'delivered' ? 'open' : '' }}" href="{{ route('delivered') }}">
                     <i class="nav-icon i-Check"></i>
                     <span class="item-name">Delivered {{ $Delivered}}</span>
                 </a>
             </li>
-            
+
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'ftod' ? 'open' : '' }}" href="{{ route('ftod') }}">
                     <i class="nav-icon i-Over-Time-2"></i>
@@ -421,15 +425,13 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'returned' ? 'open' : '' }}"
-                    href="{{ route('returned') }}">
+                <a class="{{ Route::currentRouteName() == 'returned' ? 'open' : '' }}" href="{{ route('returned') }}">
                     <i class="nav-icon i-Redo"></i>
                     <span class="item-name">Returned {{ $Returned}}</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'canceled' ? 'open' : '' }}"
-                    href="{{ route('canceled') }}">
+                <a class="{{ Route::currentRouteName() == 'canceled' ? 'open' : '' }}" href="{{ route('canceled') }}">
                     <i class="nav-icon i-File-Trash"></i>
                     <span class="item-name">Canceled {{ $Canceled}}</span>
                 </a>
@@ -507,8 +509,7 @@ if (Auth::user()->role == 'Vendor') {
 
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == '' ? 'open' : '' }}"
-                    href="{{ URL::to('settings/1/edit') }}">
+                <a class="{{ Route::currentRouteName() == '' ? 'open' : '' }}" href="{{ URL::to('settings/1/edit') }}">
                     <i class="nav-icon i-Male"></i>
                     <span class="item-name">Site Profile</span>
                 </a>
@@ -523,10 +524,10 @@ if (Auth::user()->role == 'Vendor') {
 
             {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'emails.index' ? 'open' : '' }}"
-                    href="{{ route('emails.index') }}">
-                    <i class="nav-icon i-Shopping-Bag"></i>
-                    <span class="item-name">Email Page</span>
-                </a>
+            href="{{ route('emails.index') }}">
+            <i class="nav-icon i-Shopping-Bag"></i>
+            <span class="item-name">Email Page</span>
+            </a>
             </li> --}}
 
             <li class="nav-item">
@@ -538,10 +539,10 @@ if (Auth::user()->role == 'Vendor') {
             </li>
             {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'cprofile.index' ? 'open' : '' }}"
-                    href="{{ route('cprofile.index') }}">
-                    <i class="nav-icon i-File-Trash"></i>
-                    <span class="item-name">Profile Category</span>
-                </a>
+            href="{{ route('cprofile.index') }}">
+            <i class="nav-icon i-File-Trash"></i>
+            <span class="item-name">Profile Category</span>
+            </a>
             </li> --}}
         </ul>
 
@@ -577,10 +578,10 @@ if (Auth::user()->role == 'Vendor') {
             </li>
             {{--<li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'service.index' ? 'open' : '' }}"
-                    href="{{ route('service.index') }}">
-                    <i class="nav-icon i-File-Trash"></i>
-                    <span class="item-name">Service Category</span>
-                </a>
+            href="{{ route('service.index') }}">
+            <i class="nav-icon i-File-Trash"></i>
+            <span class="item-name">Service Category</span>
+            </a>
             </li>--}}
         </ul>
 
@@ -663,8 +664,7 @@ if (Auth::user()->role == 'Vendor') {
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'allterm' ? 'open' : '' }}"
-                    href="{{ route('allterm') }}">
+                <a class="{{ Route::currentRouteName() == 'allterm' ? 'open' : '' }}" href="{{ route('allterm') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">Terms & Conditions</span>
                 </a>

@@ -5,7 +5,7 @@
 
 @section('main-content')
     <div class="breadcrumb">
-        <h1>All Orders Detail</h1>
+        <h1>All Parcels</h1>
     </div>
 
     <div class="separator-breadcrumb border-top"></div>
@@ -13,7 +13,7 @@
         <div class="card text-start">
 
             <div class="card-body">
-                <h4 class="card-title mb-3">All orders Detail</h4>
+                <h4 class="card-title mb-3">All Parcels</h4>
 
                 {{-- <p>All Orders list is below.</p> --}}
 

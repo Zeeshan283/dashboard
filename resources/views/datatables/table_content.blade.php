@@ -61,43 +61,15 @@
         <td>{{ $orders->shipping_address ?? null }},{{ $orders->shipping_city ?? null}},{{ $orders->shipping_state ?? null}}
             {{ $orders->shipping_zipcode ?? null}},{{ $orders->shipping_country ?? null}}</td>
 
-        {{-- <form method="POST" action="{{ route('order.status', ['id' => $orders->id]) }}">
-
-        @csrf
-
-        @method('PATCH')
+         
 
         <td>
-            <select class="form-control" name="status" id="status{{ $orders->id }}">
-                <option value="" selected disabled>{{ $orders->status }}</option>
-                <option value="In Process">In Process</option>
-                <option value="Packaging">Packaging</option>
-                <option value="Confirmed">Confirmed</option>
-                <option value="Out of delivery">Out of Delivery</option>
-                <option value="Delivered">Delivered</option>
-                <option value="Failed to Deliver">Failed to Deliver</option>
-                <option value="Returned">Returned</option>
-                <option value="Canceled">Canceled</option>
-            </select>
-        </td>
-
-        <td class="d-flex 2">
-
-            <input type="hidden" value="{{ $orders->id }}" name="order_id" hidden>
-
-            <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
-                data-style="expand-left"><span class="ladda-label">Update</span></button>
-
-
-            </div>
-
-        </td>
-
-        </form> --}}
-
-        <td>
-            <a href="{{ url('get_order_details/' . $orders->id) }}" class="btn btn-outline-secondary"><i
-                    class="nav-icon i-Eye "></i></a>
+            <div class="d-flex gap-2">
+        <a href="{{ url('get_order_details/' . $orders->id) }}" class="btn btn-outline-secondary">
+            <!-- <i class="nav-icon i-Eye "></i> -->Parcel
+                </a>
+        <a href="{{ route('orderInvoice',$orders->id) }}" target="__BLANK" class="btn btn-outline-secondary">Invoice</a>
+        </div>
         </td>
     </tr>
     @endforeach
@@ -118,7 +90,7 @@
 <thead>
     {{-- <th>Sr No</th> --}}
     <th>Order Id#</th>
-    <th>Sub Order Id #</th>
+    <th>Parcel Id #</th>
     <th>Vendor Name</th>
     <th>Customer Name</th>
     <th>Product Name</th>
@@ -216,7 +188,7 @@
     <tr>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
-        <th>Sub Order Id #</th>
+        <th>Parcel Id #</th>
         <th>Vendor Name</th>
         <th>Customer Name</th>
         <th>Product Name</th>
@@ -235,7 +207,7 @@
 @elseif (Route::currentRouteName() == 'get_order_detail_status')
 <thead>
     <th>Id #</th>
-    <th>Order Detail Id #</th>
+    <th>Parcel Id #</th>
     <th>Status</th>
     <th>DateTime</th>
 </thead>
@@ -254,7 +226,7 @@
     <tr>
         <th>Id #</th>
 
-        <th>Order Detail Id #</th>
+        <th>Parcel Id #</th>
         <th>Status</th>
         <th>DateTime</th>
     </tr>
@@ -264,7 +236,7 @@
 <thead>
     {{-- <th>Sr No</th> --}}
     <th>Order Id#</th>
-    <th>Sub Order Id #</th>
+    <th>Parcel Id #</th>
     <th>Vendor Name</th>
     <th>Customer Name</th>
     <th>Product Name</th>
@@ -368,7 +340,7 @@
     <tr>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
-        <th>Sub Order Id #</th>
+        <th>Parcel Id #</th>
         <th>Vendor Name</th>
         <th>Customer Name</th>
         <th>Product Name</th>
@@ -387,7 +359,7 @@
 <thead>
     {{-- <th>Sr No</th> --}}
     <th>Order Id#</th>
-    <th>Sub Order Id #</th>
+    <th>Parcel Id #</th>
     <th>Vendor Name</th>
     <th>Customer Name</th>
     <th>Product Name</th>
@@ -490,7 +462,7 @@
     <tr>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
-        <th>Sub Order Id #</th>
+        <th>Parcel Id #</th>
         <th>Vendor Name</th>
         <th>Customer Name</th>
         <th>Product Name</th>
@@ -508,7 +480,7 @@
 <thead>
     {{-- <th>Sr No</th> --}}
     <th>Order Id#</th>
-    <th>Sub Order Id #</th>
+    <th>Parcel Id #</th>
     <th>Vendor Name</th>
     <th>Customer Name</th>
     <th>Product Name</th>
@@ -610,7 +582,7 @@
     <tr>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
-        <th>Sub Order Id #</th>
+        <th>Parcel Id #</th>
         <th>Vendor Name</th>
         <th>Customer Name</th>
         <th>Product Name</th>
@@ -628,7 +600,7 @@
 <thead>
     {{-- <th>Sr No</th> --}}
     <th>Order Id#</th>
-    <th>Sub Order Id #</th>
+    <th>Parcel Id #</th>
     <th>Vendor Name</th>
     <th>Customer Name</th>
 
@@ -731,7 +703,7 @@
     <tr>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
-        <th>Sub Order Id #</th>
+        <th>Parcel Id #</th>
         <th>Vendor Name</th>
         <th>Customer Name</th>
         <th>Product Name</th>
@@ -749,7 +721,7 @@
 <thead>
     {{-- <th>Sr No</th> --}}
     <th>Order Id#</th>
-    <th>Sub Order Id #</th>
+    <th>Parcel Id #</th>
     <th>Vendor Name</th>
     <th>Customer Name</th>
     <th>Product Name</th>
@@ -853,7 +825,7 @@
     <tr>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
-        <th>Sub Order Id #</th>
+        <th>Parcel Id #</th>
         <th>Vendor Name</th>
         <th>Customer Name</th>
         <th>Product Name</th>
@@ -872,7 +844,7 @@
     <tr>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
-        <th>Sub Order Id #</th>
+        <th>Parcel Id #</th>
         <th>Vendor Name</th>
         <th>Customer Name</th>
         <th>Product Name</th>
@@ -979,7 +951,7 @@
     <tr>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
-        <th>Sub Order Id #</th>
+        <th>Parcel Id #</th>
         <th>Vendor Name</th>
         <th>Customer Name</th>
         <th>Product Name</th>
@@ -999,7 +971,7 @@
 <thead>
     {{-- <th>Sr No</th> --}}
     <th>Order Id#</th>
-    <th>Sub Order Id #</th>
+    <th>Parcel Id #</th>
     <th>Vendor Name</th>
     <th>Customer Name</th>
     <th>Product Name</th>
@@ -1101,7 +1073,7 @@
     <tr>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
-        <th>Sub Order Id #</th>
+        <th>Parcel Id #</th>
         <th>Vendor Name</th>
         <th>Customer Name</th>
         <th>Product Name</th>
@@ -1119,7 +1091,7 @@
 <thead>
     {{-- <th>Sr No</th> --}}
     <th>Order Id#</th>
-    <th>Sub Order Id #</th>
+    <th>Parcel Id #</th>
     <th>Vendor Name</th>
     <th>Customer Name</th>
 
@@ -1222,7 +1194,7 @@
     <tr>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
-        <th>Sub Order Id #</th>
+        <th>Parcel Id #</th>
         <th>Vendor Name</th>
         <th>Customer Name</th>
         <th>Product Name</th>
@@ -1240,7 +1212,7 @@
 <thead>
     {{-- <th>Sr No</th> --}}
     <th>Order Id#</th>
-    <th>Sub Order Id #</th>
+    <th>Parcel Id #</th>
     <th>Vendor Name</th>
     <th>Customer Name</th>
     <th>Product Name</th>
@@ -1342,7 +1314,7 @@
     <tr>
         {{-- <th>Sr No</th> --}}
         <th>Order Id#</th>
-        <th>Sub Order Id #</th>
+        <th>Parcel Id #</th>
         <th>Vendor Name</th>
         <th>Customer Name</th>
         <th>Product Name</th>

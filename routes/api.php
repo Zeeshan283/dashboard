@@ -42,9 +42,9 @@ Route::controller(UserAPIController::class)->group(function () {
     Route::post('/login', 'login');
     Route::post('/logout', 'logout');
     Route::post('/image', 'upload123');
-    Route::post('/update-profile', 'UpdateProfile');
+    // Route::post('/update-profile', 'UpdateProfile');
     Route::get('/profile/{id}', 'details')->whereNumber('id');
-    // Route::match(['patch', 'put'], '/update-profile', 'UpdateProfile');
+    Route::match(['patch', 'put'], '/update-profile', 'UpdateProfile');
     Route::match(['patch', 'put'], '/update-shipping-address', 'UpdateShippingAddress');
 });
 

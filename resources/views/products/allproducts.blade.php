@@ -122,7 +122,7 @@
         </div>
         <br><br>
         <div class="filter-row d-flex gap-4">
-            <label for="min_orderFilter" class="col-form-label">MOQ:</label>
+            <!-- <label for="min_orderFilter" class="col-form-label">MOQ:</label>
             <select id="min_orderFilter" class="form-select">
                 <option value="" selected>select</option>
                 @foreach ($data as $key => $product)
@@ -155,7 +155,7 @@
                 <option value="{{ $donor->commission }}">{{ $donor->Categories->commission ?? null }}
                 </option>
                 @endforeach
-            </select>
+            </select> -->
 
         </div>
         </col-lg-12><br><br>

@@ -42,7 +42,7 @@
                                     <td>{{ $value->title }}</td>
                                     <td>{{ $value->blogCategory->blog_category_id ?? null }}</td>
                                     <td>{{ $value->blogSubCategory->name ?? null }}</td>
-                                    <td><img src="{{ $value->feature_image }}" width="80px"></td>
+                                    <td><img src="{{ $value->feature_image }}" loading="lazy" width="80px"></td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <a target="_blank" href="{{ URL::to('blogs/' . $value->id . '/edit') }}">

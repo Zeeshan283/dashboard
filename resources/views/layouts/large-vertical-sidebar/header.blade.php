@@ -94,12 +94,21 @@
 
             </div> -->
         </div>
-
+<?php
+use App\Models\vendorProfile;
+$logo = vendorProfile::first();
+?>
         <!-- User avatar dropdown -->
         <div class="dropdown">
+            
             <div class="user col align-self-end">
+                @if(Auth::user()->role == 'Admin')
                 <img src="{{ asset('assets/images/faces/dashboard-logo.jpg') }}" id="userDropdown" alt=""
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @else
+                <img src="/{{ $logo->logo }}" id="userDropdown" alt=""
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @endif
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <div class="dropdown-header">

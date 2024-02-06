@@ -257,16 +257,22 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::view('productreviews', 'products.productreviews')->name('productreviews');
     Route::view('productinfo', 'products.productinfo')->name('productinfo');
 
+    Route::get('/productsView', [ProductController::class, 'productsView'])->name('productsView');
+    
 
     Route::get('order_details', [OrderController::class, 'OrderDetailIndex'])->name('order_details');
     Route::patch('order_details_status', [OrderController::class, 'order_details_status'])->name('order_details_status');
     Route::get('get_order_detail_status/{id}', [OrderController::class, 'GetOrderDetailStatus'])->name('get_order_detail_status');
     Route::get('get_order_details/{id}', [OrderController::class, 'GetOrderDetail'])->name('get_order_details');
 
+// Route::get('/invoice1/{id}',function(){
+//     return view('orders.invoice');
+// })->name('orderInvoice1');
 
     Route::get('allorders', [OrderController::class, 'index'])->name('allorders');
     Route::get('orders/{id}', [OrderController::class, 'show']);
-    Route::get('order-invoice/{id}', [OrderController::class, 'show'])->name('orderInvoice');
+    Route::get('order_invoice/{id}', [OrderController::class, 'orderInvoice'])->name('orderInvoice');
+    // Route::get('order-invoice/{id}', [OrderController::class, 'show'])->name('orderInvoice');
     Route::get('pendingorders', [OrderController::class, 'showOrders'])->name('pendingorders');
     Route::get('confirmedorders', [OrderController::class, 'showOrders'])->name('confirmedorders');
     Route::get('packagingorders', [OrderController::class, 'showOrders'])->name('packagingorders');
@@ -325,7 +331,9 @@ Route::get('fetch-vendor-products', function () {
     return response()->json($vendorProductData);
 });
 
-
+Route::get('/nabeeldevelops', function () {
+    return view('develops.index');
+});
 // total oders by date
 // routes/web.php
 Route::get('/get-chart-data', [OrderController::class, 'getChartData']);

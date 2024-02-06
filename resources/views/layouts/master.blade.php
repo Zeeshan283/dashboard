@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Industry Mall | Admin Panel</title>
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
+    <link rel="icon" href="{{ asset('upload/logo/logo.png') }}" type="image/x-icon">
     @yield('before-css')
     {{-- theme css --}}
 
