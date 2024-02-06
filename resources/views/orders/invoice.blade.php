@@ -85,18 +85,21 @@
                                 <p class="tm_primary_color tm_mb2 tm_f16 tm_bold">Billing To:</p>
                                 <div class="tm_grid_row tm_col_3 tm_align_center">
                                     <div class="tm_border_right tm_accent_border_20 tm_border_none_sm">
-                                        <span style=" font-weight: 600; ">Customer Id #: &nbsp </span>{{ $invoice->order->customer_id }} <br>
-                                        <span style=" font-weight: 600; ">Customer Name : &nbsp </span> {{ $invoice->order->first_name }}
+                                        <span style=" font-weight: 600; ">Customer Id #: &nbsp
+                                        </span>{{ $invoice->order->customer_id }} <br>
+                                        <span style=" font-weight: 600; ">Customer Name : &nbsp </span>
+                                        {{ $invoice->order->first_name }}
                                         {{ $invoice->order->last_name }} <br>
-                                        <span style=" font-weight: 600; ">Company : &nbsp </span> 
+                                        <span style=" font-weight: 600; ">Company : &nbsp </span>
                                         {{ $invoice->order->company }}<br>
-                                        <span style=" font-weight: 600; ">Email : &nbsp </span> 
+                                        <span style=" font-weight: 600; ">Email : &nbsp </span>
                                         {{ $invoice->order->email }}<br>
-                                        <span style=" font-weight: 600; ">Phone #: &nbsp </span>  {{ $invoice->order->phone1 }}<br>
+                                        <span style=" font-weight: 600; ">Phone #: &nbsp </span>
+                                        {{ $invoice->order->phone1 }}<br>
 
                                     </div>
                                     <div class="tm_border_right tm_accent_border_20 tm_border_none_sm">
-                                        <span style=" font-weight: 600; ">Address: &nbsp </span> 
+                                        <span style=" font-weight: 600; ">Address: &nbsp </span>
                                         {{ $invoice->order->address_01 }},<br>
                                         {{ $invoice->order->city }},
                                         {{ $invoice->order->state }} {{ $invoice->order->postal_code }},
@@ -166,8 +169,10 @@
                                                 </td>
                                                 <td class="tm_width_8"> <span style=" font-weight: 600; ">
                                                         {{ $item->product->name }}</span> <br>
-                                                        <span style=" font-weight: 600; ">Model #: </span>{{ $item->product->model_no }}<br>
-                                                    <span style=" font-weight: 600; ">SKU: </span>{{ $item->product->sku }}<br><br>
+                                                    <span style=" font-weight: 600; ">Model #:
+                                                    </span>{{ $item->product->model_no }}<br>
+                                                    <span style=" font-weight: 600; ">SKU:
+                                                    </span>{{ $item->product->sku }}<br><br>
                                                     <hr>
                                                     <div class="row">
                                                         <div class="col-6">
@@ -316,7 +321,8 @@
                                 <thead>
                                     <tr>
                                         <th class="tm_width_1 tm_semi_bold tm_primary_color tm_gray_bg">Total </th>
-                                        <th class="tm_width_1 tm_semi_bold tm_primary_color tm_gray_bg">Payment Mode</th>
+                                        <th class="tm_width_1 tm_semi_bold tm_primary_color tm_gray_bg">Payment Mode
+                                        </th>
                                         <th class="tm_width_2 tm_semi_bold tm_primary_color tm_gray_bg">Total Coupon
                                             Discount US$</th>
                                         <th class="tm_width_2 tm_semi_bold tm_primary_color tm_gray_bg">Shipping
