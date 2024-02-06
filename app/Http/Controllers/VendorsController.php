@@ -311,13 +311,13 @@ class VendorsController extends Controller
         $update->country = $request->country;
         $update->tagline = $request->tagline;
         $update->rating = $request->rating;
-        $update->slider_title = $request->slider_title;
-        $update->slider_title2 = $request->slider_title2;
-        $update->p_category1 = $request->p_category1;
-        $update->p_category2 = $request->p_category2;
-        $update->p_category3 = $request->p_category3;
-        $update->p_category4 = $request->p_category4;
-        $update->p_category5 = $request->p_category5;
+        // $update->slider_title = $request->slider_title;
+        // $update->slider_title2 = $request->slider_title2;
+        // $update->p_category1 = $request->p_category1;
+        // $update->p_category2 = $request->p_category2;
+        // $update->p_category3 = $request->p_category3;
+        // $update->p_category4 = $request->p_category4;
+        // $update->p_category5 = $request->p_category5;
         $update->about = $request->about;
         $update->disclaimer = $request->disclaimer;
 

@@ -47,9 +47,7 @@ class ProductController extends Controller
             $subcategories = SubCategory::all();
             $product = Product::all();
         } else {
-            $data = Product::with('product_image')
-                ->with('categories:id,name')
-                ->with('subcategories:id,name')
+            $data = Product::with('product_image','categories:id,name','subcategories:id,name')
                 ->where('created_by', Auth::User()->id)
                 ->OrderBy('id', 'desc')
                 ->get();
@@ -58,6 +56,28 @@ class ProductController extends Controller
             $subcategories = SubCategory::all();
         }
         return view('products.allproducts', compact('data', 'brand', 'categories', 'subcategories'));
+    }
+
+    public function productsView(){
+        $data = "";
+        if (Auth::User()->role == 'Admin') {
+            $data = Product::with('product_image','categories:id,name','subcategories:id,name')
+                ->OrderBy('id', 'desc')
+                ->paginate(16);
+            $brand = Brand::all();
+            $categories = Category::all();
+            $subcategories = SubCategory::all();
+            $product = Product::all();
+        } else {
+            $data = Product::with('product_image','categories:id,name','subcategories:id,name')
+                ->where('created_by', Auth::User()->id)
+                ->OrderBy('id', 'desc')
+                ->paginate(16);
+            $brand = Brand::all();
+            $categories = Category::all();
+            $subcategories = SubCategory::all();
+        }
+        return view('products.productsView', compact('data', 'brand', 'categories', 'subcategories'));
     }
     public function create()
     {
@@ -294,8 +314,8 @@ class ProductController extends Controller
                 'menu_id' => 'required',
                 'category_id' => 'required',
                 'subcategory_id' => 'required',
-                'brand_id' => 'required',
-                'brand_name' => 'required'
+                'brand_id' => 'required'
+                // 'brand_name' => 'required'
 
             ],
             [

@@ -31,6 +31,11 @@ class OrderDetail extends Model
         return $this->belongsTo(User::class, 'p_vendor_id');
     }
 
+
+    public function vendorProfile()
+    {
+        return $this->belongsTo(vendorProfile::class, 'p_vendor_id' ,'vendor_id');
+    }
     // public function order()
     // {
     //     return $this->belongsTo(Order::class);

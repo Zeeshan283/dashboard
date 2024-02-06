@@ -58,4 +58,5 @@ implements MustVerifyEmail
     // {
     //     $this->notify(new CustomVerifyEmail);
     // }
+    
 }

@@ -242,6 +242,23 @@ if (Auth::user()->role == 'Vendor') {
     }
 
 
+    public function orderInvoice($id){
+        
+        if(Auth::user()->role == 'Vendor'){
+        $invoice = OrderDetail::with('order', 'product','vendorProfile', 'vendor')->where('p_vendor_id' , Auth::user()->id)->where('order_id' ,'=', $id)->first();
+        $invoiceProduct = OrderDetail::with('order', 'product','vendorProfile', 'vendor')->where('p_vendor_id' , Auth::user()->id)->where('order_id' ,'=', $id)->get();
+        return view('orders.invoice', compact('invoice','invoiceProduct'));
+        }
+        elseif(Auth::user()->role == 'Admin')
+        {
+            $invoice = OrderDetail::with('order', 'product','vendorProfile', 'vendor')->where('order_id' ,'=', $id)->first();
+        $invoiceProduct = OrderDetail::with('order', 'product','vendorProfile', 'vendor')->where('order_id' ,'=', $id)->get();
+        return view('orders.invoice', compact('invoice','invoiceProduct'));
+        }else{
+            return "Unauthorized";
+        }
+        
+    }
 
     public function show($id)
     {

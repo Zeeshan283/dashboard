@@ -13,7 +13,7 @@ class Order extends Model
         'address_02', 'city', 'state', 'postal_code', 'phone1', 'phone2', 'email', 'comments',
         'payment_method', 'status', 'shipping', 'image', 'updatedby', 'customer_id', 'total_price', 'discount',
         'shipping_full_name','shipping_company_name','shipping_contact_number','shipping_address','shipping_city','shipping_country',
-        'shipping_zipcode','shipping_state'
+        'shipping_zipcode','shipping_state','shipping_email'
     ];
 
     // public function order_details()
