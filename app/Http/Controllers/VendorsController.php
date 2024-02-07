@@ -65,9 +65,9 @@ class VendorsController extends Controller
         $user->status = $request->input('radio');
         $user->save();
 
-        Toastr::success('Bank Details Added Successfully!', 'Success');
+        Toastr::success('Vendor Added Successfully!', 'Success');
 
-        return redirect()->route('vendor.index');
+        return redirect()->route('vendors.index');
     }
     public function show($id)
     {
@@ -112,7 +112,7 @@ class VendorsController extends Controller
 
         Toastr::success('Vendor Updated Successfully!');
 
-        return redirect()->route('vendor.index');
+        return redirect()->route('vendors.index');
     }
 
     public function destroy($id)

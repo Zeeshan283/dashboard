@@ -108,8 +108,8 @@ if (Auth::user()->role == 'Vendor') {
         </ul>
         <ul class="childNav" data-parent="forms">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'vendor.create' ? 'open' : '' }}"
-                    href="{{ route('vendor.create') }}">
+                <a class="{{ Route::currentRouteName() == 'vendors.create' ? 'open' : '' }}"
+                    href="{{ route('vendors.create') }}">
                     <i class="nav-icon i-Add"></i>
                     <span class="item-name">Add New Vendor</span>
                 </a>
@@ -118,8 +118,8 @@ if (Auth::user()->role == 'Vendor') {
 
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'vendor.index' ? 'open' : '' }}"
-                    href="{{ route('vendor.index') }}">
+                <a class="{{ Route::currentRouteName() == 'vendors.index' ? 'open' : '' }}"
+                    href="{{ route('vendors.index') }}">
                     <i class="nav-icon i-Male"></i>
                     <span class="item-name">Vendor List</span>
                 </a>

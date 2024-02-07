@@ -24,7 +24,7 @@
                                 <div class="card-header bg-transparent">
                                     <h3 class="card-title"> Update Status</h3>
                                 </div>
-                                <form action="{{ route('vendor.update', ['vendor' => $vendors->id]) }}" method="POST">
+                                <form action="{{ route('vendors.update', ['vendor' => $vendors->id]) }}" method="POST">
                                     @csrf
                                     @method('patch')
                                     <div class="card-body">

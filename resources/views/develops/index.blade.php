@@ -832,7 +832,7 @@
                     </div>
                     <div class="col-sm-7">
                         <div class="mh-portfolio-modal-img">
-                            <img src="{{asset('develops/assets/images/pr-0.jif" alt="" class="img-fluid">
+                            <img src="{{asset('develops/assets/images/pr-0.jif')}}" alt="" class="img-fluid">
                             <p>All variations are organized separately so you can use / customize the template very
                                 easily.</p>
                               
@@ -931,11 +931,7 @@
         </div>
     </section> --> --}}
 
-    <!--
-        ===================
-           BLOG
-        ===================
-        -->
+    
     <section class="mh-blog image-bg featured-img-two" id="mh-blog">
         <div class="img-color-overlay">
             <div class="container">
@@ -1002,11 +998,7 @@
         </div>
     </section>
 
-    <!--
-        ===================
-           Testimonial
-        ===================
-        -->
+     
     {{-- <!-- <section class="mh-testimonial" id="mh-testimonial">
         <div class="home-v-img">
             <div class="container">
@@ -1018,7 +1010,7 @@
                         data-wow-delay="0.3s">
                         <div class="each-client-item">
                             <div class="mh-client-item dark-bg black-shadow-1">
-                                <img src="{{asset('develops/assets/images/c-1.png" alt="" class="img-fluid">
+                                <img src="{{asset('develops/assets/images/c-1.png')}}" alt="" class="img-fluid">
                                 <p>Absolute wonderful ! I am completely
                                     blown away.The very best.I was amazed
                                     at the quality</p>
@@ -1028,38 +1020,7 @@
                         </div>
                         <div class="each-client-item">
                             <div class="mh-client-item dark-bg black-shadow-1">
-                                <img src="{{asset('develops/assets/images/c-1.png" alt="" class="img-fluid">
-                                <p>Absolute wonderful ! I am completely
-                                    blown away.The very best.I was amazed
-                                    at the quality</p>
-                                <h4>John Mike</h4>
-                                <span>CEO, Author.Inc</span>
-                            </div>
-                        </div>
-
-                        <div class="each-client-item">
-                            <div class="mh-client-item dark-bg black-shadow-1">
-                                <img src="{{asset('develops/assets/images/c-1.png" alt="" class="img-fluid">
-                                <p>Absolute wonderful ! I am completely
-                                    blown away.The very best.I was amazed
-                                    at the quality</p>
-                                <h4>John Mike</h4>
-                                <span>CEO, Author.Inc</span>
-                            </div>
-                        </div>
-                        <div class="each-client-item">
-                            <div class="mh-client-item dark-bg black-shadow-1">
-                                <img src="{{asset('develops/assets/images/c-1.png" alt="" class="img-fluid">
-                                <p>Absolute wonderful ! I am completely
-                                    blown away.The very best.I was amazed
-                                    at the quality</p>
-                                <h4>John Mike</h4>
-                                <span>CEO, Author.Inc</span>
-                            </div>
-                        </div>
-                        <div class="each-client-item">
-                            <div class="mh-client-item dark-bg black-shadow-1">
-                                <img src="{{asset('develops/assets/images/c-1.png" alt="" class="img-fluid">
+                                <img src="{{asset('develops/assets/images/c-1.png')}}" alt="" class="img-fluid">
                                 <p>Absolute wonderful ! I am completely
                                     blown away.The very best.I was amazed
                                     at the quality</p>
@@ -1070,7 +1031,38 @@
 
                         <div class="each-client-item">
                             <div class="mh-client-item dark-bg black-shadow-1">
-                                <img src="{{asset('develops/assets/images/c-1.png" alt="" class="img-fluid">
+                                <img src="{{asset('develops/assets/images/c-1.png')}}" alt="" class="img-fluid">
+                                <p>Absolute wonderful ! I am completely
+                                    blown away.The very best.I was amazed
+                                    at the quality</p>
+                                <h4>John Mike</h4>
+                                <span>CEO, Author.Inc</span>
+                            </div>
+                        </div>
+                        <div class="each-client-item">
+                            <div class="mh-client-item dark-bg black-shadow-1">
+                                <img src="{{asset('develops/assets/images/c-1.png')}}" alt="" class="img-fluid">
+                                <p>Absolute wonderful ! I am completely
+                                    blown away.The very best.I was amazed
+                                    at the quality</p>
+                                <h4>John Mike</h4>
+                                <span>CEO, Author.Inc</span>
+                            </div>
+                        </div>
+                        <div class="each-client-item">
+                            <div class="mh-client-item dark-bg black-shadow-1">
+                                <img src="{{asset('develops/assets/images/c-1.png')}}" alt="" class="img-fluid">
+                                <p>Absolute wonderful ! I am completely
+                                    blown away.The very best.I was amazed
+                                    at the quality</p>
+                                <h4>John Mike</h4>
+                                <span>CEO, Author.Inc</span>
+                            </div>
+                        </div>
+
+                        <div class="each-client-item">
+                            <div class="mh-client-item dark-bg black-shadow-1">
+                                <img src="{{asset('develops/assets/images/c-1.png')}}" alt="" class="img-fluid">
                                 <p>Absolute wonderful ! I am completely
                                     blown away.The very best.I was amazed
                                     at the quality</p>

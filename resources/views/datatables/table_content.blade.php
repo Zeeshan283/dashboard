@@ -1357,7 +1357,7 @@
     </tr>
 </tfoot>
 {{-- vendor list  --}}
-@elseif (Route::currentRouteName() == 'vendor.index')
+@elseif (Route::currentRouteName() == 'vendors.index')
 <thead>
     <th>Sr No</th>
     <th>Name</th>
@@ -1407,13 +1407,13 @@
         </td>
         <td>
             <div class="d-flex gap-2">
-                <a href="{{ URL::to('vendor/' . $vendors->id . '/edit') }}">
+                <a href="{{ URL::to('vendors/' . $vendors->id . '/edit') }}">
                     <button type="button" class="btn btn-outline-secondary ">
                         <i class=" nav-icon i-Pen-2" style="font-weight: bold;"></i>
                     </button>
                 </a>
 
-                <a href="{{ route('vendor.show', $vendors->id) }}">
+                <a href="{{ route('vendors.show', $vendors->id) }}">
                     <button type="button" class="btn btn-outline-secondary ">
                         <i class="nav-icon i-Eye" style="font-weight: bold;"></i>
                     </button>

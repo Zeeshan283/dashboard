@@ -22,7 +22,7 @@
                                 <div class="card-header bg-transparent">
                                     <h3 class="card-title"> Add New Supplier</h3>
                                 </div>
-                                <form action="{{ route('vendor.store') }}" method="POST">
+                                <form action="{{ route('vendors.store') }}" method="POST">
                                     @csrf
                                     <div class="card-body">
 

@@ -187,7 +187,7 @@
             </div>
             <!-- ICON BG -->
             <div class="col-lg-2">
-                <a href="{{ route('vendor.index') }}">
+                <a href="{{ route('vendors.index') }}">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <i class="i-Add-User" style="height: 30px"></i>

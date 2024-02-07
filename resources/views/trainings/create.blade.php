@@ -271,7 +271,7 @@
 <script src="{{ asset('assets/js/vendor/jquery.smartWizard.min.js') }}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script src="{{ asset('assets/js/vendor/quill.min.js') }}"></script>
-<script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/5/tinymce.min.js"
+<script src="https://cdn.tiny.cloud/1/ki85z92gad4jwy6pn6wzw9uctxkdmgs0nn8tawovzdc0j1zb/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 <script>
     tinymce.init({
@@ -316,7 +316,7 @@
         }
     });
 </script>
-<script src="https://cdn.tiny.cloud/1/j93evmvpkl9x9azhqkcx9436oknslp5bxmxurqkz2d1nm24j/tinymce/5/tinymce.min.js"
+<script src="https://cdn.tiny.cloud/1/ki85z92gad4jwy6pn6wzw9uctxkdmgs0nn8tawovzdc0j1zb/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 <script>
     tinymce.init({

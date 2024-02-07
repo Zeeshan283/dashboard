@@ -9,7 +9,7 @@
             <h1>Vendor's Management</h1>
     </div>
     <div class="col-md-6" style="text-align: right;  margin-left: auto;">
-        <a href="{{ route('vendor.create')}}"><button class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Vendor</span></button></a>
+        <a href="{{ route('vendors.create')}}"><button class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Vendor</span></button></a>
 
     </div>
 </div>

@@ -79,62 +79,61 @@
 
                                         <div class="card-body">
                                             <div class="row">
-                                                {{-- {!! Form::hidden('user_id', $edit->user->id, ['id' => 'id', 'class' => 'form-control']) !!}
-                                                        {!! Form::hidden('user_id', $edit->user->id, ['id' => 'id', 'class' => 'form-control']) !!} --}}
+                                                 
 
 
                                                 <div class="form-group col-md-4">
                                                     <label for="inputtext11" class="ul-form__label">Company
                                                         Name:</label>
                                                     @if ($edit && isset($edit->company_name))
-                                                        {!! Form::text('company_name', $edit->company_name, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('company_name', $edit->company_name, ['id' => 'company_name', 'class' => 'form-control'  ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('company_name', null, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('company_name', null, ['id' => 'company_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
                                                 <div class="form-group col-md-4">
                                                     <label for="inputtext11" class="ul-form__label">First Name:</label>
                                                     @if ($edit && $edit->user)
-                                                        {!! Form::text('first_name', $edit->user->first_name, ['id' => 'first_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('first_name', $edit->user->first_name, ['id' => 'first_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('first_name', null, ['id' => 'first_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('first_name', null, ['id' => 'first_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
                                                 <div class="form-group col-md-4">
                                                     <label for="inputtext11" class="ul-form__label">Last Name:</label>
                                                     @if ($edit && $edit->user)
-                                                        {!! Form::text('last_name', $edit->user->last_name, ['id' => 'last_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('last_name', $edit->user->last_name, ['id' => 'last_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('last_name', null, ['id' => 'last_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('last_name', null, ['id' => 'last_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
                                                 <div class="form-group col-md-4">
                                                     <label for="inputEmail12" class="ul-form__label">Phone# 1</label>
                                                     @if ($edit && $edit->user)
-                                                        {!! Form::text('phone1', $edit->user->phone1, ['id' => 'phone1', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('phone1', $edit->user->phone1, ['id' => 'phone1', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('phone1', null, ['id' => 'phone1', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('phone1', null, ['id' => 'phone1', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
                                                 <div class="form-group col-md-4">
                                                     <label for="inputEmail12" class="ul-form__label">Phone# 2:</label>
                                                     @if ($edit && $edit->user)
-                                                        {!! Form::text('phone2', $edit->user->phone2, ['id' => 'phone2', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('phone2', $edit->user->phone2, ['id' => 'phone2', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('phone2', null, ['id' => 'phone2', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('phone2', null, ['id' => 'phone2', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
                                                 <div class="form-group col-md-4">
                                                     <label for="inputEmail12" class="ul-form__label">Country:</label>
                                                     @if ($edit && $edit->user)
-                                                        {!! Form::text('country', $edit->user->country, ['id' => 'country', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('country', $edit->user->country, ['id' => 'country', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('country', null, ['id' => 'country', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('country', null, ['id' => 'country', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
@@ -142,45 +141,45 @@
                                                 <div class="form-group col-md-4">
                                                     <label for="inputEmail12" class="ul-form__label">City:</label>
                                                     @if ($edit && $edit->user)
-                                                        {!! Form::text('city', $edit->user->city, ['id' => 'city', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('city', $edit->user->city, ['id' => 'city', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('city', null, ['id' => 'city', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('city', null, ['id' => 'city', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
                                                 <div class="form-group col-md-4">
                                                     <label for="inputEmail12" class="ul-form__label">Address:</label>
                                                     @if ($edit && $edit->user)
-                                                        {!! Form::text('address1', $edit->user->address1, ['id' => 'address1', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('address1', $edit->user->address1, ['id' => 'address1', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('address1', null, ['id' => 'address1', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('address1', null, ['id' => 'address1', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
                                                 <div class="form-group col-md-4">
                                                     <label for="inputEmail12" class="ul-form__label">Address2:</label>
                                                     @if ($edit && $edit->user)
-                                                        {!! Form::text('address2', $edit->user->address2, ['id' => 'address2', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('address2', $edit->user->address2, ['id' => 'address2', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('address2', null, ['id' => 'address2', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('address2', null, ['id' => 'address2', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
                                                 <!-- <div class="form-group col-md-4">
                                                     <label for="inputEmail12" class="ul-form__label">NTN:</label>
                                                     @if ($edit && $edit->user)
-                                                        {!! Form::text('ntn', $edit->user->ntn, ['id' => 'ntn', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('ntn', $edit->user->ntn, ['id' => 'ntn', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('ntn', null, ['id' => 'ntn', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('ntn', null, ['id' => 'ntn', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div> -->
 
                                                 <div class="form-group col-md-4">
     <label for="inputEmail12" class="ul-form__label">Trade License Number</label>
     @if ($edit && $edit->user)
-        {!! Form::text('trade_license_number', $edit->user->strn, ['id' => 'strn', 'class' => 'form-control', 'type' => 'number']) !!}
+        {!! Form::text('trade_license_number', $edit->user->strn, ['id' => 'strn', 'class' => 'form-control' ,'readonly', 'type' => 'number']) !!}
     @else
-        {!! Form::text('trade_license_number', null, ['id' => 'strn', 'class' => 'form-control', 'type' => 'number']) !!}
+        {!! Form::text('trade_license_number', null, ['id' => 'strn', 'class' => 'form-control' ,'readonly', 'type' => 'number']) !!}
     @endif
 </div>
 
@@ -191,10 +190,10 @@
                                                     @if ($edit && $edit->user)
                                                         {!! Form::text('total_employees', $edit->user->total_employees, [
                                                             'id' => 'total_employees',
-                                                            'class' => 'form-control',
+                                                            'class' => 'form-control' ,'readonly',
                                                         ]) !!}
                                                     @else
-                                                        {!! Form::text('total_employees', null, ['id' => 'total_employees', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('total_employees', null, ['id' => 'total_employees', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
@@ -204,10 +203,10 @@
                                                     @if ($edit && $edit->user)
                                                         {!! Form::text('established_in', $edit->user->established_in, [
                                                             'id' => 'established_in',
-                                                            'class' => 'form-control',
+                                                            'class' => 'form-control' ,'readonly',
                                                         ]) !!}
                                                     @else
-                                                        {!! Form::text('established_in', null, ['id' => 'established_in', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('established_in', null, ['id' => 'established_in', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
@@ -215,9 +214,9 @@
                                                     <label for="inputEmail12" class="ul-form__label">Main
                                                         Market:</label>
                                                     @if ($edit && $edit->user)
-                                                        {!! Form::text('main_market', $edit->user->main_market, ['id' => 'main_market', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('main_market', $edit->user->main_market, ['id' => 'main_market', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('main_market', null, ['id' => 'main_market', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('main_market', null, ['id' => 'main_market', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
@@ -225,9 +224,9 @@
                                                     <label for="inputEmail12" class="ul-form__label">Member
                                                         Since:</label>
                                                     @if ($edit && $edit->user)
-                                                        {!! Form::text('member_since', $edit->user->member_since, ['id' => 'member_since', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('member_since', $edit->user->member_since, ['id' => 'member_since', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('member_since', null, ['id' => 'member_since', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('member_since', null, ['id' => 'member_since', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
@@ -237,10 +236,10 @@
                                                     @if ($edit && $edit->user)
                                                         {!! Form::text('certifications', $edit->user->certifications, [
                                                             'id' => 'certifications',
-                                                            'class' => 'form-control',
+                                                            'class' => 'form-control' ,'readonly',
                                                         ]) !!}
                                                     @else
-                                                        {!! Form::text('certifications', null, ['id' => 'certifications', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('certifications', null, ['id' => 'certifications', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
@@ -248,9 +247,9 @@
                                                     <label for="inputEmail12" class="ul-form__label">Website
                                                         Link:</label>
                                                     @if ($edit && $edit->user)
-                                                        {!! Form::text('website_link', $edit->user->website_link, ['id' => 'website_link', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('website_link', $edit->user->website_link, ['id' => 'website_link', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('website_link', null, ['id' => 'website_link', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('website_link', null, ['id' => 'website_link', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
@@ -260,10 +259,10 @@
                                                     @if ($edit && $edit->user)
                                                         {!! Form::text('accepted_payment_type', $edit->user->accepted_payment_type, [
                                                             'id' => 'accept_payment_type',
-                                                            'class' => 'form-control',
+                                                            'class' => 'form-control' ,'readonly',
                                                         ]) !!}
                                                     @else
-                                                        {!! Form::text('accepted_payment_type', null, ['id' => 'accept_payment_type', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('accepted_payment_type', null, ['id' => 'accept_payment_type', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div> -->
 
@@ -278,7 +277,7 @@
         'CASH ON DELIVERY' => 'CASH ON DELIVERY',
     ], $selectedOption, [
         'id' => 'accept_payment_type',
-        'class' => 'form-control'
+        'class' => 'form-control' ,'readonly'
     ]) !!}
 </div>
 
@@ -289,10 +288,10 @@
                                                     @if ($edit && $edit->user)
                                                         {!! Form::text('major_clients', $edit->user->major_clients, [
                                                             'id' => 'major_clients',
-                                                            'class' => 'form-control',
+                                                            'class' => 'form-control' ,'readonly',
                                                         ]) !!}
                                                     @else
-                                                        {!! Form::text('major_clients', null, ['id' => 'major_clients', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('major_clients', null, ['id' => 'major_clients', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
@@ -302,10 +301,10 @@
                                                     @if ($edit && $edit->user)
                                                         {!! Form::text('annual_export', $edit->user->annual_export, [
                                                             'id' => 'annaul_export',
-                                                            'class' => 'form-control',
+                                                            'class' => 'form-control' ,'readonly',
                                                         ]) !!}
                                                     @else
-                                                        {!! Form::text('annual_export', null, ['id' => 'annaul_export', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('annual_export', null, ['id' => 'annaul_export', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
@@ -315,10 +314,10 @@
                                                     @if ($edit && $edit->user)
                                                         {!! Form::text('annual_import', $edit->user->annual_import, [
                                                             'id' => 'annaul_import',
-                                                            'class' => 'form-control',
+                                                            'class' => 'form-control' ,'readonly',
                                                         ]) !!}
                                                     @else
-                                                        {!! Form::text('annual_import', null, ['id' => 'annaul_import', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('annual_import', null, ['id' => 'annaul_import', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
@@ -328,10 +327,10 @@
                                                     @if ($edit && $edit->user)
                                                         {!! Form::text('annual_revenue', $edit->user->annual_revenue, [
                                                             'id' => 'annaul_revenue',
-                                                            'class' => 'form-control',
+                                                            'class' => 'form-control' ,'readonly',
                                                         ]) !!}
                                                     @else
-                                                        {!! Form::text('annual_revenue', null, ['id' => 'annaul_revenue', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('annual_revenue', null, ['id' => 'annaul_revenue', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
 
@@ -672,9 +671,9 @@
                                                     <label for="inputEmail12" class="ul-form__label">Category
                                                         1:</label>
                                                     @if ($edit && isset($edit->p_category1))
-                                                        {!! Form::text('p_category1', $edit->p_category1, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('p_category1', $edit->p_category1, ['id' => 'company_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('p_category1', null, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('p_category1', null, ['id' => 'company_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
                                                 <div id="f_i_thumnails" class="form-group  gap-10">
@@ -712,9 +711,9 @@
                                                     <label for="inputEmail12" class="ul-form__label">Category
                                                         2:</label>
                                                     @if ($edit && isset($edit->p_category2))
-                                                        {!! Form::text('p_category1', $edit->p_category2, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('p_category1', $edit->p_category2, ['id' => 'company_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('p_category1', null, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('p_category1', null, ['id' => 'company_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
                                                 <div id="f_i_thumnails" class="form-group  gap-10">
@@ -750,9 +749,9 @@
                                                     <label for="inputEmail12" class="ul-form__label">Category
                                                         3:</label>
                                                     @if ($edit && isset($edit->p_category3))
-                                                        {!! Form::text('p_category3', $edit->p_category3, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('p_category3', $edit->p_category3, ['id' => 'company_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('p_category3', null, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('p_category3', null, ['id' => 'company_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
                                                 <div id="f_i_thumnails" class="form-group  gap-10">
@@ -788,9 +787,9 @@
                                                     <label for="inputEmail12" class="ul-form__label">Category
                                                         4:</label>
                                                     @if ($edit && isset($edit->p_category4))
-                                                        {!! Form::text('p_category4', $edit->p_category4, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('p_category4', $edit->p_category4, ['id' => 'company_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('p_category4', null, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('p_category4', null, ['id' => 'company_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
                                                 <div id="f_i_thumnails" class="form-group  gap-10">
@@ -826,9 +825,9 @@
                                                     <label for="inputEmail12" class="ul-form__label">Category
                                                         5:</label>
                                                     @if ($edit && isset($edit->p_category5))
-                                                        {!! Form::text('p_category5', $edit->p_category5, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('p_category5', $edit->p_category5, ['id' => 'company_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @else
-                                                        {!! Form::text('p_category5', null, ['id' => 'company_name', 'class' => 'form-control']) !!}
+                                                        {!! Form::text('p_category5', null, ['id' => 'company_name', 'class' => 'form-control' ,'readonly']) !!}
                                                     @endif
                                                 </div>
                                                 <div id="f_i_thumnails" class="form-group  gap-10">
