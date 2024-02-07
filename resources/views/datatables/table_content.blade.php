@@ -124,9 +124,9 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            {{-- @if ($orders->product->url) --}}
+            
             <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image" loading="lazy">
-            {{-- @else --}}
+             
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
         {{-- <td>
@@ -272,9 +272,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            {{-- @if ($orders->product->url) --}}
             <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" loading="lazy" alt="Placeholder Image">
-            {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
         {{-- <td>
@@ -394,9 +392,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            {{-- @if ($orders->product->url) --}}
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
-            {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
         {{-- <td>
@@ -515,9 +511,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            {{-- @if ($orders->product->url) --}}
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
-            {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
         {{-- <td>
@@ -636,7 +630,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            {{-- @if ($orders->product->url) --}}
+            
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
@@ -758,7 +752,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            {{-- @if ($orders->product->url) --}}
+            
             <img src="{{ $orders->product->url ?? null }}  "  loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
@@ -882,7 +876,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            {{-- @if ($orders->product->url) --}}
+            
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
@@ -1006,7 +1000,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            {{-- @if ($orders->product->url) --}}
+            
             <img src="{{ $orders->product->url ?? null }}  "  loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
@@ -1127,7 +1121,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            {{-- @if ($orders->product->url) --}}
+            
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
@@ -1247,7 +1241,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            {{-- @if ($orders->product->url) --}}
+            
             <img src="{{ $orders->product->url ?? null }} " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
@@ -1378,7 +1372,7 @@
 
     @foreach ($vendor as $value => $vendors)
     <tr>
-        {{-- {{-- <td>{{$value + 1}}</td> --}}
+         {{-- <td>{{$value + 1}}</td> --}}
         <td>{{ $vendors->id }}</td>
         <td>{{ $vendors->name }}</td>
         <td>{{ $vendors->phone1 }}</td>

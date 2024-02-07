@@ -140,6 +140,7 @@ Route::middleware(['admin'])->group(function () {
 
 
     Route::resource('vendor', VendorsController::class);
+    Route::get('vendorlist', [VendorsController::class, 'index']);
     Route::post('vendor', [VendorsController::class, 'store'])->name('vendor.store');
 
     Route::resource('faqs_categories', FaqCategoriesController::class);

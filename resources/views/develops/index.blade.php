@@ -843,11 +843,11 @@
         </div> --> --}}
     </section>
 
-    <!--
+    {{-- <!--
         ===================
            QUATES
         ===================
-        -->
+        --> --}}
     {{-- <!-- <section class="mh-quates image-bg home-2-img">
         <div class="img-color-overlay">
             <div class="container">
@@ -866,11 +866,11 @@
         </div>
     </section> --> --}}
 
-    <!--
+    {{-- <!--
         ===================
            PRICING
         ===================
-        -->
+        --> --}}
     {{-- <!-- <section class="mh-pricing" id="mh-pricing">
         <div class="">
             <div class="container">
