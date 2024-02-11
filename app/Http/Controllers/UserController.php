@@ -42,7 +42,7 @@ class UserController extends Controller
         $user->phone = $request->input('phone');
         $user->country = $request->input('country');
         $user->city = $request->input('city');
-        $user->address = $request->input('address');
+        $user->addres = $request->input('addres');
         $user->password = Hash::make($request->input('password'));
         $user->gender = $request->input('gender');
         $user->save();
@@ -75,12 +75,11 @@ class UserController extends Controller
         $user->phone = $request->input('phone');
         $user->country = $request->input('country');
         $user->city = $request->input('city');
-        $user->address = $request->input('address'); // Corrected spelling of 'address'
+        $user->addres = $request->input('addres');
         $user->gender = $request->input('gender');
         $user->save();
         notify()->success('User update successfully', 'Success');
-
-        return redirect()->route('userlist'); // Make sure you have defined the 'userlist' route
+        return redirect()->route('userlist');
     }
 
     public function delete_user($id)
