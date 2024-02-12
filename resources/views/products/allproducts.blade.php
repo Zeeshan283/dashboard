@@ -1,9 +1,13 @@
 @extends('layouts.master')
-@section('page-css')
+@section('before-css')
+{{-- css link sheet  --}}
+<link rel="stylesheet" href="{{asset('assets/styles/vendor/smart.wizard/smart_wizard_theme_dots.min.css')}}">
 <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-
-@endsection
+@section('page-css')
+    <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.bubble.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/styles/vendor/quill.snow.css')}}">
+    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/choices.min.css') }}">
 @section('main-content')
 
 
@@ -21,8 +25,6 @@
     .choices__input {
         background: #f3f4f6;
     }
-
-
     .choices__list--multiple .choices__item {
         /* width: 3%; */
         font-size: 14px;
@@ -44,13 +46,14 @@
     <button class="popup-button col-md-2" style="background-color: antiquewhite; color: black;" onclick="toggleFilters()">Product Filters</button><br><br>
     <div class="filter-card" id="filterCard">
         <div class="filter-row d-flex gap-4">
-            <label for="nameFilter">Product Name:</label>
-            <select id="nameFilter" class="form-select">
-                <option value="" selected>select</option>
+            <label for="nameFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Product Name:</label>
+            <div class=" col-lg-3 mt-auto">
+            <select  id="choices-multiple-remove-button" name="colors[]" class="form-select" placeholder="Select Product (Maximum Lenght 5)"  multiple >
                 @foreach ($data as $key => $product)
-                <option value="{{ $product->name }}">{{ $product->name }}</option>
+                        <option value="{{ $product->name }}">{{ $product->name }}</option>
                 @endforeach
-            </select>&NonBreakingSpace; &NonBreakingSpace;
+            </select>
+            </div>
             <label for="modelFilter">Model#:</label>
             <select id="modelFilter" class="form-select">
                 <option value="" selected>select</option>
@@ -220,6 +223,86 @@
                 applyFilters();
             });
     });
+</script>
+
+
+<div class="breadcrumb">
+    <div class="col-md-6">
+        <h1>Product's Management</h1>
+    </div>
+    <div class="col-md-6" style="text-align: right;  margin-left: auto;">
+        <a href="{{ route('products.create')}}"><button class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Product</span></button></a>
+
+    </div>
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div class="col-md-12 mb-4">
+    <div class="card text-start">
+
+        <div class="card-body">
+            <h4 class="card-title mb-3">All Product's</h4>
+            <div class="table-responsive">
+                <table id="deafult_ordering_table" class="display table table-striped table-bordered" style="width:100%">
+                    @include('datatables.table_content')
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+@section('page-js')
+
+<script>
+    $(document).ready(function () {
+        $('#smartwizard').smartWizard({
+            selected: 0,  // Initial step
+            keyNavigation: false, // Enable keyboard navigation
+
+        });
+    });
+</script>
+
+
+<script>
+$(document).ready(function() {
+    $("#m_unit").change(function() {
+        var selectedValue = $(this).val();
+
+        $("#W_Fields, #H_Fields, #D_Fields, #W_L, #H_L, #D_L").hide();
+
+        if (selectedValue === "Millimeter" || selectedValue === "Centimeter" || selectedValue === "Inch" || selectedValue === "Meter") {
+            $("#W_Fields, #H_Fields, #D_Fields, #W_L, #H_L, #D_L").show();
+        };
+    });
+
+    $("#weight_unit").change(function() {
+        var selectedValue = $(this).val();
+
+        $("#Weight_Field,#Weight_L").hide();
+
+        if (selectedValue === "Ounce" || selectedValue === "Milligram" || selectedValue === "Gram" || selectedValue === "Kilogram" || selectedValue === "MetricTon" ) {
+            $("#Weight_Field,#Weight_L").show();
+        };
+    });
+
+    // $("#tax_type").change(function() {
+    //     var selectedValue = $(this).val();
+
+    //     $(" #tax_charges").hide();
+
+    //     if (selectedValue === "Amount" || selectedValue === "Percentage" ) {
+    //         $("#tax_charges").show();
+    //     };
+    // });
+});
+
+
+</script>
+<!-- Multi Select Dropdown -->
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    <script>
         function changeBackgroundColor() {
             var colorMap = {
                 '1': '#FF0000',
@@ -259,6 +342,13 @@
             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
                 removeItemButton: false,
                 maxItemCount: 5,
+                // searchResultLimit:5,
+                // renderChoiceLimit:5
+
+                // classNames: {
+                //     button: 'choices-custom-button', // Add a custom class for the button
+                //     },
+
             });
             $('#choices-multiple-remove-button').on('change', changeBackgroundColor);
 
@@ -272,53 +362,148 @@
 
             var multipleCancelButton = new Choices('#choices-multiple-remove-button1', {
                 removeItemButton: true,
+                // maxItemCount:5,
+                // searchResultLimit:5,
+                // renderChoiceLimit:5
             });
 
         });
-        $(document).ready(function() {
-    // Initialize Select2 for the subcategories dropdown
-    $('#subcategoriesFilter').select2({
-        tags: true,
-        tokenSeparators: [',', ' '],
-        maximumSelectionLength: 5
-    });
-});
+    </script>
+
+
+<script>
+
+    function onlyNumberKey(evt) {
+        // Only ASCII character in that range allowed
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+        return true;
+    }
+
+    function onlyDecimalNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
 </script>
 
 
-<div class="breadcrumb">
-    <div class="col-md-6">
-        <h1>Product's Management</h1>
-    </div>
-    <div class="col-md-6" style="text-align: right;  margin-left: auto;">
-        <a href="{{ route('products.create')}}"><button class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span class="ladda-label">Add Product</span></button></a>
+<script>
+    const imageInput = document.getElementById('imageInput');
+    const thumbnailContainer = document.getElementById('thumbnailContainer');
 
-    </div>
-</div>
-<div class="separator-breadcrumb border-top"></div>
-<div class="col-md-12 mb-4">
-    <div class="card text-start">
+    imageInput.addEventListener('change', function () {
+        thumbnailContainer.innerHTML = ''; // Clear existing thumbnails
 
-        <div class="card-body">
-            <h4 class="card-title mb-3">All Product's</h4>
-            <div class="table-responsive">
-                <table id="deafult_ordering_table" class="display table table-striped table-bordered" style="width:100%">
-                    @include('datatables.table_content')
+        Array.from(imageInput.files).forEach(file => {
+            const reader = new FileReader();
 
-                </table>
-            </div>
+            reader.onload = function (event) {
+                const thumbnail = document.createElement('img');
+                thumbnail.classList.add('thumbnail');
+                thumbnail.src = event.target.result;
+                thumbnailContainer.appendChild(thumbnail);
+            };
 
-        </div>
-
-    </div>
-</div>
+            reader.readAsDataURL(file);
+        });
+    });
+</script>
 
 
+<script src="{{asset('assets/js/vendor/jquery.smartWizard.min.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="{{asset('assets/js/vendor/quill.min.js')}}"></script>
+
+
+<script>
+        //Change Menus
+        $('#menu_id').change(function() {
+            var menu_id = $(this).val();
+            $.ajax({
+                url: "{{ asset('get-categories') }}?menu_id=" + menu_id,
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.length > 0) {
+                        var option = '<option value="" selected>Select Category</option>';
+                        $.each(response, function(i, v) {
+                            option += `<option value="${v.id}">${v.name}</option>`;
+                        });
+                        $('#category_id').html(option);
+                    } else {
+                        var option = '<option value="" selected>Category Not Found</option>';
+                        $('#category_id').html(option);
+                    }
+                }
+            });
+        });
+        // End Here
+
+        // Change Categories
+
+        $('#category_id').change(function() {
+            var cat_id = $(this).val();
+            $.ajax({
+                url: "{{ asset('get-subcategories') }}?cat_id=" + cat_id,
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.length > 0) {
+                        var option = '<option value="" selected>Select Sub Category</option>';
+                        $.each(response, function(i, v) {
+                            option += `<option value="${v.id}">${v.name}</option>`;
+                        });
+                        $('#subcategory_id').html(option);
+                    } else {
+                        var option = '<option value="" selected>Sub Category Not Found</option>';
+                        $('#subcategory_id').html(option);
+                    }
+                }
+            });
+        });
+
+
+        // End Here
+    </script>
+
+
+
+{{-- <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script> --}}
+
+    {{-- @if ($errors->any())
+    <script>
+        toastr.error("{{ $errors->first() }}");
+    </script>
+    @endif --}}
+
+    {{-- {!! Toastr::message() !!} --}}
+
+<script>
+    function selectMenu(menuText, inputId) {
+        document.getElementById(inputId).value = menuText;
+    }
+</script>
+
+
+
+
+<script src="{{ asset('website-assets/js/multiple_images_uploading.js') }}"></script>
+
+<!-- include TinyMceEditor js -->
+<script src="https://cdn.tiny.cloud/1/ki85z92gad4jwy6pn6wzw9uctxkdmgs0nn8tawovzdc0j1zb/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+{{-- <script src="https://cdn.tiny.cloud/1/ki85z92gad4jwy6pn6wzw9uctxkdmgs0nn8tawovzdc0j1zb/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> --}}
 @endsection
-
+@section('bottom-js')
+<script src="{{asset('assets/js/smart.wizard.script.js')}}"></script>
+<script src="{{asset('assets/js/quill.script.js')}}"></script>
+@endsection
 @section('page-js')
 <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
 <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
-
+@endsection
 @endsection

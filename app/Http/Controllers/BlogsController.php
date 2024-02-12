@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 use App\Notifications\TestingNotification;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
-
-
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
 class BlogsController extends Controller
 {
     public function __construct()
@@ -58,8 +58,7 @@ class BlogsController extends Controller
             $blog->feature_image = 'upload/blogs/' . $fileName;
         }
         $blog->save();
-        notify()->success('Blog added successfully', 'Success');
-
+        notify()->success('Blog added successfully', 'Blog added successfully');
         return redirect('blogs')->with('success', 'Blog Created Successfully');
     }
     public function show(BlogsCategories $blogsCategories)
@@ -106,7 +105,8 @@ class BlogsController extends Controller
         }
 
         $edit->save();
-        notify()->success('Blogs update successfully', 'Success');
+        // Notification::success('Blogs updated successfully', 'Success');
+     notify()->success('Blogs update successfully', 'Blog update successfully');
         return redirect('blogs')->with(Toastr::success('Blog  Updated Successfully'));
     }
 
@@ -117,7 +117,7 @@ class BlogsController extends Controller
         File::delete($blog->feature_image);
 
         $blog->delete();
-        notify()->success('Blogs deleted successfully', 'Success');
+        notify()->success('Blogs deleted successfully', 'Blogs deleted successfully');
         return redirect()->back()->with(Toastr::success('Blogs Deleted Successfully'));
     }
 

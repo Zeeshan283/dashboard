@@ -14,7 +14,7 @@
             max-height: 100px;
             margin: 5px;
         }
-    
+
         .choices__input {
             background: #f3f4f6;
         }
@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="col-md-12" style="padding: 20px;">
                     <!-- SmartWizard html -->
-                    
+
                     <div id="smartwizard" class="sw-theme-dots" >
                         <ul style="justify-content: center;">
                             <li><a href="#step-1">Step 1<br /><small>Product Details</small></a></li>
@@ -72,7 +72,7 @@
                             <li><a href="#step-3">Step 3<br /><small>Select Category</small></a></li>
                             <li><a href="#step-4">Step 4<br /><small>Tax Charges</small></a></li>
                         </ul>
-                            
+
                         <span>
                             <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end">
                             <div class="btn-group me-2 sw-btn-group" role="group">
@@ -86,21 +86,21 @@
 
                         <div>
                             <div id="step-1" class="">
-                            
+
                                 {!! Form::open([
                                     'url' => 'products',
                                     'method' => 'POST',
-    
+
                                     'files' => 'true',
                                     'enctype' => 'multipart/form-data',
                                 ]) !!}
                                     <div>
                                         <div class="card-body">
                                             <div class="form-group row">
-                                                
-    
+
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Product Name:<span style="color: red;">*</span></label>
-                                                
+
                                                 <div class="col-lg-3">
                                                 {!! Form::text('name', null, [
                                                     'required' => 'required',
@@ -109,7 +109,7 @@
                                                 'maxlength' => '150',
                                                 'placeholder' => 'Enter your Product Name'
                                             ]) !!}
-                                            
+
                                             @if ($errors->has('name'))
                                                 <span   style="color: red;"
                                                     class="invalid-feedback1 font-weight-bold">{{ $errors->first('name') }}</span   style="color: red;">
@@ -124,7 +124,7 @@
                                                         'class' => 'form-control input-field',
                                                         // '' => '',
                                                         'maxlength' => '100',
-                                                    
+
                                                         'placeholder' => 'Enter Model Numner'
                                                     ]) !!}
                                                     @if ($errors->has('model_no'))
@@ -149,7 +149,6 @@
 
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Color</label>
                                                     <div class=" col-lg-3 mt-auto">
-                                                        
                                                     <select  id="choices-multiple-remove-button" name="colors[]"
                                                         class="form-control"
                                                         placeholder="Select Color (Maximum Lenght 5)"  multiple>
@@ -157,12 +156,12 @@
                                                                 <option value="{{$value->id}}">{{$value->name}}</option>
                                                         @endforeach
                                                     </select>
-                                                    
+
                                                     </div>
                                                     <br>
                                                 <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Make:</label>
                                                     <div class=" col-lg-3 ">
-                                                        
+
                                                             @if (Auth::User()->role=='Admin')
                                                                 {!! Form::select('vendors',$vendors,null,['id'=>'vendors','class'=>'form-control fstdropdown-select','onchange'=>'ChangeMakeCondition(this.value)']) !!}
                                                                 {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
@@ -177,7 +176,7 @@
                                                                 <span  style="color: red;"
                                                                     class="invalid-feedback1 font-weight-bold">{{ $errors->first('make') }}</span  style="color: red;">
                                                             @endif
-                                                        
+
 
                                                     </div>
 
@@ -193,21 +192,21 @@
                                                         @foreach ($conditions as $value)
                                                             <option value="{{ $value->id }}">{{ $value->name }}</option>
                                                         @endforeach
-                                                        
+
                                                     </select>
                                                 </div> --}}
                                             </div>
                                     </div>
-                                
+
                                     <div class="card o-hidden">
                                         <div class="card-header">New Price</div>
                                             <div class="card-block p-0" >
                                                 <div>
                                                     <div class="card-body">
                                                         <div class="form-group row">
-            
+
                                                             {{-- New Price Colume Start --}}
-                                                            
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Old Price$:</label>
                                                 <div class="col-lg-2">
                                                     {!! Form::text('new_price', null, [
@@ -224,14 +223,14 @@
                                                         'onDrop' => 'return false',
                                                         'autocomplete' => 'off',
                                                         'placeholder'=>'Enter Old Price in $',
-                                                         
+
                                                     ]) !!}
                                                     @if ($errors->has('new_price'))
                                                         <span   style="color: red;"
                                                             class="invalid-feedback1 font-weight-bold">{{ $errors->first('new_price') }}</span   style="color: red;">
                                                     @endif
                                                 </div>
-    
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Sale Price$:</label>
                                                 <div class="col-lg-2">
                                                     {!! Form::text('new_sale_price', null, [
@@ -281,7 +280,7 @@
                                                         Please enter Product N.Warranty Days
                                                     </small> --}}
                                                 </div>
-    
+
                                                 <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Return Days:</label>
                                                 <div class="col-lg-2">
                                                 {!! Form::text('new_return_days', null, [
@@ -325,7 +324,7 @@
                                                     'autocomplete' => 'off',
                                                     'placeholder'=>'Enter Minimum Order Quantity',
                                                 ]) !!}
-                                                </div>                        
+                                                </div>
 {{-- New Price Column End --}}
                                             </div>
                                         </div>
@@ -338,9 +337,9 @@
                                             <div class="card-block p-0" >
                                                 <div>
                                                     <div class="card-body">
-                                                        <div class="form-group row">            
+                                                        <div class="form-group row">
 {{-- Refurbished Colume Start --}}
-                                                            
+
                                                             <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Refurbished Price $:</label>
                                                             <div class="col-lg-2    ">
                                                             {!! Form::text('refurnished_price', null, [
@@ -459,17 +458,17 @@
                                                                 'placeholder'=>'Enter Minimum Order Quantity',
                                                             ]) !!}
                                                             </div>
-                        
+
                                                             {{-- Refurbished Column End --}}
-            
-                                                            
-            
-                                                            
+
+
+
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-            
+
                                     </div>
 <br>
 <br>
@@ -481,9 +480,9 @@
                                             <div class="form-group row">
 
                                                 {{-- Measurement Colume Start --}}
-                                                
 
-                                                
+
+
                                                 <label for="staticEmail19"    id="W_L" class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">Width:</label>
                                                 <div class="col-lg-2 "    id="W_Fields">
                                                 {!! Form::text('width', null, [
@@ -498,7 +497,7 @@
                                                     'onDrag' => 'return false',
                                                     'onDrop' => 'return false',
                                                     'autocomplete' => 'off',
-                                                    
+
                                                 ]) !!}
                                                 @if ($errors->has('width'))
                                                     <span   style="color: red;"
@@ -520,7 +519,7 @@
                                                     'onDrag' => 'return false',
                                                     'onDrop' => 'return false',
                                                     'autocomplete' => 'off',
-                                                    
+
                                                 ]) !!}
                                                 @if ($errors->has('height'))
                                                     <span   style="color: red;"
@@ -542,7 +541,7 @@
                                                     'onDrag' => 'return false',
                                                     'onDrop' => 'return false',
                                                     'autocomplete' => 'off',
-                                                    
+
                                                 ]) !!}
                                                 @if ($errors->has('depth'))
                                                     <span   style="color: red;"
@@ -561,13 +560,13 @@
                                                 </select>
                                                 </div>
                                             </div>
-            
+
                                                 {{-- Measurement Column End --}}
 
                                             <div class="form-group row">
 
                                                 {{-- Weight Column Start --}}
-                                                
+
                                                 <label for="staticEmail19"  id="Weight_L"  class=" ul-form__label ul-form--margin col-lg-1  col-form-label ">weight:</label>
                                                 <div class="col-lg-2 "  style=" margin-top: auto;" id="Weight_Field">
                                                 {!! Form::text('weight', null, [
@@ -592,7 +591,7 @@
                                                         Please enter Ounze
                                                     </small> --}}
                                                 </div>
-                                            
+
                                                 <label for="Weight" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Select Unit::</label>
                                                 <div class="col-lg-2 mt-auto">
                                                 <select class="form-control " name="weight_unit" id="weight_unit1" >
@@ -604,10 +603,10 @@
                                                     <option value="MetricTon">Metric Ton(t)</option>
                                                 </select>
                                                 </div>
-                                                
+
                                                 {{-- Weight Column End --}}
 
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -616,23 +615,23 @@
                         </div>
                     </div>
 
-                            
+
                         </div>
                             <div id="step-2" class="">
                                 {{-- <h3 class="border-bottom border-gray pb-2">Step 2 Content</h3> --}}
                                 <div>
-                                    
+
                                                 <div class="col-md-11 mb-4" style="padding-left: 60px">
                                                     <div>
                                                         <div class="card-body">
                                                             <label for="staticEmail20" class=col-form-label ">Short Description:<span style="color: red;">*</span></label>
 
                                                             {{-- <p>Enter Product Description 1</p> --}}
-                                                            
+
                                                         {{-- <textarea class="mx-auto col-md-12 	col-12" value={{ $edit->description }}  maxlength="10" name="description" id="summernote"  rows="7"></textarea> --}}
-                                                                
-                                                                
-                                                                                                                                    
+
+
+
                                                                     {!! Form::textarea('description', null, [
                                                                         'id' => 'description1',
                                                                         'class' => 'mx-auto col-md-12 	col-12',
@@ -640,33 +639,33 @@
                                                                         // 'minlength' => '50',
                                                                         'rows' => '5',
                                                                         // 'required' => 'required',
-                                                                    ]) !!} 
-                                                                    
+                                                                    ]) !!}
+
                                                                     @if ($errors->has('description'))
                                                                         <span   style="color: red;"
                                                                             class="invalid-feedback1 font-weight-bold text-danger">{{ $errors->first('description') }}</span   style="color: red;">
                                                                     @endif
-                                                                
-                                                            
+
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-md-11 mb-4" style="padding-left: 60px">
                                                     <div>
                                                         <div class="card-body">
-                                                            
+
                                                             <label for="staticEmail20" class="  col-form-label ">Details:</label>
 
                                                             {{-- <p>Enter Product Description 2</p> --}}
                                                             <div class="mx-auto col-md-12">
                                                                 {{-- <div id="snow-editor-2" class="editor-container"> --}}
                                                                     <!-- Content will be generated by Quill -->
-                                                                    
+
                                                                     {!! Form::textarea('details', null, [
                                                                         'id' => 'details',
                                                                         'class' => 'form-control',
-                                                                    
+
                                                                     ]) !!}
                                                                     @if ($errors->has('details'))
                                                                         <span   style="color: red;"
@@ -679,13 +678,13 @@
                                                 </div>
                                 </div>
                             </div>
-                            
+
                             <div id="step-3" class="">
                                 {{-- <div class="custom-separator"></div> --}}
-    
+
                                 <div class="form-group row" style="padding-left: 50px;padding-right:50px">
                                 {{-- <div class="form-group row"> --}}
-                                    
+
                                     <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Menu:<span style="color: red;">*</span></label>
                                     <div class="form-group col-lg-5">
                                             {!! Form::select('menu_id', $menus, null, [
@@ -741,14 +740,14 @@
                                         <br>
                                     </div>
 
-                                    
+
 
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Attachment(20mb):</label>
                                     <div class="col-lg-5">
-                                    
+
                                     <input type="file" name="attachment" id="attachment"
                                         class="form-control @error('attachment') is-invalid @enderror">
-                                    
+
                                         @error('attachment')
                                         <span   style="color: red;" class="invalid-feedback font-weight-bold">{{ $message }}</span   style="color: red;">
                                     @enderror
@@ -764,27 +763,27 @@
                                                 @else
                                                 <h6>No Feature Image</h6>
                                                 @endif --}}
-                                                
+
                                             </div>
                                             @if ($errors->has('feature_image'))
                                                 <span   style="color: red;"
                                                     class="invalid-feedback1 font-weight-bold">{{ $errors->first('feature_image') }}</span>
-                                                @endif   
+                                                @endif
                                         </div>
                                     <label for="staticEmail20" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Select Images (mul) (250x170)px:</label>
                                         <div class="col-lg-5">
                                         {{-- <div class="form-group"> --}}
                                         <!-- <label>(1 File Size <= 100kb) (Total File Size 2MB) <span   style="color: red;" style="color: red;">*</span   style="color: red;"></label> -->
-                                
+
                                                 <div class="card-header d-flex justify-content-between" >
-                                                
+
                                                     {{-- <input type="file" name="images[]" id="image" class="form-control"
                                                         onchange="image_select()"  multiple style="height: fit-content;">
                                                  --}}
                                                         <input type="file" name="images[]" id="imageInput"  class="form-control" multiple >
                                                         <button type="button" class="d-none form-control" style="width: auto;"id="chooseImages">Choose Images</button>
                                                     </div>
-                                                    
+
                                                     <br>
                                                     <p id="fileLimitMessage" style="color: red;"></p>
 
@@ -800,16 +799,16 @@
                                                 </div>
                                             </div> --}}
 
-                                            
-                                                
-                                                
-                                        
-                                            
+
+
+
+
+
                                             <script>
                                                 document.getElementById('chooseImages').addEventListener('click', function () {
                                                     document.getElementById('imageInput').click();
                                                 });
-                                            
+
                                                 document.getElementById('imageInput').addEventListener('change', function () {
                                                     var files = this.files;
                                                     var maxImages = 6; // Set your maximum image limit here
@@ -822,10 +821,10 @@
                                                     }
                                                 });
                                                 document.getElementById('imageInput').addEventListener('change', function () {
-                                                    
+
                                                     var thumbnails = document.getElementById('thumbnails');
                                                     thumbnails.innerHTML = ''; // Clear previous thumbnails
-                                            
+
                                                     var files = this.files;
                                                 var maxImages = 6; // Set your maximum image limit here
                                                 for (var i = 0; i < Math.min(files.length, maxImages); i++) {
@@ -834,13 +833,13 @@
                                                     img.style.maxWidth = '100px';
                                                     thumbnails.appendChild(img);
                                                 }
-                                            
+
                                                     // Show the upload button when at least one image is selected
-                                                    
+
                                                 });
                                             </script>
 
-                                            
+
 
                                         {{-- <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="card">
@@ -851,12 +850,12 @@
                                         </div> --}}
                                     </div>
 
-                                                    
+
                             </div>
-                            
-                            
+
+
                             <div id="step-4" class="">
-                                
+
                                 <div class="card o-hidden">
                                     <div class="card-header">Tax Charges</div>
                                         <div class="card-block p-0">
@@ -873,7 +872,7 @@
 
                                                             <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Tax Type:</label>
                                                             <div class="col-lg-3" >
-                                                                
+
                                                             <select name="tax_type" id="tax_type" class="form-control">
                                                                 {{-- <option value="">Select Tax Type</option> --}}
                                                                 <option value="Amount">Amount</option>
@@ -884,10 +883,10 @@
                                                             </small>
 
                                                             </div>
-                                                            
+
                                                             <label for="staticEmail19" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">Tax Charges:</label>
                                                             <div class="col-lg-3 ">
-                                                                
+
                                                             {!! Form::text('tax_charges', null, [
                                                             'id' => 'tax_charges',
                                                             'class' => 'form-control',
@@ -902,21 +901,21 @@
                                                             'onDrop' => 'return false',
                                                             'autocomplete' => 'off',
                                                             // 'placeholder'=>'',
-                                                            
-                                                            ]) !!}      
+
+                                                            ]) !!}
                                                             <small id="" class="ul-form__text form-text ">
                                                                 Please Enter Product Tax Changes
                                                                 </small>
                                                             </div>
-                
-                
+
+
                                                     </div>
                                                 </div>
-                                            
+
                                         </div>
-                                    
-                                    
-                                                
+
+
+
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="card">
                                                 <div class="card-footer" style="text-align: right;">
@@ -925,7 +924,7 @@
                                             </div>
                                         </div>
                                                 <!-- end card 3 Columns Horizontal Form Layout-->
-                                                
+
                                         </div>
                                 </div>
                                 </div>
@@ -933,8 +932,8 @@
                         </div>
                     </div>
                 </div>
-                
-                {!! Form::close() !!}  
+
+                {!! Form::close() !!}
 
             </div>
 
@@ -1021,7 +1020,7 @@ $(document).ready(function() {
                 };
 
                 var selectedOptions = $('#choices-multiple-remove-button').val();
-                
+
                 $('.choices__list--multiple .choices__item').each(function(index, element) {
                     var dataValue = $(element).attr('data-value');
                     var backgroundColor = selectedOptions.includes(dataValue) ? colorMap[dataValue] : '';
@@ -1040,97 +1039,13 @@ $(document).ready(function() {
                 // classNames: {
                 //     button: 'choices-custom-button', // Add a custom class for the button
                 //     },
-                
+
             });
             $('#choices-multiple-remove-button').on('change', changeBackgroundColor);
 
                 document.addEventListener('click', function() {
                 changeBackgroundColor();
                 });
-        
-
-
-            // Function to change background color based on selected option
-        //  function changeBackgroundColor() {
-        //     var selectedOptions = $('#choices-multiple-remove-button').val();
-        //     $('.choices__list--multiple .choices__item').each(function(index, element) {
-        //         var backgroundColor = '';
-        //         if (selectedOptions.includes($(element).attr('data-value'))) {
-        //             if ($(element).attr('data-value') === '1') {
-        //                 backgroundColor = '#FF0000';
-        //             } else if ($(element).attr('data-value') === '2') {
-        //                 backgroundColor = '#0000FF';
-        //             }
-        //             else if ($(element).attr('data-value') === '3') {
-        //                 backgroundColor = '#FFFDD0';
-        //             } 
-        //             else if ($(element).attr('data-value') === '4') {
-        //                 backgroundColor = '#FFFF00';
-        //             } 
-        //             else if ($(element).attr('data-value') === '5') {
-        //                 backgroundColor = '	#006400';
-        //             } 
-        //             else if ($(element).attr('data-value') === '6') {
-        //                 backgroundColor = '#FFFFFF';
-        //             }
-        //             else if ($(element).attr('data-value') === '7') {
-        //                 backgroundColor = '#FF6600';
-        //             }
-        //             else if ($(element).attr('data-value') === '8') {
-        //                 backgroundColor = '#964B00';
-        //             }
-        //             else if ($(element).attr('data-value') === '9') {
-        //                 backgroundColor = '#000000';
-        //             }
-        //             else if ($(element).attr('data-value') === '10') {
-        //                 backgroundColor = '#007FFF';
-        //             }
-        //             else if ($(element).attr('data-value') === '11') {
-        //                 backgroundColor = '#FFFFF0';
-        //             }
-        //             else if ($(element).attr('data-value') === '12') {
-        //                 backgroundColor = '#A020F0';
-        //             }
-        //             else if ($(element).attr('data-value') === '13') {
-        //                 backgroundColor = '#C3B091';
-        //             }
-        //             else if ($(element).attr('data-value') === '14') {
-        //                 backgroundColor = '	#FFC0CB';
-        //             }
-        //             else if ($(element).attr('data-value') === '15') {
-        //                 backgroundColor = '#FFD700';
-        //             }
-        //             else if ($(element).attr('data-value') === '16') {
-        //                 backgroundColor = '	#808000';
-        //             }
-        //             else if ($(element).attr('data-value') === '17') {
-        //                 backgroundColor = '#00FFFF';
-        //             }
-        //             else if ($(element).attr('data-value') === '18') {
-        //                 backgroundColor = '#673147';
-        //             }
-        //             else if ($(element).attr('data-value') === '19') {
-        //                 backgroundColor = '#808080';
-        //             }
-        //             else if ($(element).attr('data-value') === '20') {
-        //                 backgroundColor = '#C0C0C0';
-        //             }
-        //             else if ($(element).attr('data-value') === '21') {
-        //                 backgroundColor = '	#000080';
-        //             }
-        //             else if ($(element).attr('data-value') === '22') {
-        //                 backgroundColor = '	#FAF9F6';
-        //             }
-        //         } 
-        //         $(element).css('background-color', backgroundColor);
-        //     });
-        // }
-
-        // // Call the function when the select element value changes
-        // $('#choices-multiple-remove-button').on('change', changeBackgroundColor);
-        // $(document).on('click', function() {
-        //     changeBackgroundColor(); // Call the function to reset colors
-        // });
         });
     </script> -->
 
@@ -1206,7 +1121,7 @@ $(document).ready(function() {
 
 
 <script>
-    
+
     function onlyNumberKey(evt) {
         // Only ASCII character in that range allowed
         var ASCIICode = (evt.which) ? evt.which : evt.keyCode
@@ -1277,7 +1192,7 @@ $(document).ready(function() {
         });
         // End Here
 
-        // Change Categories 
+        // Change Categories
 
         $('#category_id').change(function() {
             var cat_id = $(this).val();
@@ -1330,12 +1245,12 @@ $(document).ready(function() {
 <!-- include TinyMceEditor js -->
 <script src="https://cdn.tiny.cloud/1/ki85z92gad4jwy6pn6wzw9uctxkdmgs0nn8tawovzdc0j1zb/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 {{-- <script src="https://cdn.tiny.cloud/1/ki85z92gad4jwy6pn6wzw9uctxkdmgs0nn8tawovzdc0j1zb/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> --}}
-    
-    
+
+
     <script>
         tinymce.init({
         selector: "textarea#details",
-        height: 650, 
+        height: 650,
         relative_urls: false,
         paste_data_images: true,
         image_title: true,
