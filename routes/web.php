@@ -3,6 +3,8 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\CommissionController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
@@ -207,9 +209,9 @@ Route::middleware(['vendor'])->group(function () {
     Route::post('/toggle-coupon-status', [CouponController::class, 'toggleStatus']);
     Route::get('coupon/{id}/destroy', [PurchaseController::class, 'destroy']);
 
-    Route::get('vendor-profile/{id}', [VendorsController::class, 'vendorProfile'])->name('vendorProfile');
+    Route::get('vendor-profile/{id}', [VendorsController::class, 'vendorProfile'])->name('vendorProfile')->middleware(['vendorOwnId']);
     Route::patch('vendorProfileSave/{id}', [VendorsController::class, 'vendorProfileSave']);
-    Route::get('verified-seller/{id}', [VendorsController::class, 'verifiedSeller']);
+    Route::get('verified-seller/{id}', [VendorsController::class, 'verifiedSeller'])->middleware(['vendorOwnId']);
     Route::post('trustedSellerSave/{id}', [VendorsController::class, 'trustedSellerSave']);
     Route::patch('verifiedSellerSave/{id}', [VendorsController::class, 'verifiedSellerSave']);
     Route::post('SellerDocumentSave/{id}', [VendorsController::class, 'SellerDocumentSave']);
@@ -305,6 +307,11 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::view('withdrawl', 'sellers.vendorwithdrawal')->name('withdrawl');
     Route::get('cwallet', [CustomerController::class, 'cwallet'])->name('cwallet');
     Route::get('sellers/show/{id}', [VendorsController::class, 'show1'])->name('sellers.show');
+
+    // sales 
+    Route::resource('sales', SaleController::class);
+    Route::resource('commissions', CommissionController::class);
+
 });
 //  ============================================================================================================================
 
