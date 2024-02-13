@@ -133,31 +133,37 @@ class ApiController extends Controller
     {
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
-                'make' => 'required|max:255|min:1',
-                'pro_id' => 'required|max:255|min:1',
-                'pro_name' => 'required|max:255|min:1',
-                'message' => 'required|max:400|min:1',
-                'model_no' => 'max:255|min:1',
-                'brand_name' => 'max:255|min:1',
-                'moq' => 'max:255|min:1',
-                'delivery_location' => 'max:255|min:1',
-                'company' => 'max:255|min:1',
-                'address' => 'required|max:255|min:1',
-                'phoneno' => 'required|max:255|min:1',
-                'vendor_id' => 'required',
-                'email' => 'required',
+                'customer_id' => 'integer',
+                'customer_name' => 'max:191|min:1',
+                'customer_email' => 'required|max:191|min:1',
+                'customer_contact_no' => 'max:191|min:1',
+                'customer_company_name' => 'max:191|min:1',
+                'customer_address' => 'max:191|min:1',
+                'customer_profile_link' => 'max:191|min:1',
+                'query_title' => 'required|max:191|min:1',
+                'pro_id' => 'required|integer',
+                'pro_name' => 'required|max:191|min:1',
+                'pro_model_no' => 'max:191|min:1',
+                'pro_brand_name' => 'max:191|min:1',
+                'pro_moq' => 'max:191|min:1',
+                'fob' => 'max:191|min:1',
+                'ref_url' => 'max:191|min:1',
+                'message' => 'required|max:1500|min:1',
+                'supplier_id' => 'required|integer',
+                'supplier_name' => 'required|max:191|min:1',
+                'supplier_profile_link' => 'max:191|min:1',
             ], [
-                'pro_id.required' => 'Something went wrong',
-                'make.required' => 'Something went wrong',
-                'pro_name.required' => 'The Product Name field is required',
-                'message.required' => 'The Message field is required',
-                'model_no.required' => 'The Model No field is required',
-                'brand_name.required' => 'The Brand Name field is required',
-                'moq.required' => 'The MOQ field is required',
-                'delivery_location.required' => 'The Location field is required',
-                'phoneno.required' => 'The Phone no field is required',
-                'vendor_id.required' => 'The Vendor field is required',
-                'email.required' => 'The Email field is required'
+                // 'pro_id.required' => 'Something went wrong',
+                // 'make.required' => 'Something went wrong',
+                // 'pro_name.required' => 'The Product Name field is required',
+                // 'message.required' => 'The Message field is required',
+                // 'model_no.required' => 'The Model No field is required',
+                // 'brand_name.required' => 'The Brand Name field is required',
+                // 'moq.required' => 'The MOQ field is required',
+                // 'delivery_location.required' => 'The Location field is required',
+                // 'phoneno.required' => 'The Phone no field is required',
+                // 'vendor_id.required' => 'The Vendor field is required',
+                // 'email.required' => 'The Email field is required'
             ]);
 
             if ($validator->fails()) {
@@ -165,7 +171,7 @@ class ApiController extends Controller
             }
 
             $p = ProductContact::create($request->all());
-            $p->vendor_id = $request->vendor_id;
+            $p->supplier_id = $request->supplier_id;
             $p->save();
 
             return Response::json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);
@@ -319,6 +325,7 @@ class ApiController extends Controller
             'comments' => $customerInfo['comments'] ?? null,
             'shipping_full_name' => $customerInfo['shipping_full_name'] ?? null,
             'shipping_company_name' => $customerInfo['shipping_company_name'] ?? null,
+            'shipping_email' => $customerInfo['shipping_email'] ?? null,
             'shipping_contact_number' => $customerInfo['shipping_contact_number'] ?? null,
             'shipping_mobile_number' => $customerInfo['shipping_mobile_number'] ?? null,
             'shipping_address' => $customerInfo['shipping_address'] ?? null,

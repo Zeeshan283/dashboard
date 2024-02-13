@@ -115,7 +115,7 @@ class HomeController extends Controller
 
 
             $customer = User::count();
-            $customerQueries = ProductContact::where('vendor_id', '=', Auth::user()->id)->count();
+            $customerQueries = ProductContact::where('supplier_id', '=', Auth::user()->id)->count();
 
             $top_products = Product::take(10)->get();
             $new_users = User::where('role', '=', 'Customer')->latest()->take(15)->get();

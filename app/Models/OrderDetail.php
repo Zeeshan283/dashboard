@@ -44,7 +44,10 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(Product::class, 'product_id')->with('subcategories');
     }
-    public function sub()
+    public function product_details()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }public function sub()
     {
         return $this->belongsTo(Product::class, 'product_id');
     }

@@ -161,7 +161,7 @@ class UserAPIController extends Controller
  
             $ordertracker = [];
             foreach ($orders as $order) {
-                $orderDetails = OrderDetail::where('order_id', $order->id)->with(['order_tracker' => function ($query) {
+                $orderDetails = OrderDetail::where('order_id', $order->id)->with('product')->with(['order_tracker' => function ($query) {
                     $query->select('order_id', 'status', 'datetime')->orderBy('datetime', 'asc');
                 }])->get();
 

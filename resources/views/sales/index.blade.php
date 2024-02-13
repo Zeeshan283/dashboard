@@ -144,7 +144,7 @@
         </div>
     </div>
 
-     {{-- <div class="separator-breadcrumb border-top"></div>
+ <div class="separator-breadcrumb border-top"></div>
     <div class="col-md-12 mb-4">
         <div class="card text-start">
 
@@ -188,7 +188,7 @@
 
             </div>
         </div>
-    </div> --}} 
+    </div> 
 @endsection
 
 @section('page-js')

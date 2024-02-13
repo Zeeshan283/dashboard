@@ -303,7 +303,7 @@ if (Auth::user()->role == 'Vendor') {
                 <a class="{{ Route::currentRouteName() == 'CustomerQueries.index' ? 'open' : '' }}"
                     href="{{ route('CustomerQueries.index') }}">
                     <i class="nav-icon i-Pen-2"></i>
-                    <span class="item-name">Customers Queries</span>
+                    <span class="item-name">Contact Supplier</span>
                 </a>
             </li>
             {{-- <li class="nav-item">

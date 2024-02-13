@@ -163,10 +163,12 @@
                                         @foreach ($invoiceProduct as $value => $item)
                                             <tr>
                                                 <td class="tm_width_1">{{ $value + 1 }}</td>
-                                                <td class="tm_width_2">
-                                                    <div style="margin-top: -55px;"><img
-                                                            src="{{ $item->product->url }}" alt=""></div>
+                                                <td class="tm_width_2" style="max-width: 200px;">
+                                                    <div style=" overflow: hidden;">
+                                                        <img src="{{ $item->product->url }}" alt="" style="max-width: 100%; height: auto;">
+                                                    </div>
                                                 </td>
+                                                
                                                 <td class="tm_width_8"> <span style=" font-weight: 600; ">
                                                         {{ $item->product->name }}</span> <br>
                                                     <span style=" font-weight: 600; ">Model #:
