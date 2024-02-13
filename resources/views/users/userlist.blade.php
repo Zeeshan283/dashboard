@@ -11,22 +11,21 @@
             <div class="separator-breadcrumb border-top"></div>
             <div class="col-md-12 mb-4">
                 <div class="card text-start">
-    
                     <div class="card-body">
                         <h4 class="card-title mb-3">User List</h4>
-    
+
                         <div class="table-responsive">
                             <table id="deafult_ordering_table" class="display table table-striped table-bordered"
                                 style="width:100%">
                                 @include('datatables.table_content')
                             </table>
                         </div>
-    
+
                     </div>
                 </div>
             </div>
 
-          
+
 @endsection
 
 @section('page-js')

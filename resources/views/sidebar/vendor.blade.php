@@ -47,10 +47,10 @@
         </a>
         {{-- <div class="triangle"></div> --}}
     </li>
-    <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="profile">
+    <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="accountdetails">
         <a class="nav-item-hold" href="#">
             <i class="nav-icon i-Find-User"></i>
-            <span class="nav-text">Profile</span>
+            <span class="nav-text">Account Details</span>
         </a>
         {{-- <div class="triangle"></div> --}}
     </li>

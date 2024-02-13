@@ -61,7 +61,7 @@
         <td>{{ $orders->shipping_address ?? null }},{{ $orders->shipping_city ?? null}},{{ $orders->shipping_state ?? null}}
             {{ $orders->shipping_zipcode ?? null}},{{ $orders->shipping_country ?? null}}</td>
 
-         
+
 
         <td>
             <div class="d-flex gap-2">
@@ -124,9 +124,9 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            
+
             <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image" loading="lazy">
-             
+
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
         {{-- <td>
@@ -630,7 +630,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            
+
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
@@ -752,7 +752,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            
+
             <img src="{{ $orders->product->url ?? null }}  "  loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
@@ -876,7 +876,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            
+
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
@@ -1000,7 +1000,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            
+
             <img src="{{ $orders->product->url ?? null }}  "  loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
@@ -1121,7 +1121,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            
+
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
@@ -1241,7 +1241,7 @@
 
         <td>{{ $orders->created_at }}</td>
         <td>
-            
+
             <img src="{{ $orders->product->url ?? null }} " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
@@ -1879,6 +1879,7 @@
 {{-- product secondary  --}}
 @elseif (Route::currentRouteName() == 'products.index')
 <thead>
+    <tr>
     <th>Sr No</th>
     <th>Name</th>
     <th>Model#</th>
@@ -1888,6 +1889,7 @@
     <th>Image(145x66)px</th>
     {{-- <th>Type</th> --}}
     <th>Action</th>
+    </tr>
 </thead>
 <tbody>
     @foreach ($data as $key => $product)
@@ -1895,8 +1897,6 @@
         <td>{{ $key + 1 }}</td>
         <td>{{ $product->name }}</td>
         <td>{{ $product->model_no }}</td>
-
-
         <td>{{ $product->sku }}</td>
         <td>
             @if ($product->categories)

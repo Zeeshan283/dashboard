@@ -2,12 +2,12 @@
     position: relative;
     min-height: 34px;
     width: 100%;
-    width: -moz-available;         
-    width: -webkit-fill-available;  
+    width: -moz-available;
+    width: -webkit-fill-available;
     width: fill-available;
 }
 .fstdiv.open {
-    z-index: 2147483647
+    z-index: 2147483647;
 }
 .fstdropdown {
     vertical-align: middle;
@@ -16,61 +16,61 @@
     cursor: pointer;
     background: white;
     overflow: hidden;
-    width: inherit
+    width: inherit;
 }
-    .fstdiv.open > .fstdropdown{
-        position: absolute;
-    }
+.fstdiv.open > .fstdropdown {
+    position: absolute;
+}
 
-    .fstdropdown > .fstselected {
-        line-height: 1.70!important;
-        padding: 6px 24px 6px 12px;
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-        color: #555;
-        font-size: 14px;
-        outline: 0;
-        position: relative;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-user-select: none;
-    }
+.fstdropdown > .fstselected {
+    line-height: 1.7 !important;
+    padding: 6px 24px 6px 12px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    color: #555;
+    font-size: 14px;
+    outline: 0;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-user-select: none;
+}
 
-        .fstdropdown > .fstselected::after {
-            position: absolute;
-            top: 50%;
-            display: block;
-            height: 0;
-            margin-top: -3px;
-            content: ' ';
-            right: 11px;
-            border-color: #999 transparent transparent;
-            border-style: solid;
-            border-width: 4px 4px 0;
-        }
+.fstdropdown > .fstselected::after {
+    position: absolute;
+    top: 50%;
+    display: block;
+    height: 0;
+    margin-top: -3px;
+    content: " ";
+    right: 11px;
+    border-color: #999 transparent transparent;
+    border-style: solid;
+    border-width: 4px 4px 0;
+}
 
-    .fstdropdown.open > .fstselected {
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-        border-bottom-color: transparent;
-    }
+.fstdropdown.open > .fstselected {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-color: transparent;
+}
 
-        .fstdropdown.open > .fstselected::after {
-            margin-top: -3px;
-            border-color: transparent transparent #999;
-            border-width: 0 4px 4px;
-        }
+.fstdropdown.open > .fstselected::after {
+    margin-top: -3px;
+    border-color: transparent transparent #999;
+    border-width: 0 4px 4px;
+}
 
-    .fstdropdown > .fstlist {
-        display: none;
-        max-height: 200px;
-        overflow-y: auto;
-        overflow-x: hidden
-    }
+.fstdropdown > .fstlist {
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
-    .fstdropdown.open > .fstlist {
-        display: block
-    }
+.fstdropdown.open > .fstlist {
+    display: block;
+}
 
 .fstlist > div {
     padding: 6px 12px;
@@ -82,13 +82,18 @@
 .fstdropdown.open:hover {
     border-color: #66afe9;
     overflow-x: hidden;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-    -o-transition: border-color ease-in-out .1s,box-shadow ease-in-out .1s;
-    -webkit-transition: border-color ease-in-out .1s,-webkit-box-shadow ease-in-out .1s;
-    transition: border-color ease-in-out .1s,-webkit-box-shadow ease-in-out .1s;
-    transition: border-color ease-in-out .1s,box-shadow ease-in-out .1s;
-    transition: border-color ease-in-out .1s,box-shadow ease-in-out .1s,-webkit-box-shadow ease-in-out .1s;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(102, 175, 233, 0.6);
+    -o-transition: border-color ease-in-out 0.1s, box-shadow ease-in-out 0.1s;
+    -webkit-transition: border-color ease-in-out 0.1s,
+        -webkit-box-shadow ease-in-out 0.1s;
+    transition: border-color ease-in-out 0.1s,
+        -webkit-box-shadow ease-in-out 0.1s;
+    transition: border-color ease-in-out 0.1s, box-shadow ease-in-out 0.1s;
+    transition: border-color ease-in-out 0.1s, box-shadow ease-in-out 0.1s,
+        -webkit-box-shadow ease-in-out 0.1s;
 }
 
 .fstlist > div:hover {
@@ -105,7 +110,7 @@
     padding: 4px;
     width: 100%;
     box-sizing: border-box;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     background-color: #fff;
     border: 1px solid #ccc;
     color: #555;
@@ -122,7 +127,8 @@
     display: block;
 }
 
-.fstdropdown .hideFst, .fstdropdown-select.fstcreated {
+.fstdropdown .hideFst,
+.fstdropdown-select.fstcreated {
     display: none;
 }
 
@@ -142,9 +148,9 @@
     display: none;
 }
 
-    .fstAll:hover {
-        background-color: #337ab7
-    }
+.fstAll:hover {
+    background-color: #337ab7;
+}
 
 .open .fstAll {
     display: block;
