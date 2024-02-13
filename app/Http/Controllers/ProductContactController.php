@@ -16,7 +16,7 @@ class ProductContactController extends Controller
         if (Auth::user()->role == 'Admin') {
             $data = ProductContact::all();
         } elseif (Auth::user()->role == 'Vendor') {
-            $data = ProductContact::orderBy('id', 'desc')->where('vendor_id', Auth::user()->id)->get();
+            $data = ProductContact::orderBy('id', 'desc')->where('supplier_id', Auth::user()->id)->get();
         }
 
         return view('products.customerqueries', compact('data'));

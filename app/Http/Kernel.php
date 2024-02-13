@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'vendor' => \App\Http\Middleware\VendorMiddleware::class,
         'bothAccess' => \App\Http\Middleware\BothMiddleware::class,
+        'vendorOwnId' => \App\Http\Middleware\VendorOwnMiddleware::class,
     ];
 }

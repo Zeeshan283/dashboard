@@ -42,7 +42,12 @@
             <span class="nav-text">Orders</span>
         </a>
     </li>
-
+    <li class="nav-item {{ request()->is('sales/*') ? 'active' : '' }}" data-item="sales">
+        <a class="nav-item-hold" href="#">
+            <i class="nav-icon i-Dollar-Sign"></i>
+            <span class="nav-text">Sales</span>
+        </a>
+    </li>
     <li class="nav-item {{ request()->is('ewallet/*') ? 'active' : '' }}" data-item="ewallet">
         <a class="nav-item-hold" href="#">
             <i class="nav-icon i-Money"></i>

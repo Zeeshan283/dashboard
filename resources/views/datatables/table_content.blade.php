@@ -1956,75 +1956,7 @@
         <th>Action</th>
     </tr>
 </tfoot>
-@elseif (Route::currentRouteName() == 'CustomerQueries.index')
-<thead>
-    <th>Sr#</th>
-    <th>Person/Company Name</th>
-    <th>Product Name</th>
-    <th>Model#</th>
-    <th>Email:</th>
-    <th>Website:</th>
-    <th>Contact Number</th>
-    <th>Supplier Name</th>
-    <th>Address</th>
-    <th>Message</th>
-    <th>Action</th>
-</thead>
-<tbody>
-    @foreach ($data as $key => $value)
-    <tr>
-        <td>{{ $key + 1 }}</td>
-        <td>{{ $value->make }}</td>
-        <td>{{ $value->pro_name }}</td>
-        <td>{{ $value->model_no }}</td>
-        <td>{{ $value->email }}</td>
-        <td>{{ $value->website }}</td>
-        <td>{{ $value->phoneno }}</td>
-        <td>{{ $value->vendor->name ?? null }}</td>
-        <td>{{ $value->address }}</td>
-        {{-- <td>{{ Str::limit($value["message"], 30) }}</td> --}}
-        {{-- <td>{{ $value->message }}</td> --}}
 
-        <td>
-            <div class="tooltip-container">
-                <span class="message-hover">{{ Str::limit($value->message, 30) }}</span>
-                <div class="tooltip">{{ $value->message }}</div>
-            </div>
-        </td>
-        <td>
-            <div class="d-flex gap-2">
-                <a target="_blank" href="{{ route('CustomerQueries.show', $value->id) }}">
-                    <button type="button" class="btn btn btn-outline-secondary ">
-                        <i class="nav-icon i-Eye" title="view" style="font-weight: bold;"></i>
-                    </button></a>
-
-
-                <a target="_blank" href="mailto:{{ $value->email }}">
-                    <button type="button" class="btn btn btn-outline-secondary ">
-                        <i class="nav-icon i-Email" title="email" style="font-weight: bold;"></i>
-                    </button></a>
-            </div>
-        </td>
-    </tr>
-    @endforeach
-
-
-</tbody>
-<tfoot>
-    <tr>
-        <th>Sr#</th>
-        <th>Person/Company Name</th>
-        <th>Product Name</th>
-        <th>Model#</th>
-        <th>Email:</th>
-        <th>Website:</th>
-        <th>Contact Number</th>
-        <th>Supplier Name</th>
-        <th>Address</th>
-        <th>Message</th>
-        <th>Action</th>
-    </tr>
-</tfoot>
 @elseif (Route::currentRouteName() == 'productreviews')
 <thead>
     <th>Sr No</th>

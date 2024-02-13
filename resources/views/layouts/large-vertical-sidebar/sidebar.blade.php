@@ -303,7 +303,7 @@ if (Auth::user()->role == 'Vendor') {
                 <a class="{{ Route::currentRouteName() == 'CustomerQueries.index' ? 'open' : '' }}"
                     href="{{ route('CustomerQueries.index') }}">
                     <i class="nav-icon i-Pen-2"></i>
-                    <span class="item-name">Customers Queries</span>
+                    <span class="item-name">Contact Supplier</span>
                 </a>
             </li>
             {{-- <li class="nav-item">
@@ -437,6 +437,26 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
         </ul>
+
+        <ul class="childNav" data-parent="sales">
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'sales' ? 'open' : '' }}" href="{{ route('sales.index') }}">
+                    <i class="nav-icon i-Folder-Archive"></i>
+                    <span class="item-name">Sales List</span>
+                </a>
+            </li>
+             
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'sales' ? 'open' : '' }}" href="{{ route('commissions.index') }}">
+                    <i class="nav-icon i-Folder-Archive"></i>
+                    <span class="item-name">Commission List</span>
+                </a>
+            </li>
+ 
+             
+        </ul>
+
+
         <ul class="childNav" data-parent="sessions">
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'coupon.create' ? 'open' : '' }}"
@@ -453,8 +473,6 @@ if (Auth::user()->role == 'Vendor') {
                     <span class="item-name">All Coupon</span>
                 </a>
             </li>
-
-
 
         </ul>
         <ul class="childNav" data-parent="others">

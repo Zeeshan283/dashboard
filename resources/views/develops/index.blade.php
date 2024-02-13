@@ -177,7 +177,7 @@
                         <div class="hero-img wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.6s">
                             <div class="img-border">
                                 <img src="{{ asset('develops/assets/images/7.jpg') }}" alt=""
-                                    class="img-fluid">
+                                    class="img-fluid" loading="lazy">
                             </div>
                         </div>
                     </div>
@@ -197,7 +197,7 @@
                 <div class="col-sm-12 col-md-6">
                     <div class="mh-about-img shadow-2 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.4s">
                         <img src="{{ asset('develops/assets/images/ab-img.png') }}" alt=""
-                            class="img-fluid">
+                            class="img-fluid" loading="lazy">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
@@ -307,7 +307,7 @@
                                         <div class="mh-featured-project-img shadow-2 wow fadeInUp"
                                             data-wow-duration="0.8s" data-wow-delay="0.2s">
                                             <img src="{{ asset('develops/assets/images/p1b.jpg') }}" alt=""
-                                                class="img-fluid">
+                                                class="img-fluid" loading="lazy">
                                         </div>
                                     </div>
                                     <div class="col-sm-5">
@@ -366,7 +366,7 @@
                                         <div class="mh-featured-project-img shadow-2 wow fadeInUp"
                                             data-wow-duration="0.8s" data-wow-delay="0.2s">
                                             <img src="{{ asset('develops/assets/images/p2c.jpg') }}" alt=""
-                                                class="img-fluid">
+                                                class="img-fluid" loading="lazy">
                                         </div>
                                     </div>
                                     <div class="col-sm-5">
@@ -426,7 +426,7 @@
                                         <div class="mh-featured-project-img shadow-2 wow fadeInUp"
                                             data-wow-duration="0.8s" data-wow-delay="0.2s">
                                             <img src="{{ asset('develops/assets/images/p31.jpg') }}" alt=""
-                                                class="img-fluid">
+                                                class="img-fluid" loading="lazy">
                                         </div>
                                     </div>
                                     <div class="col-sm-5">
@@ -695,7 +695,7 @@
                             <div class="grid-item col-md-4 col-sm-6 col-xs-12 user-interface">
                                 <figure>
                                     <img src="{{ asset('develops/assets/images/portfolio/s1.jfif') }}"
-                                        alt="img04">
+                                        alt="img04"  >
                                     <figcaption class="fig-caption">
                                         <i class="fa fa-search"></i>
                                         <h5 class="title">Dashboard Design</h5>
@@ -709,7 +709,7 @@
                             <div class="grid-item col-md-4 col-sm-6 col-xs-12 user-interface">
                                 <figure>
                                     <img src="{{ asset('develops/assets/images/portfolio/s3.jfif') }}"
-                                        alt="img04">
+                                        alt="img04" >
                                     <figcaption class="fig-caption">
                                         <i class="fa fa-search"></i>
                                         <h5 class="title">Website Design </h5>
@@ -722,7 +722,7 @@
                             <div class="grid-item col-md-4 col-sm-6 col-xs-12 branding">
                                 <figure>
                                     <img src="{{ asset('develops/assets/images/portfolio/s4.jfif') }}"
-                                        alt="img04">
+                                        alt="img04" >
                                     <figcaption class="fig-caption">
                                         <i class="fa fa-search"></i>
                                         <h5 class="title">Product Add</h5>
@@ -943,7 +943,7 @@
                         <div class="mh-blog-item dark-bg wow fadeInUp" data-wow-duration="0.8s"
                             data-wow-delay="0.3s">
                             <img src="{{ asset('develops/assets/images/post/post-1.webp') }}" alt=""
-                                class="img-fluid">
+                                class="img-fluid" loading="lazy">
                             <div class="blog-inner">
                                 <h2><a href="#">Bugs Fixing</a></h2>
                                 <div class="mh-blog-post-info">
@@ -961,7 +961,7 @@
                         <div class="mh-blog-item dark-bg wow fadeInUp" data-wow-duration="0.8s"
                             data-wow-delay="0.5s">
                             <img src="{{ asset('develops/assets/images/post/post-2.webp') }}" alt=""
-                                class="img-fluid">
+                                class="img-fluid" loading="lazy">
                             <div class="blog-inner">
                                 <h2><a href="#">Custom New Responsive Website</a></h2>
                                 <div class="mh-blog-post-info">
@@ -978,7 +978,7 @@
                     <div class="col-sm-12 col-md-4">
                         <div class="mh-blog-item dark-bg wow fadeInUp" data-wow-duration="0.8s"
                             data-wow-delay="0.7s">
-                            <img src="{{ asset('develops/assets/images/post/post-2.webp') }}" alt=""
+                            <img src="{{ asset('develops/assets/images/post/post-2.webp') }}"  loading="lazy" alt=""
                                 class="img-fluid">
                             <div class="blog-inner">
                                 <h2><a href="#">Addition of a Custom Feature</a></h2>
