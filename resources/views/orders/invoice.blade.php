@@ -62,7 +62,12 @@
                 <div class="tm_invoice_in">
                     <div class="tm_invoice_head tm_align_center tm_mb20">
                         <div class="tm_invoice_left">
-                            <div class="tm_logo"><img src="/{{ $invoice->vendorProfile->logo }}" alt="Logo"></div>
+                            <div class="tm_logo">
+                                @if(Auth::user()->role == 'Admin')
+                                <img src="{{ asset('upload/logo/logo.png') }}" alt="Logo"></div>
+                                @else
+                                <img src="/{{ $invoice->vendorProfile->logo }}" alt="Logo"></div>
+                                @endif
                         </div>
                         <div class="tm_invoice_right tm_text_right">
                             <div class="tm_primary_color tm_f50 tm_text_uppercase">Invoice </div>
@@ -72,9 +77,9 @@
                         <div class="tm_invoice_seperator tm_gray_bg"></div>
                         <div class="tm_invoice_info_list">
                             <p class="tm_invoice_number tm_m0">Order #: <b
-                                    class="tm_primary_color">#{{ $invoice->order->id }}</b></p>
+                                    class="tm_primary_color">#{{ $invoice->order->id ?? null}}</b></p>
                             <p class="tm_invoice_date tm_m0">Order Date: <b
-                                    class="tm_primary_color">{{ $invoice->order->date }}</b></p>
+                                    class="tm_primary_color">{{ $invoice->order->date ?? null}}</b></p>
                         </div>
                     </div>
                     <div class="tm_invoice_head tm_mb10">
@@ -86,24 +91,24 @@
                                 <div class="tm_grid_row tm_col_3 tm_align_center">
                                     <div class="tm_border_right tm_accent_border_20 tm_border_none_sm">
                                         <span style=" font-weight: 600; ">Customer Id #: &nbsp
-                                        </span>{{ $invoice->order->customer_id }} <br>
+                                        </span>{{ $invoice->order->customer_id ?? null}} <br>
                                         <span style=" font-weight: 600; ">Customer Name : &nbsp </span>
-                                        {{ $invoice->order->first_name }}
-                                        {{ $invoice->order->last_name }} <br>
+                                        {{ $invoice->order->first_name ?? null}}
+                                        {{ $invoice->order->last_name ?? null}} <br>
                                         <span style=" font-weight: 600; ">Company : &nbsp </span>
-                                        {{ $invoice->order->company }}<br>
+                                        {{ $invoice->order->company ?? null}}<br>
                                         <span style=" font-weight: 600; ">Email : &nbsp </span>
-                                        {{ $invoice->order->email }}<br>
+                                        {{ $invoice->order->email ?? null}}<br>
                                         <span style=" font-weight: 600; ">Phone #: &nbsp </span>
-                                        {{ $invoice->order->phone1 }}<br>
+                                        {{ $invoice->order->phone1 ?? null}}<br>
 
                                     </div>
                                     <div class="tm_border_right tm_accent_border_20 tm_border_none_sm">
                                         <span style=" font-weight: 600; ">Address: &nbsp </span>
-                                        {{ $invoice->order->address_01 }},<br>
-                                        {{ $invoice->order->city }},
-                                        {{ $invoice->order->state }} {{ $invoice->order->postal_code }},
-                                        {{ $invoice->order->country }}
+                                        {{ $invoice->order->address_01 ?? null}},<br>
+                                        {{ $invoice->order->city ?? null}},
+                                        {{ $invoice->order->state ?? null}} {{ $invoice->order->postal_code ?? null}},
+                                        {{ $invoice->order->country ?? null}}
 
                                     </div>
                                     <?php
@@ -113,7 +118,7 @@
                                     <div class="row" style=" gap: 10px;">
                                         <div class="col-4">
                                             <span style=" font-weight: 600; ">invoice # :</span>
-                                            {{ $invoice->order->id }} <br>
+                                            {{ $invoice->order->id  ?? null}} <br>
                                             <span style=" font-weight: 600; ">invoice Date :</span>
                                             {{ Carbon::now()->toDateString() }}
 
@@ -170,11 +175,13 @@
                                                 </td>
                                                 
                                                 <td class="tm_width_8"> <span style=" font-weight: 600; ">
-                                                        {{ $item->product->name }}</span> <br>
+                                                        {{ $item->product->name ?? null}} </span> <br>
                                                     <span style=" font-weight: 600; ">Model #:
-                                                    </span>{{ $item->product->model_no }}<br>
+                                                    </span>{{ $item->product->model_no ?? null}}<br>
                                                     <span style=" font-weight: 600; ">SKU:
-                                                    </span>{{ $item->product->sku }}<br><br>
+                                                    </span>{{ $item->product->sku ?? null}}<br>
+                                                    <span style=" font-weight: 600; ">Supplier:
+                                                    </span>{{$item->vendor->company ?? null}}<br><br>
                                                     <hr>
                                                     <div class="row">
                                                         <div class="col-6">
@@ -214,9 +221,9 @@
 
                                                     </div>
                                                 </td>
-                                                {{-- <!-- <td class="tm_width_3">{{ $item->product->model_no }}</td> --> --}}
-                                                {{-- <td class="tm_width_2">{{ $item->product->sku }}</td> --}}
-                                                {{-- <td class="tm_width_3">{{ $item->product->tax_charges }}%</td> --}}
+                                                {{-- <!-- <td class="tm_width_3">{{ $item->product->model_no ?? null}}</td> --> --}}
+                                                {{-- <td class="tm_width_2">{{ $item->product->sku ?? null}}</td> --}}
+                                                {{-- <td class="tm_width_3">{{ $item->product->tax_charges ?? null}}%</td> --}}
                                                 <td class="tm_width_1">{{ $item->quantity }}</td>
                                                 <td class="tm_width_1">${{ $item->p_price }}</td>
                                                 <?php
@@ -291,24 +298,24 @@
                         <p class="tm_primary_color tm_mb2 tm_f16 tm_bold">Shipping To:</p>
                         <div class="tm_grid_row tm_col_3 tm_align_center">
                             <div class="tm_border_right tm_accent_border_20 tm_border_none_sm">
-                                <i class="fas fa-user tm_icon"></i> {{ $invoice->order->shipping_full_name }} <br>
+                                <i class="fas fa-user tm_icon"></i> {{ $invoice->order->shipping_full_name ?? null}} <br>
                                 <i class="fas fa-building tm_icon"></i>
-                                {{ $invoice->order->shipping_company_name }}<br>
+                                {{ $invoice->order->shipping_company_name ?? null}}<br>
 
 
                             </div>
                             <div class="tm_border_right tm_accent_border_20 tm_border_none_sm">
-                                <i class="fas fa-envelope tm_icon"></i> {{ $invoice->order->shipping_email }}<br>
+                                <i class="fas fa-envelope tm_icon"></i> {{ $invoice->order->shipping_email ?? null}}<br>
                                 <i class="fas fa-phone tm_icon"></i>
-                                {{ $invoice->order->shipping_contact_number }}<br>
+                                {{ $invoice->order->shipping_contact_number ?? null}}<br>
 
                             </div>
                             <div class="  tm_accent_border_20 tm_border_none_sm">
                                 <i class="fas fa-map-marker-alt tm_icon"></i>
-                                {{ $invoice->order->shipping_address }},<br>
-                                {{ $invoice->order->shipping_city }},
-                                {{ $invoice->order->shipping_state }} {{ $invoice->order->shipping_zipcode }},
-                                {{ $invoice->order->shipping_country }}<br>
+                                {{ $invoice->order->shipping_address ?? null}},<br>
+                                {{ $invoice->order->shipping_city ?? null}},
+                                {{ $invoice->order->shipping_state ?? null}} {{ $invoice->order->shipping_zipcode ?? null}},
+                                {{ $invoice->order->shipping_country ?? null}}<br>
 
                             </div>
 

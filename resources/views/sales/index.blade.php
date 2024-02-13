@@ -39,10 +39,10 @@
                         </thead>
                         <tbody>
                             <?php
-                                $total_commission = 0;
-                                $total_product_price = 0;
-                                $totalTax = 0;
-                                ?>
+                            $total_commission = 0;
+                            $total_product_price = 0;
+                            $totalTax = 0;
+                            ?>
                             @foreach ($data as $value => $orders)
                                 <tr>
 
@@ -59,19 +59,19 @@
 
                                     <td>{{ $orders->product->sku ?? null }} </td>
                                     <td>{{ $orders->product->subcategories->commission ?? null }}% </td>
-                                    
-                                    <?php
-                                        $product_price = $orders->p_price;
-                                        $commissionAmount = ($orders->product->subcategories->commission / 100) * $product_price; 
-                                        $total_commission += $commissionAmount;
 
-                                        $TaxAmount = ($orders->product->tax_charges / 100) * $product_price ;
-                                        $totalTax +=  $TaxAmount;
+                                    <?php
+                                    $product_price = $orders->p_price;
+                                    $commissionAmount = ($orders->product->subcategories->commission / 100) * $product_price;
+                                    $total_commission += $commissionAmount;
+                                    
+                                    $TaxAmount = ($orders->product->tax_charges / 100) * $product_price;
+                                    $totalTax += $TaxAmount;
                                     ?>
                                     <td>${{ $orders->p_price ?? null }} </td>
 
                                     <?php
-                                        $total_product_price +=  $orders->p_price;
+                                    $total_product_price += $orders->p_price;
                                     ?>
                                     {{-- <td>{{ $orders->first_name }}</td> --}}
 
@@ -144,7 +144,7 @@
         </div>
     </div>
 
- <div class="separator-breadcrumb border-top"></div>
+    <div class="separator-breadcrumb border-top"></div>
     <div class="col-md-12 mb-4">
         <div class="card text-start">
 
@@ -164,10 +164,10 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>+${{ $total_product_price}}</td>
-                                <td>+${{$totalTax}}</td>
-                                <td>-${{$total_commission}}</td>
-                                <td>${{$total_product_price - $total_commission}}</td>
+                                <td>+${{ $total_product_price }}</td>
+                                <td>+${{ $totalTax }}</td>
+                                <td>-${{ $total_commission }}</td>
+                                <td>${{ $total_product_price - $total_commission }}</td>
 
                             </tr>
                         </tbody>
@@ -188,7 +188,7 @@
 
             </div>
         </div>
-    </div> 
+    </div>
 @endsection
 
 @section('page-js')
