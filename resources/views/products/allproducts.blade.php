@@ -335,26 +335,25 @@
         </div>
     </div> --}}
 
-    <form action="{{ route('products.index') }}" method="GET">
+    {{-- <form action="{{ route('products.index') }}" method="GET">
 
         <select for="nameFilter" id="choices-multiple-remove-button" name="name[]" class="form-select"
-        placeholder="Select Product (Maximum Lenght 1)" multiple>
-        @foreach ($products as $key => $product)
-            <option value="{{ $product->name }}">{{ $product->name }}</option>
-        @endforeach
-    </select>
+            placeholder="Select Product (Maximum Lenght 1)" multiple>
+            @foreach ($products as $key => $product)
+                <option value="{{ $product->name }}">{{ $product->name }}</option>
+            @endforeach
+        </select>
         <input type="text" name="model_no" placeholder="Product Model">
         <input type="text" name="sku" placeholder="Product sku">
         <select name="make">
             <option value="">Select Supplier</option>
-            @foreach ($supplier as  $item)
-            <option value="{{$item->name}}">{{$item->name}}</option>
-                
+            @foreach ($supplier as $item)
+                <option value="{{ $item->name }}">{{ $item->name }}</option>
             @endforeach
         </select>
         <!-- Include more input fields and select dropdowns for other filters -->
         <button type="submit">Apply Filter</button>
-    </form>
+    </form> --}}
     <div class="breadcrumb col-lg-12">
         <div class="col-md-6 col-sm-6">
             <h1>All Product</h1>
@@ -390,97 +389,97 @@
     <script src="{{ asset('assets/js/vendor/nuslider.min.js') }}"></script>
     <script src="{{ asset('assets/js/nuslider.script.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.1/nouislider.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script>
-                $(document).ready(function() {
-                    var sliders = []; // Array to store slider instances
-                    var sliderValues = []; // Array to store slider value elements
-                    var totalPriceElement = $('#total-price'); // Element to display total price
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var sliders = []; // Array to store slider instances
+            var sliderValues = []; // Array to store slider value elements
+            var totalPriceElement = $('#total-price'); // Element to display total price
 
-                    // Initialize 5 sliders
-                    for (var i = 1; i <= 5; i++) {
-                        var slider = document.getElementById('slider-non-linear-' + i);
-                        var sliderValue = document.getElementById('slider-non-linear-value-' + i);
-                        noUiSlider.create(slider, {
-                            start: 2000, // Initial value
-                            range: {
-                                'min': 0,
-                                'max': 5000
-                            },
-                            step: 100, // Slider step
-                            format: {
-                                to: function(value) {
-                                    return value.toFixed(2);
-                                },
-                                from: function(value) {
-                                    return parseFloat(value);
-                                }
-                            }
-                        });
-
-                        sliders.push(slider);
-                        sliderValues.push(sliderValue);
-                    }
-
-                    // Function to update total price
-                    function updateTotalPrice() {
-                        var totalPrice = 0;
-                        // Calculate total price from all slider values
-                        sliderValues.forEach(function(sliderValue) {
-                            totalPrice += parseFloat(sliderValue.innerHTML);
-                        });
-                        // Display total price
-                        totalPriceElement.text(totalPrice.toFixed(2));
-                    }
-
-                    // Update the value display when each slider is moved
-                    sliders.forEach(function(slider, index) {
-                        slider.noUiSlider.on('update', function(values, handle) {
-                            sliderValues[index].innerHTML = values[handle];
-                            updateTotalPrice(); // Update total price when any slider is moved
-                        });
-                    });
-                });
-
-                function toggleFilters() {
-                    var filterCard = document.getElementById("filterCard");
-                    filterCard.style.display = (filterCard.style.display === "none" || filterCard.style.display === "") ? "block" :
-                        "none";
-                }
-                $(document).ready(function() {
-                    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-                        removeItemButton: true,
-                        maxItemCount: 5,
-                        callbackOnCreateTemplates: function(template) {
-                            return {
-                                itemRemoveButton: function(classNames, data) {
-                                    return '<button type="button" class="' + classNames.button + ' ' +
-                                        classNames.button +
-                                        '--remove" aria-label="Remove item" data-button="' + data +
-                                        '">×</button>';
-                                },
-                            };
+            // Initialize 5 sliders
+            for (var i = 1; i <= 5; i++) {
+                var slider = document.getElementById('slider-non-linear-' + i);
+                var sliderValue = document.getElementById('slider-non-linear-value-' + i);
+                noUiSlider.create(slider, {
+                    start: 2000, // Initial value
+                    range: {
+                        'min': 0,
+                        'max': 5000
+                    },
+                    step: 100, // Slider step
+                    format: {
+                        to: function(value) {
+                            return value.toFixed(2);
                         },
-                    });
-
-                    // Change highlight color to light gray
-                    $('.choices__list--multiple .choices__item').css('background-color', '#d3d3d3');
-
-                    // Change background color on selection change
-                    $('#choices-multiple-remove-button').on('change', function() {
-                        changeBackgroundColor();
-                    });
+                        from: function(value) {
+                            return parseFloat(value);
+                        }
+                    }
                 });
 
-                function changeBackgroundColor() {
-                    var colorMap = {};
-                    var selectedOptions = $('#choices-multiple-remove-button').val();
+                sliders.push(slider);
+                sliderValues.push(sliderValue);
+            }
 
-                    $('.choices__list--multiple .choices__item').each(function(index, element) {
-                        var dataValue = $(element).attr('data-value');
-                        var backgroundColor = selectedOptions.includes(dataValue) ? '#d3d3d3' : '';
-                        $(element).css('background-color', backgroundColor);
-                    });
-                }
-            </script>
+            // Function to update total price
+            function updateTotalPrice() {
+                var totalPrice = 0;
+                // Calculate total price from all slider values
+                sliderValues.forEach(function(sliderValue) {
+                    totalPrice += parseFloat(sliderValue.innerHTML);
+                });
+                // Display total price
+                totalPriceElement.text(totalPrice.toFixed(2));
+            }
+
+            // Update the value display when each slider is moved
+            sliders.forEach(function(slider, index) {
+                slider.noUiSlider.on('update', function(values, handle) {
+                    sliderValues[index].innerHTML = values[handle];
+                    updateTotalPrice(); // Update total price when any slider is moved
+                });
+            });
+        });
+
+        function toggleFilters() {
+            var filterCard = document.getElementById("filterCard");
+            filterCard.style.display = (filterCard.style.display === "none" || filterCard.style.display === "") ? "block" :
+                "none";
+        }
+        $(document).ready(function() {
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+                removeItemButton: true,
+                maxItemCount: 5,
+                callbackOnCreateTemplates: function(template) {
+                    return {
+                        itemRemoveButton: function(classNames, data) {
+                            return '<button type="button" class="' + classNames.button + ' ' +
+                                classNames.button +
+                                '--remove" aria-label="Remove item" data-button="' + data +
+                                '">×</button>';
+                        },
+                    };
+                },
+            });
+
+            // Change highlight color to light gray
+            $('.choices__list--multiple .choices__item').css('background-color', '#d3d3d3');
+
+            // Change background color on selection change
+            $('#choices-multiple-remove-button').on('change', function() {
+                changeBackgroundColor();
+            });
+        });
+
+        function changeBackgroundColor() {
+            var colorMap = {};
+            var selectedOptions = $('#choices-multiple-remove-button').val();
+
+            $('.choices__list--multiple .choices__item').each(function(index, element) {
+                var dataValue = $(element).attr('data-value');
+                var backgroundColor = selectedOptions.includes(dataValue) ? '#d3d3d3' : '';
+                $(element).css('background-color', backgroundColor);
+            });
+        }
+    </script>
 @endsection
