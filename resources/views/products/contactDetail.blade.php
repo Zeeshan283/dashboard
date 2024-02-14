@@ -33,21 +33,22 @@
                         <hr>
                         <div class="container">
                             <div class="row">
-                                @if(Auth::user()->role == "Admin")
-                                <div class="mb-4 col-4">
-                                    <p class="text-primary mb-1"><i class="i-Edit-Map text-16 mr-1"></i> Supplier Id#
-                                    </p>
-                                    <span>{{ $data->supplier_id }}</span>
-                                </div>
-                                <div class=" mb-4 col-4">
-                                    <p class="text-primary mb-1"><i class="i-Calendar text-16 mr-1"></i> Supplier Name
-                                    </p>
-                                    <span>{{ $data->supplier_name }}</span>
-                                </div>
-                                <div class="col-4 mb-4">
-                                    <p class="text-primary mb-1"><i class="i-Globe text-16 mr-1"></i> Supplier Profile Link</p>
-                                    <span>{{ $data->supplier_profile_link }}</span>
-                                </div>
+                                @if (Auth::user()->role == 'Admin')
+                                    <div class="mb-4 col-4">
+                                        <p class="text-primary mb-1"><i class="i-Edit-Map text-16 mr-1"></i> Supplier Id#
+                                        </p>
+                                        <span>{{ $data->supplier_id }}</span>
+                                    </div>
+                                    <div class=" mb-4 col-4">
+                                        <p class="text-primary mb-1"><i class="i-Calendar text-16 mr-1"></i> Supplier Name
+                                        </p>
+                                        <span>{{ $data->supplier_name }}</span>
+                                    </div>
+                                    <div class="col-4 mb-4">
+                                        <p class="text-primary mb-1"><i class="i-Globe text-16 mr-1"></i> Supplier Profile
+                                            Link</p>
+                                        <span>{{ $data->supplier_profile_link }}</span>
+                                    </div>
                                 @endif
                                 <div class="mb-4 col-4">
                                     <p class="text-primary mb-1"><i class="i-Edit-Map text-16 mr-1"></i> Customer Id#
