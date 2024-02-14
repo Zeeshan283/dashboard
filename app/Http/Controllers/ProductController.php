@@ -17,6 +17,7 @@ use App\Models\ProductLocations;
 use App\Models\ProductShippment;
 use App\Models\ProductSizes;
 use App\Models\User;
+use App\Models\vendorProfile;
 use App\Models\Color;
 use App\Models\ProductColors;
 use Illuminate\Support\Facades\File;
@@ -34,20 +35,49 @@ class ProductController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-
         $data = "";
         if (Auth::User()->role == 'Admin') {
-            $data = Product::with('product_image','categories:id,name','subcategories:id,name')
-                ->OrderBy('id', 'desc')
-                ->get();
+            // $data = Product::with('product_image','categories:id,name','subcategories:id,name')
+            //     ->OrderBy('id', 'desc')
+            //     ->get();
             $brand = Brand::all();
             $categories = Category::all();
             $subcategories = SubCategory::all();
-            $product = Product::all();
+            $products = Product::all();
             $vendors = User::where('role','Vendor')->get();
             $colors = Color::all();
+
+            $query = Product::query();
+            $supplier = User::where('role','Vendor')->get();
+
+            // Apply filters if provided in the request
+            // dd($request->all());            
+            if ($request->has('name')) {
+                $names = $request->input('name');
+                if (is_array($names)) {
+                    $query->whereIn('name', $names);
+                } else {
+                    $query->where('name', $names);
+                }
+            }
+            if ($request->filled('model_no')) { 
+                $query->where('model_no', 'like', '%' . $request->input('model_no') . '%');
+            }
+        
+            if ($request->filled('sku')) {
+                $query->where('sku',$request->sku );
+            }
+            if ($request->filled('make')) {
+                $query->where('make',$request->make );
+            }
+        
+            // Add more filtering conditions for other fields if needed
+        
+            $data = $query->get();
+         
+            
         } else {
             $data = Product::with('product_image','categories:id,name','subcategories:id,name')
                 ->where('created_by', Auth::User()->id)
@@ -59,7 +89,8 @@ class ProductController extends Controller
             $vendors = User::where('role','Vendor')->get();
 
         }
-        return view('products.allproducts', compact('data', 'brand', 'categories', 'subcategories','vendors', 'colors'));
+
+        return view('products.allproducts', compact('data','products','supplier', 'brand', 'categories', 'subcategories','vendors', 'colors'));
     }
 
     public function productsView(){
