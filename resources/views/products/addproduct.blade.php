@@ -171,13 +171,10 @@
                                                                 {!! Form::hidden('make', Auth::User()->name, ['id' => 'make', 'class' => 'form-control']) !!}
                                                                 {!! Form::hidden('created_by',Auth::User()->id,['id'=>'created_by','class'=>'form-control']) !!}
                                                             @endif
-
                                                             @if ($errors->has('make'))
                                                                 <span  style="color: red;"
                                                                     class="invalid-feedback1 font-weight-bold">{{ $errors->first('make') }}</span  style="color: red;">
                                                             @endif
-
-
                                                     </div>
 
                                         </div>

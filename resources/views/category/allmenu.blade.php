@@ -11,7 +11,7 @@
                     <a class="{{ Route::currentRouteName() == 'addmenu' ? 'open' : '' }}"
                         href="{{ route('addmenu') }}">
                      <button class="btn btn-outline-secondary" type="submit">Add Menu</button>
-                 </a>        
+                 </a>
                 </div>
             </div>
 
@@ -21,10 +21,6 @@
 
                     <div class="card-body">
                         <h4 class="card-title mb-3">All Menus</h4>
-                        {{-- <p>With DataTables you can alter the ordering characteristics of the table at initialisation time. Using
-                            the order initialisation parameter, you can set the table to display the data in exactly the order
-                            that you want.</p> --}}
-
                         <div class="table-responsive">
                             <table id="deafult_ordering_table" class="display table table-striped table-bordered"
                                 style="width:100%">

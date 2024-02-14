@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use App\Models\OrderDetail;
 
@@ -276,7 +276,7 @@ if (Auth::user()->role == 'Vendor') {
         </ul>
 
         <ul class="childNav" data-parent="charts">
-            
+
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'products.create' ? 'open' : '' }}"
                     href="{{ route('products.create') }}">
@@ -564,12 +564,20 @@ if (Auth::user()->role == 'Vendor') {
             </li> --}}
         </ul>
 
-        <ul class="childNav" data-parent="profile">
+        <ul class="childNav" data-parent="accountdetails">
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'vendor-profile' && Auth::user()->role == 'Vendor' ? 'open' : '' }}"
                     href="{{ URL::to('vendor-profile/' . Auth::user()->id) }}">
                     <i class="nav-icon i-Male"></i>
                     <span class="item-name">Profile</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'vendor-profile' && Auth::user()->role == 'Vendor' ? 'open' : '' }}"
+                    href="{{ URL::to('vendor-profile/' . Auth::user()->id) }}">
+                    <i class="i-Bell text-muted header-icon"></i>&NonBreakingSpace;
+                    <span class="item-name">Notification History</span>
                 </a>
             </li>
 

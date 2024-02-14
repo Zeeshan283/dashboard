@@ -46,6 +46,8 @@ class ProductController extends Controller
             $categories = Category::all();
             $subcategories = SubCategory::all();
             $product = Product::all();
+            $vendors = User::where('role','Vendor')->get();
+            $colors = Color::all();
         } else {
             $data = Product::with('product_image','categories:id,name','subcategories:id,name')
                 ->where('created_by', Auth::User()->id)
@@ -54,8 +56,10 @@ class ProductController extends Controller
             $brand = Brand::all();
             $categories = Category::all();
             $subcategories = SubCategory::all();
+            $vendors = User::where('role','Vendor')->get();
+
         }
-        return view('products.allproducts', compact('data', 'brand', 'categories', 'subcategories'));
+        return view('products.allproducts', compact('data', 'brand', 'categories', 'subcategories','vendors', 'colors'));
     }
 
     public function productsView(){
@@ -131,8 +135,6 @@ class ProductController extends Controller
             $this->validate(
                 $request,
                 [
-
-
                     'name' => 'required',
                     'make' => 'required',
                     // 'min_order' => 'required',
