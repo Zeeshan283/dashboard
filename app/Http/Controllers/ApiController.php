@@ -137,7 +137,7 @@ class ApiController extends Controller
                 'customer_id' => 'integer',
                 'customer_name' => 'max:191|min:1',
                 'customer_email' => 'required|max:191|min:1',
-                'customer_contact_no' => 'max:191|min:1',
+                'customer_contact_no' => 'required|string|max:25|min:1',
                 'customer_company_name' => 'max:191|min:1',
                 'customer_address' => 'max:191|min:1',
                 'customer_profile_link' => 'max:191|min:1',
