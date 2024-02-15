@@ -563,6 +563,16 @@ if (Auth::user()->role == 'Vendor') {
             </a>
             </li> --}}
         </ul>
+        <ul class="childNav" data-parent="contacts">
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'contacts.index' ? 'open' : '' }}"
+                    href="{{ route('contacts.index') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Contact Us</span>
+                </a>
+            </li>
+            
+        </ul>
 
         <ul class="childNav" data-parent="accountdetails">
             <li class="nav-item">
