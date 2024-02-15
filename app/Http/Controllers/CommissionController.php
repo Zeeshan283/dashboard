@@ -39,7 +39,7 @@ class CommissionController extends Controller
                 ->get();
         }
         // $data = Order::orderBy('id', 'desc')->get();
-        return view('Commissions.index', compact('data'));
+        return view('commissions.index', compact('data'));
     }
 
     /**
