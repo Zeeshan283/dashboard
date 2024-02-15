@@ -53,7 +53,7 @@ class ProductController extends Controller
             $supplier = User::where('role','Vendor')->get();
 
             // Apply filters if provided in the request
-            // dd($request->all());            
+            // dd($request->all());
             if ($request->has('name')) {
                 $names = $request->input('name');
                 if (is_array($names)) {
@@ -62,22 +62,108 @@ class ProductController extends Controller
                     $query->where('name', $names);
                 }
             }
-            if ($request->filled('model_no')) { 
-                $query->where('model_no', 'like', '%' . $request->input('model_no') . '%');
+            if ($request->has('model_no')) {
+                $model_nos = $request->input('model_no');
+                if (is_array($model_nos)) {
+                    $query->whereIn('model_no', $model_nos);
+                } else {
+                    $query->where('model_no', $model_nos);
+                }
             }
-        
-            if ($request->filled('sku')) {
-                $query->where('sku',$request->sku );
+            if ($request->has('sku')) {
+                $skus = $request->input('sku');
+                if (is_array($skus)) {
+                    $query->whereIn('sku', $skus);
+                } else {
+                    $query->where('sku', $skus);
+                }
             }
-            if ($request->filled('make')) {
-                $query->where('make',$request->make );
+
+            if ($request->has('make')) {
+                $make = $request->input('make');
+                if (is_array($make)) {
+                    $query->whereIn('make', $make);
+                } else {
+                    $query->where('make', $make);
+                }
             }
-        
-            // Add more filtering conditions for other fields if needed
-        
+
+            if ($request->has('categories')) {
+                $categories = $request->input('categories');
+                if (is_array($categories)) {
+                    $query->whereIn('categories', $categories);
+                } else {
+                    $query->where('categories', $categories);
+                }
+            }
+
+
+            if ($request->has('subcategories')) {
+                $subcategories = $request->input('subcategories');
+                if (is_array($subcategories)) {
+                    $query->whereIn('subcategories', $subcategories);
+                } else {
+                    $query->where('subcategories', $subcategories);
+                }
+            }
+
+            if ($request->has('brand_name')) {
+                $brand = $request->input('brand_name');
+                if (is_array($brand)) {
+                    $query->whereIn('brand_name', $brand);
+                } else {
+                    $query->where('brand_name', $brand);
+                }
+            }
+
+            if ($request->has('new_price')) {
+                $price = $request->input('new_price');
+                if (is_array($price)) {
+                    $query->whereIn('new_price', $price);
+                } else {
+                    $query->where('new_price', $price);
+                }
+            }
+
+
+            if ($request->has('new_sale_price')) {
+                $price = $request->input('new_sale_price');
+                if (is_array($price)) {
+                    $query->whereIn('new_sale_price', $price);
+                } else {
+                    $query->where('new_sale_price', $price);
+                }
+            }
+
+            if ($request->has('new_sale_price')) {
+                $price = $request->input('new_sale_price');
+                if (is_array($price)) {
+                    $query->whereIn('new_sale_price', $price);
+                } else {
+                    $query->where('new_sale_price', $price);
+                }
+            }
+
+            if ($request->has('new_warranty_days')) {
+                $days = $request->input('new_warranty_days');
+                if (is_array($days)) {
+                    $query->whereIn('new_warranty_days', $days);
+                } else {
+                    $query->where('new_warranty_days', $days);
+                }
+            }
+
+            if ($request->has('new_return_days')) {
+                $days = $request->input('new_return_days');
+                if (is_array($days)) {
+                    $query->whereIn('new_return_days', $days);
+                } else {
+                    $query->where('new_return_days', $days);
+                }
+            }
             $data = $query->get();
-         
-            
+
+
         } else {
             $data = Product::with('product_image','categories:id,name','subcategories:id,name')
                 ->where('created_by', Auth::User()->id)
