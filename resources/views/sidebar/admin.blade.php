@@ -117,6 +117,12 @@
         </a>
         {{-- <div class="triangle"></div> --}}
     </li>
+    <li class="nav-item {{ request()->is('contacts/*') ? 'active' : '' }}" data-item="contacts">
+        <a class="nav-item-hold" href="#">
+            <i class="nav-icon i-Support"></i>
+            <span class="nav-text">Support & <br> Contact</span>
+        </a>
+    </li>
     <li class="nav-item {{ request()->is('terms/*') ? 'active' : '' }}" data-item="terms">
         <a class="nav-item-hold" href="/test.html">
             <i class="nav-icon i-Windows-2"></i>

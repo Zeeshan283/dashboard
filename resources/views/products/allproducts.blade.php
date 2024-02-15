@@ -319,222 +319,26 @@ body {
             <p>Total Price: <span id="total-price">0.00</span></p>
         </div>
     </div> --}}
-        <div class="card-body">
-            <button class="popup-button btn btn-primary col-md-1"
-                style="color: black; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
-                Filters</button><br><br>
-            <div class="filter-card" id="filterCard">
-                <div class="card-body">
-                    <form action="{{ route('products.index') }}" method="GET">
-                    <div class="form-group row">
 
-                        <div class="col-lg-2">
-                            <div class="dropdown" data-control="checkbox-dropdown">
-                                <label class="dropdown-label">Select</label>
-                                <div class="dropdown-list">
-                                    @foreach ($products as $key => $product)
-                                        <label class="dropdown-option">
-                                            <input type="checkbox" name="dropdown-group[]" value="{{ $product->name }}" />
-                                            {{ $product->name }}
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
+    <form action="{{ route('products.index') }}" method="GET">
 
-                        </div>
-                        <label for="model_noFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Model
-                            No:</label>
-                        <div class="col-lg-2">
-                            <div class="dropdown" data-control="checkbox-dropdown">
-                                <label class="dropdown-label">Select</label>
-                                <div class="dropdown-list">
-                                    @foreach ($products as $key => $product)
-                                        <label class="dropdown-option">
-                                            <input type="checkbox" name="dropdown-group[]" value="{{ $product->model_no }}" />
-                                            {{ $product->model_no }}
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-
-                        <label for="skuFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">SKU:</label>
-                        <div class="col-lg-2">
-                            <div class="dropdown" data-control="checkbox-dropdown">
-                                <label class="dropdown-label">Select</label>
-                                <div class="dropdown-list">
-                                    @foreach ($products as $key => $product)
-                                        <label class="dropdown-option">
-                                            <input type="checkbox" name="dropdown-group[]" value="{{ $product->sku }}" />
-                                            {{ $product->sku }}
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-
-                        <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Color</label>
-                        <div class=" col-lg-2">
-                            <div class="dropdown" data-control="checkbox-dropdown">
-                                <label class="dropdown-label">Select</label>
-                                <div class="dropdown-list">
-                                    @foreach ($colors as $key => $color)
-                                        <label class="dropdown-option">
-                                            <input type="checkbox" name="dropdown-group[]" value="{{ $product->name }}" />
-                                            {{ $product->name }}
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="form-group row">
-        {{-- <input type="text" name="model_no" placeholder="Product Model"> --}}
-        {{-- <input type="text" name="sku" placeholder="Product sku"> --}}
-        <label for="makeFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Supplier
-            Name:</label>
-        <div class="col-lg-2">
-            <div class="dropdown" data-control="checkbox-dropdown">
-                <label class="dropdown-label">Select</label>
-                <div class="dropdown-list">
-                    @foreach ($products as $key => $product)
-                        <label class="dropdown-option">
-                            <input type="checkbox" name="dropdown-group[]" value="{{ $product->make }}" />
-                            {{ $product->make }}
-                        </label>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-        <label for="categoriesFilter"
-        class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Categories:</label>
-    <div class="col-lg-2">
-        <select id="choices-multiple-remove-button"for="categoriesFilter" name="categories[]"
-            class="form-select" placeholder="Select Product (Maximum Lenght 1)" multiple>
-            @foreach ($categories as $categories)
-                <option value="{{ $categories->name }}">
-                    @if ($categories->name)
-                        {{ $categories->name ?? null }}
-                    @endif
-                </option>
-            @endforeach
-        </select>
-    </div>
-
-    <label for="subcategoriesFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Sub
-        Categories:</label>
-    <div class=" col-lg-2">
-        <select id="choices-multiple-remove-button" name="colors[]" class="form-select"
-            placeholder="Select Product (Maximum Lenght 1)" multiple>
-            @foreach ($subcategories as $subcategory)
-                <option value="{{ $subcategory->name }}">
-                    @if ($subcategory->name)
-                        {{ $subcategory->name }}
-                    @endif
-                </option>
-            @endforeach
-        </select>
-    </div>
-
-    <label for="brand_idFilter"
-    class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Brand</label>
-<div class="col-lg-2">
-    <select id="choices-multiple-remove-button" name="colors[]" class="form-control"
-        placeholder="Select Color (Maximum Lenght 1)" multiple>
-        @foreach ($brand as $brand)
-            <option value="{{ $brand->brand_name ?? null }}">
-                {{ $brand->brand_name ?? null }}
-            </option>
+        <select for="nameFilter" id="choices-multiple-remove-button" name="name[]" class="form-select"
+        placeholder="Select Product (Maximum Lenght 1)" multiple>
+        @foreach ($products as $key => $product)
+            <option value="{{ $product->name }}">{{ $product->name }}</option>
         @endforeach
     </select>
-</div>
-                    </div>
-                </div>
+        <input type="text" name="model_no" placeholder="Product Model">
+        <input type="text" name="sku" placeholder="Product sku">
+        <select name="make">
+            <option value="">Select Supplier</option>
+            @foreach ($supplier as  $item)
+            <option value="{{$item->name}}">{{$item->name}}</option>
 
-                <div class="card-body">
-                    <div class="form-group row">
-                        <!-- Slider 1 -->
-                        <label for="priceFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label"
-                            style="font-size: 16px">Price: </label>&NonBreakingSpace;&NonBreakingSpace;
-                        <div class="slider-example col-lg-2">
-                            <div class="mb-3 slider-default noUi-target noUi-ltr noUi-horizontal" id="slider-non-linear-1">
-                                <div class="noUi-base">
-                                    <div class="noUi-connect" style="left: 0%; right: 0%;"></div>
-                                    <div class="noUi-origin" style="left: 100%;">
-                                        <div class="noUi-handle noUi-handle-lower"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>Value: <span id="slider-non-linear-value-1">2000.00</span></p>
-                        </div>
-
-                        <!-- Slider 2 -->
-                        <label for="priceFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label"
-                            style="font-size: 16px">Tax Price: </label>&NonBreakingSpace;&NonBreakingSpace;
-                        <div class="slider-example col-lg-2">
-                            <div class="mb-3 slider-default noUi-target noUi-ltr noUi-horizontal" id="slider-non-linear-2">
-                                <div class="noUi-base">
-                                    <div class="noUi-connect" style="left: 0%; right: 0%;"></div>
-                                    <div class="noUi-origin" style="left: 100%;">
-                                        <div class="noUi-handle noUi-handle-lower"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>Value: <span id="slider-non-linear-value-2">2000.00</span></p>
-                        </div>
-
-                        <!-- Slider 3 -->
-                        <label for="priceFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label"
-                            style="font-size: 16px">Commission Price: </label>&NonBreakingSpace;&NonBreakingSpace;
-                        <div class="slider-example col-lg-2">
-                            <div class="mb-3 slider-default noUi-target noUi-ltr noUi-horizontal" id="slider-non-linear-3">
-                                <div class="noUi-base">
-                                    <div class="noUi-connect" style="left: 0%; right: 0%;"></div>
-                                    <div class="noUi-origin" style="left: 100%;">
-                                        <div class="noUi-handle noUi-handle-lower"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>Value: <span id="slider-non-linear-value-3">2000.00</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <!-- Slider 4 -->
-                        <label for="priceFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label"
-                            style="font-size: 16px">Return Days: </label>&NonBreakingSpace;&NonBreakingSpace;
-                        <div class="slider-example col-lg-2">
-                            <div class="mb-3 slider-default noUi-target noUi-ltr noUi-horizontal" id="slider-non-linear-4">
-                                <div class="noUi-base">
-                                    <div class="noUi-connect" style="left: 0%; right: 0%;"></div>
-                                    <div class="noUi-origin" style="left: 100%;">
-                                        <div class="noUi-handle noUi-handle-lower"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>Value: <span id="slider-non-linear-value-4">2000.00</span></p>
-                        </div>
-
-                        <!-- Slider 5 -->
-                        <label for="priceFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label"
-                            style="font-size: 16px">Warranty Days: </label>&NonBreakingSpace;&NonBreakingSpace;
-                        <div class="slider-example col-lg-2">
-                            <div class="mb-3 slider-default noUi-target noUi-ltr noUi-horizontal" id="slider-non-linear-5">
-                                <div class="noUi-base">
-                                    <div class="noUi-connect" style="left: 0%; right: 0%;"></div>
-                                    <div class="noUi-origin" style="left: 100%;">
-                                        <div class="noUi-handle noUi-handle-lower"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>Value: <span id="slider-non-linear-value-5">2000.00</span></p>
-                        </div>
-                    </div>
-                </div>
-        <button type="submit">submit</button>
+            @endforeach
+        </select>
+        <!-- Include more input fields and select dropdowns for other filters -->
+        <button type="submit">Apply Filter</button>
     </form>
     <div class="breadcrumb col-lg-12">
         <div class="col-md-6 col-sm-6">
@@ -572,187 +376,95 @@ body {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.1/nouislider.min.js"></script>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
-                (function($) {
-  var CheckboxDropdown = function(el) {
-    var _this = this;
-    this.isOpen = false;
-    this.areAllChecked = false;
-    this.$el = $(el);
-    this.$label = this.$el.find('.dropdown-label');
-    this.$checkAll = this.$el.find('[data-toggle="check-all"]').first();
-    this.$inputs = this.$el.find('[type="checkbox"]');
-
-    this.onCheckBox();
-
-    this.$label.on('click', function(e) {
-      e.preventDefault();
-      _this.toggleOpen();
-    });
-
-    this.$checkAll.on('click', function(e) {
-      e.preventDefault();
-      _this.onCheckAll();
-    });
-
-    this.$inputs.on('change', function(e) {
-      _this.onCheckBox();
-    });
-  };
-
-  CheckboxDropdown.prototype.onCheckBox = function() {
-    this.updateStatus();
-  };
-
-  CheckboxDropdown.prototype.updateStatus = function() {
-    var checked = this.$el.find(':checked');
-
-    this.areAllChecked = false;
-    this.$checkAll.html('Check All');
-
-    if(checked.length <= 0) {
-      this.$label.html('Select Options');
-    }
-    else if(checked.length === 1) {
-      this.$label.html(checked.parent('label').text());
-    }
-    else if(checked.length === this.$inputs.length) {
-      this.$label.html('All Selected');
-      this.areAllChecked = true;
-      this.$checkAll.html('Uncheck All');
-    }
-    else {
-      this.$label.html(checked.length + ' Selected');
-    }
-  };
-
-  CheckboxDropdown.prototype.onCheckAll = function(checkAll) {
-    if(!this.areAllChecked || checkAll) {
-      this.areAllChecked = true;
-      this.$checkAll.html('Uncheck All');
-      this.$inputs.prop('checked', true);
-    }
-    else {
-      this.areAllChecked = false;
-      this.$checkAll.html('Check All');
-      this.$inputs.prop('checked', false);
-    }
-
-    this.updateStatus();
-  };
-
-  CheckboxDropdown.prototype.toggleOpen = function(forceOpen) {
-    var _this = this;
-
-    if(!this.isOpen || forceOpen) {
-       this.isOpen = true;
-       this.$el.addClass('on');
-      $(document).on('click', function(e) {
-        if(!$(e.target).closest('[data-control]').length) {
-         _this.toggleOpen();
-        }
-      });
-    }
-    else {
-      this.isOpen = false;
-      this.$el.removeClass('on');
-      $(document).off('click');
-    }
-  };
-
-  var checkboxesDropdowns = document.querySelectorAll('[data-control="checkbox-dropdown"]');
-  for(var i = 0, length = checkboxesDropdowns.length; i < length; i++) {
-    new CheckboxDropdown(checkboxesDropdowns[i]);
-  }
-})(jQuery);
                 $(document).ready(function() {
                     var sliders = []; // Array to store slider instances
                     var sliderValues = []; // Array to store slider value elements
                     var totalPriceElement = $('#total-price'); // Element to display total price
 
-                    // Initialize 5 sliders
-                    for (var i = 1; i <= 5; i++) {
-                        var slider = document.getElementById('slider-non-linear-' + i);
-                        var sliderValue = document.getElementById('slider-non-linear-value-' + i);
-                        noUiSlider.create(slider, {
-                            start: 2000, // Initial value
-                            range: {
-                                'min': 0,
-                                'max': 5000
-                            },
-                            step: 100, // Slider step
-                            format: {
-                                to: function(value) {
-                                    return value.toFixed(2);
-                                },
-                                from: function(value) {
-                                    return parseFloat(value);
-                                }
-                            }
-                        });
-
-                        sliders.push(slider);
-                        sliderValues.push(sliderValue);
-                    }
-
-                    // Function to update total price
-                    function updateTotalPrice() {
-                        var totalPrice = 0;
-                        // Calculate total price from all slider values
-                        sliderValues.forEach(function(sliderValue) {
-                            totalPrice += parseFloat(sliderValue.innerHTML);
-                        });
-                        // Display total price
-                        totalPriceElement.text(totalPrice.toFixed(2));
-                    }
-
-                    // Update the value display when each slider is moved
-                    sliders.forEach(function(slider, index) {
-                        slider.noUiSlider.on('update', function(values, handle) {
-                            sliderValues[index].innerHTML = values[handle];
-                            updateTotalPrice(); // Update total price when any slider is moved
-                        });
-                    });
-                });
-
-                function toggleFilters() {
-                    var filterCard = document.getElementById("filterCard");
-                    filterCard.style.display = (filterCard.style.display === "none" || filterCard.style.display === "") ? "block" :
-                        "none";
-                }
-                $(document).ready(function() {
-                    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-                        removeItemButton: true,
-                        maxItemCount: 5,
-                        callbackOnCreateTemplates: function(template) {
-                            return {
-                                itemRemoveButton: function(classNames, data) {
-                                    return '<button type="button" class="' + classNames.button + ' ' +
-                                        classNames.button +
-                                        '--remove" aria-label="Remove item" data-button="' + data +
-                                        '">×</button>';
-                                },
-                            };
+            // Initialize 5 sliders
+            for (var i = 1; i <= 5; i++) {
+                var slider = document.getElementById('slider-non-linear-' + i);
+                var sliderValue = document.getElementById('slider-non-linear-value-' + i);
+                noUiSlider.create(slider, {
+                    start: 2000, // Initial value
+                    range: {
+                        'min': 0,
+                        'max': 5000
+                    },
+                    step: 100, // Slider step
+                    format: {
+                        to: function(value) {
+                            return value.toFixed(2);
                         },
-                    });
-
-                    // Change highlight color to light gray
-                    $('.choices__list--multiple .choices__item').css('background-color', '#d3d3d3');
-
-                    // Change background color on selection change
-                    $('#choices-multiple-remove-button').on('change', function() {
-                        changeBackgroundColor();
-                    });
+                        from: function(value) {
+                            return parseFloat(value);
+                        }
+                    }
                 });
 
-                function changeBackgroundColor() {
-                    var colorMap = {};
-                    var selectedOptions = $('#choices-multiple-remove-button').val();
+                sliders.push(slider);
+                sliderValues.push(sliderValue);
+            }
 
-                    $('.choices__list--multiple .choices__item').each(function(index, element) {
-                        var dataValue = $(element).attr('data-value');
-                        var backgroundColor = selectedOptions.includes(dataValue) ? '#d3d3d3' : '';
-                        $(element).css('background-color', backgroundColor);
-                    });
-                }
-            </script>
+            // Function to update total price
+            function updateTotalPrice() {
+                var totalPrice = 0;
+                // Calculate total price from all slider values
+                sliderValues.forEach(function(sliderValue) {
+                    totalPrice += parseFloat(sliderValue.innerHTML);
+                });
+                // Display total price
+                totalPriceElement.text(totalPrice.toFixed(2));
+            }
+
+            // Update the value display when each slider is moved
+            sliders.forEach(function(slider, index) {
+                slider.noUiSlider.on('update', function(values, handle) {
+                    sliderValues[index].innerHTML = values[handle];
+                    updateTotalPrice(); // Update total price when any slider is moved
+                });
+            });
+        });
+
+        function toggleFilters() {
+            var filterCard = document.getElementById("filterCard");
+            filterCard.style.display = (filterCard.style.display === "none" || filterCard.style.display === "") ? "block" :
+                "none";
+        }
+        $(document).ready(function() {
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+                removeItemButton: true,
+                maxItemCount: 5,
+                callbackOnCreateTemplates: function(template) {
+                    return {
+                        itemRemoveButton: function(classNames, data) {
+                            return '<button type="button" class="' + classNames.button + ' ' +
+                                classNames.button +
+                                '--remove" aria-label="Remove item" data-button="' + data +
+                                '">×</button>';
+                        },
+                    };
+                },
+            });
+
+            // Change highlight color to light gray
+            $('.choices__list--multiple .choices__item').css('background-color', '#d3d3d3');
+
+            // Change background color on selection change
+            $('#choices-multiple-remove-button').on('change', function() {
+                changeBackgroundColor();
+            });
+        });
+
+        function changeBackgroundColor() {
+            var colorMap = {};
+            var selectedOptions = $('#choices-multiple-remove-button').val();
+
+            $('.choices__list--multiple .choices__item').each(function(index, element) {
+                var dataValue = $(element).attr('data-value');
+                var backgroundColor = selectedOptions.includes(dataValue) ? '#d3d3d3' : '';
+                $(element).css('background-color', backgroundColor);
+            });
+        }
+    </script>
 @endsection

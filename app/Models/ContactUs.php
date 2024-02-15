@@ -9,7 +9,7 @@ class ContactUs extends Model
 {
     use HasFactory;
     protected $fillable = array(
-        'first_name', 'last_name', 'job_title', 'job_function', 'company',
-        'industry', 'email', 'phoneno', 'city', 'state', 'subject', 'message'
+        'title','user_type' , 'company',
+        'contact', 'email','name', 'city', 'state', 'country', 'message', 'profile_link'
     );
 }

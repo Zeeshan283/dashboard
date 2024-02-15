@@ -29,6 +29,7 @@ use App\Models\BlogsCategories;
 use App\Models\BlogsSubCategories;
 use App\Models\OrderTracker;
 use App\Models\PaymentMethod;
+use App\Models\ContactUs;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -136,7 +137,7 @@ class ApiController extends Controller
                 'customer_id' => 'integer',
                 'customer_name' => 'max:191|min:1',
                 'customer_email' => 'required|max:191|min:1',
-                'customer_contact_no' => 'max:191|min:1',
+                'customer_contact_no' => 'required|string|max:25|min:1',
                 'customer_company_name' => 'max:191|min:1',
                 'customer_address' => 'max:191|min:1',
                 'customer_profile_link' => 'max:191|min:1',
@@ -172,6 +173,39 @@ class ApiController extends Controller
 
             $p = ProductContact::create($request->all());
             $p->supplier_id = $request->supplier_id;
+            $p->save();
+
+            return Response::json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);
+        } else {
+            return Response::json(['data' => 'Bad Method Call', 'status' => '200']);
+        }
+    }
+public function ContactUsToAdmin(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string|max:191|min:1',
+                'user_type' => 'required|string|in:Customer,Supplier|max:191|min:1',
+                'name' => 'required|string|max:191|min:1',
+                'email' => 'required|email|max:191|min:1',
+                'contact' => 'required|string|max:25|min:1',
+                'company' => 'nullable|string|max:191|min:1',
+                'city' => 'nullable|string|max:191|min:1',
+                'state' => 'required|string|max:191|min:1',
+                'country' => 'required|string|max:191|min:1',
+                'profile_link' => 'required|string|max:191|min:1|url',
+                'message' => 'required|string|max:1500|min:1',
+
+                 
+            ], [
+                 
+            ]);
+
+            if ($validator->fails()) {
+                return Response::json(['error' => $validator->errors()], 401);
+            }
+
+            $p = ContactUs::create($request->all()); 
             $p->save();
 
             return Response::json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);

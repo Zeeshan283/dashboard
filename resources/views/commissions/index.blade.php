@@ -29,8 +29,9 @@
                             <th>Product Name</th>
                             <th>Product Model</th>
                             <th>Product Sku</th>
-                            <th>Product Commission</th>
-                            <th>Product Price</th>
+                            <th>Product Commission %</th>
+                            <th>Product Price</th> 
+                            <th>Commission Charges</th>
                             <th>Order Date</th>
                             {{-- <th>Shipping Date</th> --}}
                             <th>Image</th>
@@ -73,35 +74,15 @@
                                     <td>${{ $orders->p_price ?? null }} </td>
                                     <?php
                                     $total_product_price += $orders->p_price;
-                                    ?>
-                                    {{-- <td>{{ $orders->first_name }}</td> --}}
+                                    ?> 
 
-                                    {{-- <td>{{ $orders->last_name }}</td> --}}
-
+                                    <td>-${{ $commissionAmount }}</td>
                                     <td>{{ $orders->created_at }}</td>
                                     <td>
                                         <img src="{{ $orders->product->url ?? null }}  " width="50" height="50"
                                             loading="lazy" alt="Placeholder Image">
                                     </td>
-                                    {{-- <td>{{ $orders->shipping }}</td> --}}
-                                    {{-- <td>
-                                    @if ($orders->product)
-                                    @if ($orders->product->url)
-                                    <img src="{{ $product->product_image->url }}" width="50" height="50" loading="lazy" alt="Placeholder Image" - Order ID:
-                                {{ $orders->id }}">
-                                <p>Order ID: {{ $orders->id }}</p>
-                                @else
-                                @if ($orders->product->product_image)
-                                <img src="{{ $product->product_image->url }}" width="50" height="50" loading="lazy" alt="Placeholder Image" - Order ID:
-                                    {{ $orders->id }}">
-                                <p>Order ID: {{ $orders->id }}</p>
-                                @endif
-                                @endif
-                                @else
-                                <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" loading="lazy" width="50" height="50" alt="Placeholder Image">
-                                <p>No image available</p>
-                                @endif
-                                </td> --}}
+                                    
 
                                     <td>
                                         <div class="btn btn-outline-secondary ladda-button example-button m-1">
@@ -128,8 +109,9 @@
                                 <th>Product Name</th>
                                 <th>Product Model</th>
                                 <th>Product Sku</th>
-                                <th>Product Commission</th>
+                                <th>Product Commission %</th>
                                 <th>Product Price</th>
+                                <th>Commission Charges</th>
                                 <th>Order Date</th>
                                 {{-- <th>Shipping Date</th> --}}
                                 <th>Image</th>
