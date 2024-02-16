@@ -18,7 +18,7 @@
             500
         </h1>
         <p class="text-36 subheading mb-3">Internel Server Error!</p>
-        <p class="mb-5  text-muted text-18">Sorry! This page have some issue.</p>
+        <p class="mb-5  text-muted text-18">Sorry! Work is happening on this page.</p>
         <button class=" btn-lg btn btn-outline-secondary  btn-rounded ladda-button example-button m-1 btn-rounded"
             onclick="goBack()">Go back</button>
 
