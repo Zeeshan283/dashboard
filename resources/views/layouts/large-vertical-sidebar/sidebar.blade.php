@@ -572,6 +572,13 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
             <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'reports.index' ? 'open' : '' }}"
+                    href="{{ route('reports.index') }}">
+                    <i class="nav-icon i-Blinklist"></i>
+                    <span class="item-name">Report's</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'CustomerQueries.index' ? 'open' : '' }}"
                     href="{{ route('CustomerQueries.index') }}">
                     <i class="nav-icon i-Blinklist"></i>

@@ -148,7 +148,7 @@
     <div class="col-md-12 mb-4">
         <div class="card text-start">
 
-            
+
             <div class="card-body">
                 <h4 class="card-title mb-3">Amount</h4>
 
@@ -164,6 +164,7 @@
                             <th>Grand Total(You Earn)</th>
                         </thead>
                         <tbody>
+                            
                             <tr>
                                 <td>+${{ $total_product_price }}</td>
                                 <td>+${{ $totalTax }}</td>

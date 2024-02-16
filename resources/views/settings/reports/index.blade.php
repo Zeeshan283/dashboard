@@ -41,7 +41,7 @@
 
 @section('main-content')
     <div class="breadcrumb">
-        <h1>Contact Us Management</h1>
+        <h1>Reports Management</h1>
     </div>
 
     <div class="separator-breadcrumb border-top"></div>
@@ -49,7 +49,7 @@
         <div class="card text-start">
 
             <div class="card-body">
-                <h4 class="card-title mb-3">Contact Us</h4>
+                <h4 class="card-title mb-3">Report List</h4>
                 {{--     
                         <p>.....</p>
      --}}
@@ -58,6 +58,7 @@
                         <thead>
                             <th>Sr#</th>
                             <th>Title</th>
+                            <th>User Id</th>
                             <th>User Type</th>
                             <th>Name</th>
                             <th>Email</th>
@@ -72,6 +73,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $value->title }}</td>
+                                    <td>{{ $value->user_id }}</td>
                                     <td>{{ $value->user_type }}</td>
                                     <td>{{ $value->name }}</td>
                                     <td>{{ $value->email }}</td>
@@ -90,7 +92,7 @@
                                                     <i class="nav-icon i-Email" title="email"
                                                         style="font-weight: bold;"></i>
                                                 </button></a>
-                                            <a target="_blank" href="{{ route('contacts.show', $value->id) }}">
+                                            <a target="_blank" href="{{ route('reports.show', $value->id) }}">
                                                 <button type="button" class="btn btn btn-outline-secondary ">
                                                     <i class="nav-icon i-Eye" title="view" style="font-weight: bold;"></i>
                                                 </button></a>
@@ -107,6 +109,7 @@
                             <tr>
                                 <th>Sr#</th>
                                 <th>Title</th>
+                            <th>User Id</th>
                                 <th>User Type</th>
                                 <th>Name</th>
                                 <th>Email</th>

@@ -58,6 +58,7 @@ Route::get('/products', [ApiController::class, 'Products']);
 Route::get('/products/{sub_cat_Id}', [ApiController::class, 'GetSubCategoryProduct'])->whereNumber('sub_cat_Id');
 Route::post('contactSupplier', [ApiController::class, 'ProductContactSendMessage']);
 Route::post('contact_us', [ApiController::class, 'ContactUsToAdmin']);
+Route::post('report', [ApiController::class, 'Report']);
 Route::get('/home-banners', [ApiController::class, 'Home_Banners']);
 Route::get('/home-setting', [ApiController::class, 'Home_setting']);
 Route::get('/site-profile', [ApiController::class, 'Site_Profile']);

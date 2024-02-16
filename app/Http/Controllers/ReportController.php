@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ContactUs;
-class ContactUsController extends Controller
+use App\Models\Report;
+class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,14 +13,15 @@ class ContactUsController extends Controller
      */
 
      public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
+     {
+         $this->middleware('auth');
+     }
+
+
     public function index()
     {
-        $data = ContactUs::all();
-        return view("settings.contact_us.index", compact("data"));
+    $data = Report::all();
+    return view("settings.reports.index", compact("data"));
     }
 
     /**
@@ -52,8 +53,8 @@ class ContactUsController extends Controller
      */
     public function show($id)
     {
-        $data = ContactUs::findOrFail($id);
-        return view("settings.contact_us.show", compact("data"));
+        $data = Report::findOrFail($id);
+        return view("settings.reports.show", compact("data"));
     }
 
     /**
