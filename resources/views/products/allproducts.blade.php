@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('page-css')
-    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/choices.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/nuslider.min.css') }}">
 @endsection
@@ -12,6 +12,86 @@
         {
             background-color: blue;
         }
+        .btn {
+    color: inherit;
+}
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #379937;
+}
+
+body {
+  margin: 40px;
+}
+
+.dropdown {
+  position: relative;
+  font-size: 14px;
+  color: #333;
+
+  .dropdown-list {
+    padding: 12px;
+    background: #fff;
+    position: absolute;
+    top: 30px;
+    left: 2px;
+    right: 2px;
+    box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .15);
+    transform-origin: 50% 0;
+    transform: scale(1, 0);
+    transition: transform .15s ease-in-out .15s;
+    max-height: 66vh;
+    overflow-y: scroll;
+  }
+
+  .dropdown-option {
+    display: block;
+    padding: 8px 12px;
+    opacity: 0;
+    transition: opacity .15s ease-in-out;
+  }
+
+  .dropdown-label {
+    display: block;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    line-height: 1;
+    cursor: pointer;
+
+    &:before {
+      content: '▼';
+      float: right;
+    }
+  }
+
+  &.on {
+   .dropdown-list {
+      transform: scale(1, 1);
+      transition-delay: 0s;
+
+      .dropdown-option {
+        opacity: 1;
+        transition-delay: .2s;
+      }
+    }
+
+    .dropdown-label:before {
+      content: '▲';
+    }
+  }
+
+  [type="checkbox"] {
+    position: relative;
+    top: -1px;
+    margin-right: 4px;
+  }
+}
     </style>
     {{-- <div class="card-body">
         <button class="popup-button btn btn-primary col-md-1"
@@ -237,123 +317,29 @@
             </div>
 
             <p>Total Price: <span id="total-price">0.00</span></p>
-
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.1/nouislider.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script>
-                $(document).ready(function() {
-                    var sliders = []; // Array to store slider instances
-                    var sliderValues = []; // Array to store slider value elements
-                    var totalPriceElement = $('#total-price'); // Element to display total price
-
-                    // Initialize 5 sliders
-                    for (var i = 1; i <= 5; i++) {
-                        var slider = document.getElementById('slider-non-linear-' + i);
-                        var sliderValue = document.getElementById('slider-non-linear-value-' + i);
-                        noUiSlider.create(slider, {
-                            start: 2000, // Initial value
-                            range: {
-                                'min': 0,
-                                'max': 5000
-                            },
-                            step: 100, // Slider step
-                            format: {
-                                to: function(value) {
-                                    return value.toFixed(2);
-                                },
-                                from: function(value) {
-                                    return parseFloat(value);
-                                }
-                            }
-                        });
-
-                        sliders.push(slider);
-                        sliderValues.push(sliderValue);
-                    }
-
-                    // Function to update total price
-                    function updateTotalPrice() {
-                        var totalPrice = 0;
-                        // Calculate total price from all slider values
-                        sliderValues.forEach(function(sliderValue) {
-                            totalPrice += parseFloat(sliderValue.innerHTML);
-                        });
-                        // Display total price
-                        totalPriceElement.text(totalPrice.toFixed(2));
-                    }
-
-                    // Update the value display when each slider is moved
-                    sliders.forEach(function(slider, index) {
-                        slider.noUiSlider.on('update', function(values, handle) {
-                            sliderValues[index].innerHTML = values[handle];
-                            updateTotalPrice(); // Update total price when any slider is moved
-                        });
-                    });
-                });
-
-                function toggleFilters() {
-                    var filterCard = document.getElementById("filterCard");
-                    filterCard.style.display = (filterCard.style.display === "none" || filterCard.style.display === "") ? "block" :
-                        "none";
-                }
-                $(document).ready(function() {
-                    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-                        removeItemButton: true,
-                        maxItemCount: 5,
-                        callbackOnCreateTemplates: function(template) {
-                            return {
-                                itemRemoveButton: function(classNames, data) {
-                                    return '<button type="button" class="' + classNames.button + ' ' +
-                                        classNames.button +
-                                        '--remove" aria-label="Remove item" data-button="' + data +
-                                        '">×</button>';
-                                },
-                            };
-                        },
-                    });
-
-                    // Change highlight color to light gray
-                    $('.choices__list--multiple .choices__item').css('background-color', '#d3d3d3');
-
-                    // Change background color on selection change
-                    $('#choices-multiple-remove-button').on('change', function() {
-                        changeBackgroundColor();
-                    });
-                });
-
-                function changeBackgroundColor() {
-                    var colorMap = {};
-                    var selectedOptions = $('#choices-multiple-remove-button').val();
-
-                    $('.choices__list--multiple .choices__item').each(function(index, element) {
-                        var dataValue = $(element).attr('data-value');
-                        var backgroundColor = selectedOptions.includes(dataValue) ? '#d3d3d3' : '';
-                        $(element).css('background-color', backgroundColor);
-                    });
-                }
-            </script>
         </div>
     </div> --}}
 
-    {{-- <form action="{{ route('products.index') }}" method="GET">
+    <form action="{{ route('products.index') }}" method="GET">
 
         <select for="nameFilter" id="choices-multiple-remove-button" name="name[]" class="form-select"
-            placeholder="Select Product (Maximum Lenght 1)" multiple>
-            @foreach ($products as $key => $product)
-                <option value="{{ $product->name }}">{{ $product->name }}</option>
-            @endforeach
-        </select>
+        placeholder="Select Product (Maximum Lenght 1)" multiple>
+        @foreach ($products as $key => $product)
+            <option value="{{ $product->name }}">{{ $product->name }}</option>
+        @endforeach
+    </select>
         <input type="text" name="model_no" placeholder="Product Model">
         <input type="text" name="sku" placeholder="Product sku">
         <select name="make">
             <option value="">Select Supplier</option>
-            @foreach ($supplier as $item)
-                <option value="{{ $item->name }}">{{ $item->name }}</option>
+            @foreach ($supplier as  $item)
+            <option value="{{$item->name}}">{{$item->name}}</option>
+
             @endforeach
         </select>
         <!-- Include more input fields and select dropdowns for other filters -->
         <button type="submit">Apply Filter</button>
-    </form> --}}
+    </form>
     <div class="breadcrumb col-lg-12">
         <div class="col-md-6 col-sm-6">
             <h1>All Product</h1>
@@ -373,28 +359,27 @@
                 <h4 class="card-title mb-3">All Product</h4>
                 <div class="table-responsive">
                     <table id="deafult_ordering_table" class="display table table-striped table-bordered"
-                        style="width:100%">
+                                style="width:100%">
                         @include('datatables.table_content')
                     </table>
                 </div>
-
             </div>
         </div>
     </div>
 @endsection
 @section('page-js')
-    <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
-    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+<script src="{{ asset('assets/js/datatables.script.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
     <script src="{{ asset('assets/js/vendor/nuslider.min.js') }}"></script>
     <script src="{{ asset('assets/js/nuslider.script.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.1/nouislider.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var sliders = []; // Array to store slider instances
-            var sliderValues = []; // Array to store slider value elements
-            var totalPriceElement = $('#total-price'); // Element to display total price
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    var sliders = []; // Array to store slider instances
+                    var sliderValues = []; // Array to store slider value elements
+                    var totalPriceElement = $('#total-price'); // Element to display total price
 
             // Initialize 5 sliders
             for (var i = 1; i <= 5; i++) {

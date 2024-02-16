@@ -1939,7 +1939,9 @@
 
         </td>
         <td class="d-none"> {{ $product->created_at }}</td>
-
+        @foreach($colors as $color)
+    <td class="d-none">{{ $color->name }}</td>
+@endforeach
     </tr>
     @endforeach
 </tbody>
