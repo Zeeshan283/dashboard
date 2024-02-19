@@ -46,6 +46,7 @@ Route::controller(UserAPIController::class)->group(function () {
     Route::get('/profile/{id}', 'details')->whereNumber('id');
     Route::match(['patch', 'put'], '/update-profile', 'UpdateProfile');
     Route::match(['patch', 'put'], '/update-shipping-address', 'UpdateShippingAddress');
+    Route::match(['patch', 'put'], '/customer_cancel_status', 'CustomerCancelStatus');
 });
 
 

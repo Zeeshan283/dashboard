@@ -286,4 +286,34 @@ class UserAPIController extends Controller
 
         return Response::json(['data' => 'record Added Successfully', 'status' => '200']);
     }
+
+    public function CustomerCancelStatus(Request $request){
+        $validator = Validator::make($request->all(), [
+            // 'user_id'=> 'required|max:191|min:1',
+            'order_id'=> 'required|max:191|min:1',
+            'parcel_id'=> 'required|max:191|min:1',
+            // 'product_id'=> 'required|max:191|min:1',
+            'customer_cancel_status'=> 'required|string|in:Canceled|max:191|min:1',
+        ]);
+
+        if ($validator->fails()) {  
+            return Response::json(['error' => $validator->errors()], 401);
+        }
+        $orderExist = Order::find( $request->order_id );
+        if ($orderExist) {
+            $data = OrderDetail::where('id','=', $request->parcel_id )->first();
+
+            if($data->order_id == $request->order_id){
+                $data->customer_cancel_status = $request->customer_cancel_status;
+                $data->update();
+            }else{
+            return Response::json(['error' => 'This Parcel Cannot Be Exist']);
+
+            }
+            
+            return Response::json(['data'=> 'The Parcel Has been Canceled','status'=> '200']);
+        } else {
+            return Response::json(['error' => 'This Order Cannot Be Exist']);
+        }
+    }
 }

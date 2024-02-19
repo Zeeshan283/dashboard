@@ -100,6 +100,7 @@
     <th>Order Date</th>
     {{-- <th>Shipping Date</th> --}}
     <th>Image</th>
+    <th>Customer Status</th>
     <th>Status</th>
     <th>Action</th>
 </thead>
@@ -127,6 +128,14 @@
 
             <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" alt="Placeholder Image" loading="lazy">
 
+        </td>
+        <td>
+            @if($orders->customer_cancel_status == 'Canceled')
+           <span style="color: red"> {{$orders->customer_cancel_status}} </span><br>
+            {{$orders->updated_at}}
+
+            @else
+            @endif
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
         {{-- <td>
@@ -192,12 +201,13 @@
         <th>Vendor Name</th>
         <th>Customer Name</th>
         <th>Product Name</th>
-    <th>Product Model</th>
+        <th>Product Model</th>
         <th>Product Sku</th>
         <th>Product Price</th>
         <th>Order Date</th>
         {{-- <th>Shipping Date</th> --}}
         <th>Image</th>
+        <th>Customer Status</th>
         <th>Status</th>
         <th>Action</th>
     </tr>
