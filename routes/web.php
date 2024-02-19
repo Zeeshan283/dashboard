@@ -32,6 +32,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HomeSettingsController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DisputeController;
 use App\Http\Controllers\BannersController;
 use App\Http\Controllers\FaqCategoriesController;
 use App\Http\Controllers\FAQController;
@@ -173,6 +174,7 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('/settings', SettingsController::class);
     Route::resource('contacts', ContactUsController::class);
     Route::resource('reports', ReportController::class);
+    Route::resource('disputes', DisputeController::class);
     Route::resource('Deals', 'App\Http\Controllers\DealsController');
     Route::resource('Homecoupons', HomecouponsController::class);
     Route::get('/notifications', 'NotificationController@showNotifications')->name('showNotifications');

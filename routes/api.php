@@ -59,6 +59,7 @@ Route::get('/products/{sub_cat_Id}', [ApiController::class, 'GetSubCategoryProdu
 Route::post('contactSupplier', [ApiController::class, 'ProductContactSendMessage']);
 Route::post('contact_us', [ApiController::class, 'ContactUsToAdmin']);
 Route::post('report', [ApiController::class, 'Report']);
+Route::post('dispute', [ApiController::class, 'dispute']);
 Route::get('/home-banners', [ApiController::class, 'Home_Banners']);
 Route::get('/home-setting', [ApiController::class, 'Home_setting']);
 Route::get('/site-profile', [ApiController::class, 'Site_Profile']);

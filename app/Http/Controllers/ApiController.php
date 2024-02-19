@@ -14,6 +14,7 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\ProductContact;
 use App\Models\Report;
+use App\Models\Dispute;
 use App\Models\Settings;
 use App\Models\Coupon;
 use App\Models\FAQCategory;
@@ -215,7 +216,7 @@ class ApiController extends Controller
         }
     }
     public function Report(Request $request)
-    {
+    {   
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 'title' => 'required|string|max:191|min:1',
@@ -241,6 +242,41 @@ class ApiController extends Controller
             }
 
             $p = Report::create($request->all()); 
+            $p->save();
+
+            return Response::json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);
+        } else {
+            return Response::json(['data' => 'Bad Method Call', 'status' => '200']);
+        }
+    }
+    public function dispute(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string|max:191|min:1',
+                'user_id' => 'nullable|string|max:191|min:1',
+                'good_type' => 'nullable|string|max:191|min:1',
+                'user_type' => 'required|string|in:Customer,Supplier|max:191|min:1',
+                'name' => 'required|string|max:191|min:1',
+                'email' => 'required|email|max:191|min:1',
+                'contact' => 'nullable|string|max:25|min:1',
+                'company' => 'nullable|string|max:191|min:1',
+                'city' => 'nullable|string|max:191|min:1',
+                'state' => 'nullable|string|max:191|min:1',
+                'country' => 'nullable|string|max:191|min:1',
+                'profile_link' => 'nullable|string|max:191|min:1|url',
+                'message' => 'required|string|max:1500|min:1',
+
+                 
+            ], [
+                 
+            ]);
+
+            if ($validator->fails()) {
+                return Response::json(['error' => $validator->errors()], 401);
+            }
+
+            $p = Dispute::create($request->all()); 
             $p->save();
 
             return Response::json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);

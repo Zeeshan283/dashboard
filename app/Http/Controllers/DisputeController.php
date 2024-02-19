@@ -3,30 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Report;
-use App\Repositories\Interface\ReportRepositoryInterface;
-class ReportController extends Controller
+use App\Models\Dispute;
+class DisputeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    protected $reportRepository;
-    public function __construct(ReportRepositoryInterface $reportRepository){
-        $this->reportRepository = $reportRepository;
-    }
-
-    //  public function __construct()
-    //  {
-    //      $this->middleware('auth');
-    //  }
+    public function __construct()
+     {
+         $this->middleware('auth');
+     }
 
 
     public function index()
     {
-    $data = $this->reportRepository->index();
-    return view("settings.reports.index", compact("data"));
+    $data = Dispute::all();
+    return view("settings.dispute.index", compact("data"));
     }
 
     /**
@@ -58,8 +52,9 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        $data = $this->reportRepository->show($id);
-        return view("settings.reports.show", compact("data"));
+        //
+        $data = Dispute::findOrFail($id);
+        return view("settings.dispute.show", compact("data"));
     }
 
     /**
