@@ -1799,7 +1799,8 @@
 @elseif (Route::currentRouteName() == 'customerlist')
 <thead>
     <th>Sr No</th>
-    <th>Customer Name</th>
+    <th>First Name</th>
+    <th>Last Name</th>
 
     <th>Phone Number</th>
     <th>Email</th>
@@ -1821,7 +1822,8 @@
 <tfoot>
     <tr>
         <th>Sr No</th>
-        <th>Customer Name</th>
+        <th>First Name</th>
+    <th>Last Name</th>
         <th>Phone Number</th>
         <th>Email</th>
         <th>Gender</th>
