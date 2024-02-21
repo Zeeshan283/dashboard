@@ -19,7 +19,10 @@ if (Auth::user()->role == 'Vendor') {
                 ->where('status', '=', 'Returned')->count();
                 $Canceled = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
                 ->where('status', '=', 'Canceled')->count();
-            } elseif (Auth::user()->role == 'Admin') {
+                $CustomerCanceled = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('customer_cancel_status', '=', 'Canceled')->count();
+            } 
+            elseif (Auth::user()->role == 'Admin') {
                 $In_Process = OrderDetail::with('order', 'product', 'vendor')
                 ->where('status', '=', 'In Process')->count();
            $Packaging = OrderDetail::with('order', 'product', 'vendor')
@@ -36,6 +39,8 @@ if (Auth::user()->role == 'Vendor') {
                ->where('status', '=', 'Returned')->count();
                $Canceled = OrderDetail::with('order', 'product', 'vendor')
                ->where('status', '=', 'Canceled')->count();
+               $CustomerCanceled = OrderDetail::with('order', 'product', 'vendor')
+                ->where('customer_cancel_status', '=', 'Canceled')->count();
             }
         ?>
 
@@ -434,6 +439,12 @@ if (Auth::user()->role == 'Vendor') {
                 <a class="{{ Route::currentRouteName() == 'canceled' ? 'open' : '' }}" href="{{ route('canceled') }}">
                     <i class="nav-icon i-File-Trash"></i>
                     <span class="item-name">Canceled {{ $Canceled}}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'customer_canceled' ? 'open' : '' }}" href="{{ route('customer_canceled') }}">
+                    <i class="nav-icon i-File-Trash"></i>
+                    <span class="item-name">Customer Canceled {{ $CustomerCanceled}}</span>
                 </a>
             </li>
         </ul>

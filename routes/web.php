@@ -291,6 +291,7 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::get('returned', [OrderController::class, 'showOrders'])->name('returned');
     Route::get('ftod', [OrderController::class, 'showOrders'])->name('ftod');
     Route::get('canceled', [OrderController::class, 'showOrders'])->name('canceled');
+    Route::get('customer_canceled', [OrderController::class, 'showOrders'])->name('customer_canceled');
     Route::patch('orderstatus', [OrderController::class, 'update'])->name('order.status');
 
     Route::get('pendingrefund', [RefundController::class, 'pendingRefunds'])->name('pendingrefund');

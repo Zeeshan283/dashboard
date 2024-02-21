@@ -303,12 +303,16 @@ class UserAPIController extends Controller
         if ($orderExist) {
             $data = OrderDetail::where('id','=', $request->parcel_id )->first();
 
-            if($data->order_id == $request->order_id){
-                $data->customer_cancel_status = $request->customer_cancel_status;
-                $data->update();
+            if($data){ 
+                if($data->order_id == $request->order_id){
+                    $data->customer_cancel_status = $request->customer_cancel_status;
+                    $data->customer_cancel_time = Carbon::now();
+                    $data->update();
+                }else{
+                return Response::json(['error' => 'This Parcel Cannot Be Exist']);
+                }
             }else{
-            return Response::json(['error' => 'This Parcel Cannot Be Exist']);
-
+                return Response::json(['error' => 'This Parcel Cannot Be Exist']); 
             }
             
             return Response::json(['data'=> 'The Parcel Has been Canceled','status'=> '200']);
