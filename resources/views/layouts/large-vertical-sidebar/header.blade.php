@@ -1,4 +1,4 @@
-@notifyCss
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <div class="main-header">
@@ -10,6 +10,7 @@
         <div></div>
         <div></div>
     </div>
+    @notifyCss
     {{-- <div class="d-flex align-items-center">
         <div class="search-bar">
             <input type="text" placeholder="Search            <i class="search-icon text-muted i-Magnifi-Glass1"></i>

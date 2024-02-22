@@ -1945,15 +1945,15 @@
                     class="btn btn-outline-secondary">
                     <i class="nav-icon i-Eye" title="view"></i>
                 </a>
-
-
             </div>
-
         </td>
-        <td class="d-none"> {{ $product->created_at }}</td>
-        @foreach($colors as $color)
+        @foreach ($colors as $color)
     <td class="d-none">{{ $color->name }}</td>
-@endforeach
+    @endforeach
+    @foreach ($menus as $menu)
+    <td class="d-none">{{ $menu->name }}</td>
+    @endforeach
+        <td class="d-none"> {{ $product->created_at }}</td>
     </tr>
     @endforeach
 </tbody>

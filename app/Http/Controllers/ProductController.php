@@ -46,11 +46,11 @@ class ProductController extends Controller
             $categories = Category::all();
             $subcategories = SubCategory::all();
             $products = Product::all();
-            $vendors = User::where('role','Vendor')->get();
+            $vendors = User::where('role', 'Vendor')->get();
             $colors = Color::all();
-
+            $menus = Menu::all();
             $query = Product::query();
-            $supplier = User::where('role','Vendor')->get();
+            $supplier = User::where('role', 'Vendor')->get();
 
             // Apply filters if provided in the request
             // dd($request->all());
@@ -162,27 +162,25 @@ class ProductController extends Controller
                 }
             }
             $data = $query->get();
-
-
         } else {
-            $data = Product::with('product_image','categories:id,name','subcategories:id,name')
+            $data = Product::with('product_image', 'categories:id,name', 'subcategories:id,name')
                 ->where('created_by', Auth::User()->id)
                 ->OrderBy('id', 'desc')
                 ->get();
             $brand = Brand::all();
             $categories = Category::all();
             $subcategories = SubCategory::all();
-            $vendors = User::where('role','Vendor')->get();
-
+            $vendors = User::where('role', 'Vendor')->get();
         }
 
-        return view('products.allproducts', compact('data','products','supplier', 'brand', 'categories', 'subcategories','vendors', 'colors'));
+        return view('products.allproducts', compact('data', 'products', 'supplier', 'brand', 'categories', 'subcategories', 'vendors', 'colors', 'menus'));
     }
 
-    public function productsView(){
+    public function productsView()
+    {
         $data = "";
         if (Auth::User()->role == 'Admin') {
-            $data = Product::with('product_image','categories:id,name','subcategories:id,name')
+            $data = Product::with('product_image', 'categories:id,name', 'subcategories:id,name')
                 ->OrderBy('id', 'desc')
                 ->paginate(16);
             $brand = Brand::all();
@@ -190,7 +188,7 @@ class ProductController extends Controller
             $subcategories = SubCategory::all();
             $product = Product::all();
         } else {
-            $data = Product::with('product_image','categories:id,name','subcategories:id,name')
+            $data = Product::with('product_image', 'categories:id,name', 'subcategories:id,name')
                 ->where('created_by', Auth::User()->id)
                 ->OrderBy('id', 'desc')
                 ->paginate(16);
