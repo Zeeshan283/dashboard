@@ -132,30 +132,12 @@
         <td>
             @if($orders->customer_cancel_status == 'Canceled')
            <span style="color: red"> {{$orders->customer_cancel_status}} </span><br>
-            {{$orders->updated_at}}
+            {{$orders->customer_cancel_time}}
 
             @else
             @endif
         </td>
-        {{-- <td>{{ $orders->shipping }}</td> --}}
-        {{-- <td>
-            @if ($orders->product)
-            @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" loading="lazy" width="50" height="50" alt="Placeholder Image" - Order ID:
-        {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @else
-        @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" loading="lazy" width="50" height="50" alt="Placeholder Image" - Order ID:
-            {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @endif
-        @endif
-        @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" loading="lazy" width="50" height="50" alt="Placeholder Image">
-        <p>No image available</p>
-        @endif
-        </td> --}}
+         
 
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
@@ -256,6 +238,7 @@
     <th>Order Date</th>
     {{-- <th>Shipping Date</th> --}}
     <th>Image</th>
+    <th>Customer Status</th>
     <th>Status</th>
     <th>Action</th>
 </thead>
@@ -284,25 +267,14 @@
         <td>
             <img src="{{ $orders->product->url ?? null }}  " width="50" height="50" loading="lazy" alt="Placeholder Image">
         </td>
-        {{-- <td>{{ $orders->shipping }}</td> --}}
-        {{-- <td>
-            @if ($orders->product)
-            @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" width="50" height="50" loading="lazy" alt="Placeholder Image" - Order ID:
-        {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @else
-        @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" width="50" height="50" loading="lazy" alt="Placeholder Image" - Order ID:
-            {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @endif
-        @endif
-        @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" loading="lazy" width="50" height="50" alt="Placeholder Image">
-        <p>No image available</p>
-        @endif
-        </td> --}}
+        <td>
+            @if($orders->customer_cancel_status == 'Canceled')
+           <span style="color: red"> {{$orders->customer_cancel_status}} </span><br>
+            {{$orders->customer_cancel_time}}
+
+            @else
+            @endif
+        </td>
 
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
@@ -359,6 +331,7 @@
         <th>Order Date</th>
         {{-- <th>Shipping Date</th> --}}
         <th>Image</th>
+        <th>Customer Status</th>
         <th>Status</th>
         <th>Action</th>
     </tr>
@@ -377,6 +350,7 @@
     <th>Order Date</th>
     {{-- <th>Shipping Date</th> --}}
     <th>Image</th>
+    <th>Customer Status</th>
     <th>Status</th>
     <th>Action</th>
 </thead>
@@ -404,25 +378,14 @@
         <td>
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
         </td>
-        {{-- <td>{{ $orders->shipping }}</td> --}}
-        {{-- <td>
-            @if ($orders->product)
-            @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" loading="lazy" width="50" height="50" alt="Placeholder Image" - Order ID:
-        {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @else
-        @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" loading="lazy" width="50" height="50" alt="Placeholder Image" - Order ID:
-            {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @endif
-        @endif
-        @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" loading="lazy" width="50" height="50" alt="Placeholder Image">
-        <p>No image available</p>
-        @endif
-        </td> --}}
+        <td>
+            @if($orders->customer_cancel_status == 'Canceled')
+           <span style="color: red"> {{$orders->customer_cancel_status}} </span><br>
+            {{$orders->customer_cancel_time}}
+
+            @else
+            @endif
+        </td>
 
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
@@ -478,6 +441,7 @@
         <th>Order Date</th>
         {{-- <th>Shipping Date</th> --}}
         <th>Image</th>
+        <th>Customer Status</th>
         <th>Status</th>
         <th>Action</th>
     </tr>
@@ -523,25 +487,7 @@
         <td>
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
         </td>
-        {{-- <td>{{ $orders->shipping }}</td> --}}
-        {{-- <td>
-            @if ($orders->product)
-            @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" loading="lazy" width="50" height="50" alt="Placeholder Image" - Order ID:
-        {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @else
-        @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" width="50" loading="lazy" height="50" alt="Placeholder Image" - Order ID:
-            {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @endif
-        @endif
-        @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" loading="lazy" width="50" height="50" alt="Placeholder Image">
-        <p>No image available</p>
-        @endif
-        </td> --}}
+         
 
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
@@ -572,7 +518,8 @@
                 <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                     data-style="expand-left"><span class="ladda-label">Update</span></button>
 
-
+                    <a href="{{ url('get_order_detail_status/' . $orders->id) }}" class="btn btn-outline-secondary"><i
+                        class="nav-icon i-Eye "></i></a>
                 </div>
 
             </td>
@@ -644,26 +591,7 @@
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
-        {{-- <td>{{ $orders->shipping }}</td> --}}
-        {{-- <td>
-            @if ($orders->product)
-            @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
-        {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @else
-        @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
-            {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @endif
-        @endif
-        @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
-        <p>No image available</p>
-        @endif
-        </td> --}}
-
+        
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
             @csrf
@@ -692,7 +620,8 @@
 
                 <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                     data-style="expand-left"><span class="ladda-label">Update</span></button>
-
+                    <a href="{{ url('get_order_detail_status/' . $orders->id) }}" class="btn btn-outline-secondary"><i
+                        class="nav-icon i-Eye "></i></a>
 
                 </div>
 
@@ -766,25 +695,7 @@
             <img src="{{ $orders->product->url ?? null }}  "  loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
-        {{-- <td>{{ $orders->shipping }}</td> --}}
-        {{-- <td>
-            @if ($orders->product)
-            @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" loading="lazy" width="50" height="50" alt="Placeholder Image" - Order ID:
-        {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @else
-        @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
-            {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @endif
-        @endif
-        @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
-        <p>No image available</p>
-        @endif
-        </td> --}}
+         
 
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
@@ -814,7 +725,8 @@
 
                 <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                     data-style="expand-left"><span class="ladda-label">Update</span></button>
-
+                    <a href="{{ url('get_order_detail_status/' . $orders->id) }}" class="btn btn-outline-secondary"><i
+                        class="nav-icon i-Eye "></i></a>
 
                 </div>
 
@@ -860,7 +772,6 @@
         <th>Image</th>
         <th>Status</th>
         <th>Action</th>
-        <th>View Status</th>
 
     </tr>
 </thead>
@@ -939,12 +850,10 @@
                 <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                     data-style="expand-left"><span class="ladda-label">Update</span></button>
 
-
-            </td>
-            <td>
-                <a href="{{ url('get_order_detail_status/' . $orders->id) }}" class="btn btn-outline-secondary"><i
+                    <a href="{{ url('get_order_detail_status/' . $orders->id) }}" class="btn btn-outline-secondary"><i
                         class="nav-icon i-Eye "></i></a>
             </td>
+            
 
         </form>
 
@@ -967,7 +876,6 @@
         <th>Image</th>
         <th>Status</th>
         <th>Action</th>
-        <th>View Status</th>
 
     </tr>
 </tfoot>
@@ -1015,24 +923,7 @@
             {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
-        {{-- <td>
-            @if ($orders->product)
-            @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}"  width="50" height="50" alt="Placeholder Image" - Order ID:
-        {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @else
-        @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
-            {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @endif
-        @endif
-        @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
-        <p>No image available</p>
-        @endif
-        </td> --}}
+         
 
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
@@ -1063,7 +954,8 @@
                 <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                     data-style="expand-left"><span class="ladda-label">Update</span></button>
 
-
+                    <a href="{{ url('get_order_detail_status/' . $orders->id) }}" class="btn btn-outline-secondary"><i
+                        class="nav-icon i-Eye "></i></a>
                 </div>
 
             </td>
@@ -1135,25 +1027,7 @@
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
-        {{-- <td>{{ $orders->shipping }}</td> --}}
-        {{-- <td>
-            @if ($orders->product)
-            @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
-        {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @else
-        @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
-            {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @endif
-        @endif
-        @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
-        <p>No image available</p>
-        @endif
-        </td> --}}
+         
 
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
@@ -1184,7 +1058,8 @@
                 <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                     data-style="expand-left"><span class="ladda-label">Update</span></button>
 
-
+                    <a href="{{ url('get_order_detail_status/' . $orders->id) }}" class="btn btn-outline-secondary"><i
+                        class="nav-icon i-Eye "></i></a>
                 </div>
 
             </td>
@@ -1226,6 +1101,7 @@
     <th>Order Date</th>
     {{-- <th>Shipping Date</th> --}}
     <th>Image</th>
+    <th>Customer Status</th>
     <th>Status</th>
     <th>Action</th>
 </thead>
@@ -1255,26 +1131,14 @@
             <img src="{{ $orders->product->url ?? null }} " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
-        {{-- <td>{{ $orders->shipping }}</td> --}}
-        {{-- <td>
-            @if ($orders->product)
-            @if ($orders->product->url)
-            <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
-        {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @else
-        @if ($orders->product->product_image)
-        <img src="{{ $product->product_image->url }}" width="50" height="50" alt="Placeholder Image" - Order ID:
-            {{ $orders->id }}">
-        <p>Order ID: {{ $orders->id }}</p>
-        @endif
-        @endif
-        @else
-        <img src="{{ asset('path-to-your-placeholder-image.jpg') }}" width="50" height="50" alt="Placeholder Image">
-        <p>No image available</p>
-        @endif
-        </td> --}}
+        <td>
+            @if($orders->customer_cancel_status == 'Canceled')
+           <span style="color: red"> {{$orders->customer_cancel_status}} </span><br>
+            {{$orders->customer_cancel_time}}
 
+            @else
+            @endif
+        </td>
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
             @csrf
@@ -1304,7 +1168,8 @@
                 <button type="submit" class="btn btn-outline-secondary ladda-button example-button m-1"
                     data-style="expand-left"><span class="ladda-label">Update</span></button>
 
-
+                    <a href="{{ url('get_order_detail_status/' . $orders->id) }}" class="btn btn-outline-secondary"><i
+                        class="nav-icon i-Eye "></i></a>
                 </div>
 
             </td>
@@ -1328,6 +1193,7 @@
         <th>Order Date</th>
         {{-- <th>Shipping Date</th> --}}
         <th>Image</th>
+        <th>Customer Status</th>
         <th>Status</th>
         <th>Action</th>
     </tr>

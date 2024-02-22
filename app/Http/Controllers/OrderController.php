@@ -148,6 +148,11 @@ if (Auth::user()->role == 'Vendor') {
                 ->where('status', '=', 'Canceled')->orderBy('id', 'desc')->get();
             return view('orders.canceled', compact('data'));
         }
+        if ($routeName === 'customer_canceled') {
+            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('customer_cancel_status', '=', 'Canceled')->orderBy('id', 'desc')->get();
+            return view('orders.canceled', compact('data'));
+        }
     } elseif (Auth::user()->role == 'Admin') {
         $routeName = Route::currentRouteName();
         if ($routeName === 'pendingorders') {
@@ -189,6 +194,11 @@ if (Auth::user()->role == 'Vendor') {
             $data = OrderDetail::with('order', 'product', 'vendor')
                 ->where('status', '=', 'Canceled')->orderBy('id', 'desc')->get();
             return view('orders.canceled', compact('data'));
+        }
+        if ($routeName === 'customer_canceled') {
+            $data = OrderDetail::with('order', 'product', 'vendor')
+                ->where('customer_cancel_status', '=', 'Canceled')->orderBy('id', 'desc')->get();
+            return view('orders.customer_canceled', compact('data'));
         }
     }
 

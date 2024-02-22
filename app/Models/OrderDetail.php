@@ -19,6 +19,7 @@ class OrderDetail extends Model
         'p_vendor_id',
         'status',
         'customer_cancel_status',
+        'customer_cancel_time',
     ];
 
     // Define relationships if applicable
