@@ -268,7 +268,7 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::view('productinfo', 'products.productinfo')->name('productinfo');
 
     Route::get('/productsView', [ProductController::class, 'productsView'])->name('productsView');
-    
+
 
     Route::get('order_details', [OrderController::class, 'OrderDetailIndex'])->name('order_details');
     Route::patch('order_details_status', [OrderController::class, 'order_details_status'])->name('order_details_status');
@@ -315,7 +315,7 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::get('cwallet', [CustomerController::class, 'cwallet'])->name('cwallet');
     Route::get('sellers/show/{id}', [VendorsController::class, 'show1'])->name('sellers.show');
 
-    // sales 
+    // sales
     Route::resource('sales', SaleController::class);
     Route::resource('commissions', CommissionController::class);
 
@@ -388,6 +388,8 @@ Route::get('/get-product-chart-data', [ProductController::class, 'getProductChar
 Route::get('/fetch-notifications', 'NotificationController@fetchNotifications')->name('fetch.notifications');
 Route::resource('cprofile', CprofileController::class);
 Route::resource('v_service', CategoryServicesController::class);
+Route::get('/products/customerqueries', [ProductContactController::class, 'index'])->name('products.customerqueries');
+
 
 // views
 // Route::get('/views-over-last-20-days', function () {

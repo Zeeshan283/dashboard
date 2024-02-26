@@ -137,7 +137,7 @@
             @else
             @endif
         </td>
-         
+
 
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
@@ -487,7 +487,7 @@
         <td>
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
         </td>
-         
+
 
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
@@ -591,7 +591,7 @@
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
-        
+
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
             @csrf
@@ -695,7 +695,7 @@
             <img src="{{ $orders->product->url ?? null }}  "  loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
-         
+
 
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
@@ -853,7 +853,7 @@
                     <a href="{{ url('get_order_detail_status/' . $orders->id) }}" class="btn btn-outline-secondary"><i
                         class="nav-icon i-Eye "></i></a>
             </td>
-            
+
 
         </form>
 
@@ -923,7 +923,7 @@
             {{-- @else --}}
         </td>
         {{-- <td>{{ $orders->shipping }}</td> --}}
-         
+
 
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
@@ -1027,7 +1027,7 @@
             <img src="{{ $orders->product->url ?? null }}  " loading="lazy" width="50" height="50" alt="Placeholder Image">
             {{-- @else --}}
         </td>
-         
+
 
         <form method="POST" action="{{ route('order_details_status', ['id' => $orders->id]) }}">
 
@@ -1819,6 +1819,7 @@
     @foreach ($menus as $menu)
     <td class="d-none">{{ $menu->name }}</td>
     @endforeach
+    <td class="d-none">{{ $product->min_order }}</td>
         <td class="d-none"> {{ $product->created_at }}</td>
     </tr>
     @endforeach

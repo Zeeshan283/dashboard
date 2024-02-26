@@ -39,9 +39,6 @@ class ProductController extends Controller
     {
         $data = "";
         if (Auth::User()->role == 'Admin') {
-            // $data = Product::with('product_image','categories:id,name','subcategories:id,name')
-            //     ->OrderBy('id', 'desc')
-            //     ->get();
             $brand = Brand::all();
             $categories = Category::all();
             $subcategories = SubCategory::all();
