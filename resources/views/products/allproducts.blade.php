@@ -39,7 +39,6 @@
             margin-left: 5px;
         }
 
-        /* Simplify focus outline for search inputs */
         input:focus {
             border-color: #ced4da;
             outline: none;
@@ -343,17 +342,19 @@
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left ">Brand</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton8">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton8" style="max-width: 1000px;">
                                 <input type="text" id="searchInput" onkeyup="filterOptions()"
                                     placeholder="Search...">
-                                <div class="dropdown-options">
-                                    @foreach ($brand as $brand)
-                                        <label class="brand_nameFilter">
-                                            <input type="checkbox" value="{{ $brand->brand_name ?? null }}">
-                                            <span class="option-text">{{ $brand->brand_name ?? null }}</span>
-                                        </label>
-                                    @endforeach
-                                </div>
+                                    <div class="dropdown-options">
+                                        @foreach ($brand as $brand)
+                                            <label class="brand_nameFilter d-flex">
+                                                <input type="checkbox" style="margin-bottom: 3px;" value="{{ $brand->brand_name ?? null }} $nbsp; {{ $brand->logo ?? null }}">
+                                                <span class="option-text d-flex">  {{ $brand->brand_name ?? null }}  <img src="{{ asset($brand->logo) }}" width="50" height="50" alt="{{ $brand->brand_name ?? null }}">
+                                                </span>
+                                            </label>
+                                        @endforeach
+                                    </div>
+
                             </div>
                         </div>
                     </form>
