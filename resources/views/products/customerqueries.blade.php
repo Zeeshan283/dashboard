@@ -40,6 +40,184 @@
 @endsection
 
 @section('main-content')
+    <style>
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            padding: 8px;
+            max-height: 160px;
+            max-width: 250px;
+            overflow-y: auto;
+        }
+
+        .dropdown-options {
+            margin-top: 30px;
+        }
+
+        .dropdown-options label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .option-text {
+            margin-left: 5px;
+        }
+
+        /* Simplify focus outline for search inputs */
+        input:focus {
+            border-color: #ced4da;
+            outline: none;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            max-width: 300px;
+            padding-right: 100px;
+            padding-left: 30px;
+            background-color: #f8f9fa;
+            border: 2px solid #e2eaf1;
+            cursor: pointer;
+            padding-top: 10px;
+            padding-bottom: 5px;
+            overflow: hidden;
+            margin-bottom: 150px;
+        }
+
+        .text-left {
+            margin-right: auto;
+        }
+
+        .filter-card {
+            margin-right: 0px;
+            overflow: hidden;
+            margin-left: 15px;
+        }
+    </style>
+    <div class="card-body">
+        <button class="popup-button btn btn-primary col-md-1"
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
+            Filters</button><br><br>
+        <div class="filter-card" id="filterCard">
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-md-2">
+                    <form action="{{ route('products.index') }}" method="GET">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Supplier Name</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($data as $key => $value)
+                                        <label class="supplier_nameFilter">
+                                            <input type="checkbox" value="{{ $value->supplier_name }}">
+                                            <span class="option-text">{{ $value->supplier_name }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <button type="submit">Submit</button> --}}
+
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <form action="{{ route('products.index') }}" method="GET">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Customer Name</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($data as $key => $value)
+                                        <label class="customer_nameFilter">
+                                            <input type="checkbox" value="{{ $value->customer_name }}">
+                                            <span class="option-text">{{ $value->customer_name }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <form action="{{ route('products.index') }}" method="GET">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left ">Customer Contact</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($data as $key => $value)
+                                        <label class="customer_contact_noFilter">
+                                            <input type="checkbox" value="{{ $value->customer_contact_no }}">
+                                            <span class="option-text">{{ $value->customer_contact_no }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-2">
+                    <form action="{{ route('products.index') }}" method="GET">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Product Name</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($data as $key => $value)
+                                        <label class="pro_nameFilter">
+                                            <input type="checkbox" value="{{ $value->pro_name }}">
+                                            <span class="option-text">{{ $value->pro_name }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-2">
+                    <form action="{{ route('products.index') }}" method="GET">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Product Model#</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($data as $key => $value)
+                                        <label class="pro_model_noFilter">
+                                            <input type="checkbox" value="{{ $value->pro_model_no }}">
+                                            <span class="option-text">{{ $value->pro_model_no }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="separator-breadcrumb border-top"></div>
     <div class="breadcrumb">
         <h1>Contact Supplier</h1>
     </div>
@@ -50,11 +228,12 @@
 
             <div class="card-body">
                 <h4 class="card-title mb-3">Contact Supplier</h4>
-                {{--     
+                {{--
                         <p>.....</p>
      --}}
                 <div class="table-responsive">
-                    <table id="deafult_ordering_table" class="display table table-striped table-bordered" style="width:100%">
+                    <table id="deafult_ordering_table" class="display table table-striped table-bordered"
+                        style="width:100%">
                         <thead>
                             <th>Sr#</th>
                             <th>Supplier Name</th>
@@ -90,7 +269,8 @@
                                                 </button></a>
                                             <a target="_blank" href="{{ route('CustomerQueries.show', $value->id) }}">
                                                 <button type="button" class="btn btn btn-outline-secondary ">
-                                                    <i class="nav-icon i-Eye" title="view" style="font-weight: bold;"></i>
+                                                    <i class="nav-icon i-Eye" title="view"
+                                                        style="font-weight: bold;"></i>
                                                 </button></a>
 
 
@@ -120,6 +300,52 @@
             </div>
         </div>
     </div>
+    <script>
+        function filterOptions() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('searchInput');
+            filter = input.value.toUpperCase();
+            div = document.getElementsByClassName('dropdown-options')[0];
+            labels = div.getElementsByTagName('label');
+            for (i = 0; i < labels.length; i++) {
+                label = labels[i];
+                a = label.getElementsByTagName('input')[0];
+                txtValue = a.value;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    label.style.display = '';
+                } else {
+                    label.style.display = 'none';
+                }
+            }
+        }
+
+        function filterTable(inputId) {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById(inputId);
+        filter = input.value.toUpperCase();
+        table = document.getElementById("productsTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+        function toggleFilters() {
+            var filterCard = document.getElementById("filterCard");
+            filterCard.style.display = (filterCard.style.display === "none" || filterCard.style.display === "") ? "block" :
+                "none";
+        }
+
+
+    </script>
 @endsection
 
 @section('page-js')

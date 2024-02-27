@@ -95,7 +95,6 @@ class BrandController extends Controller
             $file = $request->file('logo');
             $fileName = uniqid() . $file->getClientOriginalName();
 
-            //prorgam image save in 410 x 186
             $imagePath =  'upload/brands/big/' . $fileName;
             $img = Image::make($file);
             $img->resize(410, 186);

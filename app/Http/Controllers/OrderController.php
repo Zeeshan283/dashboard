@@ -28,36 +28,27 @@ class OrderController extends Controller
 
     public function index()
     {
-        if (Auth::User()->role == 'Admin') {
-            $data = Order::OrderBy('id', 'desc')
-                ->get();
+        $data = null;
+        $orders = Order::all();
+
+        if (Auth::user()->role === 'Admin') {
+            $orders = Order::all();
+            $data = Order::orderBy('id', 'desc')->get();
         } else {
-            // $data = Order::where('created_by', Auth::User()->id)
-            //     ->OrderBy('id', 'desc')
-            //     ->get();
-            // $data = Order::with('orderDetails')->whereHas('orderDetails', function ($query) {
-            //     $query->where('p_vendor_id', Auth::User()->id);
-            // })
-            //     // ->where('p_vendor_id', Auth::User()->id)
-            //     ->OrderBy('id', 'desc')
-            //     ->get();
-
-            // DB::enableQueryLog();
-
+            $orders = Order::all();
             $data = Order::with(['orderDetails' => function ($query) {
-                $query->where('p_vendor_id', auth()->user()->id);
+                $query->where('p_vendor_id', Auth::user()->id);
             }])
-                ->whereHas('orderDetails', function ($query) {
-                    $query->where('p_vendor_id', auth()->user()->id);
-                })
-                ->orderBy('id', 'desc')
-                ->get();
-
-            // dd(DB::getQueryLog());
+            ->whereHas('orderDetails', function ($query) {
+                $query->where('p_vendor_id', Auth::user()->id);
+            })
+            ->orderBy('id', 'desc')
+            ->get();
         }
-        // $data = Order::orderBy('id', 'desc')->get();
-        return view('orders.allorders', compact('data'));
+
+        return view('orders.allorders', compact('data', 'orders'));
     }
+
 
     public function OrderDetailIndex()
     {
@@ -117,7 +108,7 @@ class OrderController extends Controller
     {
 if (Auth::user()->role == 'Vendor') {
     $routeName = Route::currentRouteName();
-       
+
         if ($routeName === 'pendingorders') {
             $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
                 ->where('status', '=', 'In Process')->orderBy('id', 'desc')->get();
@@ -263,7 +254,7 @@ if (Auth::user()->role == 'Vendor') {
 
 
     public function orderInvoice($id){
-        
+
         if(Auth::user()->role == 'Vendor'){
         $invoice = OrderDetail::with('order', 'product','vendorProfile', 'vendor')->where('p_vendor_id' , Auth::user()->id)->where('order_id' ,'=', $id)->first();
         $invoiceProduct = OrderDetail::with('order', 'product','vendorProfile', 'vendor')->where('p_vendor_id' , Auth::user()->id)->where('order_id' ,'=', $id)->get();
@@ -277,7 +268,7 @@ if (Auth::user()->role == 'Vendor') {
         }else{
             return "Unauthorized";
         }
-        
+
     }
 
     public function show($id)

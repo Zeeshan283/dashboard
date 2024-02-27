@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductContact;
+use App\Models\Product;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,8 +11,19 @@ use Illuminate\Support\Collection;
 
 class ProductContactController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $query = Product::query();
+
+        if ($request->has('name')) {
+            $names = $request->input('name');
+            if (is_array($names)) {
+                $query->whereIn('name', $names);
+            } else {
+                $query->where('name', $names);
+            }
+        }
+
         $data = "";
         if (Auth::user()->role == 'Admin') {
             $data = ProductContact::all();
@@ -19,9 +31,8 @@ class ProductContactController extends Controller
             $data = ProductContact::orderBy('id', 'desc')->where('supplier_id', Auth::user()->id)->get();
         }
 
-        return view('products.customerqueries', compact('data'));
+        return view('products.customerqueries', compact('data','query'));
     }
-
 
     // public function store(Request $request)
     // {
