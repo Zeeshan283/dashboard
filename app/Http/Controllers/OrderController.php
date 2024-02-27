@@ -62,14 +62,16 @@ class OrderController extends Controller
     public function OrderDetailIndex()
     {
         if (Auth::User()->role == 'Admin') {
-            $data = OrderDetail::with('order', 'product', 'vendor')->OrderBy('id', 'desc')
+            $data = OrderDetail::with('order', 'product', 'vendor','order_tracker')->OrderBy('id', 'desc')
                 ->get();
         } else {
-            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+            $data = OrderDetail::with('order', 'product', 'vendor','order_tracker')->where('p_vendor_id', Auth::User()->id)
                 ->OrderBy('id', 'desc')
                 ->get();
         }
         // $data = Order::orderBy('id', 'desc')->get();
+        // dd($data);
+        // return response()->json([$data]);
         return view('orders.order_details', compact('data'));
     }
 
@@ -79,21 +81,29 @@ class OrderController extends Controller
         // dd($request->all());
         $this->validate($request, [
             // 'order_id' => 'required',
-            'status' => 'required',
+            'status' => 'required' ,
             // 'id' => 'required',
         ], [
             'status.required' => 'The status field is required',
         ]);
 
         $order_status = OrderDetail::where('id', $request->id)->first();
-        $order_status->status = $request->status;
-        $order_status->update();
 
-        $order_tracker = new OrderTracker;
-        $order_tracker->order_id = $request->id;
-        $order_tracker->status = $request->status;
-        $order_tracker->datetime = Carbon::now();
-        $order_tracker->save();
+        if ($order_status->status != $request->status) {
+            $order_status->status = $request->status;
+            $order_status->update();
+
+            $order_tracker = new OrderTracker;
+            $order_tracker->order_id = $request->id;
+            $order_tracker->status = $request->status;
+            $order_tracker->datetime = Carbon::now();
+            $order_tracker->save();
+        }else
+        {
+            return redirect()->back()->with(Toastr::error('error','This status field is already Updated'));
+        }
+        
+       
 
         return redirect()->back()->with(Toastr::success('Status Updated Successfully!'));
     }

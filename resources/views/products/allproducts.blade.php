@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('page-css')
-<link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/choices.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/nuslider.min.css') }}">
 @endsection
@@ -12,86 +12,88 @@
         {
             background-color: blue;
         }
+
         .btn {
-    color: inherit;
-}
-* {
-  box-sizing: border-box;
-}
+            color: inherit;
+        }
 
-a {
-  text-decoration: none;
-  color: #379937;
-}
+        * {
+            box-sizing: border-box;
+        }
 
-body {
-  margin: 40px;
-}
+        a {
+            text-decoration: none;
+            color: #379937;
+        }
 
-.dropdown {
-  position: relative;
-  font-size: 14px;
-  color: #333;
+        body {
+            margin: 40px;
+        }
 
-  .dropdown-list {
-    padding: 12px;
-    background: #fff;
-    position: absolute;
-    top: 30px;
-    left: 2px;
-    right: 2px;
-    box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .15);
-    transform-origin: 50% 0;
-    transform: scale(1, 0);
-    transition: transform .15s ease-in-out .15s;
-    max-height: 66vh;
-    overflow-y: scroll;
-  }
+        .dropdown {
+            position: relative;
+            font-size: 14px;
+            color: #333;
 
-  .dropdown-option {
-    display: block;
-    padding: 8px 12px;
-    opacity: 0;
-    transition: opacity .15s ease-in-out;
-  }
+            .dropdown-list {
+                padding: 12px;
+                background: #fff;
+                position: absolute;
+                top: 30px;
+                left: 2px;
+                right: 2px;
+                box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .15);
+                transform-origin: 50% 0;
+                transform: scale(1, 0);
+                transition: transform .15s ease-in-out .15s;
+                max-height: 66vh;
+                overflow-y: scroll;
+            }
 
-  .dropdown-label {
-    display: block;
-    height: 30px;
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 6px 12px;
-    line-height: 1;
-    cursor: pointer;
+            .dropdown-option {
+                display: block;
+                padding: 8px 12px;
+                opacity: 0;
+                transition: opacity .15s ease-in-out;
+            }
 
-    &:before {
-      content: '▼';
-      float: right;
-    }
-  }
+            .dropdown-label {
+                display: block;
+                height: 30px;
+                background: #fff;
+                border: 1px solid #ccc;
+                padding: 6px 12px;
+                line-height: 1;
+                cursor: pointer;
 
-  &.on {
-   .dropdown-list {
-      transform: scale(1, 1);
-      transition-delay: 0s;
+                &:before {
+                    content: '▼';
+                    float: right;
+                }
+            }
 
-      .dropdown-option {
-        opacity: 1;
-        transition-delay: .2s;
-      }
-    }
+            &.on {
+                .dropdown-list {
+                    transform: scale(1, 1);
+                    transition-delay: 0s;
 
-    .dropdown-label:before {
-      content: '▲';
-    }
-  }
+                    .dropdown-option {
+                        opacity: 1;
+                        transition-delay: .2s;
+                    }
+                }
 
-  [type="checkbox"] {
-    position: relative;
-    top: -1px;
-    margin-right: 4px;
-  }
-}
+                .dropdown-label:before {
+                    content: '▲';
+                }
+            }
+
+            [type="checkbox"] {
+                position: relative;
+                top: -1px;
+                margin-right: 4px;
+            }
+        }
     </style>
     {{-- <div class="card-body">
         <button class="popup-button btn btn-primary col-md-1"
@@ -323,18 +325,17 @@ body {
     <form action="{{ route('products.index') }}" method="GET">
 
         <select for="nameFilter" id="choices-multiple-remove-button" name="name[]" class="form-select"
-        placeholder="Select Product (Maximum Lenght 1)" multiple>
-        @foreach ($products as $key => $product)
-            <option value="{{ $product->name }}">{{ $product->name }}</option>
-        @endforeach
-    </select>
+            placeholder="Select Product (Maximum Lenght 1)" multiple>
+            @foreach ($products as $key => $product)
+                <option value="{{ $product->name }}">{{ $product->name }}</option>
+            @endforeach
+        </select>
         <input type="text" name="model_no" placeholder="Product Model">
         <input type="text" name="sku" placeholder="Product sku">
         <select name="make">
             <option value="">Select Supplier</option>
-            @foreach ($supplier as  $item)
-            <option value="{{$item->name}}">{{$item->name}}</option>
-
+            @foreach ($supplier as $item)
+                <option value="{{ $item->name }}">{{ $item->name }}</option>
             @endforeach
         </select>
         <!-- Include more input fields and select dropdowns for other filters -->
@@ -359,7 +360,7 @@ body {
                 <h4 class="card-title mb-3">All Product</h4>
                 <div class="table-responsive">
                     <table id="deafult_ordering_table" class="display table table-striped table-bordered"
-                                style="width:100%">
+                        style="width:100%">
                         @include('datatables.table_content')
                     </table>
                 </div>
@@ -368,18 +369,18 @@ body {
     </div>
 @endsection
 @section('page-js')
-<script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
-<script src="{{ asset('assets/js/datatables.script.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
     <script src="{{ asset('assets/js/vendor/nuslider.min.js') }}"></script>
     <script src="{{ asset('assets/js/nuslider.script.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.1/nouislider.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script>
-                $(document).ready(function() {
-                    var sliders = []; // Array to store slider instances
-                    var sliderValues = []; // Array to store slider value elements
-                    var totalPriceElement = $('#total-price'); // Element to display total price
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var sliders = []; // Array to store slider instances
+            var sliderValues = []; // Array to store slider value elements
+            var totalPriceElement = $('#total-price'); // Element to display total price
 
             // Initialize 5 sliders
             for (var i = 1; i <= 5; i++) {
