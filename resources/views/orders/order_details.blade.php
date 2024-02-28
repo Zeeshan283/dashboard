@@ -73,10 +73,10 @@
                                             <span style=" font-weight: 700; ">Type:
                                             </span>Customer <br>
                                             <span style=" font-weight: 700; ">Reason:
-                                            </span>I'm Not Interested 
+                                            </span>{{ $orders->customer_cancel_reason }} 
                                              
                                         @else
-                                        @if($orders->status == 'Canceled')
+                                        {{-- @if($orders->status == 'Canceled')
                                         <span class="badge-for-success" selected
                                                 disabled>{{ $orders->status }}</span><br>
                                             {{ $orders->updated_at }} <br> 
@@ -88,7 +88,7 @@
                                         disabled>{{ $orders->status }}</span><br>
                                     {{ $orders->updated_at }}
                                         @endif
-                                            
+                                             --}}
                                         @endif
                                     </td>
                                     <td style="width:110px">

@@ -294,6 +294,7 @@ class UserAPIController extends Controller
             'parcel_id'=> 'required|max:191|min:1',
             // 'product_id'=> 'required|max:191|min:1',
             'customer_cancel_status'=> 'required|string|in:Canceled|max:191|min:1',
+            'customer_cancel_reason'=> 'required|string|max:191|min:1',
         ]);
 
         if ($validator->fails()) {  
@@ -306,6 +307,7 @@ class UserAPIController extends Controller
             if($data){ 
                 if($data->order_id == $request->order_id){
                     $data->customer_cancel_status = $request->customer_cancel_status;
+                    $data->customer_cancel_reason = $request->customer_cancel_reason;
                     $data->customer_cancel_time = Carbon::now();
                     $data->update();
                 }else{

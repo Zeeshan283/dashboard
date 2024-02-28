@@ -97,6 +97,11 @@
             box-shadow: 2px 2px 3px #999;
             z-index: 100;
         }
+         
+        .tawk-min-container  {
+            width: 10px;
+            height: 10px;
+        }
     </style>
 </head>
 
