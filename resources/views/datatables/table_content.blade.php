@@ -289,33 +289,8 @@
             <th>Action</th>
         </tr>
     </tfoot>
-@elseif (Route::currentRouteName() == 'get_order_detail_status')
-    <thead>
-        <th>Id #</th>
-        <th>Parcel Id #</th>
-        <th>Status</th>
-        <th>DateTime</th>
-    </thead>
-    <tbody>
-        @foreach ($status as $value => $orders)
-            <tr>
-
-                <td>{{ $value + 1 }}</td>
-                <td>{{ $orders->order_id }}</td>
-                <td>{{ $orders->status }} </td>
-                <td>{{ $orders->datetime }} </td>
-            </tr>
-        @endforeach
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>Id #</th>
-
-            <th>Parcel Id #</th>
-            <th>Status</th>
-            <th>DateTime</th>
-        </tr>
-    </tfoot>
+{{-- @elseif (Route::currentRouteName() == 'get_order_detail_status') --}}
+   
 {{-- @elseif (Route::currentRouteName() == 'order_details') --}}
    
 @elseif (Route::currentRouteName() == 'pendingorders')

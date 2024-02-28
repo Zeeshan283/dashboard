@@ -310,13 +310,21 @@ class UserAPIController extends Controller
                     $data->customer_cancel_reason = $request->customer_cancel_reason;
                     $data->customer_cancel_time = Carbon::now();
                     $data->update();
+
+                    $order_tracking = new OrderTracker;
+                    $order_tracking->order_id = $request->parcel_id;
+                    $order_tracking->status = $request->customer_cancel_status;
+                    $order_tracking->datetime = Carbon::now();
+                    $order_tracking->type = "Customer";
+                    $order_tracking->customer_cancel_reason = $request->customer_cancel_reason;
+                    $order_tracking->save();
                 }else{
                 return Response::json(['error' => 'This Parcel Cannot Be Exist']);
                 }
             }else{
                 return Response::json(['error' => 'This Parcel Cannot Be Exist']); 
             }
-            
+
             return Response::json(['data'=> 'The Parcel Has been Canceled','status'=> '200']);
         } else {
             return Response::json(['error' => 'This Order Cannot Be Exist']);
