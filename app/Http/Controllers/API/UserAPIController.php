@@ -294,6 +294,7 @@ class UserAPIController extends Controller
             'parcel_id'=> 'required|max:191|min:1',
             // 'product_id'=> 'required|max:191|min:1',
             'customer_cancel_status'=> 'required|string|in:Canceled|max:191|min:1',
+            'customer_cancel_reason'=> 'required|string|max:191|min:1',
         ]);
 
         if ($validator->fails()) {  
@@ -306,15 +307,24 @@ class UserAPIController extends Controller
             if($data){ 
                 if($data->order_id == $request->order_id){
                     $data->customer_cancel_status = $request->customer_cancel_status;
+                    $data->customer_cancel_reason = $request->customer_cancel_reason;
                     $data->customer_cancel_time = Carbon::now();
                     $data->update();
+
+                    $order_tracking = new OrderTracker;
+                    $order_tracking->order_id = $request->parcel_id;
+                    $order_tracking->status = $request->customer_cancel_status;
+                    $order_tracking->datetime = Carbon::now();
+                    $order_tracking->type = "Customer";
+                    $order_tracking->customer_cancel_reason = $request->customer_cancel_reason;
+                    $order_tracking->save();
                 }else{
                 return Response::json(['error' => 'This Parcel Cannot Be Exist']);
                 }
             }else{
                 return Response::json(['error' => 'This Parcel Cannot Be Exist']); 
             }
-            
+
             return Response::json(['data'=> 'The Parcel Has been Canceled','status'=> '200']);
         } else {
             return Response::json(['error' => 'This Order Cannot Be Exist']);

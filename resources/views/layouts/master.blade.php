@@ -12,8 +12,7 @@
     <link rel="icon" href="{{ asset('upload/logo/logo.png') }}" type="image/x-icon">
     @yield('before-css')
     {{-- theme css --}}
-
-
+    {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
 
 
 
@@ -30,6 +29,80 @@
 
     {{-- page specific css --}}
     @yield('page-css')
+    <style>
+        .badge-for-cancel {
+            color: #fff;
+            background-color: #f44336;
+            padding-right: 0.6em;
+            padding-left: 0.6em;
+            border-radius: 10rem display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+
+        .badge-for-light {
+            color: #47404f;
+            background-color: #bbb;
+            padding-right: 0.6em;
+            padding-left: 0.6em;
+            border-radius: 10rem display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+
+        .badge-for-success {
+            color: #fff;
+            background-color: #4caf50;
+            padding-right: 0.6em;
+            padding-left: 0.6em;
+            border-radius: 10rem display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+
+        .float {
+            margin-bottom: 50px;
+            margin-right:5px;
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 20px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: -webkit-center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+        }
+         
+        .tawk-min-container  {
+            width: 10px;
+            height: 10px;
+        }
+    </style>
 </head>
 
 
@@ -205,7 +278,26 @@
         });
     </script>
 
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/65d5c7fc8d261e1b5f6309f4/1hn5had90';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
 
+    <script>
+        function updateOrderStatus(orderId, status) {
+            document.getElementById('status' + orderId).value = status;
+            document.getElementById('orderForm' + orderId).submit();
+        }
+    </script>
 </body>
 
 </html>

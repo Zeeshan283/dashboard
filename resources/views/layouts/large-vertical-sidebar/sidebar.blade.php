@@ -290,13 +290,13 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'products.index' ? 'open' : '' }}"
                     href="{{ route('products.index') }}">
                     <i class="nav-icon i-Shopping-Bag"></i>
                     <span class="item-name">Products List</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'productsView' ? 'open' : '' }}"
                     href="{{ route('productsView') }}">
@@ -387,7 +387,7 @@ if (Auth::user()->role == 'Vendor') {
                     <span class="item-name">ALL Parcels</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'pendingorders' ? 'open' : '' }}"
                     href="{{ route('pendingorders') }}">
                     <i class="nav-icon i-Clock"></i>
@@ -446,7 +446,7 @@ if (Auth::user()->role == 'Vendor') {
                     <i class="nav-icon i-File-Trash"></i>
                     <span class="item-name">Customer Canceled {{ $CustomerCanceled}}</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
 
         <ul class="childNav" data-parent="sales">

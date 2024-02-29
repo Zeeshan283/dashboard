@@ -462,7 +462,7 @@ class ApiController extends Controller
                 $productExist =  Product::where('id', '=', $product['product_id'])
                     ->where('created_by', '=', $product['p_vendor_id'])->first();
                 if ($productExist) {
-                    $orderDetail = new OrderDetail([
+                    $orderDetail = new OrderDetail([    
                         'product_id' => $product['product_id'],
                         'quantity' => $product['quantity'],
                         'p_vendor_id' => $product['p_vendor_id'],

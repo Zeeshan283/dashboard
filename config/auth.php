@@ -67,6 +67,9 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+            'table' => 'users',
+            'hash' => false,
+            'verification' => true, // Ensure this is set to true
         ],
 
         // 'users' => [
@@ -74,6 +77,8 @@ return [
         //     'table' => 'users',
         // ],
     ],
+
+    
 
     /*
     |--------------------------------------------------------------------------

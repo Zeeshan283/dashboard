@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class OrderTracker extends Model
 {
     use HasFactory;
-    protected $fillable = array('order_id', 'datetime', 'status', 'direction', 'country','icon');
+    protected $fillable = array('order_id', 'datetime', 'status', 'direction', 'country','icon','customer_cancel_reason','type');
 }
