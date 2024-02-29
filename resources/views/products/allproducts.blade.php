@@ -144,8 +144,9 @@
         .filter-card {
             margin-right: 0px;
             overflow: hidden;
-            margin-left: 15px;
+            margin-left: 10px;
         }
+
     </style>
 
 
@@ -153,123 +154,127 @@
         <button class="popup-button btn btn-primary col-md-1"
             style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
             Filters</button><br><br>
+            <form action="{{ route('products.index') }}" method="GET">
+                <button type="submit" class="btn btn-primary" style="margin-left: 1300px" >Submit</button>
         <div class="filter-card" id="filterCard">
+
             <div class="row" style="margin-top: 10px;">
+
                 <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
                         <div class="dropdown" id="productNameDropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Product Name</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <input type="text" id="productNameSearchInput" onkeyup="filterProductNames()"
+                                <input type="text" id="productNameSearchInput"
                                     placeholder="Search...">
-                                <div class="dropdown-options">
-                                    @foreach ($products as $key => $product)
+                                    <div class="dropdown-options">
                                         <label class="nameFilter">
-                                            <input type="checkbox" value="{{ $product->name }}"
-                                                onclick="toggleProductName('{{ $product->name }}')">
-                                            <span class="option-text">{{ $product->name }}</span>
+                                            <input type="checkbox" id="selectAllNames">
+                                            <span class="option-text">Select All</span>
                                         </label>
-                                    @endforeach
+                                        @foreach ($products as $key => $product)
+                                            <label class="nameFilter">
+                                                <input type="checkbox" name="name[]" value="{{ $product->name }}">
+                                                <span class="option-text">{{ $product->name }}</span>
+                                            </label>
+                                        @endforeach
                                 </div>
                                 <div id="selectedProductNamesList"></div>
                             </div>
                         </div>
-                    </form>
+
                 </div>
                 <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
-                        <div class="dropdown" id="modelNoDropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
+
+                        <div class="dropdown" id="ModelNoDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Model No</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <input type="text" id="modelNoSearchInput" onkeyup="filterModelNumbers()"
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="ModelNoSearchInput"
                                     placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($products as $key => $product)
                                         <label class="model_noFilter">
-                                            <input type="checkbox" value="{{ $product->model_no }}"
-                                                onclick="toggleModelNo('{{ $product->model_no }}')">
+                                            <input type="checkbox" name="model_no[]" value="{{ $product->model_no }}"
+                                                >
                                             <span class="option-text">{{ $product->model_no }}</span>
                                         </label>
                                     @endforeach
                                 </div>
-                                <div id="selectedModelNosList"></div>
+                                <div id="selectedModelNoList"></div>
                             </div>
                         </div>
-                    </form>
+
                 </div>
                 <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
-                        <div class="dropdown" id="supplierNameDropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
+                        <div class="dropdown" id=" suppliernameDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Supplier Name</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                <input type="text" id="supplierNameSearchInput" onkeyup="filterSupplierNames()"
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="suppliernameSearchInput"
                                     placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($products as $key => $product)
                                         <label class="makeFilter">
-                                            <input type="checkbox" value="{{ $product->make }}"
-                                                onclick="toggleSupplierName('{{ $product->make }}')">
+                                            <input type="checkbox" name="make[]" value="{{ $product->make }}"
+                                                >
                                             <span class="option-text">{{ $product->make }}</span>
                                         </label>
                                     @endforeach
                                 </div>
-                                <div id="selectedSupplierNamesList"></div>
+                                <div id="selectedsuppliernameList"></div>
                             </div>
                         </div>
-                    </form>
+
                 </div>
+
                 <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
-                        <div class="dropdown" id="colorDropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton4" data-toggle="dropdown"
+                        <div class="dropdown" id=" suppliernameDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <p class="text-left ">Product Colors</p>
+                                <p class="text-left">Colors</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <input type="text" id="colorSearchInput" onkeyup="filterColors()"
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="suppliernameSearchInput"
                                     placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($colors as $value)
-                                        <label class="nameFilter" name="color[]">
-                                            <input type="checkbox" value="{{ $value->name }}"
-                                                onclick="toggleColor('{{ $value->name }}')">
+                                    <label class="nameFilter">
+                                            <input type="checkbox" name="name[]" value="{{ $value->name }}">
                                             <span class="option-text">{{ $value->name }}</span>
                                         </label>
                                     @endforeach
                                 </div>
+                                <div id="selectednameList"></div>
                             </div>
                         </div>
-                    </form>
+
                 </div>
 
                 <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
                         <div class="dropdown" id="menuDropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton5" data-toggle="dropdown"
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <p class="text-left ">Product Menu</p>
+                                <p class="text-left">Menu</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
-                                <input type="text" id="menuSearchInput" onkeyup="filterMenus()"
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="nameSearchInput"
                                     placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($menus as $menu)
-                                        <label class="nameFilter">
-                                            <input type="checkbox" value="{{ $menu->name }}"
-                                                onclick="toggleMenu('{{ $menu->name }}')">
-                                            <span class="option-text">{{ $menu->name }}</span>
-                                        </label>
+                                    <label class="nameFilter">
+                                        <input type="checkbox" name="name[]" value="{{ $menu->name }}">
+                                        <span class="option-text">{{ $menu->name }}</span>
+                                    </label>
                                     @endforeach
                                 </div>
+                                <div id="selectednameList"></div>
                             </div>
                         </div>
                     </form>
@@ -277,10 +282,8 @@
 
                 <div class="col-md-2">
                     <div class="content-box">
-                        <form action="{{ route('products.index') }}" method="GET">
-                            <input type="number" id="quantity" name="quantity" min="1" max="500"
+                            <input type="number" id="quantity" name="min_order[]" min="1" max="500"
                                 placeholder="MOQ" onchange="filterQuantity()">
-                        </form>
                     </div>
                 </div>
 
@@ -290,53 +293,97 @@
             <div class="row" style="margin-top: 10px;">
 
                 <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
-                        <div class="dropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton6" data-toggle="dropdown"
+                        <div class="dropdown" id="menuDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Categories</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()"
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="nameSearchInput"
                                     placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($categories as $category)
-                                        <label class="categoriesFilter">
-                                            <input type="checkbox" value="{{ $category->name }}">
-                                            <span class="option-text">{{ $category->name }}</span>
-                                        </label>
-                                    @endforeach
+                                    <label class="categoriesFilter">
+                                        <input type="checkbox" name="name[]" value="{{ $category->id }}" onclick="filterSubcategories(this)">
+                                        <span class="option-text">{{ $category->name }}</span>
+                                    </label>
+                                @endforeach
                                 </div>
+                                <div id="selectedcategoriesList"></div>
                             </div>
                         </div>
-                    </form>
                 </div>
 
+
                 <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
-                        <div class="dropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton7" data-toggle="dropdown"
+                        <div class="dropdown" id="menuDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <p class="text-left ">Sub Category</p>
+                                <p class="text-left">Sub Categories</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton7">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()"
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="nameSearchInput"
                                     placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($subcategories as $subcat)
-                                        <label class="categoriesFilter">
-                                            <input type="checkbox" value="{{ $subcat->name }}">
-                                            <span class="option-text">{{ $subcat->name }}</span>
-                                        </label>
-                                    @endforeach
+                                    <label class="subcategoriesFilter">
+                                        <input type="checkbox" name="name[]" value="{{ $subcat->name}}">
+                                        <span class="option-text">{{ $subcat->name}}</span>
+                                    </label>
+                                @endforeach
                                 </div>
+                                <div id="selectedcategoriesList"></div>
                             </div>
                         </div>
-                    </form>
                 </div>
+<script>
+      $('#menu_id').change(function() {
+            var menu_id = $(this).val();
+            $.ajax({
+                url: "{{ asset('get-categories') }}?menu_id=" + menu_id,
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.length > 0) {
+                        var option = '<option value="" selected>Select Category</option>';
+                        $.each(response, function(i, v) {
+                            option += `<option value="${v.id}">${v.name}</option>`;
+                        });
+                        $('#category_id').html(option);
+                    } else {
+                        var option = '<option value="" selected>Category Not Found</option>';
+                        $('#category_id').html(option);
+                    }
+                }
+            });
+        });
+        // End Here
 
+        // Change Categories
+
+        $('#category_id').change(function() {
+            var cat_id = $(this).val();
+            $.ajax({
+                url: "{{ asset('get-subcategories') }}?cat_id=" + cat_id,
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.length > 0) {
+                        var option = '<option value="" selected>Select Sub Category</option>';
+                        $.each(response, function(i, v) {
+                            option += `<option value="${v.id}">${v.name}</option>`;
+                        });
+                        $('#subcategory_id').html(option);
+                    } else {
+                        var option = '<option value="" selected>Sub Category Not Found</option>';
+                        $('#subcategory_id').html(option);
+                    }
+                }
+            });
+        });
+</script>
                 <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
+
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton8" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -348,7 +395,7 @@
                                     <div class="dropdown-options">
                                         @foreach ($brand as $brand)
                                             <label class="brand_nameFilter d-flex">
-                                                <input type="checkbox" style="margin-bottom: 3px;" value="{{ $brand->brand_name ?? null }} $nbsp; {{ $brand->logo ?? null }}">
+                                                <input type="checkbox" style="margin-bottom: 3px;" value="{{ $brand->brand_name ?? null }} {{ $brand->logo ?? null }}">
                                                 <span class="option-text d-flex">  {{ $brand->brand_name ?? null }}  <img src="{{ asset($brand->logo) }}" width="50" height="50" alt="{{ $brand->brand_name ?? null }}">
                                                 </span>
                                             </label>
@@ -357,12 +404,12 @@
 
                             </div>
                         </div>
-                    </form>
+
                 </div>
 
                 <div class="col-md-2" style="margin-left: 30px;">
                     <label>Condition:</label>
-                    <form action="{{ route('products.index') }}" method="GET">
+
                         <div class="row">
                             <div class="col">
                                 <label>New:</label>
@@ -377,14 +424,14 @@
                                 <input type="checkbox">
                             </div>
                         </div>
-                    </form>
+
                 </div>
 
                 <div class="col-md-2">
                     <div class="content-box">
-                        <form action="{{ route('products.index') }}" method="GET">
+
                             <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
-                        </form>
+
                     </div>
                 </div>
 
@@ -407,25 +454,35 @@
 
                 <div class="col-lg-3" style="margin-left: 100px;">
                     <div class="content-box">
-                        <form action="{{ route('products.index') }}" method="GET">
-                            <div class="slider"><b>Price:</b>
-                                <input type="range" min="0" max="200" value="100"
-                                    oninput="updatePriceValue(this.value, 'rangeValue1')">
-                                <p id="rangeValue1">100</p>
-                            </div>
-                        </form>
+
+                        <div class="slider">
+                            <b>Price:</b>
+                            <input type="range" min="0" max="1000000" value="100" oninput="updatePriceValue(this.value, 'rangeValue1')">
+                            <p id="rangeValue1">100</p>
+                        </div>
+                        <div class="input-bar">
+                            <label for="priceInput1">Enter Price:</label>
+                            <input type="number" id="priceInput" min="0" max="1000000" value="100" oninput="updatePriceSlider(this.value, 'rangeValue1')">
+                        </div>
+
+
                     </div>
                 </div>
 
                 <div class="col-lg-3" style="margin-left: 100px;">
                     <div class="content-box">
-                        <form action="{{ route('products.index') }}" method="GET">
-                            <div class="slider"><b>Tax:</b>
-                                <input type="range" min="0" max="200" value="100"
-                                    oninput="updatePriceValue(this.value, 'rangeValue2')">
-                                <p id="rangeValue2">100</p>
-                            </div>
-                        </form>
+
+                        <div class="slider">
+                            <b>Price:</b>
+                            <input type="range" min="0" max="1000000" value="100" oninput="updatePriceValue(this.value, 'rangeValue2')">
+                            <p id="rangeValue2">100</p>
+                        </div>
+                        <div class="input-bar">
+                            <label for="priceInput2">Enter Price:</label>
+                            <input type="number" id="priceInput" min="0" max="1000000" value="100" oninput="updatePriceSlider(this.value, 'rangeValue2')">
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -434,9 +491,9 @@
             </div>
 
             <div class="row d-flex" style="margin-top: 40px;">
-                <div class="col-md-3" style="margin-left: 100px;">
+                <div class="col-md-3" style="margin-left: 10px;">
                     <div class="content-box">
-                        <form action="{{ route('products.index') }}" method="GET">
+
                             <div class="slider"><b>ReturnDays:</b>
                                 <label for="fader"></label><input type="range" min="0" max="100"
                                     value="50" id="fader" step="20" list="volsettings"
@@ -451,13 +508,17 @@
                                     <option>100</option>
                                 </datalist>
                             </div>
-                        </form>
+                            <div class="input-bar">
+                                <label for="priceInput">Enter Price:</label>
+                                <input type="number" id="priceInput3" min="0" max="1000000" value="100" oninput="updatePriceSlider(this.value, 'rangeValue3')">
+                            </div>
+
                     </div>
                 </div>
 
-                <div class="col-md-3" style="margin-left: 100px;">
+                <div class="col-md-3" style="margin-left: 50px;">
                     <div class="content-box">
-                        <form action="{{ route('products.index') }}" method="GET">
+
                             <div class="slider"><b>WarrantyDays:</b>
                                 <label for="fader"></label><input type="range" min="0" max="100"
                                     value="50" id="fader" step="20" list="volsettings"
@@ -472,17 +533,17 @@
                                     <option>100</option>
                                 </datalist>
                             </div>
-                        </form>
+
                     </div>
                 </div>
 
-                <div class="col-md-2" style="margin-right: 800px;">
+                <div class="col-md-3" style="margin-left: 50px;">
                     <div class="content-box">
-                        <form action="{{ route('products.index') }}" method="GET">
-                            <div class="slider-container"> Commission:
+
+                            <div class="slider"><b>Commission:</b>
                                 <label for="fader"></label><input type="range" min="0" max="100"
-                                    value="50" id="price-slider" class="vertical-slider" step="20"
-                                    list="volsettings" oninput="updatePriceValue(this.value, 'rangeValue5')">
+                                    value="50" id="fader" step="20" list="volsettings"
+                                    oninput="updatePriceValue(this.value, 'rangeValue5')">
                                 <p id="rangeValue5">100</p>
                                 <datalist id="volsettings">
                                     <option>0</option>
@@ -493,16 +554,41 @@
                                     <option>100</option>
                                 </datalist>
                             </div>
-                        </form>
+
                     </div>
                 </div>
 
-            </div>
 
+                <script>
+                    function updatePriceValue(value, outputId) {
+                        document.getElementById(outputId).textContent = value;
+                    }
+
+                    function updatePriceSlider(value, sliderId) {
+                        document.getElementById(sliderId).textContent = value;
+                        document.querySelector('input[type="range"]').value = value;
+                    }
+
+                    function filterProducts() {
+                        // Add your filtering logic here
+                        let price = document.getElementById('priceInput').value;
+                        console.log('Filtering products with price less than or equal to: ' + price);
+                    }
+                </script>
+
+
+            </div>
+        </form>
             <script>
                 function updatePriceValue(value, targetId) {
                     document.getElementById(targetId).innerText = value;
                 }
+                    document.getElementById('selectAllNames').addEventListener('change', function() {
+                        var checkboxes = document.querySelectorAll('#productNameDropdown input[type="checkbox"]');
+                        checkboxes.forEach(function(checkbox) {
+                            checkbox.checked = this.checked;
+                        }, this);
+                    });
             </script>
 
         </div>
@@ -538,168 +624,17 @@
         </div>
     </div>
 
-    <script>
-        function toggleFilters() {
-            var filterCard = document.getElementById("filterCard");
-            filterCard.style.display = (filterCard.style.display === "none" || filterCard.style.display === "") ? "block" :
-                "none";
-        }
-
-        let selectedProductNames = new Set();
-        let selectedModelNos = new Set();
-        let selectedSupplierNames = new Set();
-
-        function filterProductNames() {
-            selectedProductNames = new Set();
-            let input, filter, div, checkboxes, i;
-            input = document.getElementById('productNameSearchInput');
-            filter = input.value.toUpperCase();
-            div = document.getElementById('productNameDropdown');
-            checkboxes = div.querySelectorAll('.nameFilter input[type="checkbox"]');
-            for (i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].value.toUpperCase().indexOf(filter) > -1) {
-                    checkboxes[i].parentNode.style.display = "";
-                    if (checkboxes[i].checked) {
-                        selectedProductNames.add(checkboxes[i].value);
-                    }
-                } else {
-                    checkboxes[i].parentNode.style.display = "none";
-                }
-            }
-            updateSelectedProductNamesList();
-            filterDataList();
-        }
-
-        function toggleProductName(name) {
-            if (selectedProductNames.has(name)) {
-                selectedProductNames.delete(name);
-            } else {
-                selectedProductNames.add(name);
-            }
-            updateSelectedProductNamesList();
-            filterDataList();
-        }
-
-        function updateSelectedProductNamesList() {
-            let list = document.getElementById('selectedProductNamesList');
-            list.innerHTML = '';
-            selectedProductNames.forEach(name => {
-                let item = document.createElement('div');
-                item.textContent = name;
-                list.appendChild(item);
-            });
-        }
-
-        function filterModelNumbers() {
-            selectedModelNos = new Set();
-            let input, filter, div, checkboxes, i;
-            input = document.getElementById('modelNoSearchInput');
-            filter = input.value.toUpperCase();
-            div = document.getElementById('modelNoDropdown');
-            checkboxes = div.querySelectorAll('.model_noFilter input[type="checkbox"]');
-            for (i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].value.toUpperCase().indexOf(filter) > -1) {
-                    checkboxes[i].parentNode.style.display = "";
-                    if (checkboxes[i].checked) {
-                        selectedModelNos.add(checkboxes[i].value);
-                    }
-                } else {
-                    checkboxes[i].parentNode.style.display = "none";
-                }
-            }
-            updateSelectedModelNosList();
-            filterDataList();
-        }
-
-        function toggleModelNo(modelNo) {
-            if (selectedModelNos.has(modelNo)) {
-                selectedModelNos.delete(modelNo);
-            } else {
-                selectedModelNos.add(modelNo);
-            }
-            updateSelectedModelNosList();
-            filterDataList();
-        }
-
-        function updateSelectedModelNosList() {
-            let list = document.getElementById('selectedModelNosList');
-            list.innerHTML = '';
-            selectedModelNos.forEach(modelNo => {
-                let item = document.createElement('div');
-                item.textContent = modelNo;
-                list.appendChild(item);
-            });
-        }
-
-        function filterSupplierNames() {
-            selectedSupplierNames = new Set();
-            let input, filter, div, checkboxes, i;
-            input = document.getElementById('supplierNameSearchInput');
-            filter = input.value.toUpperCase();
-            div = document.getElementById('supplierNameDropdown');
-            checkboxes = div.querySelectorAll('.makeFilter input[type="checkbox"]');
-            for (i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].value.toUpperCase().indexOf(filter) > -1) {
-                    checkboxes[i].parentNode.style.display = "";
-                    if (checkboxes[i].checked) {
-                        selectedSupplierNames.add(checkboxes[i].value);
-                    }
-                } else {
-                    checkboxes[i].parentNode.style.display = "none";
-                }
-            }
-            updateSelectedSupplierNamesList();
-            filterDataList();
-        }
-
-        function toggleSupplierName(supplierName) {
-            if (selectedSupplierNames.has(supplierName)) {
-                selectedSupplierNames.delete(supplierName);
-            } else {
-                selectedSupplierNames.add(supplierName);
-            }
-            updateSelectedSupplierNamesList();
-            filterDataList();
-        }
-
-        function updateSelectedSupplierNamesList() {
-            let list = document.getElementById('selectedSupplierNamesList');
-            list.innerHTML = '';
-            selectedSupplierNames.forEach(supplierName => {
-                let item = document.createElement('div');
-                item.textContent = supplierName;
-                list.appendChild(item);
-            });
-        }
-
-        function filterDataList() {
-            let rows = document.querySelectorAll('tbody tr');
-            rows.forEach(row => {
-                let productName = row.querySelector('td:nth-child(2)').textContent;
-                let modelNo = row.querySelector('td:nth-child(3)').textContent;
-                let supplierName = row.querySelector('td:nth-child(6)').textContent;
-                if ((selectedProductNames.size === 0 || selectedProductNames.has(productName)) &&
-                    (selectedModelNos.size === 0 || selectedModelNos.has(modelNo)) &&
-                    (selectedSupplierNames.size === 0 || selectedSupplierNames.has(supplierName))) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-            });
-        }
-
-        filterProductNames();
-        filterModelNumbers();
-        filterSupplierNames();
-    </script>
 
 
 @endsection
 
 @section('page-js')
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+
+
     <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 @endsection

@@ -1,9 +1,11 @@
 @extends('layouts.master')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
 
 @section('main-content')
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
 
         .dropdown {
@@ -192,6 +194,14 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleFilters() {
+            var filterCard = document.getElementById("filterCard");
+            filterCard.style.display = (filterCard.style.display === "none" || filterCard.style.display === "") ? "block" :
+                "none";
+        }
+        </script>
 @endsection
 
 @section('page-js')

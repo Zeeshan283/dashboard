@@ -71,6 +71,7 @@
         <a href="{{ route('orderInvoice',$orders->id) }}" target="__BLANK" class="btn btn-outline-secondary">Invoice</a>
         </div>
         </td>
+        <td class="d-none"> {{ $orders->created_at }}</td>
     </tr>
     @endforeach
 </tbody>
@@ -1813,30 +1814,24 @@
                 </a>
             </div>
         </td>
-        @foreach ($colors as $color)
-    <td class="d-none">{{ $color->name }}</td>
-    @endforeach
-    @foreach ($menus as $menu)
-    <td class="d-none">{{ $menu->name }}</td>
-    @endforeach
-    <td class="d-none">{{ $product->min_order }}</td>
-        <td class="d-none"> {{ $product->created_at }}</td>
     </tr>
+
     @endforeach
 </tbody>
 <tfoot>
     <tr>
         <th>Sr No</th>
-        <th>Name</th>
-        <th>Model#</th>
-        <th>SKU</th>
-        <th>Category</th>
-        <th>Supplier</th>
-        <th>image(145x66)px</th>
-        {{-- <th>Type</th> --}}
-        <th>Action</th>
+    <th>Name</th>
+    <th>Model#</th>
+    <th>SKU</th>
+    <th>Category</th>
+    <th>Supplier</th>
+    <th>Image(145x66)px</th>
+    {{-- <th>Type</th> --}}
+    <th>Action</th>
     </tr>
 </tfoot>
+
 
 @elseif (Route::currentRouteName() == 'productreviews')
 <thead>
@@ -2015,7 +2010,6 @@
             </button>
             </form> --}}
         </td>
-
     </tr>
     @endforeach
 </tbody>
