@@ -7,7 +7,6 @@
     <div class="breadcrumb">
         <h1>All Parcels</h1>
     </div>
-
     <div class="separator-breadcrumb border-top"></div>
     <div class="col-md-12 mb-4">
         <div class="card text-start">
@@ -114,7 +113,7 @@
                                                 <button class="btn btn-secondary dropdown-toggle" type="button"
                                                     id="dropdownMenuButton{{ $orders->id }}" data-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
-                                                    {{ $orders->status }}
+                                                    {{ $orders->status }} 
                                                 </button>
                                                 <div class="dropdown-menu"
                                                     aria-labelledby="dropdownMenuButton{{ $orders->id }}">
@@ -126,12 +125,12 @@
                                         </td>
                                     @else
                                         <td>
-                                            <form method="POST" id="orderForm{{ $orders->id }}"
+                                            <form method="POST" id="orderForm{{ $orders->id }}" 
                                                 action="{{ route('order_details_status', ['id' => $orders->id]) }}">
                                                 @csrf
                                                 @method('PATCH')
                                                 <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                    <button    class="btn btn-secondary dropdown-toggle" type="button"
                                                         id="dropdownMenuButton{{ $orders->id }}" data-toggle="dropdown"
                                                         aria-haspopup="true" aria-expanded="false">
                                                         {{ $orders->status }}
@@ -173,16 +172,16 @@
                                                             }
                                                         @endphp
                                                         @if (!$isInProcess)
-                                                            <a class="dropdown-item"
+                                                            <a class="dropdown-item"  
                                                                 onclick="updateOrderStatus('{{ $orders->id }}', 'In Process')">In
                                                                 Process</a>
                                                         @endif
                                                         @if (!$isInPackaging)
-                                                            <a class="dropdown-item" href="#"
+                                                            <a class="dropdown-item" href="#"  
                                                                 onclick="updateOrderStatus('{{ $orders->id }}', 'Packaging')">Packaging</a>
                                                         @endif
                                                         @if (!$isInOutForDelivery)
-                                                            <a class="dropdown-item" href="#"
+                                                            <a class="dropdown-item" href="#" 
                                                                 onclick="updateOrderStatus('{{ $orders->id }}', 'Out For Delivery')">Out
                                                                 of Delivery</a>
                                                         @endif
@@ -247,6 +246,18 @@
 @endsection
 
 @section('page-js')
+{{--    
+<script>
+    function myFunction() {
+      var txt;
+      if (confirm("Press a button!")) {
+        txt = "You pressed OK!";
+      } else {
+        txt = "You pressed Cancel!";
+      }
+      document.getElementById("demo").innerHTML = txt;
+    }
+    </script> --}}
     <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 @endsection

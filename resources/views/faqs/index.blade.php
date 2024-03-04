@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
 @endsection
 @section('main-content')
+    
     <div class="breadcrumb">
         <div class="col-md-6">
             <h1>FAQ's Management</h1>
