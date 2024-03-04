@@ -89,9 +89,9 @@
 {{-- @elseif (Route::currentRouteName() == 'get_order_details') --}}
 
 {{-- @elseif (Route::currentRouteName() == 'get_order_detail_status') --}}
-   
+
 {{-- @elseif (Route::currentRouteName() == 'order_details') --}}
-   
+
 @elseif (Route::currentRouteName() == 'pendingorders')
     <thead>
         {{-- <th>Sr No</th> --}}
@@ -1562,46 +1562,48 @@
 
                 <td>
 
-                    <div class="d-flex gap-2">
-                        <a target="_blank" href="{{ URL::to('products/' . $product->id . '/edit') }}"><button
-                                type="button" class="btn btn-outline-secondary ">
-                                <i {{-- class="fa fa-clone" --}} class=" nav-icon i-Pen-2" title="edit"
-                                    style="font-weight: bold;"></i>
-                            </button></a>
-                        <a target="_blank" href="{{ URL::to('product/' . $product->id . '/dupe') }}"><button
-                                type="button" class="btn btn-outline-secondary ">
-                                <i class="fa fa-clone" {{-- class="nav-icon i-Duplicate-Window" --}} title="dupl"
-                                    style="font-weight: bold;"></i>
-                            </button></a>
-                        <a href="https://www.industrymall.net/product-details/{{ $product->id }}" target="_blank"
-                            class="btn btn-outline-secondary">
-                            <i class="nav-icon i-Eye" title="view"></i>
-                        </a>
+            <div class="d-flex gap-2">
+                <a target="_blank" href="{{ URL::to('products/' . $product->id . '/edit') }}"><button type="button"
+                        class="btn btn-outline-secondary ">
+                        <i {{-- class="fa fa-clone" --}} class=" nav-icon i-Pen-2" title="edit"
+                            style="font-weight: bold;"></i>
+                    </button></a>
+                <a target="_blank" href="{{ URL::to('product/' . $product->id . '/dupe') }}"><button type="button"
+                        class="btn btn-outline-secondary ">
+                        <i class="fa fa-clone" {{-- class="nav-icon i-Duplicate-Window" --}} title="dupl"
+                            style="font-weight: bold;"></i>
+                    </button></a>
+                <a href="https://www.industrymall.net/product-details/{{ $product->id }}" target="_blank"
+                    class="btn btn-outline-secondary">
+                    <i class="nav-icon i-Eye" title="view"></i>
+                </a>
+            </div>
+        </td>
+        @foreach ($colors as $color)
+    <td class="d-none">{{ $color->name }}</td>
+    @endforeach
+    @foreach ($menus as $menu)
+    <td class="d-none">{{ $menu->name }}</td>
+    @endforeach
+    <td class="d-none">{{ $product->min_order }}</td>
+        <td class="d-none"> {{ $product->created_at }}</td>
+    </tr>
+    @endforeach
+</tbody>
+<tfoot>
+    <tr>
+        <th>Sr No</th>
+        <th>Name</th>
+        <th>Model#</th>
+        <th>SKU</th>
+        <th>Category</th>
+        <th>Supplier</th>
+        <th>image(145x66)px</th>
+        {{-- <th>Type</th> --}}
+        <th>Action</th>
+    </tr>
+</tfoot>
 
-
-                    </div>
-
-                </td>
-                <td class="d-none"> {{ $product->created_at }}</td>
-                @foreach ($colors as $color)
-                    <td class="d-none">{{ $color->name }}</td>
-                @endforeach
-            </tr>
-        @endforeach
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>Sr No</th>
-            <th>Name</th>
-            <th>Model#</th>
-            <th>SKU</th>
-            <th>Category</th>
-            <th>Supplier</th>
-            <th>image(145x66)px</th>
-            {{-- <th>Type</th> --}}
-            <th>Action</th>
-        </tr>
-    </tfoot>
 @elseif (Route::currentRouteName() == 'productreviews')
     <thead>
         <th>Sr No</th>
@@ -1779,19 +1781,19 @@
                 <i class="fa fa-trash" title="delete" aria-hidden="true"></i>
             </button>
             </form> --}}
-                </td>
+        </td>
 
-            </tr>
-        @endforeach
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>Sr No</th>
-            <th>Id#</th>
-            <th>Name</th>
-            <th>Icon</th>
-        </tr>
-    </tfoot>
+    </tr>
+    @endforeach
+</tbody>
+<tfoot>
+    <tr>
+        <th>Sr No</th>
+        <th>Id#</th>
+        <th>Name</th>
+        <th>Icon</th>
+    </tr>
+</tfoot>
 @elseif (Route::currentRouteName() == 'addmenu')
     <thead>
         <th>Sr No</th>

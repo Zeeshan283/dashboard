@@ -49,7 +49,6 @@ class ProductController extends Controller
             $query = Product::query();
             $supplier = User::where('role', 'Vendor')->get();
 
-            // Apply filters if provided in the request
             // dd($request->all());
             if ($request->has('name')) {
                 $names = $request->input('name');
@@ -67,14 +66,6 @@ class ProductController extends Controller
                     $query->where('model_no', $model_nos);
                 }
             }
-            if ($request->has('sku')) {
-                $skus = $request->input('sku');
-                if (is_array($skus)) {
-                    $query->whereIn('sku', $skus);
-                } else {
-                    $query->where('sku', $skus);
-                }
-            }
 
             if ($request->has('make')) {
                 $make = $request->input('make');
@@ -85,23 +76,27 @@ class ProductController extends Controller
                 }
             }
 
-            if ($request->has('categories')) {
-                $categories = $request->input('categories');
-                if (is_array($categories)) {
-                    $query->whereIn('categories', $categories);
+            if ($request->has('name')) {
+                $menu = $request->input('name');
+                if (is_array($menu)) {
+                    $query->whereIn('name', $menu);
                 } else {
-                    $query->where('categories', $categories);
+                    $query->where('name', $menu);
                 }
             }
 
+            if ($request->has('categories')) {
+                $categories = $request->input('categories');
+                $query->whereHas('categories', function ($q) use ($categories) {
+                    $q->whereIn('id', $categories);
+                });
+            }
 
             if ($request->has('subcategories')) {
                 $subcategories = $request->input('subcategories');
-                if (is_array($subcategories)) {
-                    $query->whereIn('subcategories', $subcategories);
-                } else {
-                    $query->where('subcategories', $subcategories);
-                }
+                $query->whereHas('subcategories', function ($q) use ($subcategories) {
+                    $q->whereIn('id', $subcategories);
+                });
             }
 
             if ($request->has('brand_name')) {
@@ -110,25 +105,6 @@ class ProductController extends Controller
                     $query->whereIn('brand_name', $brand);
                 } else {
                     $query->where('brand_name', $brand);
-                }
-            }
-
-            if ($request->has('new_price')) {
-                $price = $request->input('new_price');
-                if (is_array($price)) {
-                    $query->whereIn('new_price', $price);
-                } else {
-                    $query->where('new_price', $price);
-                }
-            }
-
-
-            if ($request->has('new_sale_price')) {
-                $price = $request->input('new_sale_price');
-                if (is_array($price)) {
-                    $query->whereIn('new_sale_price', $price);
-                } else {
-                    $query->where('new_sale_price', $price);
                 }
             }
 
@@ -158,6 +134,16 @@ class ProductController extends Controller
                     $query->where('new_return_days', $days);
                 }
             }
+
+            if ($request->has('min_order')) {
+                $product = $request->input('min_order');
+                if (is_array($product)) {
+                    $query->whereIn('min_order', $product);
+                } else {
+                    $query->where('min_order', $product);
+                }
+            }
+
             $data = $query->get();
         } else {
             $data = Product::with('product_image', 'categories:id,name', 'subcategories:id,name')
@@ -168,6 +154,7 @@ class ProductController extends Controller
             $categories = Category::all();
             $subcategories = SubCategory::all();
             $vendors = User::where('role', 'Vendor')->get();
+
         }
 
         return view('products.allproducts', compact('data', 'products', 'supplier', 'brand', 'categories', 'subcategories', 'vendors', 'colors', 'menus'));
