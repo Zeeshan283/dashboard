@@ -20,6 +20,12 @@ class FAQController extends Controller
         $data = FAQ::get(['id', 'question', 'answer', 'faq_category_id']);
         return view('faqs.index', compact('data'));
     }
+    
+    public function faqsView()
+    {
+        $data = FAQ::get(['id', 'question', 'answer', 'faq_category_id']);
+        return view('faqs.view', compact('data'));
+    }
 
     public function create()
     {

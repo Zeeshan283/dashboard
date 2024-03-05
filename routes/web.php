@@ -151,6 +151,7 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('faqs_categories', FaqCategoriesController::class);
     Route::get('faqs_category/{id}/destroy', [FaqCategoriesController::class, 'destroy'])->name('faqs_category.destroy');
     Route::resource('faqs', FAQController::class);
+    Route::get('faqs-view', [FAQController::class,'faqsView'])->name('faqs-view');
     Route::get('faq/{id}/destroy', [FAQController::class, 'destroy'])->name('faq.destroy');
     Route::resource('pages', PageController::class);
     Route::get('page/{id}/destroy', [PageController::class, 'destroy'])->name('page.destroy');
