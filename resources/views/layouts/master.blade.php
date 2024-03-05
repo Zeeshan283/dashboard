@@ -83,27 +83,7 @@
             font-weight: 600;
         }
 
-        .float {
-            margin-bottom: 50px;
-            margin-right: 5px;
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 40px;
-            right: 20px;
-            background-color: #25d366;
-            color: #FFF;
-            border-radius: 50px;
-            text-align: -webkit-center;
-            font-size: 30px;
-            box-shadow: 2px 2px 3px #999;
-            z-index: 100;
-        }
-
-        .tawk-min-container {
-            width: 10px;
-            height: 10px;
-        }
+     
     </style>
 </head>
 
@@ -286,19 +266,6 @@
         });
     </script>
 
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"),
-                s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/65d5c7fc8d261e1b5f6309f4/1hn5had90';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
 
     <script>
         function updateOrderStatus(orderId, status) {
@@ -319,16 +286,10 @@
 
             e.preventDefault();
         });
-        window.addEventListener('keydown', function(e) {
-            if (e.key === 'F12') {
-                alert('Inspect element is disabled!');
-                e.preventDefault();
-            }
-        });
-
+        
         document.addEventListener('keydown', function(event) {
             if (event.ctrlKey && event.keyCode == 85) {
-                alert('Ctrl U is disabled!');
+               
                 event.preventDefault();
                 return false;
             }
@@ -337,7 +298,7 @@
 
         document.addEventListener('keydown', function(event) {
             if (event.ctrlKey && event.shiftKey && event.keyCode == 67) {
-                alert('Ctrl Shift C is disabled!');
+                 
                 event.preventDefault();
                 return false;
             }

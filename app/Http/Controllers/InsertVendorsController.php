@@ -21,6 +21,10 @@ use Illuminate\Support\Facades\DB;
 
 class InsertVendorsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
       public function vendorlist (){
         return view('seller.addseller');
     }

@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class EwalletController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function collectedcash()
     {
         return view('ewallet.collectedcash');

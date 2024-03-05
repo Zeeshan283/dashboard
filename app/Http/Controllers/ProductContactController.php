@@ -11,6 +11,10 @@ use Illuminate\Support\Collection;
 
 class ProductContactController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(Request $request)
     {
         $query = Product::query();
