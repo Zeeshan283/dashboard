@@ -103,9 +103,29 @@
             style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
             Filters</button><br><br>
         <div class="filter-card" id="filterCard">
-            <div class="row" style="margin-top: 10px;">
-                <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
+            <form action="{{ route(Route::currentRouteName()) }}" method="GET">
+                <button type="submit" class="btn btn-secondary" style="margin-left: 1300px">Submit</button>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-2">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Customer Id</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($data as $key => $value)
+                                        <label class="customer_idFilter">
+                                            <input type="checkbox" value="{{ $value->customer_id }}">
+                                            <span class="option-text">{{ $value->customer_id }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -123,12 +143,8 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <button type="submit">Submit</button> --}}
-
-                    </form>
-                </div>
-                <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
+                    </div>
+                    <div class="col-md-2">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -146,10 +162,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
+                    </div>
+                    <div class="col-md-2">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -167,11 +181,9 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
 
-                <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
+                    <div class="col-md-2">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -189,11 +201,9 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
 
-                <div class="col-md-2">
-                    <form action="{{ route('products.index') }}" method="GET">
+                    <div class="col-md-2">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -211,9 +221,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
 
         </div>
     </div>
@@ -267,13 +276,11 @@
                                                     <i class="nav-icon i-Email" title="email"
                                                         style="font-weight: bold;"></i>
                                                 </button></a>
-                                            <a target="_blank" href="{{ route('CustomerQueries.show', $value->id) }}">
+                                         <a target="_blank" href="{{ route('CustomerQueries.show', $value->id) }}">
                                                 <button type="button" class="btn btn btn-outline-secondary ">
                                                     <i class="nav-icon i-Eye" title="view"
                                                         style="font-weight: bold;"></i>
                                                 </button></a>
-
-
                                         </div>
                                     </td>
                                 </tr>
@@ -301,50 +308,12 @@
         </div>
     </div>
     <script>
-        function filterOptions() {
-            var input, filter, ul, li, a, i, txtValue;
-            input = document.getElementById('searchInput');
-            filter = input.value.toUpperCase();
-            div = document.getElementsByClassName('dropdown-options')[0];
-            labels = div.getElementsByTagName('label');
-            for (i = 0; i < labels.length; i++) {
-                label = labels[i];
-                a = label.getElementsByTagName('input')[0];
-                txtValue = a.value;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    label.style.display = '';
-                } else {
-                    label.style.display = 'none';
-                }
-            }
-        }
-
-        function filterTable(inputId) {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById(inputId);
-        filter = input.value.toUpperCase();
-        table = document.getElementById("productsTable");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
 
         function toggleFilters() {
             var filterCard = document.getElementById("filterCard");
             filterCard.style.display = (filterCard.style.display === "none" || filterCard.style.display === "") ? "block" :
                 "none";
         }
-
-
     </script>
 @endsection
 

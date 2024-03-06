@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\ProductContact;
 use App\Models\Product;
-use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Collection;
 
 class ProductContactController extends Controller
 {
@@ -16,27 +13,56 @@ class ProductContactController extends Controller
         $this->middleware('auth');
     }
     public function index(Request $request)
-    {
-        $query = Product::query();
+{
+    $query = Product::query();
 
-        if ($request->has('name')) {
-            $names = $request->input('name');
-            if (is_array($names)) {
-                $query->whereIn('name', $names);
-            } else {
-                $query->where('name', $names);
-            }
+    if ($request->has('supplier_name')) {
+        $names = $request->input('supplier_name');
+        if (is_array($names)) {
+            $query->whereIn('supplier_name', $names);
+        } else {
+            $query->where('supplier_name', $names);
         }
-
-        $data = "";
-        if (Auth::user()->role == 'Admin') {
-            $data = ProductContact::all();
-        } elseif (Auth::user()->role == 'Vendor') {
-            $data = ProductContact::orderBy('id', 'desc')->where('supplier_id', Auth::user()->id)->get();
-        }
-
-        return view('products.customerqueries', compact('data','query'));
     }
+
+    if ($request->has('customer_name')) {
+        $cname = $request->input('customer_name');
+        if (is_array($cname)) {
+            $query->whereIn('customer_name', $cname);
+        } else {
+            $query->where('customer_name', $cname);
+        }
+    }
+
+    if ($request->has('pro_name')) {
+        $proname = $request->input('pro_name');
+        if (is_array($proname)) {
+            $query->whereIn('pro_name', $proname);
+        } else {
+            $query->where('pro_name', $proname);
+        }
+    }
+
+    if ($request->has('pro_model_name')) {
+        $modelname = $request->input('pro_model_name');
+        if (is_array($modelname)) {
+            $query->whereIn('pro_model_name', $modelname);
+        } else {
+            $query->where('pro_model_name', $modelname);
+        }
+    }
+
+    $data = "";
+    if (Auth::user()->role == 'Admin') {
+        $data = $query->get();
+        $data = ProductContact::all();
+    } elseif (Auth::user()->role == 'Vendor') {
+        $data = $query->where('supplier_id', Auth::user()->id)->get();
+        $data = ProductContact::orderBy('id', 'desc')->where('supplier_id', Auth::user()->id)->get();
+    }
+
+    return view('products.customerqueries', compact('data', 'query'));
+}
 
     // public function store(Request $request)
     // {
@@ -48,7 +74,6 @@ class ProductContactController extends Controller
 
     //     return view('products.customerqueries', compact('data'));
     // }
-
 
     public function show($id)
     {

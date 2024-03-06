@@ -1,9 +1,12 @@
 @extends('layouts.master')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
-
 @section('main-content')
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .dropdown {
             position: relative;
@@ -32,6 +35,7 @@
             margin-left: 5px;
         }
 
+        /* Simplify focus outline for search inputs */
         input:focus {
             border-color: #ced4da;
             outline: none;
@@ -55,9 +59,9 @@
         }
 
         .filter-card {
-            margin-right: 0px;
+            margin-bottom: 0px;
             overflow: hidden;
-            margin-left: 0px;
+            margin-left: 100px;
         }
 
         .datetimerange {
@@ -79,7 +83,7 @@
             padding-bottom: 20px;
             padding-left: 10px;
             padding-right: 15px;
-            margin-left: 150px;
+            margin-left: 10px;
             background: #fcfcfc;
             border-radius: 25px;
             display: flex;
@@ -102,44 +106,105 @@
             outline: none;
         }
 
+        .range input {
+            margin-top: 10%;
+            -webkit-transform: rotate(40deg);
+            -moz-transform: rotate(40deg);
+            -o-transform: rotate(40deg);
+            transform: rotate(270deg);
+            max-height: 5%;
+        }
+
+        .input-bar {
+            background-color: #f8f9fa;
+            border: 3px solid #e2eaf1;
+        }
     </style>
     <div class="card-body">
         <button class="popup-button btn btn-primary col-md-1"
             style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
             Filters</button><br><br>
         <div class="filter-card" id="filterCard">
-            <div class="row" >
-                <div class="col-md-3">
-                    <form action="{{ route('order_details') }}" method="GET">
+            <form action="{{ route('order_details') }}" method="GET">
+                <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-3">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <p class="text-left">Supplier Name</p>
+                                <p class="text-left">Order ID</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $value => $orders)
-                                        <label class="nameFilter">
-                                            <input type="checkbox" value="{{ $orders->vendor->name ?? null }}">
-                                            <span class="option-text">{{ $orders->vendor->name ?? null }}</span>
+                                        <label class="order_idFilter">
+                                            <input type="checkbox" value="{{ $orders->order_id }}">
+                                            <span class="option-text">{{ $orders->order_id }}</span>
                                         </label>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
 
-                    </form>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Parcel ID</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($data as $value => $orders)
+                                        <label class="idFilter">
+                                            <input type="checkbox" value="{{ $orders->id }}">
+                                            <span class="option-text">{{ $orders->id }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left ">Product Details</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($data as $value => $orders)
+                                        <label class="product_nameFilter">
+                                            <input type="checkbox"
+                                                value="{{ $orders->product->name ?? null }} . <br> {{ $orders->product->model_no ?? null }} . <br> {{ $orders->product->sku ?? null }} . <br> {{ $orders->vendor->name ?? null }} . <br> ${{ $orders->p_price ?? null }}">
+                                            <span class="option-text">{{ $orders->product->name ?? null }} . <br>
+                                                {{ $orders->product->model_no ?? null }} . <br>
+                                                {{ $orders->product->sku ?? null }} . <br>
+                                                {{ $orders->vendor->name ?? null }} . <br>
+                                                ${{ $orders->p_price ?? null }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
-                <div class="col-md-3">
-                    <form action="{{ route('order_details') }}" method="GET">
+
+                <div class="row" style="margin-top: 10px; margin-bottom: 200px">
+                    <div class="col-md-3">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Customer Name</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()"
+                                    placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $value => $orders)
                                         <label class="customer_nameFilter">
@@ -152,128 +217,81 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="col-md-3">
-                    <form action="{{ route('order_details') }}" method="GET">
+                    </div>
+
+                    <div class="col-md-3">
                         <div class="dropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
+                            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <p class="text-left ">Product Name</p>
+                                <p class="text-left">Current Status</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()"
+                                    placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $value => $orders)
-                                        <label class="product_nameFilter">
-                                            <input type="checkbox" value="{{ $orders->product->name ?? null }}">
-                                            <span class="option-text">{{ $orders->product->name ?? null }}</span>
+                                        <label class="current_statusFilter">
+                                            <input type="checkbox" value=" @if ($orders->customer_cancel_status == 'Canceled')
+                                            <span class="badge-for-light" selected disabled>{{ $orders->status }}</span><br>
+                                            {{ $orders->updated_at }} <br>
+                                        @elseif ($orders->status == 'Canceled')
+                                            <span class="badge-for-light" selected disabled>{{ $orders->status }}</span><br>
+                                            {{ $orders->updated_at }} <br>
+                                        @else
+                                            <span class="badge-for-success" selected disabled>{{ $orders->status }}</span><br>
+                                            {{ $orders->updated_at }}
+                                        @endif">
+                                            <span class="option-text"> @if ($orders->customer_cancel_status == 'Canceled')
+                                                <span class="badge-for-light" selected disabled>{{ $orders->status }}</span><br>
+                                                {{ $orders->updated_at }} <br>
+                                            @elseif ($orders->status == 'Canceled')
+                                                <span class="badge-for-light" selected disabled>{{ $orders->status }}</span><br>
+                                                {{ $orders->updated_at }} <br>
+                                            @else
+                                                <span class="badge-for-success" selected disabled>{{ $orders->status }}</span><br>
+                                                {{ $orders->updated_at }}
+                                            @endif</span>
                                         </label>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
 
-                <div class="col-md-3">
-                    <div class="content-box">
-                        <form action="{{ route('order_details') }}" method="GET">
+                    <div class="col-md-3">
+                        <div class="content-box">
                             <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
-                        </form>
+                        </div>
                     </div>
-                </div>
 
-                <script>
-                    $(function() {
-                        $('.datetimerange').daterangepicker({
-                            timePicker: true,
-                            timePickerIncrement: 30,
-                            locale: {
-                                format: 'MM/DD/YYYY h:mm A'
-                            }
+                    <script>
+                        $(function() {
+                            $('.datetimerange').daterangepicker({
+                                timePicker: true,
+                                timePickerIncrement: 30,
+                                locale: {
+                                    format: 'MM/DD/YYYY h:mm A'
+                                }
+                            });
                         });
-                    });
-                </script>
-            </div>
+                    </script>
 
-            <div class="row">
-                <div class="col-md-3">
-                    <form action="{{ route('order_details') }}" method="GET">
-                        <div class="dropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <p class="text-left">Model No</p>
-                            </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
-                                <div class="dropdown-options">
-                                    @foreach ($data as $value => $orders)
-                                        <label class="model_noFilter">
-                                            <input type="checkbox" value="{{ $orders->product->model_no ?? null }}">
-                                            <span class="option-text">{{ $orders->product->model_no ?? null }}</span>
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
 
-                    </form>
+
                 </div>
 
-                <div class="col-md-3">
-                    <form action="{{ route('order_details') }}" method="GET">
-                        <div class="dropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <p class="text-left">SKU #</p>
-                            </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
-                                <div class="dropdown-options">
-                                    @foreach ($data as $value => $orders)
-                                        <label class="skuFilter">
-                                            <input type="checkbox" value="{{ $orders->product->sku ?? null }}">
-                                            <span class="option-text">{{ $orders->product->sku ?? null }}</span>
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="content-box">
-                        <form action="{{ route('products.index') }}" method="GET">
-                            <div class="slider"><b>Price:</b>
-                                <label for="fader"></label><input type="range" min="0" max="100"
-                                    value="50" id="fader" step="20" list="volsettings"
-                                    oninput="updatePriceValue(this.value, 'rangeValue3')">
-                                <p id="rangeValue3">100</p>
-                                <datalist id="volsettings">
-                                    <option>0</option>
-                                    <option>20</option>
-                                    <option>40</option>
-                                    <option>60</option>
-                                    <option>80</option>
-                                    <option>100</option>
-                                </datalist>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <script>
-                    function updatePriceValue(value, targetId) {
-                        document.getElementById(targetId).innerText = value;
-                    }
-                </script>
-            </div>
         </div>
     </div>
-
+    <script>
+        function toggleFilters() {
+var filterCard = document.getElementById("filterCard");
+if (filterCard.style.display === "none") {
+filterCard.style.display = "block";
+} else {
+filterCard.style.display = "none";
+}
+}
+</script>
     <div class="separator-breadcrumb border-top"></div>
 
     <div class="breadcrumb">
@@ -292,7 +310,7 @@
                     <table id="deafult_ordering_table" class="display table table-striped table-bordered"
                         style="width:100%;">
                         <thead>
-                           
+
                             <th>Order Id#</th>
                             <th>Parcel Id #</th>
                             <th>Image</th>
@@ -326,7 +344,6 @@
                                         <span style=" font-weight: 600; ">Price:
                                         </span>${{ $orders->p_price ?? null }}<br>
 
-
                                     </td>
 
                                     {{-- <td>{{ $orders->vendor->name ?? null }}</td> --}}
@@ -344,17 +361,16 @@
                                             <span style=" font-weight: 700; ">Type:
                                             </span>Customer <br>
                                             <span style=" font-weight: 700; ">Reason:
-                                            </span>{{ $orders->customer_cancel_reason }} 
-                                             
+                                            </span>{{ $orders->customer_cancel_reason }}
                                         @else
-                                        {{-- @if($orders->status == 'Canceled')
+                                            {{-- @if ($orders->status == 'Canceled')
                                         <span class="badge-for-success" selected
                                                 disabled>{{ $orders->status }}</span><br>
-                                            {{ $orders->updated_at }} <br> 
+                                            {{ $orders->updated_at }} <br>
                                             <span style=" font-weight: 700; ">Type:
                                             </span>Supplier
                                         @else
-                                        
+
                                         <span class="badge-for-success" selected
                                         disabled>{{ $orders->status }}</span><br>
                                     {{ $orders->updated_at }}
@@ -371,8 +387,7 @@
                                             <span class="badge-for-light" selected
                                                 disabled>{{ $orders->status }}</span><br>
                                             {{ $orders->updated_at }} <br>
-                                            {{-- <span style=" font-weight: 700; ">Reason:
-                                            </span>My Mistake --}}
+
                                         @else
                                             <span class="badge-for-success" selected
                                                 disabled>{{ $orders->status }}</span><br>
@@ -385,7 +400,7 @@
                                                 <button class="btn btn-secondary dropdown-toggle" type="button"
                                                     id="dropdownMenuButton{{ $orders->id }}" data-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
-                                                    {{ $orders->status }} 
+                                                    {{ $orders->status }}
                                                 </button>
                                                 <div class="dropdown-menu"
                                                     aria-labelledby="dropdownMenuButton{{ $orders->id }}">
@@ -397,7 +412,7 @@
                                         </td>
                                     @else
                                         <td>
-                                            <form method="POST" id="orderForm{{ $orders->id }}" 
+                                            <form method="POST" id="orderForm{{ $orders->id }}"
                                                 action="{{ route('order_details_status', ['id' => $orders->id]) }}">
                                                 @csrf
                                                 @method('PATCH')
@@ -422,38 +437,37 @@
                                                                 }
                                                                 if ($tracker->status == 'Packaging') {
                                                                     $isInPackaging = true;
-
-                                                                }if ($tracker->status == 'Out For Delivery') {
+                                                                }
+                                                                if ($tracker->status == 'Out For Delivery') {
                                                                     $isInOutForDelivery = true;
-
-                                                                }if ($tracker->status == 'Delivered') {
+                                                                }
+                                                                if ($tracker->status == 'Delivered') {
                                                                     $isInDelivered = true;
-
-                                                                }if ($tracker->status == 'Failed to Deliver') {
+                                                                }
+                                                                if ($tracker->status == 'Failed to Deliver') {
                                                                     $isInFailedToDeliver = true;
-
-                                                                }if ($tracker->status == 'Canceled') {
+                                                                }
+                                                                if ($tracker->status == 'Canceled') {
                                                                     $isInProcess = true;
                                                                     $isInPackaging = true;
                                                                     $isInOutForDelivery = true;
                                                                     $isInDelivered = true;
                                                                     $isInFailedToDeliver = true;
                                                                     $isInCanceled = true;
-                                                                } 
-
+                                                                }
                                                             }
                                                         @endphp
                                                         @if (!$isInProcess)
-                                                            <a class="dropdown-item"  
+                                                            <a class="dropdown-item"
                                                                 onclick="updateOrderStatus('{{ $orders->id }}', 'In Process')">In
                                                                 Process</a>
                                                         @endif
                                                         @if (!$isInPackaging)
-                                                            <a class="dropdown-item" href="#"  
+                                                            <a class="dropdown-item" href="#"
                                                                 onclick="updateOrderStatus('{{ $orders->id }}', 'Packaging')">Packaging</a>
                                                         @endif
                                                         @if (!$isInOutForDelivery)
-                                                            <a class="dropdown-item" href="#" 
+                                                            <a class="dropdown-item" href="#"
                                                                 onclick="updateOrderStatus('{{ $orders->id }}', 'Out For Delivery')">Out
                                                                 of Delivery</a>
                                                         @endif
@@ -466,13 +480,12 @@
                                                                 onclick="updateOrderStatus('{{ $orders->id }}', 'Failed to Deliver')">Failed
                                                                 to Deliver</a>
                                                         @endif
-                                                        @if (!$isInCanceled )
+                                                        @if (!$isInCanceled)
                                                             <a class="dropdown-item" href="#"
                                                                 onclick="updateOrderStatus('{{ $orders->id }}', 'Canceled')">Canceled</a>
                                                         @else
-                                                            <a class="dropdown-item" href="#"
-                                                                >Can't Update More Status</a>
-                                                        
+                                                            <a class="dropdown-item" href="#">Can't Update More
+                                                                Status</a>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -514,22 +527,13 @@
             </div>
         </div>
     </div>
-   
-@endsection
+    @endsection
 
-@section('page-js')
-{{--    
-<script>
-    function myFunction() {
-      var txt;
-      if (confirm("Press a button!")) {
-        txt = "You pressed OK!";
-      } else {
-        txt = "You pressed Cancel!";
-      }
-      document.getElementById("demo").innerHTML = txt;
-    }
-    </script> --}}
-    <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
-    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
-@endsection
+    @section('page-js')
+        <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+        <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+        <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
+    @endsection
+

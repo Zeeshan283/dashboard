@@ -1,8 +1,9 @@
 @extends('layouts.master')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
-
 @section('main-content')
     <div class="row">
         <div class="">
@@ -81,7 +82,7 @@
                                     $product_price = $orders->p_price;
                                     $commissionAmount = ($orders->product->subcategories->commission / 100) * $product_price;
                                     $total_commission += $commissionAmount;
-                                    
+
                                     $TaxAmount = ($orders->product->tax_charges / 100) * $product_price;
                                     $totalTax += $TaxAmount;
                                     }
@@ -211,7 +212,7 @@
             </div>
         </div>
     </div>
-@endsection
+    @endsection
 
 @section('page-js')
     <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>

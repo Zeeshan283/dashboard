@@ -1,8 +1,10 @@
 @extends('layouts.master')
 @section('page-css')
+<link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
-
 @section('main-content')
     <div class="row">
         <div class="">
@@ -19,7 +21,90 @@
                         
                          
                     </div>
+
+                    <div class="col-md-3 d-flex">
+                       Status:<br><br>
+                        <br>
+                        <div class="d-flex"><p style="margin-left: 60px; margin-right: 10px">Active:</p>
+                            <label class="switch">
+                                <input type="checkbox" name="status" value="1" <?php if($vendors->status == '1') echo 'checked'; ?>>
+                                <span class="slider <?php if($vendors->status == '1') echo 'active'; ?>"></span>
+                            </label><p style="margin-left: 60px; margin-right: 10px">InActive:</p>
+                            <label class="switch">
+                                <input type="checkbox" name="status" value="0" <?php if($vendors->status == '0') echo 'checked'; ?>>
+                                <span class="slider <?php if($vendors->status == '0') echo 'active'; ?>"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                        <div class="col-md-3" style="margin-left: 100px;">
+                            <div class="content-box">
+                                <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                            </div>
+                        </div>
+
+                        <script>
+                            $(function() {
+                                $('.datetimerange').daterangepicker({
+                                    timePicker: true,
+                                    timePickerIncrement: 30,
+                                    locale: {
+                                        format: 'MM/DD/YYYY h:mm A'
+                                    }
+                                });
+                            });
+                        </script>
+
+
+                    </div>
+                    <script>
+                        function toggleFilters() {
+                            var filterCard = document.getElementById("filterCard");
+                            if (filterCard.style.display === "none") {
+                                filterCard.style.display = "block";
+                            } else {
+                                filterCard.style.display = "none";
+                            }
+                        }
+                    </script>
+
                 </div>
+
+
+        </div>
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="breadcrumb">
+        <div class="col-md-6">
+            <h1>Vendor's Management</h1>
+        </div>
+        <div class="col-md-6" style="text-align: right;  margin-left: auto;">
+            <a href="{{ route('vendors.create') }}"><button
+                    class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span
+                        class="ladda-label">Add Vendor</span></button></a>
+
+        </div>
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div>
+    <div class="col-md-12 mb-4">
+        <div class="card text-start">
+
+            <div class="card-body">
+                <h4 class="card-title mb-3">All Vendors</h4>
+
+                {{-- <p>.....</p> --}}
+
+                <div class="table-responsive">
+                    <table id="deafult_ordering_table" class="display table table-striped table-bordered"
+                        style="width:100%">
+                        @include('datatables.table_content')
+
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>

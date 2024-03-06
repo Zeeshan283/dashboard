@@ -1,10 +1,14 @@
 @extends('layouts.master')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
-
 @section('main-content')
+<<<<<<< HEAD
+=======
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+>>>>>>> 665a5f58b14cd2b6b9b8f4908af40e1b864f5cb9
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .dropdown {
@@ -51,7 +55,6 @@
             padding-top: 10px;
             padding-bottom: 5px;
             overflow: hidden;
-            margin-bottom: 150px;
         }
 
         .text-left {
@@ -59,9 +62,9 @@
         }
 
         .filter-card {
-            margin-right: 0px;
+            margin-bottom: 0px;
             overflow: hidden;
-            margin-left: 0px;
+            margin-left: 100px;
         }
 
         .datetimerange {
@@ -74,15 +77,61 @@
             padding-left: 60px;
             background-color: #f8f9fa;
         }
+
+        .slider {
+            position: relative;
+            width: 400px;
+            height: 30px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 10px;
+            padding-right: 15px;
+            margin-left: 10px;
+            background: #fcfcfc;
+            border-radius: 25px;
+            display: flex;
+            box-shadow: 0px 15px 40px #7E6D5766;
+        }
+
+        .slider label {
+            font-size: 28px;
+            font-weight: 600;
+            font-family: Open Sans;
+            padding-left: 30px;
+            color: black;
+        }
+
+        .slider input[type="range"] {
+            width: 320px;
+            height: 4px;
+            background: black;
+            border: none;
+            outline: none;
+        }
+
+        .range input {
+            margin-top: 10%;
+            -webkit-transform: rotate(40deg);
+            -moz-transform: rotate(40deg);
+            -o-transform: rotate(40deg);
+            transform: rotate(270deg);
+            max-height: 5%;
+        }
+
+        .input-bar {
+            background-color: #f8f9fa;
+            border: 3px solid #e2eaf1;
+        }
     </style>
-    {{-- <div class="card-body">
+   <div class="card-body">
         <button class="popup-button btn btn-primary col-md-1"
             style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
             Filters</button><br><br>
         <div class="filter-card" id="filterCard">
+            <form action="{{ route('allorders') }}" method="GET">
+                <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
             <div class="row" style="margin-top: 10px;">
                 <div class="col-md-3">
-                    <form action="{{ route('allorders') }}" method="GET">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -102,11 +151,8 @@
                                 </div>
                             </div>
                         </div>
-
-                    </form>
                 </div>
-                <div class="col-md-3">
-                    <form action="{{ route('allorders') }}" method="GET">
+                {{-- <div class="col-md-2">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -124,10 +170,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                </div> --}}
                 <div class="col-md-3">
-                    <form action="{{ route('allorders') }}" method="GET">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -139,22 +183,19 @@
                                     @foreach ($data as $value => $orders)
                                         <label class="locationFilter">
                                             <input type="checkbox"
-                                                value="{{ $orders->shipping_address ?? null }},{{ $orders->shipping_city ?? null }},{{ $orders->shipping_state ?? null }}">
+                                                value="{{ $orders->shipping_address ?? null }},{{ $orders->shipping_city ?? null }},{{ $orders->shipping_state ?? null }} , {{ $orders->shipping_zipcode ?? null }},{{ $orders->shipping_country ?? null }}">
                                             <span
-                                                class="option-text">{{ $orders->shipping_zipcode ?? null }},{{ $orders->shipping_country ?? null }}</span>
+                                                class="option-text">{{ $orders->shipping_address ?? null }},{{ $orders->shipping_city ?? null }},{{ $orders->shipping_state ?? null }} , {{ $orders->shipping_zipcode ?? null }},{{ $orders->shipping_country ?? null }}</span>
                                         </label>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-                    </form>
                 </div>
 
                 <div class="col-md-3">
                     <div class="content-box">
-                        <form action="{{ route('allorders') }}" method="GET">
-                            <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
-                        </form>
+                                <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" / name="created_by">
                     </div>
                 </div>
 
@@ -169,7 +210,51 @@
                         });
                     });
                 </script>
+
+
             </div>
+            <div class="row d-flex" style="margin-top: 40px; margin-bottom: 150px">
+
+                <div class="col-md-5" style="margin-left: 200px;">
+                    <div class="content-box d-flex">
+                        <div class="input-bar" style="margin-left: 120px;">
+                            <label for="priceInput5">Enter Price:</label>
+                            <input type="number" id="priceInput5" min="0" max="1000000" value="100"
+                                oninput="updatePriceSlider(this.value, 'rangeValue5')">
+                        </div>
+                        <div class="slider"><b>Amount:</b>
+                            <label for="fader"></label><input type="range" min="0" max="100"
+                                value="50" id="fader" step="20" list="volsettings"
+                                oninput="updatePriceValue(this.value, 'rangeValue5')">
+                            <p id="rangeValue5">100</p>
+                            <datalist id="volsettings">
+                                <option>10000</option>
+                                <option>20000</option>
+                                <option>40000</option>
+                                <option>60000</option>
+                                <option>80000</option>
+                                <option>100000</option>
+                            </datalist>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                function updatePriceValue(value, outputId) {
+                    document.getElementById(outputId).textContent = value;
+                }
+
+                function updatePriceSlider(value, sliderId) {
+                    document.getElementById(sliderId).textContent = value;
+                    document.querySelector('input[type="range"]').value = value;
+                }
+
+                function updatePriceValue(value, targetId) {
+                document.getElementById(targetId).innerText = value;
+            }
+            </script>
+        </form>
 
         </div>
     </div> --}}
@@ -231,6 +316,9 @@
 @endsection
 
 @section('page-js')
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 

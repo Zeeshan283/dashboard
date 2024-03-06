@@ -1100,7 +1100,7 @@
             <th>Name</th>
             <th>Phone Number</th>
             <th>Email</th>
-            <th>Status</th>
+            <th>Status< /th>
             <th>Action</th>
         </tr>
     </tfoot>
@@ -1579,15 +1579,7 @@
                 </a>
             </div>
         </td>
-        @foreach ($colors as $color)
-    <td class="d-none">{{ $color->name }}</td>
-    @endforeach
-    @foreach ($menus as $menu)
-    <td class="d-none">{{ $menu->name }}</td>
-    @endforeach
-    <td class="d-none">{{ $product->min_order }}</td>
-        <td class="d-none"> {{ $product->created_at }}</td>
-    </tr>
+            </tr>
     @endforeach
 </tbody>
 <tfoot>
@@ -1935,8 +1927,9 @@
         <th>Coupon Title</th>
         <th>Coupon Code</th>
         <th>Used Coupon</th>
-        <th>Store</th>
-        <!-- <th>Product</th> -->
+        {{-- <th>Store</th> --}}
+        <th>Applied On</th>
+        {{-- <th>Product</th> --}}
         <th>Minimum Purchase</th>
         <th>Limit for Same User</th>
         <th>Amount</th>
@@ -1948,6 +1941,7 @@
     <tbody>
 
         @foreach ($coupons as $key => $item)
+
             <tr>
                 <td>{{ $key + 1 }}</td>
                 <td>
@@ -1964,8 +1958,14 @@
                 <td>{{ $item->coupon_title ?: 'Nill' }}</td>
                 <td>{{ $item->coupon_code ?: 'Nill' }}</td>
                 <td>{{ $item->coupon_used == 1 ? 'used' : 'null' }}</td>
-                <td>{{ $item->store ?: 'Nill' }}</td>
-                <!-- <td>{{ $item->product_id ?: 'Nill' }}</td> -->
+                <td id="dynamicContent">
+                    @if ($item->apply == 7)
+                        {{ $item->store }}
+                    @elseif ($item->apply == 6)
+                        {{ $item->product->sku ?? 'N/A' }}
+                    @endif
+                </td>
+
                 <td>{{ $item->minimum_purchase ?: 'Nill' }}</td>
                 <td>{{ $item->limit_same_user ?: 'Nill' }}</td>
                 <td>{{ $item->amount ?: 'Nill' }}</td>
@@ -2001,6 +2001,21 @@
 
             </tr>
         @endforeach
+        <script>
+            document.getElementById("apply").addEventListener("change", function() {
+                var selectedValue = this.value;
+                var dynamicContent = document.getElementById("dynamicContent");
+
+                if (selectedValue === "6") {
+                    dynamicContent.innerText = "{{ $item->Product->sku ?? Null }}";
+                } else if (selectedValue === "7") {
+                    dynamicContent.innerText = "{{ $item->store }}";
+                } else {
+                    dynamicContent.innerText = "";
+                }
+            });
+        </script>
+
     </tbody>
     <tfoot>
         <tr>

@@ -26,10 +26,47 @@ class OrderController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = null;
+        $data = "";
         $orders = Order::all();
+        $query = Order::query();
+
+        if ($request->has('first_name . last_name')) {
+            $first = $request->input('first_name . last_name');
+            if (is_array($first)) {
+                $query->whereIn('first_name . last_name', $first);
+            } else {
+                $query->where('first_name . last_name', $first);
+            }
+        }
+
+        if ($request->has('total_price')) {
+            $total = $request->input('total_price');
+            if (is_array($total)) {
+                $query->whereIn('total_price', $total);
+            } else {
+                $query->where('total_price', $total);
+            }
+        }
+
+        if ($request->has('shipping_address . shipping_city . shipping_state . shipping_zipcode . shipping_country')) {
+            $address = $request->input('shipping_address . shipping_city . shipping_state . shipping_zipcode . shipping_country');
+            if (is_array($address)) {
+                $query->whereIn('shipping_address . shipping_city . shipping_state . shipping_zipcode . shipping_country', $address);
+            } else {
+                $query->where('shipping_address . shipping_city . shipping_state . shipping_zipcode . shipping_country', $address);
+            }
+        }
+
+        if ($request->has('created_by')) {
+            $date = $request->input('created_by');
+            if (is_array($date)) {
+                $query->whereIn('created_by', $date);
+            } else {
+                $query->where('created_by', $date);
+            }
+        }
 
         if (Auth::user()->role === 'Admin') {
             $orders = Order::all();
@@ -97,8 +134,8 @@ class OrderController extends Controller
         {
             return redirect()->back()->with(Toastr::error('error','This status field is already Updated'));
         }
-        
-       
+
+
 
         return redirect()->back()->with(Toastr::success('Status Updated Successfully!'));
     }

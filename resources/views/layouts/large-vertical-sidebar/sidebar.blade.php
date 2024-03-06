@@ -3,54 +3,62 @@
 use App\Models\OrderDetail;
 
 if (Auth::user()->role == 'Vendor') {
-             $In_Process = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
-                 ->where('status', '=', 'In Process')->count();
-            $Packaging = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
-                ->where('status', '=', 'Packaging')->count();
-                $Confirmed = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
-                ->where('status', '=', 'Confirmed')->count();
-                $ftd = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
-                ->where('status', '=', 'Failed to Deliver')->count();
-                $Out_of_Delivery = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
-                ->where('status', '=', 'Out of delivery')->count();
-                $Delivered = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
-                ->where('status', '=', 'Delivered')->count();
-                $Returned = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
-                ->where('status', '=', 'Returned')->count();
-                $Canceled = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
-                ->where('status', '=', 'Canceled')->count();
-                $CustomerCanceled = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
-                ->where('customer_cancel_status', '=', 'Canceled')->count();
-            } 
-            elseif (Auth::user()->role == 'Admin') {
-                $In_Process = OrderDetail::with('order', 'product', 'vendor')
-                ->where('status', '=', 'In Process')->count();
-           $Packaging = OrderDetail::with('order', 'product', 'vendor')
-               ->where('status', '=', 'Packaging')->count();
-               $Confirmed = OrderDetail::with('order', 'product', 'vendor')
-               ->where('status', '=', 'Confirmed')->count();
-               $ftd = OrderDetail::with('order', 'product', 'vendor')
-               ->where('status', '=', 'Failed to Deliver')->count();
-               $Out_of_Delivery = OrderDetail::with('order', 'product', 'vendor')
-               ->where('status', '=', 'Out of delivery')->count();
-               $Delivered = OrderDetail::with('order', 'product', 'vendor')
-               ->where('status', '=', 'Delivered')->count();
-               $Returned = OrderDetail::with('order', 'product', 'vendor')
-               ->where('status', '=', 'Returned')->count();
-               $Canceled = OrderDetail::with('order', 'product', 'vendor')
-               ->where('status', '=', 'Canceled')->count();
-               $CustomerCanceled = OrderDetail::with('order', 'product', 'vendor')
-                ->where('customer_cancel_status', '=', 'Canceled')->count();
-            }
-        ?>
+    $In_Process = OrderDetail::with('order', 'product', 'vendor')
+        ->where('p_vendor_id', Auth::User()->id)
+        ->where('status', '=', 'In Process')
+        ->count();
+    $Packaging = OrderDetail::with('order', 'product', 'vendor')
+        ->where('p_vendor_id', Auth::User()->id)
+        ->where('status', '=', 'Packaging')
+        ->count();
+    $Confirmed = OrderDetail::with('order', 'product', 'vendor')
+        ->where('p_vendor_id', Auth::User()->id)
+        ->where('status', '=', 'Confirmed')
+        ->count();
+    $ftd = OrderDetail::with('order', 'product', 'vendor')
+        ->where('p_vendor_id', Auth::User()->id)
+        ->where('status', '=', 'Failed to Deliver')
+        ->count();
+    $Out_of_Delivery = OrderDetail::with('order', 'product', 'vendor')
+        ->where('p_vendor_id', Auth::User()->id)
+        ->where('status', '=', 'Out of delivery')
+        ->count();
+    $Delivered = OrderDetail::with('order', 'product', 'vendor')
+        ->where('p_vendor_id', Auth::User()->id)
+        ->where('status', '=', 'Delivered')
+        ->count();
+    $Returned = OrderDetail::with('order', 'product', 'vendor')
+        ->where('p_vendor_id', Auth::User()->id)
+        ->where('status', '=', 'Returned')
+        ->count();
+    $Canceled = OrderDetail::with('order', 'product', 'vendor')
+        ->where('p_vendor_id', Auth::User()->id)
+        ->where('status', '=', 'Canceled')
+        ->count();
+    $CustomerCanceled = OrderDetail::with('order', 'product', 'vendor')
+        ->where('p_vendor_id', Auth::User()->id)
+        ->where('customer_cancel_status', '=', 'Canceled')
+        ->count();
+} elseif (Auth::user()->role == 'Admin') {
+    $In_Process = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'In Process')->count();
+    $Packaging = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Packaging')->count();
+    $Confirmed = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Confirmed')->count();
+    $ftd = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Failed to Deliver')->count();
+    $Out_of_Delivery = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Out of delivery')->count();
+    $Delivered = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Delivered')->count();
+    $Returned = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Returned')->count();
+    $Canceled = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Canceled')->count();
+    $CustomerCanceled = OrderDetail::with('order', 'product', 'vendor')->where('customer_cancel_status', '=', 'Canceled')->count();
+}
+?>
 
 <div class="side-content-wrap">
     <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
         <ul class="navigation-left">
             @if (Auth::User()->role == 'Admin')
-            @include('sidebar.admin')
+                @include('sidebar.admin')
             @elseif (Auth::User()->role == 'Vendor')
-            @include('sidebar.vendor')
+                @include('sidebar.vendor')
             @endif
         </ul>
 
@@ -267,7 +275,8 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'creviews' ? 'open' : '' }}" href="{{ route('creviews') }}">
+                <a class="{{ Route::currentRouteName() == 'creviews' ? 'open' : '' }}"
+                    href="{{ route('creviews') }}">
                     <i class="nav-icon i-Add"></i>
                     <span class="item-name">Customer Reviews</span>
                 </a>
@@ -290,13 +299,14 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
 
-            {{-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'products.index' ? 'open' : '' }}"
                     href="{{ route('products.index') }}">
                     <i class="nav-icon i-Shopping-Bag"></i>
                     <span class="item-name">Products List</span>
                 </a>
-            </li> --}}
+            </li>
+
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'productsView' ? 'open' : '' }}"
                     href="{{ route('productsView') }}">
@@ -359,7 +369,8 @@ if (Auth::user()->role == 'Vendor') {
                 </a>
             </li>
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'refunded' ? 'open' : '' }}" href="{{ route('refunded') }}">
+                <a class="{{ Route::currentRouteName() == 'refunded' ? 'open' : '' }}"
+                    href="{{ route('refunded') }}">
                     <i class="nav-icon i-Loading-3"></i>
                     <span class="item-name">Refunded</span>
                 </a>
@@ -375,7 +386,8 @@ if (Auth::user()->role == 'Vendor') {
 
         <ul class="childNav" data-parent="uikits">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}" href="{{ route('allorders') }}">
+                <a class="{{ Route::currentRouteName() == 'allorders' ? 'open' : '' }}"
+                    href="{{ route('allorders') }}">
                     <i class="nav-icon i-Folder-Archive"></i>
                     <span class="item-name">Orders</span>
                 </a>
@@ -451,20 +463,22 @@ if (Auth::user()->role == 'Vendor') {
 
         <ul class="childNav" data-parent="sales">
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'sales' ? 'open' : '' }}" href="{{ route('sales.index') }}">
+                <a class="{{ Route::currentRouteName() == 'sales' ? 'open' : '' }}"
+                    href="{{ route('sales.index') }}">
                     <i class="nav-icon i-Folder-Archive"></i>
                     <span class="item-name">Sales List</span>
                 </a>
             </li>
-             
+
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'sales' ? 'open' : '' }}" href="{{ route('commissions.index') }}">
+                <a class="{{ Route::currentRouteName() == 'sales' ? 'open' : '' }}"
+                    href="{{ route('commissions.index') }}">
                     <i class="nav-icon i-Folder-Archive"></i>
                     <span class="item-name">Commission List</span>
                 </a>
             </li>
- 
-             
+
+
         </ul>
 
 
@@ -538,7 +552,8 @@ if (Auth::user()->role == 'Vendor') {
 
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == '' ? 'open' : '' }}" href="{{ URL::to('settings/1/edit') }}">
+                <a class="{{ Route::currentRouteName() == '' ? 'open' : '' }}"
+                    href="{{ URL::to('settings/1/edit') }}">
                     <i class="nav-icon i-Male"></i>
                     <span class="item-name">Site Profile</span>
                 </a>
@@ -643,13 +658,13 @@ if (Auth::user()->role == 'Vendor') {
                     <span class="item-name">Portfolio</span>
                 </a>
             </li>
-            {{--<li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'service.index' ? 'open' : '' }}"
             href="{{ route('service.index') }}">
             <i class="nav-icon i-File-Trash"></i>
             <span class="item-name">Service Category</span>
             </a>
-            </li>--}}
+            </li> --}}
         </ul>
 
         <ul class="childNav" data-parent="uikits1">
@@ -738,7 +753,8 @@ if (Auth::user()->role == 'Vendor') {
             </li>
 
             <li class="nav-item">
-                <a class="{{ Route::currentRouteName() == 'allterm' ? 'open' : '' }}" href="{{ route('allterm') }}">
+                <a class="{{ Route::currentRouteName() == 'allterm' ? 'open' : '' }}"
+                    href="{{ route('allterm') }}">
                     <i class="nav-icon i-Blinklist"></i>
                     <span class="item-name">Terms & Conditions</span>
                 </a>
