@@ -26,6 +26,10 @@ use Illuminate\Support\Facades\Validator;
 
 class MobileAppController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function GetAllMenus()
     {
         $menus = Menu::with([

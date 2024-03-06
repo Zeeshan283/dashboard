@@ -12,6 +12,7 @@ use App\Models\Advertisement;
 
 class StripePaymentController extends Controller
 {
+    
     /**
      * success response method.
      *

@@ -121,7 +121,7 @@
             border: 3px solid #e2eaf1;
         }
     </style>
-    <div class="card-body">
+    {{-- <div class="card-body">
         <button class="popup-button btn btn-primary col-md-1"
             style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
             Filters</button><br><br>
@@ -255,8 +255,8 @@
         </form>
 
         </div>
-    </div>
-    <div class="separator-breadcrumb border-top"></div>
+    </div> --}}
+    {{-- <div class="separator-breadcrumb border-top"></div> --}}
     <div class="breadcrumb">
         <h1>All Orders</h1>
     </div>

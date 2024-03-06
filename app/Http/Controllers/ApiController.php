@@ -126,17 +126,12 @@ class ApiController extends Controller
             return response()->json(['data' => '', 'status' => '200']);
         }
     }
-
-
-
-
-
-
+ 
     public function ProductContactSendMessage(Request $request)
     {
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
-                'customer_id' => 'integer',
+                'customer_id' => 'numeric',
                 'customer_name' => 'max:191|min:1',
                 'customer_email' => 'required|max:191|min:1',
                 'customer_contact_no' => 'required|string|max:25|min:1',
@@ -144,7 +139,7 @@ class ApiController extends Controller
                 'customer_address' => 'max:191|min:1',
                 'customer_profile_link' => 'max:191|min:1',
                 'query_title' => 'required|max:191|min:1',
-                'pro_id' => 'required|integer',
+                'pro_id' => 'required|numeric',
                 'pro_name' => 'required|max:191|min:1',
                 'pro_model_no' => 'max:191|min:1',
                 'pro_brand_name' => 'max:191|min:1',
@@ -152,21 +147,11 @@ class ApiController extends Controller
                 'fob' => 'max:191|min:1',
                 'ref_url' => 'max:191|min:1',
                 'message' => 'required|max:1500|min:1',
-                'supplier_id' => 'required|integer',
+                'supplier_id' => 'required|numeric',
                 'supplier_name' => 'required|max:191|min:1',
                 'supplier_profile_link' => 'max:191|min:1',
             ], [
-                // 'pro_id.required' => 'Something went wrong',
-                // 'make.required' => 'Something went wrong',
-                // 'pro_name.required' => 'The Product Name field is required',
-                // 'message.required' => 'The Message field is required',
-                // 'model_no.required' => 'The Model No field is required',
-                // 'brand_name.required' => 'The Brand Name field is required',
-                // 'moq.required' => 'The MOQ field is required',
-                // 'delivery_location.required' => 'The Location field is required',
-                // 'phoneno.required' => 'The Phone no field is required',
-                // 'vendor_id.required' => 'The Vendor field is required',
-                // 'email.required' => 'The Email field is required'
+
             ]);
 
             if ($validator->fails()) {
@@ -193,9 +178,9 @@ class ApiController extends Controller
                 'contact' => 'required|string|max:25|min:1',
                 'company' => 'nullable|string|max:191|min:1',
                 'city' => 'nullable|string|max:191|min:1',
-                'state' => 'required|string|max:191|min:1',
-                'country' => 'required|string|max:191|min:1',
-                'profile_link' => 'required|string|max:191|min:1|url',
+                'state' => 'nullable|string|max:191|min:1',
+                'country' => 'nullable|string|max:191|min:1',
+                'profile_link' => 'nullable|string|max:191|min:1|url',
                 'message' => 'required|string|max:1500|min:1',
 
                  
@@ -220,7 +205,9 @@ class ApiController extends Controller
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 'title' => 'required|string|max:191|min:1',
-                'user_id' => 'nullable|string|max:191|min:1',
+                'user_id' => 'nullable|numeric|max:191|min:1',
+                'product_id' => 'nullable|numeric|max:191|min:1',
+                'profile_id' => 'nullable|numeric|max:191|min:1',
                 'user_type' => 'required|string|in:Customer,Supplier|max:191|min:1',
                 'name' => 'required|string|max:191|min:1',
                 'email' => 'required|email|max:191|min:1',
@@ -229,6 +216,8 @@ class ApiController extends Controller
                 'city' => 'nullable|string|max:191|min:1',
                 'state' => 'nullable|string|max:191|min:1',
                 'country' => 'nullable|string|max:191|min:1',
+                'for_supplier' => 'nullable|string|max:191|min:1',
+                'for_buyer' => 'nullable|string|max:191|min:1',
                 'profile_link' => 'nullable|string|max:191|min:1|url',
                 'message' => 'required|string|max:1500|min:1',
 

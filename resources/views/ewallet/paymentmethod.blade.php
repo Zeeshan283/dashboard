@@ -1,16 +1,18 @@
 @extends('layouts.master')
 @section('before-css')
 @section('page-css')
-    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" href="/assets/styles/vendor/datatables.min.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 @endsection
 @endsection
 @section('main-content')
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
 
 <div class="breadcrumb">
                 <h2 class="col-lg-12">Payment Method</h2>
@@ -560,7 +562,11 @@
 
 
             </div>
-          <script>
+          
+@endsection
+@section('page-js')
+
+<script>
   function showEditCardModal() {
     $('#edit-card-details').modal('show');
   }
@@ -595,8 +601,4 @@
     $('#add-new-bank-account').modal('hide');
   }
            </script>
-@endsection
-@section('page-js')
-    <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
-    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 @endsection

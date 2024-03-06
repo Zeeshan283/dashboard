@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class SupplierController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $suppliers = Supplier::where('added_by', Auth::user()->id)->orderBy('id', 'asc')->get();

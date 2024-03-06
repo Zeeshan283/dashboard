@@ -297,7 +297,6 @@ filterCard.style.display = "none";
     <div class="breadcrumb">
         <h1>All Parcels</h1>
     </div>
-
     <div class="separator-breadcrumb border-top"></div>
     <div class="col-md-12 mb-4">
         <div class="card text-start">
@@ -418,7 +417,7 @@ filterCard.style.display = "none";
                                                 @csrf
                                                 @method('PATCH')
                                                 <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                    <button    class="btn btn-secondary dropdown-toggle" type="button"
                                                         id="dropdownMenuButton{{ $orders->id }}" data-toggle="dropdown"
                                                         aria-haspopup="true" aria-expanded="false">
                                                         {{ $orders->status }}
@@ -531,9 +530,6 @@ filterCard.style.display = "none";
 @endsection
 
 @section('page-js')
-    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 @endsection

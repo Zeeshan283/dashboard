@@ -738,10 +738,17 @@ if (Auth::user()->role == 'Vendor') {
             </li>
 
             <li class="nav-item">
+                <a class="{{ Route::currentRouteName() == 'faqs-view' ? 'open' : '' }}"
+                    href="{{ route('faqs-view') }}">
+                    <i class="nav-icon i-File-Horizontal"></i>
+                    <span class="item-name">FAQ's View</span>
+                </a>
+            </li> 
+            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'faqs.index' ? 'open' : '' }}"
                     href="{{ route('faqs.index') }}">
                     <i class="nav-icon i-File-Horizontal"></i>
-                    <span class="item-name">FAQ's</span>
+                    <span class="item-name">FAQ's List</span>
                 </a>
             </li>
 

@@ -21,11 +21,13 @@
         <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome-free-5.10.1-web/css/all.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/styles/vendor/metisMenu.min.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+        <link rel="stylesheet" href="https://gull-html-laravel.ui-lib.com/assets/styles/vendor/sweetalert2.min.css">
     @endif
     <link id="gull-theme" rel="stylesheet" href="{{ asset('assets\fonts\iconsmind\iconsmind.css') }}">
     <link id="gull-theme" rel="stylesheet" href="{{ asset('assets/styles/css/themes/lite-purple.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="https://gull-html-laravel.ui-lib.com/assets/styles/vendor/sweetalert2.min.css">
 
     {{-- page specific css --}}
     @yield('page-css')
@@ -81,27 +83,7 @@
             font-weight: 600;
         }
 
-        .float {
-            margin-bottom: 50px;
-            margin-right:5px;
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 40px;
-            right: 20px;
-            background-color: #25d366;
-            color: #FFF;
-            border-radius: 50px;
-            text-align: -webkit-center;
-            font-size: 30px;
-            box-shadow: 2px 2px 3px #999;
-            z-index: 100;
-        }
-         
-        .tawk-min-container  {
-            width: 10px;
-            height: 10px;
-        }
+     
     </style>
 </head>
 
@@ -209,6 +191,12 @@
 
 
 
+    <script src="https://gull-html-laravel.ui-lib.com/assets/js/vendor/sweetalert2.min.js"></script>
+    <script src="https://gull-html-laravel.ui-lib.com/assets/js/sweetalert.script.js"></script>
+
+
+
+
     <script src="{{ asset('assets/js/customizer.script.js') }}"></script>
 
     {{-- laravel js --}}
@@ -278,26 +266,45 @@
         });
     </script>
 
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"),
-                s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/65d5c7fc8d261e1b5f6309f4/1hn5had90';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
 
     <script>
         function updateOrderStatus(orderId, status) {
-            document.getElementById('status' + orderId).value = status;
-            document.getElementById('orderForm' + orderId).submit();
+
+            var txt;
+            if (confirm("If You Want to Update the Status Then Press Okay!")) {
+                document.getElementById('status' + orderId).value = status;
+                document.getElementById('orderForm' + orderId).submit();
+            } else {
+                txt = "You pressed Cancel!";
+            }
+            document.getElementById("demo").innerHTML = txt;
+
         }
     </script>
+    <script>
+        window.addEventListener('contextmenu', function(e) {
+
+            e.preventDefault();
+        });
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.keyCode == 85) {
+               
+                event.preventDefault();
+                return false;
+            }
+        });
+
+
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.shiftKey && event.keyCode == 67) {
+                 
+                event.preventDefault();
+                return false;
+            }
+        });
+    </script>
+
 </body>
 
 </html>

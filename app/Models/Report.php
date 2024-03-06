@@ -12,6 +12,6 @@ class Report extends Model
 
     protected $fillable = array(
         'title','user_id' ,'user_type' , 'company',
-        'contact', 'email','name', 'city', 'state', 'country', 'message', 'profile_link'
+        'contact', 'email','name', 'city', 'state', 'country', 'message', 'profile_link','profile_id','product_id','for_supplier','for_buyer'
     );
 }

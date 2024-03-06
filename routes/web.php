@@ -151,6 +151,7 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('faqs_categories', FaqCategoriesController::class);
     Route::get('faqs_category/{id}/destroy', [FaqCategoriesController::class, 'destroy'])->name('faqs_category.destroy');
     Route::resource('faqs', FAQController::class);
+    Route::get('faqs-view', [FAQController::class,'faqsView'])->name('faqs-view');
     Route::get('faq/{id}/destroy', [FAQController::class, 'destroy'])->name('faq.destroy');
     Route::resource('pages', PageController::class);
     Route::get('page/{id}/destroy', [PageController::class, 'destroy'])->name('page.destroy');
@@ -273,7 +274,7 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::get('order_details', [OrderController::class, 'OrderDetailIndex'])->name('order_details');
     Route::patch('order_details_status', [OrderController::class, 'order_details_status'])->name('order_details_status');
     Route::get('get_order_detail_status/{id}', [OrderController::class, 'GetOrderDetailStatus'])->name('get_order_detail_status');
-    // Route::get('get_order_details/{id}', [OrderController::class, 'GetOrderDetail'])->name('get_order_details');
+    Route::get('get_order_details/{id}', [OrderController::class, 'GetOrderDetail'])->name('get_order_details');
 
 // Route::get('/invoice1/{id}',function(){
 //     return view('orders.invoice');

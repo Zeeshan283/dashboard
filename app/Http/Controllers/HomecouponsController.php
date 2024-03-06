@@ -10,6 +10,10 @@ use App\Models\Product;
 use App\Models\Coupon;
 class HomecouponsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(Request $request)
     {
         $coupons = Homecoupons::orderBy('id')->get();
