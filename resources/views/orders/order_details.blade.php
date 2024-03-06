@@ -527,9 +527,13 @@ filterCard.style.display = "none";
             </div>
         </div>
     </div>
-@endsection
+    @endsection
 
-@section('page-js')
-    <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
-    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
-@endsection
+    @section('page-js')
+        <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+        <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+        <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
+    @endsection
+
