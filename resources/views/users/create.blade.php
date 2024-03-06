@@ -28,7 +28,7 @@
                                                     Please enter your  name
                                                 </small>
                                             </div>
-    
+
                                             <div class="form-group col-md-4">
                                                 <label for="inputtext11" class="ul-form__label">Email:</label>
                                                 <input type="email" class="form-control" id="first_name" placeholder="Enter your Email" name="email" >
@@ -38,7 +38,7 @@
                                                     Please enter your  Email
                                                 </small>
                                             </div>
-    
+
                                             <div class="form-group col-md-4">
                                                 <label for="inputEmail12" class="ul-form__label">Contact Number:</label>
                                                 <input type="number" class="form-control" id="inputEmail12" placeholder="Enter Contact Number" name="phone1" >
@@ -93,7 +93,7 @@
                                             <div class="form-group col-md-4 ">
                                                 <label for="status" class="ul-form__label">Status:</label>
                                                 <div class="ul-form__radio-inline">
-                                                    <label class=" ul-radio__position radio radio-primary form-check-inline">
+                                                    <label class="ul-radio__position radio radio-primary form-check-inline">
                                                         <input type="radio" name="gender" value="male">
                                                         <span class="ul-form__radio-font">Male</span>
                                                         <span class="checkmark"></span>

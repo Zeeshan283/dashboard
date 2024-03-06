@@ -22,13 +22,22 @@ class CouponController extends Controller
         $coupons = Coupon::all();
         return view('coupon.allcoupons', compact('coupons'));
     }
-    public function create(){
+    public function create(Request $request){
 
         $products = Product::all();
 
         $user = User::where('id', Auth::user()->id)->first();
+        $selectedType = $request->input('apply');
 
-        return view('coupon.createcoupon', compact('products','user'));
+        if ($selectedType === 'store') {
+            $selectedItem = $user->name;
+        } elseif ($selectedType === 'sku') {
+            $selectedItem = $request->input('product_sku');
+        } else {
+            $selectedItem = '';
+        }
+        return view('coupon.createcoupon', compact('products', 'user', 'selectedType', 'selectedItem'));
+
     }
 
     public function isUsed()
@@ -53,24 +62,22 @@ class CouponController extends Controller
             'amount' => $request->input('amount'),
             'percentage' => $request->input('percentage'),
             'limit_same_user' => $request->input('limit_same_user'),
-            'store'=> $request->input('store'),
-            'product_id' => $request->input('product_id'),
+            'store' => $request->input('apply') === '6' ? $request->input('store') : null,
+            'sku' => $request->input('apply') === '7' ? $request->input('sku') : null,
+            'product_id' => $request->input('apply') === '7' ? $request->input('product_id') : null,
             'status' => $request->input('status'),
             'vendor_id' => Auth::user()->id,
         ]);
 
         // Save the coupon
         $coupon->save();
-        // Notification::create([
-        //     'id' => Auth::user()->id,
-        //     'coupon_type' => 'New coupon created with ID ' . $coupon->id,
-        //     'coupon_used' => $coupon->id . 'coupon is used now',
-        //     'type' => 'coupon',
+
 
         // ]);
         notify()->success('Coupon created successfully', 'Success');
         return redirect()->back();
     }
+
 
     public function toggleStatus(Request $request)
 {
