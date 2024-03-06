@@ -33,9 +33,13 @@ class OrderController extends Controller
 
         if (Auth::user()->role === 'Admin') {
             $orders = Order::all();
+            $allorders = Order::count();
+            $allparcels = OrderDetail::count();
             $data = Order::orderBy('id', 'desc')->get();
         } else {
             $orders = Order::all();
+            $allorders = Order::count();
+            $allparcels = OrderDetail::where('p_vendor_id', Auth::user()->id)->count();
             $data = Order::with(['orderDetails' => function ($query) {
                 $query->where('p_vendor_id', Auth::user()->id);
             }])
@@ -46,7 +50,7 @@ class OrderController extends Controller
             ->get();
         }
 
-        return view('orders.allorders', compact('data', 'orders'));
+        return view('orders.allorders', compact('data', 'orders','allorders','allparcels'));
     }
 
 

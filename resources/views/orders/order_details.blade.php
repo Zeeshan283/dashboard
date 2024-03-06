@@ -339,8 +339,8 @@
                                     <td style="width:110px">
                                         @if ($orders->customer_cancel_status == 'Canceled')
                                             <span class="badge-for-cancel">{{ $orders->customer_cancel_status }}
-                                            </span><br>
-                                            {{ $orders->customer_cancel_time }}<br>
+                                            </span><br>{{ $orders->customer_cancel_time }}
+                                            <br>
                                             <span style=" font-weight: 700; ">Type:
                                             </span>Customer <br>
                                             <span style=" font-weight: 700; ">Reason:

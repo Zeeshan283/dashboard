@@ -4,6 +4,52 @@
 @endsection
 
 @section('main-content')
+    <?php
+    $total_commission1 = 0;
+    $total_product_price1 = 0;
+    $totalTax1 = 0;
+    ?>
+    @foreach ($data as $value => $orders)
+        <tr style="display: none">
+ 
+            <?php
+            $product_price = $orders->p_price;
+            $commissionAmount = ($orders->product->subcategories->commission / 100) * $product_price;
+            $total_commission1 += $commissionAmount;
+            
+            $TaxAmount = ($orders->product->tax_charges / 100) * $product_price;
+            $totalTax1 += $TaxAmount;
+            ?>
+            <!-- <td>{{ $orders->product->new_sale_price ?? null }} </td> -->
+             
+        </tr>
+    @endforeach
+    <div class="row">
+        <div class="">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card-title" style=" margin-left: -20px; ">Commission Chart</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card-title" style=" text-align: end; ">Total Commission Charged:
+                                ${{ $total_commission1 }}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="columnDataLabel"
+                        style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"
+                        _echarts_instance_="ec_1709707664532">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="breadcrumb">
         <h1>Commissions Management</h1>
     </div>
@@ -30,7 +76,7 @@
                             <th>Product Model</th>
                             <th>Product Sku</th>
                             <th>Product Commission %</th>
-                            <th>Product Price</th> 
+                            <th>Product Price</th>
                             <th>Commission Charges</th>
                             <th>Order Date</th>
                             {{-- <th>Shipping Date</th> --}}
@@ -74,7 +120,7 @@
                                     <td>${{ $orders->p_price ?? null }} </td>
                                     <?php
                                     $total_product_price += $orders->p_price;
-                                    ?> 
+                                    ?>
 
                                     <td>-${{ $commissionAmount }}</td>
                                     <td>{{ $orders->created_at }}</td>
@@ -82,7 +128,7 @@
                                         <img src="{{ $orders->product->url ?? null }}  " width="50" height="50"
                                             loading="lazy" alt="Placeholder Image">
                                     </td>
-                                    
+
 
                                     <td>
                                         <div class="btn btn-outline-secondary ladda-button example-button m-1">
@@ -161,6 +207,7 @@
 
 
                             </tr>
+
                         </tfoot>
                     </table>
                 </div>
@@ -174,4 +221,16 @@
 @section('page-js')
     <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
+
+    <script src="{{ asset('assets/js/vendor/echarts.min.js') }}"></script>
+    <script src="{{ asset('assets/js/es5/echart.options.min.js') }}"></script>
+    <script src="{{ asset('assets/js/es5/dashboard.v1.script.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/apexcharts.dataseries.js') }}"></script>
+    <script src="{{ asset('assets/js/es5/apexChart.script.min.js') }}"></script>
+    <script src="{{ asset('assets/js/es5/apexBarChart.script.min.js') }}"></script>
+    <script src="{{ asset('assets/js/es5/apexPieDonutChart.script.min.js') }}"></script>
+    <script src="{{ asset('assets/js/es5/chartjs.script.min.js') }}"></script>
+    <script src="{{ asset('assets/js/es5/apexColumnChart.script.min.js') }}"></script>
+    <script src="{{ asset('assets/js/es5/echarts.script.min.js') }}"></script>
 @endsection

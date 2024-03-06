@@ -24,7 +24,8 @@ class CouponController extends Controller
     public function index(){
 
         $coupons = Coupon::all();
-        return view('coupon.allcoupons', compact('coupons'));
+        $allcoupons = Coupon::count();
+        return view('coupon.allcoupons', compact('coupons','allcoupons'));
     }
     public function create(){
 

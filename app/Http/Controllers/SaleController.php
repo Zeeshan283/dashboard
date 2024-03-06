@@ -35,10 +35,15 @@ class SaleController extends Controller
         if (Auth::User()->role == 'Admin') {
             $data = OrderDetail::with('order', 'product', 'vendor')->OrderBy('id', 'desc')
                 ->get();
+                $totalSale = OrderDetail::with('order', 'product', 'vendor')->where('status', 'Delivered')
+                ->count();
         } else {
             $data = OrderDetail::with('order',  'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
                 ->OrderBy('id', 'desc')
                 ->get();
+                $totalSale = OrderDetail::with('order',  'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('status', 'Delivered')
+                ->count();
         }
         foreach ($data as $orderDetail) {
             
@@ -51,7 +56,7 @@ class SaleController extends Controller
             $orderDetail->commission = $commission;
         }
         // $data = Order::orderBy('id', 'desc')->get();
-        return view('sales.index', compact('data'));
+        return view('sales.index', compact('data','totalSale'));
         // return response()->json($data);
     }
 
