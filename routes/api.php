@@ -96,3 +96,5 @@ Route::get('/s_product', [ApiController::class, 'SponserdProduct']);
 Route::get('/h_product', [ApiController::class, 'HotProduct']);
 Route::get('/d_product', [ApiController::class, 'DealProduct']);
 Route::get('/home_page_all', [ApiController::class, 'homePageAll']);
+
+Route::post('parcel_reviews', [ApiController::class,'ParcelReview']);

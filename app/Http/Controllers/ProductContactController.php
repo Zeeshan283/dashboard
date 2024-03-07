@@ -14,7 +14,7 @@ class ProductContactController extends Controller
     }
     public function index(Request $request)
 {
-    $query = Product::query();
+    $query = ProductContact::query();
 
     if ($request->has('supplier_name')) {
         $names = $request->input('supplier_name');

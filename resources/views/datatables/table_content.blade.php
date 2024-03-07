@@ -1,40 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<style>
-    .star-rating {
-        font-size: 0;
-    }
 
-    .star {
-        display: inline-block;
-        width: 20px;
-        /* Adjust the width as needed */
-        height: 20px;
-        /* Adjust the height as needed */
-        background: gray;
-        /* Default color for uncolored stars */
-        clip-path: polygon(50% 0%,
-                61.8% 35.3%,
-                98.2% 35.3%,
-                68.2% 57.3%,
-                79.1% 91.2%,
-                50% 70.9%,
-                20.9% 91.2%,
-                31.8% 57.3%,
-                1.8% 35.3%,
-                38.2% 35.3%);
-    }
-
-    .star-filled {
-        background: yellow;
-        /* Color for filled (rated) stars */
-    }
-
-    .star-partial {
-        background: gray;
-        /* Color for uncolored stars */
-    }
-</style>
 
 
 
@@ -1596,55 +1562,8 @@
     </tr>
 </tfoot>
 
-@elseif (Route::currentRouteName() == 'productreviews')
-    <thead>
-        <th>Sr No</th>
-        <th>Customer Name</th>
-        <th>Model#</th>
-        <th>SKU</th>
-        <th>Rating</th>
-        <th>Comments</th>
-        <th>Image(145x66)px</th>
-        <th>Date</th>
-        <th>Action</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td class="star-rating">
-                <span class="star star-filled"></span>&nbsp;&nbsp;
-                <span class="star star-filled"></span>&nbsp;&nbsp;
-                <span class="star star-filled"></span>&nbsp;&nbsp;
-                <span class="star star-filled"></span>&nbsp;&nbsp;
-                <span class="star star-partial"></span>&nbsp;&nbsp;
-            </td>
-            <td>This product is too good</td>
-            <td><img src="" width="50" height="50"></td>
-            <td>2011/04/25</td>
-            <td> <a href="">
-                    <button type="button" class="btn btn-outline-secondary ">
-                        <i class="nav-icon i-Eye" title="view" style="font-weight: bold;"></i>
-                    </button>
-                </a></td>
-        </tr>
-    </tbody>
-
-    <tfoot>
-        <tr>
-            <th>Sr No</th>
-            <th>Customer Name</th>
-            <th>Model#</th>
-            <th>SKU</th>
-            <th>Rating</th>
-            <th>Comments</th>
-            <th>Image (145x66)px</th>
-            <th>Date</th>
-            <th>Action</th>
-        </tr>
-    </tfoot>
+{{-- @elseif (Route::currentRouteName() == 'productreviews') --}}
+    
 @elseif (Route::currentRouteName() == 'creviews')
     <thead>
         <th>Sr No</th>

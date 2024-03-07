@@ -296,6 +296,16 @@
             document.getElementById("demo").innerHTML = txt;
 
         }
+        function updaterefundStatus(p_Id) {
+        var txt;
+        if (confirm("If you wish to update the refund status, please confirm by selecting 'OK'.")) {
+            document.getElementById('orderForm1' + p_Id).submit();
+        } else {
+            
+            txt = "You pressed Cancel!";
+        }
+        document.getElementById("demo").innerHTML = txt; // Not sure why you're setting innerHTML here
+    }
     </script>
 
 

@@ -198,7 +198,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/user-unread-notifications', [UserController::class, 'showUnreadNotifications']);
     Route::get('/mark-all-notifications-as-read/{userId}', [UserController::class, 'markAllNotificationsAsRead']);
     Route::resource('emails', EmailController::class);
-
+    Route::post('refundedStatus/{id}',[OrderController::class,'refundedStatus'])->name('refundedStatus');
 
     Route::resource('advertisements', AdvertisementController::class);
     Route::get('advertisement/{id}/destroy', [AdvertisementController::class, 'destroy'])->name('advertisement.destroy');
@@ -265,7 +265,7 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
     Route::resource('CustomerQueries', ProductContactController::class);
     Route::get('creviews', [ReviewsController::class, 'index'])->name('creviews');
-    Route::view('productreviews', 'products.productreviews')->name('productreviews');
+    Route::get('productreviews', [ProductController::class,'productReviews'])->name('productreviews');
     Route::view('productinfo', 'products.productinfo')->name('productinfo');
 
     Route::get('/productsView', [ProductController::class, 'productsView'])->name('productsView');
