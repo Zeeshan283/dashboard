@@ -14,23 +14,31 @@ class ProductContactController extends Controller
     }
     public function index(Request $request)
 {
-    $query = Product::query();
+    $query = ProductContact::query();
 
-    if ($request->has('supplier_name')) {
-        $names = $request->input('supplier_name');
-        if (is_array($names)) {
-            $query->whereIn('supplier_name', $names);
+    if ($request->has('customer_id')) {
+        $customerid = $request->input('customer_id');
+        if (is_array($customerid)) {
+            $query->whereIn('customer_id', $customerid);
         } else {
-            $query->where('supplier_name', $names);
+            $query->where('customer_id', $customerid);
         }
     }
 
-    if ($request->has('customer_name')) {
-        $cname = $request->input('customer_name');
-        if (is_array($cname)) {
-            $query->whereIn('customer_name', $cname);
+    if ($request->has('supplier_name')) {
+        $suppliername = $request->input('supplier_name');
+        if (is_array($suppliername)) {
+            $query->whereIn('supplier_name', $suppliername);
         } else {
-            $query->where('customer_name', $cname);
+            $query->where('supplier_name', $suppliername);
+        }
+    }
+    if ($request->has('customer_name')) {
+        $CustomerName = $request->input('customer_name');
+        if (is_array($CustomerName)) {
+            $query->whereIn('customer_name', $CustomerName);
+        } else {
+            $query->where('customer_name', $CustomerName);
         }
     }
 
@@ -44,13 +52,22 @@ class ProductContactController extends Controller
     }
 
     if ($request->has('pro_model_name')) {
-        $modelname = $request->input('pro_model_name');
-        if (is_array($modelname)) {
-            $query->whereIn('pro_model_name', $modelname);
+        $ProModelName = $request->input('pro_model_name');
+        if (is_array($ProModelName)) {
+            $query->whereIn('pro_model_name', $ProModelName);
         } else {
-            $query->where('pro_model_name', $modelname);
+            $query->where('pro_model_name', $ProModelName);
         }
     }
+
+    // if ($request->has('created_by')) {
+    //     $date = $request->input('created_by');
+    //     if (is_array($date)) {
+    //         $query->whereIn('created_by', $date);
+    //     } else {
+    //         $query->where('created_by', $date);
+    //     }
+    // }
 
     $data = "";
     if (Auth::user()->role == 'Admin') {
