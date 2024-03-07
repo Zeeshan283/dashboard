@@ -35,8 +35,11 @@ class VendorsController extends Controller
     public function index()
     {
         $vendor = User::select('id', 'name', 'phone1', 'email', 'status', 'verified_status', 'trusted_status')->whereRole('vendor')->get();
+        $totalSupplier = User::select('id', 'name', 'phone1', 'email', 'status', 'verified_status', 'trusted_status')->whereRole('vendor')->count();
+        $totalActiveSupplier = User::whereRole('vendor')->where('status','1')->count();
+        $totalInActiveSupplier = User::whereRole('vendor')->where('status','0')->count();
         $data = Order::orderBy('id', 'desc')->get();
-        return view('sellers.vendorlist', compact('vendor', 'data'));
+        return view('sellers.vendorlist', compact('vendor', 'data','totalSupplier','totalActiveSupplier','totalInActiveSupplier'));
     }
 
     public function create()

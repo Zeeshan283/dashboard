@@ -47,6 +47,22 @@
             vertical-align: baseline;
             border-radius: 0.25rem;
             font-weight: 600;
+        } 
+        .badge-for-timer {
+            color: #fff;
+            background-color: #2eb38d;
+            padding-right: 0.6em;
+            padding-left: 0.6em;
+            border-radius: 10rem display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+            font-weight: 600;
         }
 
         .badge-for-light {
@@ -281,28 +297,30 @@
 
         }
     </script>
+
+
     <script>
-        window.addEventListener('contextmenu', function(e) {
+        // window.addEventListener('contextmenu', function(e) {
 
-            e.preventDefault();
-        });
+        //     e.preventDefault();
+        // });
         
-        document.addEventListener('keydown', function(event) {
-            if (event.ctrlKey && event.keyCode == 85) {
+        // document.addEventListener('keydown', function(event) {
+        //     if (event.ctrlKey && event.keyCode == 85) {
                
-                event.preventDefault();
-                return false;
-            }
-        });
+        //         event.preventDefault();
+        //         return false;
+        //     }
+        // });
 
 
-        document.addEventListener('keydown', function(event) {
-            if (event.ctrlKey && event.shiftKey && event.keyCode == 67) {
+        // document.addEventListener('keydown', function(event) {
+        //     if (event.ctrlKey && event.shiftKey && event.keyCode == 67) {
                  
-                event.preventDefault();
-                return false;
-            }
-        });
+        //         event.preventDefault();
+        //         return false;
+        //     }
+        // });
     </script>
 
 </body>

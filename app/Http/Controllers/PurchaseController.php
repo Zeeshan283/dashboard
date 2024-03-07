@@ -23,7 +23,10 @@ class PurchaseController extends Controller
     {
         $user = Auth::user();
         $purchases = Purchase::where('user_id','=',$user->id)->get();
-        return view('purchase.all', compact('purchases') );
+        $totalItem = Purchase::where('user_id','=',$user->id)->count();
+        $inStock = Purchase::where('user_id','=',$user->id)->where('quantity' ,'>','0' )->count();
+        $outOfStock = Purchase::where('user_id','=',$user->id)->where('quantity' ,'<=','0' )->count();
+        return view('purchase.all', compact('purchases','totalItem','inStock','outOfStock') );
     }
 
     public function create()

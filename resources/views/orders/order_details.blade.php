@@ -1,13 +1,13 @@
 @extends('layouts.master')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    {{-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" /> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /> --}}
 @endsection
 @section('main-content')
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
-    <style>
+    {{-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" /> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /> --}}
+    {{-- <style>
         .dropdown {
             position: relative;
         }
@@ -119,8 +119,8 @@
             background-color: #f8f9fa;
             border: 3px solid #e2eaf1;
         }
-    </style>
-    <div class="card-body">
+    </style> --}}
+    {{-- <div class="card-body">
         <button class="popup-button btn btn-primary col-md-1"
             style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
             Filters</button><br><br>
@@ -203,8 +203,7 @@
                                 <p class="text-left">Customer Name</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()"
-                                    placeholder="Search...">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $value => $orders)
                                         <label class="customer_nameFilter">
@@ -231,26 +230,30 @@
                                 <div class="dropdown-options">
                                     @foreach ($data as $value => $orders)
                                         <label class="current_statusFilter">
-                                            <input type="checkbox" value=" @if ($orders->customer_cancel_status == 'Canceled')
-                                            <span class="badge-for-light" selected disabled>{{ $orders->status }}</span><br>
+                                            <input type="checkbox"
+                                                value=" @if ($orders->customer_cancel_status == 'Canceled') <span class="badge-for-light" selected disabled>{{ $orders->status }}</span><br>
                                             {{ $orders->updated_at }} <br>
                                         @elseif ($orders->status == 'Canceled')
                                             <span class="badge-for-light" selected disabled>{{ $orders->status }}</span><br>
                                             {{ $orders->updated_at }} <br>
                                         @else
                                             <span class="badge-for-success" selected disabled>{{ $orders->status }}</span><br>
-                                            {{ $orders->updated_at }}
-                                        @endif">
-                                            <span class="option-text"> @if ($orders->customer_cancel_status == 'Canceled')
-                                                <span class="badge-for-light" selected disabled>{{ $orders->status }}</span><br>
-                                                {{ $orders->updated_at }} <br>
-                                            @elseif ($orders->status == 'Canceled')
-                                                <span class="badge-for-light" selected disabled>{{ $orders->status }}</span><br>
-                                                {{ $orders->updated_at }} <br>
-                                            @else
-                                                <span class="badge-for-success" selected disabled>{{ $orders->status }}</span><br>
-                                                {{ $orders->updated_at }}
-                                            @endif</span>
+                                            {{ $orders->updated_at }} @endif">
+                                            <span class="option-text">
+                                                @if ($orders->customer_cancel_status == 'Canceled')
+                                                    <span class="badge-for-light" selected
+                                                        disabled>{{ $orders->status }}</span><br>
+                                                    {{ $orders->updated_at }} <br>
+                                                @elseif ($orders->status == 'Canceled')
+                                                    <span class="badge-for-light" selected
+                                                        disabled>{{ $orders->status }}</span><br>
+                                                    {{ $orders->updated_at }} <br>
+                                                @else
+                                                    <span class="badge-for-success" selected
+                                                        disabled>{{ $orders->status }}</span><br>
+                                                    {{ $orders->updated_at }}
+                                                @endif
+                                            </span>
                                         </label>
                                     @endforeach
                                 </div>
@@ -284,15 +287,15 @@
     </div>
     <script>
         function toggleFilters() {
-var filterCard = document.getElementById("filterCard");
-if (filterCard.style.display === "none") {
-filterCard.style.display = "block";
-} else {
-filterCard.style.display = "none";
-}
-}
-</script>
-    <div class="separator-breadcrumb border-top"></div>
+            var filterCard = document.getElementById("filterCard");
+            if (filterCard.style.display === "none") {
+                filterCard.style.display = "block";
+            } else {
+                filterCard.style.display = "none";
+            }
+        }
+    </script> --}}
+    {{-- <div class="separator-breadcrumb border-top"></div> --}}
 
     <div class="breadcrumb">
         <h1>All Parcels</h1>
@@ -317,7 +320,8 @@ filterCard.style.display = "none";
                             <th>Product Details</th>
                             <th>Order Date</th>
                             <th>Customer Name</th>
-                            <th>Customer Status</th>
+                            <th style="width:100px;">Customer Status</th>
+                            <th style="width:100px;">Refund Time</th>
                             <th>Current Status</th>
                             <th>Update Status</th>
                             <th>View Status</th>
@@ -356,8 +360,8 @@ filterCard.style.display = "none";
                                     <td style="width:110px">
                                         @if ($orders->customer_cancel_status == 'Canceled')
                                             <span class="badge-for-cancel">{{ $orders->customer_cancel_status }}
-                                            </span><br>
-                                            {{ $orders->customer_cancel_time }}<br>
+                                            </span><br>{{ $orders->customer_cancel_time }} 
+                                            <br>
                                             <span style=" font-weight: 700; ">Type:
                                             </span>Customer <br>
                                             <span style=" font-weight: 700; ">Reason:
@@ -377,6 +381,15 @@ filterCard.style.display = "none";
                                         @endif
                                              --}}
                                         @endif
+
+
+                                    </td>
+                                    <td>
+                                        @if ($orders->customer_cancel_status == 'Canceled')
+                                        <span class="badge-for-timer" id="timer{{ $loop->iteration }}"></span>
+                                        @elseif ($orders->status == 'Canceled')
+                                        <span class="badge-for-timer" id="timer{{ $loop->iteration }}"></span>
+                                        @endif
                                     </td>
                                     <td style="width:110px">
                                         @if ($orders->customer_cancel_status == 'Canceled')
@@ -387,7 +400,6 @@ filterCard.style.display = "none";
                                             <span class="badge-for-light" selected
                                                 disabled>{{ $orders->status }}</span><br>
                                             {{ $orders->updated_at }} <br>
-
                                         @else
                                             <span class="badge-for-success" selected
                                                 disabled>{{ $orders->status }}</span><br>
@@ -417,7 +429,7 @@ filterCard.style.display = "none";
                                                 @csrf
                                                 @method('PATCH')
                                                 <div class="dropdown">
-                                                    <button    class="btn btn-secondary dropdown-toggle" type="button"
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button"
                                                         id="dropdownMenuButton{{ $orders->id }}" data-toggle="dropdown"
                                                         aria-haspopup="true" aria-expanded="false">
                                                         {{ $orders->status }}
@@ -503,7 +515,44 @@ filterCard.style.display = "none";
                                     </td>
                                     </form>
 
+                                    <script>
+                                        // Get the cancel time from PHP and convert it to milliseconds
+                                        var cancelTime{{ $loop->iteration }} = new Date("{{ $orders->updated_at }}").getTime();
+
+                                        // Calculate 15 days in milliseconds
+                                        var fifteenDaysInMillis{{ $loop->iteration }} = 15 * 24 * 60 * 60 * 1000;
+
+                                        // Calculate the target time (15 days after cancel time)
+                                        var targetTime{{ $loop->iteration }} = cancelTime{{ $loop->iteration }} +
+                                            fifteenDaysInMillis{{ $loop->iteration }};
+
+                                        // Update the timer every second
+                                        var timerInterval{{ $loop->iteration }} = setInterval(function() {
+                                            // Get the current time
+                                            var now = new Date().getTime();
+
+                                            // Calculate the remaining time
+                                            var remainingTime = targetTime{{ $loop->iteration }} - now;
+
+                                            // Check if the timer has expired
+                                            if (remainingTime <= 0) {
+                                                clearInterval(timerInterval{{ $loop->iteration }});
+                                                document.getElementById("timer{{ $loop->iteration }}").innerHTML = "Expired";
+                                            } else {
+                                                // Calculate days, hours, minutes, and seconds
+                                                var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+                                                var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                                                var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+                                                // Update the timer element with the remaining time
+                                                document.getElementById("timer{{ $loop->iteration }}").innerHTML = days + "d " + hours + "h " +
+                                                    minutes + "m " + seconds + "s ";
+                                            }
+                                        }, 1000);
+                                    </script>
                                 </tr>
+
                             @endforeach
                         </tbody>
                         <tfoot>
@@ -517,6 +566,7 @@ filterCard.style.display = "none";
                                 <th>Order Date</th>
                                 <th>Customer Name</th>
                                 <th>Customer Status</th>
+                            <th style="width:100px;">Refund Time</th>
                                 <th style=" width: 60px ">Current Status</th>
                                 <th>Update Status</th>
                                 <th>View Status</th>
@@ -527,13 +577,12 @@ filterCard.style.display = "none";
             </div>
         </div>
     </div>
-    @endsection
+@endsection
 
-    @section('page-js')
-        <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
-        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-        <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
-        <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
-    @endsection
-
+@section('page-js')
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
+@endsection
