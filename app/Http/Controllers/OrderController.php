@@ -74,9 +74,17 @@ class OrderController extends Controller
             $allparcels = OrderDetail::count();
             $data = Order::orderBy('id', 'desc')->get();
         } else {
-            $orders = Order::all();
-            $allorders = Order::count();
+            // $orders = Order::all();
+
+            $allorders = Order::with(['orderDetails' => function($query){
+                $query->where('p_vendor_id', Auth::user()->id);
+            }])->whereHas('orderDetails', function ($query) {
+                $query->where('p_vendor_id', Auth::user()->id);
+            })
+            ->count();
+
             $allparcels = OrderDetail::where('p_vendor_id', Auth::user()->id)->count();
+
             $data = Order::with(['orderDetails' => function ($query) {
                 $query->where('p_vendor_id', Auth::user()->id);
             }])
@@ -387,5 +395,14 @@ if (Auth::user()->role == 'Vendor') {
     public function destroy($id)
     {
         //
+    }
+
+    public function refundedStatus($id){
+        $order_detail =  OrderDetail::find($id);
+        $order_detail->refund_status = 1;
+        $order_detail->save();
+
+        return redirect()->back()->with(Toastr::success('Refunded Status Updated Successfully!'));
+
     }
 }

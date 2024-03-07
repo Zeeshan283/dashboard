@@ -297,6 +297,9 @@
     </script> --}}
     {{-- <div class="separator-breadcrumb border-top"></div> --}}
 
+    @php
+        $auth = app('Illuminate\Contracts\Auth\Guard');
+    @endphp
     <div class="breadcrumb">
         <h1>All Parcels</h1>
     </div>
@@ -321,7 +324,7 @@
                             <th>Order Date</th>
                             <th>Customer Name</th>
                             <th style="width:100px;">Customer Status</th>
-                            <th style="width:100px;">Refund Time</th>
+                            <th style="width:100px;">Refund Detail</th>
                             <th>Current Status</th>
                             <th>Update Status</th>
                             <th>View Status</th>
@@ -360,7 +363,7 @@
                                     <td style="width:110px">
                                         @if ($orders->customer_cancel_status == 'Canceled')
                                             <span class="badge-for-cancel">{{ $orders->customer_cancel_status }}
-                                            </span><br>{{ $orders->customer_cancel_time }} 
+                                            </span><br>{{ $orders->customer_cancel_time }}
                                             <br>
                                             <span style=" font-weight: 700; ">Type:
                                             </span>Customer <br>
@@ -386,9 +389,45 @@
                                     </td>
                                     <td>
                                         @if ($orders->customer_cancel_status == 'Canceled')
-                                        <span class="badge-for-timer" id="timer{{ $loop->iteration }}"></span>
+                                            @if ($orders->refund_status != 1)
+                                                <span class="badge-for-timer" id="timer{{ $loop->iteration }}"></span>
+                                            @else
+                                                <span class="badge-for-timer">Refunded</span>
+                                            @endif
+                                            <br>
+                                            <br>
+                                            
+                                            
+
+
+                                            @if ($auth->check() && $auth->user()->role == 'Admin')
+                                             
+                                                <form id="orderForm1{{ $orders->id }}" action="{{ route('refundedStatus', ['id' => $orders->id]) }}"
+                                                    method="post" >
+                                                    @csrf
+                                                    <button onclick="updaterefundStatus('{{ $orders->id }}')" onclick="updaterefundStatus($orders->id)" style="font-size: smaller;"
+                                                        class="btn btn-outline-secondary"><span>Click Refunded</span></button>
+                                                </form>
+                                            @endif
                                         @elseif ($orders->status == 'Canceled')
-                                        <span class="badge-for-timer" id="timer{{ $loop->iteration }}"></span>
+                                            @if ($orders->refund_status != 1)
+                                                <span class="badge-for-timer" id="timer{{ $loop->iteration }}"></span>
+                                            @else
+                                                <span class="badge-for-timer">Refunded</span>
+                                            @endif
+                                            <br>
+                                            <br>    
+                                            
+                                             
+                                            @if ($auth->check() && $auth->user()->role == 'Admin')
+                                             
+                                                <form id="orderForm1{{ $orders->id }}" action="{{ route('refundedStatus', ['id' => $orders->id]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <button onclick="updaterefundStatus('{{ $orders->id }}')" style="font-size: smaller;"
+                                                        class="btn btn-outline-secondary"><span>Click Refunded</span></button>
+                                                </form>
+                                            @endif
                                         @endif
                                     </td>
                                     <td style="width:110px">
@@ -503,6 +542,8 @@
                                                 </div>
                                                 <input type="hidden" name="status" id="status{{ $orders->id }}"
                                                     value="{{ $orders->status }}">
+                                            </form>
+
                                         </td>
                                     @endif
 
@@ -552,7 +593,6 @@
                                         }, 1000);
                                     </script>
                                 </tr>
-
                             @endforeach
                         </tbody>
                         <tfoot>
@@ -566,7 +606,7 @@
                                 <th>Order Date</th>
                                 <th>Customer Name</th>
                                 <th>Customer Status</th>
-                            <th style="width:100px;">Refund Time</th>
+                                <th style="width:100px;">Refund Detail</th>
                                 <th style=" width: 60px ">Current Status</th>
                                 <th>Update Status</th>
                                 <th>View Status</th>

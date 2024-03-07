@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ParcelReview;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Menu;
@@ -955,5 +956,18 @@ class ProductController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+    public function productReviews(){
+        if (Auth::user()->role === 'Admin') {
+        $review = ParcelReview::with('product')->get();
+        }
+        else{
+            $review = ParcelReview::with('product')->whereHas('product' , function($query){
+                $query->where('created_by', Auth::user()->id);
+            })->get();
+        }
+
+        return view('products.productreviews',compact('review'));
     }
 }

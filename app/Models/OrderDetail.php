@@ -21,6 +21,8 @@ class OrderDetail extends Model
         'customer_cancel_status',
         'customer_cancel_reason',
         'customer_cancel_time',
+        'refund_status',
+        'review_status',
     ];
 
     // Define relationships if applicable

@@ -1,9 +1,11 @@
 @extends('layouts.master')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
 @section('main-content')
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .dropdown {
@@ -70,6 +72,40 @@
             padding-right: 60px;
             padding-left: 60px;
             background-color: #f8f9fa;
+        }
+
+        .star-rating {
+            font-size: 0;
+        }
+
+        .star {
+            display: inline-block;
+            width: 20px;
+            /* Adjust the width as needed */
+            height: 20px;
+            /* Adjust the height as needed */
+            background: gray;
+            /* Default color for uncolored stars */
+            clip-path: polygon(50% 0%,
+                    61.8% 35.3%,
+                    98.2% 35.3%,
+                    68.2% 57.3%,
+                    79.1% 91.2%,
+                    50% 70.9%,
+                    20.9% 91.2%,
+                    31.8% 57.3%,
+                    1.8% 35.3%,
+                    38.2% 35.3%);
+        }
+
+        .star-filled {
+            background: yellow;
+            /* Color for filled (rated) stars */
+        }
+
+        .star-partial {
+            background: gray;
+            /* Color for uncolored stars */
         }
     </style>
     <div class="card-body">
@@ -180,7 +216,69 @@
                 <div class="table-responsive">
                     <table id="deafult_ordering_table" class="display table table-striped table-bordered"
                         style="width:100%">
-                        @include('datatables.table_content')
+                        <thead>
+                            <th>Parcel Id</th>
+                            <th>Product Detail</th>
+                            <th>Rating</th>
+                            <th>Comments</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($review as $item)
+                                <tr>
+                                    <td>{{ $item->order_item_id }}</td>
+                                    <td style="width:250px">
+                                        <span style=" font-weight: 600; ">Id:
+                                            {{ $item->product->id ?? null }} </span> <br>
+                                            <span style=" font-weight: 600; ">Name:
+                                            {{ $item->product->name ?? null }} </span> <br>
+                                        <span style=" font-weight: 600; ">Model #:
+                                        </span>{{ $item->product->model_no ?? null }}<br>
+                                        <span style=" font-weight: 600; ">SKU:
+                                        </span>{{ $item->product->sku ?? null }}<br>
+                                        <span style=" font-weight: 600; ">Price:
+                                        </span>${{ $item->product->new_sale_price ?? null }}<br>
+
+                                    </td>
+
+                                    <td>
+                                        @php
+                                            $rating = $item->rating;
+                                            $maxRating = 5;
+                                            $numStars = 5;
+                                            $percentage = ($rating / $maxRating) * 100;
+                                            $fullStars = floor($percentage / (100 / $numStars));
+                                            $emptyStars = $numStars - $fullStars;
+                                        @endphp
+                                        <div class="star-rating">
+                                            @for ($i = 0; $i < $fullStars; $i++)
+                                                <span class="star star-filled"></span>
+                                            @endfor
+                                            @for ($i = 0; $i < $emptyStars; $i++)
+                                                <span class="star star-partial"></span>
+                                            @endfor
+                                        </div>
+                                    </td>
+                                    <td>{{ $item->comment }}</td>
+                                    {{-- <td class="star-rating">
+                                    <span class="star star-filled"></span>&nbsp;&nbsp;
+                                    <span class="star star-filled"></span>&nbsp;&nbsp;
+                                    <span class="star star-filled"></span>&nbsp;&nbsp;
+                                    <span class="star star-filled"></span>&nbsp;&nbsp;
+                                    <span class="star star-partial"></span>&nbsp;&nbsp;
+                                </td> --}}
+
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                        <tfoot>
+
+                            <th>Parcel Id</th>
+                            <th>Product Detail</th>
+                            <th>Rating</th>
+                            <th>Action</th>
+
+                        </tfoot>
                     </table>
                 </div>
 
@@ -188,18 +286,19 @@
         </div>
     </div>
     <script>
-         function toggleFilters() {
-        var filterCard = document.getElementById("filterCard");
-        if (filterCard.style.display === "none") {
-            filterCard.style.display = "block";
-        } else {
-            filterCard.style.display = "none";
+        function toggleFilters() {
+            var filterCard = document.getElementById("filterCard");
+            if (filterCard.style.display === "none") {
+                filterCard.style.display = "block";
+            } else {
+                filterCard.style.display = "none";
+            }
         }
-    }
     </script>
 @endsection
 
 @section('page-js')
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
     <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
