@@ -1,6 +1,9 @@
 @extends('layouts.master')
 @section('page-css')
+    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .tooltip-container {
             position: relative;
@@ -38,8 +41,10 @@
         }
     </style>
 @endsection
-
 @section('main-content')
+    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .dropdown {
             position: relative;
@@ -51,7 +56,7 @@
             border: 1px solid #ced4da;
             padding: 8px;
             max-height: 160px;
-            max-width: 250px;
+            max-width: 500px;
             overflow-y: auto;
         }
 
@@ -85,7 +90,6 @@
             padding-top: 10px;
             padding-bottom: 5px;
             overflow: hidden;
-            margin-bottom: 150px;
         }
 
         .text-left {
@@ -93,9 +97,20 @@
         }
 
         .filter-card {
-            margin-right: 0px;
+            margin-bottom: 0px;
             overflow: hidden;
-            margin-left: 15px;
+            margin-left: 60px;
+        }
+
+        .datetimerange {
+            border-color: #ccc !important;
+            max-width: 300px;
+            border: 2px solid;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            padding-right: 60px;
+            padding-left: 10px;
+            background-color: #f8f9fa;
         }
     </style>
     <div class="card-body">
@@ -104,73 +119,77 @@
             Filters</button><br><br>
         <div class="filter-card" id="filterCard">
             <form action="{{ route(Route::currentRouteName()) }}" method="GET">
-                <button type="submit" class="btn btn-secondary" style="margin-left: 1300px">Submit</button>
+                <button type="submit" class="btn btn-secondary" style="margin-left: 1100px">Submit</button>
                 <div class="row" style="margin-top: 10px;">
-                    <div class="col-md-2">
-                        <div class="dropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
+                    <div class="col-md-3">
+                        <div class="dropdown" id="customer_idDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Customer Id</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="CustomerIDSearchInput"  placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $key => $value)
                                         <label class="customer_idFilter">
-                                            <input type="checkbox" value="{{ $value->customer_id }}">
+                                            <input type="checkbox"  name="customer_id[]" value="{{ $value->customer_id }}">
                                             <span class="option-text">{{ $value->customer_id }}</span>
                                         </label>
                                     @endforeach
                                 </div>
+                                <div id="selectedCustomerIDList"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="dropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                    <div class="col-md-3">
+                        <div class="dropdown" id="Supplier_nameDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Supplier Name</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <input type="text" id="SupplierNameSearchInput"  placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $key => $value)
                                         <label class="supplier_nameFilter">
-                                            <input type="checkbox" value="{{ $value->supplier_name }}">
+                                            <input type="checkbox" name="supplier_name[]" value="{{ $value->supplier_name }}">
                                             <span class="option-text">{{ $value->supplier_name }}</span>
                                         </label>
                                     @endforeach
                                 </div>
+                                <div id="selectedSupplierNameList"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="dropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
+                    <div class="col-md-3">
+                        <div class="dropdown" id="customer_nameDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Customer Name</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <input type="text" id="CustomerNameSearchInput" id="CustomerNameSearchInput" name="customer_name[]" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $key => $value)
                                         <label class="customer_nameFilter">
-                                            <input type="checkbox" value="{{ $value->customer_name }}">
+                                            <input type="checkbox" name="customer_name[]" value="{{ $value->customer_name }}">
                                             <span class="option-text">{{ $value->customer_name }}</span>
                                         </label>
                                     @endforeach
                                 </div>
+                                <div id="selectedCustomerNameList"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+
+                    {{-- <div class="col-md-3">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left ">Customer Contact</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <input type="text" id="searchInput4" onkeyup="filterOptions()" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $key => $value)
                                         <label class="customer_contact_noFilter">
@@ -181,36 +200,40 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
+                </div>
 
-                    <div class="col-md-2">
+                <div class="row" style="margin-bottom: 150px;">
+                    <div class="col-md-3">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Product Name</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <input type="text" id="pro_nameSearchInput" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $key => $value)
                                         <label class="pro_nameFilter">
-                                            <input type="checkbox" value="{{ $value->pro_name }}">
+                                            <input type="checkbox" name="pro_name[]" value="{{ $value->pro_name }}">
                                             <span class="option-text">{{ $value->pro_name }}</span>
                                         </label>
                                     @endforeach
                                 </div>
+                                <div id="selectedpro_nameList"></div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Product Model#</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <input type="text" id="searchInput5" onkeyup="filterOptions()"
+                                    placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $key => $value)
                                         <label class="pro_model_noFilter">
@@ -222,6 +245,24 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-md-3" style="margin-left: 0px;">
+                        <div class="content-box">
+                            <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                        </div>
+                    </div>
+
+                    <script>
+                        $(function() {
+                            $('.datetimerange').daterangepicker({
+                                timePicker: true,
+                                timePickerIncrement: 30,
+                                locale: {
+                                    format: 'MM/DD/YYYY h:mm A'
+                                }
+                            });
+                        });
+                    </script>
                 </div>
 
         </div>
@@ -276,7 +317,7 @@
                                                     <i class="nav-icon i-Email" title="email"
                                                         style="font-weight: bold;"></i>
                                                 </button></a>
-                                         <a target="_blank" href="{{ route('CustomerQueries.show', $value->id) }}">
+                                            <a target="_blank" href="{{ route('CustomerQueries.show', $value->id) }}">
                                                 <button type="button" class="btn btn btn-outline-secondary ">
                                                     <i class="nav-icon i-Eye" title="view"
                                                         style="font-weight: bold;"></i>
@@ -308,7 +349,6 @@
         </div>
     </div>
     <script>
-
         function toggleFilters() {
             var filterCard = document.getElementById("filterCard");
             filterCard.style.display = (filterCard.style.display === "none" || filterCard.style.display === "") ? "block" :
@@ -318,6 +358,9 @@
 @endsection
 
 @section('page-js')
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 @endsection

@@ -169,6 +169,7 @@ class ProductController extends Controller
         }
 
         $data = $query->get();
+
     } else {
         $data = Product::with('product_image', 'categories:id,name', 'subcategories:id,name')
             ->where('created_by', Auth::user()->id)

@@ -227,13 +227,13 @@
                     </div>
 
                     <div class="col-md-2">
-                        <div class="dropdown" id=" suppliernameDropdown">
+                        <div class="dropdown" id=" colorDropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Colors</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <input type="text" id="suppliernameSearchInput" placeholder="Search...">
+                                <input type="text" id="colorSearchInput" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($colors as $value)
                                         <label class="nameFilter">
@@ -242,7 +242,7 @@
                                         </label>
                                     @endforeach
                                 </div>
-                                <div id="selectednameList"></div>
+                                <div id="selectedcolorList"></div>
                             </div>
                         </div>
 
@@ -269,13 +269,13 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    {{-- <div class="col-md-2">
                         <div class="content-box">
                             <label for="min_order">
                             <input type="number" id="quantity" name="min_order[]" min="1" max="500"
                                 placeholder="MOQ"></label>
                         </div>
-                    </div>
+                    </div> --}}
 
 
                 </div>
@@ -327,7 +327,6 @@
                     </div>
 
                     <div class="col-md-2">
-
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton8" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
