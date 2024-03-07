@@ -1,11 +1,9 @@
 @extends('layouts.master')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
 @section('main-content')
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .dropdown {
@@ -269,13 +267,13 @@
                         </div>
                     </div>
 
-                    {{-- <div class="col-md-2">
+                   <div class="col-md-2">
                         <div class="content-box">
                             <label for="min_order">
                             <input type="number" id="quantity" name="min_order[]" min="1" max="500"
                                 placeholder="MOQ"></label>
                         </div>
-                    </div> --}}
+                    </div>
 
 
                 </div>
@@ -373,9 +371,9 @@
 
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-2" style="margin-left: 0px;">
                         <div class="content-box">
-                            <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                            <input type="text" name="dateTime" class="datetimerange"  />
                         </div>
                     </div>
 

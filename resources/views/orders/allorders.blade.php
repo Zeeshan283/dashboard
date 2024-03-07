@@ -1,14 +1,9 @@
 @extends('layouts.master')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
 @section('main-content')
-<<<<<<< HEAD
-=======
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
->>>>>>> 665a5f58b14cd2b6b9b8f4908af40e1b864f5cb9
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .dropdown {
@@ -152,7 +147,7 @@
                             </div>
                         </div>
                 </div>
-                {{-- <div class="col-md-2">
+              <div class="col-md-2">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -277,7 +272,7 @@
                             <canvas data-zr-dom-id="zr_0" width="766" height="375"
                                 style="position: absolute; left: 0px; top: 0px; width: 613px; height: 300px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
                         </div>
-                      
+
                     </div>
                 </div>
             </div>
@@ -887,10 +882,10 @@ $(document).ready(function () {
             });
     }
 
-    // zoom line chart 
+    // zoom line chart
     var y = document.getElementById("zoomBar");
     if (y) {
-     
+
         var b = echarts.init(y);
         b.setOption({
             tooltip: {
@@ -980,7 +975,7 @@ $(document).ready(function () {
                                     { offset: 0.5, color: "#188df0" },
                                     { offset: 1, color: "#188df0" },
                                 ]
-                            ),  
+                            ),
                         },
                         emphasis: {
                             color: new echarts.graphic.LinearGradient(
@@ -1513,7 +1508,7 @@ $(document).ready(function () {
                 }, 500);
             });
     }
-     
+
 });
 
     </script>
