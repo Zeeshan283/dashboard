@@ -1,11 +1,9 @@
 @extends('layouts.master')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
 @section('main-content')
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .dropdown {
@@ -48,10 +46,10 @@
             border-color: #ccc !important;
             max-width: 300px;
             border: 2px solid;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            padding-right: 10px;
-            padding-left: 10px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
             background-color: #f8f9fa;
         }
 
@@ -154,7 +152,7 @@
     </style>
 
     <div class="card-body">
-        <button class="popup-button btn btn-primary col-md-1" style="color: black; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product Filters</button><br><br>
+        <button class="popup-button btn btn-primary col-md-1" style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product Filters</button><br><br>
         <div class="filter-card" id="filterCard">
             <form action="{{ route('products.index') }}" method="GET">
                 <button type="submit" class="btn btn-secondary" style="margin-left: 1300px">Submit</button>
@@ -166,31 +164,31 @@
                                 <p class="text-left">Product Name</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <input type="text" id="ProductNameSearchInput" placeholder="Search...">
+                                <input type="text" id="nameSearchInput" placeholder="Search...">
                                 <div class="dropdown-options">
-                                    <label class="nameFilter">
-                                        <input type="checkbox" id="selectAllNames">
-                                        <span class="option-text">Select All</span>
+                                    <label class="nameFilter" for="nameFilter">
+                                        <input type="checkbox" id="selectAllNames" class="nameFilter">
+                                        <span class="option-text" name="name[]">Select All</span>
                                     </label>
                                     @foreach ($products as $key => $product)
                                         <label class="nameFilter">
                                             <input type="checkbox" name="name[]" value="{{ $product->name ?? Null }}">
-                                            <span class="option-text">{{ $product->name ?? Null}}</span>
+                                            <span class="option-text" name="name[]">{{ $product->name ?? Null}}</span>
                                         </label>
                                     @endforeach
                                 </div>
-                                <div id="selectedProductNameList"></div>
+                                <div id="selectednameList"></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <div class="dropdown" id="ModelNoDropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                        <div class="dropdown" id="model_noDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Model No</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <input type="text" id="ModelNoSearchInput" placeholder="Search...">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <input type="text" id="model_noSearchInput" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($products as $key => $product)
                                         <label class="model_noFilter">
@@ -269,13 +267,13 @@
                         </div>
                     </div>
 
-                    {{-- <div class="col-md-2">
+                   <div class="col-md-2">
                         <div class="content-box">
                             <label for="min_order">
                             <input type="number" id="quantity" name="min_order[]" min="1" max="500"
                                 placeholder="MOQ"></label>
                         </div>
-                    </div> --}}
+                    </div>
 
 
                 </div>
@@ -353,7 +351,7 @@
 
                     </div>
 
-                    <div class="col-md-2" style="margin-left: 30px;">
+                    <div class="col-md-2" style="margin-left: 0px;">
                         <label>Condition:</label>
 
                         <div class="row">
@@ -373,9 +371,9 @@
 
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-2" style="margin-left: 0px;">
                         <div class="content-box">
-                            <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                            <input type="text" name="dateTime" class="datetimerange"  />
                         </div>
                     </div>
 

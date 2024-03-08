@@ -1,11 +1,9 @@
 @extends('layouts.master')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
 @section('main-content')
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .dropdown {
@@ -68,10 +66,10 @@
             border-color: #ccc !important;
             max-width: 300px;
             border: 2px solid;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            padding-right: 60px;
-            padding-left: 10px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
             background-color: #f8f9fa;
         }
 
@@ -134,8 +132,7 @@
     </style>
     <div class="card-body">
         <button class="popup-button btn btn-primary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
-            Filters</button><br><br>
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Failed Filter</button><br><br>
         <div class="filter-card" id="filterCard">
             <form action="{{ route('order_details') }}" method="GET">
                 <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
@@ -269,7 +266,7 @@
 
                     <div class="col-md-3">
                         <div class="content-box">
-                            <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                            <input type="text" name="dateTime" class="datetimerange" />
                         </div>
                     </div>
 
@@ -285,26 +282,26 @@
                         });
                     </script>
 
-<div class="col-md-3">
-    <div class="dropdown">
-        <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <p class="text-left">Product SKU#</p>
-        </div>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-            <input type="text" id="searchInput" onkeyup="filterOptions()"
-                placeholder="Search...">
-            <div class="dropdown-options">
-                @foreach ($data as $value => $orders)
-                    <label class="skuFilter">
-                        <input type="checkbox"value="{{ $orders->product->sku ?? null }}">
-                        <span class="option-text">{{ $orders->product->sku ?? null }}</span>
-                    </label>
-                @endforeach
-            </div>
-        </div>
-    </div>
-</div>
+                    <div class="col-md-3">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Product SKU#</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()"
+                                    placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($data as $value => $orders)
+                                        <label class="skuFilter">
+                                            <input type="checkbox"value="{{ $orders->product->sku ?? null }}">
+                                            <span class="option-text">{{ $orders->product->sku ?? null }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row d-flex" style="margin-top: 10px; margin-bottom: 150px">
@@ -693,7 +690,6 @@
 @endsection
 
 @section('page-js')
-    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>

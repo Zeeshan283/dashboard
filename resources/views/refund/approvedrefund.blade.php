@@ -2,12 +2,10 @@
 @section('page-css')
     <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
 @section('main-content')
     <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .dropdown {
@@ -70,16 +68,16 @@
             border-color: #ccc !important;
             max-width: 300px;
             border: 2px solid;
-            padding-top: 12px;
-            padding-bottom: 12px;
-            padding-right: 60px;
-            padding-left: 10px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
             background-color: #f8f9fa;
         }
     </style>
     <div class="card-body">
         <button class="popup-button btn btn-primary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Approved
             Filters</button><br><br>
         <div class="filter-card" id="filterCard">
             <form action="{{ route('approvedrefund') }}" method="GET">
@@ -197,7 +195,7 @@
 
                     <div class="col-md-3" style="margin-left: 0px;">
                         <div class="content-box">
-                            <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                            <input type="text" name="dateTime" class="datetimerange"  />
                         </div>
                     </div>
 
@@ -257,7 +255,6 @@
             @endsection
 
             @section('page-js')
-                <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
                 <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
                 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
                 <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>

@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Notification;
+use Carbon\Carbon;
+
 
 class ProductController extends Controller
 {
@@ -49,22 +51,6 @@ class ProductController extends Controller
             $colors = Color::all();
             $menus = Menu::all();
             $supplier = User::where('role', 'Vendor')->get();
-            $searchableFields = [
-                'name',
-                'make',
-                'min_order',
-                'sku',
-                'new_price',
-                'new_sale_price',
-                'refurnished_price',
-                'refurnished_sale_price',
-                'menu_id',
-                'category_id',
-                'subcategory_id',
-                'brand_id',
-                'brand_name',
-                'total_price',
-            ];
 
         if ($request->has('name')) {
             $products = $request->input('name');
@@ -160,17 +146,127 @@ class ProductController extends Controller
             }
         }
 
-        if (Auth::User()->role != 'Admin') {
-            $query->where('created_by', Auth::User()->id);
-        }
+        if ($request->has('dateTime')) {
+            $dateTimeRange = explode(' - ', $request->input('dateTime'));
+            $startDateTime = Carbon::createFromFormat('m/d/Y h:i A', $dateTimeRange[0])->format('Y-m-d H:i:s');
+            $endDateTime = Carbon::createFromFormat('m/d/Y h:i A', $dateTimeRange[1])->format('Y-m-d H:i:s');
 
-        if (Auth::user()->role != 'Admin') {
-            $query->where('created_by', Auth::user()->id);
+            $query->whereBetween('created_at', [$startDateTime, $endDateTime]);
         }
 
         $data = $query->get();
 
     } else {
+        $query = Product::query();
+        $products = Product::all();
+        $supplier = User::where('role', 'Vendor')->get();
+        $colors = Color::all();
+        $menus = Menu::all();
+
+        if ($request->has('name')) {
+            $products = $request->input('name');
+            if (is_array($products)) {
+                $query->whereIn('name', $products);
+            } else {
+                $query->where('name', $products);
+            }
+        }
+        if ($request->has('model_no')) {
+            $products = $request->input('model_no');
+            if (is_array($products)) {
+                $query->whereIn('model_no', $products);
+            } else {
+                $query->where('model_no', $products);
+            }
+        }
+
+        if ($request->has('make')) {
+            $supplier = $request->input('make');
+            if (is_array($supplier)) {
+                $query->whereIn('make', $supplier);
+            } else {
+                $query->where('make', $supplier);
+            }
+        }
+
+        if ($request->has('name')) {
+            $menu = $request->input('name');
+            if (is_array($menu)) {
+                $query->whereIn('name', $menu);
+            } else {
+                $query->where('name', $menu);
+            }
+        }
+
+        if ($request->has('categories')) {
+            $categories = $request->input('categories');
+            $query->whereHas('categories', function ($q) use ($categories) {
+                $q->whereIn('id', $categories);
+            });
+        }
+
+        if ($request->has('subcategories')) {
+            $subcategories = $request->input('subcategories');
+            $query->whereHas('subcategories', function ($q) use ($subcategories) {
+                $q->whereIn('id', $subcategories);
+            });
+        }
+
+        if ($request->has('brand_name')) {
+            $brand = $request->input('brand_name');
+            if (is_array($brand)) {
+                $query->whereIn('brand_name', $brand);
+            } else {
+                $query->where('brand_name', $brand);
+            }
+        }
+
+        if ($request->has('min_order')) {
+            $products = $request->input('min_order');
+            if (is_array($products)) {
+                $query->whereIn('min_order', $products);
+            } else {
+                $query->where('min_order', $products);
+            }
+        }
+
+        if ($request->has('new_sale_price')) {
+            $products = $request->input('new_sale_price');
+            if (is_array($products)) {
+                $query->whereIn('new_sale_price', $products);
+            } else {
+                $query->where('new_sale_price', $products);
+            }
+        }
+
+        if ($request->has('new_warranty_days')) {
+            $products = $request->input('new_warranty_days');
+            if (is_array($products)) {
+                $query->whereIn('new_warranty_days', $products);
+            } else {
+                $query->where('new_warranty_days', $products);
+            }
+        }
+
+        if ($request->has('new_return_days')) {
+            $products = $request->input('new_return_days');
+            if (is_array($products)) {
+                $query->whereIn('new_return_days', $products);
+            } else {
+                $query->where('new_return_days', $products);
+            }
+        }
+
+        if ($request->has('dateTime')) {
+            $dateTimeRange = explode(' - ', $request->input('dateTime'));
+            $startDateTime = Carbon::createFromFormat('m/d/Y h:i A', $dateTimeRange[0])->format('Y-m-d H:i:s');
+            $endDateTime = Carbon::createFromFormat('m/d/Y h:i A', $dateTimeRange[1])->format('Y-m-d H:i:s');
+
+            $query->whereBetween('created_at', [$startDateTime, $endDateTime]);
+        }
+
+        $data = $query->get();
+
         $data = Product::with('product_image', 'categories:id,name', 'subcategories:id,name')
             ->where('created_by', Auth::user()->id)
             ->orderBy('id', 'desc')

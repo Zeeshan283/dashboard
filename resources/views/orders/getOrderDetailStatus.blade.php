@@ -1,11 +1,9 @@
 @extends('layouts.master')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
 @section('main-content')
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .dropdown {
@@ -68,10 +66,10 @@
             border-color: #ccc !important;
             max-width: 300px;
             border: 2px solid;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            padding-right: 60px;
-            padding-left: 10px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
             background-color: #f8f9fa;
         }
 
@@ -133,8 +131,8 @@
         }
     </style>
     <div class="card-body">
-        <button class="popup-button btn btn-primary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
+        <button class="popup-button btn btn-primary col-md-2"
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Get Order Details
             Filters</button><br><br>
         <div class="filter-card" id="filterCard">
             <form action="{{ route('order_details') }}" method="GET">
@@ -151,7 +149,7 @@
                                 <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($status as $value => $orders)
-                                    <label class="order_idFilter">
+                                        <label class="order_idFilter">
                                             <input type="checkbox" value="{{ $orders->order_id }}">
                                             <span class="option-text">{{ $orders->order_id }}</span>
                                         </label>
@@ -171,7 +169,7 @@
                                 <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($status as $value => $orders)
-                                    <label class="idFilter">
+                                        <label class="idFilter">
                                             <input type="checkbox" value="{{ $orders->status }}">
                                             <span class="option-text">{{ $orders->status }}</span>
                                         </label>
@@ -183,7 +181,7 @@
 
                     <div class="col-md-3">
                         <div class="content-box">
-                            <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                            <input type="text" name="dateTime" class="datetimerange" />
                         </div>
                     </div>
 
@@ -199,25 +197,24 @@
                         });
 
                         function toggleFilters() {
-                        var filterCard = document.getElementById("filterCard");
-                        if (filterCard.style.display === "none") {
-                            filterCard.style.display = "block";
-                        } else {
-                            filterCard.style.display = "none";
+                            var filterCard = document.getElementById("filterCard");
+                            if (filterCard.style.display === "none") {
+                                filterCard.style.display = "block";
+                            } else {
+                                filterCard.style.display = "none";
+                            }
                         }
-                    }
-
                     </script>
 
                 </div>
-    <div class="breadcrumb">
-        <h1>Get Order Parcels Status</h1>
-    </div>
+                <div class="breadcrumb">
+                    <h1>Get Order Parcels Status</h1>
+                </div>
 
-    <div class="separator-breadcrumb border-top"></div>
+                <div class="separator-breadcrumb border-top"></div>
 
 
-                    @php
+                @php
                     $hasInProcessStatus = false;
                     $hasPackagingStatus = false;
                     $hasOutForDelivery = false;
@@ -232,7 +229,7 @@
                             $hasInProcessStatus = true;
                         @endphp
                     @endif
-                     @if ($order->status === 'Packaging')
+                    @if ($order->status === 'Packaging')
                         @php
                             $hasPackagingStatus = true;
                         @endphp
@@ -257,60 +254,58 @@
                             $hasCanceled = true;
                         @endphp
                     @endif --}}
-
                 @endforeach
 
 
 
 
-    <div class="col-md-12 mb-4">
-        <div class="card text-start">
+                <div class="col-md-12 mb-4">
+                    <div class="card text-start">
 
-            <div class="card-body">
-                <h4 class="card-title mb-3">Get order Parcels Status</h4>
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Get order Parcels Status</h4>
 
-                {{-- <p>All Orders list is below.</p> --}}
+                            {{-- <p>All Orders list is below.</p> --}}
 
-                <div class="table-responsive">
-                    <table id="deafult_ordering_table" class="display table table-striped table-bordered"
-                        style="width:100%;">
-                        <thead>
-                            <th>Id #</th>
-                            <th>Parcel Id #</th>
-                            <th>Status</th>
-                            <th>DateTime</th>
-                        </thead>
-                        <tbody>
-                            @foreach ($status as $value => $orders)
-                                <tr>
+                            <div class="table-responsive">
+                                <table id="deafult_ordering_table" class="display table table-striped table-bordered"
+                                    style="width:100%;">
+                                    <thead>
+                                        <th>Id #</th>
+                                        <th>Parcel Id #</th>
+                                        <th>Status</th>
+                                        <th>DateTime</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($status as $value => $orders)
+                                            <tr>
 
-                                    <td>{{ $value + 1 }}</td>
-                                    <td>{{ $orders->order_id }}</td>
-                                    <td>{{ $orders->status }} </td>
-                                    <td>{{ $orders->datetime }} </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Id #</th>
+                                                <td>{{ $value + 1 }}</td>
+                                                <td>{{ $orders->order_id }}</td>
+                                                <td>{{ $orders->status }} </td>
+                                                <td>{{ $orders->datetime }} </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Id #</th>
 
-                                <th>Parcel Id #</th>
-                                <th>Status</th>
-                                <th>DateTime</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                                            <th>Parcel Id #</th>
+                                            <th>Status</th>
+                                            <th>DateTime</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    @endsection
+            @endsection
 
-    @section('page-js')
-        <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
-        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-        <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
-        <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
-    @endsection
+            @section('page-js')
+                <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+                <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+                <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+                <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
+            @endsection
