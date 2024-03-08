@@ -152,8 +152,8 @@
     </style>
 
     <div class="card-body">
-        <button class="popup-button btn btn-primary col-md-1" style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product Filters</button><br><br>
-        <div class="filter-card" id="filterCard">
+        <button class="popup-button btn btn-secondary col-md-1" style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product Filters</button><br><br>
+        <div class="filter-card" id="filterCard" style="display: none;">
             <form action="{{ route('products.index') }}" method="GET">
                 <button type="submit" class="btn btn-secondary" style="margin-left: 1300px">Submit</button>
                 <div class="row" style="margin-top: 10px;">
@@ -376,16 +376,9 @@
                             <input type="text" name="dateTime" class="datetimerange"  />
                         </div>
                     </div>
-
+                   
                     <script>
-                        function toggleFilters() {
-        var filterCard = document.getElementById("filterCard");
-        if (filterCard.style.display === "none") {
-            filterCard.style.display = "block";
-        } else {
-            filterCard.style.display = "none";
-        }
-    }
+                         
 
                         $(function() {
                             $('.datetimerange').daterangepicker({
