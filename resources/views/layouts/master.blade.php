@@ -47,7 +47,7 @@
             vertical-align: baseline;
             border-radius: 0.25rem;
             font-weight: 600;
-        } 
+        }
         .badge-for-timer {
             color: #fff;
             background-color: #2eb38d;
@@ -99,7 +99,7 @@
             font-weight: 600;
         }
 
-     
+
     </style>
 </head>
 
@@ -301,7 +301,7 @@
         if (confirm("If you wish to update the refund status, please confirm by selecting 'OK'.")) {
             document.getElementById('orderForm1' + p_Id).submit();
         } else {
-            
+
             txt = "You pressed Cancel!";
         }
         document.getElementById("demo").innerHTML = txt; // Not sure why you're setting innerHTML here
@@ -323,10 +323,10 @@
 
         //     e.preventDefault();
         // });
-        
+
         // document.addEventListener('keydown', function(event) {
         //     if (event.ctrlKey && event.keyCode == 85) {
-               
+
         //         event.preventDefault();
         //         return false;
         //     }
@@ -335,12 +335,34 @@
 
         // document.addEventListener('keydown', function(event) {
         //     if (event.ctrlKey && event.shiftKey && event.keyCode == 67) {
-                 
+
         //         event.preventDefault();
         //         return false;
         //     }
         // });
     </script>
+    <script>
+        function toggleFilters() {
+            var filterCard = document.getElementById("filterCard");
+            if (filterCard.style.display === "none") {
+                filterCard.style.display = "block";
+            } else {
+                filterCard.style.display = "none";
+            }
+        }
+    </script>
+
+<script>
+    $(function() {
+        $('.datetimerange').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY h:mm A'
+            }
+        });
+    });
+</script>
 
 </body>
 

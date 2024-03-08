@@ -106,7 +106,93 @@
             /* Color for uncolored stars */
         }
     </style>
-    
+    <div class="card-body">
+        <button class="popup-button btn btn-secondary col-md-2"
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product Reviews
+            Filters</button><br><br>
+        <div class="filter-card" id="filterCard" style="display: none;">
+            <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-md-2">
+                    <form action="{{ route('productreviews') }}" method="GET">
+                        <div class="dropdown" id="order_item_idDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Parcel ID#</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="order_item_idSearchInput" name="order_item_id[]" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($review as $item)
+                                    <label class="order_item_idFilter">
+                                        <input type="checkbox" name="order_item_id[]" value="{{ $item->order_item_id }}">
+                                        <span class="option-text" name="order_item_id[]">{{ $item->order_item_id }}</span>
+                                    </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <form action="{{ route('productreviews') }}" method="GET">
+                        <div class="dropdown" id="productdetailDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Product Detail</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <input type="text" id="productdetailSearchInput" name="productdetail[]" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($review as $item)
+                                    <label class="productdetailFilter">
+                                        <input type="checkbox" name="productdetail[]" value="{{ $item->product->id ?? null }} .<br>{{ $item->product->name ?? null }} . <br> {{ $item->product->model_no ?? null }} . <br> {{ $item->product->sku ?? null }} . <br> ${{ $item->product->new_sale_price ?? null }} ">
+                                        <span class="option-text" name="productdetail[]">{{ $item->product->id ?? null }} .<br>{{ $item->product->name ?? null }} . <br> {{ $item->product->model_no ?? null }} . <br> {{ $item->product->sku ?? null }} . <br> ${{ $item->product->new_sale_price ?? null }}</span>
+                                    </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <form action="{{ route('productreviews') }}" method="GET">
+                        <div class="dropdown" id="ratingDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left ">Rating</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <input type="text" id="ratingSearchInput" name="rating[]" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($review as $item)
+                                    <label class="ratingFilter">
+                                        <input type="checkbox" name="rating[]" value="{{ $item->rating }}">
+                                        <span class="option-text" name="rating[]">
+                                        {{ $item->rating }}
+                                        </span>
+                                    </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="content-box">
+                        <form action="{{ route('productreviews') }}" method="GET">
+                                <input type="text" name="dateTime" class="datetimerange"  />
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
     <div class="breadcrumb">
         <h1>Product Reviews</h1>
     </div>
@@ -193,16 +279,7 @@
             </div>
         </div>
     </div>
-    <script>
-        function toggleFilters() {
-            var filterCard = document.getElementById("filterCard");
-            if (filterCard.style.display === "none") {
-                filterCard.style.display = "block";
-            } else {
-                filterCard.style.display = "none";
-            }
-        }
-    </script>
+
 @endsection
 
 @section('page-js')
