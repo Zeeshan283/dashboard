@@ -219,6 +219,7 @@
                         style="width:100%">
                         <thead>
                             <th>Parcel Id</th>
+                            <th>Customer Id</th>
                             <th>Product Detail</th>
                             <th>Rating</th>
                             <th>Comments</th>
@@ -227,6 +228,7 @@
                             @foreach ($review as $item)
                                 <tr>
                                     <td>{{ $item->order_item_id }}</td>
+                                    <td>{{ $item->customer_id }}</td>
                                     <td style="width:250px"> 
                                         <span style=" font-weight: 600; ">Id:
                                             {{ $item->product->id ?? null }} </span> <br>
@@ -275,6 +277,7 @@
                         <tfoot>
 
                             <th>Parcel Id</th>
+                            <th>Customer Id</th>
                             <th>Product Detail</th>
                             <th>Rating</th>
                             <th>Action</th>
