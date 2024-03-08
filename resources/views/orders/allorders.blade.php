@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
 @section('main-content')
+    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .dropdown {
@@ -66,10 +67,10 @@
             border-color: #ccc !important;
             max-width: 350px;
             border: 2px solid;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            padding-right: 60px;
-            padding-left: 60px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
             background-color: #f8f9fa;
         }
 
@@ -118,15 +119,14 @@
             border: 3px solid #e2eaf1;
         }
     </style>
-   <div class="card-body">
+    <div class="card-body">
         <button class="popup-button btn btn-primary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
-            Filters</button><br><br>
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Orders Filters</button><br><br>
         <div class="filter-card" id="filterCard">
             <form action="{{ route('allorders') }}" method="GET">
                 <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
-            <div class="row" style="margin-top: 10px;">
-                <div class="col-md-3">
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-3">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -146,8 +146,8 @@
                                 </div>
                             </div>
                         </div>
-                </div>
-                {{-- <div class="col-md-2">
+                    </div>
+                    {{-- <div class="col-md-2">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -166,7 +166,7 @@
                             </div>
                         </div>
                 </div> --}}
-                <div class="col-md-3">
+                    <div class="col-md-3">
                         <div class="dropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -180,79 +180,81 @@
                                             <input type="checkbox"
                                                 value="{{ $orders->shipping_address ?? null }},{{ $orders->shipping_city ?? null }},{{ $orders->shipping_state ?? null }} , {{ $orders->shipping_zipcode ?? null }},{{ $orders->shipping_country ?? null }}">
                                             <span
-                                                class="option-text">{{ $orders->shipping_address ?? null }},{{ $orders->shipping_city ?? null }},{{ $orders->shipping_state ?? null }} , {{ $orders->shipping_zipcode ?? null }},{{ $orders->shipping_country ?? null }}</span>
+                                                class="option-text">{{ $orders->shipping_address ?? null }},{{ $orders->shipping_city ?? null }},{{ $orders->shipping_state ?? null }}
+                                                ,
+                                                {{ $orders->shipping_zipcode ?? null }},{{ $orders->shipping_country ?? null }}</span>
                                         </label>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="content-box">
-                                <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" / name="created_by">
                     </div>
-                </div>
 
-                <script>
-                    $(function() {
-                        $('.datetimerange').daterangepicker({
-                            timePicker: true,
-                            timePickerIncrement: 30,
-                            locale: {
-                                format: 'MM/DD/YYYY h:mm A'
-                            }
+                    <div class="col-md-3">
+                        <div class="content-box">
+                            <input type="text" name="dateTime" class="datetimerange"  />
+                        </div>
+                    </div>
+
+                    <script>
+                        $(function() {
+                            $('.datetimerange').daterangepicker({
+                                timePicker: true,
+                                timePickerIncrement: 30,
+                                locale: {
+                                    format: 'MM/DD/YYYY h:mm A'
+                                }
+                            });
                         });
-                    });
-                </script>
+                    </script>
 
 
-            </div>
-            <div class="row d-flex" style="margin-top: 40px; margin-bottom: 150px">
+                </div>
+                <div class="row d-flex" style="margin-top: 40px; margin-bottom: 150px">
 
-                <div class="col-md-5" style="margin-left: 200px;">
-                    <div class="content-box d-flex">
-                        <div class="input-bar" style="margin-left: 120px;">
-                            <label for="priceInput5">Enter Price:</label>
-                            <input type="number" id="priceInput5" min="0" max="1000000" value="100"
-                                oninput="updatePriceSlider(this.value, 'rangeValue5')">
+                    <div class="col-md-5" style="margin-left: 200px;">
+                        <div class="content-box d-flex">
+                            <div class="input-bar" style="margin-left: 120px;">
+                                <label for="priceInput5">Enter Price:</label>
+                                <input type="number" id="priceInput5" min="0" max="1000000" value="100"
+                                    oninput="updatePriceSlider(this.value, 'rangeValue5')">
+                            </div>
+                            <div class="slider"><b>Amount:</b>
+                                <label for="fader"></label><input type="range" min="0" max="100"
+                                    value="50" id="fader" step="20" list="volsettings"
+                                    oninput="updatePriceValue(this.value, 'rangeValue5')">
+                                <p id="rangeValue5">100</p>
+                                <datalist id="volsettings">
+                                    <option>10000</option>
+                                    <option>20000</option>
+                                    <option>40000</option>
+                                    <option>60000</option>
+                                    <option>80000</option>
+                                    <option>100000</option>
+                                </datalist>
+                            </div>
+
                         </div>
-                        <div class="slider"><b>Amount:</b>
-                            <label for="fader"></label><input type="range" min="0" max="100"
-                                value="50" id="fader" step="20" list="volsettings"
-                                oninput="updatePriceValue(this.value, 'rangeValue5')">
-                            <p id="rangeValue5">100</p>
-                            <datalist id="volsettings">
-                                <option>10000</option>
-                                <option>20000</option>
-                                <option>40000</option>
-                                <option>60000</option>
-                                <option>80000</option>
-                                <option>100000</option>
-                            </datalist>
-                        </div>
-
                     </div>
                 </div>
-            </div>
-            <script>
-                function updatePriceValue(value, outputId) {
-                    document.getElementById(outputId).textContent = value;
-                }
+                <script>
+                    function updatePriceValue(value, outputId) {
+                        document.getElementById(outputId).textContent = value;
+                    }
 
-                function updatePriceSlider(value, sliderId) {
-                    document.getElementById(sliderId).textContent = value;
-                    document.querySelector('input[type="range"]').value = value;
-                }
+                    function updatePriceSlider(value, sliderId) {
+                        document.getElementById(sliderId).textContent = value;
+                        document.querySelector('input[type="range"]').value = value;
+                    }
 
-                function updatePriceValue(value, targetId) {
-                document.getElementById(targetId).innerText = value;
-            }
-            </script>
-        </form>
+                    function updatePriceValue(value, targetId) {
+                        document.getElementById(targetId).innerText = value;
+                    }
+                </script>
+            </form>
 
         </div>
-    </div> --}}
+    </div>
     {{-- <div class="separator-breadcrumb border-top"></div> --}}
 
 
@@ -316,9 +318,8 @@
 @endsection
 
 @section('page-js')
-    {{-- <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script> --}}
-    {{-- <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> --}}
-    {{-- <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script> --}}
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 
@@ -1071,634 +1072,833 @@
                     });
             }
 
-    // zoom line chart
-    var y = document.getElementById("zoomBar");
-    if (y) {
+            // zoom line chart
+            var y = document.getElementById("zoomBar");
+            if (y) {
 
-        var b = echarts.init(y);
-        b.setOption({
-            tooltip: {
-                trigger: "axis",
-                axisPointer: { type: "shadow", shadowStyle: { opacity: 0 } },
-            },
-            grid: {
-                top: "8%",
-                left: "3%",
-                right: "4%",
-                bottom: "3%",
-                containLabel: !0,
-            },
-            xAxis: {
-                data: data.map(item => item.order_date),
-                // data: [
-                //     "1",
-                //     "02",
-                //     "03",
-                //     "04",
-                //     "05",
-                //     "06",
-                //     "07",
-                //     "08",
-                //     "09",
-                //     "10",
-                //     "11",
-                //     "12",
-                //     "13",
-                //     "14",
-                //     "15",
-                //     "16",
-                //     "17",
-                //     "18",
-                //     "19",
-                //     "20",
-                //     "21",
-                //     "22",
-                //     "23",
-                //     "24",
-                //     "25",
-                //     "26",
-                //     "27",
-                //     "28",
-                //     "29",
-                //     "30",
-                // ],
-                axisLabel: { inside: !0, textStyle: { color: "#fff" } },
-                axisTick: { show: !1 },
-                axisLine: { show: !1 },
-                z: 10,
-            },
-            yAxis: {
-                axisLine: { show: !1 },
-                axisTick: { show: !1 },
-                axisLabel: { textStyle: { color: "#999" } },
-                splitLine: { show: !1 },
-            },
-            dataZoom: [{ type: "inside" }],
-            series: [
-                {
-                    name: "Total Orders",
-                    type: "bar",
-                    itemStyle: { normal: { color: "rgba(0,0,0,0.05)" } },
-                    barGap: "-100%",
-                    barCategoryGap: "40%",
-                    data: data.map(item => item.total_orders),
-                    // data: [
-                    //     500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
-                    //     500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
-                    //     500, 500, 500, 500, 500, 500, 500, 500,
-                    // ],
-                    animation: !1,
-                },
-                {
-                    name: "Completed Orders",
-                    type: "bar",
-                    itemStyle: {
-                        normal: {
-                            color: new echarts.graphic.LinearGradient(
-                                0,
-                                0,
-                                0,
-                                1,
-                                [
-                                    { offset: 0, color: "#83bff6" },
-                                    { offset: 0.5, color: "#188df0" },
-                                    { offset: 1, color: "#188df0" },
-                                ]
-                            ),
+                var b = echarts.init(y);
+                b.setOption({
+                        tooltip: {
+                            trigger: "axis",
+                            axisPointer: {
+                                type: "shadow",
+                                shadowStyle: {
+                                    opacity: 0
+                                }
+                            },
                         },
-                        emphasis: {
-                            color: new echarts.graphic.LinearGradient(
-                                0,
-                                0,
-                                0,
-                                1,
-                                [
-                                    { offset: 0, color: "#2378f7" },
-                                    { offset: 0.7, color: "#2378f7" },
-                                    { offset: 1, color: "#83bff6" },
-                                ]
-                            ),
+                        grid: {
+                            top: "8%",
+                            left: "3%",
+                            right: "4%",
+                            bottom: "3%",
+                            containLabel: !0,
                         },
-                    },
-                    data: data.map(item => item.completed_orders),
-                    // data: [
-                    //     350, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90,
-                    //     149, 210, 122, 133, 334, 198, 123, 125, 220, 220, 182,
-                    //     191, 234, 290, 330, 310, 123, 442, 212,
-                    // ],
-                },
-            ],
-        }),
-            $(window).on("resize", function () {
-                setTimeout(function () {
-                    b.resize();
-                }, 500);
-            });
-    }
-    var p = document.getElementById("basicDoughnut");
-    if (p) {
-        var u = echarts.init(p);
-        u.setOption({
-            grid: { left: "3%", right: "4%", bottom: "3%", containLabel: !0 },
-            color: [
-                "#c13018",
-                "#f36e12",
-                "#ebcb37",
-                "#a1b968",
-                "#0d94bc",
-                "#135bba",
-            ],
-            tooltip: {
-                show: !1,
-                trigger: "item",
-                formatter: "{a} <br/>{b}: {c} ({d}%)",
-            },
-            xAxis: [{ axisLine: { show: !1 }, splitLine: { show: !1 } }],
-            yAxis: [{ axisLine: { show: !1 }, splitLine: { show: !1 } }],
-            series: [
-                {
-                    name: "Sessions",
-                    type: "pie",
-                    radius: ["50%", "85%"],
-                    center: ["50%", "50%"],
-                    avoidLabelOverlap: !1,
-                    hoverOffset: 5,
-                    label: {
-                        normal: {
+                        xAxis: {
+                            data: data.map(item => item.order_date),
+                            // data: [
+                            //     "1",
+                            //     "02",
+                            //     "03",
+                            //     "04",
+                            //     "05",
+                            //     "06",
+                            //     "07",
+                            //     "08",
+                            //     "09",
+                            //     "10",
+                            //     "11",
+                            //     "12",
+                            //     "13",
+                            //     "14",
+                            //     "15",
+                            //     "16",
+                            //     "17",
+                            //     "18",
+                            //     "19",
+                            //     "20",
+                            //     "21",
+                            //     "22",
+                            //     "23",
+                            //     "24",
+                            //     "25",
+                            //     "26",
+                            //     "27",
+                            //     "28",
+                            //     "29",
+                            //     "30",
+                            // ],
+                            axisLabel: {
+                                inside: !0,
+                                textStyle: {
+                                    color: "#fff"
+                                }
+                            },
+                            axisTick: {
+                                show: !1
+                            },
+                            axisLine: {
+                                show: !1
+                            },
+                            z: 10,
+                        },
+                        yAxis: {
+                            axisLine: {
+                                show: !1
+                            },
+                            axisTick: {
+                                show: !1
+                            },
+                            axisLabel: {
+                                textStyle: {
+                                    color: "#999"
+                                }
+                            },
+                            splitLine: {
+                                show: !1
+                            },
+                        },
+                        dataZoom: [{
+                            type: "inside"
+                        }],
+                        series: [{
+                                name: "Total Orders",
+                                type: "bar",
+                                itemStyle: {
+                                    normal: {
+                                        color: "rgba(0,0,0,0.05)"
+                                    }
+                                },
+                                barGap: "-100%",
+                                barCategoryGap: "40%",
+                                data: data.map(item => item.total_orders),
+                                // data: [
+                                //     500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+                                //     500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+                                //     500, 500, 500, 500, 500, 500, 500, 500,
+                                // ],
+                                animation: !1,
+                            },
+                            {
+                                name: "Completed Orders",
+                                type: "bar",
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(
+                                            0,
+                                            0,
+                                            0,
+                                            1,
+                                            [{
+                                                    offset: 0,
+                                                    color: "#83bff6"
+                                                },
+                                                {
+                                                    offset: 0.5,
+                                                    color: "#188df0"
+                                                },
+                                                {
+                                                    offset: 1,
+                                                    color: "#188df0"
+                                                },
+                                            ]
+                                        ),
+                                    },
+                                    emphasis: {
+                                        color: new echarts.graphic.LinearGradient(
+                                            0,
+                                            0,
+                                            0,
+                                            1,
+                                            [{
+                                                    offset: 0,
+                                                    color: "#2378f7"
+                                                },
+                                                {
+                                                    offset: 0.7,
+                                                    color: "#2378f7"
+                                                },
+                                                {
+                                                    offset: 1,
+                                                    color: "#83bff6"
+                                                },
+                                            ]
+                                        ),
+                                    },
+                                },
+                                data: data.map(item => item.completed_orders),
+                                // data: [
+                                //     350, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90,
+                                //     149, 210, 122, 133, 334, 198, 123, 125, 220, 220, 182,
+                                //     191, 234, 290, 330, 310, 123, 442, 212,
+                                // ],
+                            },
+                        ],
+                    }),
+                    $(window).on("resize", function() {
+                        setTimeout(function() {
+                            b.resize();
+                        }, 500);
+                    });
+            }
+            var p = document.getElementById("basicDoughnut");
+            if (p) {
+                var u = echarts.init(p);
+                u.setOption({
+                        grid: {
+                            left: "3%",
+                            right: "4%",
+                            bottom: "3%",
+                            containLabel: !0
+                        },
+                        color: [
+                            "#c13018",
+                            "#f36e12",
+                            "#ebcb37",
+                            "#a1b968",
+                            "#0d94bc",
+                            "#135bba",
+                        ],
+                        tooltip: {
                             show: !1,
-                            position: "center",
-                            textStyle: { fontSize: "13", fontWeight: "normal" },
-                            formatter: "{a}",
+                            trigger: "item",
+                            formatter: "{a} <br/>{b}: {c} ({d}%)",
                         },
-                        emphasis: {
-                            show: !0,
-                            textStyle: { fontSize: "15", fontWeight: "bold" },
-                            formatter: "{b} \n{c} ({d}%)",
+                        xAxis: [{
+                            axisLine: {
+                                show: !1
+                            },
+                            splitLine: {
+                                show: !1
+                            }
+                        }],
+                        yAxis: [{
+                            axisLine: {
+                                show: !1
+                            },
+                            splitLine: {
+                                show: !1
+                            }
+                        }],
+                        series: [{
+                            name: "Sessions",
+                            type: "pie",
+                            radius: ["50%", "85%"],
+                            center: ["50%", "50%"],
+                            avoidLabelOverlap: !1,
+                            hoverOffset: 5,
+                            label: {
+                                normal: {
+                                    show: !1,
+                                    position: "center",
+                                    textStyle: {
+                                        fontSize: "13",
+                                        fontWeight: "normal"
+                                    },
+                                    formatter: "{a}",
+                                },
+                                emphasis: {
+                                    show: !0,
+                                    textStyle: {
+                                        fontSize: "15",
+                                        fontWeight: "bold"
+                                    },
+                                    formatter: "{b} \n{c} ({d}%)",
+                                },
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: !1
+                                }
+                            },
+                            data: [{
+                                    value: 335,
+                                    name: "Organic"
+                                },
+                                {
+                                    value: 310,
+                                    name: "Search Eng."
+                                },
+                                {
+                                    value: 234,
+                                    name: "Email"
+                                },
+                                {
+                                    value: 135,
+                                    name: "Referal"
+                                },
+                                {
+                                    value: 148,
+                                    name: "Social"
+                                },
+                                {
+                                    value: 548,
+                                    name: "Others"
+                                },
+                            ],
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: "rgba(0, 0, 0, 0.5)",
+                                },
+                            },
+                        }, ],
+                    }),
+                    $(window).on("resize", function() {
+                        setTimeout(function() {
+                            u.resize();
+                        }, 500);
+                    });
+            }
+            var w = document.getElementById("basicArea");
+            if (w) {
+                var g = echarts.init(w);
+                g.setOption({
+                        tooltip: {
+                            trigger: "axis",
+                            axisPointer: {
+                                animation: !0
+                            }
                         },
-                    },
-                    labelLine: { normal: { show: !1 } },
-                    data: [
-                        { value: 335, name: "Organic" },
-                        { value: 310, name: "Search Eng." },
-                        { value: 234, name: "Email" },
-                        { value: 135, name: "Referal" },
-                        { value: 148, name: "Social" },
-                        { value: 548, name: "Others" },
-                    ],
-                    itemStyle: {
-                        emphasis: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: "rgba(0, 0, 0, 0.5)",
+                        grid: {
+                            left: "4%",
+                            top: "4%",
+                            right: "3%",
+                            bottom: "10%"
                         },
-                    },
-                },
-            ],
-        }),
-            $(window).on("resize", function () {
-                setTimeout(function () {
-                    u.resize();
-                }, 500);
-            });
-    }
-    var w = document.getElementById("basicArea");
-    if (w) {
-        var g = echarts.init(w);
-        g.setOption({
-            tooltip: { trigger: "axis", axisPointer: { animation: !0 } },
-            grid: { left: "4%", top: "4%", right: "3%", bottom: "10%" },
-            xAxis: {
-                type: "category",
-                boundaryGap: !1,
-                data: [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sept",
-                    "Oct",
-                    "Nov",
-                    "Dec",
-                ],
-                axisLabel: {
-                    formatter: "{value}",
-                    color: "#666",
-                    fontSize: 12,
-                    fontStyle: "normal",
-                    fontWeight: 400,
-                },
-                axisLine: { lineStyle: { color: "#ccc", width: 1 } },
-                axisTick: { lineStyle: { color: "#ccc", width: 1 } },
-                splitLine: { show: !1, lineStyle: { color: "#ccc", width: 1 } },
-            },
-            yAxis: {
-                type: "value",
-                min: 0,
-                max: 200,
-                interval: 50,
-                axisLabel: {
-                    formatter: "{value}k",
-                    color: "#666",
-                    fontSize: 12,
-                    fontStyle: "normal",
-                    fontWeight: 400,
-                },
-                axisLine: { lineStyle: { color: "#ccc", width: 1 } },
-                axisTick: { lineStyle: { color: "#ccc", width: 1 } },
-                splitLine: {
-                    lineStyle: { color: "#ddd", width: 1, opacity: 0.5 },
-                },
-            },
-            series: [
-                {
-                    name: "Visit",
-                    type: "line",
-                    smooth: !0,
-                    data: [
-                        140, 135, 95, 115, 95, 126, 93, 145, 115, 140, 135, 95,
-                        115, 95, 126, 125, 145, 115, 140, 135, 95, 115, 95, 126,
-                        93, 145, 115, 140, 135, 95,
-                    ],
-                    symbolSize: 8,
-                    showSymbol: !1,
-                    lineStyle: {
-                        color: "rgb(255, 87, 33)",
-                        opacity: 1,
-                        width: 1.5,
-                    },
-                    itemStyle: {
-                        show: !1,
-                        color: "#ff5721",
-                        borderColor: "#ff5721",
-                        borderWidth: 1.5,
-                    },
-                    areaStyle: {
-                        normal: {
-                            color: {
-                                type: "linear",
-                                x: 0,
-                                y: 0,
-                                x2: 0,
-                                y2: 1,
-                                colorStops: [
-                                    {
-                                        offset: 0,
-                                        color: "rgba(255, 87, 33, 1)",
-                                    },
-                                    {
-                                        offset: 0.3,
-                                        color: "rgba(255, 87, 33, 0.7)",
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: "rgba(255, 87, 33, 0)",
-                                    },
-                                ],
+                        xAxis: {
+                            type: "category",
+                            boundaryGap: !1,
+                            data: [
+                                "Jan",
+                                "Feb",
+                                "Mar",
+                                "Apr",
+                                "May",
+                                "Jun",
+                                "Jul",
+                                "Aug",
+                                "Sept",
+                                "Oct",
+                                "Nov",
+                                "Dec",
+                            ],
+                            axisLabel: {
+                                formatter: "{value}",
+                                color: "#666",
+                                fontSize: 12,
+                                fontStyle: "normal",
+                                fontWeight: 400,
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
+                            },
+                            axisTick: {
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
+                            },
+                            splitLine: {
+                                show: !1,
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
                             },
                         },
-                    },
-                },
-            ],
-        }),
-            $(window).on("resize", function () {
-                setTimeout(function () {
-                    g.resize();
-                }, 500);
-            });
-    }
-    var x = document.getElementById("stackedArea");
-    if (x) {
-        var S = echarts.init(x);
-        S.setOption({
-            tooltip: { trigger: "axis", axisPointer: { animation: !0 } },
-            grid: { left: "4%", top: "4%", right: "3%", bottom: "10%" },
-            xAxis: {
-                type: "category",
-                boundaryGap: !1,
-                data: [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sept",
-                    "Oct",
-                    "Nov",
-                    "Dec",
-                ],
-                axisLabel: {
-                    formatter: "{value}",
-                    color: "#666",
-                    fontSize: 12,
-                    fontStyle: "normal",
-                    fontWeight: 400,
-                },
-                axisLine: { lineStyle: { color: "#ccc", width: 1 } },
-                axisTick: { lineStyle: { color: "#ccc", width: 1 } },
-                splitLine: { show: !1, lineStyle: { color: "#ccc", width: 1 } },
-            },
-            yAxis: {
-                type: "value",
-                min: 0,
-                max: 200,
-                interval: 50,
-                axisLabel: {
-                    formatter: "{value}k",
-                    color: "#666",
-                    fontSize: 12,
-                    fontStyle: "normal",
-                    fontWeight: 400,
-                },
-                axisLine: { lineStyle: { color: "#ccc", width: 1 } },
-                axisTick: { lineStyle: { color: "#ccc", width: 1 } },
-                splitLine: {
-                    lineStyle: { color: "#ddd", width: 1, opacity: 0.5 },
-                },
-            },
-            series: [
-                {
-                    name: "Visit",
-                    type: "line",
-                    smooth: !0,
-                    data: [
-                        140, 135, 95, 115, 95, 126, 93, 145, 115, 140, 135, 95,
-                        115, 95, 126, 125, 145, 115, 140, 135, 95, 115, 95, 126,
-                        93, 145, 115, 140, 135, 95,
-                    ],
-                    symbolSize: 8,
-                    showSymbol: !1,
-                    lineStyle: {
-                        color: "rgb(255, 87, 33)",
-                        opacity: 1,
-                        width: 1.5,
-                    },
-                    itemStyle: {
-                        show: !1,
-                        color: "#ff5721",
-                        borderColor: "#ff5721",
-                        borderWidth: 1.5,
-                    },
-                    areaStyle: {
-                        normal: {
-                            color: {
-                                type: "linear",
-                                x: 0,
-                                y: 0,
-                                x2: 0,
-                                y2: 1,
-                                colorStops: [
-                                    {
-                                        offset: 0,
-                                        color: "rgba(255, 87, 33, 1)",
-                                    },
-                                    {
-                                        offset: 0.3,
-                                        color: "rgba(255, 87, 33, 0.7)",
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: "rgba(255, 87, 33, 0)",
-                                    },
-                                ],
+                        yAxis: {
+                            type: "value",
+                            min: 0,
+                            max: 200,
+                            interval: 50,
+                            axisLabel: {
+                                formatter: "{value}k",
+                                color: "#666",
+                                fontSize: 12,
+                                fontStyle: "normal",
+                                fontWeight: 400,
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
+                            },
+                            axisTick: {
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    color: "#ddd",
+                                    width: 1,
+                                    opacity: 0.5
+                                },
                             },
                         },
-                    },
-                },
-                {
-                    name: "Sales",
-                    type: "line",
-                    smooth: !0,
-                    data: [
-                        50, 70, 65, 84, 75, 80, 70, 50, 70, 65, 104, 75, 80, 70,
-                        50, 70, 65, 94, 75, 80, 70, 50, 70, 65, 86, 75, 80, 70,
-                        50, 70,
-                    ],
-                    symbolSize: 8,
-                    showSymbol: !1,
-                    lineStyle: {
-                        color: "rgb(95, 107, 194)",
-                        opacity: 1,
-                        width: 1.5,
-                    },
-                    itemStyle: {
-                        color: "#5f6cc1",
-                        borderColor: "#5f6cc1",
-                        borderWidth: 1.5,
-                    },
-                    areaStyle: {
-                        normal: {
-                            color: {
-                                type: "linear",
-                                x: 0,
-                                y: 0,
-                                x2: 0,
-                                y2: 1,
-                                colorStops: [
-                                    {
-                                        offset: 0,
-                                        color: "rgba(95, 107, 194, 1)",
+                        series: [{
+                            name: "Visit",
+                            type: "line",
+                            smooth: !0,
+                            data: [
+                                140, 135, 95, 115, 95, 126, 93, 145, 115, 140, 135, 95,
+                                115, 95, 126, 125, 145, 115, 140, 135, 95, 115, 95, 126,
+                                93, 145, 115, 140, 135, 95,
+                            ],
+                            symbolSize: 8,
+                            showSymbol: !1,
+                            lineStyle: {
+                                color: "rgb(255, 87, 33)",
+                                opacity: 1,
+                                width: 1.5,
+                            },
+                            itemStyle: {
+                                show: !1,
+                                color: "#ff5721",
+                                borderColor: "#ff5721",
+                                borderWidth: 1.5,
+                            },
+                            areaStyle: {
+                                normal: {
+                                    color: {
+                                        type: "linear",
+                                        x: 0,
+                                        y: 0,
+                                        x2: 0,
+                                        y2: 1,
+                                        colorStops: [{
+                                                offset: 0,
+                                                color: "rgba(255, 87, 33, 1)",
+                                            },
+                                            {
+                                                offset: 0.3,
+                                                color: "rgba(255, 87, 33, 0.7)",
+                                            },
+                                            {
+                                                offset: 1,
+                                                color: "rgba(255, 87, 33, 0)",
+                                            },
+                                        ],
                                     },
-                                    {
-                                        offset: 0.5,
-                                        color: "rgba(95, 107, 194, 0.7)",
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: "rgba(95, 107, 194, 0)",
-                                    },
-                                ],
+                                },
+                            },
+                        }, ],
+                    }),
+                    $(window).on("resize", function() {
+                        setTimeout(function() {
+                            g.resize();
+                        }, 500);
+                    });
+            }
+            var x = document.getElementById("stackedArea");
+            if (x) {
+                var S = echarts.init(x);
+                S.setOption({
+                        tooltip: {
+                            trigger: "axis",
+                            axisPointer: {
+                                animation: !0
+                            }
+                        },
+                        grid: {
+                            left: "4%",
+                            top: "4%",
+                            right: "3%",
+                            bottom: "10%"
+                        },
+                        xAxis: {
+                            type: "category",
+                            boundaryGap: !1,
+                            data: [
+                                "Jan",
+                                "Feb",
+                                "Mar",
+                                "Apr",
+                                "May",
+                                "Jun",
+                                "Jul",
+                                "Aug",
+                                "Sept",
+                                "Oct",
+                                "Nov",
+                                "Dec",
+                            ],
+                            axisLabel: {
+                                formatter: "{value}",
+                                color: "#666",
+                                fontSize: 12,
+                                fontStyle: "normal",
+                                fontWeight: 400,
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
+                            },
+                            axisTick: {
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
+                            },
+                            splitLine: {
+                                show: !1,
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
                             },
                         },
-                    },
-                },
-            ],
-        }),
-            $(window).on("resize", function () {
-                setTimeout(function () {
-                    S.resize();
-                }, 500);
-            });
-    }
-    var v = document.getElementById("stackedPointerArea1");
-    if (v) {
-        var L = echarts.init(v);
-        L.setOption({
-            tooltip: { trigger: "axis", axisPointer: { animation: !0 } },
-            grid: { left: "4%", top: "4%", right: "3%", bottom: "10%" },
-            xAxis: {
-                type: "category",
-                boundaryGap: !1,
-                data: [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                    "6",
-                    "7",
-                    "8",
-                    "9",
-                    "10",
-                    "11",
-                    "12",
-                    "13",
-                    "14",
-                    "15",
-                    "16",
-                    "17",
-                    "18",
-                    "19",
-                    "20",
-                    "21",
-                    "22",
-                    "23",
-                    "24",
-                    "25",
-                    "26",
-                    "27",
-                    "28",
-                    "29",
-                    "30",
-                ],
-                axisLabel: {
-                    formatter: "{value}",
-                    color: "#666",
-                    fontSize: 12,
-                    fontStyle: "normal",
-                    fontWeight: 400,
-                },
-                axisLine: { lineStyle: { color: "#ccc", width: 1 } },
-                axisTick: { lineStyle: { color: "#ccc", width: 1 } },
-                splitLine: { show: !1, lineStyle: { color: "#ccc", width: 1 } },
-            },
-            yAxis: {
-                type: "value",
-                min: 0,
-                max: 200,
-                interval: 50,
-                axisLabel: {
-                    formatter: "{value}k",
-                    color: "#666",
-                    fontSize: 12,
-                    fontStyle: "normal",
-                    fontWeight: 400,
-                },
-                axisLine: { lineStyle: { color: "#ccc", width: 1 } },
-                axisTick: { lineStyle: { color: "#ccc", width: 1 } },
-                splitLine: {
-                    lineStyle: { color: "#ddd", width: 1, opacity: 0.5 },
-                },
-            },
-            series: [
-                {
-                    name: "Orders",
-                    type: "line",
-                    smooth: !0,
-                    data: [
-                        140, 135, 95, 115, 95, 126, 93, 145, 115, 140, 135, 95,
-                        115, 95, 126, 125, 145, 115, 140, 135, 95, 115, 95, 126,
-                        93, 145, 115, 140, 135, 95,
-                    ],
-                    symbolSize: 8,
-                    lineStyle: {
-                        color: "rgb(255, 87, 33)",
-                        opacity: 1,
-                        width: 1.5,
-                    },
-                    itemStyle: {
-                        color: "#ff5721",
-                        borderColor: "#ff5721",
-                        borderWidth: 1.5,
-                    },
-                    areaStyle: {
-                        normal: {
-                            color: {
-                                type: "linear",
-                                x: 0,
-                                y: 0,
-                                x2: 0,
-                                y2: 1,
-                                colorStops: [
-                                    {
-                                        offset: 0,
-                                        color: "rgba(255, 87, 33, 1)",
-                                    },
-                                    {
-                                        offset: 0.3,
-                                        color: "rgba(255, 87, 33, 0.7)",
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: "rgba(255, 87, 33, 0)",
-                                    },
-                                ],
+                        yAxis: {
+                            type: "value",
+                            min: 0,
+                            max: 200,
+                            interval: 50,
+                            axisLabel: {
+                                formatter: "{value}k",
+                                color: "#666",
+                                fontSize: 12,
+                                fontStyle: "normal",
+                                fontWeight: 400,
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
+                            },
+                            axisTick: {
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    color: "#ddd",
+                                    width: 1,
+                                    opacity: 0.5
+                                },
                             },
                         },
-                    },
-                },
-                {
-                    name: "Sales",
-                    type: "line",
-                    smooth: !0,
-                    data: [
-                        50, 70, 65, 84, 75, 80, 70, 50, 70, 65, 104, 75, 80, 70,
-                        50, 70, 65, 94, 75, 80, 70, 50, 70, 65, 86, 75, 80, 70,
-                        50, 70,
-                    ],
-                    symbolSize: 8,
-                    lineStyle: {
-                        color: "rgb(95, 107, 194)",
-                        opacity: 1,
-                        width: 1.5,
-                    },
-                    itemStyle: {
-                        color: "#5f6cc1",
-                        borderColor: "#5f6cc1",
-                        borderWidth: 1.5,
-                    },
-                    areaStyle: {
-                        normal: {
-                            color: {
-                                type: "linear",
-                                x: 0,
-                                y: 0,
-                                x2: 0,
-                                y2: 1,
-                                colorStops: [
-                                    {
-                                        offset: 0,
-                                        color: "rgba(95, 107, 194, 1)",
-                                    },
-                                    {
-                                        offset: 0.5,
-                                        color: "rgba(95, 107, 194, 0.7)",
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: "rgba(95, 107, 194, 0)",
-                                    },
+                        series: [{
+                                name: "Visit",
+                                type: "line",
+                                smooth: !0,
+                                data: [
+                                    140, 135, 95, 115, 95, 126, 93, 145, 115, 140, 135, 95,
+                                    115, 95, 126, 125, 145, 115, 140, 135, 95, 115, 95, 126,
+                                    93, 145, 115, 140, 135, 95,
                                 ],
+                                symbolSize: 8,
+                                showSymbol: !1,
+                                lineStyle: {
+                                    color: "rgb(255, 87, 33)",
+                                    opacity: 1,
+                                    width: 1.5,
+                                },
+                                itemStyle: {
+                                    show: !1,
+                                    color: "#ff5721",
+                                    borderColor: "#ff5721",
+                                    borderWidth: 1.5,
+                                },
+                                areaStyle: {
+                                    normal: {
+                                        color: {
+                                            type: "linear",
+                                            x: 0,
+                                            y: 0,
+                                            x2: 0,
+                                            y2: 1,
+                                            colorStops: [{
+                                                    offset: 0,
+                                                    color: "rgba(255, 87, 33, 1)",
+                                                },
+                                                {
+                                                    offset: 0.3,
+                                                    color: "rgba(255, 87, 33, 0.7)",
+                                                },
+                                                {
+                                                    offset: 1,
+                                                    color: "rgba(255, 87, 33, 0)",
+                                                },
+                                            ],
+                                        },
+                                    },
+                                },
+                            },
+                            {
+                                name: "Sales",
+                                type: "line",
+                                smooth: !0,
+                                data: [
+                                    50, 70, 65, 84, 75, 80, 70, 50, 70, 65, 104, 75, 80, 70,
+                                    50, 70, 65, 94, 75, 80, 70, 50, 70, 65, 86, 75, 80, 70,
+                                    50, 70,
+                                ],
+                                symbolSize: 8,
+                                showSymbol: !1,
+                                lineStyle: {
+                                    color: "rgb(95, 107, 194)",
+                                    opacity: 1,
+                                    width: 1.5,
+                                },
+                                itemStyle: {
+                                    color: "#5f6cc1",
+                                    borderColor: "#5f6cc1",
+                                    borderWidth: 1.5,
+                                },
+                                areaStyle: {
+                                    normal: {
+                                        color: {
+                                            type: "linear",
+                                            x: 0,
+                                            y: 0,
+                                            x2: 0,
+                                            y2: 1,
+                                            colorStops: [{
+                                                    offset: 0,
+                                                    color: "rgba(95, 107, 194, 1)",
+                                                },
+                                                {
+                                                    offset: 0.5,
+                                                    color: "rgba(95, 107, 194, 0.7)",
+                                                },
+                                                {
+                                                    offset: 1,
+                                                    color: "rgba(95, 107, 194, 0)",
+                                                },
+                                            ],
+                                        },
+                                    },
+                                },
+                            },
+                        ],
+                    }),
+                    $(window).on("resize", function() {
+                        setTimeout(function() {
+                            S.resize();
+                        }, 500);
+                    });
+            }
+            var v = document.getElementById("stackedPointerArea1");
+            if (v) {
+                var L = echarts.init(v);
+                L.setOption({
+                        tooltip: {
+                            trigger: "axis",
+                            axisPointer: {
+                                animation: !0
+                            }
+                        },
+                        grid: {
+                            left: "4%",
+                            top: "4%",
+                            right: "3%",
+                            bottom: "10%"
+                        },
+                        xAxis: {
+                            type: "category",
+                            boundaryGap: !1,
+                            data: [
+                                "1",
+                                "2",
+                                "3",
+                                "4",
+                                "5",
+                                "6",
+                                "7",
+                                "8",
+                                "9",
+                                "10",
+                                "11",
+                                "12",
+                                "13",
+                                "14",
+                                "15",
+                                "16",
+                                "17",
+                                "18",
+                                "19",
+                                "20",
+                                "21",
+                                "22",
+                                "23",
+                                "24",
+                                "25",
+                                "26",
+                                "27",
+                                "28",
+                                "29",
+                                "30",
+                            ],
+                            axisLabel: {
+                                formatter: "{value}",
+                                color: "#666",
+                                fontSize: 12,
+                                fontStyle: "normal",
+                                fontWeight: 400,
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
+                            },
+                            axisTick: {
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
+                            },
+                            splitLine: {
+                                show: !1,
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
                             },
                         },
-                    },
-                },
-            ],
-        }),
-            $(window).on("resize", function () {
-                setTimeout(function () {
-                    L.resize();
-                }, 500);
-            });
-    }
+                        yAxis: {
+                            type: "value",
+                            min: 0,
+                            max: 200,
+                            interval: 50,
+                            axisLabel: {
+                                formatter: "{value}k",
+                                color: "#666",
+                                fontSize: 12,
+                                fontStyle: "normal",
+                                fontWeight: 400,
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
+                            },
+                            axisTick: {
+                                lineStyle: {
+                                    color: "#ccc",
+                                    width: 1
+                                }
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    color: "#ddd",
+                                    width: 1,
+                                    opacity: 0.5
+                                },
+                            },
+                        },
+                        series: [{
+                                name: "Orders",
+                                type: "line",
+                                smooth: !0,
+                                data: [
+                                    140, 135, 95, 115, 95, 126, 93, 145, 115, 140, 135, 95,
+                                    115, 95, 126, 125, 145, 115, 140, 135, 95, 115, 95, 126,
+                                    93, 145, 115, 140, 135, 95,
+                                ],
+                                symbolSize: 8,
+                                lineStyle: {
+                                    color: "rgb(255, 87, 33)",
+                                    opacity: 1,
+                                    width: 1.5,
+                                },
+                                itemStyle: {
+                                    color: "#ff5721",
+                                    borderColor: "#ff5721",
+                                    borderWidth: 1.5,
+                                },
+                                areaStyle: {
+                                    normal: {
+                                        color: {
+                                            type: "linear",
+                                            x: 0,
+                                            y: 0,
+                                            x2: 0,
+                                            y2: 1,
+                                            colorStops: [{
+                                                    offset: 0,
+                                                    color: "rgba(255, 87, 33, 1)",
+                                                },
+                                                {
+                                                    offset: 0.3,
+                                                    color: "rgba(255, 87, 33, 0.7)",
+                                                },
+                                                {
+                                                    offset: 1,
+                                                    color: "rgba(255, 87, 33, 0)",
+                                                },
+                                            ],
+                                        },
+                                    },
+                                },
+                            },
+                            {
+                                name: "Sales",
+                                type: "line",
+                                smooth: !0,
+                                data: [
+                                    50, 70, 65, 84, 75, 80, 70, 50, 70, 65, 104, 75, 80, 70,
+                                    50, 70, 65, 94, 75, 80, 70, 50, 70, 65, 86, 75, 80, 70,
+                                    50, 70,
+                                ],
+                                symbolSize: 8,
+                                lineStyle: {
+                                    color: "rgb(95, 107, 194)",
+                                    opacity: 1,
+                                    width: 1.5,
+                                },
+                                itemStyle: {
+                                    color: "#5f6cc1",
+                                    borderColor: "#5f6cc1",
+                                    borderWidth: 1.5,
+                                },
+                                areaStyle: {
+                                    normal: {
+                                        color: {
+                                            type: "linear",
+                                            x: 0,
+                                            y: 0,
+                                            x2: 0,
+                                            y2: 1,
+                                            colorStops: [{
+                                                    offset: 0,
+                                                    color: "rgba(95, 107, 194, 1)",
+                                                },
+                                                {
+                                                    offset: 0.5,
+                                                    color: "rgba(95, 107, 194, 0.7)",
+                                                },
+                                                {
+                                                    offset: 1,
+                                                    color: "rgba(95, 107, 194, 0)",
+                                                },
+                                            ],
+                                        },
+                                    },
+                                },
+                            },
+                        ],
+                    }),
+                    $(window).on("resize", function() {
+                        setTimeout(function() {
+                            L.resize();
+                        }, 500);
+                    });
+            }
 
-});
-
+        });
     </script>
 @endsection

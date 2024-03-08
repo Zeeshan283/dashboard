@@ -66,10 +66,10 @@
             border-color: #ccc !important;
             max-width: 300px;
             border: 2px solid;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            padding-right: 60px;
-            padding-left: 10px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
             background-color: #f8f9fa;
         }
 
@@ -131,9 +131,8 @@
         }
     </style>
     <div class="card-body">
-        <button class="popup-button btn btn-primary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
-            Filters</button><br><br>
+        <button class="popup-button btn btn-primary col-md-2"
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">SubCategory Filters</button><br><br>
         <div class="filter-card" id="filterCard">
             <form action="{{ route('sub-category.index') }}" method="GET">
                 <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>

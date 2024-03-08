@@ -65,10 +65,10 @@
             border-color: #ccc !important;
             max-width: 350px;
             border: 2px solid;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            padding-right: 60px;
-            padding-left: 60px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
             background-color: #f8f9fa;
         }
 
@@ -107,25 +107,25 @@
         }
     </style>
     <div class="card-body">
-        <button class="popup-button btn btn-primary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
+        <button class="popup-button btn btn-primary col-md-2"
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product Reviews
             Filters</button><br><br>
         <div class="filter-card" id="filterCard">
             <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
             <div class="row" style="margin-top: 10px;">
                 <div class="col-md-2">
                     <form action="{{ route('productreviews') }}" method="GET">
-                        <div class="dropdown">
+                        <div class="dropdown" id="order_item_idDropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <p class="text-left">Customer Name</p>
+                                <p class="text-left">Parcel ID#</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <input type="text" id="order_item_idSearchInput" name="order_item_id[]" placeholder="Search...">
                                 <div class="dropdown-options">
-                                    <label class="customer_nameFilter">
-                                        <input type="checkbox" value="customer_name">
-                                        <span class="option-text">Tiger Nixon</span>
+                                    <label class="order_item_idFilter">
+                                        <input type="checkbox" name="order_item_id[]" value="{{ $item->order_item_id }}">
+                                        <span class="option-text" name="order_item_id[]">{{ $item->order_item_id }}</span>
                                     </label>
                                 </div>
                             </div>
@@ -135,17 +135,17 @@
                 </div>
                 <div class="col-md-2">
                     <form action="{{ route('productreviews') }}" method="GET">
-                        <div class="dropdown">
+                        <div class="dropdown" id="productdetailDropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <p class="text-left">Model No#</p>
+                                <p class="text-left">Product Detail</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <input type="text" id="productdetailSearchInput" name="productdetail[]" placeholder="Search...">
                                 <div class="dropdown-options">
-                                    <label class="model_noFilter">
-                                        <input type="checkbox" value="model_no">
-                                        <span class="option-text">System Architect</span>
+                                    <label class="productdetailFilter">
+                                        <input type="checkbox" name="productdetail[]" value="{{ $item->product->id ?? null }} .<br>{{ $item->product->name ?? null }} . <br> {{ $item->product->model_no ?? null }} . <br> {{ $item->product->sku ?? null }} . <br> ${{ $item->product->new_sale_price ?? null }} ">
+                                        <span class="option-text" name="productdetail[]">{{ $item->product->id ?? null }} .<br>{{ $item->product->name ?? null }} . <br> {{ $item->product->model_no ?? null }} . <br> {{ $item->product->sku ?? null }} . <br> ${{ $item->product->new_sale_price ?? null }}</span>
                                     </label>
                                 </div>
                             </div>
@@ -154,22 +154,35 @@
                 </div>
                 <div class="col-md-2">
                     <form action="{{ route('productreviews') }}" method="GET">
-                        <div class="dropdown">
+                        <div class="dropdown" id="ratingDropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left ">Rating</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                                <input type="text" id="ratingSearchInput" name="rating[]" placeholder="Search...">
                                 <div class="dropdown-options">
                                     <label class="ratingFilter">
-                                        <input type="checkbox" value="rating">
-                                        <span class="option-text">
-                                            <span class="star star-filled"></span>&nbsp;&nbsp;
-                                            <span class="star star-filled"></span>&nbsp;&nbsp;
-                                            <span class="star star-filled"></span>&nbsp;&nbsp;
-                                            <span class="star star-filled"></span>&nbsp;&nbsp;
-                                            <span class="star star-partial"></span>&nbsp;&nbsp;</span>
+                                        <input type="checkbox" name="rating[]" value="{{ $value->rating }}">
+                                        <span class="option-text" name="rating[]">
+                                            @php
+                                            $rating = $item->rating;
+                                            $maxRating = 5;
+                                            $numStars = 5;
+                                            $percentage = ($rating / $maxRating) * 100;
+                                            $fullStars = floor($percentage / (100 / $numStars));
+                                            $emptyStars = $numStars - $fullStars;
+                                        @endphp
+                                        {{ $value->rating }}
+                                        <div class="star-rating">
+                                            @for ($i = 0; $i < $fullStars; $i++)
+                                                <span class="star star-filled"></span>
+                                            @endfor
+                                            @for ($i = 0; $i < $emptyStars; $i++)
+                                                <span class="star star-partial"></span>
+                                            @endfor
+                                        </div>
+                                        </span>
                                     </label>
                                 </div>
                             </div>
@@ -180,7 +193,7 @@
                 <div class="col-md-3">
                     <div class="content-box">
                         <form action="{{ route('productreviews') }}" method="GET">
-                            <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                                <input type="text" name="dateTime" class="datetimerange"  />
                         </form>
                     </div>
                 </div>
@@ -296,12 +309,8 @@
 @endsection
 
 @section('page-js')
-    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-
     <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-
-
     <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 @endsection

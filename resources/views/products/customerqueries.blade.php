@@ -104,16 +104,16 @@
             border-color: #ccc !important;
             max-width: 300px;
             border: 2px solid;
-            padding-top: 12px;
-            padding-bottom: 12px;
-            padding-right: 60px;
-            padding-left: 10px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
             background-color: #f8f9fa;
         }
     </style>
     <div class="card-body">
-        <button class="popup-button btn btn-primary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
+        <button class="popup-button btn btn-primary col-md-2"
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Customer Queries
             Filters</button><br><br>
         <div class="filter-card" id="filterCard">
             <form action="{{ route(Route::currentRouteName()) }}" method="GET">
@@ -246,7 +246,7 @@
 
                     <div class="col-md-3" style="margin-left: 0px;">
                         <div class="content-box">
-                            <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                            <input type="text" name="dateTime" class="datetimerange" />
                         </div>
                     </div>
 

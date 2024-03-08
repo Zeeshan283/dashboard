@@ -1,13 +1,11 @@
 @extends('layouts.master')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-    {{-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" /> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /> --}}
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
 @section('main-content')
-    {{-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" /> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /> --}}
-    {{-- <style>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+     <style>
         .dropdown {
             position: relative;
         }
@@ -68,10 +66,10 @@
             border-color: #ccc !important;
             max-width: 350px;
             border: 2px solid;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            padding-right: 60px;
-            padding-left: 60px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
             background-color: #f8f9fa;
         }
 
@@ -119,11 +117,10 @@
             background-color: #f8f9fa;
             border: 3px solid #e2eaf1;
         }
-    </style> --}}
-    {{-- <div class="card-body">
-        <button class="popup-button btn btn-primary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
-            Filters</button><br><br>
+    </style>
+    <div class="card-body">
+        <button class="popup-button btn btn-primary col-md-2"
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Order Details Filters</button><br><br>
         <div class="filter-card" id="filterCard">
             <form action="{{ route('order_details') }}" method="GET">
                 <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
@@ -263,7 +260,7 @@
 
                     <div class="col-md-3">
                         <div class="content-box">
-                            <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                            <input type="text" name="dateTime" class="datetimerange" />
                         </div>
                     </div>
 
@@ -294,8 +291,8 @@
                 filterCard.style.display = "none";
             }
         }
-    </script> --}}
-    {{-- <div class="separator-breadcrumb border-top"></div> --}}
+    </script>
+    <div class="separator-breadcrumb border-top"></div>
 
     @php
         $auth = app('Illuminate\Contracts\Auth\Guard');
@@ -396,12 +393,12 @@
                                             @endif
                                             <br>
                                             <br>
-                                            
-                                            
+
+
 
 
                                             @if ($auth->check() && $auth->user()->role == 'Admin')
-                                             
+
                                                 <form id="orderForm1{{ $orders->id }}" action="{{ route('refundedStatus', ['id' => $orders->id]) }}"
                                                     method="post" >
                                                     @csrf
@@ -416,11 +413,11 @@
                                                 <span class="badge-for-timer">Refunded</span>
                                             @endif
                                             <br>
-                                            <br>    
-                                            
-                                             
+                                            <br>
+
+
                                             @if ($auth->check() && $auth->user()->role == 'Admin')
-                                             
+
                                                 <form id="orderForm1{{ $orders->id }}" action="{{ route('refundedStatus', ['id' => $orders->id]) }}"
                                                     method="post">
                                                     @csrf
@@ -620,7 +617,6 @@
 @endsection
 
 @section('page-js')
-    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>

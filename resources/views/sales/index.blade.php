@@ -2,10 +2,9 @@
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
     {{-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" /> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /> --}}
+     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
 @section('main-content')
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         .dropdown {
@@ -68,10 +67,10 @@
             border-color: #ccc !important;
             max-width: 350px;
             border: 2px solid;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            padding-right: 60px;
-            padding-left: 60px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
             background-color: #f8f9fa;
         }
 
@@ -122,7 +121,7 @@
     </style>
     <div class="card-body">
         <button class="popup-button btn btn-primary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Sales
             Filters</button><br><br>
         <div class="filter-card" id="filterCard">
             <form action="{{ route('order_details') }}" method="GET">
@@ -258,7 +257,7 @@
 
                     <div class="col-md-3">
                         <div class="content-box">
-                            <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                            <input type="text" name="dateTime" class="datetimerange"  />
                         </div>
                     </div>
 
@@ -369,7 +368,7 @@ filterCard.style.display = "none";
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6"><div class="card-title" style=" margin-left: -20px; ">Sale Chart</div></div>
+                        <div class="col-6"><div class="card-title" style=" margin-left: 0px; "><h4>Sale Chart</h4></div></div>
                         <div class="col-6"><div class="card-title" style=" text-align: end; ">Total Sale: {{$totalSale}} </div></div>
                     </div>
                     <div id="zoomableLine-chart1"></div>
@@ -576,7 +575,8 @@ filterCard.style.display = "none";
 @section('page-js')
     <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
-
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script> --}}
     <script src="{{ asset('assets/js/vendor/echarts.min.js') }}"></script>
     <script src="{{ asset('assets/js/es5/echart.options.min.js') }}"></script>

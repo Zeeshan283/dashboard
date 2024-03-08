@@ -1,9 +1,5 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-
-
-
 @if (Route::currentRouteName() == 'allorders')
     <thead>
         <th>Order #</th>
@@ -1563,7 +1559,7 @@
 </tfoot>
 
 {{-- @elseif (Route::currentRouteName() == 'productreviews') --}}
-    
+
 @elseif (Route::currentRouteName() == 'creviews')
     <thead>
         <th>Sr No</th>

@@ -46,10 +46,10 @@
             border-color: #ccc !important;
             max-width: 300px;
             border: 2px solid;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            padding-right: 10px;
-            padding-left: 10px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
             background-color: #f8f9fa;
         }
 
@@ -164,31 +164,31 @@
                                 <p class="text-left">Product Name</p>
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <input type="text" id="ProductNameSearchInput" placeholder="Search...">
+                                <input type="text" id="nameSearchInput" placeholder="Search...">
                                 <div class="dropdown-options">
-                                    <label class="nameFilter">
-                                        <input type="checkbox" id="selectAllNames">
-                                        <span class="option-text">Select All</span>
+                                    <label class="nameFilter" for="nameFilter">
+                                        <input type="checkbox" id="selectAllNames" class="nameFilter">
+                                        <span class="option-text" name="name[]">Select All</span>
                                     </label>
                                     @foreach ($products as $key => $product)
                                         <label class="nameFilter">
                                             <input type="checkbox" name="name[]" value="{{ $product->name ?? Null }}">
-                                            <span class="option-text">{{ $product->name ?? Null}}</span>
+                                            <span class="option-text" name="name[]">{{ $product->name ?? Null}}</span>
                                         </label>
                                     @endforeach
                                 </div>
-                                <div id="selectedProductNameList"></div>
+                                <div id="selectednameList"></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <div class="dropdown" id="ModelNoDropdown">
-                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                        <div class="dropdown" id="model_noDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Model No</p>
                             </div>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <input type="text" id="ModelNoSearchInput" placeholder="Search...">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <input type="text" id="model_noSearchInput" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($products as $key => $product)
                                         <label class="model_noFilter">
@@ -351,7 +351,7 @@
 
                     </div>
 
-                    <div class="col-md-2" style="margin-left: 30px;">
+                    <div class="col-md-2" style="margin-left: 0px;">
                         <label>Condition:</label>
 
                         <div class="row">

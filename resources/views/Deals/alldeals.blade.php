@@ -61,28 +61,28 @@
         .filter-card {
             margin-bottom: 0px;
             overflow: hidden;
-            margin-left: 100px;
+            margin-left: 0px;
         }
 
         .datetimerange {
             border-color: #ccc !important;
             max-width: 300px;
             border: 2px solid;
-            padding-top: 12px;
-            padding-bottom: 12px;
-            padding-right: 10px;
-            padding-left: 10px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
             background-color: #f8f9fa;
         }
     </style>
     <div class="card-body">
         <button class="popup-button btn btn-primary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Deals
             Filters</button><br><br>
         <div class="filter-card" id="filterCard">
             <form action="{{ route('Deals.index') }}" method="GET">
-                <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
-                <div class="row" style="margin-top: 5px;">
+                <button type="submit" class="btn btn-secondary" style="margin-left: 1380px">Submit</button>
+                <div class="row" style="margin-top: 5px; margin-bottom: 160px">
 
                     <div class="col-md-3">
                         <div class="dropdown">
@@ -94,7 +94,7 @@
                                 <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $key => $product)
-                                    <label class="idFilter">
+                                        <label class="idFilter">
                                             <input type="checkbox" value="{{ $product->id }}">
                                             <span class="option-text"> {{ $product->id }}</span>
                                         </label>
@@ -116,7 +116,7 @@
                                 <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $key => $product)
-                                    <label class="nameFilter">
+                                        <label class="nameFilter">
                                             <input type="checkbox" value="{{ $product->name }}">
                                             <span class="option-text"> {{ $product->name }}</span>
                                         </label>
@@ -138,7 +138,7 @@
                                 <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
                                 <div class="dropdown-options">
                                     @foreach ($data as $key => $product)
-                                    <label class="makeFilter">
+                                        <label class="makeFilter">
                                             <input type="checkbox" value="{{ $product->make }}">
                                             <span class="option-text"> {{ $product->make }}</span>
                                         </label>
@@ -150,12 +150,10 @@
 
                     </div>
 
-                </div>
 
-                <div class="row" style="margin-top: 5px; margin-bottom: 180px;">
                     <div class="col-md-3" style="margin-left: 0px;">
                         <div class="content-box">
-                            <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                            <input type="text" name="dateTime" class="datetimerange" />
                         </div>
                     </div>
 
@@ -192,8 +190,9 @@
             <h1>Deals of the day</h1>
         </div>
         <div class="col-md-6" style="text-align: right;  margin-left: auto;">
-            <a href="{{ route('Deals.create') }}"><button class="btn btn-outline-secondary  ladda-button example-button m-1"
-                    data-style="expand-left"><span class="ladda-label">Add Deal Products</span></button></a>
+            <a href="{{ route('Deals.create') }}"><button
+                    class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span
+                        class="ladda-label">Add Deal Products</span></button></a>
 
         </div>
     </div>
