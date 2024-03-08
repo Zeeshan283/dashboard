@@ -307,7 +307,16 @@
         document.getElementById("demo").innerHTML = txt; // Not sure why you're setting innerHTML here
     }
     </script>
-
+ <script>
+    function toggleFilters() {
+        var filterCard = document.getElementById("filterCard");
+        if (filterCard.style.display === "none") {
+            filterCard.style.display = "block";
+        } else {
+            filterCard.style.display = "none";
+        }
+    }
+</script>
 
     <script>
         // window.addEventListener('contextmenu', function(e) {
