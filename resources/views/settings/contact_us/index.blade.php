@@ -114,7 +114,7 @@
     </style>
     <div class="card-body">
         <button class="popup-button btn btn-secondary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Contact
+            style="color: white; position: relative; top: 5px; right: 10px;" onclick="toggleFilters()">Contact
             Filters</button><br><br>
         <div class="filter-card" id="filterCard" style="display: none;">
             <form action="{{ route('blogs.index') }}" method="GET">

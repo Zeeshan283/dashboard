@@ -113,7 +113,7 @@
     </style>
     <div class="card-body">
         <button class="popup-button btn btn-secondary col-md-2"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Customer Queries
+            style="color: white; position: relative; top: 5px; right: 10px;" onclick="toggleFilters()">Customer Queries
             Filters</button><br><br>
         <div class="filter-card" id="filterCard" style="display: none;">
             <form action="{{ route(Route::currentRouteName()) }}" method="GET">
