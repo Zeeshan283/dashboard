@@ -21,7 +21,7 @@ if (Auth::user()->role == 'Vendor') {
         ->count();
     $Out_of_Delivery = OrderDetail::with('order', 'product', 'vendor')
         ->where('p_vendor_id', Auth::User()->id)
-        ->where('status', '=', 'Out of delivery')
+        ->where('status', '=', 'Out For Delivery')
         ->count();
     $Delivered = OrderDetail::with('order', 'product', 'vendor')
         ->where('p_vendor_id', Auth::User()->id)
@@ -44,7 +44,7 @@ if (Auth::user()->role == 'Vendor') {
     $Packaging = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Packaging')->count();
     $Confirmed = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Confirmed')->count();
     $ftd = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Failed to Deliver')->count();
-    $Out_of_Delivery = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Out of delivery')->count();
+    $Out_of_Delivery = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Out For Delivery')->count();
     $Delivered = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Delivered')->count();
     $Returned = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Returned')->count();
     $Canceled = OrderDetail::with('order', 'product', 'vendor')->where('status', '=', 'Canceled')->count();
@@ -399,7 +399,7 @@ if (Auth::user()->role == 'Vendor') {
                     <span class="item-name">ALL Parcels</span>
                 </a>
             </li>
-            {{-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'pendingorders' ? 'open' : '' }}"
                     href="{{ route('pendingorders') }}">
                     <i class="nav-icon i-Clock"></i>
@@ -413,13 +413,13 @@ if (Auth::user()->role == 'Vendor') {
                     <span class="item-name">Packaging {{ $Packaging}}</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'confirmedorders' ? 'open' : '' }}"
                     href="{{ route('confirmedorders') }}">
                     <i class="nav-icon i-Checkout"></i>
                     <span class="item-name">Confirmed {{ $Confirmed }}</span>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'outofdelivery' ? 'open' : '' }}"
@@ -441,16 +441,16 @@ if (Auth::user()->role == 'Vendor') {
                     <span class="item-name">Failed to Deliver {{ $ftd}}</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'returned' ? 'open' : '' }}" href="{{ route('returned') }}">
                     <i class="nav-icon i-Redo"></i>
                     <span class="item-name">Returned {{ $Returned}}</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName() == 'canceled' ? 'open' : '' }}" href="{{ route('canceled') }}">
                     <i class="nav-icon i-File-Trash"></i>
-                    <span class="item-name">Canceled {{ $Canceled}}</span>
+                    <span class="item-name">Supplier Canceled {{ $Canceled}}</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -458,7 +458,7 @@ if (Auth::user()->role == 'Vendor') {
                     <i class="nav-icon i-File-Trash"></i>
                     <span class="item-name">Customer Canceled {{ $CustomerCanceled}}</span>
                 </a>
-            </li> --}}
+            </li>
         </ul>
 
         <ul class="childNav" data-parent="sales">

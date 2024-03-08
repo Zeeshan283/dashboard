@@ -379,12 +379,15 @@
 
 
                                             @if ($auth->check() && $auth->user()->role == 'Admin')
-
-                                                <form id="orderForm1{{ $orders->id }}" action="{{ route('refundedStatus', ['id' => $orders->id]) }}"
-                                                    method="post" >
+                                                <form id="orderForm1{{ $orders->id }}"
+                                                    action="{{ route('refundedStatus', ['id' => $orders->id]) }}"
+                                                    method="post">
                                                     @csrf
-                                                    <button onclick="updaterefundStatus('{{ $orders->id }}')" onclick="updaterefundStatus($orders->id)" style="font-size: smaller;"
-                                                        class="btn btn-outline-secondary"><span>Click Refunded</span></button>
+                                                    <button onclick="updaterefundStatus('{{ $orders->id }}')"
+                                                        onclick="updaterefundStatus($orders->id)"
+                                                        style="font-size: smaller;"
+                                                        class="btn btn-outline-secondary"><span>Click
+                                                            Refunded</span></button>
                                                 </form>
                                             @endif
                                         @elseif ($orders->status == 'Canceled')
@@ -402,8 +405,10 @@
                                                 <form id="orderForm1{{ $orders->id }}" action="{{ route('refundedStatus', ['id' => $orders->id]) }}"
                                                     method="post">
                                                     @csrf
-                                                    <button onclick="updaterefundStatus('{{ $orders->id }}')" style="font-size: smaller;"
-                                                        class="btn btn-outline-secondary"><span>Click Refunded</span></button>
+                                                    <button onclick="updaterefundStatus('{{ $orders->id }}')"
+                                                        style="font-size: smaller;"
+                                                        class="btn btn-outline-secondary"><span>Click
+                                                            Refunded</span></button>
                                                 </form>
                                             @endif
                                         @endif

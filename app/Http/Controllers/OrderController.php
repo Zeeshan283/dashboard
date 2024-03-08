@@ -175,7 +175,7 @@ if (Auth::user()->role == 'Vendor') {
         }
         if ($routeName === 'outofdelivery') {
             $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
-                ->where('status', '=', 'Out of delivery')->orderBy('id', 'desc')->get();
+                ->where('status', '=', 'Out For Delivery')->orderBy('id', 'desc')->get();
             return view('orders.outofdelivery', compact('data'));
         }
         if ($routeName === 'delivered') {
@@ -222,7 +222,7 @@ if (Auth::user()->role == 'Vendor') {
         }
         if ($routeName === 'outofdelivery') {
             $data = OrderDetail::with('order', 'product', 'vendor')
-                ->where('status', '=', 'Out of delivery')->orderBy('id', 'desc')->get();
+                ->where('status', '=', 'Out For Delivery')->orderBy('id', 'desc')->get();
             return view('orders.outofdelivery', compact('data'));
         }
         if ($routeName === 'delivered') {

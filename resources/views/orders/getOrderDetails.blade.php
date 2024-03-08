@@ -4,10 +4,13 @@
 @endsection
 
 @section('main-content')
+@php
+$auth = app('Illuminate\Contracts\Auth\Guard');
+@endphp
     <div class="breadcrumb">
         <h1>Get Order Parcels</h1>
     </div>
-     
+
     <div class="separator-breadcrumb border-top"></div>
     <div class="col-md-12 mb-4">
         <div class="card text-start">
@@ -28,7 +31,8 @@
                             <th>Product Details</th>
                             <th>Order Date</th>
                             <th>Customer Name</th>
-                            <th>Customer Status</th>
+                            <th style="width:100px;">Customer Status</th>
+                            <th style="width:100px;">Refund Detail</th>
                             <th>Current Status</th>
                             <th>Update Status</th>
                             <th>View Status</th>
@@ -55,7 +59,6 @@
                                         <span style=" font-weight: 600; ">Price:
                                         </span>${{ $orders->p_price ?? null }}<br>
 
-
                                     </td>
 
                                     {{-- <td>{{ $orders->vendor->name ?? null }}</td> --}}
@@ -68,26 +71,76 @@
                                     <td style="width:110px">
                                         @if ($orders->customer_cancel_status == 'Canceled')
                                             <span class="badge-for-cancel">{{ $orders->customer_cancel_status }}
-                                            </span><br>
-                                            {{ $orders->customer_cancel_time }}<br>
+                                            </span><br>{{ $orders->customer_cancel_time }}
+                                            <br>
                                             <span style=" font-weight: 700; ">Type:
                                             </span>Customer <br>
                                             <span style=" font-weight: 700; ">Reason:
                                             </span>{{ $orders->customer_cancel_reason }}
                                         @else
                                             {{-- @if ($orders->status == 'Canceled')
-                                    <span class="badge-for-success" selected
-                                            disabled>{{ $orders->status }}</span><br>
-                                        {{ $orders->updated_at }} <br> 
-                                        <span style=" font-weight: 700; ">Type:
-                                        </span>Supplier
-                                    @else
-                                    
-                                    <span class="badge-for-success" selected
-                                    disabled>{{ $orders->status }}</span><br>
-                                {{ $orders->updated_at }}
-                                    @endif
-                                         --}}
+                                        <span class="badge-for-success" selected
+                                                disabled>{{ $orders->status }}</span><br>
+                                            {{ $orders->updated_at }} <br>
+                                            <span style=" font-weight: 700; ">Type:
+                                            </span>Supplier
+                                        @else
+
+                                        <span class="badge-for-success" selected
+                                        disabled>{{ $orders->status }}</span><br>
+                                    {{ $orders->updated_at }}
+                                        @endif
+                                             --}}
+                                        @endif
+
+
+                                    </td>
+                                    <td>
+                                        @if ($orders->customer_cancel_status == 'Canceled')
+                                            @if ($orders->refund_status != 1)
+                                                <span class="badge-for-timer" id="timer{{ $loop->iteration }}"></span>
+                                            @else
+                                                <span class="badge-for-timer">Refunded</span>
+                                            @endif
+                                            <br>
+                                            <br>
+
+
+
+
+                                            @if ($auth->check() && $auth->user()->role == 'Admin')
+                                                <form id="orderForm1{{ $orders->id }}"
+                                                    action="{{ route('refundedStatus', ['id' => $orders->id]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <button onclick="updaterefundStatus('{{ $orders->id }}')"
+                                                        onclick="updaterefundStatus($orders->id)"
+                                                        style="font-size: smaller;"
+                                                        class="btn btn-outline-secondary"><span>Click
+                                                            Refunded</span></button>
+                                                </form>
+                                            @endif
+                                        @elseif ($orders->status == 'Canceled')
+                                            @if ($orders->refund_status != 1)
+                                                <span class="badge-for-timer" id="timer{{ $loop->iteration }}"></span>
+                                            @else
+                                                <span class="badge-for-timer">Refunded</span>
+                                            @endif
+                                            <br>
+                                            <br>
+
+
+                                            @if ($auth->check() && $auth->user()->role == 'Admin')
+                                                <form id="orderForm1{{ $orders->id }}"
+                                                    action="{{ route('refundedStatus', ['id' => $orders->id]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <button onclick="updaterefundStatus('{{ $orders->id }}')"
+                                                        style="font-size: smaller;"
+                                                        class="btn btn-outline-secondary"><span>Click
+                                                            Refunded</span></button>
+                                                </form>
+                                            @endif
                                         @endif
                                     </td>
                                     <td style="width:110px">
@@ -99,8 +152,6 @@
                                             <span class="badge-for-light" selected
                                                 disabled>{{ $orders->status }}</span><br>
                                             {{ $orders->updated_at }} <br>
-                                            {{-- <span style=" font-weight: 700; ">Reason:
-                                        </span>My Mistake --}}
                                         @else
                                             <span class="badge-for-success" selected
                                                 disabled>{{ $orders->status }}</span><br>
@@ -129,7 +180,7 @@
                                                 action="{{ route('order_details_status', ['id' => $orders->id]) }}">
                                                 @csrf
                                                 @method('PATCH')
-                                                <div class="dropdown" >
+                                                <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                                         id="dropdownMenuButton{{ $orders->id }}" data-toggle="dropdown"
                                                         aria-haspopup="true" aria-expanded="false">
@@ -204,6 +255,8 @@
                                                 </div>
                                                 <input type="hidden" name="status" id="status{{ $orders->id }}"
                                                     value="{{ $orders->status }}">
+                                            </form>
+
                                         </td>
                                     @endif
 
@@ -216,6 +269,42 @@
                                     </td>
                                     </form>
 
+                                    <script>
+                                        // Get the cancel time from PHP and convert it to milliseconds
+                                        var cancelTime{{ $loop->iteration }} = new Date("{{ $orders->updated_at }}").getTime();
+
+                                        // Calculate 15 days in milliseconds
+                                        var fifteenDaysInMillis{{ $loop->iteration }} = 15 * 24 * 60 * 60 * 1000;
+
+                                        // Calculate the target time (15 days after cancel time)
+                                        var targetTime{{ $loop->iteration }} = cancelTime{{ $loop->iteration }} +
+                                            fifteenDaysInMillis{{ $loop->iteration }};
+
+                                        // Update the timer every second
+                                        var timerInterval{{ $loop->iteration }} = setInterval(function() {
+                                            // Get the current time
+                                            var now = new Date().getTime();
+
+                                            // Calculate the remaining time
+                                            var remainingTime = targetTime{{ $loop->iteration }} - now;
+
+                                            // Check if the timer has expired
+                                            if (remainingTime <= 0) {
+                                                clearInterval(timerInterval{{ $loop->iteration }});
+                                                document.getElementById("timer{{ $loop->iteration }}").innerHTML = "Expired";
+                                            } else {
+                                                // Calculate days, hours, minutes, and seconds
+                                                var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+                                                var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                                                var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+                                                // Update the timer element with the remaining time
+                                                document.getElementById("timer{{ $loop->iteration }}").innerHTML = days + "d " + hours + "h " +
+                                                    minutes + "m " + seconds + "s ";
+                                            }
+                                        }, 1000);
+                                    </script>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -230,6 +319,7 @@
                                 <th>Order Date</th>
                                 <th>Customer Name</th>
                                 <th>Customer Status</th>
+                                <th style="width:100px;">Refund Detail</th>
                                 <th style=" width: 60px ">Current Status</th>
                                 <th>Update Status</th>
                                 <th>View Status</th>
