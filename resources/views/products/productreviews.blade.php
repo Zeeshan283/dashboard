@@ -108,7 +108,7 @@
     </style>
     <div class="card-body">
         <button class="popup-button btn btn-secondary col-md-2"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product Reviews
+            style="color: white; position: relative; top: 5px; right: 10px;" onclick="toggleFilters()">Product Reviews
             Filters</button><br><br>
         <div class="filter-card" id="filterCard" style="display: none;">
             <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
@@ -219,7 +219,7 @@
                                 <tr>
                                     <td>{{ $item->order_item_id }}</td>
                                     <td>{{ $item->customer_id }}</td>
-                                    <td style="width:250px"> 
+                                    <td style="width:250px">
                                         <span style=" font-weight: 600; ">Id:
                                             {{ $item->product->id ?? null }} </span> <br>
                                             <span style=" font-weight: 600; ">Name:

@@ -158,7 +158,7 @@
     </style>
     <div class="card-body">
         <button class="popup-button btn btn-secondary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Dispute Filters</button><br><br>
+            style="color: white; position: relative; top: 5px; right: 10px;" onclick="toggleFilters()">Dispute Filters</button><br><br>
         <div class="filter-card" id="filterCard" style="display: none;">
             <form action="{{ route('reports.index') }}" method="GET">
                 <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
