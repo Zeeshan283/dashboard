@@ -107,10 +107,10 @@
         }
     </style>
     <div class="card-body">
-        <button class="popup-button btn btn-primary col-md-2"
+        <button class="popup-button btn btn-secondary col-md-2"
             style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product Reviews
             Filters</button><br><br>
-        <div class="filter-card" id="filterCard">
+        <div class="filter-card" id="filterCard" style="display: none;">
             <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
             <div class="row" style="margin-top: 10px;">
                 <div class="col-md-2">
@@ -123,10 +123,12 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <input type="text" id="order_item_idSearchInput" name="order_item_id[]" placeholder="Search...">
                                 <div class="dropdown-options">
+                                    @foreach ($review as $item)
                                     <label class="order_item_idFilter">
                                         <input type="checkbox" name="order_item_id[]" value="{{ $item->order_item_id }}">
                                         <span class="option-text" name="order_item_id[]">{{ $item->order_item_id }}</span>
                                     </label>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -143,10 +145,12 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                 <input type="text" id="productdetailSearchInput" name="productdetail[]" placeholder="Search...">
                                 <div class="dropdown-options">
+                                    @foreach ($review as $item)
                                     <label class="productdetailFilter">
                                         <input type="checkbox" name="productdetail[]" value="{{ $item->product->id ?? null }} .<br>{{ $item->product->name ?? null }} . <br> {{ $item->product->model_no ?? null }} . <br> {{ $item->product->sku ?? null }} . <br> ${{ $item->product->new_sale_price ?? null }} ">
                                         <span class="option-text" name="productdetail[]">{{ $item->product->id ?? null }} .<br>{{ $item->product->name ?? null }} . <br> {{ $item->product->model_no ?? null }} . <br> {{ $item->product->sku ?? null }} . <br> ${{ $item->product->new_sale_price ?? null }}</span>
                                     </label>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -162,28 +166,14 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
                                 <input type="text" id="ratingSearchInput" name="rating[]" placeholder="Search...">
                                 <div class="dropdown-options">
+                                    @foreach ($review as $item)
                                     <label class="ratingFilter">
-                                        <input type="checkbox" name="rating[]" value="{{ $value->rating }}">
+                                        <input type="checkbox" name="rating[]" value="{{ $item->rating }}">
                                         <span class="option-text" name="rating[]">
-                                            @php
-                                            $rating = $item->rating;
-                                            $maxRating = 5;
-                                            $numStars = 5;
-                                            $percentage = ($rating / $maxRating) * 100;
-                                            $fullStars = floor($percentage / (100 / $numStars));
-                                            $emptyStars = $numStars - $fullStars;
-                                        @endphp
-                                        {{ $value->rating }}
-                                        <div class="star-rating">
-                                            @for ($i = 0; $i < $fullStars; $i++)
-                                                <span class="star star-filled"></span>
-                                            @endfor
-                                            @for ($i = 0; $i < $emptyStars; $i++)
-                                                <span class="star star-partial"></span>
-                                            @endfor
-                                        </div>
+                                        {{ $item->rating }}
                                         </span>
                                     </label>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -198,17 +188,7 @@
                     </div>
                 </div>
 
-                <script>
-                    $(function() {
-                        $('.datetimerange').daterangepicker({
-                            timePicker: true,
-                            timePickerIncrement: 30,
-                            locale: {
-                                format: 'MM/DD/YYYY h:mm A'
-                            }
-                        });
-                    });
-                </script>
+
             </div>
 
         </div>
@@ -296,16 +276,7 @@
             </div>
         </div>
     </div>
-    <script>
-        function toggleFilters() {
-            var filterCard = document.getElementById("filterCard");
-            if (filterCard.style.display === "none") {
-                filterCard.style.display = "block";
-            } else {
-                filterCard.style.display = "none";
-            }
-        }
-    </script>
+
 @endsection
 
 @section('page-js')

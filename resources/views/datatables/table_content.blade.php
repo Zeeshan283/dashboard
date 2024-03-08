@@ -1880,7 +1880,6 @@
                         {{ $item->product->sku ?? 'N/A' }}
                     @endif
                 </td>
-
                 <td>{{ $item->minimum_purchase ?: 'Nill' }}</td>
                 <td>{{ $item->limit_same_user ?: 'Nill' }}</td>
                 <td>{{ $item->amount ?: 'Nill' }}</td>

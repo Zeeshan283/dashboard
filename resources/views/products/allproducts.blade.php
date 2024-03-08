@@ -152,8 +152,10 @@
     </style>
 
     <div class="card-body">
-        <button class="popup-button btn btn-primary col-md-1" style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product Filters</button><br><br>
-        <div class="filter-card" id="filterCard">
+        <button class="popup-button btn btn-secondary col-md-1"
+            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Products
+            Filters</button><br><br>
+        <div class="filter-card" id="filterCard" style="display: none;">
             <form action="{{ route('products.index') }}" method="GET">
                 <button type="submit" class="btn btn-secondary" style="margin-left: 1300px">Submit</button>
                 <div class="row" style="margin-top: 10px;">
@@ -172,8 +174,8 @@
                                     </label>
                                     @foreach ($products as $key => $product)
                                         <label class="nameFilter">
-                                            <input type="checkbox" name="name[]" value="{{ $product->name ?? Null }}">
-                                            <span class="option-text" name="name[]">{{ $product->name ?? Null}}</span>
+                                            <input type="checkbox" name="name[]" value="{{ $product->name ?? null }}">
+                                            <span class="option-text" name="name[]">{{ $product->name ?? null }}</span>
                                         </label>
                                     @endforeach
                                 </div>
@@ -192,8 +194,9 @@
                                 <div class="dropdown-options">
                                     @foreach ($products as $key => $product)
                                         <label class="model_noFilter">
-                                            <input type="checkbox" name="model_no[]" value="{{ $product->model_no ?? Null}}">
-                                            <span class="option-text">{{ $product->model_no ?? Null}}</span>
+                                            <input type="checkbox" name="model_no[]"
+                                                value="{{ $product->model_no ?? null }}">
+                                            <span class="option-text">{{ $product->model_no ?? null }}</span>
                                         </label>
                                     @endforeach
                                 </div>
@@ -213,8 +216,8 @@
                                 <div class="dropdown-options">
                                     @foreach ($products as $key => $product)
                                         <label class="makeFilter">
-                                            <input type="checkbox" name="make[]" value="{{ $product->make ?? Null}}">
-                                            <span class="option-text">{{ $product->make ?? Null}}</span>
+                                            <input type="checkbox" name="make[]" value="{{ $product->make ?? null }}">
+                                            <span class="option-text">{{ $product->make ?? null }}</span>
                                         </label>
                                     @endforeach
                                 </div>
@@ -267,11 +270,11 @@
                         </div>
                     </div>
 
-                   <div class="col-md-2">
+                    <div class="col-md-2">
                         <div class="content-box">
                             <label for="min_order">
-                            <input type="number" id="quantity" name="min_order[]" min="1" max="500"
-                                placeholder="MOQ"></label>
+                                <input type="number" id="quantity" name="min_order[]" min="1" max="500"
+                                    placeholder="MOQ"></label>
                         </div>
                     </div>
 
@@ -373,20 +376,11 @@
 
                     <div class="col-md-2" style="margin-left: 0px;">
                         <div class="content-box">
-                            <input type="text" name="dateTime" class="datetimerange"  />
+                            <input type="text" name="dateTime" class="datetimerange" />
                         </div>
                     </div>
 
                     <script>
-                        function toggleFilters() {
-        var filterCard = document.getElementById("filterCard");
-        if (filterCard.style.display === "none") {
-            filterCard.style.display = "block";
-        } else {
-            filterCard.style.display = "none";
-        }
-    }
-
                         $(function() {
                             $('.datetimerange').daterangepicker({
                                 timePicker: true,
@@ -523,8 +517,6 @@
                     </div>
                 </div>
                 <script>
-
-
                     function updatePriceValue(value, outputId) {
                         document.getElementById(outputId).textContent = value;
                     }
@@ -583,6 +575,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('page-js')

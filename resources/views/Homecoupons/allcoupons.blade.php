@@ -77,10 +77,10 @@
         }
     </style>
     <div class="card-body">
-        <button class="popup-button btn btn-primary col-md-2"
+        <button class="popup-button btn btn-secondary col-md-2"
             style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">HomeCoupons
             Filters</button><br><br>
-        <div class="filter-card" id="filterCard">
+        <div class="filter-card" id="filterCard" style="display: none;">
             <form action="{{ route('Homecoupons.index') }}" method="GET">
                 <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
                 <div class="row" style="margin-top: 5px;">
@@ -190,29 +190,10 @@
                         </div>
                     </div>
 
-                    <script>
-                        $(function() {
-                            $('.datetimerange').daterangepicker({
-                                timePicker: true,
-                                timePickerIncrement: 30,
-                                locale: {
-                                    format: 'MM/DD/YYYY h:mm A'
-                                }
-                            });
-                        });
-                    </script>
+
 
                 </div>
-                <script>
-                    function toggleFilters() {
-                        var filterCard = document.getElementById("filterCard");
-                        if (filterCard.style.display === "none") {
-                            filterCard.style.display = "block";
-                        } else {
-                            filterCard.style.display = "none";
-                        }
-                    }
-                </script>
+
             </form>
         </div>
     </div>
