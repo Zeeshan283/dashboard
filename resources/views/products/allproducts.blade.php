@@ -151,6 +151,7 @@
         }
     </style>
 
+
     <div class="card-body">
         <button class="popup-button btn btn-secondary col-md-1"
             style="color: white; position: relative; top: 10px; right: 5px;" onclick="toggleFilters()">Products
