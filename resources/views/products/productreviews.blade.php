@@ -53,9 +53,7 @@
             margin-bottom: 150px;
         }
 
-        .filter-card {
-            margin-left: 100px;
-        }
+
 
         .text-left {
             margin-right: auto;
@@ -65,10 +63,10 @@
             border-color: #ccc !important;
             max-width: 350px;
             border: 2px solid;
-            padding-top: 9px;
-            padding-bottom: 9px;
-            padding-right: 70px;
-            padding-left: 70px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            padding-right: 45px;
+            padding-left: 45px;
             background-color: #f8f9fa;
         }
 
@@ -107,13 +105,12 @@
         }
     </style>
     <div class="card-body">
-        <button class="popup-button btn btn-secondary col-md-2"
-            style="color: white; position: relative; top: 5px; right: 10px;" onclick="toggleFilters()">Product Reviews
+        <button class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left" onclick="toggleFilters()">Reviews
             Filters</button><br><br>
         <div class="filter-card" id="filterCard" style="display: none;">
-            <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
+            <button type="submit" class="btn btn-secondary" style="margin-left: 1000px">Submit</button>
             <div class="row" style="margin-top: 10px;">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <form action="{{ route('productreviews') }}" method="GET">
                         <div class="dropdown" id="order_item_idDropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
@@ -135,7 +132,7 @@
 
                     </form>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <form action="{{ route('productreviews') }}" method="GET">
                         <div class="dropdown" id="productdetailDropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
@@ -156,7 +153,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <form action="{{ route('productreviews') }}" method="GET">
                         <div class="dropdown" id="ratingDropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton3" data-toggle="dropdown"

@@ -18,9 +18,9 @@
             position: absolute;
             background-color: #fff;
             border: 1px solid #ced4da;
-            padding: 12px;
-            max-height: 280px;
-            max-width: 250px;
+            padding: 8px;
+            max-height: 250px;
+            max-width: 50px;
             overflow-y: auto;
         }
 
@@ -35,6 +35,7 @@
 
         .option-text {
             margin-left: 5px;
+            font-size: 7px;
         }
 
         input:focus {
@@ -44,12 +45,12 @@
 
         .datetimerange {
             border-color: #ccc !important;
-            max-width: 300px;
-            border: 2px solid;
-            padding-top: 9px;
-            padding-bottom: 9px;
-            padding-right: 70px;
-            padding-left: 70px;
+            max-width: 200px;
+            border: 1px solid;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            padding-right: 10px;
+            padding-left: 10px;
             background-color: #f8f9fa;
         }
 
@@ -60,12 +61,12 @@
 
         .slider {
             position: relative;
-            width: 400px;
-            height: 30px;
-            padding-top: 20px;
-            padding-bottom: 20px;
+            width: 0px;
+            height: 0px;
+            padding-top: 10px;
+            padding-bottom: 10px;
             padding-left: 10px;
-            padding-right: 15px;
+            padding-right: 10px;
             margin-left: 10px;
             background: #fcfcfc;
             border-radius: 25px;
@@ -82,7 +83,7 @@
         }
 
         .slider input[type="range"] {
-            width: 320px;
+            width: 120px;
             height: 4px;
             background: black;
             border: none;
@@ -108,13 +109,13 @@
         .dropdown-toggle {
             display: flex;
             max-width: 300px;
-            padding-right: 100px;
-            padding-left: 30px;
+            padding-right: 10px;
+            padding-left: 10px;
             background-color: #f8f9fa;
             border: 2px solid #e2eaf1;
             cursor: pointer;
-            padding-top: 10px;
-            padding-bottom: 5px;
+            padding-top: 0px;
+            padding-bottom: 0px;
             overflow: hidden;
         }
 
@@ -136,29 +137,27 @@
 
         .input-bar {
             background-color: #f8f9fa;
-            border: 3px solid #e2eaf1;
+            border: 2px solid #e2eaf1;
         }
 
-        .vertical-slider {
-            margin-bottom: 0px;
-            transform: rotate(270deg);
-        }
 
-        .filter-card {
-            margin-right: 0px;
-            overflow: hidden;
-            margin-left: 10px;
-        }
     </style>
 
     <div class="card-body">
-        <button class="popup-button btn btn-secondary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 5px;" onclick="toggleFilters()">Products
-            Filters</button><br><br>
+        <button  class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left"
+            onclick="toggleFilters()">Product Filter</button><br><br>
         <div class="filter-card" id="filterCard" style="display: none;">
-            <form action="{{ route('products.index') }}" method="GET">
-                <button type="submit" class="btn btn-secondary" style="margin-left: 1300px">Submit</button>
-                <div class="row" style="margin-top: 10px;">
+                <div class="col-md-2" style="margin-left: 900px;">
+                    <form action="{{ route('products.index') }}" method="GET">
+                    <div class="content-box d-flex">
+                        <input type="text" name="dateTime" class="datetimerange" />
+                    {{-- <button type="submit" class="btn btn-secondary" style="margin-left: 20px; margin-top: 3px;">Submit</button> --}}
+                </div>
+                </form>
+                </div>
+                <form action="{{ route('products.index') }}" method="GET">
+
+                <div class="row" style="margin-top: 5px;">
                     <div class="col-md-2">
                         <div class="dropdown" id="nameDropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
@@ -270,18 +269,13 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    {{-- <div class="col-md-2">
                         <div class="content-box">
                             <label for="min_order">
                                 <input type="number" id="quantity" name="min_order[]" min="1" max="500"
                                     placeholder="MOQ"></label>
                         </div>
-                    </div>
-
-
-                </div>
-
-                <div class="row" style="margin-top: 10px;">
+                    </div> --}}
 
                     <div class="col-md-2">
                         <div class="dropdown" id="menuDropdown">
@@ -304,8 +298,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-
+                <div class="row" style="margin-top: 0px;">
                     <div class="col-md-2">
                         <div class="dropdown" id="menuDropdown">
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
@@ -354,75 +349,47 @@
 
                     </div>
 
-                    <div class="col-md-2" style="margin-left: 0px;">
-                        <label>Condition:</label>
-
-                        <div class="row">
+                    <div class="col-md-3 d-flex">
+                        <label style="font-size: 10px;">Condition:</label>
                             <div class="col">
-                                <label>New:</label>
+                                <label style="font-size: 10px; margin-left: 8px;">New:</label>
+                                <input type="checkbox" checked style="--s:30px; font-size: 10px; margin-left: 5px;">
+                                <label style="font-size: 8px;" style="font-size: 10px; margin-left: 8px;">Refurbished:</label>
+                                <input type="checkbox" style="font-size: 10px; margin-left: 5px;">
                             </div>
-                            <div class="col">
-                                <input type="checkbox" checked style="--s:30px">
-                            </div>
-                            <div class="col">
-                                <label>Refurbished:</label>
-                            </div>
-                            <div class="col">
-                                <input type="checkbox">
-                            </div>
-                        </div>
 
                     </div>
-
-                    <div class="col-md-2" style="margin-left: 0px;">
-                        <div class="content-box">
-                            <input type="text" name="dateTime" class="datetimerange" />
-                        </div>
-                    </div>
-                   
-                    <script>
-                        $(function() {
-                            $('.datetimerange').daterangepicker({
-                                timePicker: true,
-                                timePickerIncrement: 30,
-                                locale: {
-                                    format: 'MM/DD/YYYY h:mm A'
-                                }
-                            });
-                        });
-                    </script>
-
-
                 </div>
 
                 <div class="row d-flex">
 
-                    <div class="col-lg-3" style="margin-left: 0px; display: flex;">
-                        <div class="content-box d-flex">
-                            <div class="input-bar">
-                                <label for="priceInput1">Enter Price:</label>
-                                <input type="number" id="priceInput1" min="0" max="100000" value="1000"
-                                    oninput="updatePriceSlider(this.value, 'rangeValue1')">
-                            </div>
+                    <div class="col-lg-2">
                             <div class="slider">
                                 <b>Price:</b>
                                 <input type="range" min="0" max="1000000" value="100"
                                     oninput="updatePriceValue(this.value, 'rangeValue1')">
-                                <p id="rangeValue1">1000</p>
                             </div>
+                            <div class="content-box d-flex" style="margin-top: 10px;">
+                                <div class="input-bar" style="margin-left: 20px;">
+                                    <label for="priceInput1">$: </label>
+                                    <input type="number" id="priceInput1" min="0" max="100000" value="1000"
+                                        oninput="updatePriceSlider(this.value, 'rangeValue1')"/>
+                                    </div>
+                                    <div id="rangeValue1" style="margin-left: 5px;">1000</div>
+
                         </div>
                     </div>
 
 
-                    <div class="col-lg-3" style="margin-left: 50px;">
+                    <div class="col-lg-2">
                         <div class="content-box d-flex">
-                            <div class="input-bar" style="margin-left: 250px;">
-                                <label for="priceInput2">Enter Price:</label>
+                            <div class="input-bar d-flex" style="margin-left: 140px;">
+                                <label for="priceInput2">$: </label>
                                 <input type="number" id="priceInput2" min="0" max="100000" value="1000"
                                     oninput="updatePriceSlider(this.value, 'rangeValue2')">
                             </div>
                             <div class="slider">
-                                <b>Price:</b>
+                                <b>Tax:</b>
                                 <input type="range" min="0" max="1000000" value="100"
                                     oninput="updatePriceValue(this.value, 'rangeValue2')">
                                 <p id="rangeValue2">1000</p>
@@ -432,15 +399,10 @@
                         </div>
                     </div>
 
-
-
-                </div>
-
-                <div class="row d-flex" style="margin-top: 40px;">
-                    <div class="col-md-3">
-                        <div class="content-box d-flex">
-                            <div class="input-bar">
-                                <label for="priceInput3">Enter Price:</label>
+                    <div class="col-md-2">
+                        <div class="content-box d-flex" style="margin-left: 10px;">
+                            <div class="input-bar d-flex" style="margin-left: 300px;">
+                                <label for="priceInput3">$: </label>
                                 <input type="number" id="priceInput3" min="0" max="100000" value="100"
                                     oninput="updatePriceSlider(this.value, 'rangeValue3')">
                             </div>
@@ -458,23 +420,27 @@
                                     <option>100</option>
                                 </datalist>
                             </div>
-
-
                         </div>
                     </div>
 
-                    <div class="col-md-3" style="margin-left: 50px;">
+                </div>
+{{--
+                <div class="row d-flex" style="margin-top: 20px;">
+                </div> --}}
+                <div class="row d-flex" style="margin-top: 10px;">
+
+                    <div class="col-md-2" >
                         <div class="content-box d-flex">
-                            <div class="input-bar" style="margin-left: 250px;">
-                                <label for="priceInput4">Enter Price:</label>
-                                <input type="number" id="priceInput4" min="0" max="1000000" value="100"
-                                    oninput="updatePriceSlider(this.value, 'rangeValue4')">
+                            <div class="input-bar d-flex">
+                                <label for="priceInput3">$/rs</label>
+                                <input type="number" id="priceInput3" min="0" max="100000" value="100"
+                                    oninput="updatePriceSlider(this.value, 'rangeValue3')">
                             </div>
                             <div class="slider"><b>WarrantyDays:</b>
                                 <label for="fader"></label><input type="range" min="0" max="100"
                                     value="50" id="fader" step="20" list="volsettings"
-                                    oninput="updatePriceValue(this.value, 'rangeValue4')">
-                                <p id="rangeValue4">100</p>
+                                    oninput="updatePriceValue(this.value, 'rangeValue3')">
+                                <p id="rangeValue3">100</p>
                                 <datalist id="volsettings">
                                     <option>0</option>
                                     <option>20</option>
@@ -484,17 +450,13 @@
                                     <option>100</option>
                                 </datalist>
                             </div>
-
                         </div>
                     </div>
 
-                </div>
-                <div class="row d-flex" style="margin-top: 40px;">
-
-                    <div class="col-md-3" style="margin-left: 200px;">
+                    <div class="col-md-2" style="margin-left: 20px;">
                         <div class="content-box d-flex">
-                            <div class="input-bar" style="margin-left: 120px;">
-                                <label for="priceInput5">Enter Price:</label>
+                            <div class="input-bar d-flex" style="margin-left: 250px;">
+                                <label for="priceInput5">$: </label>
                                 <input type="number" id="priceInput5" min="0" max="1000000" value="100"
                                     oninput="updatePriceSlider(this.value, 'rangeValue5')">
                             </div>
@@ -515,7 +477,9 @@
 
                         </div>
                     </div>
+
                 </div>
+
                 <script>
                     function updatePriceValue(value, outputId) {
                         document.getElementById(outputId).textContent = value;
@@ -526,8 +490,10 @@
                         document.querySelector('input[type="range"]').value = value;
                     }
                 </script>
+                 <button type="submit" class="btn btn-secondary" style="margin-left: 1000px">Submit</button>
+                </form>
         </div>
-        </form>
+
         <script>
             function updatePriceValue(value, targetId) {
                 document.getElementById(targetId).innerText = value;

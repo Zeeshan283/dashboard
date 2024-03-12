@@ -77,8 +77,7 @@
 
     </style>
     <div class="card-body">
-        <button class="popup-button btn btn-secondary col-md-1"
-            style="color: white; position: relative; top: 5px; right: 10px;" onclick="toggleFilters()">Vendor
+        <button  class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left" onclick="toggleFilters()">Vendor
             Filters</button><br><br>
         <div class="filter-card" id="filterCard" style="display: none;">
             <form action="{{ route('vendors.index') }}" method="GET">
