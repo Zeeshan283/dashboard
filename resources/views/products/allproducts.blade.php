@@ -163,6 +163,7 @@
                             <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <p class="text-left">Product Name</p>
+                                
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <input type="text" id="nameSearchInput" placeholder="Search...">
