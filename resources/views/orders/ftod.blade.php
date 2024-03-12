@@ -59,7 +59,7 @@
         .filter-card {
             margin-bottom: 0px;
             overflow: hidden;
-            margin-left: 60px;
+            margin-left: 0px;
         }
 
         .datetimerange {
@@ -131,8 +131,7 @@
         }
     </style>
     <div class="card-body">
-        <button class="popup-button btn btn-secondary col-md-1"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Failed Filter</button><br><br>
+        <button class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left" onclick="toggleFilters()">Failed Filter</button><br><br>
         <div class="filter-card" id="filterCard" style="display: none;">
             <form action="{{ route('order_details') }}" method="GET">
                 <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>

@@ -65,10 +65,10 @@
             border-color: #ccc !important;
             max-width: 300px;
             border: 2px solid;
-            padding-top: 9px;
-            padding-bottom: 9px;
-            padding-right: 70px;
-            padding-left: 70px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            padding-right: 50px;
+            padding-left: 50px;
             background-color: #f8f9fa;
         }
 
@@ -130,11 +130,10 @@
         }
     </style>
     <div class="card-body">
-        <button class="popup-button btn btn-secondary col-md-2"
-            style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">SubCategory Filters</button><br><br>
+        <button  class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left" onclick="toggleFilters()">SubCat Filters</button><br><br>
         <div class="filter-card" id="filterCard" style="display: none;">
             <form action="{{ route('sub-category.index') }}" method="GET">
-                <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
+                <button type="submit" class="btn btn-secondary" style="margin-left: 1000px">Submit</button>
                 <div class="row" style="margin-top: 10px;">
                     <div class="col-md-3">
                         <div class="dropdown">
@@ -200,21 +199,11 @@
 
                 <div class="col-md-3">
                     <div class="content-box">
-                        <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                        <input type="text" name="dateTime" class="datetimerange" />
                     </div>
                 </div>
 
-                <script>
-                    $(function() {
-                        $('.datetimerange').daterangepicker({
-                            timePicker: true,
-                            timePickerIncrement: 30,
-                            locale: {
-                                format: 'MM/DD/YYYY h:mm A'
-                            }
-                        });
-                    });
-                </script>
+
 
 </div>
 
