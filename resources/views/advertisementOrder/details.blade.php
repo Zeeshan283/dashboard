@@ -1,8 +1,10 @@
 @extends('layouts.master')
-
 @section('page-css')
-    <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+@endsection
+@section('main-content')
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -95,10 +97,216 @@
             color: #d9534f;
             font-weight: bold;
         }
-    </style>
-@endsection
 
-@section('main-content')
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            padding: 8px;
+            max-height: 160px;
+            max-width: 500px;
+            overflow-y: auto;
+        }
+
+        .dropdown-options {
+            margin-top: 30px;
+        }
+
+        .dropdown-options label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .option-text {
+            margin-left: 5px;
+        }
+
+        /* Simplify focus outline for search inputs */
+        input:focus {
+            border-color: #ced4da;
+            outline: none;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            max-width: 300px;
+            padding-right: 100px;
+            padding-left: 30px;
+            background-color: #f8f9fa;
+            border: 2px solid #e2eaf1;
+            cursor: pointer;
+            padding-top: 10px;
+            padding-bottom: 5px;
+            overflow: hidden;
+        }
+
+        .text-left {
+            margin-right: auto;
+        }
+
+        .filter-card {
+            margin-bottom: 0px;
+            overflow: hidden;
+            margin-left: 60px;
+        }
+
+        .datetimerange {
+            border-color: #ccc !important;
+            max-width: 300px;
+            border: 2px solid;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            padding-right: 60px;
+            padding-left: 10px;
+            background-color: #f8f9fa;
+        }
+    </style>
+ <div class="card-body">
+    <button class="popup-button btn btn-secondary col-md-1"
+        style="color: white; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Advertisement Order</button><br><br>
+    <div class="filter-card" id="filterCard" style="display: none;">
+        <form action="{{ route('advertisementSellers.details') }}" method="GET">
+            <button type="submit" class="btn btn-secondary" style="margin-left: 1200px">Submit</button>
+            <div class="row" style="margin-top: 5px;">
+                <div class="col-md-3">
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <p class="text-left">Order ID</p>
+                        </div>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                            <div class="dropdown-options">
+                            @foreach ($data as $key => $item)
+                                    <label class="idFilter">
+                                        <input type="checkbox" value="{{ $item->id }}">
+                                        <span class="option-text">{{ $item->id }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <p class="text-left">Vendor Name</p>
+                        </div>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                            <div class="dropdown-options">
+                            @foreach ($data as $key => $item)
+                                    <label class="nameFilter">
+                                        <input type="checkbox" value="{{ $item->user->name ?? null }}">
+                                        <span class="option-text">{{ $item->user->name ?? null }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <p class="text-left">Advertisement Name</p>
+                        </div>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+                            <div class="dropdown-options">
+                            @foreach ($data as $key => $item)
+                                    <label class="order_idFilter">
+                                        <input type="checkbox" value=" {{ $item->advertisement->name ?? 'Null' }}">
+                                        <span class="option-text"> {{ $item->advertisement->name ?? 'Null' }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row" style="margin-top: 5px; margin-bottom: 150px">
+
+                <div class="col-md-3">
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <p class="text-left">Name</p>
+                        </div>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <input type="text" id="searchInput" onkeyup="filterOptions()"
+                                placeholder="Search...">
+                            <div class="dropdown-options">
+                            @foreach ($data as $key => $item)
+                                    <label class="nameFilter">
+                                        <input type="checkbox" value="{{ $item->name }}">
+                                        <span class="option-text">{{ $item->name }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <p class="text-left">Image Dim</p>
+                        </div>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <input type="text" id="searchInput" onkeyup="filterOptions()"
+                                placeholder="Search...">
+                            <div class="dropdown-options">
+                            @foreach ($data as $key => $item)
+                                    <label class="amountFilter">
+                                        <input type="checkbox" value="{{ $item->advertisement->imageDimention }}">
+                                        <span class="option-text">{{ $item->advertisement->imageDimention }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3" style="margin-left: 0px;">
+                    <div class="content-box">
+                        <input type="button" class="datetimerange" value="12/31/2017 - 01/31/2018" />
+                    </div>
+                </div>
+
+                <script>
+                    $(function() {
+                        $('.datetimerange').daterangepicker({
+                            timePicker: true,
+                            timePickerIncrement: 30,
+                            locale: {
+                                format: 'MM/DD/YYYY h:mm A'
+                            }
+                        });
+                    });
+                </script>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
     <div class="breadcrumb">
         <div class="col-md-6">
             <h1>Advertisement Order's Management</h1>
@@ -174,7 +382,7 @@
                                                     document.getElementById("countdown-{{ $item->id }}").innerHTML = days + "d " + hours + "h " +
                                                         minutes + "m " + seconds + "s ";
 
-                                                    // If the count down is over, write some text 
+                                                    // If the count down is over, write some text
                                                     if (distance < 0) {
                                                         clearInterval(x{{ $item->id }});
                                                         document.getElementById("countdown-{{ $item->id }}").innerHTML = "EXPIRED";
@@ -406,10 +614,11 @@
             document.getElementById("myForm").style.display = "none";
         }
     </script> --}}
-@endsection
+    @endsection
 
-@section('page-js')
-    <script src="{{ URL::asset('website-assets/js/toastr.min.js') }}"></script>
-    <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
-    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
-@endsection
+    @section('page-js')
+        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+        <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+        <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
+    @endsection

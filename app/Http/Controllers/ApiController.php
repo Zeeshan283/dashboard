@@ -11,9 +11,11 @@ use App\Models\FAQ;
 use App\Models\Page;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\ParcelReview;
 use App\Models\Product;
 use App\Models\ProductContact;
 use App\Models\Report;
+use App\Models\Dispute;
 use App\Models\Settings;
 use App\Models\Coupon;
 use App\Models\FAQCategory;
@@ -35,8 +37,6 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
-
 
 class ApiController extends Controller
 {
@@ -95,15 +95,14 @@ class ApiController extends Controller
         // })->get();
         $products = Product::with('product_image', 'colors', 'brand')
             ->whereHas('user', function ($query) {
-                $query->where('status', '=','1');
+                $query->where('status', '=', '1');
             })
-    ->get();
+            ->get();
         // ->map(function ($product) {
         //     $product->stock = $this->stock_values($product->id);
         //     return $product;
         // })
-        
-         
+
         return response()->json([$products]);
     }
 
@@ -111,9 +110,10 @@ class ApiController extends Controller
     {
         $sub = SubCategory::where('id', $id)->first();
         if ($sub) {
-            $products = Product::with('product_image','subcategories','colors')->whereHas('user', function ($query) {
-                $query->where('status', '=','1');
-            })
+            $products = Product::with('product_image', 'subcategories', 'colors')
+                ->whereHas('user', function ($query) {
+                    $query->where('status', '=', '1');
+                })
                 ->where('subcategory_id', $id)
                 ->get();
 
@@ -126,47 +126,34 @@ class ApiController extends Controller
         }
     }
 
-
-
-
-
-
     public function ProductContactSendMessage(Request $request)
     {
         if ($request->isMethod('post')) {
-            $validator = Validator::make($request->all(), [
-                'customer_id' => 'integer',
-                'customer_name' => 'max:191|min:1',
-                'customer_email' => 'required|max:191|min:1',
-                'customer_contact_no' => 'required|string|max:25|min:1',
-                'customer_company_name' => 'max:191|min:1',
-                'customer_address' => 'max:191|min:1',
-                'customer_profile_link' => 'max:191|min:1',
-                'query_title' => 'required|max:191|min:1',
-                'pro_id' => 'required|integer',
-                'pro_name' => 'required|max:191|min:1',
-                'pro_model_no' => 'max:191|min:1',
-                'pro_brand_name' => 'max:191|min:1',
-                'pro_moq' => 'max:191|min:1',
-                'fob' => 'max:191|min:1',
-                'ref_url' => 'max:191|min:1',
-                'message' => 'required|max:1500|min:1',
-                'supplier_id' => 'required|integer',
-                'supplier_name' => 'required|max:191|min:1',
-                'supplier_profile_link' => 'max:191|min:1',
-            ], [
-                // 'pro_id.required' => 'Something went wrong',
-                // 'make.required' => 'Something went wrong',
-                // 'pro_name.required' => 'The Product Name field is required',
-                // 'message.required' => 'The Message field is required',
-                // 'model_no.required' => 'The Model No field is required',
-                // 'brand_name.required' => 'The Brand Name field is required',
-                // 'moq.required' => 'The MOQ field is required',
-                // 'delivery_location.required' => 'The Location field is required',
-                // 'phoneno.required' => 'The Phone no field is required',
-                // 'vendor_id.required' => 'The Vendor field is required',
-                // 'email.required' => 'The Email field is required'
-            ]);
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'customer_id' => 'numeric',
+                    'customer_name' => 'max:191|min:1',
+                    'customer_email' => 'required|max:191|min:1',
+                    'customer_contact_no' => 'required|string|max:25|min:1',
+                    'customer_company_name' => 'max:191|min:1',
+                    'customer_address' => 'max:191|min:1',
+                    'customer_profile_link' => 'max:191|min:1',
+                    'query_title' => 'required|max:191|min:1',
+                    'pro_id' => 'required|numeric',
+                    'pro_name' => 'required|max:191|min:1',
+                    'pro_model_no' => 'max:191|min:1',
+                    'pro_brand_name' => 'max:191|min:1',
+                    'pro_moq' => 'max:191|min:1',
+                    'fob' => 'max:191|min:1',
+                    'ref_url' => 'max:191|min:1',
+                    'message' => 'required|max:1500|min:1',
+                    'supplier_id' => 'required|numeric',
+                    'supplier_name' => 'required|max:191|min:1',
+                    'supplier_profile_link' => 'max:191|min:1',
+                ],
+                [],
+            );
 
             if ($validator->fails()) {
                 return Response::json(['error' => $validator->errors()], 401);
@@ -184,29 +171,29 @@ class ApiController extends Controller
     public function ContactUsToAdmin(Request $request)
     {
         if ($request->isMethod('post')) {
-            $validator = Validator::make($request->all(), [
-                'title' => 'required|string|max:191|min:1',
-                'user_type' => 'required|string|in:Customer,Supplier|max:191|min:1',
-                'name' => 'required|string|max:191|min:1',
-                'email' => 'required|email|max:191|min:1',
-                'contact' => 'required|string|max:25|min:1',
-                'company' => 'nullable|string|max:191|min:1',
-                'city' => 'nullable|string|max:191|min:1',
-                'state' => 'required|string|max:191|min:1',
-                'country' => 'required|string|max:191|min:1',
-                'profile_link' => 'required|string|max:191|min:1|url',
-                'message' => 'required|string|max:1500|min:1',
-
-                 
-            ], [
-                 
-            ]);
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'title' => 'required|string|max:191|min:1',
+                    'user_type' => 'required|string|in:Customer,Supplier|max:191|min:1',
+                    'name' => 'required|string|max:191|min:1',
+                    'email' => 'required|email|max:191|min:1',
+                    'contact' => 'required|string|max:25|min:1',
+                    'company' => 'nullable|string|max:191|min:1',
+                    'city' => 'nullable|string|max:191|min:1',
+                    'state' => 'nullable|string|max:191|min:1',
+                    'country' => 'nullable|string|max:191|min:1',
+                    'profile_link' => 'nullable|string|max:191|min:1|url',
+                    'message' => 'required|string|max:1500|min:1',
+                ],
+                [],
+            );
 
             if ($validator->fails()) {
                 return Response::json(['error' => $validator->errors()], 401);
             }
 
-            $p = ContactUs::create($request->all()); 
+            $p = ContactUs::create($request->all());
             $p->save();
 
             return Response::json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);
@@ -217,30 +204,69 @@ class ApiController extends Controller
     public function Report(Request $request)
     {
         if ($request->isMethod('post')) {
-            $validator = Validator::make($request->all(), [
-                'title' => 'required|string|max:191|min:1',
-                'user_id' => 'nullable|string|max:191|min:1',
-                'user_type' => 'required|string|in:Customer,Supplier|max:191|min:1',
-                'name' => 'required|string|max:191|min:1',
-                'email' => 'required|email|max:191|min:1',
-                'contact' => 'nullable|string|max:25|min:1',
-                'company' => 'nullable|string|max:191|min:1',
-                'city' => 'nullable|string|max:191|min:1',
-                'state' => 'nullable|string|max:191|min:1',
-                'country' => 'nullable|string|max:191|min:1',
-                'profile_link' => 'nullable|string|max:191|min:1|url',
-                'message' => 'required|string|max:1500|min:1',
-
-                 
-            ], [
-                 
-            ]);
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'title' => 'required|string|max:191|min:1',
+                    'user_id' => 'nullable|integer',
+                    'product_id' => 'nullable|integer',
+                    'profile_id' => 'nullable|integer',
+                    'user_type' => 'required|string|in:Customer,Supplier|max:191|min:1',
+                    'name' => 'required|string|max:191|min:1',
+                    'email' => 'required|email|max:191|min:1',
+                    'contact' => 'nullable|string|max:25|min:1',
+                    'company' => 'nullable|string|max:191|min:1',
+                    'city' => 'nullable|string|max:191|min:1',
+                    'state' => 'nullable|string|max:191|min:1',
+                    'country' => 'nullable|string|max:191|min:1',
+                    'for_supplier' => 'nullable|string|max:191|min:1',
+                    'for_buyer' => 'nullable|string|max:191|min:1',
+                    'profile_link' => 'nullable|string|max:191|min:1|url',
+                    'message' => 'required|string|max:1500|min:1',
+                ],
+                [],
+            );
 
             if ($validator->fails()) {
                 return Response::json(['error' => $validator->errors()], 401);
             }
 
-            $p = Report::create($request->all()); 
+            $p = Report::create($request->all());
+            $p->save();
+
+            return Response::json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);
+        } else {
+            return Response::json(['data' => 'Bad Method Call', 'status' => '200']);
+        }
+    }
+    public function dispute(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'title' => 'required|string|max:191|min:1',
+                    'user_id' => 'nullable|string|max:191|min:1',
+                    'good_type' => 'nullable|string|max:191|min:1',
+                    'user_type' => 'required|string|in:Customer,Supplier|max:191|min:1',
+                    'name' => 'required|string|max:191|min:1',
+                    'email' => 'required|email|max:191|min:1',
+                    'contact' => 'nullable|string|max:25|min:1',
+                    'company' => 'nullable|string|max:191|min:1',
+                    'city' => 'nullable|string|max:191|min:1',
+                    'state' => 'nullable|string|max:191|min:1',
+                    'country' => 'nullable|string|max:191|min:1',
+                    'profile_link' => 'nullable|string|max:191|min:1|url',
+                    'message' => 'required|string|max:1500|min:1',
+                ],
+                [],
+            );
+
+            if ($validator->fails()) {
+                return Response::json(['error' => $validator->errors()], 401);
+            }
+
+            $p = Dispute::create($request->all());
             $p->save();
 
             return Response::json(['data' => 'Thanks for contacting us! We will get in touch with you shortly.', 'status' => '200']);
@@ -249,35 +275,28 @@ class ApiController extends Controller
         }
     }
 
-
-
     public function Home_setting()
     {
-        $HomeSettings = HomeSettings::with([
-            'category1Info',
-            'category2Info',
-            'category3Info',
-            'category4Info',
-        ])->get();
+        $HomeSettings = HomeSettings::with(['category1Info', 'category2Info', 'category3Info', 'category4Info'])->get();
         // dd($HomeSettings);
         return Response::json(['data' => $HomeSettings]);
     }
 
     public function Home_Banners()
     {
-        $homeBanners =  Banners::all();
+        $homeBanners = Banners::all();
         return Response::json(['data' => $homeBanners]);
     }
 
     public function Site_Profile()
     {
-        $Site_Profile =  Settings::all();
+        $Site_Profile = Settings::all();
         return Response::json(['data' => $Site_Profile]);
     }
 
     public function Brands()
     {
-        $Brands =  Brand::where('type', '=', 'brand')->select('id', 'brand_name', 'logo')->get();
+        $Brands = Brand::where('type', '=', 'brand')->select('id', 'brand_name', 'logo')->get();
         return Response::json(['data' => $Brands]);
     }
 
@@ -286,9 +305,11 @@ class ApiController extends Controller
         $menus = Menu::all();
         $categories = Category::all();
         $sub_categories = SubCategory::all();
-        $products = Product::with('product_images','colors','brand')->whereHas('user', function ($query) {
-            $query->where('status', '=','1');
-        })->get();
+        $products = Product::with('product_images', 'colors', 'brand')
+            ->whereHas('user', function ($query) {
+                $query->where('status', '=', '1');
+            })
+            ->get();
         $banners = Banners::all();
         $brands = Brand::all();
         $settings = Settings::all();
@@ -308,17 +329,14 @@ class ApiController extends Controller
         $data['help_center'] = $help_center->toArray();
         $data['payment_method'] = $payment_method->toArray();
 
-
         foreach ($menus as $menu) {
             $menuNameWords = explode(' ', $menu->name);
             $menuName = $menuNameWords[0] ?? $menu->name;
-
 
             $menuData = [
                 'menu_name' => $menu->name,
                 'categories' => [],
             ];
-
 
             foreach ($menus as $menu) {
                 $menuNameWords = explode(' ', $menu->name);
@@ -362,7 +380,6 @@ class ApiController extends Controller
                     }
                 }
 
-
                 // Use the first word from the menu name as the key for categories
                 $data['menus'][$menuName] = $menuData;
             }
@@ -401,7 +418,7 @@ class ApiController extends Controller
             'shipping_city' => $customerInfo['shipping_city'] ?? null,
             'shipping_state' => $customerInfo['shipping_state'] ?? null,
             'shipping_country' => $customerInfo['shipping_country'] ?? null,
-            'shipping_zipcode' => $customerInfo['shipping_zipcode'] ?? null, 
+            'shipping_zipcode' => $customerInfo['shipping_zipcode'] ?? null,
             'payment_method' => $customerInfo['payment_method'] ?? null,
             // 'status' => $customerInfo['status'] ?? null,
             'shipping' => $customerInfo['shipping'] ?? null,
@@ -422,9 +439,9 @@ class ApiController extends Controller
         foreach ($products as $product) {
             $stockExist = Purchase::where('product_id', $product['product_id'])->first();
             if ($stockExist->quantity == !0) {
-
-                $productExist =  Product::where('id', '=', $product['product_id'])
-                    ->where('created_by', '=', $product['p_vendor_id'])->first();
+                $productExist = Product::where('id', '=', $product['product_id'])
+                    ->where('created_by', '=', $product['p_vendor_id'])
+                    ->first();
                 if ($productExist) {
                     $orderDetail = new OrderDetail([
                         'product_id' => $product['product_id'],
@@ -434,7 +451,6 @@ class ApiController extends Controller
                         'status' => 'In Process',
                     ]);
 
-                 
                     // Save the order detail and associate it with the order
                     $order->orderDetails()->save($orderDetail);
 
@@ -466,33 +482,32 @@ class ApiController extends Controller
         return response()->json(['order_id' => $order->id, 'message' => 'Order created successfully'], 201);
     }
 
-
     public function getUserOrders($userId)
     {
-
         // $orders = Order::where('customer_id', $userId)->with('orderDetails')->get();
 
         $orders = Order::with('product_orders_details')->where('customer_id', '=', $userId)->get();
- 
+
         $ordertracker = [];
         foreach ($orders as $order) {
-            $orderDetails = OrderDetail::where('order_id', $order->id)->with(['order_tracker' => function ($query) {
-                $query->select('order_id', 'status', 'datetime')->orderBy('datetime', 'asc');
-            }])->get();
+            $orderDetails = OrderDetail::where('order_id', $order->id)
+                ->with([
+                    'order_tracker' => function ($query) {
+                        $query->select('order_id', 'status', 'datetime')->orderBy('datetime', 'asc');
+                    },
+                ])
+                ->get();
 
             $ordertracker[] = $orderDetails;
-            }
+        }
 
-
-        return response()->json(['orders' => $orders, "orderTrackerByProduct" => $ordertracker]);
+        return response()->json(['orders' => $orders, 'orderTrackerByProduct' => $ordertracker]);
     }
 
     public function vendorprofile($id)
-
     {
         try {
-
-            $vendors = vendorProfile::with('user','vendorServices','vendorportfolio')->where('vendor_id', '=', $id)->first();
+            $vendors = vendorProfile::with('user', 'vendorServices', 'vendorportfolio')->where('vendor_id', '=', $id)->first();
 
             return response()->json($vendors);
         } catch (\Exception $e) {
@@ -503,7 +518,6 @@ class ApiController extends Controller
     public function vendorcoupon($id)
     {
         try {
-
             $vendorcoupon = Coupon::where('vendor_id', '=', $id)->get();
 
             return response()->json(['vendorcoupon' => $vendorcoupon]);
@@ -527,13 +541,12 @@ class ApiController extends Controller
     public function allProducts($identifier)
     {
         try {
-            $cat = is_numeric($identifier)
-                ? Category::findOrFail($identifier)
-                : Category::where('slug', $identifier)->firstOrFail();
+            $cat = is_numeric($identifier) ? Category::findOrFail($identifier) : Category::where('slug', $identifier)->firstOrFail();
 
-            $products = Product::with('product_image', 'subcategories', 'colors', 'brand')->whereHas('user', function ($query) {
-                $query->where('status', '=','1');
-            })
+            $products = Product::with('product_image', 'subcategories', 'colors', 'brand')
+                ->whereHas('user', function ($query) {
+                    $query->where('status', '=', '1');
+                })
                 ->where('category_id', $cat->id)
                 ->get()
                 ->map(function ($product) {
@@ -557,13 +570,12 @@ class ApiController extends Controller
     public function allProductAMenu($identifier)
     {
         try {
-            $menu = is_numeric($identifier)
-                ? Menu::findOrFail($identifier)
-                : Menu::where('slug', $identifier)->firstOrFail();
+            $menu = is_numeric($identifier) ? Menu::findOrFail($identifier) : Menu::where('slug', $identifier)->firstOrFail();
 
-            $products_without_stock = Product::with('product_image', 'subcategories', 'colors', 'brand')->whereHas('user', function ($query) {
-                $query->where('status', '=','1');
-            })
+            $products_without_stock = Product::with('product_image', 'subcategories', 'colors', 'brand')
+                ->whereHas('user', function ($query) {
+                    $query->where('status', '=', '1');
+                })
                 ->where('menu_id', $menu->id)
                 ->get();
 
@@ -584,15 +596,15 @@ class ApiController extends Controller
         }
     }
 
-
     public function allProductSubcategories($id)
     {
         try {
             $sub_cat = is_numeric($id) ? SubCategory::findOrFail($id) : SubCategory::where('slug', $id)->firstOrFail();
 
-            $products_without_stock = Product::with('product_image', 'subcategories', 'colors')->whereHas('user', function ($query) {
-                $query->where('status', '=','1');
-            })
+            $products_without_stock = Product::with('product_image', 'subcategories', 'colors')
+                ->whereHas('user', function ($query) {
+                    $query->where('status', '=', '1');
+                })
                 ->where('subcategory_id', $sub_cat->id)
                 ->get();
 
@@ -611,16 +623,16 @@ class ApiController extends Controller
         }
     }
 
-
-
     public function SearchProduct($character)
     {
         try {
-            $products = Product::with('product_images', 'colors', 'brand')->whereHas('user', function ($query) {
-                $query->where('status', '=','1');
-            })
+            $products = Product::with('product_images', 'colors', 'brand')
+                ->whereHas('user', function ($query) {
+                    $query->where('status', '=', '1');
+                })
                 ->where(function ($query) use ($character) {
-                    $query->where('name', 'like', '%' . $character . '%')
+                    $query
+                        ->where('name', 'like', '%' . $character . '%')
                         ->orWhere('model_no', 'like', '%' . $character . '%')
                         ->orWhere('slug', 'like', '%' . $character . '%')
                         ->orWhere('sku', 'like', '%' . $character . '%');
@@ -642,9 +654,10 @@ class ApiController extends Controller
     public function FeaturesProduct()
     {
         try {
-            $products = Product::with('product_images', 'colors', 'brand')->whereHas('user', function ($query) {
-                $query->where('status', '=','1');
-            })
+            $products = Product::with('product_images', 'colors', 'brand')
+                ->whereHas('user', function ($query) {
+                    $query->where('status', '=', '1');
+                })
                 ->orderBy('name')
                 ->take(15)
                 ->get();
@@ -665,9 +678,10 @@ class ApiController extends Controller
     {
         try {
             $coupons = Coupon::where('status', 'active')->get();
-            $products = Product::with('product_images', 'colors', 'brand')->whereHas('user', function ($query) {
-                $query->where('status', '=','1');
-            })
+            $products = Product::with('product_images', 'colors', 'brand')
+                ->whereHas('user', function ($query) {
+                    $query->where('status', '=', '1');
+                })
                 ->orderBy('id')
                 ->take(15)
                 ->get();
@@ -684,13 +698,13 @@ class ApiController extends Controller
         }
     }
 
-
     public function HotProduct()
     {
         try {
-            $products = Product::with('product_images', 'colors', 'brand')->whereHas('user', function ($query) {
-                $query->where('status', '=','1');
-            })
+            $products = Product::with('product_images', 'colors', 'brand')
+                ->whereHas('user', function ($query) {
+                    $query->where('status', '=', '1');
+                })
                 ->orderBy('model_no')
                 ->take(30)
                 ->get();
@@ -711,9 +725,10 @@ class ApiController extends Controller
     {
         try {
             $coupons = Coupon::where('status', 'active')->get();
-            $products = Product::with('product_images', 'colors', 'brand')->whereHas('user', function ($query) {
-                $query->where('status', '=','1');
-            })
+            $products = Product::with('product_images', 'colors', 'brand')
+                ->whereHas('user', function ($query) {
+                    $query->where('status', '=', '1');
+                })
                 ->orderBy('model_no', 'desc')
                 ->take(10)
                 ->get();
@@ -777,12 +792,7 @@ class ApiController extends Controller
             if ($homesettings) {
                 $categories_info = [];
 
-                $categoryKeys = [
-                    'category1',
-                    'category2',
-                    'category3',
-                    'category4',
-                ];
+                $categoryKeys = ['category1', 'category2', 'category3', 'category4'];
 
                 foreach ($categoryKeys as $categoryKey) {
                     $categoryId = $homesettings->$categoryKey;
@@ -817,9 +827,7 @@ class ApiController extends Controller
     public function getBlog($identifier)
     {
         // $blog = Blogs::with('blogCategory', 'blogSubCategory')->find($id);
-        $blog = is_numeric($identifier) 
-        ? Blogs::with('blogCategory', 'blogSubCategory')->findOrFail($identifier) 
-        :Blogs::with('blogCategory', 'blogSubCategory')->where('slug', $identifier)->firstOrFail();
+        $blog = is_numeric($identifier) ? Blogs::with('blogCategory', 'blogSubCategory')->findOrFail($identifier) : Blogs::with('blogCategory', 'blogSubCategory')->where('slug', $identifier)->firstOrFail();
         if (!$blog) {
             return response()->json(['error' => 'Blog not found'], 404);
         }
@@ -835,9 +843,7 @@ class ApiController extends Controller
 
     public function getTraining($identifier)
     {
-        $traning = is_numeric($identifier) 
-        ? Trainings::with('training_category', 'instructor')->findOrFail($identifier) 
-        :Trainings::with('training_category', 'instructor')->where('slug', $identifier)->firstOrFail();
+        $traning = is_numeric($identifier) ? Trainings::with('training_category', 'instructor')->findOrFail($identifier) : Trainings::with('training_category', 'instructor')->where('slug', $identifier)->firstOrFail();
         // $traning = Trainings::with('training_category', 'instructor')->find($id);
 
         if (!$traning) {
@@ -854,22 +860,63 @@ class ApiController extends Controller
     }
     public function GetSingleProduct($identifier)
     {
-
         try {
-            $products_without_stock = is_numeric($identifier) 
-            ? Product::with('product_image', 'brand', 'colors')->whereHas('user', function ($query) {
-                $query->where('status', '=','1');
-            })->findOrFail($identifier) 
-            : Product::with('product_image', 'brand', 'colors')->whereHas('user', function ($query) {
-                $query->where('status', '=','1');
-            })->where('slug', $identifier)->firstOrFail();
+            $products_without_stock = is_numeric($identifier)
+                ? Product::with('product_image', 'brand', 'colors')
+                    ->whereHas('user', function ($query) {
+                        $query->where('status', '=', '1');
+                    })
+                    ->findOrFail($identifier)
+                : Product::with('product_image', 'brand', 'colors')
+                    ->whereHas('user', function ($query) {
+                        $query->where('status', '=', '1');
+                    })
+                    ->where('slug', $identifier)
+                    ->firstOrFail();
             // $products_without_stock  = Product::where('id', $id)->with('product_image', 'brand', 'colors')->first();
             $p_with_stock = $products_without_stock->id;
             $products_stock = $this->product_with_stock($p_with_stock);
             $product = $products_stock;
 
-
             return response()->json($product);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'product not found'], 404);
+        }
+    }
+
+    public function ParcelReview(Request $request)
+    {
+        try {
+            $validate = Validator::make($request->all(), [
+                'product_id' => 'required|integer',
+                'order_item_id' => 'required|integer',
+                'rating' => 'required|integer|in:1,2,3,4,5',
+                'customer_id' => 'nullable|integer',
+                'comment' => 'nullable',
+            ]);
+            if ($validate->fails()) {
+                return response()->json(['error' => $validate->errors()]);
+            }
+
+            $order_item = OrderDetail::find($request->order_item_id);
+
+            if (!$order_item || $order_item->product_id != $request->product_id || $order_item->status != 'Delivered') {
+                return response()->json('Your Product Id & Parcel Id Does not Match Or Status can not be updated, Requried => Delivered', 400);
+            }
+
+            $review = new ParcelReview();
+            $review->product_id = $request->product_id;
+            $review->order_item_id = $request->order_item_id;
+            $review->customer_id = $request->customer_id;
+            $review->rating = $request->rating;
+            $review->comment = $request->comment;
+
+            $review->save();
+
+            $order_item->review_status = true;
+            $order_item->save();
+
+            return response()->json('Your Review Has Been Submitted');
         } catch (\Exception $e) {
             return response()->json(['error' => 'product not found'], 404);
         }

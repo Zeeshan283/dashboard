@@ -7,6 +7,7 @@ use App\Models\Brand;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image as Image;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 
 class BrandController extends Controller
 {
@@ -15,10 +16,29 @@ class BrandController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(request $request)
     {
-        $data = Brand::whereType('brand')->orderBy('brand_name')->get(['id', 'brand_name', 'logo']);
-        return view('brands.index', compact('data'));
+        $allbrands = Brand::all();
+        $query = Brand::query();
+    if ($request->has('brands')) {
+        $brands = $request->input('brands');
+        if (is_array($brands)) {
+            $query->whereIn('brand_name', $brands);
+        } else {
+            $query->where('brand_name', $brands);
+        }
+    }
+    if ($request->has('dateTime')) {
+        $dateTimeRange = explode(' - ', $request->input('dateTime'));
+        $startDateTime = Carbon::createFromFormat('m/d/Y h:i A', $dateTimeRange[0])->format('Y-m-d H:i:s');
+        $endDateTime = Carbon::createFromFormat('m/d/Y h:i A', $dateTimeRange[1])->format('Y-m-d H:i:s');
+
+        $query->whereBetween('created_at', [$startDateTime, $endDateTime]);
+    }
+    $data = $query->get();
+
+        // $data = Brand::whereType('brand')->orderBy('brand_name')->get(['id', 'brand_name', 'logo']);
+        return view('brands.index', compact('data','allbrands'));
     }
 
     public function create()
@@ -95,7 +115,6 @@ class BrandController extends Controller
             $file = $request->file('logo');
             $fileName = uniqid() . $file->getClientOriginalName();
 
-            //prorgam image save in 410 x 186
             $imagePath =  'upload/brands/big/' . $fileName;
             $img = Image::make($file);
             $img->resize(410, 186);

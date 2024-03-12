@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ParcelReview;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Menu;
@@ -27,6 +28,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Notification;
+use Carbon\Carbon;
+
 
 class ProductController extends Controller
 {
@@ -38,151 +41,250 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $data = "";
-        if (Auth::User()->role == 'Admin') {
-            // $data = Product::with('product_image','categories:id,name','subcategories:id,name')
-            //     ->OrderBy('id', 'desc')
-            //     ->get();
+        if (Auth::user()->role == 'Admin') {
+            $query = Product::query();
             $brand = Brand::all();
             $categories = Category::all();
             $subcategories = SubCategory::all();
             $products = Product::all();
-            $vendors = User::where('role','Vendor')->get();
+            $vendors = User::where('role', 'Vendor')->get();
             $colors = Color::all();
+            $menus = Menu::all();
+            $supplier = User::where('role', 'Vendor')->get();
 
-            $query = Product::query();
-            $supplier = User::where('role','Vendor')->get();
-
-            // Apply filters if provided in the request
-            // dd($request->all());
-            if ($request->has('name')) {
-                $names = $request->input('name');
-                if (is_array($names)) {
-                    $query->whereIn('name', $names);
-                } else {
-                    $query->where('name', $names);
-                }
+        if ($request->has('name')) {
+            $products = $request->input('name');
+            if (is_array($products)) {
+                $query->whereIn('name', $products);
+            } else {
+                $query->where('name', $products);
             }
-            if ($request->has('model_no')) {
-                $model_nos = $request->input('model_no');
-                if (is_array($model_nos)) {
-                    $query->whereIn('model_no', $model_nos);
-                } else {
-                    $query->where('model_no', $model_nos);
-                }
+        }
+        if ($request->has('model_no')) {
+            $products = $request->input('model_no');
+            if (is_array($products)) {
+                $query->whereIn('model_no', $products);
+            } else {
+                $query->where('model_no', $products);
             }
-            if ($request->has('sku')) {
-                $skus = $request->input('sku');
-                if (is_array($skus)) {
-                    $query->whereIn('sku', $skus);
-                } else {
-                    $query->where('sku', $skus);
-                }
-            }
-
-            if ($request->has('make')) {
-                $make = $request->input('make');
-                if (is_array($make)) {
-                    $query->whereIn('make', $make);
-                } else {
-                    $query->where('make', $make);
-                }
-            }
-
-            if ($request->has('categories')) {
-                $categories = $request->input('categories');
-                if (is_array($categories)) {
-                    $query->whereIn('categories', $categories);
-                } else {
-                    $query->where('categories', $categories);
-                }
-            }
-
-
-            if ($request->has('subcategories')) {
-                $subcategories = $request->input('subcategories');
-                if (is_array($subcategories)) {
-                    $query->whereIn('subcategories', $subcategories);
-                } else {
-                    $query->where('subcategories', $subcategories);
-                }
-            }
-
-            if ($request->has('brand_name')) {
-                $brand = $request->input('brand_name');
-                if (is_array($brand)) {
-                    $query->whereIn('brand_name', $brand);
-                } else {
-                    $query->where('brand_name', $brand);
-                }
-            }
-
-            if ($request->has('new_price')) {
-                $price = $request->input('new_price');
-                if (is_array($price)) {
-                    $query->whereIn('new_price', $price);
-                } else {
-                    $query->where('new_price', $price);
-                }
-            }
-
-
-            if ($request->has('new_sale_price')) {
-                $price = $request->input('new_sale_price');
-                if (is_array($price)) {
-                    $query->whereIn('new_sale_price', $price);
-                } else {
-                    $query->where('new_sale_price', $price);
-                }
-            }
-
-            if ($request->has('new_sale_price')) {
-                $price = $request->input('new_sale_price');
-                if (is_array($price)) {
-                    $query->whereIn('new_sale_price', $price);
-                } else {
-                    $query->where('new_sale_price', $price);
-                }
-            }
-
-            if ($request->has('new_warranty_days')) {
-                $days = $request->input('new_warranty_days');
-                if (is_array($days)) {
-                    $query->whereIn('new_warranty_days', $days);
-                } else {
-                    $query->where('new_warranty_days', $days);
-                }
-            }
-
-            if ($request->has('new_return_days')) {
-                $days = $request->input('new_return_days');
-                if (is_array($days)) {
-                    $query->whereIn('new_return_days', $days);
-                } else {
-                    $query->where('new_return_days', $days);
-                }
-            }
-            $data = $query->get();
-
-
-        } else {
-            $data = Product::with('product_image','categories:id,name','subcategories:id,name')
-                ->where('created_by', Auth::User()->id)
-                ->OrderBy('id', 'desc')
-                ->get();
-            $brand = Brand::all();
-            $categories = Category::all();
-            $subcategories = SubCategory::all();
-            $vendors = User::where('role','Vendor')->get();
-
         }
 
-        return view('products.allproducts', compact('data','products','supplier', 'brand', 'categories', 'subcategories','vendors', 'colors'));
+        if ($request->has('make')) {
+            $supplier = $request->input('make');
+            if (is_array($supplier)) {
+                $query->whereIn('make', $supplier);
+            } else {
+                $query->where('make', $supplier);
+            }
+        }
+
+        if ($request->has('name')) {
+            $menu = $request->input('name');
+            if (is_array($menu)) {
+                $query->whereIn('name', $menu);
+            } else {
+                $query->where('name', $menu);
+            }
+        }
+
+        if ($request->has('categories')) {
+            $categories = $request->input('categories');
+            $query->whereHas('categories', function ($q) use ($categories) {
+                $q->whereIn('id', $categories);
+            });
+        }
+
+        if ($request->has('subcategories')) {
+            $subcategories = $request->input('subcategories');
+            $query->whereHas('subcategories', function ($q) use ($subcategories) {
+                $q->whereIn('id', $subcategories);
+            });
+        }
+
+        if ($request->has('brand_name')) {
+            $brand = $request->input('brand_name');
+            if (is_array($brand)) {
+                $query->whereIn('brand_name', $brand);
+            } else {
+                $query->where('brand_name', $brand);
+            }
+        }
+
+        if ($request->has('min_order')) {
+            $products = $request->input('min_order');
+            if (is_array($products)) {
+                $query->whereIn('min_order', $products);
+            } else {
+                $query->where('min_order', $products);
+            }
+        }
+
+        if ($request->has('new_sale_price')) {
+            $products = $request->input('new_sale_price');
+            if (is_array($products)) {
+                $query->whereIn('new_sale_price', $products);
+            } else {
+                $query->where('new_sale_price', $products);
+            }
+        }
+
+        if ($request->has('new_warranty_days')) {
+            $products = $request->input('new_warranty_days');
+            if (is_array($products)) {
+                $query->whereIn('new_warranty_days', $products);
+            } else {
+                $query->where('new_warranty_days', $products);
+            }
+        }
+
+        if ($request->has('new_return_days')) {
+            $products = $request->input('new_return_days');
+            if (is_array($products)) {
+                $query->whereIn('new_return_days', $products);
+            } else {
+                $query->where('new_return_days', $products);
+            }
+        }
+
+        if ($request->has('dateTime')) {
+            $dateTimeRange = explode(' - ', $request->input('dateTime'));
+            $startDateTime = Carbon::createFromFormat('m/d/Y h:i A', $dateTimeRange[0])->format('Y-m-d H:i:s');
+            $endDateTime = Carbon::createFromFormat('m/d/Y h:i A', $dateTimeRange[1])->format('Y-m-d H:i:s');
+
+            $query->whereBetween('created_at', [$startDateTime, $endDateTime]);
+        }
+
+        $data = $query->get();
+
+    } else {
+        $query = Product::query();
+        $products = Product::all();
+        $supplier = User::where('role', 'Vendor')->get();
+        $colors = Color::all();
+        $menus = Menu::all();
+
+        if ($request->has('name')) {
+            $products = $request->input('name');
+            if (is_array($products)) {
+                $query->whereIn('name', $products);
+            } else {
+                $query->where('name', $products);
+            }
+        }
+        if ($request->has('model_no')) {
+            $products = $request->input('model_no');
+            if (is_array($products)) {
+                $query->whereIn('model_no', $products);
+            } else {
+                $query->where('model_no', $products);
+            }
+        }
+
+        if ($request->has('make')) {
+            $supplier = $request->input('make');
+            if (is_array($supplier)) {
+                $query->whereIn('make', $supplier);
+            } else {
+                $query->where('make', $supplier);
+            }
+        }
+
+        if ($request->has('name')) {
+            $menu = $request->input('name');
+            if (is_array($menu)) {
+                $query->whereIn('name', $menu);
+            } else {
+                $query->where('name', $menu);
+            }
+        }
+
+        if ($request->has('categories')) {
+            $categories = $request->input('categories');
+            $query->whereHas('categories', function ($q) use ($categories) {
+                $q->whereIn('id', $categories);
+            });
+        }
+
+        if ($request->has('subcategories')) {
+            $subcategories = $request->input('subcategories');
+            $query->whereHas('subcategories', function ($q) use ($subcategories) {
+                $q->whereIn('id', $subcategories);
+            });
+        }
+
+        if ($request->has('brand_name')) {
+            $brand = $request->input('brand_name');
+            if (is_array($brand)) {
+                $query->whereIn('brand_name', $brand);
+            } else {
+                $query->where('brand_name', $brand);
+            }
+        }
+
+        if ($request->has('min_order')) {
+            $products = $request->input('min_order');
+            if (is_array($products)) {
+                $query->whereIn('min_order', $products);
+            } else {
+                $query->where('min_order', $products);
+            }
+        }
+
+        if ($request->has('new_sale_price')) {
+            $products = $request->input('new_sale_price');
+            if (is_array($products)) {
+                $query->whereIn('new_sale_price', $products);
+            } else {
+                $query->where('new_sale_price', $products);
+            }
+        }
+
+        if ($request->has('new_warranty_days')) {
+            $products = $request->input('new_warranty_days');
+            if (is_array($products)) {
+                $query->whereIn('new_warranty_days', $products);
+            } else {
+                $query->where('new_warranty_days', $products);
+            }
+        }
+
+        if ($request->has('new_return_days')) {
+            $products = $request->input('new_return_days');
+            if (is_array($products)) {
+                $query->whereIn('new_return_days', $products);
+            } else {
+                $query->where('new_return_days', $products);
+            }
+        }
+
+        if ($request->has('dateTime')) {
+            $dateTimeRange = explode(' - ', $request->input('dateTime'));
+            $startDateTime = Carbon::createFromFormat('m/d/Y h:i A', $dateTimeRange[0])->format('Y-m-d H:i:s');
+            $endDateTime = Carbon::createFromFormat('m/d/Y h:i A', $dateTimeRange[1])->format('Y-m-d H:i:s');
+
+            $query->whereBetween('created_at', [$startDateTime, $endDateTime]);
+        }
+
+        $data = $query->get();
+
+        $data = Product::with('product_image', 'categories:id,name', 'subcategories:id,name')
+            ->where('created_by', Auth::user()->id)
+            ->orderBy('id', 'desc')
+            ->get();
+        $brand = Brand::all();
+        $categories = Category::all();
+        $subcategories = SubCategory::all();
+        $vendors = User::where('role', 'Vendor')->get();
     }
 
-    public function productsView(){
+    return view('products.allproducts', compact('data', 'products', 'supplier', 'brand', 'categories', 'subcategories', 'vendors', 'colors', 'menus'));
+}
+
+    public function productsView()
+    {
         $data = "";
         if (Auth::User()->role == 'Admin') {
-            $data = Product::with('product_image','categories:id,name','subcategories:id,name')
+            $data = Product::with('product_image', 'categories:id,name', 'subcategories:id,name')
                 ->OrderBy('id', 'desc')
                 ->paginate(16);
             $brand = Brand::all();
@@ -190,7 +292,7 @@ class ProductController extends Controller
             $subcategories = SubCategory::all();
             $product = Product::all();
         } else {
-            $data = Product::with('product_image','categories:id,name','subcategories:id,name')
+            $data = Product::with('product_image', 'categories:id,name', 'subcategories:id,name')
                 ->where('created_by', Auth::User()->id)
                 ->OrderBy('id', 'desc')
                 ->paginate(16);
@@ -854,5 +956,18 @@ class ProductController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+    public function productReviews(){
+        if (Auth::user()->role === 'Admin') {
+        $review = ParcelReview::with('product')->get();
+        }
+        else{
+            $review = ParcelReview::with('product')->whereHas('product' , function($query){
+                $query->where('created_by', Auth::user()->id);
+            })->get();
+        }
+
+        return view('products.productreviews',compact('review'));
     }
 }

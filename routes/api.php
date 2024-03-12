@@ -46,6 +46,7 @@ Route::controller(UserAPIController::class)->group(function () {
     Route::get('/profile/{id}', 'details')->whereNumber('id');
     Route::match(['patch', 'put'], '/update-profile', 'UpdateProfile');
     Route::match(['patch', 'put'], '/update-shipping-address', 'UpdateShippingAddress');
+    Route::match(['patch', 'put'], '/customer_cancel_status', 'CustomerCancelStatus');
 });
 
 
@@ -59,6 +60,7 @@ Route::get('/products/{sub_cat_Id}', [ApiController::class, 'GetSubCategoryProdu
 Route::post('contactSupplier', [ApiController::class, 'ProductContactSendMessage']);
 Route::post('contact_us', [ApiController::class, 'ContactUsToAdmin']);
 Route::post('report', [ApiController::class, 'Report']);
+Route::post('dispute', [ApiController::class, 'dispute']);
 Route::get('/home-banners', [ApiController::class, 'Home_Banners']);
 Route::get('/home-setting', [ApiController::class, 'Home_setting']);
 Route::get('/site-profile', [ApiController::class, 'Site_Profile']);
@@ -94,3 +96,5 @@ Route::get('/s_product', [ApiController::class, 'SponserdProduct']);
 Route::get('/h_product', [ApiController::class, 'HotProduct']);
 Route::get('/d_product', [ApiController::class, 'DealProduct']);
 Route::get('/home_page_all', [ApiController::class, 'homePageAll']);
+
+Route::post('parcel_reviews', [ApiController::class,'ParcelReview']);

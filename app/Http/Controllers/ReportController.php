@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Report;
+use App\Repositories\Interface\ReportRepositoryInterface;
 class ReportController extends Controller
 {
     /**
@@ -11,16 +12,20 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $reportRepository;
+    public function __construct(ReportRepositoryInterface $reportRepository){
+        $this->reportRepository = $reportRepository;
+    }
 
-     public function __construct()
-     {
-         $this->middleware('auth');
-     }
+    //  public function __construct()
+    //  {
+    //      $this->middleware('auth');
+    //  }
 
 
     public function index()
     {
-    $data = Report::all();
+    $data = $this->reportRepository->index();
     return view("settings.reports.index", compact("data"));
     }
 
@@ -53,7 +58,7 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        $data = Report::findOrFail($id);
+        $data = $this->reportRepository->show($id);
         return view("settings.reports.show", compact("data"));
     }
 

@@ -7,6 +7,10 @@ use App\Models\Cprofile;
 
 class CprofileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $data = Cprofile::all();

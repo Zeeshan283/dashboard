@@ -14,6 +14,9 @@
 
         <div class="main-content">
             @yield('main-content')
+          
+            
+         
         </div>
 
         <div class="flex-grow-1"></div>

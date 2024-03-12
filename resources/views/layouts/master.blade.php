@@ -12,8 +12,7 @@
     <link rel="icon" href="{{ asset('upload/logo/logo.png') }}" type="image/x-icon">
     @yield('before-css')
     {{-- theme css --}}
-
-
+    {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
 
 
 
@@ -22,14 +21,86 @@
         <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome-free-5.10.1-web/css/all.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/styles/vendor/metisMenu.min.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+        <link rel="stylesheet" href="https://gull-html-laravel.ui-lib.com/assets/styles/vendor/sweetalert2.min.css">
     @endif
     <link id="gull-theme" rel="stylesheet" href="{{ asset('assets\fonts\iconsmind\iconsmind.css') }}">
     <link id="gull-theme" rel="stylesheet" href="{{ asset('assets/styles/css/themes/lite-purple.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('website-assets/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="https://gull-html-laravel.ui-lib.com/assets/styles/vendor/sweetalert2.min.css">
 
     {{-- page specific css --}}
     @yield('page-css')
+    <style>
+        .badge-for-cancel {
+            color: #fff;
+            background-color: #f44336;
+            padding-right: 0.6em;
+            padding-left: 0.6em;
+            border-radius: 10rem display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+        .badge-for-timer {
+            color: #fff;
+            background-color: #2eb38d;
+            padding-right: 0.6em;
+            padding-left: 0.6em;
+            border-radius: 10rem display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+
+        .badge-for-light {
+            color: #47404f;
+            background-color: #bbb;
+            padding-right: 0.6em;
+            padding-left: 0.6em;
+            border-radius: 10rem display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+
+        .badge-for-success {
+            color: #fff;
+            background-color: #4caf50;
+            padding-right: 0.6em;
+            padding-left: 0.6em;
+            border-radius: 10rem display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+
+
+    </style>
 </head>
 
 
@@ -136,6 +207,12 @@
 
 
 
+    <script src="https://gull-html-laravel.ui-lib.com/assets/js/vendor/sweetalert2.min.js"></script>
+    <script src="https://gull-html-laravel.ui-lib.com/assets/js/sweetalert.script.js"></script>
+
+
+
+
     <script src="{{ asset('assets/js/customizer.script.js') }}"></script>
 
     {{-- laravel js --}}
@@ -205,6 +282,87 @@
         });
     </script>
 
+
+    <script>
+        function updateOrderStatus(orderId, status) {
+
+            var txt;
+            if (confirm("If You Want to Update the Status Then Press Okay!")) {
+                document.getElementById('status' + orderId).value = status;
+                document.getElementById('orderForm' + orderId).submit();
+            } else {
+                txt = "You pressed Cancel!";
+            }
+            document.getElementById("demo").innerHTML = txt;
+
+        }
+        function updaterefundStatus(p_Id) {
+        var txt;
+        if (confirm("If you wish to update the refund status, please confirm by selecting 'OK'.")) {
+            document.getElementById('orderForm1' + p_Id).submit();
+        } else {
+
+            txt = "You pressed Cancel!";
+        }
+        document.getElementById("demo").innerHTML = txt; // Not sure why you're setting innerHTML here
+    }
+    </script>
+ <script>
+    function toggleFilters() {
+        var filterCard = document.getElementById("filterCard");
+        if (filterCard.style.display === "none") {
+            filterCard.style.display = "block";
+        } else {
+            filterCard.style.display = "none";
+        }
+    }
+</script>
+
+    <script>
+        // window.addEventListener('contextmenu', function(e) {
+
+        //     e.preventDefault();
+        // });
+
+        // document.addEventListener('keydown', function(event) {
+        //     if (event.ctrlKey && event.keyCode == 85) {
+
+        //         event.preventDefault();
+        //         return false;
+        //     }
+        // });
+
+
+        // document.addEventListener('keydown', function(event) {
+        //     if (event.ctrlKey && event.shiftKey && event.keyCode == 67) {
+
+        //         event.preventDefault();
+        //         return false;
+        //     }
+        // });
+    </script>
+    <script>
+        function toggleFilters() {
+            var filterCard = document.getElementById("filterCard");
+            if (filterCard.style.display === "none") {
+                filterCard.style.display = "block";
+            } else {
+                filterCard.style.display = "none";
+            }
+        }
+    </script>
+
+<script>
+    $(function() {
+        $('.datetimerange').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY h:mm A'
+            }
+        });
+    });
+</script>
 
 </body>
 

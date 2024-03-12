@@ -26,50 +26,92 @@ class OrderController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        if (Auth::User()->role == 'Admin') {
-            $data = Order::OrderBy('id', 'desc')
-                ->get();
-        } else {
-            // $data = Order::where('created_by', Auth::User()->id)
-            //     ->OrderBy('id', 'desc')
-            //     ->get();
-            // $data = Order::with('orderDetails')->whereHas('orderDetails', function ($query) {
-            //     $query->where('p_vendor_id', Auth::User()->id);
-            // })
-            //     // ->where('p_vendor_id', Auth::User()->id)
-            //     ->OrderBy('id', 'desc')
-            //     ->get();
+        $data = "";
+        $orders = Order::all();
+        $query = Order::query();
 
-            // DB::enableQueryLog();
+        if ($request->has('first_name . last_name')) {
+            $first = $request->input('first_name . last_name');
+            if (is_array($first)) {
+                $query->whereIn('first_name . last_name', $first);
+            } else {
+                $query->where('first_name . last_name', $first);
+            }
+        }
+
+        if ($request->has('total_price')) {
+            $total = $request->input('total_price');
+            if (is_array($total)) {
+                $query->whereIn('total_price', $total);
+            } else {
+                $query->where('total_price', $total);
+            }
+        }
+
+        if ($request->has('shipping_address . shipping_city . shipping_state . shipping_zipcode . shipping_country')) {
+            $address = $request->input('shipping_address . shipping_city . shipping_state . shipping_zipcode . shipping_country');
+            if (is_array($address)) {
+                $query->whereIn('shipping_address . shipping_city . shipping_state . shipping_zipcode . shipping_country', $address);
+            } else {
+                $query->where('shipping_address . shipping_city . shipping_state . shipping_zipcode . shipping_country', $address);
+            }
+        }
+
+        if ($request->has('created_by')) {
+            $date = $request->input('created_by');
+            if (is_array($date)) {
+                $query->whereIn('created_by', $date);
+            } else {
+                $query->where('created_by', $date);
+            }
+        }
+
+        if (Auth::user()->role === 'Admin') {
+            $orders = Order::all();
+            $allorders = Order::count();
+            $allparcels = OrderDetail::count();
+            $data = Order::orderBy('id', 'desc')->get();
+        } else {
+            // $orders = Order::all();
+
+            $allorders = Order::with(['orderDetails' => function($query){
+                $query->where('p_vendor_id', Auth::user()->id);
+            }])->whereHas('orderDetails', function ($query) {
+                $query->where('p_vendor_id', Auth::user()->id);
+            })
+            ->count();
+
+            $allparcels = OrderDetail::where('p_vendor_id', Auth::user()->id)->count();
 
             $data = Order::with(['orderDetails' => function ($query) {
-                $query->where('p_vendor_id', auth()->user()->id);
+                $query->where('p_vendor_id', Auth::user()->id);
             }])
-                ->whereHas('orderDetails', function ($query) {
-                    $query->where('p_vendor_id', auth()->user()->id);
-                })
-                ->orderBy('id', 'desc')
-                ->get();
-
-            // dd(DB::getQueryLog());
+            ->whereHas('orderDetails', function ($query) {
+                $query->where('p_vendor_id', Auth::user()->id);
+            })
+            ->orderBy('id', 'desc')
+            ->get();
         }
-        // $data = Order::orderBy('id', 'desc')->get();
-        return view('orders.allorders', compact('data'));
+
+        return view('orders.allorders', compact('data', 'orders','allorders','allparcels'));
     }
+
 
     public function OrderDetailIndex()
     {
         if (Auth::User()->role == 'Admin') {
-            $data = OrderDetail::with('order', 'product', 'vendor')->OrderBy('id', 'desc')
+            $data = OrderDetail::with('order', 'product', 'vendor','order_tracker')->OrderBy('id', 'desc')
                 ->get();
         } else {
-            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+            $data = OrderDetail::with('order', 'product', 'vendor','order_tracker')->where('p_vendor_id', Auth::User()->id)
                 ->OrderBy('id', 'desc')
                 ->get();
         }
         // $data = Order::orderBy('id', 'desc')->get();
+        // dd($data);
+        // return response()->json([$data]);
         return view('orders.order_details', compact('data'));
     }
 
@@ -79,21 +121,29 @@ class OrderController extends Controller
         // dd($request->all());
         $this->validate($request, [
             // 'order_id' => 'required',
-            'status' => 'required',
+            'status' => 'required' ,
             // 'id' => 'required',
         ], [
             'status.required' => 'The status field is required',
         ]);
 
         $order_status = OrderDetail::where('id', $request->id)->first();
-        $order_status->status = $request->status;
-        $order_status->update();
 
-        $order_tracker = new OrderTracker;
-        $order_tracker->order_id = $request->id;
-        $order_tracker->status = $request->status;
-        $order_tracker->datetime = Carbon::now();
-        $order_tracker->save();
+        if ($order_status->status != $request->status) {
+            $order_status->status = $request->status;
+            $order_status->update();
+
+            $order_tracker = new OrderTracker;
+            $order_tracker->order_id = $request->id;
+            $order_tracker->status = $request->status;
+            $order_tracker->datetime = Carbon::now();
+            $order_tracker->save();
+        }else
+        {
+            return redirect()->back()->with(Toastr::error('error','This status field is already Updated'));
+        }
+
+
 
         return redirect()->back()->with(Toastr::success('Status Updated Successfully!'));
     }
@@ -107,7 +157,7 @@ class OrderController extends Controller
     {
 if (Auth::user()->role == 'Vendor') {
     $routeName = Route::currentRouteName();
-       
+
         if ($routeName === 'pendingorders') {
             $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
                 ->where('status', '=', 'In Process')->orderBy('id', 'desc')->get();
@@ -125,7 +175,7 @@ if (Auth::user()->role == 'Vendor') {
         }
         if ($routeName === 'outofdelivery') {
             $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
-                ->where('status', '=', 'Out of delivery')->orderBy('id', 'desc')->get();
+                ->where('status', '=', 'Out For Delivery')->orderBy('id', 'desc')->get();
             return view('orders.outofdelivery', compact('data'));
         }
         if ($routeName === 'delivered') {
@@ -146,6 +196,11 @@ if (Auth::user()->role == 'Vendor') {
         if ($routeName === 'canceled') {
             $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
                 ->where('status', '=', 'Canceled')->orderBy('id', 'desc')->get();
+            return view('orders.canceled', compact('data'));
+        }
+        if ($routeName === 'customer_canceled') {
+            $data = OrderDetail::with('order', 'product', 'vendor')->where('p_vendor_id', Auth::User()->id)
+                ->where('customer_cancel_status', '=', 'Canceled')->orderBy('id', 'desc')->get();
             return view('orders.canceled', compact('data'));
         }
     } elseif (Auth::user()->role == 'Admin') {
@@ -167,7 +222,7 @@ if (Auth::user()->role == 'Vendor') {
         }
         if ($routeName === 'outofdelivery') {
             $data = OrderDetail::with('order', 'product', 'vendor')
-                ->where('status', '=', 'Out of delivery')->orderBy('id', 'desc')->get();
+                ->where('status', '=', 'Out For Delivery')->orderBy('id', 'desc')->get();
             return view('orders.outofdelivery', compact('data'));
         }
         if ($routeName === 'delivered') {
@@ -189,6 +244,11 @@ if (Auth::user()->role == 'Vendor') {
             $data = OrderDetail::with('order', 'product', 'vendor')
                 ->where('status', '=', 'Canceled')->orderBy('id', 'desc')->get();
             return view('orders.canceled', compact('data'));
+        }
+        if ($routeName === 'customer_canceled') {
+            $data = OrderDetail::with('order', 'product', 'vendor')
+                ->where('customer_cancel_status', '=', 'Canceled')->orderBy('id', 'desc')->get();
+            return view('orders.customer_canceled', compact('data'));
         }
     }
 
@@ -243,21 +303,21 @@ if (Auth::user()->role == 'Vendor') {
 
 
     public function orderInvoice($id){
-        
+
         if(Auth::user()->role == 'Vendor'){
-        $invoice = OrderDetail::with('order', 'product','vendorProfile', 'vendor')->where('p_vendor_id' , Auth::user()->id)->where('order_id' ,'=', $id)->first();
-        $invoiceProduct = OrderDetail::with('order', 'product','vendorProfile', 'vendor')->where('p_vendor_id' , Auth::user()->id)->where('order_id' ,'=', $id)->get();
+        $invoice = OrderDetail::with('order', 'product','vendorProfile', 'vendor','order_tracker')->where('p_vendor_id' , Auth::user()->id)->where('order_id' ,'=', $id)->first();
+        $invoiceProduct = OrderDetail::with('order', 'product','vendorProfile', 'vendor','order_tracker')->where('p_vendor_id' , Auth::user()->id)->where('order_id' ,'=', $id)->get();
         return view('orders.invoice', compact('invoice','invoiceProduct'));
         }
         elseif(Auth::user()->role == 'Admin')
         {
-            $invoice = OrderDetail::with('order', 'product','vendorProfile', 'vendor')->where('order_id' ,'=', $id)->first();
-        $invoiceProduct = OrderDetail::with('order', 'product','vendorProfile', 'vendor')->where('order_id' ,'=', $id)->get();
+            $invoice = OrderDetail::with('order', 'product','vendorProfile', 'vendor','order_tracker')->where('order_id' ,'=', $id)->first();
+        $invoiceProduct = OrderDetail::with('order', 'product','vendorProfile', 'vendor','order_tracker')->where('order_id' ,'=', $id)->get();
         return view('orders.invoice', compact('invoice','invoiceProduct'));
         }else{
             return "Unauthorized";
         }
-        
+
     }
 
     public function show($id)
@@ -335,5 +395,14 @@ if (Auth::user()->role == 'Vendor') {
     public function destroy($id)
     {
         //
+    }
+
+    public function refundedStatus($id){
+        $order_detail =  OrderDetail::find($id);
+        $order_detail->refund_status = 1;
+        $order_detail->save();
+
+        return redirect()->back()->with(Toastr::success('Refunded Status Updated Successfully!'));
+
     }
 }

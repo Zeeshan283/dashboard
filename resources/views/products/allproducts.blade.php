@@ -1,352 +1,561 @@
 @extends('layouts.master')
 @section('page-css')
-<link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/choices.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/nuslider.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/vendor/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 @endsection
 @section('main-content')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <style>
-        {
-            background-color: blue;
+        .dropdown {
+            position: relative;
         }
-        .btn {
-    color: inherit;
-}
-* {
-  box-sizing: border-box;
-}
 
-a {
-  text-decoration: none;
-  color: #379937;
-}
+        .col-md-2 {
+            max-width: 20%;
+        }
 
-body {
-  margin: 40px;
-}
+        .dropdown-menu {
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            padding: 12px;
+            max-height: 280px;
+            max-width: 250px;
+            overflow-y: auto;
+        }
 
-.dropdown {
-  position: relative;
-  font-size: 14px;
-  color: #333;
+        .dropdown-options {
+            margin-top: 30px;
+        }
 
-  .dropdown-list {
-    padding: 12px;
-    background: #fff;
-    position: absolute;
-    top: 30px;
-    left: 2px;
-    right: 2px;
-    box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .15);
-    transform-origin: 50% 0;
-    transform: scale(1, 0);
-    transition: transform .15s ease-in-out .15s;
-    max-height: 66vh;
-    overflow-y: scroll;
-  }
+        .dropdown-options label {
+            display: block;
+            margin-bottom: 5px;
+        }
 
-  .dropdown-option {
-    display: block;
-    padding: 8px 12px;
-    opacity: 0;
-    transition: opacity .15s ease-in-out;
-  }
+        .option-text {
+            margin-left: 5px;
+        }
 
-  .dropdown-label {
-    display: block;
-    height: 30px;
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 6px 12px;
-    line-height: 1;
-    cursor: pointer;
+        input:focus {
+            border-color: #ced4da;
+            outline: none;
+        }
 
-    &:before {
-      content: '▼';
-      float: right;
-    }
-  }
+        .datetimerange {
+            border-color: #ccc !important;
+            max-width: 300px;
+            border: 2px solid;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 70px;
+            padding-left: 70px;
+            background-color: #f8f9fa;
+        }
 
-  &.on {
-   .dropdown-list {
-      transform: scale(1, 1);
-      transition-delay: 0s;
+        .content-box {
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
 
-      .dropdown-option {
-        opacity: 1;
-        transition-delay: .2s;
-      }
-    }
+        .slider {
+            position: relative;
+            width: 400px;
+            height: 30px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 10px;
+            padding-right: 15px;
+            margin-left: 10px;
+            background: #fcfcfc;
+            border-radius: 25px;
+            display: flex;
+            box-shadow: 0px 15px 40px #7E6D5766;
+        }
 
-    .dropdown-label:before {
-      content: '▲';
-    }
-  }
+        .slider label {
+            font-size: 28px;
+            font-weight: 600;
+            font-family: Open Sans;
+            padding-left: 30px;
+            color: black;
+        }
 
-  [type="checkbox"] {
-    position: relative;
-    top: -1px;
-    margin-right: 4px;
-  }
-}
+        .slider input[type="range"] {
+            width: 320px;
+            height: 4px;
+            background: black;
+            border: none;
+            outline: none;
+        }
+
+        .range input {
+            margin-top: 10%;
+            -webkit-transform: rotate(40deg);
+            -moz-transform: rotate(40deg);
+            -o-transform: rotate(40deg);
+            transform: rotate(270deg);
+            max-height: 5%;
+        }
+
+        .p {
+            text-align: left;
+            text-color: rgb(113, 107, 107);
+            font-weight: 300;
+            font-size: 18px;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            max-width: 300px;
+            padding-right: 100px;
+            padding-left: 30px;
+            background-color: #f8f9fa;
+            border: 2px solid #e2eaf1;
+            cursor: pointer;
+            padding-top: 10px;
+            padding-bottom: 5px;
+            overflow: hidden;
+        }
+
+        .text-left {
+            margin-right: auto;
+        }
+
+        #quantity {
+            max-width: 300px;
+            padding-right: 40px;
+            padding-left: 40px;
+            background-color: #f8f9fa;
+            border: 3px solid #e2eaf1;
+            cursor: pointer;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .input-bar {
+            background-color: #f8f9fa;
+            border: 3px solid #e2eaf1;
+        }
+
+        .vertical-slider {
+            margin-bottom: 0px;
+            transform: rotate(270deg);
+        }
+
+        .filter-card {
+            margin-right: 0px;
+            overflow: hidden;
+            margin-left: 10px;
+        }
     </style>
-    {{-- <div class="card-body">
-        <button class="popup-button btn btn-primary col-md-1"
-            style="color: black; position: relative; top: 10px; right: 10px;" onclick="toggleFilters()">Product
+
+    <div class="card-body">
+        <button class="popup-button btn btn-secondary col-md-1"
+            style="color: white; position: relative; top: 10px; right: 5px;" onclick="toggleFilters()">Products
             Filters</button><br><br>
-        <div class="filter-card" id="filterCard">
-            <div class="card-body">
-                <div class="form-group row">
-                    <label for="nameFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Product
-                        Name:</label>
-                    <div class="col-lg-2">
-                        <select for="nameFilter" id="choices-multiple-remove-button" name="colors[]" class="form-select"
-                            placeholder="Select Product (Maximum Lenght 1)" multiple>
-                            @foreach ($data as $key => $product)
-                                <option value="{{ $product->name }}">{{ $product->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <label for="model_noFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Model
-                        No:</label>
-                    <div class="col-lg-2">
-                        <select id="choices-multiple-remove-button" name="colors[]" class="form-select"
-                            placeholder="Select Product (Maximum Lenght 1)" for="model_noFilter" multiple>
-                            @foreach ($data as $key => $product)
-                                <option value="{{ $product->model_no }}">{{ $product->model_no }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <label for="skuFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">SKU:</label>
-                    <div class="col-lg-2">
-                        <select id="choices-multiple-remove-button" name="colors[]" class="form-select"
-                            placeholder="Select Product (Maximum Lenght 1)" for="skuFilter" multiple>
-                            @foreach ($data as $key => $product)
-                                <option value="{{ $product->sku }}">{{ $product->sku }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <label for="inputEmail4" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Color</label>
-                    <div class=" col-lg-2">
-                        <select id="choices-multiple-remove-button" name="colors[]" class="form-control"
-                            placeholder="Select Color (Maximum Lenght 1)" for="nameFilter" multiple>
-                            @foreach ($colors as $value)
-                                <option value="{{ $value->id }}">{{ $value->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="form-group row">
-                    <label for="categoriesFilter"
-                        class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Categories:</label>
-                    <div class="col-lg-2">
-                        <select id="choices-multiple-remove-button"for="categoriesFilter" name="colors[]"
-                            class="form-select" placeholder="Select Product (Maximum Lenght 1)" multiple>
-                            @foreach ($categories as $categories)
-                                <option value="{{ $categories->name }}">
-                                    @if ($categories->name)
-                                        {{ $categories->name ?? null }}
-                                    @endif
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <label for="subcategoriesFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Sub
-                        Categories:</label>
-                    <div class=" col-lg-2">
-                        <select id="choices-multiple-remove-button" name="colors[]" class="form-select"
-                            placeholder="Select Product (Maximum Lenght 1)" multiple>
-                            @foreach ($subcategories as $subcategory)
-                                <option value="{{ $subcategory->name }}">
-                                    @if ($subcategory->name)
-                                        {{ $subcategory->name }}
-                                    @endif
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <label for="makeFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label">Supplier
-                        Name:</label>
-                    <div class="col-lg-2">
-                        <select id="choices-multiple-remove-button" name="colors[]" class="form-select"
-                            placeholder="Select Product (Maximum Lenght 1)" multiple>
-                            @foreach ($vendors as $vendor)
-                                <option value="{{ $vendor->first_name }} {{ $vendor->last_name }}">
-                                    {{ $vendor->first_name }} {{ $vendor->last_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <label for="brand_idFilter"
-                        class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Brand</label>
-                    <div class="col-lg-2">
-                        <select id="choices-multiple-remove-button" name="colors[]" class="form-control"
-                            placeholder="Select Color (Maximum Lenght 1)" multiple>
-                            @foreach ($brand as $brand)
-                                <option value="{{ $brand->brand_name ?? null }}">
-                                    {{ $brand->brand_name ?? null }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="form-group row">
-                    <label for="startDateFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Start Date:
-                    </label>
-                    <div class="col-lg-2">
-                        <input type="date" id="startDateFilter" class="form-control">
-                        <span style="color: red">
-                            @error('name')
-                                {{ $message }}
-                            @enderror
-                        </span>
-                    </div>
-
-                    <label for="endDateFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">End Date:
-                    </label>
-                    <div class="col-lg-2"><input type="date" id="endDateFilter" class="form-control"></div>
-                    <label for="conditionFilter"
-                        class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Condition:&NonBreakingSpace;
-                    </label>
-                    <div class="col-lg-2 d-flex mt-20">
-                        <label class="checkbox checkbox-primary mt-10">
-                            <input type="checkbox" checked="">
-                            <span>New</span>
-                            <span class="checkmark"></span></label>&NonBreakingSpace;&NonBreakingSpace;
-                        <label class="checkbox checkbox-primary">
-                            <input type="checkbox">
-                            <span>Refurbished</span>
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-body">
-                <div class="form-group row">
-                    <!-- Slider 1 -->
-                    <label for="priceFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label"
-                        style="font-size: 16px">Price: </label>&NonBreakingSpace;&NonBreakingSpace;
-                    <div class="slider-example col-lg-2">
-                        <div class="mb-3 slider-default noUi-target noUi-ltr noUi-horizontal" id="slider-non-linear-1">
-                            <div class="noUi-base">
-                                <div class="noUi-connect" style="left: 0%; right: 0%;"></div>
-                                <div class="noUi-origin" style="left: 100%;">
-                                    <div class="noUi-handle noUi-handle-lower"></div>
+        <div class="filter-card" id="filterCard" style="display: none;">
+            <form action="{{ route('products.index') }}" method="GET">
+                <button type="submit" class="btn btn-secondary" style="margin-left: 1300px">Submit</button>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-2">
+                        <div class="dropdown" id="nameDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Product Name</p>
+                                
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="nameSearchInput" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    <label class="nameFilter" for="nameFilter">
+                                        <input type="checkbox" id="selectAllNames" class="nameFilter">
+                                        <span class="option-text" name="name[]">Select All</span>
+                                    </label>
+                                    @foreach ($products as $key => $product)
+                                        <label class="nameFilter">
+                                            <input type="checkbox" name="name[]" value="{{ $product->name ?? null }}">
+                                            <span class="option-text" name="name[]">{{ $product->name ?? null }}</span>
+                                        </label>
+                                    @endforeach
                                 </div>
+                                <div id="selectednameList"></div>
                             </div>
                         </div>
-                        <p>Value: <span id="slider-non-linear-value-1">2000.00</span></p>
                     </div>
-
-                    <!-- Slider 2 -->
-                    <label for="priceFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label"
-                        style="font-size: 16px">Tax Price: </label>&NonBreakingSpace;&NonBreakingSpace;
-                    <div class="slider-example col-lg-2">
-                        <div class="mb-3 slider-default noUi-target noUi-ltr noUi-horizontal" id="slider-non-linear-2">
-                            <div class="noUi-base">
-                                <div class="noUi-connect" style="left: 0%; right: 0%;"></div>
-                                <div class="noUi-origin" style="left: 100%;">
-                                    <div class="noUi-handle noUi-handle-lower"></div>
+                    <div class="col-md-2">
+                        <div class="dropdown" id="model_noDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Model No</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <input type="text" id="model_noSearchInput" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($products as $key => $product)
+                                        <label class="model_noFilter">
+                                            <input type="checkbox" name="model_no[]"
+                                                value="{{ $product->model_no ?? null }}">
+                                            <span class="option-text">{{ $product->model_no ?? null }}</span>
+                                        </label>
+                                    @endforeach
                                 </div>
+                                <div id="selectedModelNoList"></div>
                             </div>
                         </div>
-                        <p>Value: <span id="slider-non-linear-value-2">2000.00</span></p>
-                    </div>
 
-                    <!-- Slider 3 -->
-                    <label for="priceFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label"
-                        style="font-size: 16px">Commission Price: </label>&NonBreakingSpace;&NonBreakingSpace;
-                    <div class="slider-example col-lg-2">
-                        <div class="mb-3 slider-default noUi-target noUi-ltr noUi-horizontal" id="slider-non-linear-3">
-                            <div class="noUi-base">
-                                <div class="noUi-connect" style="left: 0%; right: 0%;"></div>
-                                <div class="noUi-origin" style="left: 100%;">
-                                    <div class="noUi-handle noUi-handle-lower"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="dropdown" id=" suppliernameDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Supplier Name</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="suppliernameSearchInput" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($products as $key => $product)
+                                        <label class="makeFilter">
+                                            <input type="checkbox" name="make[]" value="{{ $product->make ?? null }}">
+                                            <span class="option-text">{{ $product->make ?? null }}</span>
+                                        </label>
+                                    @endforeach
                                 </div>
+                                <div id="selectedsuppliernameList"></div>
                             </div>
                         </div>
-                        <p>Value: <span id="slider-non-linear-value-3">2000.00</span></p>
+
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="dropdown" id=" colorDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Colors</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="colorSearchInput" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($colors as $value)
+                                        <label class="nameFilter">
+                                            <input type="checkbox" name="name[]" value="{{ $value->name }}">
+                                            <span class="option-text">{{ $value->name }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                                <div id="selectedcolorList"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="dropdown" id="menuDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Menu</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="nameSearchInput" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($menus as $menu)
+                                        <label class="nameFilter">
+                                            <input type="checkbox" name="name[]" value="{{ $menu->name }}">
+                                            <span class="option-text">{{ $menu->name }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                                <div id="selectednameList"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="content-box">
+                            <label for="min_order">
+                                <input type="number" id="quantity" name="min_order[]" min="1" max="500"
+                                    placeholder="MOQ"></label>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row" style="margin-top: 10px;">
+
+                    <div class="col-md-2">
+                        <div class="dropdown" id="menuDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Categories</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="nameSearchInput" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($categories as $category)
+                                        <label class="categoriesFilter">
+                                            <input type="checkbox" name="name[]" value="{{ $category->id }}"
+                                                onclick="filterSubcategories(this)">
+                                            <span class="option-text">{{ $category->name }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                                <div id="selectedcategoriesList"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <div class="dropdown" id="menuDropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left">Sub Categories</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <input type="text" id="nameSearchInput" placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($subcategories as $subcat)
+                                        <label class="subcategoriesFilter">
+                                            <input type="checkbox" name="name[]" value="{{ $subcat->name }}">
+                                            <span class="option-text">{{ $subcat->name }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                                <div id="selectedcategoriesList"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle" id="dropdownMenuButton8" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <p class="text-left ">Brand</p>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton8" style="max-width: 1000px;">
+                                <input type="text" id="searchInput" onkeyup="filterOptions()"
+                                    placeholder="Search...">
+                                <div class="dropdown-options">
+                                    @foreach ($brand as $brand)
+                                        <label class="brand_nameFilter d-flex">
+                                            <input type="checkbox" style="margin-bottom: 3px;"
+                                                value="{{ $brand->brand_name ?? null }} {{ $brand->logo ?? null }}">
+                                            <span class="option-text d-flex"> {{ $brand->brand_name ?? null }} <img
+                                                    src="{{ asset($brand->logo) }}" width="50" height="50"
+                                                    alt="{{ $brand->brand_name ?? null }}">
+                                            </span>
+                                        </label>
+                                    @endforeach
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2" style="margin-left: 0px;">
+                        <label>Condition:</label>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>New:</label>
+                            </div>
+                            <div class="col">
+                                <input type="checkbox" checked style="--s:30px">
+                            </div>
+                            <div class="col">
+                                <label>Refurbished:</label>
+                            </div>
+                            <div class="col">
+                                <input type="checkbox">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2" style="margin-left: 0px;">
+                        <div class="content-box">
+                            <input type="text" name="dateTime" class="datetimerange" />
+                        </div>
+                    </div>
+                   
+                    <script>
+                        $(function() {
+                            $('.datetimerange').daterangepicker({
+                                timePicker: true,
+                                timePickerIncrement: 30,
+                                locale: {
+                                    format: 'MM/DD/YYYY h:mm A'
+                                }
+                            });
+                        });
+                    </script>
+
+
+                </div>
+
+                <div class="row d-flex">
+
+                    <div class="col-lg-3" style="margin-left: 0px; display: flex;">
+                        <div class="content-box d-flex">
+                            <div class="input-bar">
+                                <label for="priceInput1">Enter Price:</label>
+                                <input type="number" id="priceInput1" min="0" max="100000" value="1000"
+                                    oninput="updatePriceSlider(this.value, 'rangeValue1')">
+                            </div>
+                            <div class="slider">
+                                <b>Price:</b>
+                                <input type="range" min="0" max="1000000" value="100"
+                                    oninput="updatePriceValue(this.value, 'rangeValue1')">
+                                <p id="rangeValue1">1000</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-3" style="margin-left: 50px;">
+                        <div class="content-box d-flex">
+                            <div class="input-bar" style="margin-left: 250px;">
+                                <label for="priceInput2">Enter Price:</label>
+                                <input type="number" id="priceInput2" min="0" max="100000" value="1000"
+                                    oninput="updatePriceSlider(this.value, 'rangeValue2')">
+                            </div>
+                            <div class="slider">
+                                <b>Price:</b>
+                                <input type="range" min="0" max="1000000" value="100"
+                                    oninput="updatePriceValue(this.value, 'rangeValue2')">
+                                <p id="rangeValue2">1000</p>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="row d-flex" style="margin-top: 40px;">
+                    <div class="col-md-3">
+                        <div class="content-box d-flex">
+                            <div class="input-bar">
+                                <label for="priceInput3">Enter Price:</label>
+                                <input type="number" id="priceInput3" min="0" max="100000" value="100"
+                                    oninput="updatePriceSlider(this.value, 'rangeValue3')">
+                            </div>
+                            <div class="slider"><b>ReturnDays:</b>
+                                <label for="fader"></label><input type="range" min="0" max="100"
+                                    value="50" id="fader" step="20" list="volsettings"
+                                    oninput="updatePriceValue(this.value, 'rangeValue3')">
+                                <p id="rangeValue3">100</p>
+                                <datalist id="volsettings">
+                                    <option>0</option>
+                                    <option>20</option>
+                                    <option>40</option>
+                                    <option>60</option>
+                                    <option>80</option>
+                                    <option>100</option>
+                                </datalist>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style="margin-left: 50px;">
+                        <div class="content-box d-flex">
+                            <div class="input-bar" style="margin-left: 250px;">
+                                <label for="priceInput4">Enter Price:</label>
+                                <input type="number" id="priceInput4" min="0" max="1000000" value="100"
+                                    oninput="updatePriceSlider(this.value, 'rangeValue4')">
+                            </div>
+                            <div class="slider"><b>WarrantyDays:</b>
+                                <label for="fader"></label><input type="range" min="0" max="100"
+                                    value="50" id="fader" step="20" list="volsettings"
+                                    oninput="updatePriceValue(this.value, 'rangeValue4')">
+                                <p id="rangeValue4">100</p>
+                                <datalist id="volsettings">
+                                    <option>0</option>
+                                    <option>20</option>
+                                    <option>40</option>
+                                    <option>60</option>
+                                    <option>80</option>
+                                    <option>100</option>
+                                </datalist>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row d-flex" style="margin-top: 40px;">
+
+                    <div class="col-md-3" style="margin-left: 200px;">
+                        <div class="content-box d-flex">
+                            <div class="input-bar" style="margin-left: 120px;">
+                                <label for="priceInput5">Enter Price:</label>
+                                <input type="number" id="priceInput5" min="0" max="1000000" value="100"
+                                    oninput="updatePriceSlider(this.value, 'rangeValue5')">
+                            </div>
+                            <div class="slider"><b>Commission:</b>
+                                <label for="fader"></label><input type="range" min="0" max="100"
+                                    value="50" id="fader" step="20" list="volsettings"
+                                    oninput="updatePriceValue(this.value, 'rangeValue5')">
+                                <p id="rangeValue5">100</p>
+                                <datalist id="volsettings">
+                                    <option>10000</option>
+                                    <option>20000</option>
+                                    <option>40000</option>
+                                    <option>60000</option>
+                                    <option>80000</option>
+                                    <option>100000</option>
+                                </datalist>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-            </div>
+                <script>
+                    function updatePriceValue(value, outputId) {
+                        document.getElementById(outputId).textContent = value;
+                    }
 
-            <div class="card-body">
-                <div class="form-group row">
-                    <!-- Slider 4 -->
-                    <label for="priceFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label"
-                        style="font-size: 16px">Return Days: </label>&NonBreakingSpace;&NonBreakingSpace;
-                    <div class="slider-example col-lg-2">
-                        <div class="mb-3 slider-default noUi-target noUi-ltr noUi-horizontal" id="slider-non-linear-4">
-                            <div class="noUi-base">
-                                <div class="noUi-connect" style="left: 0%; right: 0%;"></div>
-                                <div class="noUi-origin" style="left: 100%;">
-                                    <div class="noUi-handle noUi-handle-lower"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <p>Value: <span id="slider-non-linear-value-4">2000.00</span></p>
-                    </div>
-
-                    <!-- Slider 5 -->
-                    <label for="priceFilter" class="ul-form__label ul-form--margin col-lg-1 col-form-label"
-                        style="font-size: 16px">Warranty Days: </label>&NonBreakingSpace;&NonBreakingSpace;
-                    <div class="slider-example col-lg-2">
-                        <div class="mb-3 slider-default noUi-target noUi-ltr noUi-horizontal" id="slider-non-linear-5">
-                            <div class="noUi-base">
-                                <div class="noUi-connect" style="left: 0%; right: 0%;"></div>
-                                <div class="noUi-origin" style="left: 100%;">
-                                    <div class="noUi-handle noUi-handle-lower"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <p>Value: <span id="slider-non-linear-value-5">2000.00</span></p>
-                    </div>
-                </div>
-            </div>
-
-            <p>Total Price: <span id="total-price">0.00</span></p>
+                    function updatePriceSlider(value, sliderId) {
+                        document.getElementById(sliderId).textContent = value;
+                        document.querySelector('input[type="range"]').value = value;
+                    }
+                </script>
         </div>
-    </div> --}}
+        </form>
+        <script>
+            function updatePriceValue(value, targetId) {
+                document.getElementById(targetId).innerText = value;
+            }
+            $(document).ready(function() {
+                $('#selectAllNames').change(function() {
+                    $('.nameFilter input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+                });
+            });
 
-    <form action="{{ route('products.index') }}" method="GET">
+            $('.btn-primary').click(function() {
+                $('form').submit();
+            });
+        </script>
 
-        <select for="nameFilter" id="choices-multiple-remove-button" name="name[]" class="form-select"
-        placeholder="Select Product (Maximum Lenght 1)" multiple>
-        @foreach ($products as $key => $product)
-            <option value="{{ $product->name }}">{{ $product->name }}</option>
-        @endforeach
-    </select>
-        <input type="text" name="model_no" placeholder="Product Model">
-        <input type="text" name="sku" placeholder="Product sku">
-        <select name="make">
-            <option value="">Select Supplier</option>
-            @foreach ($supplier as  $item)
-            <option value="{{$item->name}}">{{$item->name}}</option>
+    </div>
+    </div>
 
-            @endforeach
-        </select>
-        <!-- Include more input fields and select dropdowns for other filters -->
-        <button type="submit">Apply Filter</button>
-    </form>
+
+    <div class="separator-breadcrumb border-top"></div>
     <div class="breadcrumb col-lg-12">
         <div class="col-md-6 col-sm-6">
-            <h1>All Product</h1>
+            <h1>All Products</h1>
         </div>
         <div class="col-md-6 col-sm-6" style="text-align: right;  margin-left: auto;">
             <a href="{{ route('products.create') }}"><button
-                    class="btn btn-outline-secondary  ladda-button example-button m-1" data-style="expand-left"><span
+                    class="btn btn-outline-secondary ladda-button example-button m-1" data-style="expand-left"><span
                         class="ladda-label">Add Product</span></button></a>
         </div>
     </div>
@@ -356,115 +565,27 @@ body {
         <div class="card text-start">
 
             <div class="card-body">
-                <h4 class="card-title mb-3">All Product</h4>
+                <h4 class="card-title mb-3">All Products</h4>
                 <div class="table-responsive">
                     <table id="deafult_ordering_table" class="display table table-striped table-bordered"
-                                style="width:100%">
+                        style="width:100%">
                         @include('datatables.table_content')
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
+
 @endsection
+
 @section('page-js')
-<script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
-<script src="{{ asset('assets/js/datatables.script.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-    <script src="{{ asset('assets/js/vendor/nuslider.min.js') }}"></script>
-    <script src="{{ asset('assets/js/nuslider.script.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.1/nouislider.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script>
-                $(document).ready(function() {
-                    var sliders = []; // Array to store slider instances
-                    var sliderValues = []; // Array to store slider value elements
-                    var totalPriceElement = $('#total-price'); // Element to display total price
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
-            // Initialize 5 sliders
-            for (var i = 1; i <= 5; i++) {
-                var slider = document.getElementById('slider-non-linear-' + i);
-                var sliderValue = document.getElementById('slider-non-linear-value-' + i);
-                noUiSlider.create(slider, {
-                    start: 2000, // Initial value
-                    range: {
-                        'min': 0,
-                        'max': 5000
-                    },
-                    step: 100, // Slider step
-                    format: {
-                        to: function(value) {
-                            return value.toFixed(2);
-                        },
-                        from: function(value) {
-                            return parseFloat(value);
-                        }
-                    }
-                });
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 
-                sliders.push(slider);
-                sliderValues.push(sliderValue);
-            }
 
-            // Function to update total price
-            function updateTotalPrice() {
-                var totalPrice = 0;
-                // Calculate total price from all slider values
-                sliderValues.forEach(function(sliderValue) {
-                    totalPrice += parseFloat(sliderValue.innerHTML);
-                });
-                // Display total price
-                totalPriceElement.text(totalPrice.toFixed(2));
-            }
-
-            // Update the value display when each slider is moved
-            sliders.forEach(function(slider, index) {
-                slider.noUiSlider.on('update', function(values, handle) {
-                    sliderValues[index].innerHTML = values[handle];
-                    updateTotalPrice(); // Update total price when any slider is moved
-                });
-            });
-        });
-
-        function toggleFilters() {
-            var filterCard = document.getElementById("filterCard");
-            filterCard.style.display = (filterCard.style.display === "none" || filterCard.style.display === "") ? "block" :
-                "none";
-        }
-        $(document).ready(function() {
-            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-                removeItemButton: true,
-                maxItemCount: 5,
-                callbackOnCreateTemplates: function(template) {
-                    return {
-                        itemRemoveButton: function(classNames, data) {
-                            return '<button type="button" class="' + classNames.button + ' ' +
-                                classNames.button +
-                                '--remove" aria-label="Remove item" data-button="' + data +
-                                '">×</button>';
-                        },
-                    };
-                },
-            });
-
-            // Change highlight color to light gray
-            $('.choices__list--multiple .choices__item').css('background-color', '#d3d3d3');
-
-            // Change background color on selection change
-            $('#choices-multiple-remove-button').on('change', function() {
-                changeBackgroundColor();
-            });
-        });
-
-        function changeBackgroundColor() {
-            var colorMap = {};
-            var selectedOptions = $('#choices-multiple-remove-button').val();
-
-            $('.choices__list--multiple .choices__item').each(function(index, element) {
-                var dataValue = $(element).attr('data-value');
-                var backgroundColor = selectedOptions.includes(dataValue) ? '#d3d3d3' : '';
-                $(element).css('background-color', backgroundColor);
-            });
-        }
-    </script>
+    <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 @endsection

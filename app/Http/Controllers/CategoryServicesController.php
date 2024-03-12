@@ -11,6 +11,10 @@ use App\Models\VendorProfile;
 
 class CategoryServicesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         if (Auth::user()->role == 'Admin') {

@@ -32,6 +32,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HomeSettingsController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DisputeController;
 use App\Http\Controllers\BannersController;
 use App\Http\Controllers\FaqCategoriesController;
 use App\Http\Controllers\FAQController;
@@ -150,6 +151,7 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('faqs_categories', FaqCategoriesController::class);
     Route::get('faqs_category/{id}/destroy', [FaqCategoriesController::class, 'destroy'])->name('faqs_category.destroy');
     Route::resource('faqs', FAQController::class);
+    Route::get('faqs-view', [FAQController::class,'faqsView'])->name('faqs-view');
     Route::get('faq/{id}/destroy', [FAQController::class, 'destroy'])->name('faq.destroy');
     Route::resource('pages', PageController::class);
     Route::get('page/{id}/destroy', [PageController::class, 'destroy'])->name('page.destroy');
@@ -173,6 +175,7 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('/settings', SettingsController::class);
     Route::resource('contacts', ContactUsController::class);
     Route::resource('reports', ReportController::class);
+    Route::resource('disputes', DisputeController::class);
     Route::resource('Deals', 'App\Http\Controllers\DealsController');
     Route::resource('Homecoupons', HomecouponsController::class);
     Route::get('/notifications', 'NotificationController@showNotifications')->name('showNotifications');
@@ -195,7 +198,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/user-unread-notifications', [UserController::class, 'showUnreadNotifications']);
     Route::get('/mark-all-notifications-as-read/{userId}', [UserController::class, 'markAllNotificationsAsRead']);
     Route::resource('emails', EmailController::class);
-
+    Route::post('refundedStatus/{id}',[OrderController::class,'refundedStatus'])->name('refundedStatus');
 
     Route::resource('advertisements', AdvertisementController::class);
     Route::get('advertisement/{id}/destroy', [AdvertisementController::class, 'destroy'])->name('advertisement.destroy');
@@ -262,11 +265,11 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::get('/get-subcategories', [ProductController::class, 'GetSubCategories']);
     Route::resource('CustomerQueries', ProductContactController::class);
     Route::get('creviews', [ReviewsController::class, 'index'])->name('creviews');
-    Route::view('productreviews', 'products.productreviews')->name('productreviews');
+    Route::get('productreviews', [ProductController::class,'productReviews'])->name('productreviews');
     Route::view('productinfo', 'products.productinfo')->name('productinfo');
 
     Route::get('/productsView', [ProductController::class, 'productsView'])->name('productsView');
-    
+
 
     Route::get('order_details', [OrderController::class, 'OrderDetailIndex'])->name('order_details');
     Route::patch('order_details_status', [OrderController::class, 'order_details_status'])->name('order_details_status');
@@ -289,6 +292,7 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::get('returned', [OrderController::class, 'showOrders'])->name('returned');
     Route::get('ftod', [OrderController::class, 'showOrders'])->name('ftod');
     Route::get('canceled', [OrderController::class, 'showOrders'])->name('canceled');
+    Route::get('customer_canceled', [OrderController::class, 'showOrders'])->name('customer_canceled');
     Route::patch('orderstatus', [OrderController::class, 'update'])->name('order.status');
 
     Route::get('pendingrefund', [RefundController::class, 'pendingRefunds'])->name('pendingrefund');
@@ -312,7 +316,7 @@ Route::middleware(['bothAccess'])->group(function () {
     Route::get('cwallet', [CustomerController::class, 'cwallet'])->name('cwallet');
     Route::get('sellers/show/{id}', [VendorsController::class, 'show1'])->name('sellers.show');
 
-    // sales 
+    // sales
     Route::resource('sales', SaleController::class);
     Route::resource('commissions', CommissionController::class);
 
@@ -385,6 +389,8 @@ Route::get('/get-product-chart-data', [ProductController::class, 'getProductChar
 Route::get('/fetch-notifications', 'NotificationController@fetchNotifications')->name('fetch.notifications');
 Route::resource('cprofile', CprofileController::class);
 Route::resource('v_service', CategoryServicesController::class);
+Route::get('/products/customerqueries', [ProductContactController::class, 'index'])->name('products.customerqueries');
+
 
 // views
 // Route::get('/views-over-last-20-days', function () {

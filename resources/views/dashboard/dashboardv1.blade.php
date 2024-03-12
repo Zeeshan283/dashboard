@@ -669,253 +669,253 @@
 
 
 @section('page-js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <script src="{{ asset('assets/js/vendor/echarts.min.js') }}"></script>
-    <script src="{{ asset('assets/js/es5/echart.options.min.js') }}"></script>
-    <script src="{{ asset('assets/js/es5/dashboard.v1.script.js') }}"></script>
-    <script src="{{ asset('assets/js/vendor/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('assets/js/vendor/apexcharts.dataseries.js') }}"></script>
-    <script src="{{ asset('assets/js/es5/apexChart.script.min.js') }}"></script>
-    <script src="{{ asset('assets/js/es5/apexBarChart.script.min.js') }}"></script>
-    <script src="{{ asset('assets/js/es5/apexPieDonutChart.script.min.js') }}"></script>
-    <script src="{{ asset('assets/js/es5/chartjs.script.min.js') }}"></script>
-    <script src="{{ asset('assets/js/es5/apexColumnChart.script.min.js') }}"></script>
-    <script src="{{ asset('assets/js/es5/echarts.script.min.js') }}"></script>
+    
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="{{ asset('assets/js/vendor/echarts.min.js') }}"></script>
+<script src="{{ asset('assets/js/es5/echart.options.min.js') }}"></script>
+<script src="{{ asset('assets/js/es5/dashboard.v1.script.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/apexcharts.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/apexcharts.dataseries.js') }}"></script>
+<script src="{{ asset('assets/js/es5/apexChart.script.min.js') }}"></script>
+<script src="{{ asset('assets/js/es5/apexBarChart.script.min.js') }}"></script>
+<script src="{{ asset('assets/js/es5/apexPieDonutChart.script.min.js') }}"></script>
+<script src="{{ asset('assets/js/es5/chartjs.script.min.js') }}"></script>
+<script src="{{ asset('assets/js/es5/apexColumnChart.script.min.js') }}"></script>
+<script src="{{ asset('assets/js/es5/echarts.script.min.js') }}"></script>
 
 
+<script>
+    // Initialize ECharts instance
+    var productChart = echarts.init(document.getElementById('productChart'));
 
-    <script>
-        // Initialize ECharts instance
-        var productChart = echarts.init(document.getElementById('productChart'));
-
-        // Fetch data from the Laravel backend
-        $.get('/get-product-chart-data', function(data) {
-            // Define chart options
-            var options = {
-                legend: {
-                    borderRadius: 0,
-                    orient: 'horizontal',
-                    x: 'right',
-                    data: ['']
+    // Fetch data from the Laravel backend
+    $.get('/get-product-chart-data', function(data) {
+        // Define chart options
+        var options = {
+            legend: {
+                borderRadius: 0,
+                orient: 'horizontal',
+                x: 'right',
+                data: ['']
+            },
+            grid: {
+                left: '8px',
+                right: '8px',
+                bottom: '0',
+                containLabel: true
+            },
+            tooltip: {
+                show: true,
+                backgroundColor: 'rgba(0, 0, 0, .8)'
+            },
+            xAxis: [{
+                type: 'category',
+                data: data.categories,
+                axisLabel: {
+                    // position: 'top',
+                    show: false,
+                }
+            }],
+            yAxis: [{
+                type: 'value',
+                name: 'Product Count'
+            }],
+            grid: {
+                left: '10%',
+                right: '10%',
+                bottom: '10%',
+                containLabel: true
+            },
+            series: [{
+                name: '',
+                type: 'bar',
+                barWidth: '70%', // Adjust the bar width as needed
+                label: {
+                    show: true, // Display the value on top of each bar
+                    position: 'inside'
                 },
-                grid: {
-                    left: '8px',
-                    right: '8px',
-                    bottom: '0',
-                    containLabel: true
-                },
+                data: data.productCounts,
+                // Change the color to blue
+                itemStyle: {
+                    color: '#0071BF'
+                }
+            }]
+        };
+
+        // Set the chart options
+        productChart.setOption(options);
+    });
+</script>
+
+<script>
+    var y = document.getElementById("zoomBar1");
+    if (y) {
+
+
+        var b = echarts.init(y);
+        b.setOption({
                 tooltip: {
-                    show: true,
-                    backgroundColor: 'rgba(0, 0, 0, .8)'
+                    trigger: "axis",
+                    axisPointer: {
+                        type: "shadow",
+                        shadowStyle: {
+                            opacity: 0
+                        }
+                    },
                 },
-                xAxis: [{
-                    type: 'category',
-                    data: data.categories,
-                    axisLabel: {
-                        // position: 'top',
-                        show: false,
-                    }
-                }],
-                yAxis: [{
-                    type: 'value',
-                    name: 'Product Count'
-                }],
                 grid: {
-                    left: '10%',
-                    right: '10%',
-                    bottom: '10%',
-                    containLabel: true
+                    top: "8%",
+                    left: "3%",
+                    right: "4%",
+                    bottom: "3%",
+                    containLabel: !0,
                 },
-                series: [{
-                    name: '',
-                    type: 'bar',
-                    barWidth: '70%', // Adjust the bar width as needed
-                    label: {
-                        show: true, // Display the value on top of each bar
-                        position: 'inside'
-                    },
-                    data: data.productCounts,
-                    // Change the color to blue
-                    itemStyle: {
-                        color: '#0071BF'
-                    }
-                }]
-            };
+                xAxis: {
 
-            // Set the chart options
-            productChart.setOption(options);
-        });
-    </script>
-
-    <script>
-        var y = document.getElementById("zoomBar1");
-        if (y) {
-
-
-            var b = echarts.init(y);
-            b.setOption({
-                    tooltip: {
-                        trigger: "axis",
-                        axisPointer: {
-                            type: "shadow",
-                            shadowStyle: {
-                                opacity: 0
-                            }
-                        },
-                    },
-                    grid: {
-                        top: "8%",
-                        left: "3%",
-                        right: "4%",
-                        bottom: "3%",
-                        containLabel: !0,
-                    },
-                    xAxis: {
-
-                        data: [
-                            "01",
-                            "02",
-                            "03",
-                            "04",
-                            "05",
-                            "06",
-                            "07",
-                            "08",
-                            "09",
-                            "10",
-                            "11",
-                            "12",
-                            "13",
-                            "14",
-                            "15",
-                            "16",
-                            "17",
-                            "18",
-                            "19",
-                            "20",
-                            "21",
-                            "22",
-                            "23",
-                            "24",
-                            "25",
-                            "26",
-                            "27",
-                            "28",
-                            "29",
-                            "30",
-                        ],
-                        axisLabel: {
-                            inside: !0,
-                            textStyle: {
-                                color: "#fff"
-                            }
-                        },
-                        axisTick: {
-                            show: !1
-                        },
-                        axisLine: {
-                            show: !1
-                        },
-                        z: 10,
-                    },
-                    yAxis: {
-                        axisLine: {
-                            show: !1
-                        },
-                        axisTick: {
-                            show: !1
-                        },
-                        axisLabel: {
-                            textStyle: {
-                                color: "#999"
-                            }
-                        },
-                        splitLine: {
-                            show: !1
-                        },
-                    },
-                    dataZoom: [{
-                        type: "inside"
-                    }],
-                    series: [{
-                            name: "Total Ordes",
-                            type: "bar",
-                            itemStyle: {
-                                normal: {
-                                    color: "rgba(0,0,0,0.05)"
-                                }
-                            },
-                            barGap: "-100%",
-                            barCategoryGap: "40%",
-                            data: [
-                                500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
-                                500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
-                                500, 500, 500, 500, 500, 500, 500, 500,
-                            ],
-                            animation: !1,
-                        },
-                        {
-                            name: "Completed Order",
-                            type: "bar",
-                            itemStyle: {
-                                normal: {
-                                    color: new echarts.graphic.LinearGradient(
-                                        0,
-                                        0,
-                                        0,
-                                        1,
-                                        [{
-                                                offset: 0,
-                                                color: "#83bff6"
-                                            },
-                                            {
-                                                offset: 0.5,
-                                                color: "#188df0"
-                                            },
-                                            {
-                                                offset: 1,
-                                                color: "#188df0"
-                                            },
-                                        ]
-                                    ),
-                                },
-                                emphasis: {
-                                    color: new echarts.graphic.LinearGradient(
-                                        0,
-                                        0,
-                                        0,
-                                        1,
-                                        [{
-                                                offset: 0,
-                                                color: "#2378f7"
-                                            },
-                                            {
-                                                offset: 0.7,
-                                                color: "#2378f7"
-                                            },
-                                            {
-                                                offset: 1,
-                                                color: "#83bff6"
-                                            },
-                                        ]
-                                    ),
-                                },
-                            },
-                            data: [
-                                220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90,
-                                149, 210, 122, 133, 334, 198, 123, 125, 220, 220, 182,
-                                191, 234, 290, 330, 310, 123, 442, 212,
-                            ],
-                        },
+                    data: [
+                        "01",
+                        "02",
+                        "03",
+                        "04",
+                        "05",
+                        "06",
+                        "07",
+                        "08",
+                        "09",
+                        "10",
+                        "11",
+                        "12",
+                        "13",
+                        "14",
+                        "15",
+                        "16",
+                        "17",
+                        "18",
+                        "19",
+                        "20",
+                        "21",
+                        "22",
+                        "23",
+                        "24",
+                        "25",
+                        "26",
+                        "27",
+                        "28",
+                        "29",
+                        "30",
                     ],
-                }),
-                $(window).on("resize", function() {
-                    setTimeout(function() {
-                        b.resize();
-                    }, 500);
-                });
-        }
-    </script>
+                    axisLabel: {
+                        inside: !0,
+                        textStyle: {
+                            color: "#fff"
+                        }
+                    },
+                    axisTick: {
+                        show: !1
+                    },
+                    axisLine: {
+                        show: !1
+                    },
+                    z: 10,
+                },
+                yAxis: {
+                    axisLine: {
+                        show: !1
+                    },
+                    axisTick: {
+                        show: !1
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: "#999"
+                        }
+                    },
+                    splitLine: {
+                        show: !1
+                    },
+                },
+                dataZoom: [{
+                    type: "inside"
+                }],
+                series: [{
+                        name: "Total Ordes",
+                        type: "bar",
+                        itemStyle: {
+                            normal: {
+                                color: "rgba(0,0,0,0.05)"
+                            }
+                        },
+                        barGap: "-100%",
+                        barCategoryGap: "40%",
+                        data: [
+                            500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+                            500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+                            500, 500, 500, 500, 500, 500, 500, 500,
+                        ],
+                        animation: !1,
+                    },
+                    {
+                        name: "Completed Order",
+                        type: "bar",
+                        itemStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(
+                                    0,
+                                    0,
+                                    0,
+                                    1,
+                                    [{
+                                            offset: 0,
+                                            color: "#83bff6"
+                                        },
+                                        {
+                                            offset: 0.5,
+                                            color: "#188df0"
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: "#188df0"
+                                        },
+                                    ]
+                                ),
+                            },
+                            emphasis: {
+                                color: new echarts.graphic.LinearGradient(
+                                    0,
+                                    0,
+                                    0,
+                                    1,
+                                    [{
+                                            offset: 0,
+                                            color: "#2378f7"
+                                        },
+                                        {
+                                            offset: 0.7,
+                                            color: "#2378f7"
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: "#83bff6"
+                                        },
+                                    ]
+                                ),
+                            },
+                        },
+                        data: [
+                            220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90,
+                            149, 210, 122, 133, 334, 198, 123, 125, 220, 220, 182,
+                            191, 234, 290, 330, 310, 123, 442, 212,
+                        ],
+                    },
+                ],
+            }),
+            $(window).on("resize", function() {
+                setTimeout(function() {
+                    b.resize();
+                }, 500);
+            });
+    }
+</script>
 @endsection
